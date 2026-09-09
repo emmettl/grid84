@@ -11,12 +11,15 @@ describe('alert force enactment', () => {
     expect(s.megatons / ALERT_FORCE_DOCUMENTED.megatons).toBeGreaterThan(0.75)
     expect(s.megatons / ALERT_FORCE_DOCUMENTED.megatons).toBeLessThan(1.25)
   })
-  it('covers several hundred targets and puts missiles on the highest priorities', () => {
-    expect(s.targetsCovered).toBeGreaterThan(400)
+  it('covers airfields first, then complexes, and reaches Moscow', () => {
+    expect(s.airfieldsCovered).toBeGreaterThan(300)
+    expect(s.targetsCovered).toBeGreaterThan(1_000)
     const study = ALERT_FORCE.study
     const moscow = study.entities.find((e) => e.kind === 'effect' && e.name === 'MOSCOW')
     expect(moscow?.kind).toBe('effect')
-    expect(moscow?.designation).toContain('ICBM')
+    const missiles = study.entities.filter((e) => e.kind === 'effect' && /ICBM|IRBM|SLBM/.test(e.designation))
+    expect(missiles.length).toBeGreaterThan(50)
+    expect(missiles.every((e) => e.designation.startsWith('AIRFIELD'))).toBe(true)
     console.log('ALERT FORCE SUMMARY', JSON.stringify(s), 'entities', study.entities.length)
   })
   it('states its omissions and its reference', () => {

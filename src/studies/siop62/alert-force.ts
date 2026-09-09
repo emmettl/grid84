@@ -7,6 +7,7 @@ import { BLAST_MODEL, promptEffects } from '../../models/blast.ts'
 import type { Entity, Study, StudyEvent } from '../study.ts'
 import orderOfBattle from '../../../data/siop62/order-of-battle-1961.json'
 import targetFile from '../../../data/siop62/targets-1956-priority.json'
+import airfieldFile from '../../../data/siop62/airfields-1956-priority.json'
 
 /**
  * SIOP//62 alert force enactment: option 1, the 1,004 delivery systems and
@@ -74,8 +75,25 @@ function buildLaunchers(): { launchers: Launcher[]; alertFraction: number; bombe
   return { launchers, alertFraction, bomberWeaponsNominal: nominal }
 }
 
+/** Priority offset that places every complex after every airfield: the study's first task is the Air Power Battle. */
+const COMPLEX_AFTER_AIRFIELDS = 10_000
+
+export interface TargetMeta {
+  kind: 'airfield' | 'complex'
+  categories?: string[]
+}
+export const TARGET_META: Record<string, TargetMeta> = {}
+
 function buildTargets(): Target[] {
-  return (targetFile as { targets: Array<{ complex: string; priority: number; name: string; lat: number; lon: number }> }).targets.map((t) => ({ id: `t-${t.complex}`, name: t.name, priority: t.priority, position: [t.lon, t.lat] as LngLat }))
+  const airfields = (airfieldFile as { targets: Array<{ be: string; priority: number; name: string; lat: number; lon: number }> }).targets.map((a) => {
+    TARGET_META[`a-${a.be}`] = { kind: 'airfield' }
+    return { id: `a-${a.be}`, name: a.name, priority: a.priority, position: [a.lon, a.lat] as LngLat }
+  })
+  const complexes = (targetFile as { targets: Array<{ complex: string; priority: number; name: string; lat: number; lon: number; categoryNames?: string[] }> }).targets.map((t) => {
+    TARGET_META[`t-${t.complex}`] = { kind: 'complex', categories: t.categoryNames }
+    return { id: `t-${t.complex}`, name: t.name, priority: t.priority + COMPLEX_AFTER_AIRFIELDS, position: [t.lon, t.lat] as LngLat }
+  })
+  return [...airfields, ...complexes]
 }
 
 export interface AlertForceSummary {
@@ -83,6 +101,8 @@ export interface AlertForceSummary {
   weapons: number
   sorties: number
   targetsCovered: number
+  airfieldsCovered: number
+  complexesCovered: number
   megatons: number
   alertFraction: number
   bomberVehicles: number
@@ -169,7 +189,7 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
       kind: 'effect',
       id: `e-${targetId}`,
       name: t.name,
-      designation: `PRIORITY ${t.priority} · ${fa.weapons} WEAPON${fa.weapons > 1 ? 'S' : ''} · ${[...fa.kinds].join('/').toUpperCase()}`,
+      designation: `${TARGET_META[targetId]?.kind === 'airfield' ? 'AIRFIELD' : 'COMPLEX'} · PRIORITY ${t.priority % COMPLEX_AFTER_AIRFIELDS} · ${fa.weapons} WEAPON${fa.weapons > 1 ? 'S' : ''} · ${[...fa.kinds].join('/').toUpperCase()}`,
       label: false,
       compact: true,
       center: t.position,
@@ -179,7 +199,8 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
       evidence: 'modelled',
       provenance: { source: BLAST_MODEL },
       facts: [
-        { label: '1956 priority', value: String(t.priority), evidence: 'documented', provenance: { source: 'SAC AWRS 1959 (June 1956), city list' } },
+        { label: '1956 priority', value: `${t.priority % COMPLEX_AFTER_AIRFIELDS} on the ${TARGET_META[targetId]?.kind === 'airfield' ? 'airfield' : 'complex'} list`, evidence: 'documented', provenance: { source: TARGET_META[targetId]?.kind === 'airfield' ? 'SAC AWRS 1959 (June 1956), airfield list, section 6' : 'SAC AWRS 1959 (June 1956), city list' } },
+        ...(TARGET_META[targetId]?.categories?.length ? [{ label: 'Categories', value: TARGET_META[targetId].categories!.join(' · '), evidence: 'documented' as const, provenance: { source: 'Category code list, section 3' } }] : []),
         { label: 'Weapons assigned', value: `${fa.weapons}, largest ${fa.yieldKt >= 1_000 ? `${(fa.yieldKt / 1_000).toFixed(2)} Mt` : `${fa.yieldKt} kt`}`, evidence: 'inferred', provenance: { source: 'Allocation rule' } },
         { label: 'Exposure', value: 'Computed once per target with the largest weapon; overlapping weapons are not double counted', evidence: 'modelled', provenance: { source: 'Method' } },
       ],
@@ -188,7 +209,7 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
 
   // Events: the documented sequence, and the waves as they leave.
   const byKind = (k: string) => result.sorties.filter((s) => s.kind === k).length
-  events.push({ time: 0, text: `EXECUTION ORDER · OPTION 1 · ALERT FORCE · ${result.weaponsAssigned.toLocaleString('en-GB')} WEAPONS ON ${result.targetsCovered.toLocaleString('en-GB')} TARGETS (ALLOCATION INFERRED)` })
+  events.push({ time: 0, text: `EXECUTION ORDER · OPTION 1 · ALERT FORCE · ${result.weaponsAssigned.toLocaleString('en-GB')} WEAPONS ON ${result.targetsCovered.toLocaleString('en-GB')} TARGETS · AIR POWER BATTLE FIRST (ALLOCATION INFERRED)` })
   events.push({ time: 1, text: 'SEQUENCE: BALLISTIC MISSILES · FORWARD AREAS · CONUS FORCES (DOCUMENTED)' })
   events.push({ time: REACTION_FIXED, text: `H+15 MIN · FIXED BASES LAUNCH · ${byKind('icbm')} ICBM · ${byKind('irbm')} IRBM · ${byKind('bomber')} BOMBER AND THEATRE SORTIES` })
   events.push({ time: REACTION_SEA, text: `H+2 H · POLARIS ON STATION LAUNCH · ${byKind('slbm')} MISSILES` })
@@ -204,6 +225,8 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     weapons: result.weaponsAssigned,
     sorties: result.sorties.length,
     targetsCovered: result.targetsCovered,
+    airfieldsCovered: Object.keys(firstArrival).filter((id) => id.startsWith('a-')).length,
+    complexesCovered: Object.keys(firstArrival).filter((id) => id.startsWith('t-')).length,
     megatons: megatons(result.sorties),
     alertFraction,
     bomberVehicles: Math.round(result.sorties.filter((s) => s.kind === 'bomber').length / 1.5),
@@ -212,7 +235,7 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
   const study: Study = {
     id: 'siop62-alert',
     title: 'SIOP//62 · ALERT FORCE',
-    subtitle: `Option 1 · ${summary.weapons.toLocaleString('en-GB')} weapons from ${summary.launchers} launch sites to ${summary.targetsCovered.toLocaleString('en-GB')} targets · every assignment inferred`,
+    subtitle: `Option 1 · ${summary.weapons.toLocaleString('en-GB')} weapons from ${summary.launchers} launch sites to ${summary.airfieldsCovered} airfields and ${summary.complexesCovered} complexes · every assignment inferred`,
     bounds: { start: -600, end: 16 * 3_600 },
     view: { center: [60, 62], zoom: 1.5 },
     populationGrid: 'popc_1961',
@@ -222,7 +245,7 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
       'Every weapon-to-target assignment is an illustration by a stated rule; no assignment is in the record',
       'Bomber refuelling, routing, penetration and attrition: great circles at cruise speed, all arrive',
       'Soviet air defence and any Soviet response',
-      'Airfield targets: the 1956 airfield list is not yet transcribed; only the city list is used',
+      'Airfields: a first-pass transcription reads about half of the 1,100 in the release; the Air Power Battle is under-represented by that much',
       'Yields: Mk-28 class assumed for bombers; the alert-force megatonnage check is on the readout',
       'Population exposure is per target with the largest weapon; overlapping targets are summed, so cities within reach of several targets are counted more than once',
     ],
@@ -249,7 +272,7 @@ export function alertForceCheck(): Array<{ label: string; enacted: string; docum
   return [
     { label: 'Weapons launched', enacted: fmt(s.weapons), documented: `${fmt(ALERT_FORCE_DOCUMENTED.weapons)} (briefing) · ${fmt(ALERT_FORCE_DOCUMENTED.tableWeapons)} (Table 1)` },
     { label: 'Megatons', enacted: fmt(s.megatons), documented: fmt(ALERT_FORCE_DOCUMENTED.megatons) },
-    { label: 'Targets covered', enacted: fmt(s.targetsCovered), documented: '1,060 DGZs in the full plan; the alert force struck the highest-priority ones' },
+    { label: 'Targets covered', enacted: `${fmt(s.targetsCovered)} (${s.airfieldsCovered} airfields, ${s.complexesCovered} complexes)`, documented: '1,060 DGZs in the full plan, about 800 of them military; the alert force struck the highest-priority ones' },
     { label: 'Launch sites', enacted: fmt(s.launchers), documented: '112 bases in the plan' },
   ]
 }

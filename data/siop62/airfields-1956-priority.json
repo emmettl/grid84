@@ -1,0 +1,3607 @@
+{
+"source": "SAC Atomic Weapons Requirements Study for 1959 (June 1956), NSA EBB 538, section 6: airfield list; transcription first pass, high-confidence rows only",
+"count": 360,
+"coverage": "about 1,100 airfields in the release; this pass reads 360",
+"targets": [
+{
+"be": "0204-8655",
+"priority": 1,
+"complex": "9125",
+"name": "ALEKSEYEVSKOYE",
+"lat": 49.2833,
+"lon": 140.2667,
+"page": 2,
+"letter": "RR"
+},
+{
+"be": "0154-8011",
+"priority": 3,
+"complex": "2360",
+"name": "GORK IY /FEDYAKOVO",
+"lat": 56.2333,
+"lon": 43.9667,
+"page": 11,
+"letter": null
+},
+{
+"be": "0233-8061",
+"priority": 5,
+"complex": "6526",
+"name": "PRILUKI",
+"lat": 56.5667,
+"lon": 32.3167,
+"page": 30,
+"letter": null
+},
+{
+"be": "0239-8602",
+"priority": 9,
+"complex": "7392",
+"name": "SEMIPALATINSK",
+"lat": 50.3833,
+"lon": 20.2833,
+"page": 33,
+"letter": "R"
+},
+{
+"be": "0167-8083",
+"priority": 9,
+"complex": "7418",
+"name": "SESHCHA",
+"lat": 52.7167,
+"lon": 33.35,
+"page": 33,
+"letter": "F"
+},
+{
+"be": "0233-8051",
+"priority": 10,
+"complex": "5032",
+"name": "MIRGOROD",
+"lat": 49.9333,
+"lon": 33.65,
+"page": 23,
+"letter": null
+},
+{
+"be": "0167-8003",
+"priority": 14,
+"complex": "2350",
+"name": "GOMEL/PRIBYTKI",
+"lat": 52.3,
+"lon": 31.1667,
+"page": 11,
+"letter": "R"
+},
+{
+"be": "0232-8619",
+"priority": 15,
+"complex": "7929",
+"name": "STRYY",
+"lat": 49.25,
+"lon": 23.8,
+"page": 35,
+"letter": null
+},
+{
+"be": "0164-8007",
+"priority": 18,
+"complex": "4840",
+"name": "MAGNITOCORSK",
+"lat": 53.3833,
+"lon": 59.0833,
+"page": 22,
+"letter": "8"
+},
+{
+"be": "0282-8638",
+"priority": 24,
+"complex": "3472",
+"name": "KHOROL",
+"lat": 44.4333,
+"lon": 132.1167,
+"page": 15,
+"letter": "5"
+},
+{
+"be": "0066-8003",
+"priority": 30,
+"complex": "5508",
+"name": "NIZHNIYE KRESTY",
+"lat": 68.75,
+"lon": 161.35,
+"page": 25,
+"letter": "R"
+},
+{
+"be": "0154-8021",
+"priority": 35,
+"complex": "3160",
+"name": "KALININ",
+"lat": 56.8333,
+"lon": 35.75,
+"page": 13,
+"letter": null
+},
+{
+"be": "0233-8034",
+"priority": 37,
+"complex": "3552",
+"name": "KIROVOGRAD/KANATOVO",
+"lat": 48.5667,
+"lon": 32.3833,
+"page": 16,
+"letter": "5"
+},
+{
+"be": "0168-8646",
+"priority": 40,
+"complex": "6030",
+"name": "PANEVEZYS",
+"lat": 55.7333,
+"lon": 24.4667,
+"page": 28,
+"letter": "R"
+},
+{
+"be": "0325-8738",
+"priority": 41,
+"complex": "7837",
+"name": "DALLYAR",
+"lat": 40.8833,
+"lon": 45.95,
+"page": 8,
+"letter": "R"
+},
+{
+"be": "0205-8005",
+"priority": 42,
+"complex": "7520",
+"name": "KAMI SHIKUKA",
+"lat": 49.2833,
+"lon": 142.9333,
+"page": 13,
+"letter": "R"
+},
+{
+"be": "0153-8021",
+"priority": 43,
+"complex": "2260",
+"name": "GDOV",
+"lat": 58.7667,
+"lon": 27.8,
+"page": 10,
+"letter": "8"
+},
+{
+"be": "0169-8612",
+"priority": 46,
+"complex": "3180",
+"name": "KALININGRAD/ZEYERAPPEN",
+"lat": 54.75,
+"lon": 20.2833,
+"page": 13,
+"letter": null
+},
+{
+"be": "0091-8601",
+"priority": 47,
+"complex": "0034",
+"name": "AFRIXANDA",
+"lat": 67.4667,
+"lon": 32.8,
+"page": 2,
+"letter": "OR"
+},
+{
+"be": "0051-8602",
+"priority": 48,
+"complex": "0096",
+"name": "ALAKURTTI",
+"lat": 66.9667,
+"lon": 20.35,
+"page": 2,
+"letter": null
+},
+{
+"be": "0092-8006",
+"priority": 49,
+"complex": "0270",
+"name": "ARKHANGELSK/YAGOONIK",
+"lat": 64.4,
+"lon": 40.9,
+"page": 3,
+"letter": "V"
+},
+{
+"be": "0131-8004",
+"priority": 50,
+"complex": "5720",
+"name": "OKHOTSK",
+"lat": 59.4167,
+"lon": 143.0333,
+"page": 26,
+"letter": "R"
+},
+{
+"be": "0051-8616",
+"priority": 54,
+"complex": "6080",
+"name": "PECHENGA",
+"lat": 69.4,
+"lon": 31.0,
+"page": 28,
+"letter": "R"
+},
+{
+"be": "0154-8039",
+"priority": 54,
+"complex": "7100",
+"name": "RZHEV",
+"lat": 56.2667,
+"lon": 34.4,
+"page": 31,
+"letter": "R"
+},
+{
+"be": "0046-8001",
+"priority": 56,
+"complex": "1640",
+"name": "DIKSON",
+"lat": 73.5,
+"lon": 80.4333,
+"page": 8,
+"letter": null
+},
+{
+"be": "0233-8008",
+"priority": 58,
+"complex": "1017",
+"name": "B6UCHACH",
+"lat": 49.0667,
+"lon": 25.3333,
+"page": 6,
+"letter": "R"
+},
+{
+"be": "0067-8001",
+"priority": 59,
+"complex": "1392",
+"name": "CHOKURDAKH",
+"lat": 70.5333,
+"lon": 147.75,
+"page": 8,
+"letter": "R"
+},
+{
+"be": "0051-8605",
+"priority": 65,
+"complex": "5240",
+"name": "KOLA",
+"lat": 68.85,
+"lon": 33.0167,
+"page": 16,
+"letter": null
+},
+{
+"be": "0232-8618",
+"priority": 73,
+"complex": "7820",
+"name": "STANISLAV",
+"lat": 48.9,
+"lon": 24.7,
+"page": 35,
+"letter": null
+},
+{
+"be": "0250-8720",
+"priority": 74,
+"complex": "7600",
+"name": "SARABUZ",
+"lat": 45.1167,
+"lon": 33.9833,
+"page": 32,
+"letter": null
+},
+{
+"be": "0167-8030",
+"priority": 78,
+"complex": "5150",
+"name": "MOSCOW/LYUBERTSY",
+"lat": 55.6833,
+"lon": 37.8667,
+"page": 24,
+"letter": null
+},
+{
+"be": "0251-8057",
+"priority": 79,
+"complex": "1598",
+"name": "DEBRECEN HUNG",
+"lat": 47.5,
+"lon": 21.6333,
+"page": 8,
+"letter": null
+},
+{
+"be": "0153-8030",
+"priority": 81,
+"complex": "9671",
+"name": "LUDA",
+"lat": 56.6167,
+"lon": 23.5,
+"page": 10,
+"letter": null
+},
+{
+"be": "0153-8072",
+"priority": 81,
+"complex": "5610",
+"name": "KRECHEVITSY",
+"lat": 58.6167,
+"lon": 31.3833,
+"page": 18,
+"letter": "R"
+},
+{
+"be": "0291-8014",
+"priority": 83,
+"complex": "7942",
+"name": "NIKOLAVEVKA",
+"lat": 43.0833,
+"lon": 133.2,
+"page": 25,
+"letter": "UY"
+},
+{
+"be": "0203-8651",
+"priority": 85,
+"complex": "7415",
+"name": "UKRAINA",
+"lat": 51.1333,
+"lon": 128.55,
+"page": 39,
+"letter": "7"
+},
+{
+"be": "0205-8007",
+"priority": 86,
+"complex": "3408",
+"name": "KETON",
+"lat": 49.7333,
+"lon": 142.8667,
+"page": 14,
+"letter": null
+},
+{
+"be": "0233-8070",
+"priority": 87,
+"complex": "7855",
+"name": "STAROKONSTANTINOV",
+"lat": 49.75,
+"lon": 27.2667,
+"page": 35,
+"letter": "8"
+},
+{
+"be": "0168-8625",
+"priority": 88,
+"complex": "3360",
+"name": "XKEDAINIAT",
+"lat": 55.3167,
+"lon": 23.95,
+"page": 14,
+"letter": "RR"
+},
+{
+"be": "0169-8605",
+"priority": 89,
+"complex": "3180",
+"name": "KALININGRAD/GURYEVSK",
+"lat": 54.7833,
+"lon": 20.6167,
+"page": 13,
+"letter": "5"
+},
+{
+"be": "0091-8635",
+"priority": 100,
+"complex": "3386",
+"name": "KEM/UZHMANA",
+"lat": 64.9167,
+"lon": 34.45,
+"page": 14,
+"letter": "R"
+},
+{
+"be": "0281-8000",
+"priority": 104,
+"complex": "5340",
+"name": "DOLINSK",
+"lat": 47.4167,
+"lon": 142.7667,
+"page": 9,
+"letter": null
+},
+{
+"be": "0194-8009",
+"priority": 112,
+"complex": "6210",
+"name": "PETROPAVLOVSK/SEV KORYAKI",
+"lat": 53.2667,
+"lon": 158.2667,
+"page": 28,
+"letter": "U"
+},
+{
+"be": "0194-8006",
+"priority": 113,
+"complex": "6230",
+"name": "PETROPAVLOVSK/KORYAKI",
+"lat": 53.2667,
+"lon": 156.1833,
+"page": 28,
+"letter": null
+},
+{
+"be": "9194-8007",
+"priority": 114,
+"complex": "6210",
+"name": "PETROPAVLOVSK/YELIZOVO",
+"lat": 53.1667,
+"lon": 158.4833,
+"page": 28,
+"letter": "5"
+},
+{
+"be": "0325-8661",
+"priority": 115,
+"complex": "3830",
+"name": "KIROVABAD",
+"lat": 40.7333,
+"lon": 46.3167,
+"page": 16,
+"letter": "T"
+},
+{
+"be": "0336-8627",
+"priority": 116,
+"complex": "7200",
+"name": "SAMARKANO",
+"lat": 39.7,
+"lon": 66.8667,
+"page": 32,
+"letter": null
+},
+{
+"be": "0250-8656",
+"priority": 118,
+"complex": "7430",
+"name": "SEVASTOPOL/BELBEK",
+"lat": 44.6833,
+"lon": 35.5667,
+"page": 33,
+"letter": "V"
+},
+{
+"be": "0251-8081",
+"priority": 119,
+"complex": "4202",
+"name": "KUNMADARAS HUNG",
+"lat": 47.4,
+"lon": 20.7833,
+"page": 18,
+"letter": "R"
+},
+{
+"be": "0251-8066",
+"priority": 120,
+"complex": "8042",
+"name": "KISKUNLACZHAZA HUNG",
+"lat": 47.1833,
+"lon": 19.1,
+"page": 16,
+"letter": null
+},
+{
+"be": "0168-8688",
+"priority": 121,
+"complex": "7501",
+"name": "SHCHUCHIN",
+"lat": 53.6,
+"lon": 24.7667,
+"page": 33,
+"letter": "RR"
+},
+{
+"be": "0250-8708",
+"priority": 132,
+"complex": "9695",
+"name": "SAKT",
+"lat": 45.0833,
+"lon": 33.6,
+"page": 32,
+"letter": "R"
+},
+{
+"be": "0166-8044",
+"priority": 132,
+"complex": "8848",
+"name": "USMAN",
+"lat": 52.0333,
+"lon": 39.65,
+"page": 39,
+"letter": "R"
+},
+{
+"be": "0328-8613",
+"priority": 135,
+"complex": "2100",
+"name": "FERGANA",
+"lat": 40.3333,
+"lon": 71.75,
+"page": 10,
+"letter": "R"
+},
+{
+"be": "0328-8633",
+"priority": 137,
+"complex": "7459",
+"name": "SHABSKTY",
+"lat": 40.2333,
+"lon": 68.9,
+"page": 33,
+"letter": "5"
+},
+{
+"be": "0169-8609",
+"priority": 139,
+"complex": "3180",
+"name": "KALININGRAD/POVUNDEN",
+"lat": 54.8833,
+"lon": 20.5833,
+"page": 13,
+"letter": "U"
+},
+{
+"be": "0250-8763",
+"priority": 150,
+"complex": "1455",
+"name": "KOGALNICEANU RUM",
+"lat": 44.35,
+"lon": 26.4833,
+"page": 16,
+"letter": "5"
+},
+{
+"be": "0234-8025",
+"priority": 153,
+"complex": "3440",
+"name": "KHARKOV/ALEKSEYEVKA",
+"lat": 50.05,
+"lon": 26.2833,
+"page": 15,
+"letter": "5"
+},
+{
+"be": "0199-8010",
+"priority": 160,
+"complex": "1303",
+"name": "NIKOLAYEVSKOYE",
+"lat": 52.3333,
+"lon": 117.0167,
+"page": 25,
+"letter": "R"
+},
+{
+"be": "0203-8644",
+"priority": 161,
+"complex": "4314",
+"name": "VOZZHAYEVKA",
+"lat": 50.7167,
+"lon": 128.7167,
+"page": 41,
+"letter": null
+},
+{
+"be": "0200-8014",
+"priority": 162,
+"complex": "9924",
+"name": "ZIMA",
+"lat": 53.9333,
+"lon": 102.0167,
+"page": 43,
+"letter": null
+},
+{
+"be": "0249-8317",
+"priority": 164,
+"complex": "2080",
+"name": "TSLAM TEREK",
+"lat": 45.1,
+"lon": 35.1833,
+"page": 12,
+"letter": "5"
+},
+{
+"be": "0169-8610",
+"priority": 165,
+"complex": "3180",
+"name": "KALININGRAD/PROVEHREN",
+"lat": 54.7667,
+"lon": 20.4167,
+"page": 13,
+"letter": "V"
+},
+{
+"be": "0249-8152",
+"priority": 167,
+"complex": "2080",
+"name": "FEOOOSI1YA/KARAGOZ",
+"lat": 45.0667,
+"lon": 35.2,
+"page": 10,
+"letter": null
+},
+{
+"be": "0166-8027",
+"priority": 168,
+"complex": "7060",
+"name": "RYAZAN/OYAGILEVO",
+"lat": 54.6333,
+"lon": 39.5833,
+"page": 31,
+"letter": "R"
+},
+{
+"be": "0233-8053",
+"priority": 170,
+"complex": "5452",
+"name": "NEZHIN",
+"lat": 51.0833,
+"lon": 31.8667,
+"page": 25,
+"letter": null
+},
+{
+"be": "0283-8435",
+"priority": 181,
+"complex": "8601",
+"name": "YAMEN TUN MANCH",
+"lat": 47.2167,
+"lon": 123.9,
+"page": 42,
+"letter": "5"
+},
+{
+"be": "0153-8079",
+"priority": 182,
+"complex": "6020",
+"name": "PALDISKI/KLOOGA",
+"lat": 59.3167,
+"lon": 24.2667,
+"page": 28,
+"letter": null
+},
+{
+"be": "0236-8013",
+"priority": 184,
+"complex": "1390",
+"name": "CHKALOV",
+"lat": 51.8167,
+"lon": 55.1,
+"page": 8,
+"letter": "R"
+},
+{
+"be": "0169-8608",
+"priority": 185,
+"complex": "3180",
+"name": "KALININGRAD/PIONERSKIY",
+"lat": 54.95,
+"lon": 20.25,
+"page": 13,
+"letter": "R"
+},
+{
+"be": "0169-8604",
+"priority": 186,
+"complex": "3180",
+"name": "KALININGRAD/DEVAU",
+"lat": 54.7333,
+"lon": 20.5833,
+"page": 13,
+"letter": "W"
+},
+{
+"be": "0381-8007",
+"priority": 187,
+"complex": "1543",
+"name": "YING CHENG TZU MANCH",
+"lat": 39.0167,
+"lon": 121.3833,
+"page": 42,
+"letter": null
+},
+{
+"be": "0168-8650",
+"priority": 190,
+"complex": "6378",
+"name": "POLESSK",
+"lat": 54.85,
+"lon": 21.15,
+"page": 29,
+"letter": null
+},
+{
+"be": "0235-8010",
+"priority": 194,
+"complex": "7250",
+"name": "ENGELS",
+"lat": 52.4833,
+"lon": 46.1667,
+"page": 9,
+"letter": "R"
+},
+{
+"be": "0250-8661",
+"priority": 196,
+"complex": "3464",
+"name": "KHERSON/GUSAKOVKA",
+"lat": 46.6833,
+"lon": 32.5167,
+"page": 15,
+"letter": "5"
+},
+{
+"be": "0250-8633",
+"priority": 199,
+"complex": "1865",
+"name": "OZHANKOY",
+"lat": 45.6833,
+"lon": 34.4167,
+"page": 9,
+"letter": null
+},
+{
+"be": "0324-8632",
+"priority": 203,
+"complex": "4290",
+"name": "KUTAIS1",
+"lat": 42.2667,
+"lon": 42.65,
+"page": 19,
+"letter": "R"
+},
+{
+"be": "0194-8016",
+"priority": 204,
+"complex": "6210",
+"name": "PETROPAVLOVSK/KHUTOR",
+"lat": 53.1667,
+"lon": 158.3833,
+"page": 28,
+"letter": "R"
+},
+{
+"be": "0249-8185",
+"priority": 205,
+"complex": "4040",
+"name": "KRASNODAR",
+"lat": 45.0833,
+"lon": 38.9667,
+"page": 17,
+"letter": "R"
+},
+{
+"be": "9166-8005",
+"priority": 206,
+"complex": "4800",
+"name": "GRYAZTI",
+"lat": 52.4667,
+"lon": 39.9333,
+"page": 11,
+"letter": "R"
+},
+{
+"be": "0202-8609",
+"priority": 208,
+"complex": "3412",
+"name": "KHADA BULAK STATION",
+"lat": 50.6,
+"lon": 116.3333,
+"page": 15,
+"letter": "8"
+},
+{
+"be": "0199-8003",
+"priority": 210,
+"complex": "1370",
+"name": "CHITA/KADALA",
+"lat": 52.0333,
+"lon": 113.3167,
+"page": 7,
+"letter": null
+},
+{
+"be": "0154-8074",
+"priority": 212,
+"complex": "0860",
+"name": "KHOTILOVO",
+"lat": 57.7333,
+"lon": 34.1333,
+"page": 15,
+"letter": "2"
+},
+{
+"be": "0168-8606",
+"priority": 213,
+"complex": "3330",
+"name": "KAUNAS/KARMELAVA",
+"lat": 54.8667,
+"lon": 24.0833,
+"page": 14,
+"letter": "5"
+},
+{
+"be": "0614-8420",
+"priority": 216,
+"complex": "1153",
+"name": "NAN HAI CHENA",
+"lat": 23.0833,
+"lon": 113.05,
+"page": 25,
+"letter": "R"
+},
+{
+"be": "0252-8049",
+"priority": 218,
+"complex": "6034",
+"name": "PAPA HUNG",
+"lat": 47.3667,
+"lon": 17.5,
+"page": 28,
+"letter": "RR"
+},
+{
+"be": "0205-8009",
+"priority": 220,
+"complex": "7520",
+"name": "NAIRO",
+"lat": 49.1,
+"lon": 142.9667,
+"page": 25,
+"letter": "T"
+},
+{
+"be": "0325-8611",
+"priority": 222,
+"complex": "0460",
+"name": "BAKU/BINA",
+"lat": 40.45,
+"lon": 50.1,
+"page": 3,
+"letter": null
+},
+{
+"be": "0381-8002",
+"priority": 223,
+"complex": "1543",
+"name": "CHOU SHUI TZU) MANCH",
+"lat": 38.9667,
+"lon": 121.55,
+"page": 8,
+"letter": null
+},
+{
+"be": "0250-8004",
+"priority": 232,
+"complex": "9695",
+"name": "YEVPATORIYA",
+"lat": 45.2167,
+"lon": 33.3667,
+"page": 42,
+"letter": "5"
+},
+{
+"be": "0291-8008",
+"priority": 233,
+"complex": "0290",
+"name": "NOVONEZHINO",
+"lat": 43.2167,
+"lon": 132.5833,
+"page": 26,
+"letter": null
+},
+{
+"be": "0291-8015",
+"priority": 235,
+"complex": "7942",
+"name": "UNASHI",
+"lat": 42.9667,
+"lon": 133.1167,
+"page": 39,
+"letter": null
+},
+{
+"be": "0234-8017",
+"priority": 237,
+"complex": "1690",
+"name": "DNEPROPETROVSK/VOLOSHKOYE",
+"lat": 48.35,
+"lon": 35.1,
+"page": 9,
+"letter": null
+},
+{
+"be": "0169-8611",
+"priority": 238,
+"complex": "3180",
+"name": "KALININGRAD/YEZAU",
+"lat": 54.5667,
+"lon": 20.6,
+"page": 13,
+"letter": "Y"
+},
+{
+"be": "0325-8674",
+"priority": 243,
+"complex": "4480",
+"name": "LENINAKAN",
+"lat": 40.75,
+"lon": 43.8667,
+"page": 19,
+"letter": "R"
+},
+{
+"be": "9291-8639",
+"priority": 244,
+"complex": "5730",
+"name": "SERAFIMOVKA",
+"lat": 43.8833,
+"lon": 135.2167,
+"page": 33,
+"letter": "R"
+},
+{
+"be": "0493-8419",
+"priority": 249,
+"complex": "1425",
+"name": "CHU HSIEN CHINA",
+"lat": 28.9667,
+"lon": 116.8833,
+"page": 8,
+"letter": "8"
+},
+{
+"be": "0103-8634",
+"priority": 250,
+"complex": "4490",
+"name": "LENINGRAD/LESNOY",
+"lat": 60.05,
+"lon": 30.35,
+"page": 20,
+"letter": "R"
+},
+{
+"be": "0233-8079",
+"priority": 250,
+"complex": "2070",
+"name": "VASILKOV",
+"lat": 50.2333,
+"lon": 30.3167,
+"page": 40,
+"letter": null
+},
+{
+"be": "0231-8069",
+"priority": 252,
+"complex": "3065",
+"name": "JUTERBOG E GER",
+"lat": 52.0,
+"lon": 12.9833,
+"page": 13,
+"letter": "R"
+},
+{
+"be": "0102-8008",
+"priority": 256,
+"complex": "2000",
+"name": "LODEYNOYE POLE",
+"lat": 60.7167,
+"lon": 33.55,
+"page": 21,
+"letter": "R"
+},
+{
+"be": "0324-8615",
+"priority": 265,
+"complex": "6450",
+"name": "MAKHARADZE",
+"lat": 41.9333,
+"lon": 41.8833,
+"page": 22,
+"letter": "5"
+},
+{
+"be": "0169-8311",
+"priority": 266,
+"complex": "2060",
+"name": "SIMMATZIG POL",
+"lat": 53.7833,
+"lon": 15.8333,
+"page": 34,
+"letter": "R"
+},
+{
+"be": "0325-8607",
+"priority": 278,
+"complex": "0460",
+"name": "BAKU",
+"lat": 40.4167,
+"lon": 49.8833,
+"page": 3,
+"letter": "T"
+},
+{
+"be": "0167-8025",
+"priority": 279,
+"complex": "3200",
+"name": "KALUGA/ORESHOVKA",
+"lat": 54.4667,
+"lon": 36.0667,
+"page": 13,
+"letter": "R"
+},
+{
+"be": "0166-8032",
+"priority": 282,
+"complex": "6160",
+"name": "SELIKSA",
+"lat": 53.2667,
+"lon": 45.2833,
+"page": 33,
+"letter": "8"
+},
+{
+"be": "0167-8095",
+"priority": 282,
+"complex": "9310",
+"name": "VYAZMA",
+"lat": 55.15,
+"lon": 34.3833,
+"page": 41,
+"letter": "R"
+},
+{
+"be": "0167-8015",
+"priority": 283,
+"complex": "9100",
+"name": "VITEBSK",
+"lat": 55.1667,
+"lon": 30.2167,
+"page": 40,
+"letter": "R"
+},
+{
+"be": "0328-8623",
+"priority": 289,
+"complex": "1360",
+"name": "CHIRCHIK",
+"lat": 41.4833,
+"lon": 69.5833,
+"page": 7,
+"letter": "R"
+},
+{
+"be": "0262-8602",
+"priority": 291,
+"complex": "3776",
+"name": "ANTONOVKA .",
+"lat": 44.3833,
+"lon": 134.4833,
+"page": 2,
+"letter": "55"
+},
+{
+"be": "0165-8027",
+"priority": 294,
+"complex": "3495",
+"name": "KINEL-CHERKASSY",
+"lat": 53.4333,
+"lon": 51.5833,
+"page": 15,
+"letter": null
+},
+{
+"be": "0153-8023",
+"priority": 297,
+"complex": "2520",
+"name": "HAAPSALU",
+"lat": 58.9,
+"lon": 23.5,
+"page": 11,
+"letter": "R"
+},
+{
+"be": "0326-8003",
+"priority": 299,
+"complex": "4080",
+"name": "KRASNOVODSK",
+"lat": 40.05,
+"lon": 53.0,
+"page": 18,
+"letter": "R"
+},
+{
+"be": "0281-8605",
+"priority": 300,
+"complex": "3920",
+"name": "KORSAKOV",
+"lat": 46.6167,
+"lon": 142.8167,
+"page": 17,
+"letter": null
+},
+{
+"be": "0325-8721",
+"priority": 301,
+"complex": "9690",
+"name": "YEREVAN",
+"lat": 40.1167,
+"lon": 44.4667,
+"page": 42,
+"letter": "R"
+},
+{
+"be": "0153-8126",
+"priority": 302,
+"complex": "9671",
+"name": "TUKUMS",
+"lat": 56.95,
+"lon": 23.2,
+"page": 38,
+"letter": null
+},
+{
+"be": "0249-8189",
+"priority": 303,
+"complex": "5630",
+"name": "KRYMSKAYA",
+"lat": 44.95,
+"lon": 38.0,
+"page": 18,
+"letter": "T"
+},
+{
+"be": "0282-8633",
+"priority": 304,
+"complex": "3472",
+"name": "KAMEN RYBOLOV",
+"lat": 44.75,
+"lon": 132.0333,
+"page": 13,
+"letter": "R"
+},
+{
+"be": "0324-8618",
+"priority": 310,
+"complex": "6450",
+"name": "MIKHA TSKHAKAYA",
+"lat": 62.2333,
+"lon": 42.05,
+"page": 23,
+"letter": "R"
+},
+{
+"be": "0250-8660",
+"priority": 314,
+"complex": "3464",
+"name": "KHERSON",
+"lat": 46.6667,
+"lon": 32.6333,
+"page": 15,
+"letter": "P"
+},
+{
+"be": "0168-8627",
+"priority": 316,
+"complex": "3693",
+"name": "KOBRIN",
+"lat": 52.2333,
+"lon": 24.3667,
+"page": 16,
+"letter": "R"
+},
+{
+"be": "0282-8626",
+"priority": 326,
+"complex": "2337",
+"name": "GOLENKI",
+"lat": 44.0333,
+"lon": 131.75,
+"page": 10,
+"letter": "R"
+},
+{
+"be": "0250-8697",
+"priority": 328,
+"complex": "5710",
+"name": "ODESSA/TATARKA",
+"lat": 46.45,
+"lon": 30.6667,
+"page": 26,
+"letter": null
+},
+{
+"be": "0281-8604",
+"priority": 332,
+"complex": "9740",
+"name": "KONUMA",
+"lat": 47.0667,
+"lon": 142.75,
+"page": 17,
+"letter": "T"
+},
+{
+"be": "0051-8621",
+"priority": 333,
+"complex": "4410",
+"name": "TAYBOLA",
+"lat": 68.4167,
+"lon": 33.35,
+"page": 37,
+"letter": "5"
+},
+{
+"be": "0250-8750",
+"priority": 334,
+"complex": "0307",
+"name": "SARATA",
+"lat": 46.05,
+"lon": 29.65,
+"page": 32,
+"letter": null
+},
+{
+"be": "0325-8654",
+"priority": 335,
+"complex": "3356",
+"name": "KAZI MAGOMED",
+"lat": 40.0167,
+"lon": 48.9167,
+"page": 14,
+"letter": "R"
+},
+{
+"be": "0206-8004",
+"priority": 336,
+"complex": "3150",
+"name": "KURABU",
+"lat": 50.0167,
+"lon": 155.4,
+"page": 18,
+"letter": null
+},
+{
+"be": "0339-8614",
+"priority": 336,
+"complex": "7193",
+"name": "SALYANY",
+"lat": 39.65,
+"lon": 49.0,
+"page": 32,
+"letter": "R"
+},
+{
+"be": "0204-8008",
+"priority": 339,
+"complex": "3640",
+"name": "KOMSOMOLSK",
+"lat": 50.6,
+"lon": 137.0667,
+"page": 16,
+"letter": null
+},
+{
+"be": "0326-8006",
+"priority": 341,
+"complex": "3262",
+"name": "KARA BOGAZ GOL",
+"lat": 41.05,
+"lon": 52.9167,
+"page": 14,
+"letter": null
+},
+{
+"be": "0231-8083",
+"priority": 342,
+"complex": "9875",
+"name": "ZERBST E GER",
+"lat": 52.0,
+"lon": 12.15,
+"page": 43,
+"letter": "R"
+},
+{
+"be": "0249-8316",
+"priority": 345,
+"complex": "6293",
+"name": "KORENOVSKAYA",
+"lat": 45.45,
+"lon": 39.4333,
+"page": 17,
+"letter": "RR"
+},
+{
+"be": "0154-8030",
+"priority": 347,
+"complex": "3940",
+"name": "KOSTROMA",
+"lat": 57.8,
+"lon": 41.0167,
+"page": 17,
+"letter": "R"
+},
+{
+"be": "0325-8713",
+"priority": 349,
+"complex": "8310",
+"name": "TSILISI/SOGANLUG",
+"lat": 41.65,
+"lon": 44.9333,
+"page": 37,
+"letter": "2"
+},
+{
+"be": "0153-8117",
+"priority": 351,
+"complex": "8220",
+"name": "TALLIN/ULENISTE",
+"lat": 59.4167,
+"lon": 24.8,
+"page": 36,
+"letter": null
+},
+{
+"be": "0282-8613",
+"priority": 352,
+"complex": "7390",
+"name": "CHERNY SHEVKA",
+"lat": 44.1833,
+"lon": 133.1,
+"page": 7,
+"letter": "Y"
+},
+{
+"be": "0324-8694",
+"priority": 354,
+"complex": "0590",
+"name": "SATUMI",
+"lat": 41.6,
+"lon": 41.7667,
+"page": 4,
+"letter": "5"
+},
+{
+"be": "0281-8004",
+"priority": 356,
+"complex": "3873",
+"name": "KONOTORO",
+"lat": 47.2833,
+"lon": 142.0,
+"page": 17,
+"letter": "R"
+},
+{
+"be": "0102-8029",
+"priority": 358,
+"complex": "3865",
+"name": "KONOSHA",
+"lat": 60.9833,
+"lon": 40.2,
+"page": 17,
+"letter": "R"
+},
+{
+"be": "0234-8011",
+"priority": 360,
+"complex": "1420",
+"name": "CHUGUYEV",
+"lat": 49.85,
+"lon": 36.65,
+"page": 8,
+"letter": "R"
+},
+{
+"be": "0338-8609",
+"priority": 361,
+"complex": "5380",
+"name": "NEBIT DAG",
+"lat": 39.5,
+"lon": 54.3667,
+"page": 25,
+"letter": "R"
+},
+{
+"be": "0234-8024",
+"priority": 362,
+"complex": "3440",
+"name": "KHARKOV",
+"lat": 49.9167,
+"lon": 26.2833,
+"page": 15,
+"letter": "2"
+},
+{
+"be": "0154-8068",
+"priority": 363,
+"complex": "9630",
+"name": "YAROSLAVL/TUNOSHNOYE",
+"lat": 57.5667,
+"lon": 40.15,
+"page": 42,
+"letter": null
+},
+{
+"be": "0224-8190",
+"priority": 369,
+"complex": "1420",
+"name": "GRAKOVO",
+"lat": 49.7,
+"lon": 36.8,
+"page": 11,
+"letter": "5"
+},
+{
+"be": "0167-8012",
+"priority": 377,
+"complex": "7670",
+"name": "SMOLENSK",
+"lat": 54.8333,
+"lon": 32.0333,
+"page": 34,
+"letter": null
+},
+{
+"be": "0233-8020",
+"priority": 380,
+"complex": "4131",
+"name": "DUBNO",
+"lat": 50.4,
+"lon": 25.8,
+"page": 9,
+"letter": "R"
+},
+{
+"be": "0250-8214",
+"priority": 394,
+"complex": "4925",
+"name": "COCARGEAU NEW RUM",
+"lat": 44.4,
+"lon": 27.7333,
+"page": 8,
+"letter": null
+},
+{
+"be": "0166-8012",
+"priority": 405,
+"complex": "5000",
+"name": "NIKIFOROVKA",
+"lat": 52.8833,
+"lon": 40.8167,
+"page": 25,
+"letter": "5"
+},
+{
+"be": "0234-8076",
+"priority": 408,
+"complex": "7790",
+"name": "STALINO",
+"lat": 48.0667,
+"lon": 37.75,
+"page": 35,
+"letter": null
+},
+{
+"be": "0205-8004",
+"priority": 413,
+"complex": "7520",
+"name": "HATSUMA",
+"lat": 49.4,
+"lon": 142.8667,
+"page": 12,
+"letter": "S"
+},
+{
+"be": "0250-8723",
+"priority": 414,
+"complex": "0664",
+"name": "TIRASPOL",
+"lat": 46.8667,
+"lon": 29.5833,
+"page": 38,
+"letter": "R"
+},
+{
+"be": "0233-8090",
+"priority": 415,
+"complex": "3910",
+"name": "KOROSTEN",
+"lat": 50.9667,
+"lon": 28.65,
+"page": 17,
+"letter": null
+},
+{
+"be": "0249-8071",
+"priority": 419,
+"complex": "8420",
+"name": "TIKHORETSK",
+"lat": 45.8667,
+"lon": 40.1,
+"page": 38,
+"letter": null
+},
+{
+"be": "0328-8605",
+"priority": 427,
+"complex": "1340",
+"name": "CHIMKENT",
+"lat": 42.3,
+"lon": 69.6,
+"page": 7,
+"letter": "R"
+},
+{
+"be": "0338-8606",
+"priority": 429,
+"complex": "4340",
+"name": "KYZYL ARVAT",
+"lat": 38.9667,
+"lon": 56.2667,
+"page": 19,
+"letter": "R"
+},
+{
+"be": "0232-8245",
+"priority": 438,
+"complex": "0935",
+"name": "ORATISLAVA/IVANKAS CZECH",
+"lat": 49.1667,
+"lon": 17.2,
+"page": 5,
+"letter": null
+},
+{
+"be": "0251-8073",
+"priority": 444,
+"complex": "0465",
+"name": "BALACT RUM",
+"lat": 44.3667,
+"lon": 24.9833,
+"page": 3,
+"letter": "8"
+},
+{
+"be": "0292-8421",
+"priority": 449,
+"complex": "2212",
+"name": "TOFUTSU",
+"lat": 43.9667,
+"lon": 145.7,
+"page": 38,
+"letter": "5"
+},
+{
+"be": "0282-8002",
+"priority": 454,
+"complex": "3776",
+"name": "KOKSHAROVKA",
+"lat": 44.5,
+"lon": 134.05,
+"page": 16,
+"letter": "5"
+},
+{
+"be": "0322-8003",
+"priority": 456,
+"complex": "8443",
+"name": "TIRANE ALB",
+"lat": 41.3333,
+"lon": 19.8,
+"page": 38,
+"letter": null
+},
+{
+"be": "0168-8631",
+"priority": 463,
+"complex": "4770",
+"name": "LUNINETS",
+"lat": 52.2667,
+"lon": 26.8333,
+"page": 21,
+"letter": "R"
+},
+{
+"be": "0271-8169",
+"priority": 464,
+"complex": "3785",
+"name": "CASLAV/CHOTUSICE CZECH",
+"lat": 49.95,
+"lon": 19.3833,
+"page": 6,
+"letter": "S"
+},
+{
+"be": "0338-8601",
+"priority": 467,
+"complex": "0330",
+"name": "ASHKHABAD/FIRYUZA",
+"lat": 37.9167,
+"lon": 58.0833,
+"page": 3,
+"letter": "T"
+},
+{
+"be": "0234-8033",
+"priority": 473,
+"complex": "7630",
+"name": "KRAMATORSK",
+"lat": 48.7,
+"lon": 37.6167,
+"page": 17,
+"letter": null
+},
+{
+"be": "0051-8625",
+"priority": 476,
+"complex": "5961",
+"name": "URA GUBA",
+"lat": 69.2167,
+"lon": 32.7167,
+"page": 39,
+"letter": "5"
+},
+{
+"be": "0328-8636",
+"priority": 480,
+"complex": "8038",
+"name": "SYUGATY",
+"lat": 43.2667,
+"lon": 74.7,
+"page": 36,
+"letter": "B"
+},
+{
+"be": "0430-8602",
+"priority": 486,
+"complex": "8208",
+"name": "TAKHTA BAZAR",
+"lat": 35.8333,
+"lon": 62.8667,
+"page": 36,
+"letter": "R"
+},
+{
+"be": "0231-8084",
+"priority": 490,
+"complex": "1055",
+"name": "ASLAU POL",
+"lat": 51.3167,
+"lon": 15.7333,
+"page": 3,
+"letter": null
+},
+{
+"be": "0200-8018",
+"priority": 493,
+"complex": "8850",
+"name": "USOLYE",
+"lat": 52.65,
+"lon": 103.85,
+"page": 39,
+"letter": "8"
+},
+{
+"be": "0231-8170",
+"priority": 494,
+"complex": "1481",
+"name": "JOCKSDORF E GER",
+"lat": 51.6667,
+"lon": 14.6333,
+"page": 13,
+"letter": "T"
+},
+{
+"be": "0322-8076",
+"priority": 497,
+"complex": "8005",
+"name": "KAMENETS BULG",
+"lat": 43.35,
+"lon": 25.0333,
+"page": 13,
+"letter": "R"
+},
+{
+"be": "0169-8628",
+"priority": 513,
+"complex": "4430",
+"name": "ZEWITZ POL",
+"lat": 54.4333,
+"lon": 17.75,
+"page": 43,
+"letter": "R"
+},
+{
+"be": "0251-8064",
+"priority": 516,
+"complex": "8075",
+"name": "SZOLNOK/RAXOCZIFALVA HUN",
+"lat": 47.1167,
+"lon": 20.2333,
+"page": 36,
+"letter": "R"
+},
+{
+"be": "0380-8441",
+"priority": 518,
+"complex": "8216",
+"name": "TA KU SHAN MANCH",
+"lat": 39.8833,
+"lon": 123.55,
+"page": 36,
+"letter": "R"
+},
+{
+"be": "0492-8410",
+"priority": 523,
+"complex": "7475",
+"name": "TA CHANG) CHINA",
+"lat": 31.3167,
+"lon": 121.4,
+"page": 36,
+"letter": "TT"
+},
+{
+"be": "0153-8162",
+"priority": 526,
+"complex": "9254",
+"name": "VORU",
+"lat": 57.9167,
+"lon": 26.9833,
+"page": 41,
+"letter": "R"
+},
+{
+"be": "0154-8028",
+"priority": 534,
+"complex": "2960",
+"name": "KLETINO",
+"lat": 56.8,
+"lon": 37.3333,
+"page": 16,
+"letter": "R"
+},
+{
+"be": "0281-8609",
+"priority": 562,
+"complex": "2212",
+"name": "FURUKAMAPPU",
+"lat": 44.0333,
+"lon": 145.8667,
+"page": 10,
+"letter": "R"
+},
+{
+"be": "0153-8102",
+"priority": 571,
+"complex": "4225",
+"name": "KURESSAARE",
+"lat": 58.25,
+"lon": 22.5167,
+"page": 18,
+"letter": "R"
+},
+{
+"be": "0380-8439",
+"priority": 573,
+"complex": "6618",
+"name": "SUNAN N KOREA",
+"lat": 39.2,
+"lon": 125.6667,
+"page": 35,
+"letter": "5"
+},
+{
+"be": "0166-8002",
+"priority": 579,
+"complex": "0310",
+"name": "ARZAMAS",
+"lat": 55.35,
+"lon": 43.7,
+"page": 3,
+"letter": "R"
+},
+{
+"be": "0232-8607",
+"priority": 581,
+"complex": "4780",
+"name": "LVOV/SKNILOV",
+"lat": 49.8167,
+"lon": 23.95,
+"page": 21,
+"letter": "R"
+},
+{
+"be": "0131-8001",
+"priority": 582,
+"complex": "4830",
+"name": "MAGADAN",
+"lat": 59.65,
+"lon": 150.8667,
+"page": 22,
+"letter": "R"
+},
+{
+"be": "0051-8613",
+"priority": 585,
+"complex": "4410",
+"name": "OLENYA",
+"lat": 68.1667,
+"lon": 33.2833,
+"page": 26,
+"letter": "R"
+},
+{
+"be": "0051-8612",
+"priority": 591,
+"complex": "9620",
+"name": "NAUTSI",
+"lat": 69.0667,
+"lon": 29.1667,
+"page": 25,
+"letter": "R"
+},
+{
+"be": "0075-8004",
+"priority": 592,
+"complex": "8727",
+"name": "UELKAL",
+"lat": 65.5167,
+"lon": 179.25,
+"page": 39,
+"letter": "W"
+},
+{
+"be": "0124-8000",
+"priority": 594,
+"complex": "4134",
+"name": "KREST KHALDZHAY",
+"lat": 62.85,
+"lon": 134.6167,
+"page": 18,
+"letter": "R"
+},
+{
+"be": "0092-8018",
+"priority": 596,
+"complex": "4980",
+"name": "MEZEN",
+"lat": 65.8667,
+"lon": 44.4167,
+"page": 22,
+"letter": "RR"
+},
+{
+"be": "0091-8632",
+"priority": 598,
+"complex": "8425",
+"name": "TIKSHOZERO",
+"lat": 64.0833,
+"lon": 31.9167,
+"page": 38,
+"letter": "R"
+},
+{
+"be": "0047-8001",
+"priority": 599,
+"complex": "3455",
+"name": "KHATANGA",
+"lat": 71.9667,
+"lon": 102.4667,
+"page": 15,
+"letter": null
+},
+{
+"be": "0028-8001",
+"priority": 603,
+"complex": "3926",
+"name": "KOSISTYY",
+"lat": 73.6667,
+"lon": 109.7667,
+"page": 17,
+"letter": "R"
+},
+{
+"be": "0120-8601",
+"priority": 605,
+"complex": "8772",
+"name": "UGOLNYY",
+"lat": 63.0667,
+"lon": 179.3667,
+"page": 39,
+"letter": "R"
+},
+{
+"be": "0153-8008",
+"priority": 606,
+"complex": "4499",
+"name": "LENINGRAD CIVIL",
+"lat": 59.8,
+"lon": 20.3,
+"page": 20,
+"letter": null
+},
+{
+"be": "0013-8003",
+"priority": 609,
+"complex": "8880",
+"name": "UST TAUMYR",
+"lat": 76.25,
+"lon": 98.8833,
+"page": 40,
+"letter": "RR"
+},
+{
+"be": "0102-8014",
+"priority": 617,
+"complex": "5696",
+"name": "OBOZERSKAYA",
+"lat": 63.45,
+"lon": 40.2833,
+"page": 26,
+"letter": "R"
+},
+{
+"be": "0091-8622",
+"priority": 620,
+"complex": "0034",
+"name": "NIVSKIY",
+"lat": 67.4333,
+"lon": 32.8167,
+"page": 25,
+"letter": "5"
+},
+{
+"be": "0233-8037",
+"priority": 622,
+"complex": "3630",
+"name": "KIYEV/POST VOLYNSKIY",
+"lat": 50.4,
+"lon": 30.45,
+"page": 16,
+"letter": "R"
+},
+{
+"be": "0203-8621",
+"priority": 623,
+"complex": "4314",
+"name": "KUYBYSHEVKA/VOSTOCHNAYA",
+"lat": 50.9,
+"lon": 128.4667,
+"page": 19,
+"letter": null
+},
+{
+"be": "0167-8005",
+"priority": 624,
+"complex": "5070",
+"name": "MOGILEV",
+"lat": 63.8667,
+"lon": 30.3167,
+"page": 23,
+"letter": "R"
+},
+{
+"be": "0282-8028",
+"priority": 628,
+"complex": "7732",
+"name": "SPASSK DALNIY",
+"lat": 44.5833,
+"lon": 132.85,
+"page": 34,
+"letter": null
+},
+{
+"be": "0153-8109",
+"priority": 629,
+"complex": "7704",
+"name": "RELBITSY",
+"lat": 58.0667,
+"lon": 30.0833,
+"page": 31,
+"letter": "5"
+},
+{
+"be": "0235-8003",
+"priority": 631,
+"complex": "0490",
+"name": "BALASHOV",
+"lat": 51.5333,
+"lon": 43.1667,
+"page": 3,
+"letter": "RR"
+},
+{
+"be": "0154-8037",
+"priority": 633,
+"complex": "6170",
+"name": "PERESLAVL ZALESSKIY",
+"lat": 56.7167,
+"lon": 38.8167,
+"page": 28,
+"letter": null
+},
+{
+"be": "0101-8006",
+"priority": 634,
+"complex": "8036",
+"name": "SYKTYVKAR",
+"lat": 61.6667,
+"lon": 50.85,
+"page": 36,
+"letter": "RR"
+},
+{
+"be": "0493-8412",
+"priority": 636,
+"complex": "2585",
+"name": "WU CHANG CHINA",
+"lat": 30.5167,
+"lon": 114.3,
+"page": 42,
+"letter": "5"
+},
+{
+"be": "0282-8702",
+"priority": 637,
+"complex": "8983",
+"name": "VERINO",
+"lat": 48.0,
+"lon": 135.0333,
+"page": 40,
+"letter": "8"
+},
+{
+"be": "0250-8754",
+"priority": 638,
+"complex": "5720",
+"name": "OVIDOPOL",
+"lat": 46.4333,
+"lon": 30.6,
+"page": 27,
+"letter": "T"
+},
+{
+"be": "0166-8028",
+"priority": 642,
+"complex": "7070",
+"name": "RYAZHSK",
+"lat": 53.7,
+"lon": 40.0167,
+"page": 31,
+"letter": "R"
+},
+{
+"be": "0153-8131",
+"priority": 644,
+"complex": "8960",
+"name": "VELIKIYE LUKI",
+"lat": 56.3833,
+"lon": 30.6,
+"page": 40,
+"letter": "R"
+},
+{
+"be": "0291-8664",
+"priority": 654,
+"complex": "9220",
+"name": "NOVONIKOLSKOYE",
+"lat": 43.8667,
+"lon": 131.8667,
+"page": 26,
+"letter": "R"
+},
+{
+"be": "0251-8011",
+"priority": 655,
+"complex": "5807",
+"name": "ORASUL STALIN RUM",
+"lat": 45.7667,
+"lon": 25.6167,
+"page": 27,
+"letter": "MN"
+},
+{
+"be": "0282-8645",
+"priority": 662,
+"complex": "7732",
+"name": "KRASNYY KUT",
+"lat": 44.5167,
+"lon": 132.8333,
+"page": 18,
+"letter": "V"
+},
+{
+"be": "0281-8607",
+"priority": 663,
+"complex": "9740",
+"name": "YUZHNO SAKHALINSK",
+"lat": 46.9167,
+"lon": 142.7333,
+"page": 43,
+"letter": null
+},
+{
+"be": "0153-8029",
+"priority": 667,
+"complex": "9671",
+"name": "YELGAVA",
+"lat": 56.6667,
+"lon": 23.7,
+"page": 42,
+"letter": null
+},
+{
+"be": "0291-8633",
+"priority": 671,
+"complex": "2909",
+"name": "PETROVKA",
+"lat": 43.1667,
+"lon": 132.4333,
+"page": 28,
+"letter": null
+},
+{
+"be": "0291-8602",
+"priority": 690,
+"complex": "0290",
+"name": "ARTEM/KNEVICHT",
+"lat": 43.4,
+"lon": 132.2,
+"page": 3,
+"letter": "V"
+},
+{
+"be": "9206-8002",
+"priority": 696,
+"complex": "4903",
+"name": "MATSUWA",
+"lat": 48.05,
+"lon": 153.25,
+"page": 22,
+"letter": "R"
+},
+{
+"be": "0196-8003",
+"priority": 697,
+"complex": "5500",
+"name": "NIKOLAYEVSK",
+"lat": 53.15,
+"lon": 140.6667,
+"page": 25,
+"letter": "R"
+},
+{
+"be": "0153-8095",
+"priority": 699,
+"complex": "6830",
+"name": "RIGA/SKIROTAVA",
+"lat": 56.8833,
+"lon": 24.2167,
+"page": 31,
+"letter": "T"
+},
+{
+"be": "0325-8703",
+"priority": 704,
+"complex": "8310",
+"name": "TBILISI/AGTAGLYA",
+"lat": 41.5833,
+"lon": 44.95,
+"page": 37,
+"letter": "R"
+},
+{
+"be": "0325-8711",
+"priority": 705,
+"complex": "8320",
+"name": "TBILISI/ORKHEVI",
+"lat": 41.6667,
+"lon": 44.95,
+"page": 37,
+"letter": "V"
+},
+{
+"be": "0168-8207",
+"priority": 706,
+"complex": "0970",
+"name": "TERESPOL POL",
+"lat": 52.0333,
+"lon": 23.5333,
+"page": 37,
+"letter": "5"
+},
+{
+"be": "0325-8621",
+"priority": 709,
+"complex": "9460",
+"name": "SUMGAIT",
+"lat": 40.5667,
+"lon": 49.6167,
+"page": 35,
+"letter": "9"
+},
+{
+"be": "0232-8206",
+"priority": 714,
+"complex": "1590",
+"name": "DEBLIN/ULEZ POL",
+"lat": 51.6167,
+"lon": 22.1,
+"page": 8,
+"letter": null
+},
+{
+"be": "0155-8002",
+"priority": 716,
+"complex": "3520",
+"name": "KIROV",
+"lat": 58.6,
+"lon": 40.7333,
+"page": 15,
+"letter": null
+},
+{
+"be": "0159-8004",
+"priority": 717,
+"complex": "4090",
+"name": "KRASNOYARSK",
+"lat": 56.0333,
+"lon": 92.9,
+"page": 18,
+"letter": "5"
+},
+{
+"be": "0154-8069",
+"priority": 733,
+"complex": "0860",
+"name": "YEDROVO",
+"lat": 57.8667,
+"lon": 33.6667,
+"page": 42,
+"letter": null
+},
+{
+"be": "0199-8062",
+"priority": 738,
+"complex": "1370",
+"name": "CHITA",
+"lat": 52.1167,
+"lon": 113.5,
+"page": 7,
+"letter": "T"
+},
+{
+"be": "0254-8013",
+"priority": 740,
+"complex": "2360",
+"name": "GORK TY /SORMOVO",
+"lat": 56.3167,
+"lon": 43.85,
+"page": 11,
+"letter": null
+},
+{
+"be": "0250-8662",
+"priority": 741,
+"complex": "3600",
+"name": "KISHINEV",
+"lat": 47.05,
+"lon": 28.8667,
+"page": 16,
+"letter": "R"
+},
+{
+"be": "0205-8011",
+"priority": 745,
+"complex": "2020",
+"name": "TORO",
+"lat": 49.1833,
+"lon": 142.0833,
+"page": 38,
+"letter": "R"
+},
+{
+"be": "0232-8621",
+"priority": 746,
+"complex": "1400",
+"name": "UZHGOROD",
+"lat": 48.6333,
+"lon": 22.2667,
+"page": 40,
+"letter": "5"
+},
+{
+"be": "0152-8612",
+"priority": 747,
+"complex": "8980",
+"name": "VENTSPILS/TARGALE",
+"lat": 57.3333,
+"lon": 71.65,
+"page": 40,
+"letter": "5"
+},
+{
+"be": "0168-8676",
+"priority": 749,
+"complex": "9080",
+"name": "VILNYUS",
+"lat": 54.6333,
+"lon": 25.2833,
+"page": 40,
+"letter": null
+},
+{
+"be": "0153-8110",
+"priority": 757,
+"complex": "7840",
+"name": "STARAYA RUSSA",
+"lat": 57.9667,
+"lon": 31.3833,
+"page": 35,
+"letter": "R"
+},
+{
+"be": "0246-8006",
+"priority": 759,
+"complex": "1895",
+"name": "DZHUSALY",
+"lat": 45.5167,
+"lon": 64.1,
+"page": 9,
+"letter": "R"
+},
+{
+"be": "0251-8035",
+"priority": 760,
+"complex": "7271",
+"name": "SATU MARE RUM",
+"lat": 47.7167,
+"lon": 22.8833,
+"page": 32,
+"letter": "R"
+},
+{
+"be": "0325-8663",
+"priority": 763,
+"complex": "3530",
+"name": "KIROVABAD/KARABA",
+"lat": 40.7167,
+"lon": 46.3667,
+"page": 16,
+"letter": "5"
+},
+{
+"be": "0283-8459",
+"priority": 764,
+"complex": "2611",
+"name": "SUN CHIA TUN MANCH",
+"lat": 45.6667,
+"lon": 126.7,
+"page": 35,
+"letter": "5"
+},
+{
+"be": "0324-8638",
+"priority": 770,
+"complex": "6270",
+"name": "SOCHT",
+"lat": 43.4,
+"lon": 39.7167,
+"page": 34,
+"letter": "T"
+},
+{
+"be": "0249-8023",
+"priority": 775,
+"complex": "4910",
+"name": "KHANSKAYA",
+"lat": 44.6833,
+"lon": 40.0333,
+"page": 15,
+"letter": "5"
+},
+{
+"be": "0325-8683",
+"priority": 779,
+"complex": "4860",
+"name": "HAKHACHKALA/UYTASH",
+"lat": 42.8167,
+"lon": 47.65,
+"page": 22,
+"letter": null
+},
+{
+"be": "0250-8679",
+"priority": 780,
+"complex": "5490",
+"name": "NIKOLAYEV/KULBAKINO",
+"lat": 46.9333,
+"lon": 32.1,
+"page": 25,
+"letter": null
+},
+{
+"be": "0282-8033",
+"priority": 781,
+"complex": "7390",
+"name": "NOVO SYSOYEVKA",
+"lat": 44.2167,
+"lon": 133.3667,
+"page": 26,
+"letter": "5"
+},
+{
+"be": "0251-8017",
+"priority": 784,
+"complex": "1020",
+"name": "BUCHAREST/PIFERA RUM",
+"lat": 44.4833,
+"lon": 26.1167,
+"page": 6,
+"letter": null
+},
+{
+"be": "0154-8075",
+"priority": 785,
+"complex": "3830",
+"name": "TEYKOVO",
+"lat": 56.85,
+"lon": 40.5167,
+"page": 38,
+"letter": "R"
+},
+{
+"be": "0291-8000",
+"priority": 786,
+"complex": "9130",
+"name": "VLADIVOSTOK",
+"lat": 43.2,
+"lon": 131.9333,
+"page": 40,
+"letter": null
+},
+{
+"be": "0325-8726",
+"priority": 788,
+"complex": "5020",
+"name": "YEVLAKH",
+"lat": 40.6333,
+"lon": 47.15,
+"page": 42,
+"letter": "R"
+},
+{
+"be": "0250-8668",
+"priority": 794,
+"complex": "6140",
+"name": "KRIVOY ROG",
+"lat": 47.85,
+"lon": 33.3,
+"page": 18,
+"letter": null
+},
+{
+"be": "9203-8649",
+"priority": 795,
+"complex": "4642",
+"name": "LAZAREVO",
+"lat": 48.25,
+"lon": 132.45,
+"page": 19,
+"letter": "R"
+},
+{
+"be": "0232-8604",
+"priority": 796,
+"complex": "4780",
+"name": "LVOV/GORODOK",
+"lat": 49.75,
+"lon": 23.6667,
+"page": 21,
+"letter": "5"
+},
+{
+"be": "0102-8011",
+"priority": 798,
+"complex": "9160",
+"name": "NOVAYA LADOGA",
+"lat": 60.0833,
+"lon": 32.3333,
+"page": 26,
+"letter": "R"
+},
+{
+"be": "6233-8016",
+"priority": 807,
+"complex": "1290",
+"name": "CHERNOVTSY",
+"lat": 48.2667,
+"lon": 25.9833,
+"page": 7,
+"letter": "R"
+},
+{
+"be": "0336-8620",
+"priority": 809,
+"complex": "7770",
+"name": "STALINABAD",
+"lat": 38.55,
+"lon": 60.15,
+"page": 35,
+"letter": null
+},
+{
+"be": "0250-8693",
+"priority": 810,
+"complex": "5710",
+"name": "ODESSA/FONTAN",
+"lat": 46.4167,
+"lon": 30.7,
+"page": 26,
+"letter": "5"
+},
+{
+"be": "0163-8056",
+"priority": 811,
+"complex": "4795",
+"name": "LYUBINSKAYA",
+"lat": 55.15,
+"lon": 72.6833,
+"page": 21,
+"letter": null
+},
+{
+"be": "0250-8603",
+"priority": 812,
+"complex": "7430",
+"name": "PESCHANOYE",
+"lat": 44.85,
+"lon": 33.6167,
+"page": 28,
+"letter": "5"
+},
+{
+"be": "0325-8729",
+"priority": 829,
+"complex": "9310",
+"name": "TBILISI/SARTICHALA",
+"lat": 41.7,
+"lon": 45.3167,
+"page": 37,
+"letter": null
+},
+{
+"be": "0282-8010",
+"priority": 833,
+"complex": "2922",
+"name": "IMAN",
+"lat": 45.95,
+"lon": 133.7833,
+"page": 12,
+"letter": null
+},
+{
+"be": "0250-8650",
+"priority": 834,
+"complex": "2962",
+"name": "T2NATL",
+"lat": 45.3667,
+"lon": 28.8333,
+"page": 12,
+"letter": null
+},
+{
+"be": "0233-8091",
+"priority": 837,
+"complex": "7655",
+"name": "KRASTLOV",
+"lat": 49.6667,
+"lon": 26.9333,
+"page": 17,
+"letter": "5"
+},
+{
+"be": "0152-8601",
+"priority": 854,
+"complex": "4520",
+"name": "CIRAVA",
+"lat": 56.7333,
+"lon": 21.35,
+"page": 8,
+"letter": "R"
+},
+{
+"be": "0203-8003",
+"priority": 856,
+"complex": "4442",
+"name": "BIROFELD",
+"lat": 48.35,
+"lon": 132.7833,
+"page": 5,
+"letter": "T"
+},
+{
+"be": "0235-8030",
+"priority": 858,
+"complex": "6820",
+"name": "URALSK",
+"lat": 51.25,
+"lon": 51.3667,
+"page": 39,
+"letter": "R"
+},
+{
+"be": "0248-8004",
+"priority": 861,
+"complex": "0340",
+"name": "ASTRAKHAN",
+"lat": 46.2833,
+"lon": 48.0,
+"page": 3,
+"letter": null
+},
+{
+"be": "0249-8062",
+"priority": 862,
+"complex": "7725",
+"name": "SOVETSKAYA",
+"lat": 44.7333,
+"lon": 41.2167,
+"page": 34,
+"letter": null
+},
+{
+"be": "0165-8001",
+"priority": 863,
+"complex": "1950",
+"name": "BUGURUSLAN",
+"lat": 53.6,
+"lon": 52.45,
+"page": 6,
+"letter": null
+},
+{
+"be": "2165-8005",
+"priority": 865,
+"complex": "8730",
+"name": "UFA",
+"lat": 54.75,
+"lon": 56.0,
+"page": 39,
+"letter": "R"
+},
+{
+"be": "0201-8610",
+"priority": 870,
+"complex": "8790",
+"name": "ULAN UDE",
+"lat": 51.8167,
+"lon": 107.5,
+"page": 39,
+"letter": null
+},
+{
+"be": "0249-8004",
+"priority": 879,
+"complex": "0280",
+"name": "ARMAVIR",
+"lat": 44.9667,
+"lon": 41.1167,
+"page": 3,
+"letter": "R"
+},
+{
+"be": "0168-8623",
+"priority": 879,
+"complex": "3330",
+"name": "KAUNAS",
+"lat": 54.8833,
+"lon": 23.8833,
+"page": 14,
+"letter": "R"
+},
+{
+"be": "0282-8691",
+"priority": 879,
+"complex": "7390",
+"name": "STARO SYSOYEVKA",
+"lat": 44.1833,
+"lon": 133.3167,
+"page": 35,
+"letter": "2"
+},
+{
+"be": "0232-8259",
+"priority": 889,
+"complex": "5605",
+"name": "PIESTANY) CZECH",
+"lat": 48.45,
+"lon": 27.8333,
+"page": 29,
+"letter": "0B"
+},
+{
+"be": "0153-8101",
+"priority": 894,
+"complex": "4215",
+"name": "ASTE",
+"lat": 58.3667,
+"lon": 22.45,
+"page": 3,
+"letter": null
+},
+{
+"be": "0154-8009",
+"priority": 898,
+"complex": "1240",
+"name": "CHEREPOVETS",
+"lat": 59.1,
+"lon": 37.9333,
+"page": 7,
+"letter": "R"
+},
+{
+"be": "0154-8010",
+"priority": 899,
+"complex": "1870",
+"name": "OMITROV",
+"lat": 56.4667,
+"lon": 37.45,
+"page": 8,
+"letter": null
+},
+{
+"be": "0091-8608",
+"priority": 903,
+"complex": "3240",
+"name": "KANDALAKSHA",
+"lat": 67.1,
+"lon": 32.2,
+"page": 13,
+"letter": "R"
+},
+{
+"be": "0206-8018",
+"priority": 904,
+"complex": "3416",
+"name": "KHABAROVSK/SMIDNOVKA",
+"lat": 48.55,
+"lon": 135.3,
+"page": 15,
+"letter": null
+},
+{
+"be": "0234-8022",
+"priority": 905,
+"complex": "3120",
+"name": "KADIYEVKA",
+"lat": 48.6333,
+"lon": 38.6833,
+"page": 13,
+"letter": "R"
+},
+{
+"be": "0091-8612",
+"priority": 907,
+"complex": "3560",
+"name": "KIROVSK",
+"lat": 67.5833,
+"lon": 33.5667,
+"page": 16,
+"letter": "R"
+},
+{
+"be": "0092-8013",
+"priority": 908,
+"complex": "3625",
+"name": "KIYA",
+"lat": 67.5833,
+"lon": 44.5333,
+"page": 16,
+"letter": "R"
+},
+{
+"be": "0101-8003",
+"priority": 910,
+"complex": "3960",
+"name": "KOTLAS",
+"lat": 61.25,
+"lon": 46.7833,
+"page": 17,
+"letter": "R"
+},
+{
+"be": "0234-8074",
+"priority": 911,
+"complex": "4045",
+"name": "KRASNOGRAD",
+"lat": 49.4,
+"lon": 35.4833,
+"page": 18,
+"letter": null
+},
+{
+"be": "0234-8036",
+"priority": 913,
+"complex": "4250",
+"name": "KURSK",
+"lat": 51.7333,
+"lon": 36.1333,
+"page": 19,
+"letter": "R"
+},
+{
+"be": "0165-8017",
+"priority": 914,
+"complex": "4310",
+"name": "KUYBYSHEV/KRYAZAH",
+"lat": 53.1167,
+"lon": 50.1,
+"page": 19,
+"letter": "U"
+},
+{
+"be": "0153-8056",
+"priority": 915,
+"complex": "4490",
+"name": "PETROOVORETS",
+"lat": 59.55,
+"lon": 29.9,
+"page": 28,
+"letter": "RE"
+},
+{
+"be": "0168-8630",
+"priority": 917,
+"complex": "0816",
+"name": "LOSHNITSA",
+"lat": 54.2833,
+"lon": 28.8167,
+"page": 21,
+"letter": null
+},
+{
+"be": "0248-8022",
+"priority": 922,
+"complex": "6619",
+"name": "MINERALNYYE VODY",
+"lat": 44.2167,
+"lon": 43.1,
+"page": 23,
+"letter": "R"
+},
+{
+"be": "0202-8612",
+"priority": 925,
+"complex": "5397",
+"name": "NERCHINSK",
+"lat": 52.0,
+"lon": 116.5333,
+"page": 25,
+"letter": "R"
+},
+{
+"be": "0204-8640",
+"priority": 928,
+"complex": "5695",
+"name": "OBOR",
+"lat": 48.1333,
+"lon": 135.7,
+"page": 26,
+"letter": "R"
+},
+{
+"be": "0154-8042",
+"priority": 932,
+"complex": "7500",
+"name": "SHCHERBAKOV",
+"lat": 58.0,
+"lon": 38.8333,
+"page": 33,
+"letter": null
+},
+{
+"be": "0168-8667",
+"priority": 933,
+"complex": "7653",
+"name": "SLONIM",
+"lat": 53.05,
+"lon": 25.25,
+"page": 34,
+"letter": "R"
+},
+{
+"be": "0201-8606",
+"priority": 934,
+"complex": "5074",
+"name": "SOKHONDO",
+"lat": 51.8333,
+"lon": 112.5167,
+"page": 34,
+"letter": null
+},
+{
+"be": "0291-8009",
+"priority": 936,
+"complex": "2290",
+"name": "SURAZHEVKA",
+"lat": 43.45,
+"lon": 132.2833,
+"page": 35,
+"letter": null
+},
+{
+"be": "0123-8003",
+"priority": 937,
+"complex": "7982",
+"name": "SUSMAN",
+"lat": 62.8,
+"lon": 145.25,
+"page": 35,
+"letter": null
+},
+{
+"be": "0165-8021",
+"priority": 939,
+"complex": "8810",
+"name": "ULYANOVSK",
+"lat": 54.3,
+"lon": 48.3333,
+"page": 39,
+"letter": "R"
+},
+{
+"be": "0154-8058",
+"priority": 941,
+"complex": "9170",
+"name": "VOLOGDA",
+"lat": 59.35,
+"lon": 39.8167,
+"page": 40,
+"letter": null
+},
+{
+"be": "0282-8705",
+"priority": 942,
+"complex": "2922",
+"name": "VWVEDENKA",
+"lat": 45.85,
+"lon": 132.8333,
+"page": 41,
+"letter": "5"
+},
+{
+"be": "0167-8017",
+"priority": 945,
+"complex": "9625",
+"name": "YANOVICHT",
+"lat": 55.3333,
+"lon": 30.7,
+"page": 42,
+"letter": "R"
+},
+{
+"be": "0233-8088",
+"priority": 947,
+"complex": "9892",
+"name": "ZHITOMIR",
+"lat": 50.2667,
+"lon": 28.7333,
+"page": 43,
+"letter": "OR"
+},
+{
+"be": "0073-8005",
+"priority": 948,
+"complex": "9980",
+"name": "ZYRYANKA",
+"lat": 65.8333,
+"lon": 150.8667,
+"page": 43,
+"letter": "R"
+},
+{
+"be": "0103-8601",
+"priority": 949,
+"complex": "4150",
+"name": "KRONSHTADT",
+"lat": 60.0167,
+"lon": 29.7,
+"page": 18,
+"letter": null
+},
+{
+"be": "0092-8005",
+"priority": 953,
+"complex": "0270",
+"name": "ARKHANGELSK/TALAG",
+"lat": 64.5833,
+"lon": 40.7,
+"page": 3,
+"letter": "5"
+},
+{
+"be": "0233-8011",
+"priority": 962,
+"complex": "1264",
+"name": "CHERNIGOV",
+"lat": 51.55,
+"lon": 31.3,
+"page": 7,
+"letter": null
+},
+{
+"be": "0233-8012",
+"priority": 963,
+"complex": "1264",
+"name": "CHERNIGOV/KHOLYAVIN",
+"lat": 51.6,
+"lon": 31.2667,
+"page": 7,
+"letter": "T"
+},
+{
+"be": "0232-8624",
+"priority": 964,
+"complex": "1400",
+"name": "CHOP",
+"lat": 48.5,
+"lon": 22.2667,
+"page": 8,
+"letter": "R"
+},
+{
+"be": "0235-8009",
+"priority": 970,
+"complex": "2187",
+"name": "FROLOVO",
+"lat": 49.75,
+"lon": 43.7,
+"page": 10,
+"letter": "R"
+},
+{
+"be": "0328-8614",
+"priority": 971,
+"complex": "2190",
+"name": "FRUNZE",
+"lat": 42.85,
+"lon": 74.5833,
+"page": 10,
+"letter": "R"
+},
+{
+"be": "0167-8002",
+"priority": 973,
+"complex": "2350",
+"name": "GOMEL",
+"lat": 52.45,
+"lon": 31.1,
+"page": 11,
+"letter": null
+},
+{
+"be": "0156-8024",
+"priority": 982,
+"complex": "9100",
+"name": "ALAPAYEVSK",
+"lat": 57.8667,
+"lon": 61.8,
+"page": 2,
+"letter": "2"
+},
+{
+"be": "0166-8622",
+"priority": 982,
+"complex": "3360",
+"name": "JONAVA",
+"lat": 55.1333,
+"lon": 24.2833,
+"page": 13,
+"letter": "S"
+},
+{
+"be": "0238-8003",
+"priority": 983,
+"complex": "3270",
+"name": "KARAGANDA",
+"lat": 49.9,
+"lon": 73.2,
+"page": 14,
+"letter": "5"
+},
+{
+"be": "0169-8606",
+"priority": 985,
+"complex": "3180",
+"name": "KALININGRAD/GUTENFELD",
+"lat": 54.6833,
+"lon": 20.65,
+"page": 13,
+"letter": "T"
+},
+{
+"be": "0204-8617",
+"priority": 986,
+"complex": "3416",
+"name": "KHABAROVSK/NEKRASOVKA",
+"lat": 48.4,
+"lon": 135.2333,
+"page": 15,
+"letter": null
+},
+{
+"be": "0233-8093",
+"priority": 989,
+"complex": "3630",
+"name": "KIVEV/BORTNICHI",
+"lat": 50.3833,
+"lon": 30.7833,
+"page": 16,
+"letter": "5"
+},
+{
+"be": "0168-8626",
+"priority": 990,
+"complex": "3660",
+"name": "KLAYPEDA",
+"lat": 55.7,
+"lon": 21.1667,
+"page": 16,
+"letter": "5"
+},
+{
+"be": "0164-8015",
+"priority": 993,
+"complex": "4220",
+"name": "KURGAN",
+"lat": 55.4333,
+"lon": 65.3,
+"page": 18,
+"letter": "R"
+},
+{
+"be": "0153-8006",
+"priority": 995,
+"complex": "1417",
+"name": "MALAYA VISHERA",
+"lat": 58.8167,
+"lon": 32.25,
+"page": 22,
+"letter": "R"
+},
+{
+"be": "0168-8633",
+"priority": 996,
+"complex": "4890",
+"name": "MARIAMPOLE",
+"lat": 54.5667,
+"lon": 23.3833,
+"page": 22,
+"letter": "RT"
+},
+{
+"be": "0165-8023",
+"priority": 997,
+"complex": "4923",
+"name": "MAYTUGA",
+"lat": 52.9833,
+"lon": 49.3,
+"page": 22,
+"letter": "R"
+},
+{
+"be": "0153-8071",
+"priority": 1002,
+"complex": "5610",
+"name": "NOVGOROD",
+"lat": 58.55,
+"lon": 31.3333,
+"page": 26,
+"letter": "5"
+},
+{
+"be": "0168-8645",
+"priority": 1006,
+"complex": "3660",
+"name": "PALIEPGIRIAI",
+"lat": 55.9667,
+"lon": 21.1,
+"page": 28,
+"letter": "T"
+},
+{
+"be": "0166-8647",
+"priority": 1007,
+"complex": "4162",
+"name": "PARAFTANOVO",
+"lat": 54.9167,
+"lon": 27.55,
+"page": 28,
+"letter": "RR"
+},
+{
+"be": "0234-8054",
+"priority": 1013,
+"complex": "6897",
+"name": "ROSSOSH",
+"lat": 50.1333,
+"lon": 39.6833,
+"page": 31,
+"letter": "R"
+},
+{
+"be": "0102-8023",
+"priority": 1015,
+"complex": "7380",
+"name": "SEGEZHA",
+"lat": 63.7667,
+"lon": 34.2833,
+"page": 32,
+"letter": "R"
+},
+{
+"be": "0235-8037",
+"priority": 1016,
+"complex": "7740",
+"name": "SREDNYAYA AKHTUBA",
+"lat": 48.7333,
+"lon": 44.8667,
+"page": 34,
+"letter": "R"
+},
+{
+"be": "0234-8063",
+"priority": 1017,
+"complex": "7853",
+"name": "STAROBELSK",
+"lat": 49.2167,
+"lon": 38.95,
+"page": 35,
+"letter": "R"
+},
+{
+"be": "0167-8088",
+"priority": 1020,
+"complex": "8035",
+"name": "SYCHEVKA",
+"lat": 55.8667,
+"lon": 34.2833,
+"page": 36,
+"letter": "R"
+},
+{
+"be": "0233-8075",
+"priority": 1022,
+"complex": "8367",
+"name": "TERNOPOL",
+"lat": 69.3667,
+"lon": 25.65,
+"page": 38,
+"letter": "R"
+},
+{
+"be": "0168-8674",
+"priority": 1023,
+"complex": "7655",
+"name": "URECHYE",
+"lat": 52.95,
+"lon": 27.8667,
+"page": 39,
+"letter": "5"
+},
+{
+"be": "0154-8047",
+"priority": 1025,
+"complex": "9110",
+"name": "KUZMINA",
+"lat": 56.0167,
+"lon": 40.1333,
+"page": 19,
+"letter": "R"
+},
+{
+"be": "0102-8028",
+"priority": 1027,
+"complex": "9340",
+"name": "VYTEGRA",
+"lat": 61.0167,
+"lon": 36.45,
+"page": 41,
+"letter": "R"
+},
+{
+"be": "0498-8405",
+"priority": 1038,
+"complex": "8305",
+"name": "HSIN CHENG CHINA",
+"lat": 25.55,
+"lon": 114.6167,
+"page": 12,
+"letter": "RR"
+},
+{
+"be": "0497-8404",
+"priority": 1041,
+"complex": "4168",
+"name": "ERH TANG CHINA",
+"lat": 25.3833,
+"lon": 110.3,
+"page": 9,
+"letter": null
+},
+{
+"be": "0203-8601",
+"priority": 1045,
+"complex": "0275",
+"name": "ARKHARA",
+"lat": 49.4333,
+"lon": 130.0667,
+"page": 3,
+"letter": "R"
+},
+{
+"be": "0325-8622",
+"priority": 1047,
+"complex": "0460",
+"name": "BAKU/2ABRAT",
+"lat": 40.4833,
+"lon": 49.9833,
+"page": 3,
+"letter": "5"
+},
+{
+"be": "0203-8616",
+"priority": 1056,
+"complex": "0275",
+"name": "DOMIKAN",
+"lat": 49.6833,
+"lon": 129.8667,
+"page": 9,
+"letter": "5"
+},
+{
+"be": "0291-8016",
+"priority": 1060,
+"complex": "7942",
+"name": "FROLOVKA",
+"lat": 43.2667,
+"lon": 133.3,
+"page": 10,
+"letter": null
+},
+{
+"be": "0234-8620",
+"priority": 1061,
+"complex": "2380",
+"name": "GORLOVKA/MIKHAYLOVKA",
+"lat": 48.25,
+"lon": 37.9667,
+"page": 11,
+"letter": "R"
+},
+{
+"be": "0206-8010",
+"priority": 1062,
+"complex": "3150",
+"name": "KAKUMABETSU",
+"lat": 50.35,
+"lon": 155.5667,
+"page": 13,
+"letter": "5"
+},
+{
+"be": "0167-8026",
+"priority": 1063,
+"complex": "3265",
+"name": "KARACHEV",
+"lat": 53.1333,
+"lon": 34.9,
+"page": 14,
+"letter": "R"
+},
+{
+"be": "0166-8006",
+"priority": 1067,
+"complex": "3572",
+"name": "KIRSANOV",
+"lat": 52.6667,
+"lon": 42.6833,
+"page": 16,
+"letter": null
+},
+{
+"be": "0164-8006",
+"priority": 1069,
+"complex": "4283",
+"name": "KUSTANAY",
+"lat": 53.2333,
+"lon": 63.5833,
+"page": 19,
+"letter": "R"
+},
+{
+"be": "0166-8007",
+"priority": 1070,
+"complex": "4320",
+"name": "KUZNETSK",
+"lat": 53.1,
+"lon": 46.6,
+"page": 19,
+"letter": null
+},
+{
+"be": "0233-8045",
+"priority": 1072,
+"complex": "4777",
+"name": "LUTSK",
+"lat": 50.75,
+"lon": 25.35,
+"page": 21,
+"letter": "R"
+},
+{
+"be": "0102-8010",
+"priority": 1076,
+"complex": "4932",
+"name": "MEDVEZHYEGORSK",
+"lat": 62.9333,
+"lon": 34.5667,
+"page": 22,
+"letter": "R"
+},
+{
+"be": "0206-8001",
+"priority": 1077,
+"complex": "7440",
+"name": "MIYOSHING",
+"lat": 50.7,
+"lon": 156.3167,
+"page": 23,
+"letter": "5"
+},
+{
+"be": "0339-8610",
+"priority": 1079,
+"complex": "7193",
+"name": "NEFTECHALA",
+"lat": 39.3,
+"lon": 49.2,
+"page": 25,
+"letter": "5"
+},
+{
+"be": "0030-8002",
+"priority": 1080,
+"complex": "5603",
+"name": "BELUSHYA",
+"lat": 71.5833,
+"lon": 52.4167,
+"page": 4,
+"letter": "R"
+},
+{
+"be": "0092-8029",
+"priority": 1088,
+"complex": "6994",
+"name": "RUCHI",
+"lat": 66.0167,
+"lon": 41.1333,
+"page": 31,
+"letter": "R"
+},
+{
+"be": "0250-8710",
+"priority": 1090,
+"complex": "7430",
+"name": "SEVASTOPOL",
+"lat": 44.5833,
+"lon": 33.5333,
+"page": 33,
+"letter": "P"
+},
+{
+"be": "0206-8646",
+"priority": 1092,
+"complex": "7685",
+"name": "SOFIYSKOYE",
+"lat": 51.5333,
+"lon": 139.95,
+"page": 34,
+"letter": "2"
+},
+{
+"be": "0156-8009",
+"priority": 1094,
+"complex": "7980",
+"name": "SVERDLOVSK",
+"lat": 56.7833,
+"lon": 60.6333,
+"page": 35,
+"letter": "T"
+},
+{
+"be": "0156-8010",
+"priority": 1095,
+"complex": "7990",
+"name": "SVERDLOVSK/ARAMIL",
+"lat": 56.7,
+"lon": 60.7833,
+"page": 35,
+"letter": "U"
+},
+{
+"be": "0328-8622",
+"priority": 1098,
+"complex": "8270",
+"name": "TASHKENT",
+"lat": 41.3,
+"lon": 69.3333,
+"page": 37,
+"letter": "5"
+},
+{
+"be": "0337-8611",
+"priority": 1099,
+"complex": "8320",
+"name": "TEDZHEN",
+"lat": 37.3667,
+"lon": 60.5,
+"page": 37,
+"letter": null
+},
+{
+"be": "0239-8604",
+"priority": 1104,
+"complex": "8860",
+"name": "UST KAMENOGORSK",
+"lat": 49.9833,
+"lon": 82.6333,
+"page": 39,
+"letter": "R"
+},
+{
+"be": "0153-8129",
+"priority": 1105,
+"complex": "8917",
+"name": "VALGA",
+"lat": 57.7667,
+"lon": 26.1,
+"page": 40,
+"letter": "R"
+},
+{
+"be": "0328-8628",
+"priority": 1303,
+"complex": "7459",
+"name": "URSATYEVSKAYA",
+"lat": 40.2167,
+"lon": 68.8333,
+"page": 39,
+"letter": null
+}
+]
+}

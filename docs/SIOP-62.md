@@ -129,6 +129,15 @@ The globe is 2026 OpenStreetMap. In 1961 the frontiers were different and Gorky,
 - **[historical-basemaps](https://github.com/aourednik/historical-basemaps)** has `world_1945.geojson` and `world_1960.geojson` under GPL-3.0, with a `BORDERPRECISION` field and the author's own warning to verify against other sources. The 1960 borders are drawn as a documented-with-caveat layer, precision shown.
 - **[HYDE 3.3](https://doi.org/10.24416/UU01-AEZZIT)** (Klein Goldewijk, Utrecht University, 2023) supplies gridded population at 5 arc minutes in ESRI ASCII format. The Utrecht publication page states the licence as **CC BY-NC-SA 4.0**, not the CC BY that a mirror claimed; the study is non-commercial and share-alike is acceptable, and the attribution goes on the readout. The download sits behind a bot check that a browser passes.
 
+## The 1956 study in its own words
+
+Section 1 of the released study, OCR-read and quoted with its spelling corrected, states the method the target lists serve:
+
+- The mission is executed "through the execution of the following tasks, in the order indicated: (1) Win the Air Power Battle by destroying SovBloc Air Power. (2) Destroy systematically SovBloc war-supporting resources." The airfield list is the first task; the city list, "systematic destruction", is the second.
+- Damage criteria: "a 90% probability of collapse of all above-ground structures, whether on airfields or in areas containing Air Power Battle targets"; "a 70% probability of damage on individual targets if the total average for any complex amounts to 90%"; and "the criteria in the preceding sub-paragraph are less in Satellite areas (50%–70%)".
+- On yields: "every effort has been made to restrict the use of high yield weapons on Air Power Battle targets in the European Satellites in consideration of political, psychological and offensive and defensive implications, provided damage criteria and economy of force are maintained."
+- The listings are organised as a cross-reference list, the category code list (section 3, now transcribed to [`data/siop62/categories-1956.json`](../data/siop62/categories-1956.json)), an airfield list with weapons, and a complex list with weapons, each in an unrestricted and a restricted allocation, the latter of 1,203 DGZs.
+
 ## The 1956 transcription
 
 This is the question that decides scope, and the answer is favourable.
@@ -214,18 +223,17 @@ The rule from the manifesto holds for all of them: impractical, never fake. A st
 | Weapons launched | 1,591 | 1,685 (briefing chart) · 1,530 (Table 1, 15 July 1961) |
 | Megatons | 1,545 | 1,798 |
 | Alert fraction of the bomber force | 0.48, the value that makes the base list carry the documented 1,212 SAC aircraft weapons | "approximately half" (Sagan p. 29) |
-| Targets covered | 863, the whole prioritised city list, 728 of them with two weapons | 1,060 DGZs in the full plan |
-| First detonation | H+20 min (Atlas D) | ballistic missiles first (documented sequence) |
-| Half the targets struck | H+8 h 18 min | |
-| Last detonation | H+14 h 52 min | |
-| Blast-only dead, summed over HYDE 1961 | 53 million, 60 million injured | JCS 1961 estimate for the alert force: 80 million Soviet dead, 37 percent |
-| With mass fire, Postol bound | 120 million | |
+| Targets covered | 1,223: 360 airfields from the first-pass airfield transcription, struck first as the study's task order says, then the 863 prioritised complexes | 1,060 DGZs in the full plan, about 800 of them military |
+| First detonation | H+22 min (Atlas D on an airfield) | ballistic missiles first (documented sequence) |
+| Last detonation | H+14 h 47 min | |
+| Blast-only dead, summed over HYDE 1961 | 58 million, 75 million injured | JCS 1961 estimate for the alert force: 80 million Soviet dead, 37 percent |
+| With mass fire, Postol bound | 130 million | |
 
 **Tiers.** The launch sites and the totals are documented; the order of battle is built by [`scripts/build-order-of-battle-1961.py`](../scripts/build-order-of-battle-1961.py) from Wikipedia's B-47 unit list and strategic-wing list, the Atlas, Jupiter and Polaris records, and the theatre totals of Table 1, with positions read from the modern map. The strength on each base is reconstructed by stated rules: 45 aircraft for a heavy wing, 15 for a dispersed strategic wing, 45 for a B-47 wing, two weapons per B-52 and one per B-47, and one alert fraction across the force chosen so the SAC bases carry the documented 1,212 aircraft weapons. That fraction comes out at 0.48, which is the briefing's "approximately half" recovered rather than assumed. Every weapon-to-target assignment is inferred by one rule, highest priority first and nearest launcher in range with missiles before bombers, and the study's subtitle says so.
 
 **What it shows.** The documented pathology becomes a picture: the missiles land within the hour and the bomber stream is still crossing the pole eight hours later, so half the targets are struck after H+8 and the last after H+14. The sum over the 1961 grid, computed in four workers as the clock runs, brackets the planners' own figure: 53 million by their blast-only method against their 80 million, and 120 million with fire. The enacted figure covers the whole bloc including China, North Vietnam and Eastern Europe, while the JCS figure is Soviet dead only, so the comparison is a bracket, not a match.
 
-**What it omits**, on the readout: refuelling, routing, penetration and attrition; Soviet air defence and any Soviet response; the airfield list, which is not yet transcribed; per-weapon yields, with Mk-28 class assumed for bombers; and overlap between targets, which the summing counts more than once.
+**What it omits**, on the readout: refuelling, routing, penetration and attrition; Soviet air defence and any Soviet response; about half of the 1,100 airfields, which the first-pass transcription does not yet read; per-weapon yields, with Mk-28 class assumed for bombers; and overlap between targets, which the summing counts more than once. Airfields sit inside or beside the cities whose complexes are also struck, so the airfield weapons add little to the death count and much to the picture: the Air Power Battle is the first hour of the day.
 
 ## Open questions
 

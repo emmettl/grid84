@@ -130,8 +130,7 @@ export const SIOP62_PROOF: Study = {
       provenance: { ...CITY_LIST_P6, locator: 'p. 6, row "1045 0230 ANADYR 6444-17728"' },
       facts: [
         { label: 'Coordinates, 1956', value: '64°44′ N · 177°28′ E', evidence: 'documented', provenance: CITY_LIST_P6 },
-        { label: 'Categories', value: '248 · 254 · 284 · 280 (BE 0075-0003)', evidence: 'documented', provenance: CITY_LIST_P6 },
-        { label: 'Category names', value: 'Not yet transcribed (section 3, category code list)', evidence: 'withheld', provenance: { source: 'Transcription incomplete', withheldUnder: 'Not redacted; not yet read' } },
+        { label: 'Categories', value: '248 Military troop installations · 254 Naval operating bases · 284 Radar installations · 280 Ports, maritime (BE 0075-0003)', evidence: 'documented', provenance: { ...CITY_LIST_P6, locator: 'p. 6 rows; names from section 3, the category code list' } },
         { label: 'Population target', value: 'Category 275 · BE 0075-9999', evidence: 'withheld', provenance: { ...EBB538, withheldUnder: 'BE numbers of population targets remain classified' } },
         { label: 'Weapons assigned', value: 'WITHHELD', evidence: 'withheld', provenance: { ...CITY_LIST_P6, withheldUnder: 'FOIA (b)(3) · 42 USC 2168, printed on the redaction box' } },
         { label: 'In the 1961 target list', value: 'Not evidenced; the 1956 study is a proxy', evidence: 'inferred', provenance: { source: 'Method', method: 'Airfields and the largest complexes are the safest reconstruction; Anadyr carries an airfield category' } },
