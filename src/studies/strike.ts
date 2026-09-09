@@ -1,4 +1,4 @@
-import { Track } from '../engine/track.ts'
+import { Track, type Waypoint } from '../engine/track.ts'
 import type { Evidenced, EvidenceTier, Provenance } from '../evidence/evidence.ts'
 import type { LngLat } from '../geo/geodesy.ts'
 import { allocate, megatons, type AllocationOptions, type Launcher, type Sortie, type SystemKind, type Target } from '../models/allocation.ts'
@@ -29,7 +29,14 @@ export interface StrikeOptions {
   launchers: Launcher[]
   targets: Target[]
   allocation: AllocationOptions
-  attrition: StrikeAttrition
+  /** Attrition, or a function of the allocated sorties for calibration against a documented assurance. */
+  attrition: StrikeAttrition | ((sorties: Sortie[]) => StrikeAttrition)
+  /**
+   * Cruise routes other than the straight great circle, such as through a
+   * refuelling area; returns the waypoints from launch to arrival and the
+   * provenance of that route, or null for the default.
+   */
+  cruiseRoute?: (launcher: Launcher, target: Target, launch: number, arrival: number) => { waypoints: Waypoint[]; provenance: Provenance } | null
   /** How the allocation was decided, for the provenance panel. */
   allocationRule: Provenance
   /** Tier and provenance of the vehicles' existence and posture. */
@@ -61,6 +68,8 @@ export interface StrikeSummary {
   megatons: number
   firstDetonation: number
   lastDetonation: number
+  /** The bomber penetration probability used, calibrated or given. */
+  penetration: number
 }
 
 export interface StrikeResult {
@@ -84,6 +93,7 @@ const fmtYield = (kt: number) => (kt >= 1_000 ? `${(kt / 1_000).toFixed(kt >= 10
 
 export function enactStrike(o: StrikeOptions): StrikeResult {
   const result = allocate(o.launchers, o.targets, o.allocation)
+  const attrition = typeof o.attrition === 'function' ? o.attrition(result.sorties) : o.attrition
   const launcherById = Object.fromEntries(o.launchers.map((l) => [l.id, l]))
   const targetById = Object.fromEntries(o.targets.map((t) => [t.id, t]))
   const entities: Entity[] = []
@@ -98,19 +108,23 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
     const timing = sortieTiming(l, s, t)
     index += 1
     const id = `${o.prefix}-s-${index}`
-    const f = fate(`${o.prefix}:${s.launcherId}:${s.targetId}:${index}`, s.kind, o.attrition.penetration, o.attrition.reliability)
+    const custom = timing.route === 'cruise' ? (o.cruiseRoute?.(l, t, timing.launch, timing.arrival) ?? null) : null
+    if (custom) timing.arrival = custom.waypoints[custom.waypoints.length - 1].time
+    const f = fate(`${o.prefix}:${s.launcherId}:${s.targetId}:${index}`, s.kind, attrition.penetration, attrition.reliability)
     if (f.delivered) delivered += 1
     else if (f.cause === 'reliability') lostReliability += 1
     else lostPenetration += 1
     const endFraction = f.delivered ? 1 : Math.max(f.lostAtFraction ?? 0, 0.001)
     const endTime = timing.launch + (timing.arrival - timing.launch) * endFraction
     const full = new Track(
-      timing.route === 'ballistic'
-        ? ballisticWaypoints(l.position, t.position, timing.launch, timing.arrival)
-        : [
-            { position: l.position, time: timing.launch },
-            { position: t.position, time: timing.arrival },
-          ],
+      custom
+        ? custom.waypoints
+        : timing.route === 'ballistic'
+          ? ballisticWaypoints(l.position, t.position, timing.launch, timing.arrival)
+          : [
+              { position: l.position, time: timing.launch },
+              { position: t.position, time: timing.arrival },
+            ],
     )
     const endPosition: LngLat = f.delivered ? t.position : (full.positionAt(endTime) ?? l.position)
     const endAltitude = f.delivered ? 0 : full.altitudeAt(endTime)
@@ -125,7 +139,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       reveal: 'progressive',
       evidence: o.vehicle.evidence,
       provenance: { ...o.vehicle.provenance, method: `${o.vehicle.provenance.method ? `${o.vehicle.provenance.method}. ` : ''}Assignment: ${o.allocationRule.method ?? o.allocationRule.source}` },
-      route: { evidence: timing.route === 'ballistic' ? 'modelled' : 'reconstructed', provenance: timing.route === 'ballistic' ? o.route.ballistic : o.route.cruise },
+      route: { evidence: timing.route === 'ballistic' ? 'modelled' : 'reconstructed', provenance: custom ? custom.provenance : timing.route === 'ballistic' ? o.route.ballistic : o.route.cruise },
       facts: [],
     })
     if (!f.delivered) continue
@@ -180,6 +194,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       lostPenetration,
       targetsCovered: result.targetsCovered,
       unassigned: available - result.weaponsAssigned,
+      penetration: attrition.penetration,
       megatons: megatons(result.sorties),
       firstDetonation: arrivals[0] ?? 0,
       lastDetonation: arrivals[arrivals.length - 1] ?? 0,

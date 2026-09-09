@@ -1,10 +1,10 @@
-import { Track, type Waypoint } from '../../engine/track.ts'
+import { Track } from '../../engine/track.ts'
 import type { Provenance } from '../../evidence/evidence.ts'
 import type { LngLat } from '../../geo/geodesy.ts'
-import { allocate, megatons, type Launcher, type Sortie, type Target } from '../../models/allocation.ts'
-import { ATTRITION_MODEL, calibrate, DOCUMENTED_ASSURANCE, fate, RELIABILITY } from '../../models/attrition.ts'
-import { ballisticWaypoints, minimumEnergyTrajectory } from '../../models/ballistic.ts'
+import { allocate, megatons, type Launcher, type Target } from '../../models/allocation.ts'
+import { ATTRITION_MODEL, calibrate, DEFAULT_RELIABILITY, DOCUMENTED_ASSURANCE, RELIABILITY } from '../../models/attrition.ts'
 import { BLAST_MODEL, promptEffects } from '../../models/blast.ts'
+import { enactStrike } from '../strike.ts'
 import { generationAt, optionHours, SYSTEMS } from '../../models/readiness.ts'
 import type { Entity, Study, StudyEvent } from '../study.ts'
 import orderOfBattle from '../../../data/siop62/order-of-battle-1961.json'
@@ -253,16 +253,6 @@ function slerpTo(a: LngLat, b: LngLat, f: number): LngLat {
   return t.positionAt(Math.max(0, Math.min(1, f))) ?? a
 }
 
-function sortieTiming(launcher: Launcher, sortie: Sortie, target: Target): { launch: number; arrival: number; route: 'ballistic' | 'cruise' } {
-  const launch = launcher.reactionSeconds
-  if (launcher.kind === 'bomber') {
-    const speed = launcher.speedMs ?? B52_MS
-    return { launch, arrival: launch + sortie.distanceMetres / speed, route: 'cruise' }
-  }
-  const plan = minimumEnergyTrajectory(launcher.position, target.position)
-  return { launch, arrival: launch + plan.flightSeconds, route: 'ballistic' }
-}
-
 export function buildAlertForce(option = 1): { study: Study; summary: AlertForceSummary } {
   const generation = forceGeneration(option)
   const { launchers, alertFraction, growth } = buildLaunchers(generation)
@@ -270,9 +260,7 @@ export function buildAlertForce(option = 1): { study: Study; summary: AlertForce
   // The target list is the same for every option; a bigger force spreads over it: two weapons per target for the alert force, more as the force grows.
   const weaponsTotal = launchers.reduce((s, l) => s + l.weapons, 0)
   const weaponsPerTarget = Math.max(2, Math.ceil(weaponsTotal / targets.length))
-  const result = allocate(launchers, targets, { maxWeaponsPerTarget: weaponsPerTarget })
   const optionName = option === 1 ? 'ALERT FORCE' : option === 14 ? 'STRATEGIC WARNING' : `${generation.hours} H PREPARATION`
-  const launcherById = Object.fromEntries(launchers.map((l) => [l.id, l]))
   const targetById = Object.fromEntries(targets.map((t) => [t.id, t]))
   const raw = Object.fromEntries((orderOfBattle as { launchers: RawLauncher[] }).launchers.map((l) => [l.id, l]))
 
@@ -300,91 +288,47 @@ export function buildAlertForce(option = 1): { study: Study; summary: AlertForce
     })
   }
 
-  // Attrition: reliability and penetration, calibrated to the documented average assurance.
-  const calibration = calibrate(result.sorties, DOCUMENTED_ASSURANCE)
-  let delivered = 0
-  let lostReliability = 0
-  let lostPenetration = 0
-
-  // Sorties as tracks; lost sorties end where they are lost. One effect per target at first delivered arrival.
-  const firstArrival: Record<string, { time: number; yieldKt: number; weapons: number; kinds: Set<string> }> = {}
-  let index = 0
-  for (const s of result.sorties) {
-    const l = launcherById[s.launcherId]
-    const t = targetById[s.targetId]
-    const timing = sortieTiming(l, s, t)
-    const refuel = l.kind === 'bomber' && (l.speedMs ?? 0) < 300 ? refuelVia(l.position, t.position) : null
-    if (refuel) timing.arrival += refuel.extraMetres / (l.speedMs ?? B52_MS) + REFUEL_HOLD_SECONDS
-    index += 1
-    const sortieId = `s-${index}`
-    const f = fate(`${s.launcherId}:${s.targetId}:${index}`, s.kind, calibration.penetration)
-    if (f.delivered) delivered += 1
-    else if (f.cause === 'reliability') lostReliability += 1
-    else lostPenetration += 1
-    const endFraction = f.delivered ? 1 : (f.lostAtFraction ?? 0)
-    const endTime = timing.launch + (timing.arrival - timing.launch) * Math.max(endFraction, 0.001)
-    const waypoints: Waypoint[] = refuel
-      ? [
-          { position: l.position, time: timing.launch },
-          { position: refuel.area.position, time: timing.launch + haversineMetres(l.position, refuel.area.position) / (l.speedMs ?? B52_MS) },
-          { position: refuel.area.position, time: timing.launch + haversineMetres(l.position, refuel.area.position) / (l.speedMs ?? B52_MS) + REFUEL_HOLD_SECONDS },
-          { position: t.position, time: timing.arrival },
-        ]
-      : timing.route === 'ballistic'
-        ? ballisticWaypoints(l.position, t.position, timing.launch, timing.arrival)
-        : [
-            { position: l.position, time: timing.launch },
-            { position: t.position, time: timing.arrival },
-          ]
-    const fullTrack = new Track(waypoints)
-    const endPosition: LngLat = f.delivered ? t.position : (fullTrack.positionAt(endTime) ?? l.position)
-    const endAltitude = f.delivered ? 0 : fullTrack.altitudeAt(endTime)
-    entities.push({
-      kind: 'track',
-      id: sortieId,
-      name: `${l.name} → ${t.name}`,
-      designation: `${l.kind.toUpperCase()} · ${s.yieldKt >= 1_000 ? `${(s.yieldKt / 1_000).toFixed(2)} MT` : `${s.yieldKt} KT`}${f.delivered ? '' : ` · LOST (${f.cause?.toUpperCase()})`}`,
-      label: false,
-      track: f.delivered ? fullTrack : new Track(waypoints.filter((w) => w.time < endTime).concat([{ position: endPosition, time: endTime, altitude: endAltitude }])),
-      reveal: 'progressive',
-      evidence: 'inferred',
-      provenance: { source: 'Allocation rule', method: 'Highest-priority targets first, nearest launcher in range, missiles before bombers; not a documented assignment' },
-      route: { evidence: timing.route === 'ballistic' ? 'modelled' : 'reconstructed', provenance: { source: timing.route === 'ballistic' ? 'Minimum-energy trajectory' : refuel ? `Great circle at cruise speed via the ${refuel.area.name} refuelling area, ten-minute hold` : 'Great circle at cruise speed' } },
-      facts: [],
-    })
-    if (!f.delivered) continue
-    const fa = firstArrival[s.targetId]
-    if (!fa) firstArrival[s.targetId] = { time: timing.arrival, yieldKt: s.yieldKt, weapons: 1, kinds: new Set([l.kind]) }
-    else {
-      fa.time = Math.min(fa.time, timing.arrival)
-      fa.yieldKt = Math.max(fa.yieldKt, s.yieldKt)
-      fa.weapons += 1
-      fa.kinds.add(l.kind)
-    }
-  }
-  for (const [targetId, fa] of Object.entries(firstArrival)) {
-    const t = targetById[targetId]
-    entities.push({
-      kind: 'effect',
-      id: `e-${targetId}`,
-      name: t.name,
-      designation: `${TARGET_META[targetId]?.kind === 'airfield' ? 'AIRFIELD' : 'COMPLEX'} · PRIORITY ${t.priority % COMPLEX_AFTER_AIRFIELDS} · ${fa.weapons} WEAPON${fa.weapons > 1 ? 'S' : ''} · ${[...fa.kinds].join('/').toUpperCase()}`,
-      label: false,
-      compact: true,
-      center: t.position,
-      time: fa.time,
-      effects: promptEffects(fa.yieldKt),
-      burst: 'air',
-      evidence: 'modelled',
-      provenance: { source: BLAST_MODEL },
-      facts: [
-        { label: '1956 priority', value: `${t.priority % COMPLEX_AFTER_AIRFIELDS} on the ${TARGET_META[targetId]?.kind === 'airfield' ? 'airfield' : 'complex'} list`, evidence: 'documented', provenance: { source: TARGET_META[targetId]?.kind === 'airfield' ? 'SAC AWRS 1959 (June 1956), airfield list, section 6' : 'SAC AWRS 1959 (June 1956), city list' } },
-        ...(TARGET_META[targetId]?.categories?.length ? [{ label: 'Categories', value: TARGET_META[targetId].categories!.join(' · '), evidence: 'documented' as const, provenance: { source: 'Category code list, section 3' } }] : []),
-        { label: 'Weapons assigned', value: `${fa.weapons}, largest ${fa.yieldKt >= 1_000 ? `${(fa.yieldKt / 1_000).toFixed(2)} Mt` : `${fa.yieldKt} kt`}`, evidence: 'inferred', provenance: { source: 'Allocation rule' } },
-        { label: 'Exposure', value: 'Computed once per target with the largest weapon; overlapping weapons are not double counted', evidence: 'modelled', provenance: { source: 'Method' } },
-      ],
-    })
-  }
+  // The strike, through the shared builder: allocation above, attrition calibrated to the documented assurance,
+  // bombers from North America routed through the Chrome Dome refuelling areas, one effect per target.
+  const strike = enactStrike({
+    prefix: 'us',
+    side: 'attacker',
+    launchers,
+    targets,
+    allocation: { maxWeaponsPerTarget: weaponsPerTarget },
+    attrition: (sorties) => {
+      const c = calibrate(sorties, DOCUMENTED_ASSURANCE)
+      return { reliability: DEFAULT_RELIABILITY, penetration: c.penetration, note: ATTRITION_MODEL }
+    },
+    allocationRule: { source: 'Allocation rule', method: 'Highest-priority targets first, nearest launcher in range, missiles before bombers; not a documented assignment' },
+    vehicle: { evidence: 'inferred', provenance: { source: 'Order of battle of 15 July 1961', method: 'Base strengths by stated rule; every sortie inferred' } },
+    route: { cruise: { source: 'Great circle at cruise speed' }, ballistic: { source: 'Minimum-energy trajectory' } },
+    cruiseRoute: (l, t, launch, arrival) => {
+      const refuel = (l.speedMs ?? 0) < 300 ? refuelVia(l.position, t.position) : null
+      if (!refuel) return null
+      const speed = l.speedMs ?? B52_MS
+      const toArea = launch + haversineMetres(l.position, refuel.area.position) / speed
+      return {
+        waypoints: [
+          { position: l.position, time: launch },
+          { position: refuel.area.position, time: toArea },
+          { position: refuel.area.position, time: toArea + REFUEL_HOLD_SECONDS },
+          { position: t.position, time: arrival + refuel.extraMetres / speed + REFUEL_HOLD_SECONDS },
+        ],
+        provenance: { source: `Great circle at cruise speed via the ${refuel.area.name} refuelling area, ten-minute hold` },
+      }
+    },
+    targetCategory: (t) => `${TARGET_META[t.id]?.kind === 'airfield' ? 'AIRFIELD' : 'COMPLEX'} · PRIORITY ${t.priority % COMPLEX_AFTER_AIRFIELDS}`,
+    targetFacts: (t) => [
+      { label: '1956 priority', value: `${t.priority % COMPLEX_AFTER_AIRFIELDS} on the ${TARGET_META[t.id]?.kind === 'airfield' ? 'airfield' : 'complex'} list`, evidence: 'documented', provenance: { source: TARGET_META[t.id]?.kind === 'airfield' ? 'SAC AWRS 1959 (June 1956), airfield list, section 6' : 'SAC AWRS 1959 (June 1956), city list' } },
+      ...(TARGET_META[t.id]?.categories?.length ? [{ label: 'Categories', value: TARGET_META[t.id].categories!.join(' · '), evidence: 'documented' as const, provenance: { source: 'Category code list, section 3' } }] : []),
+    ],
+  })
+  entities.push(...strike.entities)
+  const result = { sorties: strike.sorties, weaponsAssigned: strike.summary.weapons, targetsCovered: strike.summary.targetsCovered }
+  const firstArrival = strike.firstArrival
+  const { delivered, lostReliability, lostPenetration } = strike.summary
+  const calibration = { penetration: strike.summary.penetration }
 
   // The Soviet response: documented force levels, inferred bases and targets, coupled to the strikes above.
   const soviet = sovietFile as typeof sovietFile

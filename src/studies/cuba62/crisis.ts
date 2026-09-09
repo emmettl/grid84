@@ -320,7 +320,7 @@ export function cubaSummary(): { r12: StrikeResult['summary']; fkr: StrikeResult
   const study = cubaRegional()
   const count = (prefix: string) => study.entities.filter((e) => e.kind === 'effect' && e.id.startsWith(`${prefix}-e-`)).length
   const weapons = (prefix: string) => study.entities.filter((e) => e.kind === 'track' && e.id.startsWith(`${prefix}-s-`)).length
-  const summary = (prefix: string): StrikeResult['summary'] => ({ weapons: weapons(prefix), sorties: weapons(prefix), delivered: 0, lostReliability: 0, lostPenetration: 0, targetsCovered: count(prefix), unassigned: 0, megatons: 0, firstDetonation: 0, lastDetonation: 0 })
+  const summary = (prefix: string): StrikeResult['summary'] => ({ weapons: weapons(prefix), sorties: weapons(prefix), delivered: 0, lostReliability: 0, lostPenetration: 0, targetsCovered: count(prefix), unassigned: 0, megatons: 0, firstDetonation: 0, lastDetonation: 0, penetration: 1 })
   return { r12: summary('r12'), fkr: summary('fkr'), luna: summary('luna') }
 }
 

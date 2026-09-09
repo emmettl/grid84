@@ -229,8 +229,8 @@ The rule from the manifesto holds for all of them: impractical, never fake. A st
 | Targets covered | 1,312: 442 airfields from the airfield transcription, struck first as the study's task order says, then the 863 prioritised complexes | 1,060 DGZs in the full plan, about 800 of them military |
 | First detonation | H+21 min (Atlas D on an airfield) | ballistic missiles first (documented sequence) |
 | Last detonation | H+17 h 08 min, a B-47 through the Newfoundland refuelling area | |
-| Weapons delivered | 1,368: 166 reliability failures at launch, 66 lost in penetration | assurance of delivery averaged 85 percent (JSTPS history, EBB 236); Atlas reliability 0.70 to 0.80 (Sagan n. 33) |
-| Blast-only dead, summed over HYDE 1961 | see the readout; the delivered force strikes 1,161 of the 1,312 targets | JCS 1961 estimate for the alert force: 80 million Soviet dead, 37 percent |
+| Weapons delivered | 1,363: 163 reliability failures at launch, 74 lost in penetration | assurance of delivery averaged 85 percent (JSTPS history, EBB 236); Atlas reliability 0.70 to 0.80 (Sagan n. 33) |
+| Blast-only dead, summed over HYDE 1961 | see the readout; the delivered force strikes 1,164 of the 1,312 targets | JCS 1961 estimate for the alert force: 80 million Soviet dead, 37 percent |
 | With mass fire, Postol bound | 130 million | |
 
 **Tiers.** The launch sites and the totals are documented; the order of battle is built by [`scripts/build-order-of-battle-1961.py`](../scripts/build-order-of-battle-1961.py) from Wikipedia's B-47 unit list and strategic-wing list, the Atlas, Jupiter and Polaris records, and the theatre totals of Table 1, with positions read from the modern map. The strength on each base is reconstructed by stated rules: 45 aircraft for a heavy wing, 15 for a dispersed strategic wing, 45 for a B-47 wing, two weapons per B-52 and one per B-47, and one alert fraction across the force chosen so the SAC bases carry the documented 1,212 aircraft weapons. That fraction comes out at 0.48, which is the briefing's "approximately half" recovered rather than assumed. Every weapon-to-target assignment is inferred by one rule, highest priority first and nearest launcher in range with missiles before bombers, and the study's subtitle says so.
@@ -256,11 +256,11 @@ Lemnitzer's warning is the finding: the response comes anyway, from the bombers 
 
 | Option | Preparation | Weapons | Megatons (Mk-28 assumed) | Targets | Weapons per target, at most | Delivered |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 0 h | 1,600 | 1,555 | 1,312 | 2 | 1,368 |
-| 4 | 3 h | 1,959 | 1,941 | 1,312 | 2 | 1,670 |
-| 7 | 6 h | 2,315 | 2,323 | 1,312 | 2 | 1,982 |
-| 10 | 9 h | 2,673 | 2,707 | 1,312 | 3 | 2,290 |
-| 14 | 14 h | 3,267 | 3,345 | 1,312 | 3 | 2,757 |
+| 1 | 0 h | 1,600 | 1,555 | 1,312 | 2 | 1,363 |
+| 4 | 3 h | 1,959 | 1,941 | 1,312 | 2 | 1,686 |
+| 7 | 6 h | 2,315 | 2,323 | 1,312 | 2 | 1,979 |
+| 10 | 9 h | 2,673 | 2,707 | 1,312 | 3 | 2,252 |
+| 14 | 14 h | 3,267 | 3,345 | 1,312 | 3 | 2,812 |
 
 The megatonnage is the visible disagreement: the documented 7,420 Mt for the generated force implies the Mk-36 and Mk-41 class weapons the non-alert bombers carried, which the enactment does not assign, and the readout says so at every option above the first. The Soviet response stays the tactical-warning one; a Soviet force generated during the same hours of strategic warning is not modelled, and that omission is stated too.
 
