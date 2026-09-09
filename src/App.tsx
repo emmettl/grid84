@@ -2,16 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import { Hud } from './hud/Hud.tsx'
 import { EVIDENCE_LAB } from './lab/evidence-lab.ts'
 import { PopulationLab } from './lab/PopulationLab.tsx'
+import { TerrainLab } from './lab/TerrainLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
 import { StudyView } from './studies/StudyView.tsx'
 
-type Route = { kind: 'atlas' } | { kind: 'study'; id: 'siop62' } | { kind: 'lab'; id: 'evidence' | 'population' }
+type Route = { kind: 'atlas' } | { kind: 'study'; id: 'siop62' } | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' }
 
 function parseRoute(hash: string): Route {
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
   if (hash === '#/lab/evidence') return { kind: 'lab', id: 'evidence' }
   if (hash === '#/lab/population') return { kind: 'lab', id: 'population' }
+  if (hash === '#/lab/terrain') return { kind: 'lab', id: 'terrain' }
   return { kind: 'atlas' }
 }
 
@@ -57,6 +59,7 @@ export default function App() {
     { href: '#/study/siop62', label: 'SIOP//62', active: route.kind === 'study' },
     { href: '#/lab/evidence', label: 'Lab · Evidence', active: route.kind === 'lab' && route.id === 'evidence' },
     { href: '#/lab/population', label: 'Lab · Population', active: route.kind === 'lab' && route.id === 'population' },
+    { href: '#/lab/terrain', label: 'Lab · Terrain', active: route.kind === 'lab' && route.id === 'terrain' },
   ]
   return (
     <>
@@ -71,6 +74,7 @@ export default function App() {
       {route.kind === 'study' && <StudyView key="siop62" study={SIOP62_PROOF} />}
       {route.kind === 'lab' && route.id === 'evidence' && <StudyView key="lab-evidence" study={EVIDENCE_LAB} />}
       {route.kind === 'lab' && route.id === 'population' && <PopulationLab key="lab-population" />}
+      {route.kind === 'lab' && route.id === 'terrain' && <TerrainLab key="lab-terrain" />}
     </>
   )
 }

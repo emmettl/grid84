@@ -82,3 +82,20 @@ A 5-arc-minute cell at 34°N is 7.6 by 9.3 km. Hiroshima's built-up area was abo
 - The blast-only method reproduces the immediate counts at Hiroshima and the fire bound reproduces the end-of-1945 count, given the survey's density. This is a check of the arithmetic, on the one city that is close to a uniform disc.
 - Nothing here validates the planar model where terrain matters, and Nagasaki shows how much that can be: a factor of two in area and three in deaths.
 - Nothing here validates the grid at kiloton scale.
+
+## Terrain: what the shadow and the wave say about Nagasaki
+
+The terrain lab (`#/lab/terrain`) puts the Nagasaki burst, 21 kt at 503 m, over the AWS terrain tiles resampled to 53 m cells.
+
+| Quantity | Value |
+| --- | --- |
+| Ground in the box | −71 to 482 m above sea level; burst at 510 m |
+| Visible from the burst, within the 5 psi radius (1.96 km) | 97% |
+| Visible within the 2 psi radius (3.69 km) | 75% |
+| Unshadowed 5 psi area | 11.7 of 12.1 km², against 4.7 km² of near-complete devastation recorded by the USSBS |
+| Mean terrain factor from the acoustic run, within 5 psi | ×1.00 |
+| Mean terrain factor within 2 psi | ×0.60 |
+
+**Reading.** Geometric shadowing does not explain Nagasaki. From a burst 500 m up, hills of 200 to 400 m a kilometre or two away hide only 3 percent of the ground inside the 5 psi radius; the thermal flash reached almost all of it. So the confinement the survey describes is a blast and fire phenomenon, not a line-of-sight one. The acoustic run points the same way: reflections off the valley walls hold the peak inside the valley at about the flat-ground level while the ground beyond the ridges drops to six tenths, which is the survey's sentence drawn as a map. It is not a measurement. The wave is linear, two-dimensional and stopped at the edge of the box; it cannot produce the Mach stem that carries a real shock along a valley floor, and it knows nothing of the wooden houses that burned. The lab's contribution is to rule out the cheap explanation and to show where a real solver would have to work.
+
+Structure class is the other half. "All Japanese homes destroyed" at 2.4 km against a 2 psi radius of 3.3 km is the American masonry criterion applied to a wooden city, and the OTA fractions were fitted to these two cities and no others. A structure-class correction belongs beside terrain as the second departure from the planar model.

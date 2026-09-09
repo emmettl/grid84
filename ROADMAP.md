@@ -63,6 +63,9 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 - [x] Population exposure lab at `#/lab/population`: HYDE 3.3 grids (1961, 2023) in a worker, OTA 1979 blast bands against a Postol fire bound, two-number readout, cells drawn under the rings.
 - [x] Validate against Hiroshima and Nagasaki: [docs/VALIDATION.md](docs/VALIDATION.md). Planar radii within about 10 percent at Hiroshima; the blast-only method reproduces the 1946 counts and the fire bound the end-of-1945 count with the survey's density; Nagasaki fails by two to three times because of terrain; HYDE cannot resolve a city at kiloton scale.
 - [ ] A finer historical population grid, or documented city densities, for kiloton-scale studies; GHSL for finer contemporary resolution.
+- [x] Terrain-shock lab at `#/lab/terrain`: line-of-sight shadow from the burst over AWS terrain tiles, a 2D acoustic wave with the blocking faces as reflectors, and a terrain factor against a flat run; Nagasaki, Hiroshima and Tsar Bomba presets. Finding: shadowing hides 3 percent of Nagasaki's 5 psi disc, so the valley confinement is a blast and fire effect; see [VALIDATION.md](docs/VALIDATION.md).
+- [ ] Structure-class correction to the casualty bands: the 1945 wooden cities failed at lower overpressure than the masonry criterion assumes.
+- [ ] Nonlinear shock over terrain, if ever: a Mach-stem-capable solver, out of scope for a browser lab.
 - [ ] Yield and height-of-burst selection staged as a configuration sequence.
 - [ ] This contemporary single-weapon case is the base case for every later execution study and the thing most people use NUKEMAP for; it uses the present-day GHSL population grid, while historical studies swap in HYDE.
 
