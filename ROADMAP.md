@@ -98,7 +98,7 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 
 **Exit:** the alert force plays end to end, every mark traces to a page, disagreements between sources are visible on the readout, and the study never claims to know more than the record.
 
-Candidate studies after SIOP//62, each needing its own brief first: Able Archer 83 gone hot, India–Pakistan after Toon and Robock (2019), the Korean peninsula. See [Beyond SIOP//62](docs/SIOP-62.md#beyond-siop62).
+Candidate studies after SIOP//62, each needing its own brief first: Able Archer 83 gone hot ([brief written](docs/ABLE-ARCHER-83.md)), India–Pakistan after Toon and Robock (2019), the Korean peninsula. See [Beyond SIOP//62](docs/SIOP-62.md#beyond-siop62).
 
 ## 5 — Publication
 
