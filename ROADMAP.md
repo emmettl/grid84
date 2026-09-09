@@ -18,7 +18,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 | Geocoding | [Photon](https://photon.komoot.io/) public instance | Fair use, no key | In use |
 | Routing | OSRM or Valhalla public demo servers | Demo only; own host for publication | Stage 1 |
 | Contours | `maplibre-contour` from the terrain tiles | Client side | Stage 2 |
-| Population | HYDE 3.3 grids (Utrecht), prepared by `scripts/prepare-hyde-grid.py`; 1940, 1961, 1983 and 2023 are committed, other years prepare locally in seconds; GHSL later for finer contemporary resolution | CC BY-NC-SA 4.0; behind a bot check, manual download | In use |
+| Population | HYDE 3.3 grids (Utrecht), prepared by `scripts/prepare-hyde-grid.py`; the study years are committed, other years prepare locally in seconds. GHSL GHS-POP at 30 arc seconds for the present, cut into ten-degree tiles by `scripts/prepare-ghsl-tiles.py` and fetched on demand by the exposure worker | HYDE CC BY-NC-SA 4.0, behind a bot check, manual download; GHSL CC BY 4.0, manual download | In use; GHSL pipeline built, awaiting the file |
 
 ## 0 — Target acquisition (now)
 
@@ -62,12 +62,12 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 - [x] Fallout lab at `#/lab/fallout`: Glasstone & Dolan idealized unit-time contours (Table 9.93) under a chosen wind and fission fraction, decay integrated to a chosen hour, population and acute deaths from the HYDE grid via polygon exposure in the worker. Air bursts produce no early fallout, so the proof gained a burst switch: in surface mode the overpressure rings take the contact-burst radii, the plume grows downwind on the clock, and the outcome log gains a fallout line at four days.
 - [x] Population exposure lab at `#/lab/population`: HYDE 3.3 grids (1961, 2023) in a worker, OTA 1979 blast bands against a Postol fire bound, two-number readout, cells drawn under the rings.
 - [x] Validate against Hiroshima and Nagasaki: [docs/VALIDATION.md](docs/VALIDATION.md). Planar radii within about 10 percent at Hiroshima; the blast-only method reproduces the 1946 counts and the fire bound the end-of-1945 count with the survey's density; Nagasaki fails by two to three times because of terrain; HYDE cannot resolve a city at kiloton scale.
-- [ ] A finer historical population grid, or documented city densities, for kiloton-scale studies; GHSL for finer contemporary resolution.
+- [x] GHSL for finer contemporary resolution: a tiled grid format (`TiledPopulationGrid`), a window cut around each request so the exposure functions run unchanged, the lab's grid switch reading indexed paths, and the tiler proved on a synthetic GeoTIFF. The real GHS-POP 2025 file prepares with one command once downloaded. A finer historical grid for kiloton-scale studies remains open.
 - [x] Terrain-shock lab at `#/lab/terrain`: line-of-sight shadow from the burst over AWS terrain tiles, a 2D acoustic wave with the blocking faces as reflectors, and a terrain factor against a flat run; Nagasaki, Hiroshima and Tsar Bomba presets. Finding: shadowing hides 3 percent of Nagasaki's 5 psi disc, so the valley confinement is a blast and fire effect; see [VALIDATION.md](docs/VALIDATION.md).
 - [x] Structure-class correction, tried and refused by the record: scaling the bands to the 3 psi Japanese collapse pressure reaches the end-of-1945 total by doubling near-field mortality the survey does not support, because the DCPA fractions were fitted to Hiroshima already. Kept as an exploratory control in the population lab; see [VALIDATION.md](docs/VALIDATION.md).
 - [ ] Nonlinear shock over terrain, if ever: a Mach-stem-capable solver, out of scope for a browser lab.
 - [ ] Yield and height-of-burst selection staged as a configuration sequence.
-- [ ] This contemporary single-weapon case is the base case for every later execution study and the thing most people use NUKEMAP for; it uses the present-day GHSL population grid, while historical studies swap in HYDE.
+- [x] This contemporary single-weapon case is the population lab with the GHSL grid selected: click the ground, choose the yield, read the two numbers over 30-arc-second cells; historical studies swap in HYDE.
 
 **Exit:** the circles are calculated effects, the readout states the model and its limits, and the local Aldi's overpressure band is correct for the chosen yield.
 

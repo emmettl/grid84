@@ -16,12 +16,18 @@ import { planarEstimate, radiusComparisons } from '../models/validation.ts'
 
 // Resolved against the page, because the worker would otherwise resolve a relative path against its own script URL.
 const gridUrl = (name: string) => new URL(`${import.meta.env.BASE_URL}data/hyde/${name}`, document.baseURI).href
+/** Grids live under data/hyde by default; an index entry may name another path under data/, such as the GHSL tiles. */
+const entryUrl = (entry: GridIndexEntry) => (entry.path ? new URL(`${import.meta.env.BASE_URL}data/${entry.path}`, document.baseURI).href : gridUrl(entry.name))
 const SPECIMEN_BASE = gridUrl('specimen')
 interface GridIndexEntry {
   year: number
   name: string
   totalPopulation: number
   dataset: string
+  /** Path under data/ for grids kept elsewhere than data/hyde, such as the GHSL tiles. */
+  path?: string
+  cellSize?: number
+  tiled?: boolean
 }
 const YEAR_NOTES: Record<number, string> = {
   1940: 'nearest grid to Hiroshima and Nagasaki, 1945',
@@ -67,6 +73,8 @@ export function PopulationLab() {
   const [validation, setValidation] = useState<ValidationCase | null>(null)
   const [collapsePsi, setCollapsePsi] = useState(5)
   const [years, setYears] = useState<GridIndexEntry[]>([{ year: 1961, name: 'popc_1961', totalPopulation: 0, dataset: 'HYDE 3.3' }])
+  const entry = years.find((y) => y.year === year) ?? { year, name: `popc_${year}`, totalPopulation: 0, dataset: 'HYDE 3.3' }
+  const base = entryUrl(entry)
 
   useEffect(() => {
     fetch(gridUrl('index.json'))
@@ -129,7 +137,7 @@ export function PopulationLab() {
     setResult(null)
     ;(async () => {
       try {
-        await tryLoad(gridUrl(`popc_${year}`), 'ready')
+        await tryLoad(base, 'ready')
       } catch (first) {
         try {
           await tryLoad(SPECIMEN_BASE, 'specimen')
@@ -143,7 +151,7 @@ export function PopulationLab() {
       service.current?.destroy()
       service.current = null
     }
-  }, [year])
+  }, [base])
 
   // Draw rings and the population cells whenever the centre or yield changes.
   useEffect(() => {
@@ -191,7 +199,8 @@ export function PopulationLab() {
     }
   }, [center, rings, ready, grid.status])
 
-  const cellKm = grid.summary ? `${((5 / 60) * 111.32 * Math.cos((center[1] * Math.PI) / 180)).toFixed(1)} × ${((5 / 60) * 111.32).toFixed(1)} km` : '—'
+  const cellDeg = grid.summary?.cellSize ?? 5 / 60
+  const cellKm = grid.summary ? `${(cellDeg * 111.32 * Math.cos((center[1] * Math.PI) / 180)).toFixed(cellDeg < 0.02 ? 2 : 1)} × ${(cellDeg * 111.32).toFixed(cellDeg < 0.02 ? 2 : 1)} km` : '—'
 
   return (
     <div className="study">
@@ -201,7 +210,7 @@ export function PopulationLab() {
         <header className="hud-brand study-brand">
           <span>SurfaceStudies · Terminal Atlas</span>
           <strong>LAB · POPULATION EXPOSURE</strong>
-          <span>Click the ground to move ground zero · HYDE 3.3 grids by year</span>
+          <span>Click the ground to move ground zero · HYDE 3.3 by year, GHSL for the present</span>
         </header>
 
         <section className="clock" aria-label="Weapon">
@@ -218,7 +227,7 @@ export function PopulationLab() {
           <h2>Year</h2>
           <div className="clock-controls">
             {years.map((y) => (
-              <button key={y.year} type="button" className={year === y.year ? 'is-active' : ''} title={`${y.dataset} · ${YEAR_NOTES[y.year] ?? ''}`} onClick={() => setYear(y.year)}>
+              <button key={y.name} type="button" className={year === y.year ? 'is-active' : ''} title={`${y.dataset}${y.cellSize && y.cellSize < 0.02 ? ' · 30 arc seconds' : ''} · ${YEAR_NOTES[y.year] ?? ''}`} onClick={() => setYear(y.year)}>
                 {y.year}
               </button>
             ))}
@@ -279,7 +288,7 @@ export function PopulationLab() {
               <dd>
                 {grid.summary.source.name}
                 {grid.summary.source.year > 0 && ` · ${grid.summary.source.year}`}{' '}
-                <span className={`badge badge--${grid.status === 'specimen' ? 'withheld' : 'documented'}`}>{grid.status === 'specimen' ? 'SPECIMEN' : 'DOCUMENTED'}</span>
+                <span className={`badge badge--${grid.status === 'specimen' || /SPECIMEN/.test(grid.summary.source.name) ? 'withheld' : 'documented'}`}>{grid.status === 'specimen' || /SPECIMEN/.test(grid.summary.source.name) ? 'SPECIMEN' : 'DOCUMENTED'}</span>
               </dd>
               <dt>Licence</dt>
               <dd>{grid.summary.source.licence}</dd>
@@ -350,7 +359,7 @@ export function PopulationLab() {
               <p className="provenance-source">{CASUALTY_MODEL}</p>
               <p className="provenance-source">{FIRE_MODEL}</p>
               <p className="provenance-method">
-                Headline figures are rounded to two significant figures. Uniform density within each 5-arc-minute cell is assumed; at this latitude a cell is {cellKm}, comparable to the inner rings, so the inner bands carry the largest error. No terrain, weather, shielding, sheltering or time of day.
+                Headline figures are rounded to two significant figures. Uniform density within each cell is assumed; at this latitude a cell is {cellKm}{cellDeg > 0.02 ? ', comparable to the inner rings, so the inner bands carry the largest error' : ', finer than the inner rings'}. No terrain, weather, shielding, sheltering or time of day.
               </p>
             </>
           )}

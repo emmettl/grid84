@@ -21,3 +21,6 @@ public/data/hyde/popc_*
 !public/data/hyde/popc_1973.*
 !public/data/hyde/popc_1983.*
 !public/data/hyde/popc_2023.*
+
+# GHSL tiles are prepared locally from the GeoTIFF by scripts/prepare-ghsl-tiles.py; the specimen is synthetic.
+public/data/ghsl/

@@ -7,6 +7,8 @@ type Outgoing<T> = T extends unknown ? Omit<T, 'id'> : never
 export interface GridSummary {
   source: PopulationGrid['source']
   total: number
+  /** Degrees per cell, for the readout. */
+  cellSize: number
 }
 
 /**
@@ -49,7 +51,7 @@ export class ExposureService {
   /** Load the grid into every worker. Resolves with the grid summary from the first. */
   async load(): Promise<GridSummary> {
     const results = await Promise.all(this.workers.map((_, slot) => this.send<WorkerResponse & { type: 'loaded' }>({ type: 'load', base: this.base }, slot)))
-    this.summary = { source: results[0].source, total: results[0].total }
+    this.summary = { source: results[0].source, total: results[0].total, cellSize: results[0].cellSize }
     return this.summary
   }
 

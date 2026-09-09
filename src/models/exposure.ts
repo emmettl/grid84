@@ -18,6 +18,8 @@ export interface PopulationGrid {
   counts: Float32Array
   /** For the readout: dataset, year, licence. */
   source: { name: string; year: number; licence: string }
+  /** A window cut from a larger grid: columns outside it are skipped rather than wrapped round the world. */
+  partial?: boolean
 }
 
 export interface ExposureRing {
@@ -71,7 +73,8 @@ export function exposure(grid: PopulationGrid, request: ExposureRequest): Exposu
   const share = 1 / (sub * sub)
   for (let row = r0; row <= r1; row += 1) {
     for (let cc = c0; cc <= c1; cc += 1) {
-      // Wrap longitude so a target near the antimeridian still sees both sides.
+      // Wrap longitude so a target near the antimeridian still sees both sides; a window has no other side.
+      if (grid.partial && (cc < 0 || cc >= grid.width)) continue
       const col = ((cc % grid.width) + grid.width) % grid.width
       const count = grid.counts[row * grid.width + col]
       if (!count) continue
@@ -153,6 +156,7 @@ export function exposurePolygons(grid: PopulationGrid, polygons: ExposurePolygon
   let cellsVisited = 0
   for (let row = r0; row <= r1; row += 1) {
     for (let cc = c0; cc <= c1; cc += 1) {
+      if (grid.partial && (cc < 0 || cc >= grid.width)) continue
       const col = ((cc % grid.width) + grid.width) % grid.width
       const count = grid.counts[row * grid.width + col]
       if (!count) continue
