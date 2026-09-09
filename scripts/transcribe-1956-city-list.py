@@ -36,7 +36,7 @@ COMPLEX = re.compile(
     r"(?P<lat>\d{4})\s*[-~]\s*(?P<lon>\d{5})(?P<lonE>E)?(?P<tail>(?:\s+[A-Z0-9]{1,2}){0,2})"
 )
 # Continuation complex with a name but no numbers (e.g. LENINSK under ANDIZHAN)
-SUBNAME = re.compile(r"^\s*(?P<name>[A-Z][A-Z .'\-]{2,}?)\s+(?P<lat>\d{4})\s*[-~]\s*(?P<lon>\d{5})(?P<lonE>E)?(?P<tail>(?:\s+[A-Z0-9]{1,2}){0,2})")
+SUBNAME = re.compile(r"^\s*(?P<name>[A-Z][A-Z0-9 .'\-]{2,}?)\s+(?P<lat>\d{4})\s*[-~]\s*(?P<lon>\d{5})(?P<lonE>E)?(?P<tail>(?:\s+[A-Z0-9]{1,2}){0,2})")
 # 4046- 7220E A   (additional DGZ line, longitude sometimes loses its leading zero)
 DGZ = re.compile(r"^\s*(?P<lat>\d{4})\s*[-~]\s*(?P<lon>\d{4,5})\s*(?P<lonE>E)?(?:\s+(?P<letter>[A-Z0-9]{1,2}))?(?=\s|$)")
 # 275 0498-9999   (category code + Bombing Encyclopedia number; number may be truncated)
@@ -55,11 +55,12 @@ def dm_to_degrees(value: str, width: int) -> float | None:
 
 def clean(line: str) -> str:
     # Strip the scanner margin noise that tesseract reads as punctuation.
-    line = line.replace("€", "E").replace("°", " ")
+    line = line.replace("€", "E").replace("°", " ").replace("§", "5").replace("—", "-").replace("–", "-")
+    line = re.sub(r"^\s*\$(?=\d)", "5", line)
     line = re.sub(r"[|;:,'\"‘’“”`·•]+", " ", line)
     line = re.sub(r"(\d)~", r"\1-", line)
     # Scanner margin marks read as short junk tokens before the real row.
-    line = re.sub(r"^(?:[^\w\s]+\s*|[A-Za-z]{1,2}[^\w\s]*\s+)+", "", line)
+    line = re.sub(r"^(?:[^\w\s]+\s*|[A-Za-z]{1,2}[^\w\s]*\s+)+", "", line.lstrip())
     line = re.sub(r"\s+", " ", line)
     return line.strip()
 
@@ -88,9 +89,10 @@ def ocr(png: Path) -> list[str]:
     return txt.read_text(encoding="utf-8", errors="ignore").splitlines()
 
 
-def parse_page(page: int, lines: list[str]) -> list[dict]:
+def parse_page(page: int, lines: list[str], state: dict) -> list[dict]:
+    """Parse one page. `state["current"]` carries the parent complex across page breaks."""
     records: list[dict] = []
-    current: str | None = None
+    current: str | None = state.get("current")
     redacted = any(REDACTION_MARK.search(line) for line in lines)
     records.append({
         "kind": "page",
@@ -159,6 +161,7 @@ def parse_page(page: int, lines: list[str]) -> list[dict]:
             continue
         if re.search(r"\d", line) or re.search(r"[A-Z]{3,}", line):
             records.append({"kind": "unparsed", "page": page, "complex": current, "raw": raw.rstrip()})
+    state["current"] = current
     return records
 
 
@@ -172,10 +175,11 @@ def main() -> int:
     args = ap.parse_args()
 
     totals = {"page": 0, "complex": 0, "category": 0, "dgz": 0, "unparsed": 0}
+    state: dict = {}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("w", encoding="utf-8") as out:
         for page in range(args.first, args.last + 1):
-            records = parse_page(page, ocr(render(args.pdf, page, args.cache)))
+            records = parse_page(page, ocr(render(args.pdf, page, args.cache)), state)
             for record in records:
                 totals[record["kind"]] += 1
                 out.write(json.dumps(record, ensure_ascii=False) + "\n")
