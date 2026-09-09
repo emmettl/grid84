@@ -735,3 +735,99 @@ body,
   .legend { grid-row: 6; max-width: 100%; }
   .grid-nav { top: auto; bottom: max(0.5rem, env(safe-area-inset-bottom)); }
 }
+
+/* ---------- Population lab ---------- */
+
+.grid-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem 0.8rem;
+  margin: 0;
+}
+
+.grid-facts dt {
+  color: var(--muted);
+}
+
+.grid-facts dd {
+  margin: 0;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.log code {
+  color: var(--cyan);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.two-numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin: 0.4rem 0 0.8rem;
+  text-align: left;
+}
+
+.two-numbers > div {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.5rem 0.6rem;
+  border-left: 2px solid rgb(255, 96, 96);
+  background: rgba(255, 96, 96, 0.06);
+}
+
+.two-numbers > div:last-child {
+  border-left-color: var(--amber);
+  background: rgba(255, 179, 71, 0.06);
+}
+
+.two-numbers span {
+  color: var(--muted);
+  font-size: 0.56rem;
+}
+
+.two-numbers strong {
+  color: var(--ink);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.two-numbers em {
+  color: var(--muted);
+  font-style: normal;
+  font-size: 0.56rem;
+}
+
+.bands {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.bands th {
+  padding: 0.2rem 0.3rem;
+  border-bottom: 1px solid rgba(141, 250, 255, 0.3);
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.bands td {
+  padding: 0.2rem 0.3rem;
+  color: var(--ink);
+}
+
+.bands th:first-child,
+.bands td:first-child {
+  text-align: left;
+}
+
+.bands tr.is-fire td {
+  color: var(--amber);
+  border-top: 1px solid rgba(255, 179, 71, 0.3);
+}

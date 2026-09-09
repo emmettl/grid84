@@ -1,0 +1,14 @@
+{
+  "dataset": "SPECIMEN (synthetic)",
+  "variable": "popc",
+  "year": 0,
+  "width": 4320,
+  "height": 2160,
+  "cellSize": 0.08333333333333333,
+  "west": -180.0,
+  "south": -90.0,
+  "encoding": "float32-le row-major from north-west, gzip",
+  "totalPopulation": 26746000,
+  "source": "Synthetic Gaussian cities for the lab; not a population dataset",
+  "licence": "none"
+}

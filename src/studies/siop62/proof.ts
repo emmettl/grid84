@@ -70,7 +70,7 @@ const events: StudyEvent[] = [
   { time: LAUNCH + 300, text: `ATLAS D · BURNOUT ${Math.round(atlasPlan.burnoutSpeed)} M/S · APOGEE ${km(atlasPlan.apogeeMetres)} (MODELLED)`, entityId: 'atlas' },
   { time: IMPACT - 120, text: 'ANADYR · TERMINAL PHASE · ACQUIRING', entityId: 'atlas', camera: { center: ANADYR, zoom: 9.2, pitch: 55, bearing: 20, durationMs: 6_000 } },
   { time: IMPACT, text: 'ANADYR · COMPLEX 0230 · DETONATION · W49 1.44 MT ASSUMED (MODELLED)', entityId: 'anadyr-effect' },
-  { time: IMPACT + 1, text: 'OUTCOME CALCULATION · POPULATION EXPOSURE NOT COMPUTED', entityId: 'anadyr-effect' },
+  { time: IMPACT + 1, text: 'OUTCOME CALCULATION · IN PROGRESS', entityId: 'anadyr-effect' },
 ]
 
 export const SIOP62_PROOF: Study = {
@@ -79,9 +79,10 @@ export const SIOP62_PROOF: Study = {
   subtitle: 'Bounded proof · one of everything, across every tier',
   bounds: { start: -4 * 3_600, end: 2 * 3_600 },
   view: { center: [-152, 60], zoom: 1.75 },
+  populationGrid: 'popc_1961',
   omissions: [
     'Soviet response: not represented; the briefing states some Soviet weapons would reach the United States under any circumstances',
-    'Population exposure: not computed; HYDE 1960 grid not yet integrated',
+    'Population exposure: HYDE 3.3 1961 grid at 5 arc minutes; uniform density within cells; blast-only fractions from OTA 1979 and a Postol fire bound',
     'Fallout: not modelled; air burst assumed',
     'Terrain, weather, shielding: not modelled; planar prompt effects',
     'Weapon-to-target assignment: not in the record; this one is an illustration',
@@ -199,7 +200,7 @@ export const SIOP62_PROOF: Study = {
         { label: 'Yield', value: 'W49 · 1.44 Mt', evidence: 'documented', provenance: ATLAS_TABLE },
         { label: 'Burst', value: 'Optimum-height air burst assumed', evidence: 'modelled', provenance: { source: BLAST_MODEL } },
         ...effects.rings.map((ring) => ({ label: ring.label, value: `${(ring.radius / 1_000).toFixed(1)} km · ${ring.criterion}`, evidence: 'modelled' as const, provenance: { source: BLAST_MODEL } })),
-        { label: 'Population exposure', value: 'NOT COMPUTED', evidence: 'withheld', provenance: { source: 'HYDE 1960 not integrated', withheldUnder: 'Nothing is withheld here; it is simply not done yet' } },
+        { label: 'Population grid', value: 'HYDE 3.3 · 1961 · 5 arc minutes · CC BY-NC-SA 4.0', evidence: 'documented', provenance: { source: 'Klein Goldewijk 2023', url: 'https://doi.org/10.24416/UU01-AEZZIT' } },
       ],
     },
   ],

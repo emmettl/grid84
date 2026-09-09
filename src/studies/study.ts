@@ -75,4 +75,6 @@ export interface Study {
   events: StudyEvent[]
   /** What the study does not compute, stated on the readout. */
   omissions: string[]
+  /** Name of a prepared population grid under data/hyde, e.g. 'popc_1961'; effects then compute exposure. */
+  populationGrid?: string
 }

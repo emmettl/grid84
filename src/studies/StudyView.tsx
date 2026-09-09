@@ -5,6 +5,9 @@ import { formatProvenance, TIER_LABEL, type Evidenced } from '../evidence/eviden
 import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
+import { applyBands, bandPopulations, OTA_BANDS, outcome, overpressureRadiusForPsi, type Outcome } from '../models/casualties.ts'
+import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
+import { ExposureService } from '../models/exposure-service.ts'
 import { EvidenceLegend } from './EvidenceLegend.tsx'
 import type { Entity, LabelAnchor, Study } from './study.ts'
 
@@ -98,6 +101,9 @@ export function StudyView({ study }: { study: Study }) {
   const terrainSync = useRef<((force?: boolean) => void) | null>(null)
   /** Sources are rewritten only when the clock moves, and once on first paint. */
   const primed = useRef(false)
+  const exposureService = useRef<ExposureService | null>(null)
+  const computed = useRef<Set<string>>(new Set())
+  const [outcomes, setOutcomes] = useState<Record<string, Outcome & { grid: string }>>({})
   const initialClock: ClockState = { time: Math.max(study.bounds.start, -600), playing: false, rate: 60 }
   const clockRef = useRef<ClockState>(initialClock)
   const [clock, setClock] = useState<ClockState>(initialClock)
@@ -143,6 +149,25 @@ export function StudyView({ study }: { study: Study }) {
     }
   }, [study, statics])
 
+  // Population grid for outcome calculation, loaded once per study in a worker.
+  useEffect(() => {
+    if (!study.populationGrid) return
+    const base = new URL(`${import.meta.env.BASE_URL}data/hyde/${study.populationGrid}`, document.baseURI).href
+    const service = new ExposureService(base, 1)
+    exposureService.current = service
+    if (import.meta.env.DEV) Object.assign(window, { __grid84Exposure: service })
+    service.load().catch((error) => {
+      // A destroyed service rejects its load; only clear the ref if it is still ours.
+      if (exposureService.current !== service) return
+      console.warn('population grid unavailable', error)
+      exposureService.current = null
+    })
+    return () => {
+      service.destroy()
+      exposureService.current = null
+    }
+  }, [study])
+
   useEffect(() => {
     if (!ready) return
     let frame = 0
@@ -186,6 +211,23 @@ export function StudyView({ study }: { study: Study }) {
             const due = next.time >= e.time
             if (due && !marker.getElement().isConnected) marker.addTo(map)
             else if (!due && marker.getElement().isConnected) marker.remove()
+            const service = exposureService.current
+            if (due && service && service.grid && !computed.current.has(e.id)) {
+              computed.current.add(e.id)
+              const yieldKt = e.effects.yieldKt
+              const rings = [...OTA_BANDS.map((b) => ({ key: b.key, radius: overpressureRadiusForPsi(yieldKt, b.minPsi) })), { key: 'fire', radius: thirdDegreeBurnRadiusMetres(yieldKt) }]
+              const gridName = `${service.grid.source.name} · ${service.grid.source.year}`
+              service
+                .exposure({ center: e.center, rings, subsamples: 4 })
+                .then((result) => {
+                  const bands = applyBands(bandPopulations(result.within))
+                  setOutcomes((prev) => ({ ...prev, [e.id]: { ...outcome(bands, result.within.fire ?? 0), grid: gridName } }))
+                })
+                .catch((error) => {
+                  console.warn('exposure failed', error)
+                  computed.current.delete(e.id)
+                })
+            }
           }
         }
       }
@@ -202,7 +244,21 @@ export function StudyView({ study }: { study: Study }) {
     setClock(clockRef.current)
   }
 
-  const log = study.events.filter((e) => e.time <= clock.time).sort((a, b) => b.time - a.time)
+  const fmt = (v: number) => {
+    if (v < 10) return Math.round(v).toLocaleString('en-GB')
+    const magnitude = 10 ** (Math.floor(Math.log10(v)) - 1)
+    return (Math.round(v / magnitude) * magnitude).toLocaleString('en-GB')
+  }
+  const outcomeEvents = study.entities.flatMap((e) => {
+    if (e.kind !== 'effect') return []
+    const o = outcomes[e.id]
+    if (!o) return []
+    return [
+      { time: e.time + 2, text: `OUTCOME · ${e.name.toUpperCase()} · BLAST ONLY (1961 METHOD): ${fmt(o.blast.fatal)} DEAD · ${fmt(o.blast.injured)} INJURED (MODELLED)`, entityId: e.id },
+      { time: e.time + 3, text: `OUTCOME · ${e.name.toUpperCase()} · WITH MASS FIRE (POSTOL BOUND): ${fmt(o.fire.fatal)} DEAD (MODELLED)`, entityId: e.id },
+    ]
+  })
+  const log = [...study.events, ...outcomeEvents].filter((e) => e.time <= clock.time).sort((a, b) => b.time - a.time)
 
   return (
     <div className="study">
@@ -230,6 +286,8 @@ export function StudyView({ study }: { study: Study }) {
               type="button"
               onClick={() => {
                 setClockState({ time: Math.max(study.bounds.start, -600), playing: false })
+                computed.current.clear()
+                setOutcomes({})
                 terrainSync.current?.(false)
                 mapRef.current?.flyTo({ center: [study.view.center[0], study.view.center[1]], zoom: study.view.zoom, pitch: 0, bearing: 0, duration: 2_000, essential: true })
               }}
@@ -282,6 +340,20 @@ export function StudyView({ study }: { study: Study }) {
                   Route <Badge evidence={selected.route.evidence} /> {formatProvenance(selected.route.provenance)}
                   {selected.route.provenance.method && <> · {selected.route.provenance.method}</>}
                 </p>
+              )}
+              {selected.kind === 'effect' && outcomes[selected.id] && (
+                <div className="two-numbers">
+                  <div>
+                    <span>Blast only · 1961 method</span>
+                    <strong>{fmt(outcomes[selected.id].blast.fatal)}</strong>
+                    <em>dead · {fmt(outcomes[selected.id].blast.injured)} injured · {outcomes[selected.id].grid}</em>
+                  </div>
+                  <div>
+                    <span>With mass fire · Postol bound</span>
+                    <strong>{fmt(outcomes[selected.id].fire.fatal)}</strong>
+                    <em>dead · everyone inside the fire zone</em>
+                  </div>
+                </div>
               )}
               <dl>
                 {selected.facts.map((fact) => (

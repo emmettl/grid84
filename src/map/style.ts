@@ -102,7 +102,7 @@ export function createAtlasStyle(): StyleSpecification {
         type: 'line',
         source: 'atlas',
         'source-layer': 'boundary',
-        filter: ['all', ['<=', ['get', 'admin_level'], 2], ['==', ['get', 'maritime'], 0]],
+        filter: ['all', ['<=', ['coalesce', ['get', 'admin_level'], 99], 2], ['==', ['coalesce', ['get', 'maritime'], 0], 0]],
         paint: {
           'line-color': cyan(0.4),
           'line-width': ['interpolate', ['linear'], ['zoom'], 2, 0.5, 8, 1.2],

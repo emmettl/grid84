@@ -127,7 +127,7 @@ The globe is 2026 OpenStreetMap. In 1961 the frontiers were different and Gorky,
 
 - **The 1956 study carries its own coordinates**, in degrees and minutes, alongside period names. A target transcribed from it needs no geocoding. Its coordinates are documented tier; the modern name is an annotation.
 - **[historical-basemaps](https://github.com/aourednik/historical-basemaps)** has `world_1945.geojson` and `world_1960.geojson` under GPL-3.0, with a `BORDERPRECISION` field and the author's own warning to verify against other sources. The 1960 borders are drawn as a documented-with-caveat layer, precision shown.
-- **[HYDE 3.3](https://datahub.io/climate-and-environment/hyde-history-database-of-the-global-environment)** (Klein Goldewijk et al., CC BY 4.0, DOI 10.24416/UU01-94FNH0) supplies gridded population at 5 arc minutes for 1960. The grid download at Utrecht sits behind a bot check and needs a manual fetch; confirm whether 1960 is a decadal or annual layer in this version.
+- **[HYDE 3.3](https://doi.org/10.24416/UU01-AEZZIT)** (Klein Goldewijk, Utrecht University, 2023) supplies gridded population at 5 arc minutes in ESRI ASCII format. The Utrecht publication page states the licence as **CC BY-NC-SA 4.0**, not the CC BY that a mirror claimed; the study is non-commercial and share-alike is acceptable, and the attribution goes on the readout. The download sits behind a bot check that a browser passes.
 
 ## The 1956 transcription
 
@@ -151,7 +151,7 @@ The models are public even though NUKEMAP's code is not. NUKEMAP's own [FAQ](htt
 | Casualties | DCPA *Attack Environment Manual* (1973) curves as reprinted by the OTA in 1979 | Blast proxy only, which is exactly the underestimate EBB 798 describes |
 | Mass fire | Weakest area; Hiroshima and Hamburg evidence, Lynn Eden's *Whole World on Fire* | Lowest fidelity ceiling in the study; a lab, not a claim |
 
-The outcome readout carries two numbers: what the planners estimated from blast alone, and what the modern recomputation over the HYDE grid gives. The gap is the subject.
+The outcome readout carries two numbers: the blast-only figure by the planners' own OTA/DCPA method, and the mass-fire bound after Postol, in which everyone inside the third-degree-burn radius is counted dead. The gap is the subject. Casualty fractions by band come from OTA 1979 figure II-1: 98 percent dead above 12 psi, 50 percent dead and 40 percent injured from 5 to 12, 5 and 45 from 2 to 5, none dead and 25 percent injured from 1 to 2. The 12 and 2 psi radii are log-log interpolations between Sublette's tabulated constants.
 
 ## Labs programme
 
@@ -167,7 +167,7 @@ Most of the study is subsystems, and each subsystem earns its place through a la
 | **Terrain shock** | Blast propagation over real terrain rather than a plane: Nagasaki's Urakami valley confined and channelled the blast, and Glasstone treats terrain only qualitatively, which is why planar tools stop there. Three fidelities in order: line-of-sight shadowing of the burst point over the terrain tiles; a 2D acoustic wave solver over the height field on a small grid, run in a shader when the camera is close, showing reflections and channelling; and the planar model everywhere else. Real CFD is out of scope | Nagasaki damage surveys against the shadowed and channelled zones; the planar radii in the far field | A linear wave over a 2.5D surface; qualitative reflections, not pressures anyone should quote |
 | **Fallout plume** | Dose-rate contours over hours and days under a chosen wind, decay | Miller and WSEG-10 worked examples | Single wind vector, no shear |
 | **Fire spread** | Ignition radius, mass-fire growth, the firestorm threshold | Hiroshima and Hamburg | Explicitly speculative; rendered inferred |
-| **Population exposure** | Sampling the HYDE grid under effect geometry; the two-number readout | 1961 estimates against modern recomputation for one city | Grid resolution of 5 arc minutes |
+| **Population exposure** | Sampling the HYDE grid under effect geometry; the two-number readout. **Built:** `#/lab/population`, HYDE 3.3 1961 and 2023 grids in a worker pool, OTA 1979 blast-only bands against a Postol superfire bound, populated cells drawn under the rings, click to move ground zero | 1961 estimates against modern recomputation for one city; Hiroshima and Nagasaki once a 1940s grid is prepared | Grid resolution of 5 arc minutes; uniform density within a cell |
 | **Evidence grammar** | Solid, broken, ghost, modelled and withheld line treatments in the Grid/84 style; provenance on hover | Legibility on a phone | None; this is design |
 
 The labs are also where the register is tuned. A plume that grows in silence over Sverdlovsk while a counter ticks up is the whole study in miniature, and it should be tested as a specimen before the full plan is attempted.
@@ -188,7 +188,7 @@ The first deliverable is not the plan. It is one of everything, across every tie
 
 **Exit:** the proof plays from H-hour on the Terminal Atlas clock, every mark on it can be traced to a page, and the redaction is visible.
 
-**Built, 9 September 2026.** The proof runs. The Atlas D launches at H+15:00 on the documented reaction time, flies a minimum-energy arc of 21.6 minutes to apogee 1,026 km, and detonates at H+36:38 with the prompt-effects rings drawn on the Anadyr estuary; the camera descends to the target in the terminal phase. The Chrome Dome B-52 flies its reconstructed loop throughout, passing Thule half an hour before H-hour, its SIOP target logged as withheld. Every mark opens a provenance panel with its facts badged by tier. Population exposure is shown as not computed. Not yet built: fallout, the Soviet response, and the terrain-shock lab.
+**Built, 9 September 2026.** The proof runs. The Atlas D launches at H+15:00 on the documented reaction time, flies a minimum-energy arc of 21.6 minutes to apogee 1,026 km, and detonates at H+36:38 with the prompt-effects rings drawn on the Anadyr estuary; the camera descends to the target in the terminal phase. The Chrome Dome B-52 flies its reconstructed loop throughout, passing Thule half an hour before H-hour, its SIOP target logged as withheld. Every mark opens a provenance panel with its facts badged by tier. Population exposure is shown as not computed. Population exposure now computes at impact from the HYDE 1961 grid: the Anadyr weapon gives about 7,000 dead by the blast-only 1961 method and 8,500 with mass fire, both labelled modelled with their sources. Not yet built: fallout, the Soviet response, and the terrain-shock lab.
 
 ## Beyond SIOP//62
 

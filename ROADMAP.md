@@ -18,7 +18,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 | Geocoding | [Photon](https://photon.komoot.io/) public instance | Fair use, no key | In use |
 | Routing | OSRM or Valhalla public demo servers | Demo only; own host for publication | Stage 1 |
 | Contours | `maplibre-contour` from the terrain tiles | Client side | Stage 2 |
-| Population | GHSL population grid | Free, JRC attribution; needs tiling | Stage 3 |
+| Population | HYDE 3.3 grids (Utrecht), prepared by `scripts/prepare-hyde-grid.py`; GHSL later for finer contemporary resolution | CC BY-NC-SA 4.0; behind a bot check, manual download | In use |
 
 ## 0 — Target acquisition (now)
 
@@ -60,7 +60,8 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 - [ ] Overlay contract: a centre, an ordered list of geodesic rings or polygons, each with a label, a colour role and a stated uncertainty.
 - [ ] Blast model as a pure, unit-tested module against published Glasstone & Dolan reference values: fireball radius, overpressure bands (20, 5, 1 psi), thermal radiation (third-degree burns), prompt radiation (500 rem).
 - [ ] Fallout plume under selectable wind speed and direction, WSEG-10 style, drawn as a geodesic polygon.
-- [ ] Population exposure from the GHSL grid, reported with its enormous uncertainty on the readout.
+- [x] Population exposure lab at `#/lab/population`: HYDE 3.3 grids (1961, 2023) in a worker, OTA 1979 blast bands against a Postol fire bound, two-number readout, cells drawn under the rings.
+- [ ] Validate the exposure model against Hiroshima and Nagasaki with the nearest HYDE grid; add GHSL for finer contemporary resolution.
 - [ ] Yield and height-of-burst selection staged as a configuration sequence.
 - [ ] This contemporary single-weapon case is the base case for every later execution study and the thing most people use NUKEMAP for; it uses the present-day GHSL population grid, while historical studies swap in HYDE.
 
@@ -81,7 +82,7 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 - [ ] Study clock as a shared engine module for every later study: `src/engine` holds the clock and timed tracks; models live in `src/models` with their validation tests.
 - [ ] Alert force enactment: option 1, 1,004 systems, missiles first, forward areas second, US-based last.
 - [ ] Full force with the option selector, and the finding that the options barely differ.
-- [ ] Two-number outcome readout: the planners' estimate against the modern recomputation.
+- [x] Two-number outcome readout at impact: blast-only by the 1961 method against the mass-fire bound, computed in a worker from HYDE 1961.
 
 **Exit:** the alert force plays end to end, every mark traces to a page, disagreements between sources are visible on the readout, and the study never claims to know more than the record.
 
