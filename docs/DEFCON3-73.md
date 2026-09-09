@@ -73,4 +73,4 @@ The study has two halves and a second act.
 - The Soviet ICBM fields by location and type from the Databook volume 4 tables.
 - The alert ladder as timed messages from EBB 98 and the SAC history.
 - The carriers' positions on the 24th and 25th, from the Sixth Fleet records in EBB 98.
-- HYDE 1973, prepared under `public/data/hyde/` as `popc_1973` (world total 3.91 billion), with 1970 for the 1969 act.
+- HYDE 1973, prepared under `public/data/hyde/` as `popc_1973` (world total 3.91 billion), with `popc_1969` (3.61 billion) for the 1969 act.
