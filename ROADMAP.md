@@ -83,7 +83,8 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 - [ ] Order of battle as data: bases, squadrons, boats, weapons and yields for mid-1961, each row cited.
 - [ ] Period layers: 1960 borders with precision shown; HYDE 1960 population grid.
 - [x] Bounded proof at `#/study/siop62`: F.E. Warren, a Chrome Dome sortie on a reconstructed route, Anadyr from the 1956 list with its redaction, one modelled Atlas D flight and prompt effects, the population ghost; the clock runs from H-hour and the camera descends to the target at impact.
-- [ ] Study clock as a shared engine module for every later study: `src/engine` holds the clock and timed tracks; models live in `src/models` with their validation tests.
+- [x] Study clock as a shared engine module for every later study: `src/engine` holds the clock and timed tracks; models live in `src/models` with their validation tests.
+- [x] Readiness lab at `#/lab/readiness`: the fourteen execution options as a force-generation curve, force tables by command, reaction times, sequence, posture and DEFCON, with the chart-versus-table disagreement on the alert force kept visible.
 - [ ] Alert force enactment: option 1, 1,004 systems, missiles first, forward areas second, US-based last.
 - [ ] Full force with the option selector, and the finding that the options barely differ.
 - [x] Two-number outcome readout at impact: blast-only by the 1961 method against the mass-fire bound, computed in a worker from HYDE 1961.

@@ -4,11 +4,12 @@ import { EVIDENCE_LAB } from './lab/evidence-lab.ts'
 import { PopulationLab } from './lab/PopulationLab.tsx'
 import { TerrainLab } from './lab/TerrainLab.tsx'
 import { FalloutLab } from './lab/FalloutLab.tsx'
+import { ReadinessLab } from './lab/ReadinessLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
 import { StudyView } from './studies/StudyView.tsx'
 
-type Route = { kind: 'atlas' } | { kind: 'study'; id: 'siop62' } | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' }
+type Route = { kind: 'atlas' } | { kind: 'study'; id: 'siop62' } | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' }
 
 function parseRoute(hash: string): Route {
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
@@ -16,6 +17,7 @@ function parseRoute(hash: string): Route {
   if (hash === '#/lab/population') return { kind: 'lab', id: 'population' }
   if (hash === '#/lab/terrain') return { kind: 'lab', id: 'terrain' }
   if (hash === '#/lab/fallout') return { kind: 'lab', id: 'fallout' }
+  if (hash === '#/lab/readiness') return { kind: 'lab', id: 'readiness' }
   return { kind: 'atlas' }
 }
 
@@ -63,6 +65,7 @@ export default function App() {
     { href: '#/lab/population', label: 'Lab · Population', active: route.kind === 'lab' && route.id === 'population' },
     { href: '#/lab/terrain', label: 'Lab · Terrain', active: route.kind === 'lab' && route.id === 'terrain' },
     { href: '#/lab/fallout', label: 'Lab · Fallout', active: route.kind === 'lab' && route.id === 'fallout' },
+    { href: '#/lab/readiness', label: 'Lab · Readiness', active: route.kind === 'lab' && route.id === 'readiness' },
   ]
   return (
     <>
@@ -79,6 +82,7 @@ export default function App() {
       {route.kind === 'lab' && route.id === 'population' && <PopulationLab key="lab-population" />}
       {route.kind === 'lab' && route.id === 'terrain' && <TerrainLab key="lab-terrain" />}
       {route.kind === 'lab' && route.id === 'fallout' && <FalloutLab key="lab-fallout" />}
+      {route.kind === 'lab' && route.id === 'readiness' && <ReadinessLab key="lab-readiness" />}
     </>
   )
 }
