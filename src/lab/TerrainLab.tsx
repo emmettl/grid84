@@ -96,6 +96,8 @@ export function TerrainLab() {
   useEffect(() => {
     viewRef.current = view
     paint()
+    // paint reads refs only; it is not a reactive dependency.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view])
 
   // Prepare terrain whenever burst, yield or height changes.
