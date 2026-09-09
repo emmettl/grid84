@@ -207,6 +207,7 @@ The engine is general and SIOP//62 is the jumping-off point. Grid/84 as a whole 
 | --- | --- | --- |
 | **Contemporary single weapon** | Glasstone and Dolan; GHSL population; NUKEMAP as the validation reference | The base case, and the main thing people use NUKEMAP for. It is stage 3 of the roadmap on the 2026 map and shares every lab with SIOP//62; only the population grid changes. |
 | **Tsar Bomba, 30 October 1961** | Soviet test records and Western yield estimates (about 50 Mt, air burst near 4 km over Novaya Zemlya); Wellerstein's writing on the test | A fully documented single detonation on real terrain, inside the SIOP-62 period, and the largest yield the effects models will be asked for. A natural first case study once the rendering lands, and the obvious specimen for the terrain-shock lab. |
+| **The Cuban missile crisis gone hot** · [brief](CUBA-62.md) | Norris and Kristensen's 2012 nuclear order of battle; the National Security Archive's Anadyr and crisis collections; Dobbs, *One Minute to Midnight*; Nash on the Jupiters | Three acts on one map: the R-12 regiments against Florida and the south-east, the FKRs and Lunas against Guantánamo and a landing, then SIOP-63 at DEFCON 2. The forward-based Jupiters in Turkey and Italy and the Thors in Britain are the Soviet side's first targets and the trade that ended the crisis. |
 | **Able Archer 83 gone hot** · [brief](ABLE-ARCHER-83.md) | The National Security Archive's [Able Archer 83 Sourcebook](https://nsarchive.gwu.edu/project/able-archer-83-sourcebook), over a thousand pages assembled by Nate Jones; the 1990 PFIAB report *The Soviet "War Scare"* released after a twelve-year fight; Jones, *Able Archer 83* (2016) | A counterfactual on a documented exercise, with both sides' readiness states in the record. The withheld tier would be busy: the 2025 briefing book is titled *The Censored History of Able Archer 83*. |
 | **India–Pakistan** | Toon, Robock et al., ["Rapidly expanding nuclear arsenals in Pakistan and India portend regional and global catastrophe,"](https://www.science.org/doi/10.1126/sciadv.aay5478) *Science Advances* 5 (2019) | A published, peer-reviewed scenario with explicit weapon counts, yields, city targets, fatality ranges of 50 to 125 million, and a soot model. The study would enact the paper's own scenario, cited as such. |
 | **Korean peninsula** | Zagurek, ["A Hypothetical Nuclear Attack on Seoul and Tokyo,"](https://www.38north.org/2017/10/mzagurek100417/) 38 North (2017); Kristensen and Korda's Nuclear Notebook on North Korean forces | Smaller arsenal, denser cities, contemporary population grid. A good second contemporary study. |
@@ -220,14 +221,14 @@ The rule from the manifesto holds for all of them: impractical, never fake. A st
 | Quantity | Enacted | Documented |
 | --- | --- | --- |
 | Launch sites | 71 | 112 bases in the plan |
-| Weapons launched | 1,591 | 1,685 (briefing chart) · 1,530 (Table 1, 15 July 1961) |
-| Megatons | 1,545 | 1,798 |
+| Weapons launched | 1,600 | 1,685 (briefing chart) · 1,530 (Table 1, 15 July 1961) |
+| Megatons | 1,555 | 1,798 |
 | Alert fraction of the bomber force | 0.48, the value that makes the base list carry the documented 1,212 SAC aircraft weapons | "approximately half" (Sagan p. 29) |
 | Targets covered | 1,312: 442 airfields from the airfield transcription, struck first as the study's task order says, then the 863 prioritised complexes | 1,060 DGZs in the full plan, about 800 of them military |
-| First detonation | H+22 min (Atlas D on an airfield) | ballistic missiles first (documented sequence) |
-| Last detonation | H+14 h 47 min | |
-| Weapons delivered | 1,347: 178 reliability failures at launch, 66 lost in penetration | assurance of delivery averaged 85 percent (JSTPS history, EBB 236); Atlas reliability 0.70 to 0.80 (Sagan n. 33) |
-| Blast-only dead, summed over HYDE 1961 | see the readout; the delivered force strikes 1,151 of the 1,312 targets | JCS 1961 estimate for the alert force: 80 million Soviet dead, 37 percent |
+| First detonation | H+21 min (Atlas D on an airfield) | ballistic missiles first (documented sequence) |
+| Last detonation | H+17 h 08 min, a B-47 through the Newfoundland refuelling area | |
+| Weapons delivered | 1,368: 166 reliability failures at launch, 66 lost in penetration | assurance of delivery averaged 85 percent (JSTPS history, EBB 236); Atlas reliability 0.70 to 0.80 (Sagan n. 33) |
+| Blast-only dead, summed over HYDE 1961 | see the readout; the delivered force strikes 1,161 of the 1,312 targets | JCS 1961 estimate for the alert force: 80 million Soviet dead, 37 percent |
 | With mass fire, Postol bound | 130 million | |
 
 **Tiers.** The launch sites and the totals are documented; the order of battle is built by [`scripts/build-order-of-battle-1961.py`](../scripts/build-order-of-battle-1961.py) from Wikipedia's B-47 unit list and strategic-wing list, the Atlas, Jupiter and Polaris records, and the theatre totals of Table 1, with positions read from the modern map. The strength on each base is reconstructed by stated rules: 45 aircraft for a heavy wing, 15 for a dispersed strategic wing, 45 for a B-47 wing, two weapons per B-52 and one per B-47, and one alert fraction across the force chosen so the SAC bases carry the documented 1,212 aircraft weapons. That fraction comes out at 0.48, which is the briefing's "approximately half" recovered rather than assumed. Every weapon-to-target assignment is inferred by one rule, highest priority first and nearest launcher in range with missiles before bombers, and the study's subtitle says so.
@@ -248,6 +249,18 @@ The rule from the manifesto holds for all of them: impractical, never fake. A st
 Lemnitzer's warning is the finding: the response comes anyway, from the bombers that were already alert or at fields the missiles did not reach in time.
 
 **What it omits**, on the readout: refuelling and routing; Soviet air defence and any Soviet response; about six in ten of the 1,100 airfields, which the transcription does not yet read; per-weapon yields, with Mk-28 class assumed for bombers; and overlap between targets, which the summing counts more than once. Airfields sit inside or beside the cities whose complexes are also struck, so the airfield weapons add little to the death count and much to the picture: the Air Power Battle is the first hour of the day.
+
+**The fourteen options.** `#/study/siop62-alert/<n>` plays any execution option. Each launcher grows on a straight line from the alert tables to the fully generated tables of 15 July 1961 by a stated rule per system: every SAC bomber generated by fourteen hours, 24 of 78 ICBMs on alert (Sagan p. 29), two of five Polaris boats on station, the Jupiters already on alert, and the theatre aircraft and cruise missiles in proportion to Tables 1 and 3. Option 14 comes to 3,267 weapons with 188 ballistic missiles, which are Table 3's figures exactly: 78 Atlas, 80 Polaris and 30 Jupiter. The finding the briefing hints at and the enactment makes plain is that the options barely differ. Every option strikes the same 1,312 targets, the first detonation is the same Atlas at H+21 minutes and the last the same B-47 at H+17 hours, because the target list and the bombers' flight set the day's shape, not the size of the force. Preparation time adds weapons per target, from two to three, and megatons.
+
+| Option | Preparation | Weapons | Megatons (Mk-28 assumed) | Targets | Weapons per target, at most | Delivered |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0 h | 1,600 | 1,555 | 1,312 | 2 | 1,368 |
+| 4 | 3 h | 1,959 | 1,941 | 1,312 | 2 | 1,670 |
+| 7 | 6 h | 2,315 | 2,323 | 1,312 | 2 | 1,982 |
+| 10 | 9 h | 2,673 | 2,707 | 1,312 | 3 | 2,290 |
+| 14 | 14 h | 3,267 | 3,345 | 1,312 | 3 | 2,757 |
+
+The megatonnage is the visible disagreement: the documented 7,420 Mt for the generated force implies the Mk-36 and Mk-41 class weapons the non-alert bombers carried, which the enactment does not assign, and the readout says so at every option above the first. The Soviet response stays the tactical-warning one; a Soviet force generated during the same hours of strategic warning is not modelled, and that omission is stated too.
 
 **Rendering.** A study with more than a hundred tracks draws them through a WebGL custom layer rather than GeoJSON sources ([`src/map/track-layer.ts`](../src/map/track-layer.ts)). Every track is densified once into a static vertex buffer with the time it reaches each vertex; a study tick rewrites only an index list of the flown segments, one head segment per moving vehicle, and one point per vehicle. Projection is MapLibre's own shader prelude, so the lines follow the globe and its transition to mercator. The evidence grammar survives the change: dashes are drawn in screen pixels per tier, and vehicle marks keep their dark fill, tier-coloured ring and halo. On the alert force this costs 1 to 6 ms of main-thread time per update against 65 to 95 ms just to build the GeoJSON features it replaces.
 

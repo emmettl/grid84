@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Hud } from './hud/Hud.tsx'
 import { EVIDENCE_LAB } from './lab/evidence-lab.ts'
 import { PopulationLab } from './lab/PopulationLab.tsx'
@@ -7,14 +7,16 @@ import { FalloutLab } from './lab/FalloutLab.tsx'
 import { ReadinessLab } from './lab/ReadinessLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
-import { ALERT_FORCE } from './studies/siop62/alert-force.ts'
+import { ALERT_FORCE, forceForOption } from './studies/siop62/alert-force.ts'
 import { StudyView } from './studies/StudyView.tsx'
 
-type Route = { kind: 'atlas' } | { kind: 'study'; id: 'siop62' | 'siop62-alert' } | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' }
+type Route = { kind: 'atlas' } | { kind: 'study'; id: 'siop62' } | { kind: 'study'; id: 'siop62-alert'; option: number } | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' }
 
 function parseRoute(hash: string): Route {
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
-  if (hash === '#/study/siop62-alert') return { kind: 'study', id: 'siop62-alert' }
+  if (hash === '#/study/siop62-alert') return { kind: 'study', id: 'siop62-alert', option: 1 }
+  const option = /^#\/study\/siop62-alert\/(\d{1,2})$/.exec(hash)
+  if (option) return { kind: 'study', id: 'siop62-alert', option: Math.max(1, Math.min(14, Number(option[1]))) }
   if (hash === '#/lab/evidence') return { kind: 'lab', id: 'evidence' }
   if (hash === '#/lab/population') return { kind: 'lab', id: 'population' }
   if (hash === '#/lab/terrain') return { kind: 'lab', id: 'terrain' }
@@ -58,6 +60,11 @@ function AtlasView() {
   )
 }
 
+function OptionStudy({ option }: { option: number }) {
+  const force = useMemo(() => (option === 1 ? ALERT_FORCE : forceForOption(option)), [option])
+  return <StudyView key={force.study.id} study={force.study} />
+}
+
 export default function App() {
   const route = useRoute()
   const links: Array<{ href: string; label: string; active: boolean }> = [
@@ -81,7 +88,7 @@ export default function App() {
       </nav>
       {route.kind === 'atlas' && <AtlasView />}
       {route.kind === 'study' && route.id === 'siop62' && <StudyView key="siop62" study={SIOP62_PROOF} />}
-      {route.kind === 'study' && route.id === 'siop62-alert' && <StudyView key="siop62-alert" study={ALERT_FORCE.study} />}
+      {route.kind === 'study' && route.id === 'siop62-alert' && <OptionStudy option={route.option} />}
       {route.kind === 'lab' && route.id === 'evidence' && <StudyView key="lab-evidence" study={EVIDENCE_LAB} />}
       {route.kind === 'lab' && route.id === 'population' && <PopulationLab key="lab-population" />}
       {route.kind === 'lab' && route.id === 'terrain' && <TerrainLab key="lab-terrain" />}

@@ -107,4 +107,6 @@ export interface Study {
   outcomeReference?: { label: string; value: number; source: string }
   /** Names and references for the two sides, when a study has a response. */
   sides?: { attacker: { name: string }; defender: { name: string; reference?: { label: string; value: number; source: string } } }
+  /** Sibling studies reached by a switch on the clock panel, such as the execution options of a plan. */
+  variants?: { label: string; current: string; items: Array<{ id: string; label: string; href: string }> }
 }

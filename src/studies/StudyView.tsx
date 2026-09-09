@@ -488,6 +488,16 @@ export function StudyView({ study }: { study: Study }) {
               RESET
             </button>
           </div>
+          {study.variants && (
+            <div className="clock-controls clock-controls--variants" role="group" aria-label={study.variants.label}>
+              <span className="clock-label">{study.variants.label}</span>
+              {study.variants.items.map((item) => (
+                <a key={item.id} href={item.href} className={item.id === study.variants!.current ? 'is-active' : ''} aria-current={item.id === study.variants!.current ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          )}
           {hasSurfaceOption && (
             <div className="clock-controls">
               <span className="clock-label">Burst</span>

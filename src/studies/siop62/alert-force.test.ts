@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ALERT_FORCE, ALERT_FORCE_DOCUMENTED } from './alert-force.ts'
+import { ALERT_FORCE, ALERT_FORCE_DOCUMENTED, compareOptions, forceForOption, GENERATED_FORCE_DOCUMENTED } from './alert-force.ts'
 
 describe('alert force enactment', () => {
   const s = ALERT_FORCE.summary
@@ -30,5 +30,31 @@ describe('alert force enactment', () => {
   it('states its omissions and its reference', () => {
     expect(ALERT_FORCE.study.omissions.length).toBeGreaterThan(4)
     expect(ALERT_FORCE.study.outcomeReference?.value).toBe(80_000_000)
+  })
+})
+
+describe('execution options', () => {
+  it('generates to the documented 3,267 weapons and 188 ballistic missiles at option 14', () => {
+    const study = forceForOption(14).study
+    const sites = study.entities.filter((e) => e.kind === 'site' && !e.id.startsWith('sov-'))
+    const weapons = sites.reduce((s, e) => s + Number(/(\d+) WEAPONS/.exec(e.designation)?.[1] ?? 0), 0)
+    expect(weapons).toBe(GENERATED_FORCE_DOCUMENTED.weapons)
+    const ballistic = sites.filter((e) => /^(ICBM|IRBM|SLBM)/.test(e.designation)).reduce((s, e) => s + Number(/(\d+) WEAPONS/.exec(e.designation)?.[1] ?? 0), 0)
+    expect(ballistic).toBe(GENERATED_FORCE_DOCUMENTED.ballistic)
+    expect(forceForOption(14)).toBe(forceForOption(14))
+    expect(forceForOption(1)).toBe(ALERT_FORCE)
+  })
+  it('keeps the same target list and the same day for every option, only with more weapons on each target', () => {
+    const rows = compareOptions()
+    expect(rows).toHaveLength(14)
+    for (let i = 1; i < rows.length; i += 1) expect(rows[i].weapons).toBeGreaterThanOrEqual(rows[i - 1].weapons)
+    expect(rows[13].weapons).toBeGreaterThan(rows[0].weapons * 1.9)
+    const targets = new Set(rows.map((r) => r.targetsCovered))
+    // Coverage is bounded by the list, not the force: no option covers more than a few percent more targets than the alert force.
+    expect(Math.max(...targets) / Math.min(...targets)).toBeLessThan(1.05)
+    expect(rows[13].weaponsPerTarget).toBeGreaterThan(rows[0].weaponsPerTarget)
+    // The last detonation is set by the bombers' flight, not by the size of the force.
+    expect(Math.abs(rows[13].lastDetonation - rows[0].lastDetonation)).toBeLessThan(3_600)
+    console.log('OPTIONS', rows.map((r) => `${r.option}:${r.hours}h ${r.weapons}w ${Math.round(r.megatons)}Mt ${r.targetsCovered}t ×${r.weaponsPerTarget} ${r.delivered}d H+${(r.lastDetonation / 3_600).toFixed(1)}`).join(' | '))
   })
 })

@@ -421,6 +421,7 @@ body,
 }
 
 .clock-controls button,
+.clock-controls--variants a,
 .log button {
   padding: 0.3rem 0.55rem;
   border: 1px solid rgba(141, 250, 255, 0.35);
@@ -433,13 +434,23 @@ body,
 }
 
 .clock-controls button:hover,
-.clock-controls button:focus-visible {
+.clock-controls button:focus-visible,
+.clock-controls--variants a:hover,
+.clock-controls--variants a:focus-visible {
   color: var(--ink);
   border-color: var(--cyan);
   outline: none;
 }
 
-.clock-controls button.is-active {
+.clock-controls--variants a {
+  padding: 0.3rem 0.4rem;
+  min-width: 1.6rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.clock-controls button.is-active,
+.clock-controls--variants a.is-active {
   color: var(--ink);
   background: rgba(125, 255, 154, 0.14);
   border-color: var(--green);
