@@ -1,0 +1,255 @@
+import { Track } from '../../engine/track.ts'
+import type { Provenance } from '../../evidence/evidence.ts'
+import type { LngLat } from '../../geo/geodesy.ts'
+import { allocate, megatons, type Launcher, type Sortie, type Target } from '../../models/allocation.ts'
+import { minimumEnergyTrajectory } from '../../models/ballistic.ts'
+import { BLAST_MODEL, promptEffects } from '../../models/blast.ts'
+import type { Entity, Study, StudyEvent } from '../study.ts'
+import orderOfBattle from '../../../data/siop62/order-of-battle-1961.json'
+import targetFile from '../../../data/siop62/targets-1956-priority.json'
+
+/**
+ * SIOP//62 alert force enactment: option 1, the 1,004 delivery systems and
+ * about 1,685 weapons that could launch on fifteen minutes' warning, from
+ * the documented order of battle of mid-1961 to the 1956 study's
+ * highest-priority complexes. The launchers and the totals are documented;
+ * the strengths on each base are reconstructed by stated rules; every
+ * assignment of a weapon to a target is inferred.
+ */
+const SAGAN: Provenance = { source: 'Sagan 1987', locator: 'briefing pp. 48–49; Table 1, 15 July 1961', url: 'https://archive.org/details/SIOP62TheNuclearWarPlanBriefingToPresidentKennedy' }
+const EBB798: Provenance = { source: 'National Security Archive EBB 798', locator: '1961 estimate: 80 million Soviet dead from the alert force', url: 'https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2022-07-14/long-classified-us-estimates-nuclear-war-casualties-during' }
+
+interface RawLauncher {
+  id: string
+  name: string
+  kind: string
+  lon: number
+  lat: number
+  wing?: string
+  note?: string
+  aircraft?: number
+  weapons?: number
+  yieldKt?: number
+  evidence: string
+  positionEvidence: string
+  source: string
+  geocoded?: string
+}
+
+const REACTION_FIXED = 15 * 60
+const REACTION_SEA = 2 * 3_600
+const B52_MS = 845_000 / 3_600
+const B47_MS = 800_000 / 3_600
+const TACTICAL_MS = 900_000 / 3_600
+const MACE_MS = 1_040_000 / 3_600
+
+/** Documented SAC aircraft weapons on alert, 15 July 1961; the bomber bases are scaled to carry it. */
+const SAC_AIRCRAFT_WEAPONS_ON_ALERT = 1_212
+
+function buildLaunchers(): { launchers: Launcher[]; alertFraction: number; bomberWeaponsNominal: number } {
+  const raw = (orderOfBattle as { launchers: RawLauncher[] }).launchers
+  const bombers = raw.filter((l) => l.kind === 'b52' || l.kind === 'b52h' || l.kind === 'b47' || l.kind === 'b47r')
+  const nominal = bombers.reduce((s, l) => s + (l.aircraft ?? 0) * (l.kind.startsWith('b52') ? 2 : 1), 0)
+  const sacNominal = bombers.filter((l) => l.kind !== 'b47r').reduce((s, l) => s + (l.aircraft ?? 0) * (l.kind.startsWith('b52') ? 2 : 1), 0)
+  const alertFraction = SAC_AIRCRAFT_WEAPONS_ON_ALERT / sacNominal
+  const launchers: Launcher[] = []
+  for (const l of raw) {
+    const position: LngLat = [l.lon, l.lat]
+    if (l.kind === 'b52' || l.kind === 'b52h') {
+      launchers.push({ id: l.id, name: l.name, kind: 'bomber', position, weapons: Math.round((l.aircraft ?? 0) * 2 * alertFraction), weaponsPerVehicle: 2, rangeMetres: Infinity, yieldKt: 1_100, reactionSeconds: REACTION_FIXED, speedMs: B52_MS })
+    } else if (l.kind === 'b47' || l.kind === 'b47r') {
+      launchers.push({ id: l.id, name: l.name, kind: 'bomber', position, weapons: Math.round((l.aircraft ?? 0) * 1 * alertFraction), weaponsPerVehicle: 1, rangeMetres: l.kind === 'b47r' ? 4_500_000 : Infinity, yieldKt: 1_100, reactionSeconds: REACTION_FIXED, speedMs: B47_MS })
+    } else if (l.kind === 'icbm') {
+      launchers.push({ id: l.id, name: l.name, kind: 'icbm', position, weapons: l.weapons ?? 0, weaponsPerVehicle: 1, rangeMetres: 14_000_000, yieldKt: l.yieldKt ?? 1_440, reactionSeconds: REACTION_FIXED })
+    } else if (l.kind === 'irbm') {
+      launchers.push({ id: l.id, name: l.name, kind: 'irbm', position, weapons: l.weapons ?? 0, weaponsPerVehicle: 1, rangeMetres: 2_400_000, yieldKt: l.yieldKt ?? 1_440, reactionSeconds: REACTION_FIXED })
+    } else if (l.kind === 'slbm') {
+      launchers.push({ id: l.id, name: l.name, kind: 'slbm', position, weapons: l.weapons ?? 0, weaponsPerVehicle: 1, rangeMetres: 2_200_000, yieldKt: l.yieldKt ?? 600, reactionSeconds: REACTION_SEA })
+    } else if (l.kind === 'tactical') {
+      launchers.push({ id: l.id, name: l.name, kind: 'bomber', position, weapons: l.weapons ?? 0, weaponsPerVehicle: 1, rangeMetres: 1_800_000, yieldKt: l.yieldKt ?? 70, reactionSeconds: REACTION_FIXED, speedMs: TACTICAL_MS })
+    } else if (l.kind === 'cruise') {
+      launchers.push({ id: l.id, name: l.name, kind: 'bomber', position, weapons: l.weapons ?? 0, weaponsPerVehicle: 1, rangeMetres: 2_000_000, yieldKt: l.yieldKt ?? 1_100, reactionSeconds: REACTION_FIXED, speedMs: MACE_MS })
+    }
+  }
+  return { launchers, alertFraction, bomberWeaponsNominal: nominal }
+}
+
+function buildTargets(): Target[] {
+  return (targetFile as { targets: Array<{ complex: string; priority: number; name: string; lat: number; lon: number }> }).targets.map((t) => ({ id: `t-${t.complex}`, name: t.name, priority: t.priority, position: [t.lon, t.lat] as LngLat }))
+}
+
+export interface AlertForceSummary {
+  launchers: number
+  weapons: number
+  sorties: number
+  targetsCovered: number
+  megatons: number
+  alertFraction: number
+  bomberVehicles: number
+}
+
+function sortieTiming(launcher: Launcher, sortie: Sortie, target: Target): { launch: number; arrival: number; route: 'ballistic' | 'cruise' } {
+  const launch = launcher.reactionSeconds
+  if (launcher.kind === 'bomber') {
+    const speed = launcher.speedMs ?? B52_MS
+    return { launch, arrival: launch + sortie.distanceMetres / speed, route: 'cruise' }
+  }
+  const plan = minimumEnergyTrajectory(launcher.position, target.position)
+  return { launch, arrival: launch + plan.flightSeconds, route: 'ballistic' }
+}
+
+export function buildAlertForce(): { study: Study; summary: AlertForceSummary } {
+  const { launchers, alertFraction } = buildLaunchers()
+  const targets = buildTargets()
+  const result = allocate(launchers, targets, { maxWeaponsPerTarget: 2 })
+  const launcherById = Object.fromEntries(launchers.map((l) => [l.id, l]))
+  const targetById = Object.fromEntries(targets.map((t) => [t.id, t]))
+  const raw = Object.fromEntries((orderOfBattle as { launchers: RawLauncher[] }).launchers.map((l) => [l.id, l]))
+
+  const entities: Entity[] = []
+  const events: StudyEvent[] = []
+
+  // Launcher sites, labelled.
+  for (const l of launchers) {
+    if (l.weapons === 0) continue
+    const r = raw[l.id]
+    entities.push({
+      kind: 'site',
+      id: l.id,
+      name: l.name,
+      designation: `${l.kind.toUpperCase()} · ${l.weapons} WEAPONS ON ALERT`,
+      // Only the missile and theatre sites are labelled at globe zoom; bomber bases keep their marks.
+      label: l.kind !== 'bomber' || (r.kind !== 'b52' && r.kind !== 'b52h' && r.kind !== 'b47' && r.kind !== 'b47r'),
+      position: l.position,
+      evidence: r.evidence === 'documented' ? 'documented' : 'inferred',
+      provenance: { source: r.source, method: r.wing ?? r.note },
+      facts: [
+        { label: 'Weapons on alert', value: String(l.weapons), evidence: r.evidence === 'documented' && l.kind !== 'bomber' ? 'documented' : 'reconstructed', provenance: { source: 'Rule', method: l.kind === 'bomber' ? `Base strength × ${l.weaponsPerVehicle} weapons × alert fraction ${alertFraction.toFixed(2)}, the fraction chosen so SAC bases carry the documented 1,212 aircraft weapons` : 'Table 1, 15 July 1961' } },
+        { label: 'Position', value: r.geocoded ?? 'hand-set', evidence: r.positionEvidence as 'documented' | 'reconstructed' | 'inferred', provenance: { source: 'Modern map' } },
+      ],
+    })
+  }
+
+  // Sorties as tracks; one effect per target at first arrival, with the largest yield assigned.
+  const firstArrival: Record<string, { time: number; yieldKt: number; weapons: number; kinds: Set<string> }> = {}
+  let index = 0
+  for (const s of result.sorties) {
+    const l = launcherById[s.launcherId]
+    const t = targetById[s.targetId]
+    const timing = sortieTiming(l, s, t)
+    index += 1
+    entities.push({
+      kind: 'track',
+      id: `s-${index}`,
+      name: `${l.name} → ${t.name}`,
+      designation: `${l.kind.toUpperCase()} · ${s.yieldKt >= 1_000 ? `${(s.yieldKt / 1_000).toFixed(2)} MT` : `${s.yieldKt} KT`}`,
+      label: false,
+      track: new Track([
+        { position: l.position, time: timing.launch },
+        { position: t.position, time: timing.arrival },
+      ]),
+      reveal: 'progressive',
+      evidence: 'inferred',
+      provenance: { source: 'Allocation rule', method: 'Highest-priority targets first, nearest launcher in range, missiles before bombers; not a documented assignment' },
+      route: { evidence: timing.route === 'ballistic' ? 'modelled' : 'reconstructed', provenance: { source: timing.route === 'ballistic' ? 'Minimum-energy trajectory' : 'Great circle at cruise speed, no refuelling' } },
+      facts: [],
+    })
+    const fa = firstArrival[s.targetId]
+    if (!fa) firstArrival[s.targetId] = { time: timing.arrival, yieldKt: s.yieldKt, weapons: 1, kinds: new Set([l.kind]) }
+    else {
+      fa.time = Math.min(fa.time, timing.arrival)
+      fa.yieldKt = Math.max(fa.yieldKt, s.yieldKt)
+      fa.weapons += 1
+      fa.kinds.add(l.kind)
+    }
+  }
+  for (const [targetId, fa] of Object.entries(firstArrival)) {
+    const t = targetById[targetId]
+    entities.push({
+      kind: 'effect',
+      id: `e-${targetId}`,
+      name: t.name,
+      designation: `PRIORITY ${t.priority} · ${fa.weapons} WEAPON${fa.weapons > 1 ? 'S' : ''} · ${[...fa.kinds].join('/').toUpperCase()}`,
+      label: false,
+      compact: true,
+      center: t.position,
+      time: fa.time,
+      effects: promptEffects(fa.yieldKt),
+      burst: 'air',
+      evidence: 'modelled',
+      provenance: { source: BLAST_MODEL },
+      facts: [
+        { label: '1956 priority', value: String(t.priority), evidence: 'documented', provenance: { source: 'SAC AWRS 1959 (June 1956), city list' } },
+        { label: 'Weapons assigned', value: `${fa.weapons}, largest ${fa.yieldKt >= 1_000 ? `${(fa.yieldKt / 1_000).toFixed(2)} Mt` : `${fa.yieldKt} kt`}`, evidence: 'inferred', provenance: { source: 'Allocation rule' } },
+        { label: 'Exposure', value: 'Computed once per target with the largest weapon; overlapping weapons are not double counted', evidence: 'modelled', provenance: { source: 'Method' } },
+      ],
+    })
+  }
+
+  // Events: the documented sequence, and the waves as they leave.
+  const byKind = (k: string) => result.sorties.filter((s) => s.kind === k).length
+  events.push({ time: 0, text: `EXECUTION ORDER · OPTION 1 · ALERT FORCE · ${result.weaponsAssigned.toLocaleString('en-GB')} WEAPONS ON ${result.targetsCovered.toLocaleString('en-GB')} TARGETS (ALLOCATION INFERRED)` })
+  events.push({ time: 1, text: 'SEQUENCE: BALLISTIC MISSILES · FORWARD AREAS · CONUS FORCES (DOCUMENTED)' })
+  events.push({ time: REACTION_FIXED, text: `H+15 MIN · FIXED BASES LAUNCH · ${byKind('icbm')} ICBM · ${byKind('irbm')} IRBM · ${byKind('bomber')} BOMBER AND THEATRE SORTIES` })
+  events.push({ time: REACTION_SEA, text: `H+2 H · POLARIS ON STATION LAUNCH · ${byKind('slbm')} MISSILES` })
+  const arrivals = Object.values(firstArrival).map((f) => f.time).sort((a, b) => a - b)
+  if (arrivals.length) {
+    events.push({ time: arrivals[0], text: 'FIRST DETONATION' })
+    events.push({ time: arrivals[Math.floor(arrivals.length / 2)], text: 'HALF OF THE TARGETS STRUCK' })
+    events.push({ time: arrivals[arrivals.length - 1], text: 'LAST DETONATION · OUTCOME CALCULATION COMPLETE WHEN THE SUM FINISHES' })
+  }
+
+  const summary: AlertForceSummary = {
+    launchers: launchers.filter((l) => l.weapons > 0).length,
+    weapons: result.weaponsAssigned,
+    sorties: result.sorties.length,
+    targetsCovered: result.targetsCovered,
+    megatons: megatons(result.sorties),
+    alertFraction,
+    bomberVehicles: Math.round(result.sorties.filter((s) => s.kind === 'bomber').length / 1.5),
+  }
+
+  const study: Study = {
+    id: 'siop62-alert',
+    title: 'SIOP//62 · ALERT FORCE',
+    subtitle: `Option 1 · ${summary.weapons.toLocaleString('en-GB')} weapons from ${summary.launchers} launch sites to ${summary.targetsCovered.toLocaleString('en-GB')} targets · every assignment inferred`,
+    bounds: { start: -600, end: 16 * 3_600 },
+    view: { center: [60, 62], zoom: 1.5 },
+    populationGrid: 'popc_1961',
+    exposureWorkers: 4,
+    outcomeReference: { label: 'JCS estimate, 1961, alert force, Soviet dead', value: 80_000_000, source: `${EBB798.source}: 80 million, 37 percent of the population` },
+    omissions: [
+      'Every weapon-to-target assignment is an illustration by a stated rule; no assignment is in the record',
+      'Bomber refuelling, routing, penetration and attrition: great circles at cruise speed, all arrive',
+      'Soviet air defence and any Soviet response',
+      'Airfield targets: the 1956 airfield list is not yet transcribed; only the city list is used',
+      'Yields: Mk-28 class assumed for bombers; the alert-force megatonnage check is on the readout',
+      'Population exposure is per target with the largest weapon; overlapping targets are summed, so cities within reach of several targets are counted more than once',
+    ],
+    events,
+    entities,
+  }
+  return { study, summary }
+}
+
+export const ALERT_FORCE = buildAlertForce()
+
+/** The documented figures the enactment should be read against. */
+export const ALERT_FORCE_DOCUMENTED = {
+  systems: 1_004,
+  weapons: 1_685,
+  megatons: 1_798,
+  tableWeapons: 1_530,
+  provenance: SAGAN,
+}
+
+export function alertForceCheck(): Array<{ label: string; enacted: string; documented: string }> {
+  const s = ALERT_FORCE.summary
+  const fmt = (v: number) => Math.round(v).toLocaleString('en-GB')
+  return [
+    { label: 'Weapons launched', enacted: fmt(s.weapons), documented: `${fmt(ALERT_FORCE_DOCUMENTED.weapons)} (briefing) · ${fmt(ALERT_FORCE_DOCUMENTED.tableWeapons)} (Table 1)` },
+    { label: 'Megatons', enacted: fmt(s.megatons), documented: fmt(ALERT_FORCE_DOCUMENTED.megatons) },
+    { label: 'Targets covered', enacted: fmt(s.targetsCovered), documented: '1,060 DGZs in the full plan; the alert force struck the highest-priority ones' },
+    { label: 'Launch sites', enacted: fmt(s.launchers), documented: '112 bases in the plan' },
+  ]
+}

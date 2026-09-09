@@ -1063,3 +1063,34 @@ body,
   background: rgba(125, 255, 154, 0.08);
 }
 
+.aggregate {
+  grid-column: 3;
+  grid-row: 3;
+  align-self: end;
+  padding: 0.7rem 1rem;
+  border-right: 2px solid rgb(255, 96, 96);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  text-align: right;
+}
+
+.aggregate .two-numbers {
+  text-align: left;
+}
+
+.progress {
+  height: 4px;
+  margin: 0.3rem 0;
+  background: rgba(255, 96, 96, 0.15);
+}
+
+.progress > div {
+  height: 100%;
+  background: rgb(255, 96, 96);
+  transition: width 0.2s linear;
+}
+
+.study-hud .aggregate + .omissions {
+  grid-row: 4;
+  align-self: end;
+}

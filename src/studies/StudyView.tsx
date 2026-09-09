@@ -45,11 +45,12 @@ function effectRings(e: Entity & { kind: 'effect' }, burst: Burst) {
   return e.effects.rings.map((r) => (r.key.startsWith('psi') ? { ...r, radius: radiusForPsi(e.effects.yieldKt, Number(r.key.slice(3)), 'surface') } : r))
 }
 
-function timedFeatures(study: Study, time: number, burst: Burst) {
+function timedFeatures(study: Study, time: number, burst: Burst, selectedId: string | null) {
   const vehicles: EvidenceFeature[] = []
   const rings: EvidenceFeature[] = []
   const areas: EvidenceFeature[] = []
   const paths: EvidenceFeature[] = []
+  const flashes: EvidenceFeature[] = []
   for (const e of study.entities) {
     if (e.kind === 'track') {
       const p = e.track.positionAt(time)
@@ -59,6 +60,12 @@ function timedFeatures(study: Study, time: number, burst: Burst) {
         if (flown.length > 1) paths.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: flown.map((q) => [q[0], q[1]]) }, properties: { evidence: e.route.evidence, id: e.id } })
       }
     } else if (e.kind === 'effect' && time >= e.time) {
+      if (e.compact && e.id !== selectedId) {
+        // One mark per detonation, radius from the 5 psi ring so it scales with yield; rings only when selected.
+        const r5 = drawnRadius(e, burst, 'psi5')
+        flashes.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [e.center[0], e.center[1]] }, properties: { evidence: 'modelled', id: e.id, radiusMetres: r5, age: time - e.time } })
+        continue
+      }
       const drawn = effectRings(e, burst)
       for (const ring of drawn) {
         const coords = geodesicCircle(e.center, ring.radius).map((p) => [p[0], p[1]])
@@ -76,7 +83,12 @@ function timedFeatures(study: Study, time: number, burst: Burst) {
       }
     }
   }
-  return { vehicles, rings, areas, paths }
+  return { vehicles, rings, areas, paths, flashes }
+}
+
+function drawnRadius(e: Entity & { kind: 'effect' }, burst: Burst, key: string): number {
+  const ring = effectRings(e, burst).find((r) => r.key === key)
+  return ring ? ring.radius : 0
 }
 
 function labelOffset(anchor: LabelAnchor): [number, number] {
@@ -124,6 +136,17 @@ export function StudyView({ study }: { study: Study }) {
   const burstRef = useRef<Burst>('air')
   const falloutComputed = useRef<Set<string>>(new Set())
   const [falloutOutcomes, setFalloutOutcomes] = useState<Record<string, { under1: number; dead: number; grid: string }>>({})
+  const [gridName, setGridName] = useState<string | null>(null)
+  const effectCount = useMemo(() => study.entities.filter((e) => e.kind === 'effect').length, [study])
+  const aggregate = useMemo(() => {
+    const values = Object.values(outcomes)
+    return {
+      computed: values.length,
+      blastDead: values.reduce((s, o) => s + o.blast.fatal, 0),
+      blastInjured: values.reduce((s, o) => s + o.blast.injured, 0),
+      fireDead: values.reduce((s, o) => s + o.fire.fatal, 0),
+    }
+  }, [outcomes])
   const bounds = burst === 'surface' && study.surfaceBounds ? study.surfaceBounds : study.bounds
   const boundsRef = useRef(bounds)
   useEffect(() => {
@@ -133,6 +156,11 @@ export function StudyView({ study }: { study: Study }) {
   const clockRef = useRef<ClockState>(initialClock)
   const [clock, setClock] = useState<ClockState>(initialClock)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const selectedRef = useRef<string | null>(null)
+  useEffect(() => {
+    selectedRef.current = selectedId
+    primed.current = false
+  }, [selectedId])
   const [ready, setReady] = useState(false)
 
   const statics = useMemo(() => staticFeatures(study), [study])
@@ -149,6 +177,7 @@ export function StudyView({ study }: { study: Study }) {
       setSourceData(map, SOURCES.paths, statics.paths)
       setSourceData(map, SOURCES.sites, statics.sites)
       for (const e of study.entities) {
+        if (e.label === false) continue
         const position = e.kind === 'site' ? e.position : e.kind === 'effect' ? e.center : null
         if (!position) continue
         const anchor = e.kind === 'site' ? (e.labelAnchor ?? 'left') : 'left'
@@ -157,14 +186,18 @@ export function StudyView({ study }: { study: Study }) {
         markers.current.set(e.id, marker)
       }
       for (const e of study.entities) {
-        if (e.kind !== 'track') continue
+        if (e.kind !== 'track' || e.label === false) continue
         const anchor = e.labelAnchor ?? 'left'
         const marker = new Marker({ element: labelElement(e, setSelectedId), anchor, offset: labelOffset(anchor) })
         markers.current.set(e.id, marker)
       }
       setReady(true)
     })
-    map.on('click', () => setSelectedId(null))
+    map.on('click', (event) => {
+      const hits = map.queryRenderedFeatures(event.point, { layers: ['ev-flashes'] })
+      const id = hits[0]?.properties?.id
+      setSelectedId(typeof id === 'string' ? id : null)
+    })
     return () => {
       labels.forEach((m) => m.remove())
       labels.clear()
@@ -178,10 +211,15 @@ export function StudyView({ study }: { study: Study }) {
   useEffect(() => {
     if (!study.populationGrid) return
     const base = new URL(`${import.meta.env.BASE_URL}data/hyde/${study.populationGrid}`, document.baseURI).href
-    const service = new ExposureService(base, 1)
+    const service = new ExposureService(base, study.exposureWorkers ?? 1)
     exposureService.current = service
     if (import.meta.env.DEV) Object.assign(window, { __grid84Exposure: service })
-    service.load().catch((error) => {
+    service
+      .load()
+      .then((summary) => {
+        if (exposureService.current === service) setGridName(`${summary.source.name} ${summary.source.year}`)
+      })
+      .catch((error) => {
       // A destroyed service rejects its load; only clear the ref if it is still ours.
       if (exposureService.current !== service) return
       console.warn('population grid unavailable', error)
@@ -218,15 +256,16 @@ export function StudyView({ study }: { study: Study }) {
       if (map) terrainSync.current?.()
       if (map && (changed || !primed.current)) {
         primed.current = true
-        const timed = timedFeatures(study, next.time, burstRef.current)
+        const timed = timedFeatures(study, next.time, burstRef.current, selectedRef.current)
         setSourceData(map, SOURCES.vehicles, timed.vehicles)
         setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings])
         setSourceData(map, SOURCES.areas, timed.areas)
         setSourceData(map, SOURCES.paths, [...statics.paths, ...timed.paths])
+        setSourceData(map, SOURCES.flashes, timed.flashes)
         for (const e of study.entities) {
           const marker = markers.current.get(e.id)
-          if (!marker) continue
           if (e.kind === 'track') {
+            if (!marker) continue
             const p = e.track.positionAt(next.time)
             if (p) {
               marker.setLngLat([p[0], p[1]])
@@ -234,8 +273,10 @@ export function StudyView({ study }: { study: Study }) {
             } else if (marker.getElement().isConnected) marker.remove()
           } else if (e.kind === 'effect') {
             const due = next.time >= e.time
-            if (due && !marker.getElement().isConnected) marker.addTo(map)
-            else if (!due && marker.getElement().isConnected) marker.remove()
+            if (marker) {
+              if (due && !marker.getElement().isConnected) marker.addTo(map)
+              else if (!due && marker.getElement().isConnected) marker.remove()
+            }
             const service = exposureService.current
             if (due && service && service.grid && !computed.current.has(e.id)) {
               computed.current.add(e.id)
@@ -297,8 +338,9 @@ export function StudyView({ study }: { study: Study }) {
     const magnitude = 10 ** (Math.floor(Math.log10(v)) - 1)
     return (Math.round(v / magnitude) * magnitude).toLocaleString('en-GB')
   }
+  // Per-target outcome lines only for small studies; a large one reports through the aggregate panel.
   const outcomeEvents = study.entities.flatMap((e) => {
-    if (e.kind !== 'effect') return []
+    if (e.kind !== 'effect' || effectCount > 20) return []
     const o = outcomes[e.id]
     if (!o) return []
     return [
@@ -470,6 +512,37 @@ export function StudyView({ study }: { study: Study }) {
             </>
           )}
         </section>
+
+        {effectCount > 1 && (
+          <section className="aggregate" aria-label="Aggregate outcome">
+            <h2>
+              Outcome calculation <span className="badge badge--modelled">MODELLED</span>
+            </h2>
+            <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={effectCount} aria-valuenow={aggregate.computed}>
+              <div style={{ width: `${(100 * aggregate.computed) / effectCount}%` }} />
+            </div>
+            <p className="log-empty">
+              {aggregate.computed} of {effectCount} detonations summed over {gridName ?? 'the population grid'}
+            </p>
+            <div className="two-numbers">
+              <div>
+                <span>Blast only · 1961 method</span>
+                <strong>{fmt(aggregate.blastDead)}</strong>
+                <em>dead · {fmt(aggregate.blastInjured)} injured</em>
+              </div>
+              <div>
+                <span>With mass fire · Postol bound</span>
+                <strong>{fmt(aggregate.fireDead)}</strong>
+                <em>dead</em>
+              </div>
+            </div>
+            {study.outcomeReference && (
+              <p className="provenance-source">
+                {study.outcomeReference.label}: {fmt(study.outcomeReference.value)} · {study.outcomeReference.source}
+              </p>
+            )}
+          </section>
+        )}
 
         <section className="omissions" aria-label="Not computed">
           <h2>Not represented</h2>

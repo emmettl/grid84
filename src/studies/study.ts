@@ -11,6 +11,8 @@ export interface SiteEntity extends Evidenced {
   id: string
   name: string
   designation: string
+  /** Draw a text label beside the mark. Default true; large studies turn it off. */
+  label?: boolean
   position: LngLat
   /** Positional uncertainty in metres; drawn as a ring for inferred positions. */
   uncertaintyMetres?: number
@@ -25,6 +27,7 @@ export interface TrackEntity extends Evidenced {
   id: string
   name: string
   designation: string
+  label?: boolean
   track: Track
   /** Provenance for the vehicle's existence and posture may differ from the route's. */
   route: Evidenced
@@ -48,6 +51,9 @@ export interface EffectEntity extends Evidenced {
   id: string
   name: string
   designation: string
+  label?: boolean
+  /** Compact effects draw one mark scaled by yield instead of the ring set; the rings appear when selected. */
+  compact?: boolean
   center: LngLat
   time: number
   effects: PromptEffects
@@ -91,4 +97,8 @@ export interface Study {
   populationGrid?: string
   /** Bounds to use when the study is switched to surface bursts, so the plume has days to fall. */
   surfaceBounds?: { start: number; end: number }
+  /** Exposure workers to run; large studies ask for more. */
+  exposureWorkers?: number
+  /** A documented figure to set the aggregate outcome against, with its source. */
+  outcomeReference?: { label: string; value: number; source: string }
 }

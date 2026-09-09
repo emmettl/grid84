@@ -204,6 +204,29 @@ The engine is general and SIOP//62 is the jumping-off point. Grid/84 as a whole 
 
 The rule from the manifesto holds for all of them: impractical, never fake. A study that cannot name its sources on the readout does not get built.
 
+## The alert force, enacted
+
+`#/study/siop62-alert` plays option 1: the force that could launch on fifteen minutes' warning, from the mid-1961 order of battle to the 1956 study's highest-priority complexes.
+
+| Quantity | Enacted | Documented |
+| --- | --- | --- |
+| Launch sites | 71 | 112 bases in the plan |
+| Weapons launched | 1,591 | 1,685 (briefing chart) · 1,530 (Table 1, 15 July 1961) |
+| Megatons | 1,545 | 1,798 |
+| Alert fraction of the bomber force | 0.48, the value that makes the base list carry the documented 1,212 SAC aircraft weapons | "approximately half" (Sagan p. 29) |
+| Targets covered | 863, the whole prioritised city list, 728 of them with two weapons | 1,060 DGZs in the full plan |
+| First detonation | H+20 min (Atlas D) | ballistic missiles first (documented sequence) |
+| Half the targets struck | H+8 h 18 min | |
+| Last detonation | H+14 h 52 min | |
+| Blast-only dead, summed over HYDE 1961 | 53 million, 60 million injured | JCS 1961 estimate for the alert force: 80 million Soviet dead, 37 percent |
+| With mass fire, Postol bound | 120 million | |
+
+**Tiers.** The launch sites and the totals are documented; the order of battle is built by [`scripts/build-order-of-battle-1961.py`](../scripts/build-order-of-battle-1961.py) from Wikipedia's B-47 unit list and strategic-wing list, the Atlas, Jupiter and Polaris records, and the theatre totals of Table 1, with positions read from the modern map. The strength on each base is reconstructed by stated rules: 45 aircraft for a heavy wing, 15 for a dispersed strategic wing, 45 for a B-47 wing, two weapons per B-52 and one per B-47, and one alert fraction across the force chosen so the SAC bases carry the documented 1,212 aircraft weapons. That fraction comes out at 0.48, which is the briefing's "approximately half" recovered rather than assumed. Every weapon-to-target assignment is inferred by one rule, highest priority first and nearest launcher in range with missiles before bombers, and the study's subtitle says so.
+
+**What it shows.** The documented pathology becomes a picture: the missiles land within the hour and the bomber stream is still crossing the pole eight hours later, so half the targets are struck after H+8 and the last after H+14. The sum over the 1961 grid, computed in four workers as the clock runs, brackets the planners' own figure: 53 million by their blast-only method against their 80 million, and 120 million with fire. The enacted figure covers the whole bloc including China, North Vietnam and Eastern Europe, while the JCS figure is Soviet dead only, so the comparison is a bracket, not a match.
+
+**What it omits**, on the readout: refuelling, routing, penetration and attrition; Soviet air defence and any Soviet response; the airfield list, which is not yet transcribed; per-weapon yields, with Mk-28 class assumed for bombers; and overlap between targets, which the summing counts more than once.
+
 ## Open questions
 
 - Which 1956 targets can be tied to 1961 ground zeros, and by what stated rule? Airfields and the largest cities are the safest reconstruction.

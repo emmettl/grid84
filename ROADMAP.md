@@ -80,12 +80,14 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 - [x] Evidence contract: every entity carries a tier (documented, reconstructed, inferred, modelled, withheld) and a source reference; the renderer derives its line grammar from the tier. Lab at `#/lab/evidence`.
 - [x] Transcribe the 1956 SAC city list (306 image-only pages) with OCR and a row-grammar parser: first pass complete, 1,691 complex rows and 8,875 category rows with confidence flags.
 - [ ] Verify the transcript: work the 3,032 unparsed lines, the low-confidence rows and the out-of-box coordinates; check coordinates against 1960 borders and a hand-checked sample.
-- [ ] Order of battle as data: bases, squadrons, boats, weapons and yields for mid-1961, each row cited.
+- [x] Order of battle as data: `data/siop62/order-of-battle-1961.json`, 71 launch sites with sources and position evidence.
 - [ ] Period layers: 1960 borders with precision shown; HYDE 1960 population grid.
 - [x] Bounded proof at `#/study/siop62`: F.E. Warren, a Chrome Dome sortie on a reconstructed route, Anadyr from the 1956 list with its redaction, one modelled Atlas D flight and prompt effects, the population ghost; the clock runs from H-hour and the camera descends to the target at impact.
 - [x] Study clock as a shared engine module for every later study: `src/engine` holds the clock and timed tracks; models live in `src/models` with their validation tests.
 - [x] Readiness lab at `#/lab/readiness`: the fourteen execution options as a force-generation curve, force tables by command, reaction times, sequence, posture and DEFCON, with the chart-versus-table disagreement on the alert force kept visible.
-- [ ] Alert force enactment: option 1, 1,004 systems, missiles first, forward areas second, US-based last.
+- [x] Alert force enactment at `#/study/siop62-alert`: 1,591 weapons from 71 documented launch sites to the 863 prioritised 1956 complexes, missiles first, bombers over the pole for fifteen hours, the outcome summed over HYDE 1961 in four workers against the JCS's 80 million. Order of battle built by script from unit lists; every assignment inferred by one stated rule.
+- [ ] Transcribe the 1956 airfield list (over 1,100 airfields) so the alert force's military targets are not only cities.
+- [ ] Bomber refuelling tracks and a Soviet air-defence attrition model, both reconstructed from published sources.
 - [ ] Full force with the option selector, and the finding that the options barely differ.
 - [x] Two-number outcome readout at impact: blast-only by the 1961 method against the mass-fire bound, computed in a worker from HYDE 1961.
 

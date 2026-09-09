@@ -14,6 +14,7 @@ export const SOURCES = {
   rings: 'ev-rings',
   areas: 'ev-areas',
   vehicles: 'ev-vehicles',
+  flashes: 'ev-flashes',
 } as const
 
 export type EvidenceFeature = Feature<Geometry, { evidence: EvidenceTier; id: string; [key: string]: unknown }>
@@ -95,6 +96,28 @@ export function installEvidenceLayers(map: MapLibreMap): void {
       'circle-color': '#050410',
       'circle-stroke-color': ['match', ['get', 'evidence'], 'documented', LINE.documented.color, 'inferred', LINE.inferred.color, 'modelled', LINE.modelled.color, LINE.reconstructed.color],
       'circle-stroke-width': 2,
+    },
+  })
+  // Detonation marks for compact effects: radius grows with the 5 psi ring and the mark fades with age.
+  map.addLayer({
+    id: 'ev-flashes-glow',
+    type: 'circle',
+    source: SOURCES.flashes,
+    paint: {
+      'circle-radius': ['interpolate', ['exponential', 2], ['zoom'], 2, 6, 6, 14, 10, 40],
+      'circle-color': 'rgba(255, 96, 96, 0.18)',
+      'circle-blur': 1,
+    },
+  })
+  map.addLayer({
+    id: 'ev-flashes',
+    type: 'circle',
+    source: SOURCES.flashes,
+    paint: {
+      'circle-radius': ['interpolate', ['exponential', 2], ['zoom'], 2, 2.5, 6, 6, 10, 18],
+      'circle-color': ['interpolate', ['linear'], ['get', 'age'], 0, '#ffffff', 60, 'rgba(255, 96, 96, 0.95)', 3600, 'rgba(255, 96, 96, 0.55)'],
+      'circle-stroke-color': 'rgba(255, 96, 96, 0.9)',
+      'circle-stroke-width': 1,
     },
   })
   map.addLayer({

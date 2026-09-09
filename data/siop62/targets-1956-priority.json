@@ -1,0 +1,15993 @@
+{
+"source": "SAC Atomic Weapons Requirements Study for 1959 (June 1956), NSA EBB 538, 1st city list; transcription first pass",
+"count": 863,
+"targets": [
+{
+"complex": "9150",
+"priority": 1,
+"name": "MOSCOW",
+"lat": 55.75,
+"lon": 37.6167,
+"page": 166,
+"confidence": "high",
+"categories": [
+5,
+15,
+16,
+30,
+48,
+54,
+62,
+64,
+66,
+68,
+70,
+75,
+82,
+85,
+90,
+99,
+112,
+200,
+202,
+208,
+210,
+212,
+224,
+226,
+227,
+228,
+230,
+243,
+245,
+246,
+248,
+250,
+262,
+264,
+266,
+268,
+275,
+281,
+285,
+296,
+308,
+356,
+405,
+430,
+435,
+445,
+450,
+480,
+648
+],
+"population": true
+},
+{
+"complex": "4490",
+"priority": 2,
+"name": "LENINGRAD .",
+"lat": 59.9333,
+"lon": 30.3333,
+"page": 143,
+"confidence": "high",
+"categories": [
+5,
+6,
+15,
+23,
+48,
+50,
+55,
+60,
+64,
+66,
+68,
+75,
+90,
+95,
+100,
+110,
+200,
+202,
+204,
+206,
+208,
+210,
+212,
+216,
+227,
+230,
+235,
+240,
+241,
+242,
+243,
+245,
+246,
+248,
+262,
+264,
+268,
+275,
+280,
+281,
+282,
+285,
+290,
+296,
+310,
+358,
+405,
+410,
+415,
+420,
+430,
+437,
+440,
+445,
+450,
+470,
+475,
+480,
+485
+],
+"population": true
+},
+{
+"complex": "7732",
+"priority": 5,
+"name": "SPASSK DALNIY .",
+"lat": 44.6167,
+"lon": 132.8,
+"page": 244,
+"confidence": "high",
+"categories": [
+130,
+227,
+240,
+246,
+275,
+354
+],
+"population": true
+},
+{
+"complex": "5640",
+"priority": 6,
+"name": "NOVOSIBIRSK",
+"lat": 55.0333,
+"lon": 82.9333,
+"page": 185,
+"confidence": "high",
+"categories": [
+16,
+23,
+40,
+46,
+90,
+108,
+202,
+227,
+230,
+246,
+248,
+250,
+252,
+264,
+268,
+285,
+290,
+372,
+450,
+465
+],
+"population": false
+},
+{
+"complex": "0460",
+"priority": 7,
+"name": "BAKU",
+"lat": 40.3833,
+"lon": 49.8667,
+"page": 11,
+"confidence": "high",
+"categories": [
+21,
+56,
+60,
+62,
+68,
+116,
+204,
+208,
+216,
+224,
+226,
+227,
+240,
+241,
+243,
+246,
+248,
+254,
+262,
+275,
+281,
+285,
+350,
+400,
+430,
+445,
+480
+],
+"population": true
+},
+{
+"complex": "4310",
+"priority": 8,
+"name": "KUYBYSHEV",
+"lat": 53.2,
+"lon": 50.1,
+"page": 139,
+"confidence": "high",
+"categories": [
+15,
+16,
+23,
+30,
+36,
+165,
+200,
+208,
+212,
+214,
+224,
+226,
+227,
+230,
+241,
+243,
+245,
+246,
+275,
+281,
+320,
+368
+],
+"population": true
+},
+{
+"complex": "2952",
+"priority": 11,
+"name": "ISTRA",
+"lat": 55.9333,
+"lon": 36.8667,
+"page": 102,
+"confidence": "high",
+"categories": [
+230
+],
+"population": false
+},
+{
+"complex": "1870",
+"priority": 12,
+"name": "OZERZHINSK",
+"lat": 56.25,
+"lon": 43.4,
+"page": 67,
+"confidence": "high",
+"categories": [
+22,
+23,
+60,
+62,
+66,
+68,
+112,
+135,
+208,
+215,
+224,
+226,
+236,
+275,
+281,
+282,
+360,
+445,
+460
+],
+"population": true
+},
+{
+"complex": "6125",
+"priority": 13,
+"name": "PEI PING CHINA",
+"lat": 39.9167,
+"lon": 116.4,
+"page": 199,
+"confidence": "high",
+"categories": [
+186,
+208,
+230,
+240,
+241,
+242,
+243,
+245,
+246,
+248,
+270,
+275,
+332,
+384
+],
+"population": true
+},
+{
+"complex": "8270",
+"priority": 14,
+"name": "TASHKENT",
+"lat": 41.3,
+"lon": 69.2667,
+"page": 263,
+"confidence": "high",
+"categories": [
+5,
+6,
+10,
+16,
+95,
+104,
+200,
+202,
+208,
+227,
+240,
+241,
+243,
+245,
+246,
+250,
+275,
+324,
+372,
+410
+],
+"population": true
+},
+{
+"complex": "8310",
+"priority": 15,
+"name": "TBILISI",
+"lat": 41.7167,
+"lon": 44.8167,
+"page": 264,
+"confidence": "high",
+"categories": [
+16,
+22,
+54,
+56,
+75,
+116,
+208,
+224,
+226,
+227,
+230,
+240,
+241,
+243,
+245,
+246,
+248,
+262,
+270,
+275,
+285,
+290,
+302,
+350,
+430,
+910
+],
+"population": true
+},
+{
+"complex": "9130",
+"priority": 19,
+"name": "VLADIVOSTOK",
+"lat": 43.1167,
+"lon": 131.9,
+"page": 283,
+"confidence": "high",
+"categories": [
+23,
+98,
+130,
+227,
+242,
+243,
+245,
+246,
+248,
+250,
+254,
+275,
+280,
+285,
+354,
+415,
+420,
+437,
+470
+],
+"population": true
+},
+{
+"complex": "7478",
+"priority": 21,
+"name": "SHA SHIH CHINA .",
+"lat": 30.3167,
+"lon": 112.2333,
+"page": 235,
+"confidence": "high",
+"categories": [
+275,
+281
+],
+"population": true
+},
+{
+"complex": "3440",
+"priority": 22,
+"name": "KHARKOV .",
+"lat": 49.9667,
+"lon": 36.25,
+"page": 116,
+"confidence": "high",
+"categories": [
+10,
+16,
+30,
+48,
+106,
+200,
+206,
+208,
+227,
+230,
+243,
+245,
+250,
+275,
+278,
+285,
+294,
+304,
+352,
+410,
+430,
+440,
+450,
+475,
+485,
+489
+],
+"population": true
+},
+{
+"complex": "2450",
+"priority": 24,
+"name": "GROZNYY-",
+"lat": 43.3167,
+"lon": 45.6833,
+"page": 90,
+"confidence": "high",
+"categories": [
+56,
+150,
+208,
+226,
+262,
+275,
+290,
+350
+],
+"population": true
+},
+{
+"complex": "9220",
+"priority": 25,
+"name": "VOROSHILOV",
+"lat": 43.8,
+"lon": 131.95,
+"page": 287,
+"confidence": "high",
+"categories": [
+208,
+227,
+240,
+241,
+243,
+245,
+246,
+248,
+275,
+306,
+354
+],
+"population": true
+},
+{
+"complex": "2360",
+"priority": 26,
+"name": "GORKIY",
+"lat": 56.3167,
+"lon": 44.0,
+"page": 86,
+"confidence": "high",
+"categories": [
+16,
+70,
+95,
+112,
+208,
+212,
+224,
+226,
+227,
+230,
+240,
+241,
+243,
+252,
+275,
+281,
+282,
+285,
+290,
+294,
+360,
+410,
+415,
+430,
+440,
+450,
+470
+],
+"population": true
+},
+{
+"complex": "3630",
+"priority": 27,
+"name": "KIYEV",
+"lat": 50.45,
+"lon": 30.5,
+"page": 121,
+"confidence": "high",
+"categories": [
+16,
+55,
+64,
+145,
+200,
+208,
+227,
+230,
+241,
+243,
+264,
+266,
+275,
+281,
+285,
+290,
+292,
+328,
+376,
+430
+],
+"population": true
+},
+{
+"complex": "7500",
+"priority": 29,
+"name": "SHCHERBAKOV",
+"lat": 58.05,
+"lon": 38.8667,
+"page": 235,
+"confidence": "high",
+"categories": [
+15,
+112,
+227,
+228,
+275,
+281,
+360
+],
+"population": true
+},
+{
+"complex": "1360",
+"priority": 30,
+"name": "CHIRCHIK",
+"lat": 41.5,
+"lon": 69.6167,
+"page": 48,
+"confidence": "high",
+"categories": [
+10,
+22,
+47,
+64,
+68,
+104,
+125,
+208,
+227,
+236,
+240,
+241,
+243,
+245,
+246,
+248,
+275,
+306
+],
+"population": true
+},
+{
+"complex": "3180",
+"priority": 31,
+"name": "KALININGRAD",
+"lat": 54.7,
+"lon": 20.5167,
+"page": 105,
+"confidence": "high",
+"categories": [
+170,
+208,
+227,
+240,
+246,
+248,
+275,
+280,
+322,
+370,
+415,
+420
+],
+"population": true
+},
+{
+"complex": "7430",
+"priority": 32,
+"name": "SEVASTOPOL",
+"lat": 44.6167,
+"lon": 33.5333,
+"page": 231,
+"confidence": "high",
+"categories": [
+208,
+227,
+240,
+242,
+243,
+245,
+246,
+275,
+280,
+376,
+415,
+420,
+437
+],
+"population": true
+},
+{
+"complex": "1680",
+"priority": 33,
+"name": "DNEPRODZERZHINSK",
+"lat": 48.5167,
+"lon": 34.6333,
+"page": 60,
+"confidence": "high",
+"categories": [
+22,
+47,
+75,
+106,
+208,
+227,
+270,
+275,
+281,
+292,
+352,
+376,
+430
+],
+"population": true
+},
+{
+"complex": "2815",
+"priority": 34,
+"name": "HSIU YEN MANCH",
+"lat": 40.2833,
+"lon": 123.2667,
+"page": 98,
+"confidence": "high",
+"categories": [
+216,
+275
+],
+"population": true
+},
+{
+"complex": "8220",
+"priority": 34,
+"name": "TALLIN .",
+"lat": 59.4333,
+"lon": 24.75,
+"page": 260,
+"confidence": "high",
+"categories": [
+208,
+227,
+240,
+242,
+246,
+248,
+262,
+275,
+280,
+285,
+310,
+358,
+420,
+437,
+445,
+610
+],
+"population": true
+},
+{
+"complex": "3410",
+"priority": 35,
+"name": "KHABAROVSK",
+"lat": 48.4667,
+"lon": 135.0833,
+"page": 115,
+"confidence": "high",
+"categories": [
+10,
+16,
+98,
+130,
+208,
+212,
+224,
+226,
+227,
+240,
+241,
+243,
+246,
+254,
+275,
+281,
+354,
+420
+],
+"population": true
+},
+{
+"complex": "0640",
+"priority": 37,
+"name": "BELOMORSK",
+"lat": 64.5,
+"lon": 34.75,
+"page": 16,
+"confidence": "high",
+"categories": [
+56,
+140,
+240,
+275,
+280,
+290
+],
+"population": true
+},
+{
+"complex": "5710",
+"priority": 38,
+"name": "ODESSA",
+"lat": 46.4667,
+"lon": 30.7333,
+"page": 187,
+"confidence": "high",
+"categories": [
+10,
+106,
+208,
+224,
+226,
+227,
+230,
+235,
+240,
+241,
+243,
+246,
+248,
+262,
+275,
+280,
+286,
+376,
+420,
+437,
+445
+],
+"population": true
+},
+{
+"complex": "9800",
+"priority": 39,
+"name": "ZAPOROZHYE",
+"lat": 47.8333,
+"lon": 35.1333,
+"page": 300,
+"confidence": "high",
+"categories": [
+5,
+6,
+10,
+15,
+20,
+21,
+56,
+60,
+75,
+106,
+204,
+208,
+228,
+232,
+246,
+248,
+270,
+275,
+281,
+285,
+290,
+304,
+352,
+430,
+480
+],
+"population": true
+},
+{
+"complex": "5750",
+"priority": 40,
+"name": "OMSK",
+"lat": 55.0,
+"lon": 73.3833,
+"page": 189,
+"confidence": "high",
+"categories": [
+15,
+16,
+175,
+208,
+227,
+245,
+246,
+250,
+275,
+281,
+285,
+290,
+324,
+372,
+405,
+430
+],
+"population": true
+},
+{
+"complex": "4330",
+"priority": 41,
+"name": "XYSHTYM",
+"lat": 55.7333,
+"lon": 60.5667,
+"page": 140,
+"confidence": "high",
+"categories": [
+5,
+40,
+48,
+82
+],
+"population": false
+},
+{
+"complex": "7990",
+"priority": 42,
+"name": "SVERDLOVSK",
+"lat": 56.8333,
+"lon": 60.6,
+"page": 254,
+"confidence": "high",
+"categories": [
+64,
+82,
+90,
+95,
+118,
+200,
+206,
+208,
+212,
+227,
+235,
+240,
+241,
+243,
+245,
+248,
+262,
+266,
+275,
+285,
+366,
+405,
+430,
+450,
+480,
+485
+],
+"population": true
+},
+{
+"complex": "6910",
+"priority": 43,
+"name": "ROSTOV . S",
+"lat": 47.2333,
+"lon": 39.7,
+"page": 221,
+"confidence": "high",
+"categories": [
+10,
+16,
+56,
+106,
+208,
+225,
+226,
+227,
+230,
+243,
+245,
+260,
+275,
+280,
+285,
+290,
+294,
+302,
+350,
+360,
+430
+],
+"population": true
+},
+{
+"complex": "5235",
+"priority": 44,
+"name": "MUKDEN MANCH",
+"lat": 41.8,
+"lon": 123.45,
+"page": 172,
+"confidence": "high",
+"categories": [
+16,
+23,
+68,
+82,
+185,
+200,
+208,
+212,
+214,
+216,
+230,
+235,
+240,
+241,
+243,
+245,
+246,
+248,
+275,
+292,
+294,
+332,
+360,
+384,
+405,
+430,
+480
+],
+"population": true
+},
+{
+"complex": "0130",
+"priority": 46,
+"name": "ALEKSIN",
+"lat": 54.5167,
+"lon": 37.1,
+"page": 4,
+"confidence": "high",
+"categories": [
+10,
+23,
+112,
+275,
+281,
+282
+],
+"population": true
+},
+{
+"complex": "2585",
+"priority": 47,
+"name": "HAN KOW CHINA",
+"lat": 30.5667,
+"lon": 114.2667,
+"page": 95,
+"confidence": "high",
+"categories": [
+50,
+186,
+208,
+212,
+214,
+227,
+240,
+241,
+243,
+246,
+270,
+275,
+280,
+291,
+332,
+364,
+384,
+430
+],
+"population": true
+},
+{
+"complex": "8600",
+"priority": 49,
+"name": "TSING TAO CHINA",
+"lat": 36.0833,
+"lon": 120.3333,
+"page": 271,
+"confidence": "medium",
+"categories": [
+208,
+214,
+227,
+230,
+240,
+248,
+275,
+280,
+286,
+290,
+294,
+332,
+405,
+420,
+437
+],
+"population": true
+},
+{
+"complex": "8850",
+"priority": 50,
+"name": "USOLYE SIBIRSKOYE",
+"lat": 52.75,
+"lon": 103.6833,
+"page": 277,
+"confidence": "high",
+"categories": [
+62,
+66,
+68,
+102,
+225,
+226,
+275,
+281,
+460
+],
+"population": true
+},
+{
+"complex": "7562",
+"priority": 51,
+"name": "SIAULIAT",
+"lat": 55.9333,
+"lon": 23.3167,
+"page": 237,
+"confidence": "high",
+"categories": [
+227,
+275,
+370
+],
+"population": true
+},
+{
+"complex": "9080",
+"priority": 51,
+"name": "VILNYUS",
+"lat": 54.6833,
+"lon": 25.3,
+"page": 281,
+"confidence": "high",
+"categories": [
+10,
+170,
+208,
+230,
+240,
+248,
+275,
+285,
+370
+],
+"population": true
+},
+{
+"complex": "6240",
+"priority": 52,
+"name": "PETROZAVODSK",
+"lat": 61.7833,
+"lon": 34.35,
+"page": 202,
+"confidence": "high",
+"categories": [
+140,
+208,
+240,
+241,
+243,
+275,
+281,
+358,
+415,
+420,
+430
+],
+"population": true
+},
+{
+"complex": "0590",
+"priority": 54,
+"name": "BATUMI",
+"lat": 41.65,
+"lon": 41.65,
+"page": 15,
+"confidence": "high",
+"categories": [
+116,
+208,
+224,
+227,
+246,
+248,
+254,
+275,
+280,
+350
+],
+"population": true
+},
+{
+"complex": "3550",
+"priority": 56,
+"name": "KIROVGRAD .",
+"lat": 57.4167,
+"lon": 60.0833,
+"page": 120,
+"confidence": "high",
+"categories": [
+44,
+84,
+118,
+275,
+445
+],
+"population": true
+},
+{
+"complex": "0915",
+"priority": 57,
+"name": "BRANDENBURG E GEK",
+"lat": 52.4167,
+"lon": 12.55,
+"page": 26,
+"confidence": "high",
+"categories": [
+10,
+227,
+228,
+240,
+243,
+246,
+275,
+280,
+281,
+334,
+388,
+415,
+430,
+445,
+475
+],
+"population": true
+},
+{
+"complex": "0290",
+"priority": 58,
+"name": "ARTEM",
+"lat": 43.3667,
+"lon": 132.2,
+"page": 9,
+"confidence": "high",
+"categories": [
+23,
+118,
+130,
+165,
+208,
+227,
+246,
+248,
+275,
+285,
+290,
+415
+],
+"population": true
+},
+{
+"complex": "6493",
+"priority": 58,
+"name": "PRAGUE CZECH",
+"lat": 50.0833,
+"lon": 14.4167,
+"page": 209,
+"confidence": "high",
+"categories": [
+15,
+16,
+50,
+55,
+60,
+64,
+68,
+75,
+82,
+90,
+95,
+188,
+200,
+208,
+226,
+227,
+228,
+230,
+235,
+240,
+241,
+243,
+245,
+246,
+248,
+250,
+252,
+264,
+266,
+270,
+275,
+281,
+285,
+290,
+292,
+294,
+296,
+333,
+366,
+386,
+405,
+430,
+435,
+440,
+445,
+450,
+480,
+485
+],
+"population": true
+},
+{
+"complex": "6315",
+"priority": 59,
+"name": "PLOESTI RUM",
+"lat": 44.95,
+"lon": 26.0333,
+"page": 203,
+"confidence": "high",
+"categories": [
+23,
+198,
+200,
+208,
+212,
+224,
+226,
+227,
+248,
+262,
+275,
+290,
+296,
+337,
+394,
+405,
+445
+],
+"population": true
+},
+{
+"complex": "1045",
+"priority": 60,
+"name": "BUDAPEST HUNG",
+"lat": 47.3333,
+"lon": 19.0833,
+"page": 32,
+"confidence": "high",
+"categories": [
+5,
+19,
+23,
+30,
+50,
+55,
+56,
+62,
+68,
+82,
+95,
+182,
+192,
+200,
+202,
+206,
+208,
+212,
+224,
+226,
+227,
+228,
+230,
+235,
+240,
+241,
+242,
+243,
+245,
+246,
+248,
+250,
+252,
+261,
+262,
+264,
+266,
+268,
+275,
+285,
+290,
+294,
+298,
+335,
+390,
+405,
+430,
+440,
+480,
+690,
+910
+],
+"population": true
+},
+{
+"complex": "0685",
+"priority": 61,
+"name": "BERLIN GER SOVZONE",
+"lat": 52.5167,
+"lon": 13.4,
+"page": 18,
+"confidence": "high",
+"categories": [
+5,
+30,
+50,
+55,
+70,
+82,
+90,
+95,
+190,
+200,
+202,
+206,
+208,
+227,
+228,
+230,
+235,
+246,
+248,
+264,
+275,
+281,
+285,
+334,
+386,
+388,
+405,
+430,
+440,
+445,
+480,
+485
+],
+"population": true
+},
+{
+"complex": "9385",
+"priority": 62,
+"name": "WARSAW POL",
+"lat": 52.25,
+"lon": 21.0,
+"page": 292,
+"confidence": "high",
+"categories": [
+23,
+50,
+196,
+200,
+202,
+208,
+227,
+230,
+240,
+241,
+246,
+248,
+252,
+264,
+266,
+268,
+275,
+280,
+281,
+285,
+336,
+388,
+392,
+418,
+420,
+475
+],
+"population": true
+},
+{
+"complex": "4040",
+"priority": 64,
+"name": "KRASNODAR",
+"lat": 45.0333,
+"lon": 39.0,
+"page": 131,
+"confidence": "high",
+"categories": [
+56,
+150,
+208,
+226,
+227,
+230,
+246,
+262,
+275,
+281,
+290,
+350,
+352
+],
+"population": true
+},
+{
+"complex": "8602",
+"priority": 65,
+"name": "TUAPSE",
+"lat": 44.0833,
+"lon": 39.0833,
+"page": 272,
+"confidence": "medium",
+"categories": [
+224,
+226,
+227,
+262,
+280,
+290,
+350,
+415
+],
+"population": false
+},
+{
+"complex": "2380",
+"priority": 66,
+"name": "GORLOVKA",
+"lat": 48.3,
+"lon": 38.05,
+"page": 88,
+"confidence": "high",
+"categories": [
+22,
+47,
+75,
+106,
+215,
+227,
+234,
+240,
+248,
+250,
+262,
+270,
+275,
+352,
+382,
+445
+],
+"population": true
+},
+{
+"complex": "7790",
+"priority": 67,
+"name": "STALINO",
+"lat": 47.9833,
+"lon": 37.8333,
+"page": 246,
+"confidence": "high",
+"categories": [
+10,
+20,
+21,
+22,
+23,
+60,
+66,
+68,
+75,
+106,
+108,
+200,
+204,
+208,
+215,
+227,
+240,
+246,
+250,
+270,
+275,
+324,
+352,
+362,
+372,
+430,
+445
+],
+"population": true
+},
+{
+"complex": "3540",
+"priority": 68,
+"name": "KIROVAKAN",
+"lat": 40.8167,
+"lon": 44.4833,
+"page": 119,
+"confidence": "high",
+"categories": [
+22,
+47,
+60,
+116,
+227,
+245,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "0680",
+"priority": 69,
+"name": "BEREZNIKI",
+"lat": 59.4167,
+"lon": 56.7,
+"page": 18,
+"confidence": "high",
+"categories": [
+62,
+68,
+118,
+215,
+232,
+236,
+275,
+281,
+366,
+425,
+445
+],
+"population": true
+},
+{
+"complex": "9630",
+"priority": 70,
+"name": "YAROSLAVL",
+"lat": 57.6333,
+"lon": 39.8833,
+"page": 296,
+"confidence": "high",
+"categories": [
+112,
+208,
+224,
+227,
+246,
+275,
+281,
+290,
+312,
+360,
+405
+],
+"population": true
+},
+{
+"complex": "7400",
+"priority": 71,
+"name": "SEROV",
+"lat": 59.6167,
+"lon": 60.5833,
+"page": 230,
+"confidence": "high",
+"categories": [
+20,
+21,
+47,
+95,
+118,
+204,
+227,
+270,
+275,
+366,
+430
+],
+"population": true
+},
+{
+"complex": "1543",
+"priority": 72,
+"name": "DALREN MANCH",
+"lat": 38.9167,
+"lon": 121.6,
+"page": 54,
+"confidence": "high",
+"categories": [
+22,
+62,
+75,
+185,
+208,
+224,
+226,
+227,
+230,
+240,
+242,
+246,
+248,
+275,
+280,
+282,
+285,
+292,
+294,
+332,
+384,
+415,
+420,
+425,
+430,
+437,
+445
+],
+"population": true
+},
+{
+"complex": "1455",
+"priority": 74,
+"name": "CONSTANTA RUM",
+"lat": 44.1667,
+"lon": 28.6667,
+"page": 52,
+"confidence": "high",
+"categories": [
+198,
+208,
+227,
+241,
+242,
+246,
+254,
+275,
+280,
+337,
+394,
+420
+],
+"population": true
+},
+{
+"complex": "1210",
+"priority": 75,
+"name": "CHELYABINSK",
+"lat": 55.1667,
+"lon": 61.4167,
+"page": 41,
+"confidence": "high",
+"categories": [
+5,
+6,
+10,
+23,
+57,
+75,
+95,
+118,
+204,
+208,
+227,
+243,
+250,
+262,
+270,
+275,
+282,
+285,
+318,
+366,
+430,
+445,
+450,
+475
+],
+"population": true
+},
+{
+"complex": "0269",
+"priority": 76,
+"name": "AN TUNG MANCH",
+"lat": 40.1333,
+"lon": 124.4,
+"page": 7,
+"confidence": "medium",
+"categories": [
+56,
+185,
+208,
+275,
+280,
+282,
+290,
+384
+],
+"population": true
+},
+{
+"complex": "8470",
+"priority": 78,
+"name": "TOMSK",
+"lat": 56.4833,
+"lon": 84.9833,
+"page": 268,
+"confidence": "high",
+"categories": [
+30,
+90,
+108,
+200,
+208,
+275,
+281,
+372
+],
+"population": true
+},
+{
+"complex": "4080",
+"priority": 79,
+"name": "KRASNOVODSK",
+"lat": 40.0,
+"lon": 53.0,
+"page": 132,
+"confidence": "high",
+"categories": [
+135,
+224,
+226,
+227,
+275,
+281,
+372
+],
+"population": true
+},
+{
+"complex": "1380",
+"priority": 80,
+"name": "CHKALOV",
+"lat": 51.7833,
+"lon": 55.1167,
+"page": 49,
+"confidence": "high",
+"categories": [
+16,
+23,
+90,
+160,
+208,
+235,
+241,
+243,
+275,
+318,
+366
+],
+"population": true
+},
+{
+"complex": "5850",
+"priority": 81,
+"name": "ORSK",
+"lat": 51.2,
+"lon": 58.5833,
+"page": 192,
+"confidence": "high",
+"categories": [
+72,
+75,
+160,
+196,
+224,
+226,
+227,
+235,
+248,
+258,
+260,
+275,
+280,
+281,
+290,
+366,
+394,
+430
+],
+"population": true
+},
+{
+"complex": "9740",
+"priority": 82,
+"name": "YUZHNO SAKHAL INSK",
+"lat": 46.95,
+"lon": 142.7333,
+"page": 300,
+"confidence": "high",
+"categories": [
+208,
+240,
+241,
+246,
+306
+],
+"population": false
+},
+{
+"complex": "4090",
+"priority": 83,
+"name": "KRASNOYARSK",
+"lat": 56.0167,
+"lon": 92.8333,
+"page": 133,
+"confidence": "high",
+"categories": [
+10,
+125,
+208,
+212,
+227,
+250,
+275,
+281,
+282,
+285,
+290,
+294,
+306,
+354,
+376,
+400,
+410,
+430
+],
+"population": true
+},
+{
+"complex": "2579",
+"priority": 84,
+"name": "HANG CHOW CHINA",
+"lat": 30.25,
+"lon": 120.1667,
+"page": 94,
+"confidence": "high",
+"categories": [
+56,
+186,
+208,
+246,
+248,
+275,
+281,
+290,
+384
+],
+"population": true
+},
+{
+"complex": "7780",
+"priority": 85,
+"name": "STALINGRAD",
+"lat": 48.7,
+"lon": 44.5,
+"page": 245,
+"confidence": "high",
+"categories": [
+23,
+62,
+68,
+95,
+106,
+206,
+212,
+215,
+227,
+250,
+256,
+262,
+275,
+281,
+290,
+368,
+415,
+430,
+450,
+475
+],
+"population": true
+},
+{
+"complex": "8417",
+"priority": 86,
+"name": "TIEN TSIN CHINA",
+"lat": 39.1333,
+"lon": 117.1833,
+"page": 266,
+"confidence": "high",
+"categories": [
+50,
+62,
+68,
+186,
+208,
+214,
+230,
+243,
+246,
+248,
+280,
+285,
+384,
+405,
+430,
+445
+],
+"population": false
+},
+{
+"complex": "1481",
+"priority": 88,
+"name": "COTTBUS E GER",
+"lat": 51.7667,
+"lon": 14.3333,
+"page": 53,
+"confidence": "high",
+"categories": [
+190,
+204,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "1690",
+"priority": 89,
+"name": "ONEPROPETRKOVSK",
+"lat": 48.4667,
+"lon": 35.0333,
+"page": 60,
+"confidence": "high",
+"categories": [
+10,
+56,
+75,
+106,
+204,
+208,
+227,
+243,
+248,
+270,
+275,
+281,
+285,
+290,
+304,
+352,
+405,
+430
+],
+"population": true
+},
+{
+"complex": "1153",
+"priority": 90,
+"name": "CANTON CHINA",
+"lat": 23.1167,
+"lon": 113.25,
+"page": 37,
+"confidence": "high",
+"categories": [
+23,
+62,
+68,
+186,
+208,
+214,
+227,
+242,
+243,
+245,
+246,
+248,
+254,
+275,
+280,
+298,
+384
+],
+"population": true
+},
+{
+"complex": "1200",
+"priority": 91,
+"name": "CHAPAYEVSK",
+"lat": 52.9667,
+"lon": 44.7,
+"page": 40,
+"confidence": "high",
+"categories": [
+23,
+40,
+62,
+68,
+165,
+215,
+275,
+368,
+445
+],
+"population": true
+},
+{
+"complex": "2310",
+"priority": 94,
+"name": "GLAZOV",
+"lat": 58.1333,
+"lon": 52.6667,
+"page": 79,
+"confidence": "high",
+"categories": [
+40,
+160,
+275
+],
+"population": true
+},
+{
+"complex": "3250",
+"priority": 95,
+"name": "KAPUSTIN VAR",
+"lat": 48.5667,
+"lon": 45.7833,
+"page": 109,
+"confidence": "high",
+"categories": [
+210,
+275
+],
+"population": true
+},
+{
+"complex": "5368",
+"priority": 96,
+"name": "NAN KING CHINA",
+"lat": 32.05,
+"lon": 118.8,
+"page": 176,
+"confidence": "high",
+"categories": [
+22,
+23,
+186,
+208,
+214,
+227,
+240,
+241,
+243,
+245,
+246,
+248,
+275,
+280,
+281,
+285,
+290,
+291,
+332,
+384
+],
+"population": true
+},
+{
+"complex": "2100",
+"priority": 98,
+"name": "FERGANA",
+"lat": 40.3833,
+"lon": 71.7667,
+"page": 72,
+"confidence": "high",
+"categories": [
+104,
+224,
+226,
+275
+],
+"population": true
+},
+{
+"complex": "6485",
+"priority": 100,
+"name": "POZNAN POL .",
+"lat": 52.4,
+"lon": 16.9167,
+"page": 209,
+"confidence": "high",
+"categories": [
+50,
+90,
+196,
+208,
+214,
+230,
+248,
+275,
+281,
+296,
+336,
+392,
+445
+],
+"population": true
+},
+{
+"complex": "9690",
+"priority": 101,
+"name": "YEREVAN",
+"lat": 40.1833,
+"lon": 44.5,
+"page": 297,
+"confidence": "high",
+"categories": [
+20,
+21,
+62,
+68,
+116,
+200,
+206,
+227,
+230,
+240,
+241,
+248,
+275,
+350,
+400,
+405,
+480
+],
+"population": true
+},
+{
+"complex": "5240",
+"priority": 102,
+"name": "MURMANSK",
+"lat": 68.9667,
+"lon": 33.0833,
+"page": 173,
+"confidence": "high",
+"categories": [
+114,
+208,
+227,
+242,
+246,
+248,
+275,
+280,
+281,
+285,
+290,
+312,
+358,
+360,
+420,
+437
+],
+"population": true
+},
+{
+"complex": "7730",
+"priority": 103,
+"name": "SOVETSKAYA GAVAN",
+"lat": 48.9667,
+"lon": 140.2667,
+"page": 243,
+"confidence": "high",
+"categories": [
+56,
+130,
+208,
+227,
+240,
+246,
+248,
+275,
+280,
+420,
+437,
+470
+],
+"population": true
+},
+{
+"complex": "5510",
+"priority": 104,
+"name": "NIZHNIY TAGHL",
+"lat": 57.9167,
+"lon": 59.95,
+"page": 182,
+"confidence": "high",
+"categories": [
+23,
+118,
+204,
+208,
+227,
+270,
+275,
+292,
+366,
+405,
+430,
+450
+],
+"population": true
+},
+{
+"complex": "8790",
+"priority": 105,
+"name": "ULAN UDE",
+"lat": 51.8167,
+"lon": 107.6,
+"page": 275,
+"confidence": "high",
+"categories": [
+125,
+208,
+227,
+246,
+281,
+294,
+354,
+616
+],
+"population": false
+},
+{
+"complex": "8160",
+"priority": 106,
+"name": "TAGANROG",
+"lat": 47.2167,
+"lon": 38.9167,
+"page": 258,
+"confidence": "high",
+"categories": [
+16,
+55,
+64,
+227,
+235,
+245,
+275,
+280,
+350,
+384,
+410,
+430
+],
+"population": true
+},
+{
+"complex": "0560",
+"priority": 108,
+"name": "BARNAUL",
+"lat": 53.3333,
+"lon": 83.8,
+"page": 14,
+"confidence": "high",
+"categories": [
+23,
+55,
+175,
+208,
+227,
+235,
+275,
+281,
+285,
+290,
+292,
+324,
+372
+],
+"population": true
+},
+{
+"complex": "3920",
+"priority": 109,
+"name": "KOKSAKOV",
+"lat": 46.6333,
+"lon": 142.7667,
+"page": 128,
+"confidence": "high",
+"categories": [
+227,
+240,
+248,
+275,
+354,
+392,
+437
+],
+"population": true
+},
+{
+"complex": "3390",
+"priority": 110,
+"name": "KEMEROVO",
+"lat": 55.35,
+"lon": 86.0667,
+"page": 114,
+"confidence": "high",
+"categories": [
+22,
+23,
+62,
+66,
+68,
+75,
+108,
+208,
+215,
+243,
+250,
+275,
+281,
+282,
+372,
+445
+],
+"population": true
+},
+{
+"complex": "1437",
+"priority": 111,
+"name": "CHUNG KING CHINA",
+"lat": 29.5667,
+"lon": 106.5833,
+"page": 51,
+"confidence": "high",
+"categories": [
+23,
+62,
+68,
+82,
+186,
+208,
+212,
+214,
+241,
+243,
+270,
+275,
+281,
+430
+],
+"population": true
+},
+{
+"complex": "4860",
+"priority": 112,
+"name": "MAKHACHKALA",
+"lat": 42.9833,
+"lon": 47.5,
+"page": 156,
+"confidence": "high",
+"categories": [
+150,
+208,
+227,
+275,
+281,
+350,
+372,
+470,
+581
+],
+"population": true
+},
+{
+"complex": "3520",
+"priority": 113,
+"name": "KI ROV",
+"lat": 58.6,
+"lon": 44.7,
+"page": 119,
+"confidence": "high",
+"categories": [
+10,
+95,
+116,
+120,
+208,
+227,
+275,
+281,
+290,
+360,
+374,
+405,
+450
+],
+"population": true
+},
+{
+"complex": "0160",
+"priority": 114,
+"name": "ALMA ATA",
+"lat": 43.2,
+"lon": 76.95,
+"page": 4,
+"confidence": "high",
+"categories": [
+135,
+208,
+227,
+235,
+243,
+246,
+250,
+275,
+470
+],
+"population": true
+},
+{
+"complex": "9170",
+"priority": 115,
+"name": "VOLOGDA",
+"lat": 59.2333,
+"lon": 39.8833,
+"page": 285,
+"confidence": "high",
+"categories": [
+140,
+227,
+248,
+275,
+282,
+290,
+312,
+360
+],
+"population": true
+},
+{
+"complex": "1780",
+"priority": 116,
+"name": "DROGORYCH",
+"lat": 49.35,
+"lon": 23.5,
+"page": 64,
+"confidence": "high",
+"categories": [
+145,
+224,
+226,
+262,
+275,
+290,
+331,
+376,
+382
+],
+"population": true
+},
+{
+"complex": "2803",
+"priority": 119,
+"name": "HSIAN CHINA",
+"lat": 34.2667,
+"lon": 108.9,
+"page": 98,
+"confidence": "high",
+"categories": [
+186,
+243,
+246
+],
+"population": false
+},
+{
+"complex": "3160",
+"priority": 120,
+"name": "KALININ",
+"lat": 56.8667,
+"lon": 35.9167,
+"page": 105,
+"confidence": "high",
+"categories": [
+112,
+208,
+227,
+243,
+248,
+275,
+281,
+290,
+356
+],
+"population": true
+},
+{
+"complex": "3464",
+"priority": 121,
+"name": "KHERSON",
+"lat": 46.6333,
+"lon": 32.6167,
+"page": 117,
+"confidence": "high",
+"categories": [
+10,
+208,
+224,
+226,
+227,
+278,
+280,
+290,
+376,
+415,
+420
+],
+"population": false
+},
+{
+"complex": "8620",
+"priority": 122,
+"name": "TULA",
+"lat": 54.2,
+"lon": 37.6167,
+"page": 272,
+"confidence": "high",
+"categories": [
+10,
+112,
+214,
+227,
+230,
+243,
+270,
+275,
+285,
+314,
+354,
+362
+],
+"population": true
+},
+{
+"complex": "8810",
+"priority": 124,
+"name": "ULYANOVSK",
+"lat": 54.3167,
+"lon": 48.4167,
+"page": 276,
+"confidence": "high",
+"categories": [
+23,
+165,
+208,
+227,
+230,
+243,
+246,
+248,
+252,
+275,
+281,
+290,
+368
+],
+"population": true
+},
+{
+"complex": "4840",
+"priority": 126,
+"name": "MAGNITOGORSK",
+"lat": 53.4,
+"lon": 59.0833,
+"page": 156,
+"confidence": "high",
+"categories": [
+75,
+118,
+204,
+208,
+227,
+270,
+275,
+366
+],
+"population": true
+},
+{
+"complex": "4877",
+"priority": 127,
+"name": "MALOYAROSLAVETS",
+"lat": 55.0167,
+"lon": 36.4833,
+"page": 157,
+"confidence": "medium",
+"categories": [
+48,
+275,
+362
+],
+"population": true
+},
+{
+"complex": "2131",
+"priority": 128,
+"name": "FOO CHOW CHINA",
+"lat": 26.0833,
+"lon": 119.3,
+"page": 73,
+"confidence": "high",
+"categories": [
+56,
+185,
+208,
+241,
+246,
+254,
+275,
+280,
+455
+],
+"population": true
+},
+{
+"complex": "2480",
+"priority": 130,
+"name": "GURYEV",
+"lat": 47.1167,
+"lon": 51.9167,
+"page": 91,
+"confidence": "high",
+"categories": [
+226,
+227,
+275,
+281
+],
+"population": true
+},
+{
+"complex": "0249",
+"priority": 131,
+"name": "AN SHAN MANCH",
+"lat": 41.1167,
+"lon": 122.95,
+"page": 6,
+"confidence": "high",
+"categories": [
+75,
+185,
+204,
+208,
+215,
+240,
+248,
+270,
+275,
+290,
+430,
+445
+],
+"population": true
+},
+{
+"complex": "8597",
+"priority": 133,
+"name": "TSI NAN CHINA",
+"lat": 36.6667,
+"lon": 116.9833,
+"page": 271,
+"confidence": "high",
+"categories": [
+186,
+208,
+230,
+243,
+246,
+275,
+290,
+332,
+384
+],
+"population": true
+},
+{
+"complex": "7880",
+"priority": 134,
+"name": "STERLITAMAK",
+"lat": 53.6167,
+"lon": 55.9667,
+"page": 250,
+"confidence": "high",
+"categories": [
+118,
+224,
+226,
+227,
+230,
+275,
+425
+],
+"population": true
+},
+{
+"complex": "4250",
+"priority": 136,
+"name": "KURSK",
+"lat": 51.7333,
+"lon": 36.1833,
+"page": 137,
+"confidence": "high",
+"categories": [
+50,
+120,
+208,
+246,
+275,
+462
+],
+"population": true
+},
+{
+"complex": "4314",
+"priority": 138,
+"name": "KUYBYSHEVKA",
+"lat": 50.9167,
+"lon": 128.4833,
+"page": 140,
+"confidence": "high",
+"categories": [
+227,
+243,
+246,
+275,
+354
+],
+"population": true
+},
+{
+"complex": "6420",
+"priority": 139,
+"name": "POLYARNYY",
+"lat": 69.1833,
+"lon": 33.4667,
+"page": 208,
+"confidence": "high",
+"categories": [
+227,
+240,
+275,
+280,
+437
+],
+"population": true
+},
+{
+"complex": "7920",
+"priority": 140,
+"name": "STRYY",
+"lat": 49.2667,
+"lon": 23.85,
+"page": 252,
+"confidence": "high",
+"categories": [
+240,
+248,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "0120",
+"priority": 141,
+"name": "ALEKSANOKUVSK",
+"lat": 50.9,
+"lon": 142.1667,
+"page": 4,
+"confidence": "high",
+"categories": [
+227,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "7685",
+"priority": 142,
+"name": "SOFIYA BULG",
+"lat": 42.6667,
+"lon": 23.3,
+"page": 241,
+"confidence": "high",
+"categories": [
+6,
+50,
+60,
+82,
+90,
+95,
+184,
+208,
+216,
+227,
+230,
+241,
+243,
+245,
+246,
+248,
+270,
+275,
+285,
+290,
+382,
+405,
+430,
+480
+],
+"population": true
+},
+{
+"complex": "1545",
+"priority": 143,
+"name": "DARMANESTL RUM",
+"lat": 46.3667,
+"lon": 26.4667,
+"page": 55,
+"confidence": "high",
+"categories": [
+198,
+224,
+226,
+275
+],
+"population": true
+},
+{
+"complex": "4465",
+"priority": 144,
+"name": "LEIPZIG E GER",
+"lat": 52.3333,
+"lon": 12.3833,
+"page": 141,
+"confidence": "high",
+"categories": [
+5,
+10,
+30,
+60,
+64,
+95,
+190,
+204,
+208,
+225,
+226,
+230,
+246,
+248,
+250,
+264,
+275,
+285,
+334,
+388,
+430
+],
+"population": true
+},
+{
+"complex": "4565",
+"priority": 145,
+"name": "LIEGNITZ POL",
+"lat": 51.2,
+"lon": 16.1667,
+"page": 148,
+"confidence": "high",
+"categories": [
+208,
+227,
+240,
+241,
+245,
+248,
+275,
+290,
+392
+],
+"population": true
+},
+{
+"complex": "2255",
+"priority": 147,
+"name": "GDANSK POL",
+"lat": 54.3667,
+"lon": 18.6333,
+"page": 76,
+"confidence": "high",
+"categories": [
+50,
+196,
+208,
+227,
+230,
+242,
+248,
+254,
+275,
+280,
+336,
+392,
+415,
+420,
+445
+],
+"population": true
+},
+{
+"complex": "1775",
+"priority": 148,
+"name": "ORESDEN E GER",
+"lat": 51.05,
+"lon": 13.75,
+"page": 62,
+"confidence": "high",
+"categories": [
+5,
+6,
+50,
+55,
+56,
+62,
+68,
+190,
+200,
+206,
+208,
+227,
+235,
+241,
+243,
+245,
+246,
+248,
+264,
+266,
+275,
+281,
+285,
+290,
+388,
+430,
+480,
+485,
+956
+],
+"population": true
+},
+{
+"complex": "9290",
+"priority": 149,
+"name": "VSETIN CZECH",
+"lat": 49.3333,
+"lon": 18.0333,
+"page": 289,
+"confidence": "high",
+"categories": [
+23,
+200,
+202,
+214,
+227,
+275
+],
+"population": true
+},
+{
+"complex": "2565",
+"priority": 150,
+"name": "HALLE-MERSEBURG E GER",
+"lat": 51.5,
+"lon": 12.0,
+"page": 92,
+"confidence": "high",
+"categories": [
+10,
+22,
+55,
+60,
+62,
+64,
+68,
+190,
+208,
+225,
+226,
+228,
+230,
+246,
+248,
+275,
+281,
+285,
+290,
+296,
+334,
+388,
+400,
+430
+],
+"population": true
+},
+{
+"complex": "2315",
+"priority": 154,
+"name": "GLIWICE-SOSNOWIEC POL",
+"lat": 50.3,
+"lon": 19.0,
+"page": 79,
+"confidence": "high",
+"categories": [
+22,
+50,
+55,
+57,
+60,
+62,
+64,
+68,
+75,
+90,
+196,
+198,
+200,
+204,
+208,
+216,
+224,
+226,
+228,
+230,
+235,
+246,
+248,
+250,
+270,
+275,
+281,
+290,
+294,
+336,
+392,
+430,
+445,
+450,
+490
+],
+"population": true
+},
+{
+"complex": "0935",
+"priority": 157,
+"name": "BRATISLAVA CZECH",
+"lat": 48.15,
+"lon": 17.15,
+"page": 27,
+"confidence": "high",
+"categories": [
+15,
+56,
+62,
+68,
+82,
+188,
+196,
+200,
+206,
+208,
+215,
+224,
+226,
+227,
+228,
+230,
+246,
+248,
+264,
+275,
+281,
+285,
+290,
+292,
+296,
+386,
+392,
+480
+],
+"population": true
+},
+{
+"complex": "2275",
+"priority": 158,
+"name": "GERA E GER",
+"lat": 50.8667,
+"lon": 12.0833,
+"page": 77,
+"confidence": "high",
+"categories": [
+55,
+64,
+80,
+190,
+224,
+225,
+226,
+227,
+230,
+235,
+248,
+250,
+275,
+388,
+445
+],
+"population": true
+},
+{
+"complex": "5125",
+"priority": 160,
+"name": "MORAVSKA OSTRAVA CZECH",
+"lat": 49.8333,
+"lon": 18.2833,
+"page": 164,
+"confidence": "high",
+"categories": [
+22,
+55,
+56,
+62,
+68,
+75,
+82,
+90,
+188,
+204,
+208,
+224,
+226,
+235,
+246,
+248,
+250,
+252,
+270,
+275,
+281,
+290,
+292,
+332,
+350,
+386,
+430,
+445,
+788
+],
+"population": true
+},
+{
+"complex": "1215",
+"priority": 161,
+"name": "CHEMNITZ E GER",
+"lat": 50.8333,
+"lon": 12.9167,
+"page": 42,
+"confidence": "high",
+"categories": [
+5,
+64,
+186,
+190,
+208,
+228,
+230,
+235,
+246,
+248,
+250,
+252,
+264,
+275,
+285,
+290,
+334,
+384,
+388,
+430
+],
+"population": true
+},
+{
+"complex": "7945",
+"priority": 162,
+"name": "SUHL E GER",
+"lat": 50.6,
+"lon": 10.7,
+"page": 252,
+"confidence": "high",
+"categories": [
+10,
+30,
+90,
+214,
+248,
+264,
+275,
+334
+],
+"population": true
+},
+{
+"complex": "3805",
+"priority": 163,
+"name": "KOMARNO CZECH",
+"lat": 47.7667,
+"lon": 18.1333,
+"page": 125,
+"confidence": "high",
+"categories": [
+16,
+20,
+50,
+60,
+75,
+112,
+130,
+188,
+192,
+204,
+208,
+214,
+224,
+226,
+227,
+230,
+240,
+241,
+246,
+248,
+275,
+281,
+291,
+354,
+390,
+415,
+430,
+445,
+650
+],
+"population": true
+},
+{
+"complex": "6045",
+"priority": 164,
+"name": "PARDUBICE CZECH",
+"lat": 50.05,
+"lon": 15.75,
+"page": 197,
+"confidence": "high",
+"categories": [
+22,
+55,
+64,
+95,
+188,
+208,
+224,
+226,
+230,
+246,
+248,
+275,
+282,
+285,
+386,
+445
+],
+"population": true
+},
+{
+"complex": "9890",
+"priority": 165,
+"name": "ZHDANOV",
+"lat": 47.1,
+"lon": 37.55,
+"page": 302,
+"confidence": "high",
+"categories": [
+75,
+106,
+208,
+227,
+248,
+270,
+275,
+280,
+292,
+298,
+352,
+420,
+430,
+450
+],
+"population": true
+},
+{
+"complex": "1615",
+"priority": 166,
+"name": "DESSAU E GER",
+"lat": 51.8333,
+"lon": 12.25,
+"page": 57,
+"confidence": "high",
+"categories": [
+6,
+15,
+20,
+23,
+56,
+60,
+62,
+68,
+190,
+204,
+225,
+226,
+227,
+232,
+246,
+248,
+250,
+275,
+281,
+290,
+292,
+296,
+334,
+388,
+405,
+415,
+425,
+440,
+445
+],
+"population": true
+},
+{
+"complex": "6335",
+"priority": 167,
+"name": "PLZEN CZECH",
+"lat": 49.75,
+"lon": 13.3667,
+"page": 205,
+"confidence": "high",
+"categories": [
+10,
+55,
+56,
+95,
+188,
+208,
+212,
+227,
+230,
+235,
+245,
+246,
+248,
+250,
+262,
+275,
+290,
+294,
+333,
+386,
+430,
+445,
+475,
+480,
+485
+],
+"population": true
+},
+{
+"complex": "7700",
+"priority": 169,
+"name": "SOLIKAMSK",
+"lat": 59.65,
+"lon": 56.7833,
+"page": 242,
+"confidence": "high",
+"categories": [
+68,
+118,
+232,
+275,
+281,
+282
+],
+"population": true
+},
+{
+"complex": "4005",
+"priority": 170,
+"name": "KRAKOW POL",
+"lat": 50.05,
+"lon": 19.9667,
+"page": 130,
+"confidence": "high",
+"categories": [
+50,
+55,
+56,
+57,
+62,
+64,
+70,
+75,
+196,
+216,
+246,
+248,
+270,
+275,
+278,
+281,
+290,
+336,
+392,
+430,
+470,
+490
+],
+"population": true
+},
+{
+"complex": "6475",
+"priority": 172,
+"name": "TOPOLCANY CZECH",
+"lat": 48.55,
+"lon": 18.2,
+"page": 268,
+"confidence": "high",
+"categories": [
+60,
+62,
+66,
+188,
+200,
+246,
+256,
+275
+],
+"population": true
+},
+{
+"complex": "7630",
+"priority": 174,
+"name": "SLAVYANSK",
+"lat": 48.85,
+"lon": 37.6167,
+"page": 239,
+"confidence": "high",
+"categories": [
+55,
+62,
+64,
+75,
+95,
+106,
+212,
+230,
+235,
+250,
+262,
+270,
+275,
+290,
+352,
+425,
+430,
+485
+],
+"population": true
+},
+{
+"complex": "9230",
+"priority": 177,
+"name": "VOROSHILOVGKAD",
+"lat": 48.5667,
+"lon": 39.3333,
+"page": 288,
+"confidence": "high",
+"categories": [
+60,
+75,
+106,
+208,
+227,
+246,
+248,
+250,
+275,
+290,
+294,
+352,
+376,
+430
+],
+"population": true
+},
+{
+"complex": "5165",
+"priority": 178,
+"name": "MOST CZECH",
+"lat": 50.5333,
+"lon": 13.65,
+"page": 170,
+"confidence": "high",
+"categories": [
+188,
+225,
+226,
+227,
+246,
+248,
+275,
+290,
+333,
+386,
+430,
+490
+],
+"population": true
+},
+{
+"complex": "8875",
+"priority": 181,
+"name": "USTI NAD LABEM CZECH",
+"lat": 50.6667,
+"lon": 14.0333,
+"page": 277,
+"confidence": "high",
+"categories": [
+22,
+23,
+50,
+56,
+62,
+64,
+68,
+82,
+90,
+186,
+188,
+200,
+208,
+228,
+246,
+248,
+264,
+275,
+281,
+290,
+333,
+386,
+425,
+445,
+465
+],
+"population": true
+},
+{
+"complex": "4665",
+"priority": 183,
+"name": "LODZ POL",
+"lat": 51.75,
+"lon": 19.4333,
+"page": 151,
+"confidence": "high",
+"categories": [
+16,
+23,
+90,
+192,
+196,
+208,
+230,
+245,
+248,
+275,
+390,
+392,
+445
+],
+"population": true
+},
+{
+"complex": "1085",
+"priority": 184,
+"name": "BYDGOSZCZ POL",
+"lat": 53.1667,
+"lon": 18.0,
+"page": 37,
+"confidence": "high",
+"categories": [
+23,
+90,
+196,
+200,
+208,
+215,
+228,
+235,
+248,
+275,
+281,
+282,
+285,
+336,
+392
+],
+"population": true
+},
+{
+"complex": "3220",
+"priority": 185,
+"name": "KAMENSK URALSKIY",
+"lat": 56.4333,
+"lon": 61.8833,
+"page": 107,
+"confidence": "high",
+"categories": [
+20,
+21,
+118,
+275,
+366
+],
+"population": true
+},
+{
+"complex": "6905",
+"priority": 187,
+"name": "ROSTOCK E GER",
+"lat": 54.0833,
+"lon": 12.1333,
+"page": 220,
+"confidence": "high",
+"categories": [
+190,
+208,
+242,
+248,
+275,
+280,
+388,
+415,
+420,
+440
+],
+"population": true
+},
+{
+"complex": "1805",
+"priority": 188,
+"name": "DUBNICE NAD VAHOM CZECH",
+"lat": 48.9667,
+"lon": 18.1833,
+"page": 65,
+"confidence": "high",
+"categories": [
+22,
+23,
+82,
+95,
+148,
+188,
+208,
+212,
+214,
+227,
+230,
+241,
+245,
+246,
+248,
+275,
+290,
+386,
+405,
+430,
+470
+],
+"population": true
+},
+{
+"complex": "7885",
+"priority": 189,
+"name": "STETTIN POL",
+"lat": 53.45,
+"lon": 14.5667,
+"page": 250,
+"confidence": "high",
+"categories": [
+56,
+82,
+84,
+196,
+208,
+227,
+248,
+270,
+275,
+280,
+290,
+392,
+420,
+445
+],
+"population": true
+},
+{
+"complex": "4140",
+"priority": 190,
+"name": "KRIVOY ROG",
+"lat": 47.9,
+"lon": 33.35,
+"page": 135,
+"confidence": "high",
+"categories": [
+75,
+106,
+270,
+275,
+376,
+430
+],
+"population": true
+},
+{
+"complex": "8860",
+"priority": 191,
+"name": "UST KAMENOGORSK",
+"lat": 49.9667,
+"lon": 82.65,
+"page": 277,
+"confidence": "high",
+"categories": [
+57,
+84,
+100,
+208,
+275,
+281,
+445,
+490
+],
+"population": true
+},
+{
+"complex": "0695",
+"priority": 192,
+"name": "BERNBURG E GER",
+"lat": 51.8,
+"lon": 11.7333,
+"page": 20,
+"confidence": "high",
+"categories": [
+10,
+62,
+64,
+68,
+95,
+190,
+227,
+228,
+230,
+250,
+270,
+275,
+278,
+285,
+388,
+425
+],
+"population": true
+},
+{
+"complex": "6160",
+"priority": 194,
+"name": "PENZA",
+"lat": 53.2,
+"lon": 45.0167,
+"page": 200,
+"confidence": "high",
+"categories": [
+120,
+208,
+227,
+243,
+246,
+248,
+275,
+316,
+364
+],
+"population": true
+},
+{
+"complex": "3270",
+"priority": 195,
+"name": "KARAGANDA",
+"lat": 49.8667,
+"lon": 73.1667,
+"page": 109,
+"confidence": "high",
+"categories": [
+60,
+135,
+208,
+227,
+250,
+275,
+372,
+400,
+430
+],
+"population": true
+},
+{
+"complex": "5915",
+"priority": 196,
+"name": "OSWIECIM POL",
+"lat": 50.0333,
+"lon": 19.2333,
+"page": 194,
+"confidence": "high",
+"categories": [
+21,
+50,
+56,
+60,
+196,
+200,
+224,
+226,
+230,
+248,
+275,
+278,
+290,
+294,
+392
+],
+"population": true
+},
+{
+"complex": "8205",
+"priority": 199,
+"name": "TAI YUAN CHINA",
+"lat": 37.85,
+"lon": 112.55,
+"page": 259,
+"confidence": "high",
+"categories": [
+23,
+62,
+68,
+75,
+186,
+208,
+212,
+214,
+230,
+235,
+245,
+246,
+248,
+250,
+262,
+270,
+292,
+294,
+332,
+384,
+430
+],
+"population": false
+},
+{
+"complex": "9075",
+"priority": 200,
+"name": "VESZPREM HUNG",
+"lat": 47.0833,
+"lon": 17.9,
+"page": 280,
+"confidence": "high",
+"categories": [
+21,
+22,
+23,
+62,
+66,
+68,
+192,
+215,
+224,
+226,
+246,
+248,
+275,
+282,
+390,
+445
+],
+"population": true
+},
+{
+"complex": "5807",
+"priority": 201,
+"name": "ORASUL STALIN RUM",
+"lat": 45.6333,
+"lon": 25.5667,
+"page": 190,
+"confidence": "high",
+"categories": [
+23,
+30,
+95,
+208,
+212,
+224,
+226,
+227,
+240,
+245,
+248,
+262,
+275,
+298,
+394,
+445
+],
+"population": true
+},
+{
+"complex": "6745",
+"priority": 202,
+"name": "RATIAOR POL",
+"lat": 50.0833,
+"lon": 18.2167,
+"page": 216,
+"confidence": "high",
+"categories": [
+6,
+22,
+55,
+56,
+75,
+196,
+225,
+226,
+230,
+248,
+250,
+275,
+281,
+392,
+445
+],
+"population": true
+},
+{
+"complex": "5100",
+"priority": 203,
+"name": "MOLOTOVSK",
+"lat": 64.5667,
+"lon": 39.8333,
+"page": 163,
+"confidence": "high",
+"categories": [
+72,
+140,
+227,
+248,
+254,
+258,
+260,
+275,
+358,
+415,
+420
+],
+"population": true
+},
+{
+"complex": "9270",
+"priority": 204,
+"name": "VOTKINSK",
+"lat": 57.05,
+"lon": 53.9667,
+"page": 289,
+"confidence": "high",
+"categories": [
+95,
+160,
+212,
+243,
+275,
+430
+],
+"population": true
+},
+{
+"complex": "1445",
+"priority": 205,
+"name": "CLUJ RUM",
+"lat": 46.7333,
+"lon": 23.6167,
+"page": 52,
+"confidence": "high",
+"categories": [
+5,
+6,
+62,
+198,
+208,
+248,
+275,
+337,
+394
+],
+"population": true
+},
+{
+"complex": "2245",
+"priority": 206,
+"name": "GALATI RUM",
+"lat": 45.45,
+"lon": 28.05,
+"page": 76,
+"confidence": "high",
+"categories": [
+95,
+198,
+208,
+227,
+242,
+248,
+262,
+275,
+280,
+290,
+337,
+358,
+376,
+394,
+415,
+420
+],
+"population": true
+},
+{
+"complex": "2370",
+"priority": 207,
+"name": "GORLITZ E GER",
+"lat": 51.1667,
+"lon": 15.0,
+"page": 87,
+"confidence": "high",
+"categories": [
+60,
+230,
+235,
+248,
+252,
+264,
+275,
+285,
+292,
+296,
+336,
+388,
+485
+],
+"population": true
+},
+{
+"complex": "6915",
+"priority": 210,
+"name": "ROUDNICE NAD LABEM CZECH",
+"lat": 50.4167,
+"lon": 14.25,
+"page": 222,
+"confidence": "high",
+"categories": [
+6,
+56,
+82,
+227,
+230,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "3524",
+"priority": 211,
+"name": "KIRIN MANCH",
+"lat": 43.85,
+"lon": 126.5833,
+"page": 118,
+"confidence": "high",
+"categories": [
+60,
+185,
+208,
+225,
+226,
+246,
+248,
+275,
+290,
+384
+],
+"population": true
+},
+{
+"complex": "9880",
+"priority": 212,
+"name": "ZESTAFONI .",
+"lat": 42.1167,
+"lon": 43.0333,
+"page": 302,
+"confidence": "high",
+"categories": [
+204,
+275
+],
+"population": true
+},
+{
+"complex": "4630",
+"priority": 214,
+"name": "LISICHANSK",
+"lat": 48.9167,
+"lon": 38.4,
+"page": 150,
+"confidence": "high",
+"categories": [
+62,
+106,
+275,
+352,
+425,
+445
+],
+"population": true
+},
+{
+"complex": "7345",
+"priority": 215,
+"name": "SCHWARZHEIDE E GER",
+"lat": 51.5333,
+"lon": 13.8833,
+"page": 229,
+"confidence": "high",
+"categories": [
+20,
+21,
+75,
+140,
+190,
+204,
+208,
+226,
+227,
+246,
+248,
+250,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "0970",
+"priority": 216,
+"name": "GREST",
+"lat": 52.1,
+"lon": 23.7,
+"page": 29,
+"confidence": "high",
+"categories": [
+227,
+228,
+246,
+248,
+275,
+281,
+290,
+370,
+392
+],
+"population": true
+},
+{
+"complex": "7460",
+"priority": 217,
+"name": "SHAKHTY",
+"lat": 47.7167,
+"lon": 40.2333,
+"page": 232,
+"confidence": "high",
+"categories": [
+22,
+50,
+55,
+62,
+68,
+106,
+186,
+208,
+224,
+226,
+227,
+230,
+242,
+243,
+245,
+246,
+248,
+254,
+266,
+270,
+275,
+280,
+285,
+350,
+360,
+384,
+405,
+415,
+420,
+430,
+445,
+480,
+485
+],
+"population": true
+},
+{
+"complex": "3210",
+"priority": 218,
+"name": "KAMENSK SHAKHTINSKIY",
+"lat": 48.3167,
+"lon": 40.25,
+"page": 107,
+"confidence": "high",
+"categories": [
+106,
+227,
+275,
+281,
+282,
+290,
+350,
+445
+],
+"population": true
+},
+{
+"complex": "4110",
+"priority": 219,
+"name": "KRASNYY LUCH",
+"lat": 48.1333,
+"lon": 38.9333,
+"page": 133,
+"confidence": "high",
+"categories": [
+106,
+215,
+227,
+246,
+250,
+275,
+281,
+282,
+290,
+292,
+352,
+376
+],
+"population": true
+},
+{
+"complex": "3240",
+"priority": 220,
+"name": "KANDALAKSHA",
+"lat": 67.15,
+"lon": 32.4167,
+"page": 108,
+"confidence": "high",
+"categories": [
+20,
+21,
+114,
+135,
+243,
+275,
+280,
+282,
+354,
+358
+],
+"population": true
+},
+{
+"complex": "0510",
+"priority": 221,
+"name": "BALTIYSK",
+"lat": 54.6333,
+"lon": 19.9,
+"page": 13,
+"confidence": "high",
+"categories": [
+208,
+227,
+242,
+246,
+254,
+275,
+370,
+415
+],
+"population": true
+},
+{
+"complex": "9110",
+"priority": 222,
+"name": "VLADIMIR . F",
+"lat": 56.1333,
+"lon": 40.4167,
+"page": 282,
+"confidence": "high",
+"categories": [
+208,
+243,
+275,
+285,
+360,
+475
+],
+"population": true
+},
+{
+"complex": "1595",
+"priority": 223,
+"name": "DEBRECEN HUNG",
+"lat": 47.5167,
+"lon": 21.65,
+"page": 56,
+"confidence": "high",
+"categories": [
+30,
+208,
+241,
+248,
+266,
+275,
+335,
+390,
+435
+],
+"population": true
+},
+{
+"complex": "4600",
+"priority": 225,
+"name": "LIPETSK",
+"lat": 52.6167,
+"lon": 39.6,
+"page": 150,
+"confidence": "high",
+"categories": [
+120,
+204,
+208,
+227,
+243,
+246,
+270,
+275,
+362,
+475
+],
+"population": true
+},
+{
+"complex": "0265",
+"priority": 226,
+"name": "ARAD RUM",
+"lat": 46.1833,
+"lon": 21.3167,
+"page": 8,
+"confidence": "high",
+"categories": [
+10,
+140,
+149,
+198,
+208,
+225,
+227,
+230,
+241,
+243,
+248,
+254,
+275,
+280,
+289,
+290,
+292,
+296,
+356,
+394,
+420
+],
+"population": true
+},
+{
+"complex": "5520",
+"priority": 227,
+"name": "NIZHNIY UFALEY",
+"lat": 55.8833,
+"lon": 60.0167,
+"page": 182,
+"confidence": "high",
+"categories": [
+72,
+260,
+270,
+275,
+298,
+430
+],
+"population": true
+},
+{
+"complex": "5761",
+"priority": 228,
+"name": "OPPELN PQL",
+"lat": 50.6667,
+"lon": 17.95,
+"page": 190,
+"confidence": "high",
+"categories": [
+56,
+196,
+228,
+246,
+248,
+275,
+336,
+392,
+420,
+470
+],
+"population": true
+},
+{
+"complex": "1340",
+"priority": 231,
+"name": "CHIMKENT",
+"lat": 42.3333,
+"lon": 69.6167,
+"page": 47,
+"confidence": "high",
+"categories": [
+208,
+216,
+227,
+235,
+275
+],
+"population": true
+},
+{
+"complex": "5745",
+"priority": 232,
+"name": "OLOMOUC CZECH .",
+"lat": 49.6,
+"lon": 17.25,
+"page": 188,
+"confidence": "high",
+"categories": [
+10,
+95,
+188,
+227,
+230,
+243,
+248,
+264,
+275,
+290,
+386,
+430,
+445,
+475
+],
+"population": true
+},
+{
+"complex": "1195",
+"priority": 233,
+"name": "CHANG CHUN MANCH",
+"lat": 43.8667,
+"lon": 125.35,
+"page": 40,
+"confidence": "high",
+"categories": [
+185,
+243,
+245,
+246,
+252,
+384
+],
+"population": false
+},
+{
+"complex": "9940",
+"priority": 234,
+"name": "ZLATOUST",
+"lat": 55.1667,
+"lon": 59.6667,
+"page": 304,
+"confidence": "high",
+"categories": [
+5,
+10,
+90,
+118,
+204,
+214,
+270,
+366,
+430
+],
+"population": false
+},
+{
+"complex": "7060",
+"priority": 235,
+"name": "RYAZAN",
+"lat": 54.6333,
+"lon": 39.75,
+"page": 223,
+"confidence": "high",
+"categories": [
+10,
+15,
+112,
+227,
+243,
+245,
+261,
+275,
+281,
+362,
+392
+],
+"population": true
+},
+{
+"complex": "6141",
+"priority": 236,
+"name": "PEN CHI MANCH",
+"lat": 41.3333,
+"lon": 123.75,
+"page": 200,
+"confidence": "high",
+"categories": [
+75,
+208,
+246,
+270,
+275,
+384,
+430
+],
+"population": true
+},
+{
+"complex": "1205",
+"priority": 237,
+"name": "CHEB CZECH",
+"lat": 50.0833,
+"lon": 12.3667,
+"page": 41,
+"confidence": "high",
+"categories": [
+6,
+60,
+188,
+204,
+227,
+248,
+250,
+264,
+275,
+290,
+386
+],
+"population": true
+},
+{
+"complex": "8820",
+"priority": 238,
+"name": "URALSK",
+"lat": 51.2167,
+"lon": 51.3833,
+"page": 276,
+"confidence": "high",
+"categories": [
+208,
+212,
+227,
+275,
+354,
+372,
+410
+],
+"population": true
+},
+{
+"complex": "7480",
+"priority": 239,
+"name": "SHATURA",
+"lat": 55.5667,
+"lon": 39.5667,
+"page": 235,
+"confidence": "high",
+"categories": [
+112,
+275,
+445
+],
+"population": true
+},
+{
+"complex": "1515",
+"priority": 240,
+"name": "CZESTOCHOWA POL",
+"lat": 50.8,
+"lon": 19.0833,
+"page": 54,
+"confidence": "high",
+"categories": [
+196,
+227,
+248,
+270,
+275,
+392,
+430,
+445
+],
+"population": true
+},
+{
+"complex": "6825",
+"priority": 242,
+"name": "RIESA E GER",
+"lat": 51.3,
+"lon": 13.3,
+"page": 218,
+"confidence": "high",
+"categories": [
+56,
+62,
+68,
+170,
+208,
+227,
+240,
+246,
+248,
+264,
+266,
+275,
+278,
+280,
+281,
+285,
+290,
+296,
+370,
+388,
+405,
+420,
+430,
+437,
+445,
+485
+],
+"population": true
+},
+{
+"complex": "4150",
+"priority": 243,
+"name": "KRONSHTADT",
+"lat": 59.9833,
+"lon": 29.7833,
+"page": 135,
+"confidence": "high",
+"categories": [
+227,
+275,
+280,
+358,
+420,
+437
+],
+"population": true
+},
+{
+"complex": "0470",
+"priority": 244,
+"name": "BALAKHNA",
+"lat": 56.4833,
+"lon": 43.6167,
+"page": 12,
+"confidence": "high",
+"categories": [
+112,
+275,
+281
+],
+"population": true
+},
+{
+"complex": "2145",
+"priority": 245,
+"name": "FRANKFURT E GER",
+"lat": 52.35,
+"lon": 14.55,
+"page": 73,
+"confidence": "high",
+"categories": [
+10,
+56,
+190,
+204,
+216,
+227,
+228,
+246,
+264,
+270,
+275,
+281,
+290,
+388,
+392,
+445,
+465
+],
+"population": true
+},
+{
+"complex": "5425",
+"priority": 247,
+"name": "OTROKOVICE CZECH",
+"lat": 49.2167,
+"lon": 17.5167,
+"page": 195,
+"confidence": "high",
+"categories": [
+16,
+23,
+60,
+188,
+214,
+230,
+245,
+248,
+275,
+376,
+400,
+405
+],
+"population": true
+},
+{
+"complex": "4725",
+"priority": 248,
+"name": "LUBLIN POL",
+"lat": 51.25,
+"lon": 22.5667,
+"page": 152,
+"confidence": "high",
+"categories": [
+16,
+196,
+245,
+248,
+252,
+275,
+392
+],
+"population": true
+},
+{
+"complex": "3870",
+"priority": 250,
+"name": "KONOTOP",
+"lat": 51.25,
+"lon": 33.2,
+"page": 127,
+"confidence": "high",
+"categories": [
+106,
+145,
+204,
+227,
+250,
+270,
+275,
+328,
+376,
+430,
+445
+],
+"population": true
+},
+{
+"complex": "2855",
+"priority": 251,
+"name": "HUNEDOARA KUM",
+"lat": 45.7667,
+"lon": 22.9,
+"page": 99,
+"confidence": "high",
+"categories": [
+10,
+75,
+270,
+275,
+290,
+337,
+394,
+430
+],
+"population": true
+},
+{
+"complex": "6556",
+"priority": 252,
+"name": "PRZEMYSL POL .",
+"lat": 49.7833,
+"lon": 22.7833,
+"page": 213,
+"confidence": "medium",
+"categories": [
+56,
+227,
+245,
+248,
+275,
+290,
+358,
+376,
+392
+],
+"population": true
+},
+{
+"complex": "1240",
+"priority": 253,
+"name": "CHEREPOVETS",
+"lat": 59.1333,
+"lon": 37.9333,
+"page": 44,
+"confidence": "high",
+"categories": [
+20,
+21,
+112,
+227,
+243,
+275,
+281,
+310,
+358
+],
+"population": true
+},
+{
+"complex": "8258",
+"priority": 255,
+"name": "TARNOW POL",
+"lat": 50.0,
+"lon": 20.9833,
+"page": 262,
+"confidence": "medium",
+"categories": [
+22,
+62,
+68,
+196,
+227,
+275,
+290,
+358
+],
+"population": true
+},
+{
+"complex": "0660",
+"priority": 256,
+"name": "BELOVO",
+"lat": 54.4167,
+"lon": 86.3333,
+"page": 17,
+"confidence": "high",
+"categories": [
+57,
+108,
+227,
+275,
+285,
+290,
+376,
+430,
+490
+],
+"population": true
+},
+{
+"complex": "6990",
+"priority": 257,
+"name": "RUBTSOVSK .",
+"lat": 51.5,
+"lon": 81.2667,
+"page": 223,
+"confidence": "high",
+"categories": [
+10,
+95,
+175,
+275,
+372,
+475
+],
+"population": true
+},
+{
+"complex": "0185",
+"priority": 258,
+"name": "ALTENBURG E GER",
+"lat": 50.9833,
+"lon": 12.45,
+"page": 5,
+"confidence": "high",
+"categories": [
+90,
+190,
+225,
+226,
+230,
+235,
+246,
+248,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "1185",
+"priority": 259,
+"name": "CESKA LIPA CZECH",
+"lat": 50.6833,
+"lon": 14.5333,
+"page": 39,
+"confidence": "high",
+"categories": [
+50,
+188,
+243,
+248,
+252,
+275,
+290,
+292,
+386
+],
+"population": true
+},
+{
+"complex": "9160",
+"priority": 260,
+"name": "VOLKHOV",
+"lat": 59.9167,
+"lon": 32.35,
+"page": 285,
+"confidence": "high",
+"categories": [
+62,
+68,
+110,
+227,
+228,
+275,
+281,
+290,
+358
+],
+"population": true
+},
+{
+"complex": "8601",
+"priority": 261,
+"name": "TSITSIHAR MANCH",
+"lat": 47.3667,
+"lon": 123.9333,
+"page": 272,
+"confidence": "high",
+"categories": [
+186,
+208,
+243,
+246,
+248,
+275,
+281,
+384
+],
+"population": true
+},
+{
+"complex": "5000",
+"priority": 262,
+"name": "MICHURINSK .",
+"lat": 52.9,
+"lon": 40.5,
+"page": 159,
+"confidence": "high",
+"categories": [
+275,
+314,
+362
+],
+"population": true
+},
+{
+"complex": "8433",
+"priority": 264,
+"name": "TIMISOARA RUM",
+"lat": 45.7833,
+"lon": 21.2167,
+"page": 267,
+"confidence": "high",
+"categories": [
+208,
+246,
+248,
+275,
+337,
+394
+],
+"population": true
+},
+{
+"complex": "3785",
+"priority": 265,
+"name": "KOLIN CZECH",
+"lat": 50.0333,
+"lon": 15.2,
+"page": 124,
+"confidence": "high",
+"categories": [
+56,
+188,
+200,
+224,
+226,
+227,
+228,
+230,
+246,
+248,
+275,
+281,
+290,
+292,
+294,
+333,
+362,
+386,
+430,
+440,
+445
+],
+"population": true
+},
+{
+"complex": "2460",
+"priority": 266,
+"name": "GUBAKHA",
+"lat": 58.8667,
+"lon": 57.5833,
+"page": 90,
+"confidence": "high",
+"categories": [
+75,
+118,
+227,
+230,
+275,
+318,
+366
+],
+"population": true
+},
+{
+"complex": "1682",
+"priority": 267,
+"name": "DUBROVKA",
+"lat": 59.85,
+"lon": 30.9167,
+"page": 66,
+"confidence": "medium",
+"categories": [
+110,
+215,
+275,
+358
+],
+"population": true
+},
+{
+"complex": "1955",
+"priority": 268,
+"name": "EISLEBEN E GER",
+"lat": 51.5333,
+"lon": 11.55,
+"page": 69,
+"confidence": "high",
+"categories": [
+10,
+84,
+190,
+216,
+235,
+275,
+388,
+445
+],
+"population": true
+},
+{
+"complex": "9795",
+"priority": 269,
+"name": "ORADEA RUM",
+"lat": 47.05,
+"lon": 21.95,
+"page": 190,
+"confidence": "high",
+"categories": [
+230,
+235,
+248,
+275,
+290,
+394
+],
+"population": true
+},
+{
+"complex": "2495",
+"priority": 271,
+"name": "GYOR KUNG",
+"lat": 47.6833,
+"lon": 17.6333,
+"page": 91,
+"confidence": "high",
+"categories": [
+192,
+228,
+248,
+281,
+290,
+292,
+296,
+298,
+390,
+430,
+450
+],
+"population": false
+},
+{
+"complex": "6930",
+"priority": 272,
+"name": "ROYA",
+"lat": 47.9833,
+"lon": 37.3333,
+"page": 222,
+"confidence": "high",
+"categories": [
+95,
+106,
+275
+],
+"population": true
+},
+{
+"complex": "9780",
+"priority": 273,
+"name": "ZAGORSK",
+"lat": 56.3,
+"lon": 38.1333,
+"page": 300,
+"confidence": "high",
+"categories": [
+23,
+215,
+264,
+268,
+275,
+356
+],
+"population": true
+},
+{
+"complex": "2935",
+"priority": 274,
+"name": "INOWROCLAW POL",
+"lat": 52.8,
+"lon": 18.25,
+"page": 100,
+"confidence": "medium",
+"categories": [
+62,
+275,
+425
+],
+"population": true
+},
+{
+"complex": "0766",
+"priority": 275,
+"name": "BEROBIDZHAN",
+"lat": 48.8,
+"lon": 132.9333,
+"page": 22,
+"confidence": "high",
+"categories": [
+175,
+227,
+246,
+275,
+354
+],
+"population": true
+},
+{
+"complex": "8545",
+"priority": 277,
+"name": "TRINEC CZECH",
+"lat": 49.6833,
+"lon": 18.65,
+"page": 270,
+"confidence": "high",
+"categories": [
+75,
+188,
+275,
+430
+],
+"population": true
+},
+{
+"complex": "7765",
+"priority": 279,
+"name": "STALIN BULG",
+"lat": 43.2,
+"lon": 27.9,
+"page": 244,
+"confidence": "high",
+"categories": [
+184,
+208,
+227,
+230,
+242,
+245,
+248,
+254,
+275,
+280,
+362,
+382,
+420
+],
+"population": true
+},
+{
+"complex": "0740",
+"priority": 280,
+"name": "BEZHITSA",
+"lat": 53.3167,
+"lon": 34.3167,
+"page": 21,
+"confidence": "high",
+"categories": [
+23,
+95,
+120,
+208,
+227,
+246,
+275,
+294,
+362,
+430
+],
+"population": true
+},
+{
+"complex": "7975",
+"priority": 280,
+"name": "SUPUNG DONG N KOREA",
+"lat": 40.45,
+"lon": 124.95,
+"page": 254,
+"confidence": "high",
+"categories": [
+194,
+275
+],
+"population": true
+},
+{
+"complex": "6069",
+"priority": 284,
+"name": "PAVLOGRAD",
+"lat": 48.55,
+"lon": 35.85,
+"page": 198,
+"confidence": "high",
+"categories": [
+215,
+275,
+352
+],
+"population": true
+},
+{
+"complex": "5840",
+"priority": 287,
+"name": "ORSHA",
+"lat": 54.5167,
+"lon": 30.4333,
+"page": 192,
+"confidence": "high",
+"categories": [
+170,
+230,
+275,
+281,
+370
+],
+"population": true
+},
+{
+"complex": "8075",
+"priority": 288,
+"name": "SZOLNOK HUNG",
+"lat": 47.1667,
+"lon": 20.1833,
+"page": 257,
+"confidence": "high",
+"categories": [
+10,
+56,
+248,
+275,
+290,
+335,
+390,
+445
+],
+"population": true
+},
+{
+"complex": "3400",
+"priority": 289,
+"name": "KERCH",
+"lat": 45.35,
+"lon": 36.4833,
+"page": 114,
+"confidence": "high",
+"categories": [
+75,
+145,
+227,
+246,
+270,
+280,
+352,
+415,
+430
+],
+"population": false
+},
+{
+"complex": "3320",
+"priority": 290,
+"name": "KATAV IVANOVSK",
+"lat": 54.7667,
+"lon": 58.1833,
+"page": 111,
+"confidence": "high",
+"categories": [
+118,
+270,
+275,
+366
+],
+"population": true
+},
+{
+"complex": "5575",
+"priority": 292,
+"name": "NORDHAUSEN EE GER",
+"lat": 51.5167,
+"lon": 10.8,
+"page": 183,
+"confidence": "high",
+"categories": [
+47,
+72,
+190,
+227,
+250,
+258,
+260,
+275,
+386,
+388,
+445,
+475
+],
+"population": true
+},
+{
+"complex": "6437",
+"priority": 293,
+"name": "PORT ARTHUR MANCH",
+"lat": 38.8,
+"lon": 121.25,
+"page": 208,
+"confidence": "high",
+"categories": [
+208,
+248,
+275,
+280,
+384,
+420,
+437
+],
+"population": true
+},
+{
+"complex": "0670",
+"priority": 295,
+"name": "BERDICHEY",
+"lat": 49.9,
+"lon": 28.5833,
+"page": 18,
+"confidence": "high",
+"categories": [
+55,
+64,
+227,
+246,
+248,
+275,
+285,
+376
+],
+"population": true
+},
+{
+"complex": "3760",
+"priority": 297,
+"name": "KOHTLA JARVE",
+"lat": 59.4,
+"lon": 27.2333,
+"page": 123,
+"confidence": "high",
+"categories": [
+110,
+225,
+226,
+262,
+275
+],
+"population": true
+},
+{
+"complex": "3290",
+"priority": 300,
+"name": "KARTALY",
+"lat": 53.05,
+"lon": 60.6333,
+"page": 111,
+"confidence": "high",
+"categories": [
+275,
+366
+],
+"population": true
+},
+{
+"complex": "1397",
+"priority": 304,
+"name": "CHONGJIN N KOREA .",
+"lat": 41.7833,
+"lon": 129.8333,
+"page": 50,
+"confidence": "high",
+"categories": [
+194,
+196,
+208,
+254,
+270,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "6410",
+"priority": 305,
+"name": "POLTAVA",
+"lat": 49.6,
+"lon": 34.5667,
+"page": 207,
+"confidence": "high",
+"categories": [
+208,
+227,
+275,
+328,
+376
+],
+"population": true
+},
+{
+"complex": "0070",
+"priority": 306,
+"name": "AKMULINSK",
+"lat": 51.5,
+"lon": 71.4333,
+"page": 2,
+"confidence": "high",
+"categories": [
+208,
+275,
+278,
+324,
+354,
+372
+],
+"population": true
+},
+{
+"complex": "1483",
+"priority": 307,
+"name": "CRAIOVA RUM",
+"lat": 44.3333,
+"lon": 23.8333,
+"page": 53,
+"confidence": "high",
+"categories": [
+206,
+246,
+248,
+275,
+290,
+394
+],
+"population": true
+},
+{
+"complex": "1440",
+"priority": 309,
+"name": "CHUSOVOY",
+"lat": 58.3,
+"lon": 57.8333,
+"page": 51,
+"confidence": "high",
+"categories": [
+118,
+204,
+275,
+366,
+430
+],
+"population": true
+},
+{
+"complex": "3712",
+"priority": 310,
+"name": "KO CHIU CHINA",
+"lat": 23.3667,
+"lon": 103.15,
+"page": 123,
+"confidence": "high",
+"categories": [
+275,
+279,
+358,
+465
+],
+"population": true
+},
+{
+"complex": "6295",
+"priority": 311,
+"name": "PLAUEN E GER",
+"lat": 50.5,
+"lon": 12.1333,
+"page": 203,
+"confidence": "high",
+"categories": [
+200,
+230,
+235,
+248,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "4203",
+"priority": 312,
+"name": "KUN MING CHINA",
+"lat": 25.0667,
+"lon": 102.6833,
+"page": 137,
+"confidence": "high",
+"categories": [
+208,
+230,
+243,
+275
+],
+"population": true
+},
+{
+"complex": "1400",
+"priority": 313,
+"name": "CHOP",
+"lat": 48.4333,
+"lon": 22.2,
+"page": 50,
+"confidence": "high",
+"categories": [
+145,
+224,
+226,
+227,
+248,
+275,
+290,
+376,
+386
+],
+"population": true
+},
+{
+"complex": "1965",
+"priority": 314,
+"name": "ELBLAG POL",
+"lat": 54.1667,
+"lon": 19.4167,
+"page": 69,
+"confidence": "high",
+"categories": [
+196,
+275,
+290,
+392,
+415,
+440,
+485
+],
+"population": true
+},
+{
+"complex": "4599",
+"priority": 315,
+"name": "LIN YU CHINA",
+"lat": 40.0167,
+"lon": 119.7333,
+"page": 149,
+"confidence": "high",
+"categories": [
+248,
+275,
+280,
+290,
+332,
+384
+],
+"population": true
+},
+{
+"complex": "5250",
+"priority": 316,
+"name": "MU TAN CHIANG MANCH",
+"lat": 44.5833,
+"lon": 129.6,
+"page": 174,
+"confidence": "medium",
+"categories": [
+186,
+248,
+275,
+290,
+623
+],
+"population": true
+},
+{
+"complex": "4050",
+"priority": 318,
+"name": "KRASNOKAMSK",
+"lat": 58.0833,
+"lon": 55.7,
+"page": 132,
+"confidence": "high",
+"categories": [
+118,
+224,
+226,
+227,
+281
+],
+"population": false
+},
+{
+"complex": "0820",
+"priority": 319,
+"name": "B8OBRUYSK",
+"lat": 53.1333,
+"lon": 29.2333,
+"page": 24,
+"confidence": "high",
+"categories": [
+170,
+227,
+241,
+246,
+248,
+275,
+281,
+370
+],
+"population": true
+},
+{
+"complex": "5020",
+"priority": 320,
+"name": "MINGECHAUR",
+"lat": 40.75,
+"lon": 47.05,
+"page": 160,
+"confidence": "high",
+"categories": [
+23,
+30,
+56,
+80,
+90,
+116,
+170,
+192,
+204,
+208,
+212,
+215,
+227,
+230,
+241,
+245,
+246,
+248,
+252,
+266,
+275,
+281,
+285,
+290,
+322,
+335,
+370,
+376,
+390,
+392,
+430,
+475
+],
+"population": true
+},
+{
+"complex": "1402",
+"priority": 321,
+"name": "CHOSINKO N KOREA",
+"lat": 40.15,
+"lon": 127.35,
+"page": 50,
+"confidence": "high",
+"categories": [
+194,
+275,
+292,
+294,
+332
+],
+"population": true
+},
+{
+"complex": "1635",
+"priority": 322,
+"name": "OFCIO-SAN MARTIN RUM",
+"lat": 46.35,
+"lon": 24.2833,
+"page": 59,
+"confidence": "high",
+"categories": [
+20,
+21,
+62,
+198,
+204,
+270,
+275,
+394,
+445
+],
+"population": true
+},
+{
+"complex": "3460",
+"priority": 323,
+"name": "KHAYDARKAN",
+"lat": 39.9667,
+"lon": 71.3333,
+"page": 117,
+"confidence": "high",
+"categories": [
+234,
+275
+],
+"population": true
+},
+{
+"complex": "5550",
+"priority": 324,
+"name": "NIZHNYAYA TURA",
+"lat": 58.6167,
+"lon": 59.8167,
+"page": 183,
+"confidence": "high",
+"categories": [
+48,
+118,
+235,
+275,
+430,
+646
+],
+"population": true
+},
+{
+"complex": "6705",
+"priority": 326,
+"name": "RADOM POL",
+"lat": 51.4,
+"lon": 21.1333,
+"page": 215,
+"confidence": "high",
+"categories": [
+10,
+214,
+275
+],
+"population": true
+},
+{
+"complex": "9950",
+"priority": 327,
+"name": "ZNAMENKA",
+"lat": 48.7,
+"lon": 32.6667,
+"page": 304,
+"confidence": "high",
+"categories": [
+248,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "1290",
+"priority": 329,
+"name": "CHERNOVTSY",
+"lat": 48.3,
+"lon": 25.95,
+"page": 45,
+"confidence": "high",
+"categories": [
+145,
+208,
+227,
+243,
+246,
+248,
+275,
+290,
+370,
+376
+],
+"population": true
+},
+{
+"complex": "6810",
+"priority": 330,
+"name": "REVDA",
+"lat": 56.7833,
+"lon": 59.9667,
+"page": 218,
+"confidence": "high",
+"categories": [
+84,
+118,
+227,
+270,
+275,
+430,
+445
+],
+"population": true
+},
+{
+"complex": "2070",
+"priority": 331,
+"name": "FASTOV",
+"lat": 50.0833,
+"lon": 29.9167,
+"page": 72,
+"confidence": "high",
+"categories": [
+64,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "3990",
+"priority": 333,
+"name": "KOVROV",
+"lat": 56.3667,
+"lon": 41.3,
+"page": 130,
+"confidence": "high",
+"categories": [
+95,
+214,
+275,
+360
+],
+"population": true
+},
+{
+"complex": "5810",
+"priority": 334,
+"name": "OREKHOVO 2UYEVO",
+"lat": 55.8,
+"lon": 39.0,
+"page": 191,
+"confidence": "high",
+"categories": [
+112,
+120,
+208,
+227,
+248,
+275,
+356,
+362
+],
+"population": true
+},
+{
+"complex": "1328",
+"priority": 335,
+"name": "CHIANG TU CHINA",
+"lat": 32.4,
+"lon": 119.4333,
+"page": 47,
+"confidence": "high",
+"categories": [
+186,
+208,
+243,
+248,
+275,
+281
+],
+"population": true
+},
+{
+"complex": "8680",
+"priority": 336,
+"name": "TYUMEN . .",
+"lat": 57.1667,
+"lon": 65.5167,
+"page": 274,
+"confidence": "high",
+"categories": [
+50,
+208,
+245,
+248,
+275,
+281,
+372
+],
+"population": true
+},
+{
+"complex": "8015",
+"priority": 337,
+"name": "SVITAVY CZECH",
+"lat": 49.7833,
+"lon": 16.4667,
+"page": 255,
+"confidence": "high",
+"categories": [
+230,
+245,
+248,
+275,
+333
+],
+"population": true
+},
+{
+"complex": "7820",
+"priority": 338,
+"name": "STANISLAV",
+"lat": 48.9167,
+"lon": 24.7,
+"page": 248,
+"confidence": "high",
+"categories": [
+241,
+275,
+328,
+376
+],
+"population": true
+},
+{
+"complex": "2640",
+"priority": 340,
+"name": "HERBY POL",
+"lat": 50.75,
+"lon": 18.8667,
+"page": 97,
+"confidence": "high",
+"categories": [
+392
+],
+"population": false
+},
+{
+"complex": "5155",
+"priority": 343,
+"name": "MOSUN MAGYAROVARK HUNG",
+"lat": 47.8833,
+"lon": 17.2667,
+"page": 170,
+"confidence": "high",
+"categories": [
+5,
+275,
+390,
+610
+],
+"population": true
+},
+{
+"complex": "6390",
+"priority": 345,
+"name": "POLOTSK",
+"lat": 55.4833,
+"lon": 28.8,
+"page": 207,
+"confidence": "high",
+"categories": [
+246,
+275,
+281,
+370
+],
+"population": true
+},
+{
+"complex": "9675",
+"priority": 346,
+"name": "YEN CHI MANCH",
+"lat": 42.9,
+"lon": 129.5,
+"page": 297,
+"confidence": "high",
+"categories": [
+56,
+62,
+68,
+186,
+246,
+275,
+290,
+384
+],
+"population": true
+},
+{
+"complex": "3925",
+"priority": 348,
+"name": "KOSICE CZECH",
+"lat": 48.7333,
+"lon": 21.2833,
+"page": 128,
+"confidence": "high",
+"categories": [
+196,
+208,
+248,
+275,
+386,
+392,
+445
+],
+"population": true
+},
+{
+"complex": "1975",
+"priority": 349,
+"name": "DEBICA POL",
+"lat": 50.05,
+"lon": 21.4167,
+"page": 56,
+"confidence": "high",
+"categories": [
+16,
+56,
+245,
+246,
+248,
+275,
+290,
+392,
+400,
+405
+],
+"population": true
+},
+{
+"complex": "2080",
+"priority": 350,
+"name": "FEODDSIYA",
+"lat": 45.0667,
+"lon": 35.3833,
+"page": 72,
+"confidence": "high",
+"categories": [
+227,
+243,
+254,
+275,
+280,
+352,
+470
+],
+"population": true
+},
+{
+"complex": "4925",
+"priority": 351,
+"name": "MEDGIDIA RUM",
+"lat": 44.25,
+"lon": 28.2833,
+"page": 158,
+"confidence": "high",
+"categories": [
+275,
+290,
+394
+],
+"population": true
+},
+{
+"complex": "0103",
+"priority": 352,
+"name": "ALBA 1ULTA RUM",
+"lat": 46.0667,
+"lon": 23.5667,
+"page": 3,
+"confidence": "high",
+"categories": [
+248,
+275,
+394
+],
+"population": true
+},
+{
+"complex": "7517",
+"priority": 353,
+"name": "SHIH MEN CHINA .",
+"lat": 38.05,
+"lon": 114.4833,
+"page": 236,
+"confidence": "high",
+"categories": [
+243,
+275,
+384
+],
+"population": true
+},
+{
+"complex": "7815",
+"priority": 354,
+"name": "STALOWA WOLA POL",
+"lat": 50.5667,
+"lon": 22.0667,
+"page": 248,
+"confidence": "high",
+"categories": [
+90,
+196,
+212,
+235,
+262,
+275,
+392,
+430
+],
+"population": true
+},
+{
+"complex": "1550",
+"priority": 355,
+"name": "DAUGAVPILS",
+"lat": 55.8667,
+"lon": 26.5,
+"page": 55,
+"confidence": "high",
+"categories": [
+240,
+246,
+275,
+290,
+322,
+370
+],
+"population": true
+},
+{
+"complex": "4220",
+"priority": 357,
+"name": "KURGAN",
+"lat": 55.4333,
+"lon": 65.3333,
+"page": 137,
+"confidence": "high",
+"categories": [
+10,
+135,
+275,
+372
+],
+"population": true
+},
+{
+"complex": "7745",
+"priority": 358,
+"name": "SSU PING CHIEK MANCH",
+"lat": 43.1833,
+"lon": 124.3667,
+"page": 244,
+"confidence": "high",
+"categories": [
+224,
+246,
+248,
+275,
+384
+],
+"population": true
+},
+{
+"complex": "7325",
+"priority": 360,
+"name": "SCHNEIDEMUHL POL",
+"lat": 53.15,
+"lon": 16.75,
+"page": 228,
+"confidence": "medium",
+"categories": [
+336,
+392
+],
+"population": false
+},
+{
+"complex": "2190",
+"priority": 362,
+"name": "FRUNZE",
+"lat": 42.8833,
+"lon": 74.5833,
+"page": 74,
+"confidence": "high",
+"categories": [
+10,
+135,
+208,
+227,
+275
+],
+"population": true
+},
+{
+"complex": "3600",
+"priority": 363,
+"name": "KISHINEV",
+"lat": 47.0333,
+"lon": 28.8167,
+"page": 120,
+"confidence": "high",
+"categories": [
+145,
+208,
+227,
+275,
+328,
+376
+],
+"population": true
+},
+{
+"complex": "6325",
+"priority": 365,
+"name": "PLOVDIV BULG .",
+"lat": 42.1333,
+"lon": 24.75,
+"page": 205,
+"confidence": "high",
+"categories": [
+56,
+60,
+184,
+208,
+227,
+230,
+245,
+275,
+382
+],
+"population": true
+},
+{
+"complex": "3200",
+"priority": 366,
+"name": "KALUGA",
+"lat": 54.5167,
+"lon": 36.2667,
+"page": 107,
+"confidence": "high",
+"categories": [
+112,
+208,
+227,
+246,
+275,
+314,
+362
+],
+"population": true
+},
+{
+"complex": "0890",
+"priority": 367,
+"name": "BORISOGLEBSK",
+"lat": 51.3667,
+"lon": 42.1,
+"page": 25,
+"confidence": "medium",
+"categories": [
+227,
+275,
+316,
+364
+],
+"population": true
+},
+{
+"complex": "0535",
+"priority": 368,
+"name": "BANSKA BYSTKICA CZECH",
+"lat": 48.7333,
+"lon": 19.1333,
+"page": 13,
+"confidence": "high",
+"categories": [
+20,
+60,
+82,
+188,
+216,
+248,
+275,
+386
+],
+"population": true
+},
+{
+"complex": "9437",
+"priority": 369,
+"name": "NEVEL",
+"lat": 56.0167,
+"lon": 29.9167,
+"page": 179,
+"confidence": "high",
+"categories": [
+275,
+374
+],
+"population": true
+},
+{
+"complex": "8245",
+"priority": 371,
+"name": "TANG SHAN CHINA",
+"lat": 39.6167,
+"lon": 118.1667,
+"page": 261,
+"confidence": "high",
+"categories": [
+186,
+227,
+246,
+270,
+275,
+292,
+294,
+332,
+430
+],
+"population": true
+},
+{
+"complex": "8443",
+"priority": 374,
+"name": "TIRANE ALB",
+"lat": 41.3333,
+"lon": 19.8333,
+"page": 267,
+"confidence": "high",
+"categories": [
+208,
+227,
+241,
+254,
+275,
+280,
+415
+],
+"population": true
+},
+{
+"complex": "1353",
+"priority": 375,
+"name": "CHIN HSIEN MANCH",
+"lat": 41.1167,
+"lon": 121.1,
+"page": 47,
+"confidence": "high",
+"categories": [
+208,
+225,
+226,
+275,
+384
+],
+"population": true
+},
+{
+"complex": "0748",
+"priority": 376,
+"name": "BIALYSTOK POL",
+"lat": 52.1333,
+"lon": 23.1833,
+"page": 22,
+"confidence": "high",
+"categories": [
+227,
+248,
+275,
+290,
+392
+],
+"population": true
+},
+{
+"complex": "0595",
+"priority": 377,
+"name": "BAUTZEN E GER",
+"lat": 51.1667,
+"lon": 14.4167,
+"page": 15,
+"confidence": "high",
+"categories": [
+10,
+243,
+248,
+275,
+292,
+296,
+388
+],
+"population": true
+},
+{
+"complex": "2462",
+"priority": 378,
+"name": "GUBEN E GER",
+"lat": 51.95,
+"lon": 14.7167,
+"page": 91,
+"confidence": "high",
+"categories": [
+56,
+196,
+248,
+275,
+290,
+388
+],
+"population": true
+},
+{
+"complex": "6445",
+"priority": 379,
+"name": "POSTORNA CZECH",
+"lat": 48.75,
+"lon": 16.8667,
+"page": 208,
+"confidence": "high",
+"categories": [
+10,
+188,
+248,
+275,
+386,
+445
+],
+"population": true
+},
+{
+"complex": "6820",
+"priority": 380,
+"name": "REZH",
+"lat": 57.3667,
+"lon": 61.4333,
+"page": 218,
+"confidence": "high",
+"categories": [
+215,
+260,
+275,
+282
+],
+"population": true
+},
+{
+"complex": "8125",
+"priority": 381,
+"name": "TABOR CZECH",
+"lat": 49.4167,
+"lon": 14.7,
+"page": 258,
+"confidence": "high",
+"categories": [
+230,
+248,
+275,
+290,
+386
+],
+"population": true
+},
+{
+"complex": "9650",
+"priority": 382,
+"name": "YEFREMOV",
+"lat": 53.15,
+"lon": 38.1167,
+"page": 296,
+"confidence": "high",
+"categories": [
+230,
+275
+],
+"population": true
+},
+{
+"complex": "1351",
+"priority": 383,
+"name": "CHING YUAN CHINA",
+"lat": 38.8667,
+"lon": 115.4833,
+"page": 47,
+"confidence": "high",
+"categories": [
+208,
+275
+],
+"population": true
+},
+{
+"complex": "6210",
+"priority": 384,
+"name": "PETKOPAVLOVSK KAMCHATSKIY",
+"lat": 53.0,
+"lon": 158.6667,
+"page": 201,
+"confidence": "high",
+"categories": [
+175,
+198,
+208,
+227,
+246,
+248,
+250,
+254,
+275,
+420,
+437
+],
+"population": true
+},
+{
+"complex": "6085",
+"priority": 385,
+"name": "PECS HUNG",
+"lat": 46.0667,
+"lon": 18.25,
+"page": 199,
+"confidence": "high",
+"categories": [
+23,
+190,
+192,
+208,
+241,
+248,
+254,
+275,
+280,
+335,
+384,
+390,
+415,
+420
+],
+"population": true
+},
+{
+"complex": "3330",
+"priority": 389,
+"name": "KAUNAS",
+"lat": 34.8833,
+"lon": 23.9833,
+"page": 112,
+"confidence": "high",
+"categories": [
+170,
+266,
+275,
+281,
+290,
+370
+],
+"population": true
+},
+{
+"complex": "7850",
+"priority": 391,
+"name": "STARGARO POL",
+"lat": 53.35,
+"lon": 15.0167,
+"page": 249,
+"confidence": "high",
+"categories": [
+227,
+275,
+392
+],
+"population": true
+},
+{
+"complex": "9480",
+"priority": 393,
+"name": "WITTENBERGE E GER",
+"lat": 53.0,
+"lon": 11.7667,
+"page": 293,
+"confidence": "high",
+"categories": [
+56,
+246,
+248,
+290,
+334,
+388
+],
+"population": false
+},
+{
+"complex": "7200",
+"priority": 395,
+"name": "SAMARKAND",
+"lat": 39.6667,
+"lon": 66.9667,
+"page": 225,
+"confidence": "high",
+"categories": [
+135,
+208,
+445
+],
+"population": false
+},
+{
+"complex": "8055",
+"priority": 396,
+"name": "SZEGED HUNG",
+"lat": 46.25,
+"lon": 20.15,
+"page": 257,
+"confidence": "high",
+"categories": [
+56,
+208,
+224,
+226,
+241,
+246,
+248,
+275,
+290,
+335,
+390
+],
+"population": true
+},
+{
+"complex": "8367",
+"priority": 397,
+"name": "TERNOPOL",
+"lat": 49.5833,
+"lon": 25.5833,
+"page": 266,
+"confidence": "high",
+"categories": [
+216,
+227,
+240,
+254,
+275,
+280,
+376
+],
+"population": true
+},
+{
+"complex": "8420",
+"priority": 398,
+"name": "TLKHORETSK",
+"lat": 45.8667,
+"lon": 40.1167,
+"page": 267,
+"confidence": "high",
+"categories": [
+227,
+275,
+350
+],
+"population": true
+},
+{
+"complex": "4593",
+"priority": 399,
+"name": "LIKHOSLAVL",
+"lat": 57.1167,
+"lon": 35.4667,
+"page": 149,
+"confidence": "high",
+"categories": [
+227,
+275,
+356
+],
+"population": true
+},
+{
+"complex": "7230",
+"priority": 400,
+"name": "SARANSK",
+"lat": 54.2,
+"lon": 45.1833,
+"page": 226,
+"confidence": "high",
+"categories": [
+120,
+227,
+275,
+364
+],
+"population": true
+},
+{
+"complex": "7270",
+"priority": 402,
+"name": "SATORALJAUJHELY HUNG",
+"lat": 48.3833,
+"lon": 21.65,
+"page": 228,
+"confidence": "medium",
+"categories": [
+275,
+390
+],
+"population": true
+},
+{
+"complex": "0250",
+"priority": 405,
+"name": "ANZHERO SUDZHEISK",
+"lat": 56.0833,
+"lon": 86.0,
+"page": 7,
+"confidence": "high",
+"categories": [
+108,
+227,
+250,
+275
+],
+"population": true
+},
+{
+"complex": "3184",
+"priority": 408,
+"name": "KALISZ-POL",
+"lat": 51.7667,
+"lon": 18.0833,
+"page": 106,
+"confidence": "high",
+"categories": [
+275,
+336,
+392
+],
+"population": true
+},
+{
+"complex": "6723",
+"priority": 409,
+"name": "RAKOVNIK CZECH",
+"lat": 50.1,
+"lon": 13.7,
+"page": 216,
+"confidence": "medium",
+"categories": [
+16,
+188,
+235,
+248,
+275,
+386
+],
+"population": true
+},
+{
+"complex": "9730",
+"priority": 411,
+"name": "YURGA",
+"lat": 55.7167,
+"lon": 84.85,
+"page": 299,
+"confidence": "high",
+"categories": [
+275,
+430
+],
+"population": true
+},
+{
+"complex": "2285",
+"priority": 413,
+"name": "GIURGIU RUM",
+"lat": 43.8833,
+"lon": 25.95,
+"page": 78,
+"confidence": "high",
+"categories": [
+10,
+56,
+204,
+227,
+248,
+275,
+281,
+282,
+290,
+382,
+394
+],
+"population": true
+},
+{
+"complex": "6450",
+"priority": 414,
+"name": "POTI",
+"lat": 42.1333,
+"lon": 41.7,
+"page": 209,
+"confidence": "high",
+"categories": [
+227,
+275,
+280,
+420,
+437
+],
+"population": true
+},
+{
+"complex": "1935",
+"priority": 415,
+"name": "EBERSWALDE E GER",
+"lat": 52.8333,
+"lon": 13.8333,
+"page": 68,
+"confidence": "high",
+"categories": [
+95,
+190,
+227,
+228,
+243,
+246,
+248,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "1570",
+"priority": 416,
+"name": "DEBALTSEVO",
+"lat": 48.3333,
+"lon": 38.4167,
+"page": 56,
+"confidence": "high",
+"categories": [
+275,
+352
+],
+"population": true
+},
+{
+"complex": "2211",
+"priority": 418,
+"name": "FURSTENWALDE E .GER",
+"lat": 52.3667,
+"lon": 14.0667,
+"page": 74,
+"confidence": "high",
+"categories": [
+246,
+248,
+250,
+275
+],
+"population": true
+},
+{
+"complex": "2861",
+"priority": 419,
+"name": "HUNGNAM N KOREA",
+"lat": 39.85,
+"lon": 127.6167,
+"page": 99,
+"confidence": "high",
+"categories": [
+60,
+208,
+241,
+246,
+266,
+275,
+280,
+281,
+290,
+337,
+354,
+376,
+394,
+445
+],
+"population": true
+},
+{
+"complex": "6540",
+"priority": 421,
+"name": "PROSKUROV",
+"lat": 49.4167,
+"lon": 27.0,
+"page": 213,
+"confidence": "high",
+"categories": [
+230,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "7420",
+"priority": 422,
+"name": "SERPUKHOV",
+"lat": 54.9167,
+"lon": 37.4167,
+"page": 231,
+"confidence": "high",
+"categories": [
+112,
+235,
+243,
+246,
+275,
+282,
+362
+],
+"population": true
+},
+{
+"complex": "3552",
+"priority": 424,
+"name": "KIROVOGRAD",
+"lat": 48.5,
+"lon": 32.3,
+"page": 120,
+"confidence": "high",
+"categories": [
+10,
+208,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "9510",
+"priority": 425,
+"name": "WONSAN N KOREA",
+"lat": 39.1667,
+"lon": 127.4333,
+"page": 294,
+"confidence": "high",
+"categories": [
+186,
+208,
+230,
+246,
+275,
+280,
+292,
+332,
+354
+],
+"population": true
+},
+{
+"complex": "8000",
+"priority": 427,
+"name": "SVIRSTROY",
+"lat": 60.8,
+"lon": 33.6833,
+"page": 255,
+"confidence": "high",
+"categories": [
+110,
+227,
+228,
+275,
+358
+],
+"population": true
+},
+{
+"complex": "1189",
+"priority": 428,
+"name": "CESKE BUDEJOVICE CZECH",
+"lat": 48.9667,
+"lon": 14.5,
+"page": 39,
+"confidence": "high",
+"categories": [
+188,
+246,
+248,
+275,
+290,
+333,
+386
+],
+"population": true
+},
+{
+"complex": "1417",
+"priority": 429,
+"name": "CHUDOVO",
+"lat": 59.1167,
+"lon": 31.6667,
+"page": 50,
+"confidence": "high",
+"categories": [
+56,
+106,
+108,
+275,
+290,
+358,
+372
+],
+"population": true
+},
+{
+"complex": "6612",
+"priority": 432,
+"name": "PYATIKHATKI",
+"lat": 48.4,
+"lon": 33.7,
+"page": 215,
+"confidence": "high",
+"categories": [
+208,
+240,
+241,
+243,
+275,
+290,
+354,
+376,
+393,
+430
+],
+"population": true
+},
+{
+"complex": "7550",
+"priority": 433,
+"name": "SHOSTKA",
+"lat": 51.8833,
+"lon": 33.5,
+"page": 237,
+"confidence": "high",
+"categories": [
+62,
+68,
+275,
+282,
+445
+],
+"population": true
+},
+{
+"complex": "8760",
+"priority": 434,
+"name": "UGLICH",
+"lat": 57.5333,
+"lon": 38.3,
+"page": 275,
+"confidence": "high",
+"categories": [
+95,
+112,
+228,
+275
+],
+"population": true
+},
+{
+"complex": "9260",
+"priority": 435,
+"name": "VOSKRESENSK",
+"lat": 55.3167,
+"lon": 38.6833,
+"page": 289,
+"confidence": "high",
+"categories": [
+275,
+356
+],
+"population": true
+},
+{
+"complex": "8419",
+"priority": 436,
+"name": "TI HUA CHINA",
+"lat": 43.8167,
+"lon": 87.5833,
+"page": 267,
+"confidence": "medium",
+"categories": [
+208,
+243,
+275
+],
+"population": true
+},
+{
+"complex": "9951",
+"priority": 437,
+"name": "ZOSSEN WUNSDORF E GER",
+"lat": 52.1667,
+"lon": 13.4667,
+"page": 305,
+"confidence": "high",
+"categories": [
+23,
+208,
+241,
+245,
+246,
+248,
+275,
+285
+],
+"population": true
+},
+{
+"complex": "0490",
+"priority": 439,
+"name": "BALASHOV",
+"lat": 51.55,
+"lon": 43.15,
+"page": 13,
+"confidence": "high",
+"categories": [
+60,
+82,
+84,
+227,
+246,
+275,
+281,
+368,
+372
+],
+"population": true
+},
+{
+"complex": "3065",
+"priority": 440,
+"name": "JUTERBOG E GER",
+"lat": 51.9667,
+"lon": 13.0833,
+"page": 104,
+"confidence": "high",
+"categories": [
+75,
+106,
+227,
+241,
+243,
+246,
+248,
+250,
+270,
+275,
+352,
+384,
+388,
+430
+],
+"population": true
+},
+{
+"complex": "6610",
+"priority": 441,
+"name": "PYATIGORSK",
+"lat": 44.05,
+"lon": 43.0167,
+"page": 215,
+"confidence": "high",
+"categories": [
+227,
+275,
+350
+],
+"population": true
+},
+{
+"complex": "4160",
+"priority": 443,
+"name": "KROPOTKIN",
+"lat": 45.45,
+"lon": 40.5667,
+"page": 135,
+"confidence": "high",
+"categories": [
+227,
+275,
+290,
+350
+],
+"population": true
+},
+{
+"complex": "9310",
+"priority": 444,
+"name": "VYAZMA",
+"lat": 55.2,
+"lon": 34.3167,
+"page": 290,
+"confidence": "high",
+"categories": [
+227,
+275,
+374
+],
+"population": true
+},
+{
+"complex": "0620",
+"priority": 445,
+"name": "BEKESCSABA HUNG",
+"lat": 46.65,
+"lon": 21.0833,
+"page": 16,
+"confidence": "medium",
+"categories": [
+90,
+248,
+275,
+390
+],
+"population": true
+},
+{
+"complex": "0630",
+"priority": 446,
+"name": "BELGOROD .",
+"lat": 50.6,
+"lon": 36.5833,
+"page": 16,
+"confidence": "high",
+"categories": [
+120,
+275,
+362
+],
+"population": true
+},
+{
+"complex": "4210",
+"priority": 448,
+"name": "KUPYANSK .",
+"lat": 49.6833,
+"lon": 37.65,
+"page": 137,
+"confidence": "high",
+"categories": [
+275,
+352
+],
+"population": true
+},
+{
+"complex": "6970",
+"priority": 449,
+"name": "RTISHCHEVO",
+"lat": 52.2667,
+"lon": 43.8,
+"page": 222,
+"confidence": "high",
+"categories": [
+275,
+368
+],
+"population": true
+},
+{
+"complex": "7900",
+"priority": 450,
+"name": "STOLP POL",
+"lat": 54.4667,
+"lon": 17.0167,
+"page": 251,
+"confidence": "high",
+"categories": [
+275,
+280,
+392
+],
+"population": true
+},
+{
+"complex": "7947",
+"priority": 451,
+"name": "SUI FEN HO MANCH",
+"lat": 44.4,
+"lon": 131.1667,
+"page": 253,
+"confidence": "high",
+"categories": [
+48,
+116,
+227,
+248,
+275,
+280,
+290,
+362,
+384
+],
+"population": true
+},
+{
+"complex": "9546",
+"priority": 452,
+"name": "WU HSIEN CHINA",
+"lat": 31.3,
+"lon": 120.6167,
+"page": 294,
+"confidence": "high",
+"categories": [
+186,
+243,
+275,
+281
+],
+"population": true
+},
+{
+"complex": "5205",
+"priority": 453,
+"name": "MUEHLHAUSEN E GER",
+"lat": 51.2167,
+"lon": 10.45,
+"page": 171,
+"confidence": "high",
+"categories": [
+10,
+50,
+190,
+202,
+275
+],
+"population": true
+},
+{
+"complex": "6735",
+"priority": 454,
+"name": "RATHENOW E GER",
+"lat": 52.6167,
+"lon": 12.3333,
+"page": 216,
+"confidence": "high",
+"categories": [
+55,
+246,
+248,
+264,
+268
+],
+"population": false
+},
+{
+"complex": "0110",
+"priority": 455,
+"name": "ALEKSANDROV",
+"lat": 56.4,
+"lon": 38.7167,
+"page": 3,
+"confidence": "high",
+"categories": [
+90,
+275,
+285,
+356
+],
+"population": true
+},
+{
+"complex": "7563",
+"priority": 457,
+"name": "SIBIU RUM",
+"lat": 45.8,
+"lon": 24.15,
+"page": 237,
+"confidence": "high",
+"categories": [
+198,
+227,
+243,
+248,
+275,
+290,
+394
+],
+"population": true
+},
+{
+"complex": "2630",
+"priority": 459,
+"name": "HENG YANG CHINA",
+"lat": 26.8833,
+"lon": 112.6167,
+"page": 96,
+"confidence": "high",
+"categories": [
+245,
+275,
+290,
+384
+],
+"population": true
+},
+{
+"complex": "4610",
+"priority": 460,
+"name": "LENINSK KUZNETSKIY",
+"lat": 54.65,
+"lon": 86.1667,
+"page": 147,
+"confidence": "high",
+"categories": [
+108,
+170,
+225,
+226,
+227,
+245,
+246,
+266,
+275,
+289,
+322,
+370,
+372,
+420,
+437
+],
+"population": true
+},
+{
+"complex": "7915",
+"priority": 461,
+"name": "STRALSUND E GER",
+"lat": 54.2667,
+"lon": 13.1,
+"page": 251,
+"confidence": "high",
+"categories": [
+10,
+196,
+227,
+275,
+280,
+388,
+415
+],
+"population": true
+},
+{
+"complex": "1692",
+"priority": 462,
+"name": "ONO",
+"lat": 57.8167,
+"lon": 29.9833,
+"page": 61,
+"confidence": "high",
+"categories": [
+275,
+358
+],
+"population": true
+},
+{
+"complex": "5896",
+"priority": 464,
+"name": "OSTRODA POL",
+"lat": 53.7,
+"lon": 19.95,
+"page": 193,
+"confidence": "high",
+"categories": [
+23,
+90,
+196,
+227,
+252,
+270,
+275,
+290,
+336,
+392
+],
+"population": true
+},
+{
+"complex": "6034",
+"priority": 465,
+"name": "PAPA HUNG .",
+"lat": 47.35,
+"lon": 17.4667,
+"page": 196,
+"confidence": "high",
+"categories": [
+20,
+22,
+192,
+275,
+390
+],
+"population": true
+},
+{
+"complex": "7564",
+"priority": 467,
+"name": "SIEDLCE POL .",
+"lat": 52.1667,
+"lon": 22.2833,
+"page": 237,
+"confidence": "high",
+"categories": [
+275,
+392
+],
+"population": true
+},
+{
+"complex": "8256",
+"priority": 468,
+"name": "TAO AN MANCH",
+"lat": 45.6167,
+"lon": 122.8667,
+"page": 262,
+"confidence": "medium",
+"categories": [
+275,
+358,
+384
+],
+"population": true
+},
+{
+"complex": "8315",
+"priority": 469,
+"name": "TCZEW POL",
+"lat": 54.1,
+"lon": 18.8,
+"page": 265,
+"confidence": "high",
+"categories": [
+56,
+275,
+290,
+392
+],
+"population": true
+},
+{
+"complex": "2365",
+"priority": 470,
+"name": "GORLICE POL",
+"lat": 49.6667,
+"lon": 21.1667,
+"page": 87,
+"confidence": "high",
+"categories": [
+224,
+226,
+250,
+262,
+275,
+392
+],
+"population": true
+},
+{
+"complex": "8215",
+"priority": 471,
+"name": "TA KU CHINA",
+"lat": 38.9833,
+"lon": 117.6667,
+"page": 260,
+"confidence": "high",
+"categories": [
+227,
+275,
+420,
+425
+],
+"population": true
+},
+{
+"complex": "8485",
+"priority": 472,
+"name": "TORGAU E GER",
+"lat": 51.5667,
+"lon": 13.0,
+"page": 269,
+"confidence": "high",
+"categories": [
+56,
+227,
+246,
+275,
+290,
+388
+],
+"population": true
+},
+{
+"complex": "4776",
+"priority": 474,
+"name": "LU PIN MANCH",
+"lat": 49.5833,
+"lon": 117.4333,
+"page": 153,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "1645",
+"priority": 475,
+"name": "ODIMITROVGRAD BULG",
+"lat": 42.0667,
+"lon": 25.5833,
+"page": 59,
+"confidence": "high",
+"categories": [
+22,
+95,
+184,
+230,
+245,
+248,
+275,
+290,
+382,
+445
+],
+"population": true
+},
+{
+"complex": "2055",
+"priority": 476,
+"name": "FAGARAS RUM",
+"lat": 45.85,
+"lon": 24.9833,
+"page": 71,
+"confidence": "high",
+"categories": [
+22,
+215,
+243,
+282
+],
+"population": false
+},
+{
+"complex": "4761",
+"priority": 477,
+"name": "LUKOW POL",
+"lat": 51.9,
+"lon": 22.4333,
+"page": 153,
+"confidence": "medium",
+"categories": [
+275,
+336,
+392
+],
+"population": true
+},
+{
+"complex": "7639",
+"priority": 479,
+"name": "SLOBODKA",
+"lat": 47.9,
+"lon": 29.35,
+"page": 239,
+"confidence": "medium",
+"categories": [
+248,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "8290",
+"priority": 480,
+"name": "TATARSK",
+"lat": 55.2333,
+"lon": 76.0,
+"page": 263,
+"confidence": "high",
+"categories": [
+60,
+186,
+275,
+354,
+372
+],
+"population": true
+},
+{
+"complex": "8570",
+"priority": 481,
+"name": "TROITSK",
+"lat": 54.1,
+"lon": 61.5667,
+"page": 270,
+"confidence": "high",
+"categories": [
+188,
+275,
+366
+],
+"population": true
+},
+{
+"complex": "9367",
+"priority": 482,
+"name": "WAN HSIEN CHINA",
+"lat": 30.8167,
+"lon": 108.4,
+"page": 291,
+"confidence": "high",
+"categories": [
+245,
+275,
+281
+],
+"population": true
+},
+{
+"complex": "7390",
+"priority": 483,
+"name": "SEMENOVKA",
+"lat": 44.1667,
+"lon": 133.25,
+"page": 230,
+"confidence": "high",
+"categories": [
+16,
+208,
+227,
+246,
+275,
+281,
+372
+],
+"population": true
+},
+{
+"complex": "7870",
+"priority": 485,
+"name": "STAVROPOL",
+"lat": 45.05,
+"lon": 41.9833,
+"page": 249,
+"confidence": "high",
+"categories": [
+150,
+208,
+227,
+230,
+248
+],
+"population": false
+},
+{
+"complex": "3230",
+"priority": 486,
+"name": "KAMYSHIN",
+"lat": 50.0833,
+"lon": 45.4,
+"page": 108,
+"confidence": "high",
+"categories": [
+227,
+243,
+275,
+281,
+366,
+368
+],
+"population": true
+},
+{
+"complex": "7877",
+"priority": 487,
+"name": "STENDAL E GER",
+"lat": 52.6,
+"lon": 11.8667,
+"page": 250,
+"confidence": "high",
+"categories": [
+246,
+248,
+264,
+275,
+290,
+334,
+388
+],
+"population": true
+},
+{
+"complex": "9860",
+"priority": 488,
+"name": "ZELENODOLSK",
+"lat": 55.8333,
+"lon": 48.4833,
+"page": 301,
+"confidence": "high",
+"categories": [
+10,
+120,
+227,
+246,
+275,
+290,
+415,
+430
+],
+"population": true
+},
+{
+"complex": "2213",
+"priority": 490,
+"name": "FUSEN KO N KOREA",
+"lat": 40.35,
+"lon": 127.5667,
+"page": 75,
+"confidence": "high",
+"categories": [
+20,
+21,
+23,
+60,
+62,
+95,
+185,
+194,
+208,
+224,
+225,
+226,
+256,
+262,
+270,
+275,
+332,
+384,
+430,
+445
+],
+"population": true
+},
+{
+"complex": "3475",
+"priority": 491,
+"name": "KIELCE POL",
+"lat": 50.8833,
+"lon": 20.6333,
+"page": 117,
+"confidence": "high",
+"categories": [
+10,
+246,
+248,
+275,
+392,
+445
+],
+"population": true
+},
+{
+"complex": "4285",
+"priority": 492,
+"name": "KUSTRIN POL",
+"lat": 52.5833,
+"lon": 14.6167,
+"page": 138,
+"confidence": "high",
+"categories": [
+56,
+268,
+275,
+290,
+392
+],
+"population": true
+},
+{
+"complex": "4325",
+"priority": 493,
+"name": "KYOSEN N KOREA",
+"lat": 40.65,
+"lon": 128.65,
+"page": 140,
+"confidence": "high",
+"categories": [
+194,
+275
+],
+"population": true
+},
+{
+"complex": "5955",
+"priority": 494,
+"name": "OZD HUNG",
+"lat": 48.2167,
+"lon": 20.3,
+"page": 196,
+"confidence": "high",
+"categories": [
+192,
+204,
+270,
+275
+],
+"population": true
+},
+{
+"complex": "9670",
+"priority": 495,
+"name": "YELETS",
+"lat": 52.6,
+"lon": 38.5,
+"page": 297,
+"confidence": "high",
+"categories": [
+275,
+362
+],
+"population": true
+},
+{
+"complex": "9833",
+"priority": 496,
+"name": "ZDUNSKA WOLA POL",
+"lat": 51.5667,
+"lon": 19.0167,
+"page": 301,
+"confidence": "high",
+"categories": [
+275,
+392
+],
+"population": true
+},
+{
+"complex": "8786",
+"priority": 497,
+"name": "ULAAN BAATAR CHINA",
+"lat": 47.9167,
+"lon": 106.8833,
+"page": 275,
+"confidence": "high",
+"categories": [
+208,
+275
+],
+"population": true
+},
+{
+"complex": "3910",
+"priority": 501,
+"name": "KOROSTEN .",
+"lat": 50.9667,
+"lon": 28.6167,
+"page": 128,
+"confidence": "high",
+"categories": [
+227,
+248,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "0150",
+"priority": 502,
+"name": "ALLAVERDY",
+"lat": 41.1,
+"lon": 44.6667,
+"page": 4,
+"confidence": "high",
+"categories": [
+82,
+84,
+275,
+445
+],
+"population": true
+},
+{
+"complex": "2324",
+"priority": 504,
+"name": "GNIEZNO POL",
+"lat": 52.5333,
+"lon": 17.6,
+"page": 85,
+"confidence": "high",
+"categories": [
+275,
+392
+],
+"population": true
+},
+{
+"complex": "2625",
+"priority": 505,
+"name": "HELMSTEDT E GER",
+"lat": 52.2333,
+"lon": 11.0,
+"page": 96,
+"confidence": "high",
+"categories": [
+190,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "3960",
+"priority": 507,
+"name": "KOTLAS",
+"lat": 61.25,
+"lon": 46.6333,
+"page": 129,
+"confidence": "high",
+"categories": [
+62,
+68,
+275,
+358
+],
+"population": true
+},
+{
+"complex": "4535",
+"priority": 508,
+"name": "LEVICE CZECH",
+"lat": 48.2333,
+"lon": 18.6167,
+"page": 148,
+"confidence": "high",
+"categories": [
+21,
+55,
+275,
+362
+],
+"population": true
+},
+{
+"complex": "4640",
+"priority": 509,
+"name": "LISKI",
+"lat": 50.9667,
+"lon": 39.5167,
+"page": 150,
+"confidence": "high",
+"categories": [
+275,
+362
+],
+"population": true
+},
+{
+"complex": "4897",
+"priority": 510,
+"name": "MARIINSK",
+"lat": 56.2167,
+"lon": 87.75,
+"page": 158,
+"confidence": "medium",
+"categories": [
+275,
+354
+],
+"population": true
+},
+{
+"complex": "4950",
+"priority": 511,
+"name": "MELITOPOL",
+"lat": 46.8333,
+"lon": 35.3667,
+"page": 159,
+"confidence": "high",
+"categories": [
+106,
+227,
+230,
+275,
+352
+],
+"population": true
+},
+{
+"complex": "6370",
+"priority": 512,
+"name": "PODPOROZHYE",
+"lat": 60.9167,
+"lon": 34.2,
+"page": 207,
+"confidence": "high",
+"categories": [
+228
+],
+"population": false
+},
+{
+"complex": "6510",
+"priority": 513,
+"name": "PRENZLAU E GER",
+"lat": 53.3167,
+"lon": 13.85,
+"page": 212,
+"confidence": "high",
+"categories": [
+248,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "6925",
+"priority": 514,
+"name": "ROVNO",
+"lat": 50.6333,
+"lon": 26.25,
+"page": 222,
+"confidence": "high",
+"categories": [
+246,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "7271",
+"priority": 515,
+"name": "SATU MARE RUM",
+"lat": 47.7833,
+"lon": 22.8833,
+"page": 228,
+"confidence": "high",
+"categories": [
+198,
+248,
+250,
+275,
+290,
+337,
+394
+],
+"population": true
+},
+{
+"complex": "7860",
+"priority": 516,
+"name": "STAROUTKINSK .",
+"lat": 57.2333,
+"lon": 59.3333,
+"page": 249,
+"confidence": "high",
+"categories": [
+270,
+275,
+366
+],
+"population": true
+},
+{
+"complex": "8596",
+"priority": 517,
+"name": "TSIMLYANSKAYA",
+"lat": 47.7333,
+"lon": 42.2,
+"page": 271,
+"confidence": "medium",
+"categories": [
+106,
+228,
+275
+],
+"population": true
+},
+{
+"complex": "0236",
+"priority": 519,
+"name": "ANDIZHAN",
+"lat": 40.75,
+"lon": 72.3667,
+"page": 6,
+"confidence": "high",
+"categories": [
+104,
+208,
+275
+],
+"population": true
+},
+{
+"complex": "9590",
+"priority": 520,
+"name": "YA AN CHINA",
+"lat": 29.9833,
+"lon": 103.0833,
+"page": 295,
+"confidence": "high",
+"categories": [
+208,
+275,
+281
+],
+"population": true
+},
+{
+"complex": "3500",
+"priority": 521,
+"name": "KINESHMA",
+"lat": 57.4333,
+"lon": 42.15,
+"page": 118,
+"confidence": "high",
+"categories": [
+62,
+64,
+227,
+230,
+275,
+281,
+360,
+445
+],
+"population": true
+},
+{
+"complex": "8300",
+"priority": 523,
+"name": "TAYSHET",
+"lat": 55.9167,
+"lon": 98.0333,
+"page": 264,
+"confidence": "high",
+"categories": [
+227,
+275,
+354
+],
+"population": true
+},
+{
+"complex": "7720",
+"priority": 526,
+"name": "SOVETSK .",
+"lat": 55.1,
+"lon": 21.8333,
+"page": 243,
+"confidence": "high",
+"categories": [
+227,
+275,
+290,
+370
+],
+"population": true
+},
+{
+"complex": "7970",
+"priority": 527,
+"name": "SUMY",
+"lat": 50.9167,
+"lon": 34.8,
+"page": 253,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "1225",
+"priority": 528,
+"name": "CHENG TE MANCH",
+"lat": 40.9667,
+"lon": 117.8833,
+"page": 43,
+"confidence": "medium",
+"categories": [
+50,
+102,
+208,
+214,
+225,
+227,
+243,
+250,
+275,
+282,
+354
+],
+"population": true
+},
+{
+"complex": "9607",
+"priority": 529,
+"name": "YANAUL",
+"lat": 56.2333,
+"lon": 54.9167,
+"page": 295,
+"confidence": "high",
+"categories": [
+275,
+366
+],
+"population": true
+},
+{
+"complex": "0342",
+"priority": 531,
+"name": "ATKARSK",
+"lat": 51.8667,
+"lon": 45.0,
+"page": 10,
+"confidence": "high",
+"categories": [
+275,
+368
+],
+"population": true
+},
+{
+"complex": "3490",
+"priority": 535,
+"name": "KINEL",
+"lat": 53.2333,
+"lon": 50.6333,
+"page": 118,
+"confidence": "high",
+"categories": [
+368
+],
+"population": false
+},
+{
+"complex": "3950",
+"priority": 536,
+"name": "KOTELNICH",
+"lat": 58.25,
+"lon": 48.35,
+"page": 129,
+"confidence": "high",
+"categories": [
+275,
+360,
+368
+],
+"population": true
+},
+{
+"complex": "4170",
+"priority": 537,
+"name": "KULEBAKI",
+"lat": 55.4167,
+"lon": 42.5333,
+"page": 137,
+"confidence": "high",
+"categories": [
+112,
+275,
+360,
+430
+],
+"population": true
+},
+{
+"complex": "5452",
+"priority": 540,
+"name": "NEZHIN",
+"lat": 51.05,
+"lon": 31.9,
+"page": 180,
+"confidence": "high",
+"categories": [
+248,
+275,
+278,
+376
+],
+"population": true
+},
+{
+"complex": "7100",
+"priority": 541,
+"name": "R2ZHEV",
+"lat": 56.25,
+"lon": 34.3333,
+"page": 224,
+"confidence": "high",
+"categories": [
+246,
+281
+],
+"population": false
+},
+{
+"complex": "9892",
+"priority": 542,
+"name": "ZHITOMIR",
+"lat": 50.2667,
+"lon": 28.6667,
+"page": 303,
+"confidence": "high",
+"categories": [
+208,
+248
+],
+"population": false
+},
+{
+"complex": "3273",
+"priority": 543,
+"name": "KARLOVY VARY CZECH .",
+"lat": 50.2167,
+"lon": 12.9,
+"page": 110,
+"confidence": "high",
+"categories": [
+248,
+275,
+386
+],
+"population": true
+},
+{
+"complex": "8025",
+"priority": 544,
+"name": "SWINEMUENDE POL",
+"lat": 53.9,
+"lon": 14.2333,
+"page": 256,
+"confidence": "high",
+"categories": [
+10,
+23,
+165,
+224,
+226,
+227,
+243,
+246,
+248,
+254,
+275,
+280,
+281,
+290,
+368,
+410
+],
+"population": true
+},
+{
+"complex": "1065",
+"priority": 545,
+"name": "BURGAS BULG",
+"lat": 42.5,
+"lon": 27.5,
+"page": 36,
+"confidence": "high",
+"categories": [
+10,
+184,
+200,
+227,
+246,
+248,
+275,
+280,
+382
+],
+"population": true
+},
+{
+"complex": "5872",
+"priority": 546,
+"name": "OSIPOVICHI",
+"lat": 53.3,
+"lon": 28.65,
+"page": 193,
+"confidence": "high",
+"categories": [
+210,
+227,
+275,
+370,
+374
+],
+"population": true
+},
+{
+"complex": "8020",
+"priority": 547,
+"name": "SVOBODNYY",
+"lat": 52.4,
+"lon": 128.1333,
+"page": 256,
+"confidence": "high",
+"categories": [
+227,
+246,
+275,
+280,
+306,
+354
+],
+"population": true
+},
+{
+"complex": "1705",
+"priority": 548,
+"name": "OOBSINA CZECH",
+"lat": 48.8167,
+"lon": 20.3667,
+"page": 61,
+"confidence": "high",
+"categories": [
+188,
+198,
+226,
+227,
+243,
+245,
+246,
+262,
+275
+],
+"population": true
+},
+{
+"complex": "2355",
+"priority": 549,
+"name": "GORBACHEVO",
+"lat": 53.6,
+"lon": 37.1333,
+"page": 85,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "0100",
+"priority": 552,
+"name": "ALAPAYEVSK",
+"lat": 57.85,
+"lon": 61.7167,
+"page": 3,
+"confidence": "high",
+"categories": [
+95,
+230,
+246,
+270,
+275,
+312,
+360,
+366,
+430
+],
+"population": true
+},
+{
+"complex": "0547",
+"priority": 553,
+"name": "BARABINSK",
+"lat": 55.3667,
+"lon": 78.3667,
+"page": 14,
+"confidence": "high",
+"categories": [
+170,
+227,
+248,
+275,
+370,
+372
+],
+"population": true
+},
+{
+"complex": "1358",
+"priority": 554,
+"name": "CHINNAMPO N KOKEA",
+"lat": 38.7333,
+"lon": 125.4,
+"page": 48,
+"confidence": "high",
+"categories": [
+246,
+270,
+275,
+280,
+430
+],
+"population": true
+},
+{
+"complex": "1835",
+"priority": 555,
+"name": "DUNAPENTELE HUNG",
+"lat": 46.9667,
+"lon": 18.9167,
+"page": 66,
+"confidence": "high",
+"categories": [
+75,
+150,
+192,
+208,
+216,
+227,
+248,
+270,
+275,
+302,
+350,
+430,
+445,
+490
+],
+"population": true
+},
+{
+"complex": "2095",
+"priority": 556,
+"name": "FERDINAND RUM",
+"lat": 45.5167,
+"lon": 22.4667,
+"page": 72,
+"confidence": "high",
+"categories": [
+268,
+275,
+278,
+436
+],
+"population": true
+},
+{
+"complex": "2470",
+"priority": 557,
+"name": "GUDERMES",
+"lat": 43.3333,
+"lon": 46.1167,
+"page": 91,
+"confidence": "high",
+"categories": [
+275,
+350
+],
+"population": true
+},
+{
+"complex": "4065",
+"priority": 558,
+"name": "KRASNOUFIMSK",
+"lat": 56.6167,
+"lon": 57.7833,
+"page": 132,
+"confidence": "high",
+"categories": [
+366
+],
+"population": false
+},
+{
+"complex": "5305",
+"priority": 560,
+"name": "NACHOD CZECH",
+"lat": 50.4167,
+"lon": 16.15,
+"page": 174,
+"confidence": "high",
+"categories": [
+188,
+235,
+275,
+405
+],
+"population": true
+},
+{
+"complex": "6880",
+"priority": 561,
+"name": "ROSLAVL",
+"lat": 53.95,
+"lon": 32.8333,
+"page": 220,
+"confidence": "high",
+"categories": [
+275,
+374
+],
+"population": true
+},
+{
+"complex": "8505",
+"priority": 562,
+"name": "TORUN POL",
+"lat": 53.0333,
+"lon": 18.6,
+"page": 269,
+"confidence": "high",
+"categories": [
+56,
+248,
+275,
+281,
+290,
+392,
+445
+],
+"population": true
+},
+{
+"complex": "5362",
+"priority": 563,
+"name": "NAMANGAN .",
+"lat": 41.0,
+"lon": 71.6667,
+"page": 176,
+"confidence": "high",
+"categories": [
+208,
+275,
+281
+],
+"population": true
+},
+{
+"complex": "2618",
+"priority": 566,
+"name": "HEI HO MANCH",
+"lat": 50.2667,
+"lon": 127.4667,
+"page": 96,
+"confidence": "high",
+"categories": [
+275,
+281
+],
+"population": true
+},
+{
+"complex": "7862",
+"priority": 568,
+"name": "STARY OSKOL",
+"lat": 51.3,
+"lon": 37.8333,
+"page": 249,
+"confidence": "high",
+"categories": [
+227,
+275,
+362
+],
+"population": true
+},
+{
+"complex": "0756",
+"priority": 570,
+"name": "BIKIN",
+"lat": 46.8167,
+"lon": 134.2667,
+"page": 22,
+"confidence": "high",
+"categories": [
+290,
+354
+],
+"population": false
+},
+{
+"complex": "0862",
+"priority": 571,
+"name": "BOLOTNOYE",
+"lat": 55.6833,
+"lon": 84.3833,
+"page": 25,
+"confidence": "high",
+"categories": [
+275,
+372
+],
+"population": true
+},
+{
+"complex": "1201",
+"priority": 573,
+"name": "CHAPLINO .",
+"lat": 48.1333,
+"lon": 36.25,
+"page": 40,
+"confidence": "high",
+"categories": [
+227,
+275,
+290,
+352
+],
+"population": true
+},
+{
+"complex": "1607",
+"priority": 574,
+"name": "DEJ RUM",
+"lat": 47.15,
+"lon": 23.8667,
+"page": 57,
+"confidence": "high",
+"categories": [
+254,
+275,
+290,
+394
+],
+"population": true
+},
+{
+"complex": "2614",
+"priority": 575,
+"name": "HAVLICKUV BROD CZECH",
+"lat": 49.6,
+"lon": 15.5833,
+"page": 96,
+"confidence": "medium",
+"categories": [
+243,
+246,
+275
+],
+"population": true
+},
+{
+"complex": "2819",
+"priority": 576,
+"name": "HSUAN HUA CHINA",
+"lat": 40.6167,
+"lon": 115.0167,
+"page": 98,
+"confidence": "high",
+"categories": [
+186,
+243,
+270,
+275
+],
+"population": true
+},
+{
+"complex": "3318",
+"priority": 577,
+"name": "KASTORNOYE",
+"lat": 51.8333,
+"lon": 38.1333,
+"page": 111,
+"confidence": "medium",
+"categories": [
+227,
+275,
+280,
+362
+],
+"population": true
+},
+{
+"complex": "3468",
+"priority": 578,
+"name": "KHILOK",
+"lat": 51.3667,
+"lon": 110.4667,
+"page": 117,
+"confidence": "high",
+"categories": [
+354
+],
+"population": false
+},
+{
+"complex": "3780",
+"priority": 579,
+"name": "KOLCHUGINO",
+"lat": 56.3,
+"lon": 39.3833,
+"page": 123,
+"confidence": "high",
+"categories": [
+200,
+275
+],
+"population": true
+},
+{
+"complex": "4038",
+"priority": 580,
+"name": "KRASNOAKMEYSKOYE",
+"lat": 48.2833,
+"lon": 37.1833,
+"page": 131,
+"confidence": "high",
+"categories": [
+275,
+352
+],
+"population": true
+},
+{
+"complex": "4520",
+"priority": 582,
+"name": "LESZNO POL",
+"lat": 51.85,
+"lon": 16.5833,
+"page": 147,
+"confidence": "medium",
+"categories": [
+275,
+392
+],
+"population": true
+},
+{
+"complex": "6037",
+"priority": 584,
+"name": "PA PU CHINA",
+"lat": 24.4333,
+"lon": 111.5167,
+"page": 196,
+"confidence": "high",
+"categories": [
+275,
+374,
+465
+],
+"population": true
+},
+{
+"complex": "6387",
+"priority": 585,
+"name": "POLUGI",
+"lat": 47.4667,
+"lon": 36.3167,
+"page": 207,
+"confidence": "high",
+"categories": [
+275,
+352
+],
+"population": true
+},
+{
+"complex": "6589",
+"priority": 587,
+"name": "PUSPOKLADANY HUNG",
+"lat": 47.3333,
+"lon": 21.1333,
+"page": 214,
+"confidence": "high",
+"categories": [
+275,
+390
+],
+"population": true
+},
+{
+"complex": "7210",
+"priority": 588,
+"name": "SAMTREDIA",
+"lat": 42.1667,
+"lon": 42.3333,
+"page": 225,
+"confidence": "high",
+"categories": [
+56,
+275,
+290,
+350
+],
+"population": true
+},
+{
+"complex": "8645",
+"priority": 589,
+"name": "TUNG HUA CHINA",
+"lat": 41.7167,
+"lon": 125.95,
+"page": 273,
+"confidence": "high",
+"categories": [
+185,
+246,
+270,
+275,
+384
+],
+"population": true
+},
+{
+"complex": "9896",
+"priority": 591,
+"name": "ZHLOBIN",
+"lat": 52.8833,
+"lon": 30.0167,
+"page": 303,
+"confidence": "high",
+"categories": [
+246,
+248,
+270,
+275,
+328,
+333,
+370,
+376,
+386,
+450
+],
+"population": true
+},
+{
+"complex": "8780",
+"priority": 592,
+"name": "UKHTA",
+"lat": 63.5667,
+"lon": 53.7,
+"page": 275,
+"confidence": "high",
+"categories": [
+140,
+224,
+226,
+275,
+290,
+358
+],
+"population": true
+},
+{
+"complex": "9180",
+"priority": 593,
+"name": "VOLSK",
+"lat": 52.05,
+"lon": 47.4,
+"page": 286,
+"confidence": "high",
+"categories": [
+227,
+243,
+281
+],
+"population": false
+},
+{
+"complex": "4575",
+"priority": 594,
+"name": "LIEN SHAN MANCH",
+"lat": 40.7333,
+"lon": 120.8667,
+"page": 149,
+"confidence": "high",
+"categories": [
+185,
+225,
+226,
+227,
+248,
+275,
+280,
+354,
+445
+],
+"population": true
+},
+{
+"complex": "9177",
+"priority": 595,
+"name": "VOLOVO",
+"lat": 53.55,
+"lon": 37.9833,
+"page": 286,
+"confidence": "high",
+"categories": [
+227,
+362
+],
+"population": false
+},
+{
+"complex": "9705",
+"priority": 596,
+"name": "YING KOU MANCH",
+"lat": 40.6667,
+"lon": 122.2833,
+"page": 298,
+"confidence": "high",
+"categories": [
+227,
+248,
+275,
+281
+],
+"population": true
+},
+{
+"complex": "0209",
+"priority": 597,
+"name": "AMOY CHINA",
+"lat": 24.3667,
+"lon": 118.0833,
+"page": 5,
+"confidence": "high",
+"categories": [
+227,
+228,
+242,
+248,
+254,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "3148",
+"priority": 599,
+"name": "KAKHOVKA",
+"lat": 46.8,
+"lon": 33.4833,
+"page": 105,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "9553",
+"priority": 601,
+"name": "WU MING CHINA",
+"lat": 23.2,
+"lon": 108.25,
+"page": 294,
+"confidence": "high",
+"categories": [
+245
+],
+"population": false
+},
+{
+"complex": "0233",
+"priority": 602,
+"name": "ANAR",
+"lat": 50.6333,
+"lon": 72.45,
+"page": 6,
+"confidence": "high",
+"categories": [
+275,
+372
+],
+"population": true
+},
+{
+"complex": "0341",
+"priority": 604,
+"name": "ATBASAR",
+"lat": 51.8,
+"lon": 68.3333,
+"page": 10,
+"confidence": "medium",
+"categories": [
+227,
+275,
+372
+],
+"population": true
+},
+{
+"complex": "0365",
+"priority": 605,
+"name": "AYAGUZ",
+"lat": 47.9333,
+"lon": 80.3833,
+"page": 10,
+"confidence": "high",
+"categories": [
+275,
+372
+],
+"population": true
+},
+{
+"complex": "0664",
+"priority": 606,
+"name": "BENESOV CZECH",
+"lat": 49.7667,
+"lon": 14.6833,
+"page": 17,
+"confidence": "medium",
+"categories": [
+188,
+248,
+268,
+275
+],
+"population": true
+},
+{
+"complex": "2590",
+"priority": 608,
+"name": "HANOI N VIETNAM",
+"lat": 21.0333,
+"lon": 105.8,
+"page": 95,
+"confidence": "high",
+"categories": [
+23,
+90,
+185,
+195,
+206,
+208,
+212,
+227,
+245,
+246,
+248,
+275,
+281,
+332,
+384,
+391,
+485
+],
+"population": true
+},
+{
+"complex": "4267",
+"priority": 609,
+"name": "KUSHMUKUN",
+"lat": 52.45,
+"lon": 64.6,
+"page": 138,
+"confidence": "high",
+"categories": [
+84,
+118,
+270,
+275,
+372,
+430,
+445
+],
+"population": true
+},
+{
+"complex": "4546",
+"priority": 610,
+"name": "LIAO YUAN MANCH",
+"lat": 43.5,
+"lon": 123.5,
+"page": 148,
+"confidence": "high",
+"categories": [
+275,
+384
+],
+"population": true
+},
+{
+"complex": "4930",
+"priority": 611,
+"name": "MEDNOGORSK",
+"lat": 51.4,
+"lon": 57.6,
+"page": 158,
+"confidence": "high",
+"categories": [
+84,
+160,
+275,
+445
+],
+"population": true
+},
+{
+"complex": "5700",
+"priority": 616,
+"name": "OCHEMCHIRI",
+"lat": 42.7333,
+"lon": 41.4333,
+"page": 186,
+"confidence": "high",
+"categories": [
+116,
+275,
+432
+],
+"population": true
+},
+{
+"complex": "6858",
+"priority": 619,
+"name": "ROMAN RUM",
+"lat": 46.9167,
+"lon": 26.9,
+"page": 220,
+"confidence": "high",
+"categories": [
+275,
+290
+],
+"population": true
+},
+{
+"complex": "7395",
+"priority": 620,
+"name": "SERGACH",
+"lat": 55.55,
+"lon": 45.4833,
+"page": 230,
+"confidence": "medium",
+"categories": [
+275,
+360
+],
+"population": true
+},
+{
+"complex": "8910",
+"priority": 623,
+"name": "VAC HUNG",
+"lat": 47.75,
+"lon": 19.1333,
+"page": 279,
+"confidence": "high",
+"categories": [
+246,
+275,
+390
+],
+"population": true
+},
+{
+"complex": "0260",
+"priority": 624,
+"name": "APSHERONSK",
+"lat": 44.4833,
+"lon": 39.7333,
+"page": 7,
+"confidence": "high",
+"categories": [
+262,
+275
+],
+"population": true
+},
+{
+"complex": "0891",
+"priority": 626,
+"name": "BOKISOV",
+"lat": 54.2167,
+"lon": 28.5,
+"page": 25,
+"confidence": "high",
+"categories": [
+170,
+227,
+243,
+248,
+275,
+370
+],
+"population": true
+},
+{
+"complex": "1325",
+"priority": 627,
+"name": "CHIA MU SSU MANCH",
+"lat": 46.8167,
+"lon": 130.35,
+"page": 45,
+"confidence": "high",
+"categories": [
+186,
+227,
+243,
+245,
+246,
+270,
+275,
+281,
+376,
+384
+],
+"population": true
+},
+{
+"complex": "3355",
+"priority": 628,
+"name": "KAZANLUK BULG",
+"lat": 42.6167,
+"lon": 25.4,
+"page": 113,
+"confidence": "high",
+"categories": [
+23,
+208,
+230,
+240,
+246,
+248,
+272,
+278,
+282,
+350,
+390
+],
+"population": false
+},
+{
+"complex": "5135",
+"priority": 629,
+"name": "MORSHANSK",
+"lat": 53.4667,
+"lon": 41.8167,
+"page": 166,
+"confidence": "high",
+"categories": [
+227,
+364
+],
+"population": false
+},
+{
+"complex": "6230",
+"priority": 630,
+"name": "PETROVSK~ZABAYKALSKIY",
+"lat": 52.2833,
+"lon": 108.85,
+"page": 202,
+"confidence": "high",
+"categories": [
+227,
+275,
+354,
+430
+],
+"population": true
+},
+{
+"complex": "7510",
+"priority": 631,
+"name": "SHEPETOVKA",
+"lat": 50.2,
+"lon": 27.1,
+"page": 235,
+"confidence": "high",
+"categories": [
+186,
+227,
+246,
+270,
+275,
+376,
+378,
+430
+],
+"population": true
+},
+{
+"complex": "9200",
+"priority": 632,
+"name": "VORKUTA",
+"lat": 67.5,
+"lon": 64.05,
+"page": 286,
+"confidence": "high",
+"categories": [
+140,
+227,
+250,
+275,
+358
+],
+"population": true
+},
+{
+"complex": "2129",
+"priority": 633,
+"name": "FOCSANI RUM",
+"lat": 45.7,
+"lon": 27.2,
+"page": 73,
+"confidence": "medium",
+"categories": [
+243,
+275,
+394
+],
+"population": true
+},
+{
+"complex": "0842",
+"priority": 635,
+"name": "BOGOTOL",
+"lat": 56.2167,
+"lon": 89.5333,
+"page": 24,
+"confidence": "high",
+"categories": [
+21,
+227,
+245,
+246,
+275,
+356,
+358,
+362,
+920
+],
+"population": true
+},
+{
+"complex": "1564",
+"priority": 637,
+"name": "DANILOV",
+"lat": 58.1833,
+"lon": 40.1667,
+"page": 55,
+"confidence": "high",
+"categories": [
+275,
+360
+],
+"population": true
+},
+{
+"complex": "3265",
+"priority": 639,
+"name": "KARACHEV .",
+"lat": 53.1167,
+"lon": 34.9667,
+"page": 109,
+"confidence": "high",
+"categories": [
+246,
+275,
+362
+],
+"population": true
+},
+{
+"complex": "4760",
+"priority": 641,
+"name": "LUGA",
+"lat": 58.7333,
+"lon": 29.85,
+"page": 152,
+"confidence": "high",
+"categories": [
+5,
+56,
+248,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "5072",
+"priority": 642,
+"name": "MOGOCHA",
+"lat": 53.7333,
+"lon": 119.75,
+"page": 162,
+"confidence": "high",
+"categories": [
+275,
+354
+],
+"population": true
+},
+{
+"complex": "6043",
+"priority": 648,
+"name": "PARCHIM E GER",
+"lat": 53.4167,
+"lon": 11.85,
+"page": 197,
+"confidence": "high",
+"categories": [
+248,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "6897",
+"priority": 649,
+"name": "ROSSOSH",
+"lat": 50.2,
+"lon": 39.5833,
+"page": 220,
+"confidence": "high",
+"categories": [
+275,
+362
+],
+"population": true
+},
+{
+"complex": "7053",
+"priority": 650,
+"name": "KUZOMBEROK CZECH",
+"lat": 49.0833,
+"lon": 19.3167,
+"page": 223,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "7658",
+"priority": 651,
+"name": "SLYUDYANKA",
+"lat": 51.6333,
+"lon": 103.7333,
+"page": 240,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "8590",
+"priority": 652,
+"name": "TSALKA",
+"lat": 41.6,
+"lon": 44.0833,
+"page": 271,
+"confidence": "high",
+"categories": [
+116,
+275
+],
+"population": true
+},
+{
+"complex": "8812",
+"priority": 653,
+"name": "UNECHA",
+"lat": 52.85,
+"lon": 32.6833,
+"page": 276,
+"confidence": "medium",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "9694",
+"priority": 654,
+"name": "YEROFEY PAVLOVICH",
+"lat": 53.95,
+"lon": 121.95,
+"page": 298,
+"confidence": "medium",
+"categories": [
+275,
+354
+],
+"population": true
+},
+{
+"complex": "9924",
+"priority": 655,
+"name": "ZIMA",
+"lat": 53.9167,
+"lon": 102.05,
+"page": 304,
+"confidence": "high",
+"categories": [
+227,
+245,
+248,
+275,
+354
+],
+"population": true
+},
+{
+"complex": "3360",
+"priority": 656,
+"name": "KEDAINIAT",
+"lat": 55.2833,
+"lon": 23.9667,
+"page": 113,
+"confidence": "high",
+"categories": [
+240,
+275
+],
+"population": true
+},
+{
+"complex": "9152",
+"priority": 657,
+"name": "MOSKALVO",
+"lat": 53.5833,
+"lon": 142.5167,
+"page": 170,
+"confidence": "high",
+"categories": [
+227,
+240,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "3987",
+"priority": 661,
+"name": "KOVEL",
+"lat": 51.2333,
+"lon": 24.7,
+"page": 130,
+"confidence": "high",
+"categories": [
+275,
+376
+],
+"population": true
+},
+{
+"complex": "5006",
+"priority": 663,
+"name": "MILLEROVO .",
+"lat": 48.9167,
+"lon": 40.3833,
+"page": 160,
+"confidence": "medium",
+"categories": [
+227,
+275,
+350
+],
+"population": true
+},
+{
+"complex": "5730",
+"priority": 664,
+"name": "OLGA BAY",
+"lat": 43.7333,
+"lon": 135.2667,
+"page": 188,
+"confidence": "high",
+"categories": [
+227,
+275,
+280,
+437
+],
+"population": true
+},
+{
+"complex": "6080",
+"priority": 665,
+"name": "PECHENGA",
+"lat": 69.5667,
+"lon": 31.2167,
+"page": 198,
+"confidence": "high",
+"categories": [
+227,
+254,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "7265",
+"priority": 666,
+"name": "SASOVO",
+"lat": 54.35,
+"lon": 41.9333,
+"page": 227,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "0024",
+"priority": 667,
+"name": "ACKIWSK",
+"lat": 56.2833,
+"lon": 90.5,
+"page": 2,
+"confidence": "high",
+"categories": [
+243,
+244,
+245,
+275,
+290,
+394
+],
+"population": true
+},
+{
+"complex": "1230",
+"priority": 669,
+"name": "CHEREPET",
+"lat": 54.1167,
+"lon": 36.3833,
+"page": 44,
+"confidence": "high",
+"categories": [
+275,
+412
+],
+"population": true
+},
+{
+"complex": "1303",
+"priority": 670,
+"name": "CHERNYSHEVSKOYE",
+"lat": 52.5167,
+"lon": 117.0167,
+"page": 46,
+"confidence": "high",
+"categories": [
+275,
+354
+],
+"population": true
+},
+{
+"complex": "1610",
+"priority": 672,
+"name": "DERBENT",
+"lat": 42.0667,
+"lon": 48.3,
+"page": 57,
+"confidence": "high",
+"categories": [
+56,
+275,
+350
+],
+"population": true
+},
+{
+"complex": "2949",
+"priority": 674,
+"name": "ISHIM",
+"lat": 56.1167,
+"lon": 69.5,
+"page": 101,
+"confidence": "high",
+"categories": [
+372
+],
+"population": false
+},
+{
+"complex": "3239",
+"priority": 675,
+"name": "KANDAGACHK",
+"lat": 49.4667,
+"lon": 57.4,
+"page": 108,
+"confidence": "high",
+"categories": [
+275,
+372
+],
+"population": true
+},
+{
+"complex": "3300",
+"priority": 676,
+"name": "KARYMSKOYE",
+"lat": 51.6167,
+"lon": 114.35,
+"page": 111,
+"confidence": "high",
+"categories": [
+275,
+354
+],
+"population": true
+},
+{
+"complex": "3992",
+"priority": 678,
+"name": "KOVYLKINO",
+"lat": 54.0333,
+"lon": 43.9167,
+"page": 130,
+"confidence": "high",
+"categories": [
+364
+],
+"population": false
+},
+{
+"complex": "4134",
+"priority": 680,
+"name": "KREUZBURG POL",
+"lat": 50.9833,
+"lon": 18.2167,
+"page": 134,
+"confidence": "medium",
+"categories": [
+170,
+196,
+275,
+370,
+392
+],
+"population": true
+},
+{
+"complex": "6164",
+"priority": 681,
+"name": "KSENYEVKA",
+"lat": 53.55,
+"lon": 118.7167,
+"page": 136,
+"confidence": "medium",
+"categories": [
+275,
+354
+],
+"population": true
+},
+{
+"complex": "5074",
+"priority": 683,
+"name": "MOGZON",
+"lat": 51.75,
+"lon": 111.9667,
+"page": 162,
+"confidence": "high",
+"categories": [
+354
+],
+"population": false
+},
+{
+"complex": "1675",
+"priority": 684,
+"name": "RAYEVSKLY",
+"lat": 54.05,
+"lon": 54.9667,
+"page": 217,
+"confidence": "medium",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "7185",
+"priority": 685,
+"name": "SALGOTARJAN HUNG",
+"lat": 48.1167,
+"lon": 19.8333,
+"page": 225,
+"confidence": "high",
+"categories": [
+60,
+192,
+204,
+227,
+248,
+275,
+388,
+445
+],
+"population": true
+},
+{
+"complex": "7525",
+"priority": 688,
+"name": "SKIMANOVSKAYA",
+"lat": 52.0333,
+"lon": 127.6333,
+"page": 236,
+"confidence": "high",
+"categories": [
+354
+],
+"population": false
+},
+{
+"complex": "7905",
+"priority": 689,
+"name": "STRAKONICE CZECH",
+"lat": 49.25,
+"lon": 13.9,
+"page": 251,
+"confidence": "high",
+"categories": [
+214,
+230,
+275
+],
+"population": true
+},
+{
+"complex": "7841",
+"priority": 692,
+"name": "STARA ZAGORA BULG",
+"lat": 42.4167,
+"lon": 25.6167,
+"page": 248,
+"confidence": "high",
+"categories": [
+184,
+245,
+248,
+275,
+382
+],
+"population": true
+},
+{
+"complex": "0975",
+"priority": 693,
+"name": "BREZNO CZECH",
+"lat": 48.8167,
+"lon": 19.65,
+"page": 29,
+"confidence": "high",
+"categories": [
+55,
+95,
+224,
+226,
+270,
+275,
+430
+],
+"population": true
+},
+{
+"complex": "4410",
+"priority": 694,
+"name": "LAPLANDIYA",
+"lat": 68.25,
+"lon": 33.3833,
+"page": 141,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "4595",
+"priority": 695,
+"name": "LIMANOWA SOWLINY POL",
+"lat": 49.7333,
+"lon": 20.4,
+"page": 149,
+"confidence": "high",
+"categories": [
+196,
+226,
+275,
+278,
+290
+],
+"population": true
+},
+{
+"complex": "1885",
+"priority": 697,
+"name": "DZHANKOY",
+"lat": 45.7167,
+"lon": 36.4167,
+"page": 67,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "9320",
+"priority": 698,
+"name": "VYBORG",
+"lat": 60.7,
+"lon": 28.75,
+"page": 290,
+"confidence": "high",
+"categories": [
+56,
+227,
+275,
+280,
+290
+],
+"population": true
+},
+{
+"complex": "9604",
+"priority": 699,
+"name": "YAMBOL BULG",
+"lat": 42.4833,
+"lon": 26.5333,
+"page": 295,
+"confidence": "high",
+"categories": [
+245,
+246,
+248,
+275,
+382
+],
+"population": true
+},
+{
+"complex": "4910",
+"priority": 700,
+"name": "MAYKOP",
+"lat": 44.6167,
+"lon": 40.1167,
+"page": 158,
+"confidence": "high",
+"categories": [
+150,
+227,
+230,
+262
+],
+"population": false
+},
+{
+"complex": "0036",
+"priority": 702,
+"name": "AGRYZ",
+"lat": 56.3667,
+"lon": 53.3333,
+"page": 2,
+"confidence": "high",
+"categories": [
+248,
+275,
+278
+],
+"population": true
+},
+{
+"complex": "0375",
+"priority": 704,
+"name": "BABAYEVO",
+"lat": 59.3833,
+"lon": 35.95,
+"page": 10,
+"confidence": "high",
+"categories": [
+248,
+275,
+290,
+354,
+358
+],
+"population": true
+},
+{
+"complex": "1208",
+"priority": 706,
+"name": "CHELM POL",
+"lat": 51.15,
+"lon": 23.4833,
+"page": 41,
+"confidence": "high",
+"categories": [
+275,
+392
+],
+"population": true
+},
+{
+"complex": "1390",
+"priority": 707,
+"name": "CHOJNICE POL .",
+"lat": 53.7,
+"lon": 17.5833,
+"page": 49,
+"confidence": "high",
+"categories": [
+275,
+392
+],
+"population": true
+},
+{
+"complex": "2725",
+"priority": 708,
+"name": "HO LUNG MANCH",
+"lat": 42.6333,
+"lon": 129.5333,
+"page": 97,
+"confidence": "high",
+"categories": [
+186,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "3797",
+"priority": 710,
+"name": "KOLOSJOKI",
+"lat": 69.4167,
+"lon": 30.25,
+"page": 125,
+"confidence": "high",
+"categories": [
+260,
+275
+],
+"population": true
+},
+{
+"complex": "3865",
+"priority": 714,
+"name": "KONOSHA",
+"lat": 60.9667,
+"lon": 40.1833,
+"page": 127,
+"confidence": "high",
+"categories": [
+358
+],
+"population": false
+},
+{
+"complex": "4266",
+"priority": 714,
+"name": "KUSHCHEVSKAYA",
+"lat": 46.55,
+"lon": 39.6167,
+"page": 138,
+"confidence": "high",
+"categories": [
+275,
+350
+],
+"population": true
+},
+{
+"complex": "4430",
+"priority": 715,
+"name": "LAUVENBURG POL",
+"lat": 54.55,
+"lon": 17.7667,
+"page": 141,
+"confidence": "high",
+"categories": [
+275,
+280,
+296,
+392
+],
+"population": true
+},
+{
+"complex": "5357",
+"priority": 716,
+"name": "NAJIN N KOREA .",
+"lat": 42.2,
+"lon": 130.3,
+"page": 175,
+"confidence": "high",
+"categories": [
+260,
+275,
+280,
+437
+],
+"population": true
+},
+{
+"complex": "5540",
+"priority": 717,
+"name": "NIZHNYAYA SALDA.",
+"lat": 58.0833,
+"lon": 60.7167,
+"page": 183,
+"confidence": "high",
+"categories": [
+270,
+275,
+430
+],
+"population": true
+},
+{
+"complex": "5748",
+"priority": 718,
+"name": "OLSZTYN POL",
+"lat": 53.7833,
+"lon": 20.4833,
+"page": 189,
+"confidence": "high",
+"categories": [
+275,
+392
+],
+"population": true
+},
+{
+"complex": "7561",
+"priority": 722,
+"name": "SHUMIKA",
+"lat": 55.2167,
+"lon": 63.2667,
+"page": 237,
+"confidence": "medium",
+"categories": [
+275,
+372
+],
+"population": true
+},
+{
+"complex": "7580",
+"priority": 723,
+"name": "SIGHET RUM",
+"lat": 47.9167,
+"lon": 23.9,
+"page": 238,
+"confidence": "high",
+"categories": [
+241,
+246,
+248,
+275,
+376,
+394
+],
+"population": true
+},
+{
+"complex": "8507",
+"priority": 726,
+"name": "TOSNO .",
+"lat": 59.5667,
+"lon": 30.9,
+"page": 270,
+"confidence": "high",
+"categories": [
+358
+],
+"population": false
+},
+{
+"complex": "8585",
+"priority": 727,
+"name": "TRUTNOV CZECH",
+"lat": 50.5667,
+"lon": 15.9,
+"page": 270,
+"confidence": "high",
+"categories": [
+186,
+275
+],
+"population": true
+},
+{
+"complex": "8935",
+"priority": 728,
+"name": "VAPANYARKA",
+"lat": 48.5333,
+"lon": 28.75,
+"page": 279,
+"confidence": "high",
+"categories": [
+275,
+376
+],
+"population": true
+},
+{
+"complex": "8980",
+"priority": 729,
+"name": "VENTSPILS",
+"lat": 57.3833,
+"lon": 21.5833,
+"page": 280,
+"confidence": "high",
+"categories": [
+227,
+246,
+275,
+280,
+382,
+437
+],
+"population": true
+},
+{
+"complex": "9162",
+"priority": 730,
+"name": "VOLKOVYSK",
+"lat": 53.15,
+"lon": 24.4667,
+"page": 285,
+"confidence": "high",
+"categories": [
+248,
+275,
+352,
+370
+],
+"population": true
+},
+{
+"complex": "4033",
+"priority": 734,
+"name": "KRASNIK POL",
+"lat": 50.9167,
+"lon": 22.2333,
+"page": 131,
+"confidence": "high",
+"categories": [
+30,
+275
+],
+"population": true
+},
+{
+"complex": "2025",
+"priority": 735,
+"name": "ESZTERGOM HUNG",
+"lat": 47.7833,
+"lon": 18.75,
+"page": 71,
+"confidence": "high",
+"categories": [
+6,
+16,
+60,
+192,
+230,
+243,
+246,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "2681",
+"priority": 736,
+"name": "HIRSCHBERG POL",
+"lat": 50.9,
+"lon": 15.7667,
+"page": 97,
+"confidence": "high",
+"categories": [
+264,
+275,
+290,
+392
+],
+"population": true
+},
+{
+"complex": "4480",
+"priority": 738,
+"name": "LENINAKAN",
+"lat": 40.7667,
+"lon": 43.85,
+"page": 143,
+"confidence": "high",
+"categories": [
+227,
+246,
+248,
+275,
+350
+],
+"population": true
+},
+{
+"complex": "0257",
+"priority": 739,
+"name": "APOSTOLOVO",
+"lat": 41.65,
+"lon": 33.7,
+"page": 7,
+"confidence": "high",
+"categories": [
+376
+],
+"population": false
+},
+{
+"complex": "0275",
+"priority": 740,
+"name": "ARKHARA",
+"lat": 49.4333,
+"lon": 130.0667,
+"page": 9,
+"confidence": "high",
+"categories": [
+227,
+246,
+248,
+262,
+275,
+350,
+354
+],
+"population": true
+},
+{
+"complex": "0624",
+"priority": 741,
+"name": "BELEN .",
+"lat": 53.8167,
+"lon": 36.1167,
+"page": 16,
+"confidence": "high",
+"categories": [
+362
+],
+"population": false
+},
+{
+"complex": "1080",
+"priority": 742,
+"name": "BUZULUK",
+"lat": 52.7833,
+"lon": 52.2667,
+"page": 37,
+"confidence": "high",
+"categories": [
+275,
+366
+],
+"population": true
+},
+{
+"complex": "1356",
+"priority": 743,
+"name": "CHI NING MANCH",
+"lat": 45.2833,
+"lon": 130.9333,
+"page": 48,
+"confidence": "high",
+"categories": [
+186,
+246,
+275
+],
+"population": true
+},
+{
+"complex": "1760",
+"priority": 744,
+"name": "DORNESTI RUM",
+"lat": 47.8667,
+"lon": 26.0,
+"page": 62,
+"confidence": "high",
+"categories": [
+275,
+394
+],
+"population": true
+},
+{
+"complex": "3057",
+"priority": 745,
+"name": "YIHLAVA CZECH .",
+"lat": 49.3833,
+"lon": 15.5833,
+"page": 103,
+"confidence": "high",
+"categories": [
+246,
+248,
+275,
+290,
+386
+],
+"population": true
+},
+{
+"complex": "3145",
+"priority": 746,
+"name": "KAISTADORYS",
+"lat": 54.85,
+"lon": 24.4333,
+"page": 105,
+"confidence": "medium",
+"categories": [
+275,
+370
+],
+"population": true
+},
+{
+"complex": "4940",
+"priority": 748,
+"name": "MET HO KOU MANCH",
+"lat": 42.5333,
+"lon": 125.6833,
+"page": 159,
+"confidence": "high",
+"categories": [
+275,
+384
+],
+"population": true
+},
+{
+"complex": "5170",
+"priority": 749,
+"name": "MOZHAYSK",
+"lat": 55.4833,
+"lon": 36.0167,
+"page": 171,
+"confidence": "high",
+"categories": [
+246,
+275,
+356
+],
+"population": true
+},
+{
+"complex": "5465",
+"priority": 750,
+"name": "NIESKY E GER",
+"lat": 51.3,
+"lon": 14.8333,
+"page": 180,
+"confidence": "high",
+"categories": [
+56,
+95,
+130,
+196,
+208,
+227,
+246,
+248,
+254,
+275,
+278,
+280,
+292,
+376,
+415,
+420,
+430
+],
+"population": true
+},
+{
+"complex": "5708",
+"priority": 751,
+"name": "OCNA MURESLUI RUM",
+"lat": 46.4,
+"lon": 23.8667,
+"page": 187,
+"confidence": "high",
+"categories": [
+62,
+275,
+425
+],
+"population": true
+},
+{
+"complex": "6759",
+"priority": 752,
+"name": "RAZDELNAYA",
+"lat": 46.85,
+"lon": 30.0667,
+"page": 217,
+"confidence": "medium",
+"categories": [
+10,
+64,
+75,
+90,
+95,
+198,
+204,
+250,
+262,
+270,
+275,
+294,
+430
+],
+"population": true
+},
+{
+"complex": "7215",
+"priority": 753,
+"name": "SAN SHUI CHINA",
+"lat": 23.1667,
+"lon": 112.8333,
+"page": 226,
+"confidence": "medium",
+"categories": [
+230,
+275,
+280,
+281
+],
+"population": true
+},
+{
+"complex": "8225",
+"priority": 754,
+"name": "TALOVAYA",
+"lat": 51.1167,
+"lon": 40.7333,
+"page": 261,
+"confidence": "high",
+"categories": [
+275,
+364
+],
+"population": true
+},
+{
+"complex": "8555",
+"priority": 755,
+"name": "TKNAVA CZECH",
+"lat": 48.3833,
+"lon": 17.5667,
+"page": 270,
+"confidence": "high",
+"categories": [
+248,
+275,
+333,
+386
+],
+"population": true
+},
+{
+"complex": "1178",
+"priority": 757,
+"name": "CERRIK ALB",
+"lat": 41.0333,
+"lon": 19.95,
+"page": 39,
+"confidence": "high",
+"categories": [
+224,
+226,
+275
+],
+"population": true
+},
+{
+"complex": "3770",
+"priority": 759,
+"name": "KOKAND",
+"lat": 40.5333,
+"lon": 70.95,
+"page": 123,
+"confidence": "high",
+"categories": [
+227,
+248,
+275,
+280,
+392,
+645
+],
+"population": true
+},
+{
+"complex": "2960",
+"priority": 762,
+"name": "IVANKOVO",
+"lat": 56.7333,
+"lon": 37.1167,
+"page": 102,
+"confidence": "high",
+"categories": [
+16,
+112,
+160,
+190,
+204,
+208,
+212,
+214,
+227,
+230,
+246,
+248,
+250,
+264,
+266,
+268,
+275,
+285,
+304,
+334,
+360,
+388,
+430,
+435,
+445
+],
+"population": true
+},
+{
+"complex": "3560",
+"priority": 763,
+"name": "KIKOVSK",
+"lat": 67.6167,
+"lon": 33.6667,
+"page": 120,
+"confidence": "high",
+"categories": [
+114,
+275
+],
+"population": true
+},
+{
+"complex": "4168",
+"priority": 764,
+"name": "KUEI LIN CHINA",
+"lat": 25.2833,
+"lon": 110.2833,
+"page": 136,
+"confidence": "high",
+"categories": [
+208,
+245,
+246,
+264,
+275
+],
+"population": true
+},
+{
+"complex": "4194",
+"priority": 765,
+"name": "KUNGUR",
+"lat": 57.4333,
+"lon": 56.9833,
+"page": 137,
+"confidence": "high",
+"categories": [
+262,
+275,
+366
+],
+"population": true
+},
+{
+"complex": "0415",
+"priority": 767,
+"name": "BAIA MARE RUM",
+"lat": 47.6667,
+"lon": 23.5833,
+"page": 11,
+"confidence": "high",
+"categories": [
+216,
+275,
+445
+],
+"population": true
+},
+{
+"complex": "1154",
+"priority": 769,
+"name": "CAREL RUM",
+"lat": 47.7,
+"lon": 22.4667,
+"page": 38,
+"confidence": "medium",
+"categories": [
+275,
+390,
+394
+],
+"population": true
+},
+{
+"complex": "1375",
+"priority": 770,
+"name": "CHIU CHIANG CHINA",
+"lat": 29.7333,
+"lon": 116.0,
+"page": 49,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "3370",
+"priority": 772,
+"name": "KEGUMS .",
+"lat": 56.7333,
+"lon": 24.7167,
+"page": 114,
+"confidence": "high",
+"categories": [
+170,
+227,
+246,
+275,
+280,
+290,
+358
+],
+"population": true
+},
+{
+"complex": "3680",
+"priority": 773,
+"name": "KLIN",
+"lat": 56.3333,
+"lon": 36.7333,
+"page": 122,
+"confidence": "high",
+"categories": [
+112,
+227,
+230,
+275
+],
+"population": true
+},
+{
+"complex": "4641",
+"priority": 774,
+"name": "LIU CHOU CHINA",
+"lat": 24.3167,
+"lon": 109.4,
+"page": 150,
+"confidence": "medium",
+"categories": [
+230,
+275
+],
+"population": true
+},
+{
+"complex": "5722",
+"priority": 777,
+"name": "OKTYABRSKIY",
+"lat": 54.4833,
+"lon": 53.45,
+"page": 188,
+"confidence": "high",
+"categories": [
+160,
+275
+],
+"population": true
+},
+{
+"complex": "6526",
+"priority": 778,
+"name": "PRILUKI .",
+"lat": 50.6,
+"lon": 32.4,
+"page": 213,
+"confidence": "high",
+"categories": [
+108,
+110,
+227,
+250,
+275,
+372,
+376
+],
+"population": true
+},
+{
+"complex": "6752",
+"priority": 779,
+"name": "RAVA RUSSKAYA .",
+"lat": 50.2333,
+"lon": 23.6333,
+"page": 217,
+"confidence": "high",
+"categories": [
+275,
+376,
+392
+],
+"population": true
+},
+{
+"complex": "7459",
+"priority": 780,
+"name": "SHADRINSK .",
+"lat": 56.0833,
+"lon": 63.65,
+"page": 232,
+"confidence": "medium",
+"categories": [
+372
+],
+"population": false
+},
+{
+"complex": "7801",
+"priority": 781,
+"name": "SHCHUCHINSK .",
+"lat": 52.9333,
+"lon": 70.2,
+"page": 235,
+"confidence": "medium",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "8305",
+"priority": 784,
+"name": "TA YU CHINA",
+"lat": 25.4,
+"lon": 114.3667,
+"page": 264,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "9330",
+"priority": 785,
+"name": "VYKSA",
+"lat": 55.3167,
+"lon": 42.15,
+"page": 290,
+"confidence": "high",
+"categories": [
+270,
+275,
+430
+],
+"population": true
+},
+{
+"complex": "9715",
+"priority": 786,
+"name": "YU MEN CHINA",
+"lat": 40.2833,
+"lon": 97.2,
+"page": 299,
+"confidence": "high",
+"categories": [
+224,
+226,
+275
+],
+"population": true
+},
+{
+"complex": "2403",
+"priority": 787,
+"name": "GREBENKA",
+"lat": 50.1167,
+"lon": 32.4333,
+"page": 89,
+"confidence": "high",
+"categories": [
+227,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "5080",
+"priority": 788,
+"name": "MOLODECHNO",
+"lat": 54.3167,
+"lon": 26.8833,
+"page": 163,
+"confidence": "high",
+"categories": [
+15,
+23,
+118,
+208,
+212,
+215,
+227,
+246,
+275,
+281,
+282,
+285,
+366,
+430,
+445
+],
+"population": true
+},
+{
+"complex": "5502",
+"priority": 789,
+"name": "NIKOPOL",
+"lat": 47.5667,
+"lon": 34.4,
+"page": 181,
+"confidence": "high",
+"categories": [
+227
+],
+"population": false
+},
+{
+"complex": "8500",
+"priority": 790,
+"name": "TOROPETS",
+"lat": 56.4833,
+"lon": 31.65,
+"page": 269,
+"confidence": "high",
+"categories": [
+227,
+246,
+275,
+374
+],
+"population": true
+},
+{
+"complex": "0648",
+"priority": 791,
+"name": "BELORECHENSKAYA",
+"lat": 44.7667,
+"lon": 39.8667,
+"page": 16,
+"confidence": "high",
+"categories": [
+150,
+227,
+275
+],
+"population": true
+},
+{
+"complex": "8340",
+"priority": 792,
+"name": "TEMPLIN E GER",
+"lat": 53.1167,
+"lon": 13.5,
+"page": 265,
+"confidence": "medium",
+"categories": [
+227,
+241,
+246,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "0650",
+"priority": 793,
+"name": "BELCRETSK",
+"lat": 53.9667,
+"lon": 58.4167,
+"page": 17,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "0764",
+"priority": 794,
+"name": "BIRA",
+"lat": 49.0,
+"lon": 132.4667,
+"page": 22,
+"confidence": "medium",
+"categories": [
+275,
+354
+],
+"population": true
+},
+{
+"complex": "2020",
+"priority": 797,
+"name": "ESUTORU",
+"lat": 49.0833,
+"lon": 142.05,
+"page": 71,
+"confidence": "high",
+"categories": [
+130,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "2060",
+"priority": 798,
+"name": "FALKENBURG POL",
+"lat": 53.55,
+"lon": 16.0,
+"page": 72,
+"confidence": "high",
+"categories": [
+275,
+392
+],
+"population": true
+},
+{
+"complex": "2385",
+"priority": 799,
+"name": "GOTHA E GER",
+"lat": 50.9667,
+"lon": 20.7333,
+"page": 89,
+"confidence": "high",
+"categories": [
+230,
+248,
+275,
+334,
+388
+],
+"population": true
+},
+{
+"complex": "2405",
+"priority": 800,
+"name": "GREIFSWALD E GER",
+"lat": 54.0833,
+"lon": 13.3667,
+"page": 89,
+"confidence": "medium",
+"categories": [
+275,
+280,
+334
+],
+"population": true
+},
+{
+"complex": "2745",
+"priority": 801,
+"name": "HOYERSWERDA E GER",
+"lat": 51.4333,
+"lon": 14.25,
+"page": 97,
+"confidence": "high",
+"categories": [
+190,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "2895",
+"priority": 802,
+"name": "IHSIEN CHINA",
+"lat": 34.7667,
+"lon": 117.55,
+"page": 100,
+"confidence": "high",
+"categories": [
+186,
+227,
+245,
+246,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "3234",
+"priority": 805,
+"name": "KANASH",
+"lat": 55.5,
+"lon": 47.5,
+"page": 108,
+"confidence": "high",
+"categories": [
+312
+],
+"population": false
+},
+{
+"complex": "3280",
+"priority": 806,
+"name": "KARSAKPAY",
+"lat": 47.85,
+"lon": 66.6833,
+"page": 110,
+"confidence": "high",
+"categories": [
+84,
+275
+],
+"population": true
+},
+{
+"complex": "3473",
+"priority": 808,
+"name": "KHRISTINOVKA",
+"lat": 48.8167,
+"lon": 29.9667,
+"page": 117,
+"confidence": "medium",
+"categories": [
+275,
+376
+],
+"population": true
+},
+{
+"complex": "4163",
+"priority": 811,
+"name": "KRUSTPILS",
+"lat": 56.5,
+"lon": 25.85,
+"page": 136,
+"confidence": "medium",
+"categories": [
+275,
+290,
+370
+],
+"population": true
+},
+{
+"complex": "4579",
+"priority": 814,
+"name": "LIEN YUN CHINA",
+"lat": 34.7333,
+"lon": 119.45,
+"page": 149,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "4703",
+"priority": 815,
+"name": "LO YANG CHINA",
+"lat": 34.6833,
+"lon": 112.4667,
+"page": 152,
+"confidence": "high",
+"categories": [
+62,
+68,
+246,
+275,
+281,
+352
+],
+"population": true
+},
+{
+"complex": "4730",
+"priority": 816,
+"name": "LUBNY",
+"lat": 50.0167,
+"lon": 33.0167,
+"page": 152,
+"confidence": "high",
+"categories": [
+230,
+275
+],
+"population": true
+},
+{
+"complex": "4790",
+"priority": 817,
+"name": "LYSVA",
+"lat": 58.1,
+"lon": 57.8167,
+"page": 154,
+"confidence": "high",
+"categories": [
+275,
+430
+],
+"population": true
+},
+{
+"complex": "5648",
+"priority": 818,
+"name": "NURLAT",
+"lat": 54.4167,
+"lon": 50.7833,
+"page": 186,
+"confidence": "high",
+"categories": [
+226,
+248,
+275,
+368,
+390
+],
+"population": true
+},
+{
+"complex": "6380",
+"priority": 819,
+"name": "POLEVSKOY",
+"lat": 56.45,
+"lon": 60.2,
+"page": 207,
+"confidence": "high",
+"categories": [
+275,
+430
+],
+"population": true
+},
+{
+"complex": "7260",
+"priority": 820,
+"name": "SARNY",
+"lat": 51.3333,
+"lon": 26.6,
+"page": 227,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "4560",
+"priority": 823,
+"name": "LIDA",
+"lat": 53.8833,
+"lon": 25.3,
+"page": 148,
+"confidence": "high",
+"categories": [
+275,
+370
+],
+"population": true
+},
+{
+"complex": "7665",
+"priority": 823,
+"name": "SMIDOVICH",
+"lat": 48.6167,
+"lon": 133.8333,
+"page": 240,
+"confidence": "high",
+"categories": [
+120,
+227,
+240,
+245,
+275,
+281,
+354,
+374
+],
+"population": true
+},
+{
+"complex": "9095",
+"priority": 825,
+"name": "VIR CZECH",
+"lat": 49.55,
+"lon": 16.3167,
+"page": 282,
+"confidence": "high",
+"categories": [
+188,
+208,
+230,
+245,
+275,
+281,
+370
+],
+"population": true
+},
+{
+"complex": "8989",
+"priority": 826,
+"name": "VERKHNIY BASKUNCHAK",
+"lat": 48.2333,
+"lon": 46.75,
+"page": 280,
+"confidence": "high",
+"categories": [
+150,
+275,
+368
+],
+"population": true
+},
+{
+"complex": "9156",
+"priority": 826,
+"name": "VOLCHINETS",
+"lat": 48.4,
+"lon": 27.4833,
+"page": 285,
+"confidence": "high",
+"categories": [
+275,
+376
+],
+"population": true
+},
+{
+"complex": "9163",
+"priority": 827,
+"name": "VOLOCHAYEVKA",
+"lat": 48.5833,
+"lon": 134.5,
+"page": 285,
+"confidence": "high",
+"categories": [
+275,
+354,
+376
+],
+"population": true
+},
+{
+"complex": "9706",
+"priority": 829,
+"name": "YIN HSJEN CHINA .",
+"lat": 29.8833,
+"lon": 121.55,
+"page": 298,
+"confidence": "high",
+"categories": [
+280
+],
+"population": false
+},
+{
+"complex": "2212",
+"priority": 831,
+"name": "FURUKAMAPPY",
+"lat": 44.0333,
+"lon": 145.85,
+"page": 75,
+"confidence": "high",
+"categories": [
+240,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "2207",
+"priority": 832,
+"name": "FU HSIEN CHINA",
+"lat": 39.6333,
+"lon": 122.0,
+"page": 74,
+"confidence": "high",
+"categories": [
+30,
+275
+],
+"population": true
+},
+{
+"complex": "4161",
+"priority": 833,
+"name": "KROSNO POL",
+"lat": 49.7,
+"lon": 21.75,
+"page": 136,
+"confidence": "high",
+"categories": [
+224,
+226,
+275
+],
+"population": true
+},
+{
+"complex": "4830",
+"priority": 835,
+"name": "MAGADAN",
+"lat": 59.5833,
+"lon": 150.7,
+"page": 154,
+"confidence": "high",
+"categories": [
+10,
+23,
+55,
+64,
+95,
+190,
+208,
+227,
+228,
+230,
+235,
+241,
+246,
+248,
+250,
+254,
+262,
+275,
+280,
+281,
+354,
+388,
+415,
+430,
+440,
+445
+],
+"population": true
+},
+{
+"complex": "5440",
+"priority": 836,
+"name": "NEVELSK",
+"lat": 46.65,
+"lon": 141.85,
+"page": 180,
+"confidence": "high",
+"categories": [
+150,
+225,
+226,
+227,
+275,
+280,
+350
+],
+"population": true
+},
+{
+"complex": "1485",
+"priority": 838,
+"name": "CUGIR RUM",
+"lat": 45.8333,
+"lon": 23.3833,
+"page": 53,
+"confidence": "high",
+"categories": [
+23,
+230,
+250,
+275,
+392
+],
+"population": true
+},
+{
+"complex": "6421",
+"priority": 840,
+"name": "POMOSHNAYA",
+"lat": 48.2667,
+"lon": 31.4167,
+"page": 208,
+"confidence": "high",
+"categories": [
+227,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "7240",
+"priority": 842,
+"name": "SARAPUL",
+"lat": 56.4833,
+"lon": 53.8,
+"page": 226,
+"confidence": "high",
+"categories": [
+10,
+16,
+30,
+50,
+54,
+68,
+160,
+165,
+208,
+212,
+226,
+227,
+230,
+243,
+262,
+275,
+281,
+285,
+290,
+292,
+320,
+368
+],
+"population": true
+},
+{
+"complex": "9707",
+"priority": 844,
+"name": "YOKANGA",
+"lat": 68.0167,
+"lon": 39.6667,
+"page": 298,
+"confidence": "high",
+"categories": [
+227,
+254,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "0122",
+"priority": 845,
+"name": "ALEKSEYEVKA",
+"lat": 50.6167,
+"lon": 38.7,
+"page": 4,
+"confidence": "high",
+"categories": [
+275,
+362
+],
+"population": true
+},
+{
+"complex": "0610",
+"priority": 846,
+"name": "BAYMAK",
+"lat": 52.5833,
+"lon": 56.3333,
+"page": 15,
+"confidence": "high",
+"categories": [
+84,
+104,
+204,
+227,
+275,
+430
+],
+"population": true
+},
+{
+"complex": "2305",
+"priority": 848,
+"name": "GLAT2 POL",
+"lat": 50.45,
+"lon": 16.6667,
+"page": 79,
+"confidence": "high",
+"categories": [
+196,
+275
+],
+"population": true
+},
+{
+"complex": "2455",
+"priority": 849,
+"name": "GRUDZIADZ POL",
+"lat": 53.4833,
+"lon": 18.7667,
+"page": 90,
+"confidence": "high",
+"categories": [
+10,
+56,
+246,
+248,
+275,
+290,
+292,
+392
+],
+"population": true
+},
+{
+"complex": "2887",
+"priority": 850,
+"name": "IDRITSA",
+"lat": 56.3167,
+"lon": 28.8667,
+"page": 100,
+"confidence": "high",
+"categories": [
+374
+],
+"population": false
+},
+{
+"complex": "3204",
+"priority": 851,
+"name": "KAMENETS PODOLSKIY",
+"lat": 48.6667,
+"lon": 26.5667,
+"page": 107,
+"confidence": "high",
+"categories": [
+246,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "5775",
+"priority": 855,
+"name": "OPAVA CZECH",
+"lat": 49.9667,
+"lon": 17.9167,
+"page": 189,
+"confidence": "high",
+"categories": [
+64,
+275,
+386
+],
+"population": true
+},
+{
+"complex": "6030",
+"priority": 857,
+"name": "PANEVEZHIS",
+"lat": 55.75,
+"lon": 24.3667,
+"page": 196,
+"confidence": "high",
+"categories": [
+275,
+370
+],
+"population": true
+},
+{
+"complex": "7300",
+"priority": 858,
+"name": "SCHLAWE POL",
+"lat": 54.35,
+"lon": 16.6667,
+"page": 228,
+"confidence": "high",
+"categories": [
+275,
+280,
+392
+],
+"population": true
+},
+{
+"complex": "8085",
+"priority": 859,
+"name": "SZOMBATHELY HUNG .",
+"lat": 47.2333,
+"lon": 16.6167,
+"page": 258,
+"confidence": "high",
+"categories": [
+10,
+246,
+248,
+275,
+335,
+390
+],
+"population": true
+},
+{
+"complex": "9485",
+"priority": 860,
+"name": "WLOCLAWEK POL",
+"lat": 52.6667,
+"lon": 19.05,
+"page": 293,
+"confidence": "high",
+"categories": [
+56,
+196,
+275
+],
+"population": true
+},
+{
+"complex": "9537",
+"priority": 861,
+"name": "WU CHOU CHINA",
+"lat": 23.4833,
+"lon": 111.3167,
+"page": 294,
+"confidence": "high",
+"categories": [
+275,
+281
+],
+"population": true
+},
+{
+"complex": "5340",
+"priority": 863,
+"name": "NAIBUCHI",
+"lat": 47.4333,
+"lon": 142.7833,
+"page": 175,
+"confidence": "high",
+"categories": [
+225,
+226,
+227,
+241,
+248,
+275,
+354
+],
+"population": true
+},
+{
+"complex": "9788",
+"priority": 864,
+"name": "ZALAEGERSZEG HUNG",
+"lat": 46.8333,
+"lon": 16.8333,
+"page": 300,
+"confidence": "high",
+"categories": [
+224,
+226,
+227,
+243,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "7715",
+"priority": 866,
+"name": "SONNEBERG E GER",
+"lat": 50.35,
+"lon": 11.1667,
+"page": 243,
+"confidence": "high",
+"categories": [
+50,
+275,
+285,
+354,
+390
+],
+"population": true
+},
+{
+"complex": "2936",
+"priority": 868,
+"name": "INTA",
+"lat": 66.4167,
+"lon": 61.5,
+"page": 100,
+"confidence": "high",
+"categories": [
+16,
+21,
+95,
+102,
+140,
+208,
+215,
+227,
+241,
+246,
+250,
+275,
+281,
+285,
+290,
+354,
+358,
+430
+],
+"population": true
+},
+{
+"complex": "5230",
+"priority": 869,
+"name": "MUKACHEVO",
+"lat": 48.4333,
+"lon": 22.7,
+"page": 172,
+"confidence": "high",
+"categories": [
+224,
+226,
+227,
+246,
+275
+],
+"population": true
+},
+{
+"complex": "9332",
+"priority": 870,
+"name": "VYSHNE VOLOCHEK",
+"lat": 57.5833,
+"lon": 34.5667,
+"page": 290,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "0175",
+"priority": 871,
+"name": "ALMALYK",
+"lat": 40.8167,
+"lon": 69.6333,
+"page": 5,
+"confidence": "medium",
+"categories": [
+84,
+275
+],
+"population": true
+},
+{
+"complex": "1048",
+"priority": 873,
+"name": "BUETOW POL",
+"lat": 54.1667,
+"lon": 17.5,
+"page": 35,
+"confidence": "high",
+"categories": [
+275,
+368,
+392
+],
+"population": true
+},
+{
+"complex": "3850",
+"priority": 877,
+"name": "KONDUPOGA",
+"lat": 62.2,
+"lon": 34.25,
+"page": 127,
+"confidence": "high",
+"categories": [
+140,
+275,
+278,
+392
+],
+"population": true
+},
+{
+"complex": "4320",
+"priority": 879,
+"name": "KUZNETSK",
+"lat": 53.1167,
+"lon": 46.6,
+"page": 140,
+"confidence": "high",
+"categories": [
+120,
+275
+],
+"population": true
+},
+{
+"complex": "4876",
+"priority": 880,
+"name": "MALCHIN E GER",
+"lat": 53.7333,
+"lon": 12.7833,
+"page": 157,
+"confidence": "medium",
+"categories": [
+275,
+334
+],
+"population": true
+},
+{
+"complex": "5509",
+"priority": 882,
+"name": "NIZHNIYE SERGI",
+"lat": 56.6667,
+"lon": 59.3,
+"page": 182,
+"confidence": "high",
+"categories": [
+262,
+275
+],
+"population": true
+},
+{
+"complex": "5600",
+"priority": 883,
+"name": "NOVAYA LYALYA",
+"lat": 59.05,
+"lon": 60.6333,
+"page": 184,
+"confidence": "high",
+"categories": [
+118,
+128,
+275,
+278
+],
+"population": true
+},
+{
+"complex": "5605",
+"priority": 884,
+"name": "NOVE MESTO NAD VAHOM CZEC",
+"lat": 48.7667,
+"lon": 17.85,
+"page": 184,
+"confidence": "high",
+"categories": [
+188,
+227,
+246,
+248,
+254,
+275,
+280,
+302,
+350,
+358,
+415
+],
+"population": true
+},
+{
+"complex": "5760",
+"priority": 885,
+"name": "OMUTNINSK",
+"lat": 58.65,
+"lon": 52.1833,
+"page": 189,
+"confidence": "high",
+"categories": [
+275,
+430
+],
+"population": true
+},
+{
+"complex": "5960",
+"priority": 886,
+"name": "OZERNAYA",
+"lat": 40.5333,
+"lon": 44.95,
+"page": 196,
+"confidence": "high",
+"categories": [
+116,
+227,
+275,
+437
+],
+"population": true
+},
+{
+"complex": "6176",
+"priority": 887,
+"name": "PERVOMAYSK",
+"lat": 48.0667,
+"lon": 30.8667,
+"page": 201,
+"confidence": "medium",
+"categories": [
+10,
+135,
+208,
+227,
+275,
+285,
+290,
+372,
+376,
+410
+],
+"population": true
+},
+{
+"complex": "6272",
+"priority": 888,
+"name": "PINSK",
+"lat": 52.1167,
+"lon": 26.0833,
+"page": 203,
+"confidence": "medium",
+"categories": [
+275,
+370
+],
+"population": true
+},
+{
+"complex": "7145",
+"priority": 889,
+"name": "SAALBURG E GER",
+"lat": 50.5333,
+"lon": 11.7167,
+"page": 224,
+"confidence": "high",
+"categories": [
+90,
+190,
+202,
+204,
+264,
+270,
+275,
+388,
+430,
+445,
+485
+],
+"population": true
+},
+{
+"complex": "7605",
+"priority": 890,
+"name": "SINAIA KUM",
+"lat": 45.35,
+"lon": 25.5333,
+"page": 238,
+"confidence": "high",
+"categories": [
+198,
+275
+],
+"population": true
+},
+{
+"complex": "7707",
+"priority": 892,
+"name": "SONGJIN N KOREA",
+"lat": 40.6667,
+"lon": 129.2,
+"page": 242,
+"confidence": "high",
+"categories": [
+275,
+280,
+430
+],
+"population": true
+},
+{
+"complex": "7887",
+"priority": 893,
+"name": "STOLBTSY",
+"lat": 53.4833,
+"lon": 26.7167,
+"page": 251,
+"confidence": "high",
+"categories": [
+246,
+275
+],
+"population": true
+},
+{
+"complex": "8635",
+"priority": 896,
+"name": "TUNG CHING CHENG MANCH",
+"lat": 44.1167,
+"lon": 129.15,
+"page": 273,
+"confidence": "high",
+"categories": [
+186,
+275
+],
+"population": true
+},
+{
+"complex": "9135",
+"priority": 898,
+"name": "VLAHITA KUM",
+"lat": 46.35,
+"lon": 25.5333,
+"page": 284,
+"confidence": "high",
+"categories": [
+270,
+275,
+278,
+394
+],
+"population": true
+},
+{
+"complex": "9725",
+"priority": 899,
+"name": "YUN FOU CHINA",
+"lat": 22.9333,
+"lon": 112.0333,
+"page": 299,
+"confidence": "high",
+"categories": [
+275,
+465
+],
+"population": true
+},
+{
+"complex": "0565",
+"priority": 900,
+"name": "BASCOV RUM",
+"lat": 44.9,
+"lon": 24.7667,
+"page": 15,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "3480",
+"priority": 901,
+"name": "KIM",
+"lat": 40.1667,
+"lon": 70.3333,
+"page": 118,
+"confidence": "high",
+"categories": [
+224,
+226,
+275
+],
+"population": true
+},
+{
+"complex": "0557",
+"priority": 902,
+"name": "BARLAD RUM",
+"lat": 46.2333,
+"lon": 27.6667,
+"page": 14,
+"confidence": "high",
+"categories": [
+30,
+246,
+275
+],
+"population": true
+},
+{
+"complex": "0880",
+"priority": 903,
+"name": "BONOYUZHSKI",
+"lat": 55.9167,
+"lon": 52.3333,
+"page": 25,
+"confidence": "high",
+"categories": [
+275,
+445
+],
+"population": true
+},
+{
+"complex": "4475",
+"priority": 904,
+"name": "LEISNIG EGER",
+"lat": 51.1667,
+"lon": 12.9167,
+"page": 143,
+"confidence": "high",
+"categories": [
+230,
+248,
+264,
+275,
+285
+],
+"population": true
+},
+{
+"complex": "9145",
+"priority": 906,
+"name": "VLONE ALB",
+"lat": 40.4667,
+"lon": 19.4,
+"page": 284,
+"confidence": "high",
+"categories": [
+227,
+254,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "2529",
+"priority": 908,
+"name": "HAL KOU CHINA",
+"lat": 20.05,
+"lon": 110.3167,
+"page": 92,
+"confidence": "high",
+"categories": [
+245,
+278,
+280
+],
+"population": false
+},
+{
+"complex": "2890",
+"priority": 909,
+"name": "IGARKA",
+"lat": 67.45,
+"lon": 86.6333,
+"page": 100,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "3905",
+"priority": 910,
+"name": "KOPYCHINTSY",
+"lat": 49.1,
+"lon": 25.9333,
+"page": 127,
+"confidence": "medium",
+"categories": [
+227,
+275,
+376
+],
+"population": true
+},
+{
+"complex": "5504",
+"priority": 911,
+"name": "NITRA CZECH .-",
+"lat": 48.3,
+"lon": 18.0833,
+"page": 181,
+"confidence": "medium",
+"categories": [
+245,
+248,
+275,
+386
+],
+"population": true
+},
+{
+"complex": "6600",
+"priority": 912,
+"name": "PYARNU",
+"lat": 58.4,
+"lon": 24.5,
+"page": 215,
+"confidence": "high",
+"categories": [
+227,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "9963",
+"priority": 914,
+"name": "ZVENIGOROD",
+"lat": 55.7333,
+"lon": 36.8333,
+"page": 305,
+"confidence": "high",
+"categories": [
+30,
+50,
+55,
+64,
+75,
+190,
+206,
+227,
+230,
+235,
+246,
+248,
+250,
+252,
+258,
+260,
+275,
+290,
+334,
+388,
+392,
+445,
+480
+],
+"population": true
+},
+{
+"complex": "0240",
+"priority": 915,
+"name": "ANGREN",
+"lat": 41.0,
+"lon": 70.2,
+"page": 6,
+"confidence": "high",
+"categories": [
+104,
+275
+],
+"population": true
+},
+{
+"complex": "1613",
+"priority": 917,
+"name": "DERNYA BULG",
+"lat": 43.2167,
+"lon": 27.55,
+"page": 57,
+"confidence": "high",
+"categories": [
+62,
+246,
+275,
+382,
+425
+],
+"population": true
+},
+{
+"complex": "1936",
+"priority": 918,
+"name": "EGEK HUNG",
+"lat": 47.9,
+"lon": 20.3833,
+"page": 68,
+"confidence": "high",
+"categories": [
+10,
+23,
+50,
+90,
+190,
+230,
+235,
+248,
+252,
+266,
+275,
+279,
+388,
+425
+],
+"population": true
+},
+{
+"complex": "1962",
+"priority": 919,
+"name": "EKIBASTUZUGOL",
+"lat": 51.7,
+"lon": 75.35,
+"page": 69,
+"confidence": "high",
+"categories": [
+275,
+372
+],
+"population": true
+},
+{
+"complex": "3570",
+"priority": 922,
+"name": "KIRS",
+"lat": 59.3333,
+"lon": 52.25,
+"page": 120,
+"confidence": "high",
+"categories": [
+200,
+270,
+275,
+430
+],
+"population": true
+},
+{
+"complex": "4030",
+"priority": 923,
+"name": "KRASNAYA POLYANA",
+"lat": 43.7,
+"lon": 40.2167,
+"page": 131,
+"confidence": "medium",
+"categories": [
+116,
+275
+],
+"population": true
+},
+{
+"complex": "4094",
+"priority": 924,
+"name": "KRASNYY KUT",
+"lat": 50.9833,
+"lon": 47.0167,
+"page": 133,
+"confidence": "high",
+"categories": [
+275,
+368
+],
+"population": true
+},
+{
+"complex": "4105",
+"priority": 925,
+"name": "KROMPACHY CZECH",
+"lat": 48.9167,
+"lon": 20.8667,
+"page": 135,
+"confidence": "high",
+"categories": [
+188,
+275
+],
+"population": true
+},
+{
+"complex": "4420",
+"priority": 926,
+"name": "LAPTEVO",
+"lat": 54.4833,
+"lon": 37.6833,
+"page": 141,
+"confidence": "high",
+"categories": [
+250,
+275
+],
+"population": true
+},
+{
+"complex": "4880",
+"priority": 927,
+"name": "MAOKA",
+"lat": 47.05,
+"lon": 142.05,
+"page": 158,
+"confidence": "high",
+"categories": [
+254,
+275,
+280,
+354
+],
+"population": true
+},
+{
+"complex": "5400",
+"priority": 928,
+"name": "NEREKHTA",
+"lat": 57.4667,
+"lon": 40.55,
+"page": 178,
+"confidence": "high",
+"categories": [
+246,
+248,
+275,
+336,
+366,
+388
+],
+"population": true
+},
+{
+"complex": "6083",
+"priority": 929,
+"name": "PECHORA",
+"lat": 65.4167,
+"lon": 57.0333,
+"page": 198,
+"confidence": "high",
+"categories": [
+140,
+290,
+358
+],
+"population": false
+},
+{
+"complex": "6517",
+"priority": 931,
+"name": "PRESOV CZECH",
+"lat": 49.0,
+"lon": 21.25,
+"page": 212,
+"confidence": "high",
+"categories": [
+248,
+275,
+386
+],
+"population": true
+},
+{
+"complex": "6525",
+"priority": 932,
+"name": "PRIBRAM CZECH",
+"lat": 49.6833,
+"lon": 14.0167,
+"page": 212,
+"confidence": "high",
+"categories": [
+216,
+230,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "7520",
+"priority": 935,
+"name": "SHIKUKA",
+"lat": 49.2667,
+"lon": 143.1167,
+"page": 236,
+"confidence": "high",
+"categories": [
+130,
+246,
+275
+],
+"population": true
+},
+{
+"complex": "7655",
+"priority": 936,
+"name": "SLUTSK",
+"lat": 53.0167,
+"lon": 27.55,
+"page": 240,
+"confidence": "high",
+"categories": [
+246,
+275,
+370
+],
+"population": true
+},
+{
+"complex": "8360",
+"priority": 937,
+"name": "TEREKLA",
+"lat": 51.6,
+"lon": 58.6333,
+"page": 266,
+"confidence": "high",
+"categories": [
+160,
+275
+],
+"population": true
+},
+{
+"complex": "8925",
+"priority": 940,
+"name": "VACHA E GER",
+"lat": 50.8167,
+"lon": 10.0333,
+"page": 279,
+"confidence": "high",
+"categories": [
+200,
+275,
+358,
+372
+],
+"population": true
+},
+{
+"complex": "9700",
+"priority": 943,
+"name": "YEYSK",
+"lat": 46.7,
+"lon": 38.2833,
+"page": 298,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "3227",
+"priority": 944,
+"name": "KAMSKOYE USTYE",
+"lat": 55.4167,
+"lon": 49.1667,
+"page": 108,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "7955",
+"priority": 945,
+"name": "SULINA RUM",
+"lat": 45.15,
+"lon": 29.65,
+"page": 253,
+"confidence": "high",
+"categories": [
+227,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "4800",
+"priority": 946,
+"name": "LYUDINOVO .",
+"lat": 53.8667,
+"lon": 34.45,
+"page": 154,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "4900",
+"priority": 947,
+"name": "MARKS .",
+"lat": 51.7,
+"lon": 46.7667,
+"page": 158,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "8005",
+"priority": 949,
+"name": "SVISHTOV BULG",
+"lat": 43.6333,
+"lon": 25.35,
+"page": 255,
+"confidence": "high",
+"categories": [
+227,
+243,
+246,
+275,
+382
+],
+"population": true
+},
+{
+"complex": "9313",
+"priority": 950,
+"name": "VYAZNIKI",
+"lat": 56.25,
+"lon": 42.1667,
+"page": 290,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "9807",
+"priority": 951,
+"name": "ZAYARSK",
+"lat": 56.25,
+"lon": 102.9667,
+"page": 301,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "4777",
+"priority": 954,
+"name": "LUTSK",
+"lat": 50.75,
+"lon": 25.3167,
+"page": 153,
+"confidence": "high",
+"categories": [
+10,
+145,
+208,
+224,
+226,
+227,
+240,
+246,
+275,
+285,
+328,
+376
+],
+"population": true
+},
+{
+"complex": "7942",
+"priority": 955,
+"name": "SUCHAN",
+"lat": 43.1333,
+"lon": 133.1167,
+"page": 252,
+"confidence": "high",
+"categories": [
+23,
+227,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "8460",
+"priority": 956,
+"name": "TOBOLSK",
+"lat": 58.2,
+"lon": 68.25,
+"page": 268,
+"confidence": "medium",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "9600",
+"priority": 957,
+"name": "YALTA",
+"lat": 44.4833,
+"lon": 34.15,
+"page": 295,
+"confidence": "high",
+"categories": [
+227,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "9671",
+"priority": 958,
+"name": "YELGAVA",
+"lat": 56.6333,
+"lon": 23.7,
+"page": 297,
+"confidence": "high",
+"categories": [
+227,
+246,
+275
+],
+"population": true
+},
+{
+"complex": "0140",
+"priority": 961,
+"name": "ALGA .",
+"lat": 49.9667,
+"lon": 57.2667,
+"page": 4,
+"confidence": "high",
+"categories": [
+275,
+445
+],
+"population": true
+},
+{
+"complex": "1070",
+"priority": 964,
+"name": "BUSKO ZDROV POL",
+"lat": 50.4667,
+"lon": 20.7167,
+"page": 36,
+"confidence": "medium",
+"categories": [
+246,
+275,
+360,
+445
+],
+"population": true
+},
+{
+"complex": "1250",
+"priority": 965,
+"name": "CHERMOZ",
+"lat": 58.7667,
+"lon": 56.2333,
+"page": 44,
+"confidence": "high",
+"categories": [
+227,
+270,
+275,
+376,
+430
+],
+"population": true
+},
+{
+"complex": "1700",
+"priority": 966,
+"name": "DOBRYANKA",
+"lat": 58.45,
+"lon": 56.4167,
+"page": 61,
+"confidence": "high",
+"categories": [
+275,
+430
+],
+"population": true
+},
+{
+"complex": "1722",
+"priority": 967,
+"name": "DOLINSKAYA",
+"lat": 48.1167,
+"lon": 32.7667,
+"page": 62,
+"confidence": "medium",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "1985",
+"priority": 968,
+"name": "ELISEINA BULG",
+"lat": 43.1,
+"lon": 23.5,
+"page": 70,
+"confidence": "high",
+"categories": [
+23,
+50,
+55,
+62,
+64,
+68,
+84,
+110,
+190,
+202,
+208,
+227,
+235,
+243,
+246,
+248,
+264,
+275,
+285,
+292,
+298,
+382,
+386,
+388
+],
+"population": true
+},
+{
+"complex": "2493",
+"priority": 969,
+"name": "GUSTROW E GER",
+"lat": 53.8,
+"lon": 12.1667,
+"page": 91,
+"confidence": "high",
+"categories": [
+246,
+275,
+388
+],
+"population": true
+},
+{
+"complex": "3601",
+"priority": 972,
+"name": "KISKUNHALAS HUNG",
+"lat": 46.4333,
+"lon": 19.5,
+"page": 121,
+"confidence": "medium",
+"categories": [
+275,
+390
+],
+"population": true
+},
+{
+"complex": "3798",
+"priority": 973,
+"name": "KOLOSOVKA",
+"lat": 47.3,
+"lon": 31.0333,
+"page": 125,
+"confidence": "high",
+"categories": [
+275,
+376
+],
+"population": true
+},
+{
+"complex": "4507",
+"priority": 974,
+"name": "LENINSKIY",
+"lat": 51.8667,
+"lon": 37.55,
+"page": 147,
+"confidence": "high",
+"categories": [
+362
+],
+"population": false
+},
+{
+"complex": "4770",
+"priority": 976,
+"name": "LUNINETS",
+"lat": 52.25,
+"lon": 26.8167,
+"page": 153,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "5361",
+"priority": 977,
+"name": "NAKHICHEVAN .",
+"lat": 39.2167,
+"lon": 45.4167,
+"page": 175,
+"confidence": "high",
+"categories": [
+150,
+227,
+246,
+248,
+254,
+275,
+280,
+350,
+354,
+437
+],
+"population": true
+},
+{
+"complex": "5369",
+"priority": 979,
+"name": "NARO FOMINSK",
+"lat": 55.3833,
+"lon": 36.7667,
+"page": 177,
+"confidence": "medium",
+"categories": [
+64,
+110,
+225,
+226,
+227,
+228,
+246,
+248,
+250,
+275,
+280,
+290,
+354,
+358,
+392
+],
+"population": true
+},
+{
+"complex": "6119",
+"priority": 981,
+"name": "PEI PIAO CHINA",
+"lat": 41.8,
+"lon": 120.7833,
+"page": 199,
+"confidence": "high",
+"categories": [
+185,
+275
+],
+"population": true
+},
+{
+"complex": "7530",
+"priority": 983,
+"name": "SHIRUTORU",
+"lat": 48.6333,
+"lon": 142.8,
+"page": 236,
+"confidence": "high",
+"categories": [
+130,
+275
+],
+"population": true
+},
+{
+"complex": "7560",
+"priority": 984,
+"name": "SHUMEN BULG",
+"lat": 43.2667,
+"lon": 26.9167,
+"page": 237,
+"confidence": "medium",
+"categories": [
+275,
+382
+],
+"population": true
+},
+{
+"complex": "7614",
+"priority": 985,
+"name": "SKOPIN",
+"lat": 53.8333,
+"lon": 39.5333,
+"page": 238,
+"confidence": "medium",
+"categories": [
+227,
+235,
+246,
+250,
+275,
+354
+],
+"population": true
+},
+{
+"complex": "8280",
+"priority": 990,
+"name": "TASHTAGOL",
+"lat": 52.7667,
+"lon": 87.9,
+"page": 263,
+"confidence": "high",
+"categories": [
+108
+],
+"population": false
+},
+{
+"complex": "8400",
+"priority": 991,
+"name": "TIEH LING MANCH",
+"lat": 42.3,
+"lon": 123.8167,
+"page": 266,
+"confidence": "high",
+"categories": [
+275,
+281
+],
+"population": true
+},
+{
+"complex": "8461",
+"priority": 992,
+"name": "TOLBUCKIN BULG",
+"lat": 43.5833,
+"lon": 27.8,
+"page": 268,
+"confidence": "medium",
+"categories": [
+10,
+196,
+227,
+248,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "8890",
+"priority": 994,
+"name": "UZHUR",
+"lat": 55.3,
+"lon": 89.8167,
+"page": 278,
+"confidence": "high",
+"categories": [
+275,
+354
+],
+"population": true
+},
+{
+"complex": "9076",
+"priority": 996,
+"name": "VEYMARN",
+"lat": 59.3833,
+"lon": 28.8333,
+"page": 281,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "9078",
+"priority": 997,
+"name": "VIDIN BULG .",
+"lat": 43.9833,
+"lon": 22.85,
+"page": 281,
+"confidence": "high",
+"categories": [
+275,
+281,
+382
+],
+"population": true
+},
+{
+"complex": "9285",
+"priority": 999,
+"name": "VRANOV CZECH",
+"lat": 48.9,
+"lon": 15.8167,
+"page": 289,
+"confidence": "high",
+"categories": [
+188,
+275
+],
+"population": true
+},
+{
+"complex": "9483",
+"priority": 1000,
+"name": "WITTSTOCK E- GER",
+"lat": 53.1833,
+"lon": 12.5,
+"page": 293,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "9610",
+"priority": 1001,
+"name": "YANGI YUL",
+"lat": 41.0833,
+"lon": 69.0333,
+"page": 295,
+"confidence": "high",
+"categories": [
+104,
+114,
+275
+],
+"population": true
+},
+{
+"complex": "9688",
+"priority": 1002,
+"name": "VYEREMEN TAU",
+"lat": 51.5833,
+"lon": 73.1667,
+"page": 297,
+"confidence": "high",
+"categories": [
+372
+],
+"population": false
+},
+{
+"complex": "9875",
+"priority": 1003,
+"name": "ZERBST E GER 030 0231-2769",
+"lat": 51.9667,
+"lon": 12.0833,
+"page": 302,
+"confidence": "high",
+"categories": [
+246,
+275
+],
+"population": true
+},
+{
+"complex": "1074",
+"priority": 1005,
+"name": "BUZAN",
+"lat": 46.75,
+"lon": 48.0333,
+"page": 36,
+"confidence": "medium",
+"categories": [
+226,
+227,
+246,
+248,
+275,
+290,
+394
+],
+"population": true
+},
+{
+"complex": "1199",
+"priority": 1006,
+"name": "CHAPAYEVO",
+"lat": 50.2,
+"lon": 51.1667,
+"page": 40,
+"confidence": "medium",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "1560",
+"priority": 1008,
+"name": "DAURIYA",
+"lat": 49.9167,
+"lon": 116.8333,
+"page": 56,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "4075",
+"priority": 1011,
+"name": "KRASNOVKA",
+"lat": 47.4667,
+"lon": 37.2,
+"page": 132,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "4162",
+"priority": 1012,
+"name": "KRULEVSHCHIZMA",
+"lat": 55.0333,
+"lon": 27.8,
+"page": 136,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "5004",
+"priority": 1013,
+"name": "MIKAILOV",
+"lat": 54.2167,
+"lon": 39.0167,
+"page": 160,
+"confidence": "high",
+"categories": [
+227
+],
+"population": false
+},
+{
+"complex": "6550",
+"priority": 1014,
+"name": "PROVIDENIYA",
+"lat": 64.3833,
+"lon": 173.2833,
+"page": 213,
+"confidence": "high",
+"categories": [
+227,
+248,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "7837",
+"priority": 1016,
+"name": "STAK AGOZAM",
+"lat": 40.9167,
+"lon": 45.7833,
+"page": 248,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "8330",
+"priority": 1018,
+"name": "TEKELI . .",
+"lat": 44.7,
+"lon": 78.9333,
+"page": 265,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "0563",
+"priority": 1019,
+"name": "BARVENKOVO",
+"lat": 48.9,
+"lon": 37.0167,
+"page": 14,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "0665",
+"priority": 1020,
+"name": "BERAT ALB",
+"lat": 40.7,
+"lon": 19.95,
+"page": 17,
+"confidence": "high",
+"categories": [
+226,
+275
+],
+"population": true
+},
+{
+"complex": "1002",
+"priority": 1021,
+"name": "BRYUKHOVESTSKAYA",
+"lat": 45.8,
+"lon": 39.0,
+"page": 31,
+"confidence": "high",
+"categories": [
+10,
+23,
+50,
+55,
+64,
+198,
+200,
+206,
+208,
+227,
+240,
+241,
+243,
+245,
+246,
+248,
+252,
+262,
+264,
+275,
+276,
+282,
+285,
+292,
+337,
+394,
+430
+],
+"population": true
+},
+{
+"complex": "1140",
+"priority": 1022,
+"name": "CALARAST RUM",
+"lat": 44.2,
+"lon": 27.3333,
+"page": 37,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "2359",
+"priority": 1023,
+"name": "GORI",
+"lat": 42.0,
+"lon": 44.1167,
+"page": 86,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "2834",
+"priority": 1024,
+"name": "HUICHON N KOREA",
+"lat": 40.1667,
+"lon": 126.2667,
+"page": 98,
+"confidence": "medium",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "3158",
+"priority": 1027,
+"name": "KALACH",
+"lat": 50.4333,
+"lon": 41.0333,
+"page": 105,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "3693",
+"priority": 1029,
+"name": "KOBRIN",
+"lat": 52.2167,
+"lon": 24.35,
+"page": 122,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "4396",
+"priority": 1032,
+"name": "LABINSKAYA",
+"lat": 44.65,
+"lon": 40.75,
+"page": 141,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "4825",
+"priority": 1033,
+"name": "MAD HUNG",
+"lat": 48.1833,
+"lon": 21.2833,
+"page": 154,
+"confidence": "high",
+"categories": [
+192,
+227,
+275,
+390
+],
+"population": true
+},
+{
+"complex": "5071",
+"priority": 1034,
+"name": "MOGILEV PODOLSKIY",
+"lat": 48.4333,
+"lon": 27.8167,
+"page": 162,
+"confidence": "high",
+"categories": [
+227,
+376
+],
+"population": false
+},
+{
+"complex": "5431",
+"priority": 1035,
+"name": "NEURUPPIN E GER",
+"lat": 52.9333,
+"lon": 12.8167,
+"page": 179,
+"confidence": "high",
+"categories": [
+227,
+246,
+248,
+275,
+388,
+392
+],
+"population": true
+},
+{
+"complex": "9642",
+"priority": 1036,
+"name": "NOVYY BUG",
+"lat": 47.7,
+"lon": 32.5333,
+"page": 186,
+"confidence": "medium",
+"categories": [
+227
+],
+"population": false
+},
+{
+"complex": "6573",
+"priority": 1039,
+"name": "PUDOZH",
+"lat": 61.8,
+"lon": 36.5333,
+"page": 214,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "9139",
+"priority": 1042,
+"name": "VLASIM CZECH",
+"lat": 49.7,
+"lon": 14.9167,
+"page": 284,
+"confidence": "high",
+"categories": [
+10,
+23,
+227,
+275
+],
+"population": true
+},
+{
+"complex": "9733",
+"priority": 1043,
+"name": "YURYEV POLSKIY",
+"lat": 56.5,
+"lon": 39.6833,
+"page": 299,
+"confidence": "high",
+"categories": [],
+"population": false
+},
+{
+"complex": "2492",
+"priority": 1044,
+"name": "GUSEV POL",
+"lat": 54.05,
+"lon": 22.5,
+"page": 91,
+"confidence": "medium",
+"categories": [
+227
+],
+"population": false
+},
+{
+"complex": "0230",
+"priority": 1045,
+"name": "ANADYR",
+"lat": 64.7333,
+"lon": 177.4667,
+"page": 6,
+"confidence": "high",
+"categories": [
+248,
+254,
+275,
+280,
+284
+],
+"population": true
+},
+{
+"complex": "0433",
+"priority": 1046,
+"name": "BAJA HUNG",
+"lat": 46.1833,
+"lon": 18.9667,
+"page": 11,
+"confidence": "high",
+"categories": [
+248,
+275,
+282,
+290,
+390
+],
+"population": true
+},
+{
+"complex": "0616",
+"priority": 1047,
+"name": "BOER",
+"lat": 54.3333,
+"lon": 29.25,
+"page": 24,
+"confidence": "high",
+"categories": [
+227,
+246,
+275
+],
+"population": true
+},
+{
+"complex": "1196",
+"priority": 1049,
+"name": "CHANGJON N KOREA",
+"lat": 38.7333,
+"lon": 128.2,
+"page": 40,
+"confidence": "high",
+"categories": [
+186,
+208,
+230,
+243,
+275,
+280,
+281
+],
+"population": true
+},
+{
+"complex": "1357",
+"priority": 1050,
+"name": "CHINNAL",
+"lat": 48.4167,
+"lon": 142.1,
+"page": 48,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "1640",
+"priority": 1052,
+"name": "DIKSON ISLAND",
+"lat": 73.4833,
+"lon": 80.3333,
+"page": 59,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "1770",
+"priority": 1053,
+"name": "DORONINSKOYE",
+"lat": 51.1,
+"lon": 112.2,
+"page": 62,
+"confidence": "high",
+"categories": [
+62,
+275,
+425
+],
+"population": true
+},
+{
+"complex": "1812",
+"priority": 1055,
+"name": "DUBOSSARY",
+"lat": 47.2667,
+"lon": 29.1333,
+"page": 66,
+"confidence": "high",
+"categories": [
+106,
+275
+],
+"population": true
+},
+{
+"complex": "2250",
+"priority": 1056,
+"name": "GAURDAK",
+"lat": 37.7833,
+"lon": 66.1,
+"page": 76,
+"confidence": "high",
+"categories": [
+275,
+445
+],
+"population": true
+},
+{
+"complex": "2404",
+"priority": 1058,
+"name": "GREIFENBERG POL",
+"lat": 51.0333,
+"lon": 15.4167,
+"page": 89,
+"confidence": "high",
+"categories": [
+275,
+445
+],
+"population": true
+},
+{
+"complex": "2528",
+"priority": 1059,
+"name": "HAI DUONG N VIETNAM",
+"lat": 20.9333,
+"lon": 106.3167,
+"page": 92,
+"confidence": "medium",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "2537",
+"priority": 1060,
+"name": "HAIPHONG N VIETNAM",
+"lat": 20.8667,
+"lon": 106.6833,
+"page": 92,
+"confidence": "high",
+"categories": [
+195,
+227,
+246,
+248,
+254,
+275,
+280,
+290,
+391,
+420
+],
+"population": true
+},
+{
+"complex": "2770",
+"priority": 1061,
+"name": "HRANICE CZECH",
+"lat": 49.55,
+"lon": 17.7167,
+"page": 97,
+"confidence": "high",
+"categories": [
+243,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "2772",
+"priority": 1062,
+"name": "HRUBIESZOW POL .",
+"lat": 50.8167,
+"lon": 23.8833,
+"page": 97,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "3055",
+"priority": 1063,
+"name": "JICIN CZECR",
+"lat": 50.4333,
+"lon": 15.3833,
+"page": 103,
+"confidence": "high",
+"categories": [
+10,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "3276",
+"priority": 1064,
+"name": "KARNOBAT BULG",
+"lat": 42.6667,
+"lon": 26.9667,
+"page": 110,
+"confidence": "high",
+"categories": [
+275,
+290,
+382
+],
+"population": true
+},
+{
+"complex": "3513",
+"priority": 1065,
+"name": "KIRENSK",
+"lat": 57.7667,
+"lon": 108.1167,
+"page": 118,
+"confidence": "high",
+"categories": [
+275,
+281
+],
+"population": true
+},
+{
+"complex": "3650",
+"priority": 1066,
+"name": "KLATOVY CZECH",
+"lat": 49.3833,
+"lon": 13.2833,
+"page": 122,
+"confidence": "high",
+"categories": [
+227,
+248,
+270,
+275,
+280,
+370,
+437,
+445
+],
+"population": true
+},
+{
+"complex": "4131",
+"priority": 1067,
+"name": "KREMENETS",
+"lat": 50.1,
+"lon": 25.7333,
+"page": 134,
+"confidence": "high",
+"categories": [
+248,
+275,
+280,
+392
+],
+"population": true
+},
+{
+"complex": "4815",
+"priority": 1069,
+"name": "MA AN SHAN CHINA",
+"lat": 31.7167,
+"lon": 118.4833,
+"page": 154,
+"confidence": "high",
+"categories": [
+186,
+270,
+275
+],
+"population": true
+},
+{
+"complex": "4875",
+"priority": 1070,
+"name": "MALA TSURKVA BULG .",
+"lat": 42.25,
+"lon": 23.5,
+"page": 157,
+"confidence": "medium",
+"categories": [
+184,
+275
+],
+"population": true
+},
+{
+"complex": "5005",
+"priority": 1073,
+"name": "MIEKHALLOVKA .",
+"lat": 51.8167,
+"lon": 79.7167,
+"page": 160,
+"confidence": "medium",
+"categories": [
+62,
+428
+],
+"population": false
+},
+{
+"complex": "5451",
+"priority": 1075,
+"name": "NEYA",
+"lat": 58.3167,
+"lon": 43.9,
+"page": 180,
+"confidence": "medium",
+"categories": [
+246,
+275
+],
+"population": true
+},
+{
+"complex": "5770",
+"priority": 1076,
+"name": "ONEGA",
+"lat": 63.9,
+"lon": 36.1333,
+"page": 189,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "6060",
+"priority": 1078,
+"name": "PASHIYA",
+"lat": 58.4333,
+"lon": 58.2833,
+"page": 198,
+"confidence": "high",
+"categories": [
+270,
+275
+],
+"population": true
+},
+{
+"complex": "6070",
+"priority": 1079,
+"name": "PAVLOVSKIY",
+"lat": 57.8667,
+"lon": 54.85,
+"page": 198,
+"confidence": "high",
+"categories": [
+262,
+275
+],
+"population": true
+},
+{
+"complex": "6242",
+"priority": 1081,
+"name": "PEVEK",
+"lat": 69.7167,
+"lon": 170.2833,
+"page": 202,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "6270",
+"priority": 1082,
+"name": "PILENKOVA",
+"lat": 43.4,
+"lon": 40.0833,
+"page": 202,
+"confidence": "high",
+"categories": [
+116,
+275
+],
+"population": true
+},
+{
+"complex": "6287",
+"priority": 1083,
+"name": "PISEK CZECH",
+"lat": 49.3,
+"lon": 14.1333,
+"page": 203,
+"confidence": "high",
+"categories": [
+62,
+68,
+227,
+248,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "6330",
+"priority": 1084,
+"name": "PLOCK POL .",
+"lat": 52.55,
+"lon": 19.7,
+"page": 203,
+"confidence": "high",
+"categories": [
+10,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "6500",
+"priority": 1085,
+"name": "PRAVDINSK",
+"lat": 54.4333,
+"lon": 21.0333,
+"page": 212,
+"confidence": "high",
+"categories": [
+170,
+275
+],
+"population": true
+},
+{
+"complex": "7040",
+"priority": 1087,
+"name": "RUKOPOL",
+"lat": 51.75,
+"lon": 48.5333,
+"page": 223,
+"confidence": "high",
+"categories": [
+165,
+275
+],
+"population": true
+},
+{
+"complex": "7267",
+"priority": 1090,
+"name": "SASSNITZ E GER .",
+"lat": 54.5333,
+"lon": 13.6167,
+"page": 227,
+"confidence": "high",
+"categories": [
+204,
+248,
+254,
+270,
+275,
+280,
+366,
+430
+],
+"population": true
+},
+{
+"complex": "7653",
+"priority": 1091,
+"name": "SLONIM",
+"lat": 53.0833,
+"lon": 25.3167,
+"page": 240,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "8259",
+"priority": 1092,
+"name": "TASA DO N KOREA",
+"lat": 39.8,
+"lon": 124.4167,
+"page": 262,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "8818",
+"priority": 1093,
+"name": "URALNEFT",
+"lat": 58.15,
+"lon": 57.1,
+"page": 276,
+"confidence": "high",
+"categories": [
+118,
+275
+],
+"population": true
+},
+{
+"complex": "9127",
+"priority": 1094,
+"name": "VLADIMIR VOLYNSKIY",
+"lat": 50.85,
+"lon": 24.3167,
+"page": 283,
+"confidence": "high",
+"categories": [],
+"population": false
+},
+{
+"complex": "9300",
+"priority": 1095,
+"name": "VYARTSILYA",
+"lat": 62.1833,
+"lon": 30.7,
+"page": 289,
+"confidence": "high",
+"categories": [
+275,
+430
+],
+"population": true
+},
+{
+"complex": "9710",
+"priority": 1096,
+"name": "YOSHKAR OLA",
+"lat": 56.6333,
+"lon": 47.9167,
+"page": 299,
+"confidence": "medium",
+"categories": [
+246,
+262,
+275,
+430
+],
+"population": true
+},
+{
+"complex": "9802",
+"priority": 1098,
+"name": "ZAVITAYA",
+"lat": 50.1,
+"lon": 129.45,
+"page": 301,
+"confidence": "medium",
+"categories": [
+246,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "1046",
+"priority": 1101,
+"name": "BUDARINSKIY",
+"lat": 50.65,
+"lon": 42.5333,
+"page": 35,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "1830",
+"priority": 1103,
+"name": "OUDINKA",
+"lat": 69.4,
+"lon": 86.1667,
+"page": 66,
+"confidence": "high",
+"categories": [
+227,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "2381",
+"priority": 1104,
+"name": "GORODNYA .",
+"lat": 51.9,
+"lon": 31.6,
+"page": 89,
+"confidence": "medium",
+"categories": [
+245,
+275
+],
+"population": true
+},
+{
+"complex": "3272",
+"priority": 1107,
+"name": "KARL MARKSA",
+"lat": 46.5333,
+"lon": 41.0333,
+"page": 110,
+"confidence": "high",
+"categories": [
+23,
+227,
+245,
+246,
+275,
+382
+],
+"population": true
+},
+{
+"complex": "4165",
+"priority": 1110,
+"name": "KUBANSKAYA",
+"lat": 45.1333,
+"lon": 40.65,
+"page": 136,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "4951",
+"priority": 1113,
+"name": "MENA",
+"lat": 51.5167,
+"lon": 32.2,
+"page": 159,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "4000",
+"priority": 1117,
+"name": "KOZHEVNIKOVO",
+"lat": 73.6333,
+"lon": 110.75,
+"page": 130,
+"confidence": "medium",
+"categories": [
+227,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "5638",
+"priority": 1119,
+"name": "NOVOSELSKAYA",
+"lat": 56.0333,
+"lon": 99.2833,
+"page": 185,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "6376",
+"priority": 1122,
+"name": "POKROVSKY.",
+"lat": 39.9333,
+"lon": 48.3667,
+"page": 207,
+"confidence": "high",
+"categories": [
+227,
+275,
+290
+],
+"population": true
+},
+{
+"complex": "6758",
+"priority": 1124,
+"name": "RAYCHIKHINSK",
+"lat": 49.7667,
+"lon": 129.3167,
+"page": 217,
+"confidence": "medium",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "7016",
+"priority": 1125,
+"name": "RUDNITSA",
+"lat": 48.25,
+"lon": 28.9333,
+"page": 223,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "7017",
+"priority": 1126,
+"name": "RUDNYA",
+"lat": 54.95,
+"lon": 31.1,
+"page": 223,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "7523",
+"priority": 1128,
+"name": "SHILOVO",
+"lat": 54.3167,
+"lon": 40.9,
+"page": 236,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "7704",
+"priority": 1130,
+"name": "SOLTSY .",
+"lat": 58.1167,
+"lon": 30.3167,
+"page": 242,
+"confidence": "high",
+"categories": [
+227
+],
+"population": false
+},
+{
+"complex": "8480",
+"priority": 1132,
+"name": "TORBEYEVO",
+"lat": 54.0667,
+"lon": 43.2333,
+"page": 269,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "8633",
+"priority": 1133,
+"name": "TUNG AN CHINA",
+"lat": 45.55,
+"lon": 131.8833,
+"page": 273,
+"confidence": "high",
+"categories": [
+245,
+275
+],
+"population": true
+},
+{
+"complex": "8917",
+"priority": 1134,
+"name": "VALMIYERA",
+"lat": 57.55,
+"lon": 25.4333,
+"page": 279,
+"confidence": "medium",
+"categories": [
+227,
+275,
+362
+],
+"population": true
+},
+{
+"complex": "8955",
+"priority": 1135,
+"name": "VARPAYEVKA .",
+"lat": 52.2667,
+"lon": 45.8333,
+"page": 279,
+"confidence": "medium",
+"categories": [
+227,
+275,
+326,
+374
+],
+"population": true
+},
+{
+"complex": "9207",
+"priority": 1138,
+"name": "VOROBYEVKA",
+"lat": 50.65,
+"lon": 40.85,
+"page": 287,
+"confidence": "high",
+"categories": [
+10,
+15,
+16,
+95,
+120,
+208,
+227,
+235,
+241,
+275,
+285,
+314,
+362,
+400,
+405
+],
+"population": true
+},
+{
+"complex": "9360",
+"priority": 1139,
+"name": "VYTEGRA",
+"lat": 61.0,
+"lon": 36.45,
+"page": 290,
+"confidence": "high",
+"categories": [
+75,
+196,
+245,
+248,
+250,
+264,
+268,
+275,
+285,
+400,
+445
+],
+"population": true
+},
+{
+"complex": "9649",
+"priority": 1140,
+"name": "YEFIMOVSKIY .",
+"lat": 59.5167,
+"lon": 34.6833,
+"page": 296,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "0190",
+"priority": 1144,
+"name": "AMBARCHIK",
+"lat": 69.6667,
+"lon": 162.2333,
+"page": 5,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "0410",
+"priority": 1145,
+"name": "BAD SCHANDAU E GER",
+"lat": 50.9167,
+"lon": 14.15,
+"page": 11,
+"confidence": "medium",
+"categories": [
+56,
+246,
+290
+],
+"population": false
+},
+{
+"complex": "0414",
+"priority": 1146,
+"name": "BAGRATIONOVSK .",
+"lat": 54.3833,
+"lon": 20.6667,
+"page": 11,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "0554",
+"priority": 1147,
+"name": "BARCS HUNG",
+"lat": 45.9667,
+"lon": 17.4667,
+"page": 14,
+"confidence": "high",
+"categories": [
+56,
+275,
+290,
+390
+],
+"population": true
+},
+{
+"complex": "0999",
+"priority": 1149,
+"name": "BRUNTAL CZECH",
+"lat": 49.9833,
+"lon": 17.45,
+"page": 30,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "1149",
+"priority": 1151,
+"name": "CAM PHA N VIETNAM",
+"lat": 21.0333,
+"lon": 107.35,
+"page": 37,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "1304",
+"priority": 1153,
+"name": "CHERVEN BRYAG BULG",
+"lat": 43.2667,
+"lon": 24.1,
+"page": 45,
+"confidence": "medium",
+"categories": [
+243,
+275,
+382
+],
+"population": true
+},
+{
+"complex": "1352",
+"priority": 1154,
+"name": "CHIN HSIEN CHINA",
+"lat": 21.95,
+"lon": 108.6167,
+"page": 47,
+"confidence": "high",
+"categories": [],
+"population": false
+},
+{
+"complex": "1893",
+"priority": 1156,
+"name": "OZHULFA",
+"lat": 38.95,
+"lon": 45.6333,
+"page": 67,
+"confidence": "high",
+"categories": [
+248,
+275,
+350
+],
+"population": true
+},
+{
+"complex": "2721",
+"priority": 1160,
+"name": "HOERYONG N KOREA",
+"lat": 42.4167,
+"lon": 129.75,
+"page": 97,
+"confidence": "high",
+"categories": [
+246,
+275
+],
+"population": true
+},
+{
+"complex": "2852",
+"priority": 1162,
+"name": "HUMENNE CZECH",
+"lat": 48.9333,
+"lon": 21.9,
+"page": 98,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "2853",
+"priority": 1163,
+"name": "HUN CHUN MANCH",
+"lat": 42.8667,
+"lon": 130.35,
+"page": 99,
+"confidence": "high",
+"categories": [
+246,
+275
+],
+"population": true
+},
+{
+"complex": "3165",
+"priority": 1166,
+"name": "KALOCSA HUNG",
+"lat": 46.5167,
+"lon": 18.95,
+"page": 106,
+"confidence": "high",
+"categories": [
+108,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "3242",
+"priority": 1167,
+"name": "KAPLICE CZECH",
+"lat": 48.7333,
+"lon": 14.4833,
+"page": 109,
+"confidence": "medium",
+"categories": [
+248,
+275,
+390
+],
+"population": true
+},
+{
+"complex": "0980",
+"priority": 1168,
+"name": "BRIEG POL",
+"lat": 50.85,
+"lon": 17.4667,
+"page": 29,
+"confidence": "high",
+"categories": [
+23,
+30,
+55,
+64,
+188,
+208,
+214,
+230,
+235,
+248,
+262,
+266,
+275,
+285,
+298,
+386,
+475,
+485
+],
+"population": true
+},
+{
+"complex": "3605",
+"priority": 1170,
+"name": "KITAKOZAWA",
+"lat": 49.4,
+"lon": 142.1,
+"page": 121,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "3692",
+"priority": 1171,
+"name": "KNYAZH POGOST",
+"lat": 62.6333,
+"lon": 50.8333,
+"page": 122,
+"confidence": "high",
+"categories": [
+275,
+358
+],
+"population": true
+},
+{
+"complex": "4028",
+"priority": 1174,
+"name": "KRASKINO",
+"lat": 42.7167,
+"lon": 130.8,
+"page": 131,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "4562",
+"priority": 1177,
+"name": "LIEBEROSE E GER",
+"lat": 52.0167,
+"lon": 14.3,
+"page": 148,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "4680",
+"priority": 1178,
+"name": "LOUKHI",
+"lat": 66.0833,
+"lon": 33.0667,
+"page": 152,
+"confidence": "high",
+"categories": [
+16,
+227,
+245,
+248,
+275,
+358,
+382
+],
+"population": true
+},
+{
+"complex": "4870",
+"priority": 1179,
+"name": "MALACKY CZECH",
+"lat": 48.4333,
+"lon": 17.0167,
+"page": 157,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "4879",
+"priority": 1180,
+"name": "MANGALIA KUM .",
+"lat": 43.8333,
+"lon": 28.5667,
+"page": 157,
+"confidence": "medium",
+"categories": [
+245,
+275,
+354
+],
+"population": true
+},
+{
+"complex": "4960",
+"priority": 1181,
+"name": "MESERITZ POL",
+"lat": 52.4167,
+"lon": 15.5667,
+"page": 159,
+"confidence": "high",
+"categories": [
+118,
+248,
+252,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "5318",
+"priority": 1182,
+"name": "NADVOYTSY",
+"lat": 63.8667,
+"lon": 34.3167,
+"page": 174,
+"confidence": "high",
+"categories": [
+228,
+248,
+262,
+275,
+290,
+390
+],
+"population": true
+},
+{
+"complex": "5503",
+"priority": 1183,
+"name": "NISHI- SAKUTAN",
+"lat": 49.6333,
+"lon": 142.1667,
+"page": 181,
+"confidence": "high",
+"categories": [
+280
+],
+"population": false
+},
+{
+"complex": "6438",
+"priority": 1190,
+"name": "PORT WALLUT N VIETNAM",
+"lat": 21.2,
+"lon": 107.5667,
+"page": 208,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "6572",
+"priority": 1191,
+"name": "PUCK POL",
+"lat": 54.7167,
+"lon": 18.3833,
+"page": 214,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "7211",
+"priority": 1192,
+"name": "SANDANSKI BULG .",
+"lat": 41.55,
+"lon": 23.3,
+"page": 225,
+"confidence": "medium",
+"categories": [
+275,
+382,
+392
+],
+"population": true
+},
+{
+"complex": "7440",
+"priority": 1194,
+"name": "SEVERO KURILSK",
+"lat": 50.6833,
+"lon": 156.1333,
+"page": 232,
+"confidence": "high",
+"categories": [
+227,
+254,
+275,
+280
+],
+"population": true
+},
+{
+"complex": "7458",
+"priority": 1195,
+"name": "SFANTUL GHEORGE RUM",
+"lat": 45.8667,
+"lon": 25.7833,
+"page": 232,
+"confidence": "high",
+"categories": [
+248,
+275
+],
+"population": true
+},
+{
+"complex": "7505",
+"priority": 1196,
+"name": "SHENGJIN ALB",
+"lat": 41.8167,
+"lon": 19.5833,
+"page": 235,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "7609",
+"priority": 1197,
+"name": "SIVAYA MASKA",
+"lat": 66.6,
+"lon": 62.4,
+"page": 238,
+"confidence": "high",
+"categories": [
+275,
+358
+],
+"population": true
+},
+{
+"complex": "1779",
+"priority": 1202,
+"name": "DRISSA",
+"lat": 55.7833,
+"lon": 27.9333,
+"page": 64,
+"confidence": "high",
+"categories": [
+227,
+275
+],
+"population": true
+},
+{
+"complex": "7971",
+"priority": 1202,
+"name": "SUNGACH",
+"lat": 44.9167,
+"lon": 133.1667,
+"page": 254,
+"confidence": "medium",
+"categories": [
+246,
+275
+],
+"population": true
+},
+{
+"complex": "8042",
+"priority": 1203,
+"name": "SZABADSZALLAS HUNG",
+"lat": 46.8833,
+"lon": 19.2,
+"page": 257,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+},
+{
+"complex": "6154",
+"priority": 1204,
+"name": "TACHOV CZECH",
+"lat": 49.8,
+"lon": 12.6333,
+"page": 258,
+"confidence": "medium",
+"categories": [
+246,
+248,
+275
+],
+"population": true
+},
+{
+"complex": "8227",
+"priority": 1205,
+"name": "TALOVYY",
+"lat": 44.3833,
+"lon": 131.55,
+"page": 261,
+"confidence": "high",
+"categories": [
+62,
+64,
+68,
+120,
+227,
+243,
+246,
+275,
+282,
+316,
+364,
+400,
+445
+],
+"population": true
+},
+{
+"complex": "8260",
+"priority": 1206,
+"name": "TASHINO",
+"lat": 54.8667,
+"lon": 43.7833,
+"page": 263,
+"confidence": "high",
+"categories": [
+270,
+275
+],
+"population": true
+},
+{
+"complex": "8350",
+"priority": 1207,
+"name": "TEPLAYA GORA",
+"lat": 58.5333,
+"lon": 59.0833,
+"page": 265,
+"confidence": "high",
+"categories": [
+270,
+275
+],
+"population": true
+},
+{
+"complex": "8430",
+"priority": 1209,
+"name": "TIKSI",
+"lat": 71.6167,
+"lon": 128.85,
+"page": 267,
+"confidence": "high",
+"categories": [
+275,
+280
+],
+"population": true
+},
+{
+"complex": "8772",
+"priority": 1211,
+"name": "UGOLNYY",
+"lat": 62.9667,
+"lon": 179.2833,
+"page": 275,
+"confidence": "high",
+"categories": [
+275,
+280,
+284
+],
+"population": true
+},
+{
+"complex": "9375",
+"priority": 1213,
+"name": "WARKA POL",
+"lat": 51.7833,
+"lon": 21.2,
+"page": 292,
+"confidence": "high",
+"categories": [
+275,
+290
+],
+"population": true
+},
+{
+"complex": "9570",
+"priority": 1214,
+"name": "WU YUN CHINA",
+"lat": 49.2833,
+"lon": 129.6667,
+"page": 294,
+"confidence": "high",
+"categories": [
+275,
+281
+],
+"population": true
+},
+{
+"complex": "8726",
+"priority": 1216,
+"name": "VELEN",
+"lat": 66.1667,
+"lon": 169.85,
+"page": 274,
+"confidence": "high",
+"categories": [
+15,
+23,
+118,
+125,
+200,
+208,
+224,
+226,
+227,
+245,
+275,
+281,
+282,
+328,
+366
+],
+"population": true
+},
+{
+"complex": "3335",
+"priority": 1217,
+"name": "KAVACHA",
+"lat": 60.25,
+"lon": 169.8667,
+"page": 112,
+"confidence": "high",
+"categories": [
+25,
+165,
+208,
+215,
+227,
+243,
+246,
+248,
+264,
+266,
+268,
+275,
+282,
+368,
+400,
+445
+],
+"population": true
+},
+{
+"complex": "5256",
+"priority": 1219,
+"name": "MYS ACHCHEN",
+"lat": 64.7667,
+"lon": 175.45,
+"page": 174,
+"confidence": "high",
+"categories": [
+275,
+284
+],
+"population": true
+},
+{
+"complex": "5258",
+"priority": 1221,
+"name": "MYS KKIGUGON",
+"lat": 65.4833,
+"lon": 171.05,
+"page": 174,
+"confidence": "medium",
+"categories": [
+275,
+284
+],
+"population": true
+},
+{
+"complex": "6585",
+"priority": 1222,
+"name": "PUOTEN .",
+"lat": 65.8667,
+"lon": 170.5833,
+"page": 214,
+"confidence": "high",
+"categories": [
+275,
+284
+],
+"population": true
+},
+{
+"complex": "3471",
+"priority": 2169,
+"name": "KHODOROV .",
+"lat": 49.4167,
+"lon": 24.2167,
+"page": 117,
+"confidence": "medium",
+"categories": [
+275,
+290,
+376
+],
+"population": true
+},
+{
+"complex": "3310",
+"priority": 2246,
+"name": "KASHIRA",
+"lat": 54.85,
+"lon": 36.1667,
+"page": 111,
+"confidence": "high",
+"categories": [
+112,
+227,
+246,
+275,
+281,
+362
+],
+"population": true
+},
+{
+"complex": "4290",
+"priority": 2466,
+"name": "KUTAISI",
+"lat": 42.2667,
+"lon": 42.7,
+"page": 138,
+"confidence": "high",
+"categories": [
+116,
+227,
+240,
+245,
+246,
+250,
+252,
+275,
+350
+],
+"population": true
+},
+{
+"complex": "4322",
+"priority": 3031,
+"name": "KYAKHTA",
+"lat": 50.35,
+"lon": 106.45,
+"page": 140,
+"confidence": "high",
+"categories": [
+227
+],
+"population": false
+},
+{
+"complex": "8963",
+"priority": 3040,
+"name": "VELSK",
+"lat": 61.0833,
+"lon": 42.1333,
+"page": 280,
+"confidence": "high",
+"categories": [
+275
+],
+"population": true
+}
+]
+}
