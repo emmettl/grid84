@@ -36,10 +36,29 @@ interface Variant {
   pointVao: WebGLVertexArrayObject
 }
 
+/**
+ * Project a mercator position at a height in metres. MapLibre's prelude gives
+ * `projectTileFor3D` under both projections, metres above the sphere on the
+ * globe and metres through the custom-layer matrix on the plane, but the
+ * globe version does not clip behind the horizon, so the clipping z of the
+ * elevated sphere position is applied here as the surface version does it.
+ */
+const PROJECT_3D = `
+vec4 project3d(vec2 pos, float alt) {
+  vec4 p = projectTileFor3D(pos, alt);
+#ifdef GLOBE
+  vec3 sphere = projectToSphere(pos) * (1.0 + alt / GLOBE_RADIUS);
+  float clipZ = globeComputeClippingZ(sphere) * p.w;
+  p.z = mix(0.0, clipZ, clamp((u_projection_transition - 0.2) / 0.8, 0.0, 1.0));
+#endif
+  return p;
+}`
+
 const LINE_VERTEX = (prelude: string, define: string) => `#version 300 es
 ${prelude}
 ${define}
 in vec2 a_pos;
+in float a_alt;
 in vec4 a_color;
 in float a_dist;
 in vec2 a_dash;
@@ -51,8 +70,9 @@ uniform float u_dpr;
 out vec4 v_color;
 out float v_dist;
 out vec2 v_dash;
+${PROJECT_3D}
 void main() {
-  gl_Position = projectTile(a_pos);
+  gl_Position = project3d(a_pos, a_alt);
   vec2 offset = u_dir * u_frac * max(a_width * u_dpr - 1.0, 0.0) * u_step;
   gl_Position.xy += offset * gl_Position.w;
   v_color = a_color;
@@ -79,11 +99,13 @@ const POINT_VERTEX = (prelude: string, define: string) => `#version 300 es
 ${prelude}
 ${define}
 in vec2 a_pos;
+in float a_alt;
 in vec4 a_color;
 uniform float u_size;
 out vec4 v_color;
+${PROJECT_3D}
 void main() {
-  gl_Position = projectTile(a_pos);
+  gl_Position = project3d(a_pos, a_alt);
   gl_PointSize = u_size;
   v_color = a_color;
 }`
@@ -231,10 +253,11 @@ export class TrackLayer implements CustomLayerInterface {
       gl.vertexAttribPointer(loc, size, gl.FLOAT, false, stride, offset * 4)
     }
     attr('a_pos', 2, 0)
-    attr('a_color', 4, 2)
-    attr('a_dist', 1, 6)
-    attr('a_dash', 2, 7)
-    attr('a_width', 1, 9)
+    attr('a_alt', 1, 2)
+    attr('a_color', 4, 3)
+    attr('a_dist', 1, 7)
+    attr('a_dash', 2, 8)
+    attr('a_width', 1, 10)
     if (index) gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index)
     gl.bindVertexArray(null)
     return vao
@@ -247,11 +270,14 @@ export class TrackLayer implements CustomLayerInterface {
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
     const stride = POINT_STRIDE * 4
     const pos = gl.getAttribLocation(program, 'a_pos')
+    const alt = gl.getAttribLocation(program, 'a_alt')
     const color = gl.getAttribLocation(program, 'a_color')
     gl.enableVertexAttribArray(pos)
     gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, stride, 0)
+    gl.enableVertexAttribArray(alt)
+    gl.vertexAttribPointer(alt, 1, gl.FLOAT, false, stride, 8)
     gl.enableVertexAttribArray(color)
-    gl.vertexAttribPointer(color, 4, gl.FLOAT, false, stride, 8)
+    gl.vertexAttribPointer(color, 4, gl.FLOAT, false, stride, 12)
     gl.bindVertexArray(null)
     return vao
   }

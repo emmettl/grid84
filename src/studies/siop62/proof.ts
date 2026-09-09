@@ -1,7 +1,7 @@
 import { timeByGroundSpeed, Track } from '../../engine/track.ts'
 import type { Provenance } from '../../evidence/evidence.ts'
 import type { LngLat } from '../../geo/geodesy.ts'
-import { minimumEnergyTrajectory } from '../../models/ballistic.ts'
+import { ballisticWaypoints, minimumEnergyTrajectory } from '../../models/ballistic.ts'
 import { BLAST_MODEL, promptEffects } from '../../models/blast.ts'
 import type { Study, StudyEvent } from '../study.ts'
 
@@ -30,10 +30,8 @@ const atlasPlan = minimumEnergyTrajectory(WARREN, ANADYR)
 const LAUNCH = REACTION_SECONDS
 const IMPACT = LAUNCH + atlasPlan.flightSeconds
 
-const atlasTrack = new Track([
-  { position: WARREN, time: LAUNCH },
-  { position: ANADYR, time: IMPACT },
-])
+/** The Atlas flies its arc, apogee and all, drawn as a modelled trajectory rather than a ground track. */
+const atlasTrack = new Track(ballisticWaypoints(WARREN, ANADYR, LAUNCH, IMPACT))
 
 /** Chrome Dome northern route as described for a 1964 mission; 1961 routes were similar per SAC histories. */
 const NORTHERN_ROUTE: LngLat[] = [

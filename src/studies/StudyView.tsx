@@ -198,7 +198,8 @@ export function StudyView({ study }: { study: Study }) {
   const [ready, setReady] = useState(false)
 
   const statics = useMemo(() => staticFeatures(study), [study])
-  const glTracks = useMemo(() => study.entities.filter((e) => e.kind === 'track').length > GL_TRACK_THRESHOLD, [study])
+  // The WebGL layer draws large studies and any study whose tracks leave the surface, which GeoJSON cannot.
+  const glTracks = useMemo(() => study.entities.filter((e) => e.kind === 'track').length > GL_TRACK_THRESHOLD || study.entities.some((e) => e.kind === 'track' && e.track.elevated), [study])
   const selected = study.entities.find((e) => e.id === selectedId) ?? null
 
   useEffect(() => {

@@ -1,9 +1,9 @@
-import { Track } from '../../engine/track.ts'
+import { Track, type Waypoint } from '../../engine/track.ts'
 import type { Provenance } from '../../evidence/evidence.ts'
 import type { LngLat } from '../../geo/geodesy.ts'
 import { allocate, megatons, type Launcher, type Sortie, type Target } from '../../models/allocation.ts'
 import { ATTRITION_MODEL, calibrate, DOCUMENTED_ASSURANCE, fate, RELIABILITY } from '../../models/attrition.ts'
-import { minimumEnergyTrajectory } from '../../models/ballistic.ts'
+import { ballisticWaypoints, minimumEnergyTrajectory } from '../../models/ballistic.ts'
 import { BLAST_MODEL, promptEffects } from '../../models/blast.ts'
 import { generationAt, optionHours, SYSTEMS } from '../../models/readiness.ts'
 import type { Entity, Study, StudyEvent } from '../study.ts'
@@ -323,26 +323,29 @@ export function buildAlertForce(option = 1): { study: Study; summary: AlertForce
     else lostPenetration += 1
     const endFraction = f.delivered ? 1 : (f.lostAtFraction ?? 0)
     const endTime = timing.launch + (timing.arrival - timing.launch) * Math.max(endFraction, 0.001)
-    const waypoints = refuel
+    const waypoints: Waypoint[] = refuel
       ? [
           { position: l.position, time: timing.launch },
           { position: refuel.area.position, time: timing.launch + haversineMetres(l.position, refuel.area.position) / (l.speedMs ?? B52_MS) },
           { position: refuel.area.position, time: timing.launch + haversineMetres(l.position, refuel.area.position) / (l.speedMs ?? B52_MS) + REFUEL_HOLD_SECONDS },
           { position: t.position, time: timing.arrival },
         ]
-      : [
-          { position: l.position, time: timing.launch },
-          { position: t.position, time: timing.arrival },
-        ]
+      : timing.route === 'ballistic'
+        ? ballisticWaypoints(l.position, t.position, timing.launch, timing.arrival)
+        : [
+            { position: l.position, time: timing.launch },
+            { position: t.position, time: timing.arrival },
+          ]
     const fullTrack = new Track(waypoints)
     const endPosition: LngLat = f.delivered ? t.position : (fullTrack.positionAt(endTime) ?? l.position)
+    const endAltitude = f.delivered ? 0 : fullTrack.altitudeAt(endTime)
     entities.push({
       kind: 'track',
       id: sortieId,
       name: `${l.name} → ${t.name}`,
       designation: `${l.kind.toUpperCase()} · ${s.yieldKt >= 1_000 ? `${(s.yieldKt / 1_000).toFixed(2)} MT` : `${s.yieldKt} KT`}${f.delivered ? '' : ` · LOST (${f.cause?.toUpperCase()})`}`,
       label: false,
-      track: f.delivered ? fullTrack : new Track(waypoints.filter((w) => w.time < endTime).concat([{ position: endPosition, time: endTime }])),
+      track: f.delivered ? fullTrack : new Track(waypoints.filter((w) => w.time < endTime).concat([{ position: endPosition, time: endTime, altitude: endAltitude }])),
       reveal: 'progressive',
       evidence: 'inferred',
       provenance: { source: 'Allocation rule', method: 'Highest-priority targets first, nearest launcher in range, missiles before bombers; not a documented assignment' },

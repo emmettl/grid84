@@ -43,6 +43,8 @@ export interface Waypoint {
   position: LngLat
   /** Seconds relative to H-hour at which the track is here. */
   time: number
+  /** Height above the surface in metres; omitted means on the surface. */
+  altitude?: number
 }
 
 /** A timed path. Position at any time is the great-circle interpolation between its waypoints. */
@@ -70,6 +72,24 @@ export class Track {
       }
     }
     return this.waypoints[this.waypoints.length - 1].position
+  }
+  /** Height above the surface at `time`, metres; zero off the ends and for surface tracks. */
+  altitudeAt(time: number): number {
+    if (time < this.start || time > this.end) return 0
+    for (let i = 1; i < this.waypoints.length; i += 1) {
+      const p = this.waypoints[i - 1]
+      const q = this.waypoints[i]
+      if (time <= q.time) {
+        const span = q.time - p.time
+        const f = span === 0 ? 1 : (time - p.time) / span
+        return (p.altitude ?? 0) + f * ((q.altitude ?? 0) - (p.altitude ?? 0))
+      }
+    }
+    return this.waypoints[this.waypoints.length - 1].altitude ?? 0
+  }
+  /** Whether any waypoint leaves the surface. */
+  get elevated(): boolean {
+    return this.waypoints.some((w) => (w.altitude ?? 0) > 0)
   }
   /** Fraction of the whole track elapsed at `time`, clamped to [0, 1]. */
   progressAt(time: number): number {
@@ -109,10 +129,12 @@ export class Track {
       const metres = haversineMetres(p.position, q.position)
       const n = Math.max(2, Math.min(64, Math.ceil(metres / 250_000)))
       const leg = greatCirclePoints(p.position, q.position, n)
-      for (let j = i === 1 ? 0 : 1; j <= n; j += 1) out.push({ position: leg[j], time: p.time + ((q.time - p.time) * j) / n })
+      const pa = p.altitude ?? 0
+      const qa = q.altitude ?? 0
+      for (let j = i === 1 ? 0 : 1; j <= n; j += 1) out.push({ position: leg[j], time: p.time + ((q.time - p.time) * j) / n, altitude: pa + ((qa - pa) * j) / n })
     }
     const positions = unwrapAntimeridian(out.map((w) => w.position))
-    return out.map((w, k) => ({ position: positions[k], time: w.time }))
+    return out.map((w, k) => ({ position: positions[k], time: w.time, altitude: w.altitude }))
   }
 
   /** The path densified along great circles, for drawing. */

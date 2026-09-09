@@ -95,7 +95,7 @@ describe('prepareTracks and buildFrame', () => {
     expect(frame.headVertexCount).toBe(0)
     buildFrame(scene, 1_050, frame)
     expect(frame.pointCount).toBe(1)
-    expect(frame.points[2]).toBe(1)
+    expect(frame.points[3]).toBe(1)
     expect(frame.points[POINT_STRIDE - 1]).toBeCloseTo(0.95)
   })
 
@@ -110,5 +110,26 @@ describe('prepareTracks and buildFrame', () => {
       expect(frame.headVertexCount * LINE_STRIDE).toBeLessThanOrEqual(frame.heads.length)
       expect(frame.pointCount * POINT_STRIDE).toBeLessThanOrEqual(frame.points.length)
     }
+  })
+})
+
+describe('altitude', () => {
+  it('carries a height per vertex and interpolates it at the head', () => {
+    const arc = new Track([
+      { position: [0, 0], time: 0, altitude: 0 },
+      { position: [10, 0], time: 100, altitude: 500_000 },
+      { position: [20, 0], time: 200, altitude: 0 },
+    ])
+    expect(arc.elevated).toBe(true)
+    expect(arc.altitudeAt(50)).toBeCloseTo(250_000)
+    expect(arc.altitudeAt(150)).toBeCloseTo(250_000)
+    expect(arc.altitudeAt(-1)).toBe(0)
+    const scene = prepareTracks([spec('a', arc)])
+    const t = scene.tracks[0]
+    expect(Math.max(...Array.from(t.alt))).toBeCloseTo(500_000)
+    const frame = allocateFrame(scene)
+    buildFrame(scene, 100, frame)
+    expect(frame.points[2]).toBeCloseTo(500_000)
+    expect(frame.heads[LINE_STRIDE + 2]).toBeCloseTo(500_000)
   })
 })

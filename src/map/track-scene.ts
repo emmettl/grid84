@@ -25,10 +25,10 @@ export interface TrackSpec {
   reveal: 'full' | 'progressive'
 }
 
-/** Floats per line vertex: x, y, r, g, b, a, distance, dash on, dash period, width. */
-export const LINE_STRIDE = 10
-/** Floats per point vertex: x, y, r, g, b, a. */
-export const POINT_STRIDE = 6
+/** Floats per line vertex: x, y, altitude (m), r, g, b, a, distance, dash on, dash period, width. */
+export const LINE_STRIDE = 11
+/** Floats per point vertex: x, y, altitude (m), r, g, b, a. */
+export const POINT_STRIDE = 7
 
 export interface PreparedTrack {
   spec: TrackSpec
@@ -40,6 +40,8 @@ export interface PreparedTrack {
   merc: Float64Array
   /** Cumulative mercator distance per point, for dashing. */
   dist: Float64Array
+  /** Height above the surface per point, metres. */
+  alt: Float64Array
   line: Rgba
   vehicle: Rgba
   dash: [number, number]
@@ -111,6 +113,7 @@ export function prepareTracks(specs: TrackSpec[]): TrackScene {
     const times = new Float64Array(count)
     const merc = new Float64Array(count * 2)
     const dist = new Float64Array(count)
+    const alt = new Float64Array(count)
     const line = parseRgba(LINE[spec.route].color)
     const dash = dashFor(spec.route)
     const width = LINE[spec.route].width
@@ -122,19 +125,10 @@ export function prepareTracks(specs: TrackSpec[]): TrackScene {
       merc[i * 2] = x
       merc[i * 2 + 1] = y
       dist[i] = d
-      const o = (first + i) * LINE_STRIDE
-      vertices[o] = x
-      vertices[o + 1] = y
-      vertices[o + 2] = line[0]
-      vertices[o + 3] = line[1]
-      vertices[o + 4] = line[2]
-      vertices[o + 5] = line[3]
-      vertices[o + 6] = d
-      vertices[o + 7] = dash[0]
-      vertices[o + 8] = dash[1]
-      vertices[o + 9] = width
+      alt[i] = g[i].altitude ?? 0
+      writeLineVertex(vertices, (first + i) * LINE_STRIDE, x, y, alt[i], line, d, dash, width)
     }
-    tracks.push({ spec, first, count, times, merc, dist, line, vehicle: vehicleColor(spec.evidence, spec.side), dash, width })
+    tracks.push({ spec, first, count, times, merc, dist, alt, line, vehicle: vehicleColor(spec.evidence, spec.side), dash, width })
     first += count
     segmentCapacity += count // count - 1 flown segments plus one head segment
   })
@@ -164,17 +158,18 @@ function reached(times: Float64Array, time: number): number {
   return lo
 }
 
-function writeLineVertex(out: Float32Array, o: number, x: number, y: number, color: Rgba, dist: number, dash: [number, number], width: number): void {
+function writeLineVertex(out: Float32Array, o: number, x: number, y: number, alt: number, color: Rgba, dist: number, dash: [number, number], width: number): void {
   out[o] = x
   out[o + 1] = y
-  out[o + 2] = color[0]
-  out[o + 3] = color[1]
-  out[o + 4] = color[2]
-  out[o + 5] = color[3]
-  out[o + 6] = dist
-  out[o + 7] = dash[0]
-  out[o + 8] = dash[1]
-  out[o + 9] = width
+  out[o + 2] = alt
+  out[o + 3] = color[0]
+  out[o + 4] = color[1]
+  out[o + 5] = color[2]
+  out[o + 6] = color[3]
+  out[o + 7] = dist
+  out[o + 8] = dash[0]
+  out[o + 9] = dash[1]
+  out[o + 10] = width
 }
 
 /** Fill `frame` for study time `time`. Buffers are reused; only the counts change. */
@@ -194,6 +189,7 @@ export function buildFrame(scene: TrackScene, time: number, frame: TrackFrame): 
     const p = t.spec.track.positionAt(time)
     if (!p) continue
     let [x, y] = mercator(p[0], p[1])
+    const altitude = t.spec.track.altitudeAt(time)
     if (progressive && k >= 1 && k < t.count) {
       // Head segment from the last reached vertex to the current position, kept on the same side of the antimeridian.
       const lx = t.merc[(k - 1) * 2]
@@ -201,17 +197,18 @@ export function buildFrame(scene: TrackScene, time: number, frame: TrackFrame): 
       while (x - lx > 0.5) x -= 1
       while (x - lx < -0.5) x += 1
       const d = t.dist[k - 1] + Math.hypot(x - lx, y - ly)
-      writeLineVertex(heads, hv * LINE_STRIDE, lx, ly, t.line, t.dist[k - 1], t.dash, t.width)
-      writeLineVertex(heads, (hv + 1) * LINE_STRIDE, x, y, t.line, d, t.dash, t.width)
+      writeLineVertex(heads, hv * LINE_STRIDE, lx, ly, t.alt[k - 1], t.line, t.dist[k - 1], t.dash, t.width)
+      writeLineVertex(heads, (hv + 1) * LINE_STRIDE, x, y, altitude, t.line, d, t.dash, t.width)
       hv += 2
     }
     const o = pc * POINT_STRIDE
     points[o] = x
     points[o + 1] = y
-    points[o + 2] = t.vehicle[0]
-    points[o + 3] = t.vehicle[1]
-    points[o + 4] = t.vehicle[2]
-    points[o + 5] = t.vehicle[3]
+    points[o + 2] = altitude
+    points[o + 3] = t.vehicle[0]
+    points[o + 4] = t.vehicle[1]
+    points[o + 5] = t.vehicle[2]
+    points[o + 6] = t.vehicle[3]
     pc += 1
   }
   frame.indexCount = ic

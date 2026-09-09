@@ -47,6 +47,35 @@ export function minimumEnergyTrajectory(from: LngLat, to: LngLat): BallisticPlan
   return { rangeMetres: range, centralAngle: psi, burnoutSpeed: v, flightPathAngle: gamma, flightSeconds: tof, apogeeMetres: apogee }
 }
 
+/**
+ * Waypoints along the arc from launch to impact with height above the surface,
+ * for drawing the trajectory rather than its ground track. Time is taken as
+ * linear in the eccentric-anomaly fraction, which is the model's simplification.
+ */
+export function ballisticWaypoints(from: LngLat, to: LngLat, launchTime: number, arrivalTime: number, segments = 24): Array<{ position: LngLat; time: number; altitude: number }> {
+  const plan = minimumEnergyTrajectory(from, to)
+  const out: Array<{ position: LngLat; time: number; altitude: number }> = []
+  for (let i = 0; i <= segments; i += 1) {
+    const f = i / segments
+    out.push({ position: slerpLngLat(from, to, f), time: launchTime + f * (arrivalTime - launchTime), altitude: Math.max(0, heightAt(plan, f)) })
+  }
+  return out
+}
+
+function slerpLngLat(a: LngLat, b: LngLat, f: number): LngLat {
+  const toRad = Math.PI / 180
+  const [lon1, lat1] = [a[0] * toRad, a[1] * toRad]
+  const [lon2, lat2] = [b[0] * toRad, b[1] * toRad]
+  const d = haversineMetres(a, b) / EARTH_RADIUS_METRES
+  if (d < 1e-9) return a
+  const A = Math.sin((1 - f) * d) / Math.sin(d)
+  const B = Math.sin(f * d) / Math.sin(d)
+  const x = A * Math.cos(lat1) * Math.cos(lon1) + B * Math.cos(lat2) * Math.cos(lon2)
+  const y = A * Math.cos(lat1) * Math.sin(lon1) + B * Math.cos(lat2) * Math.sin(lon2)
+  const z = A * Math.sin(lat1) + B * Math.sin(lat2)
+  return [Math.atan2(y, x) / toRad, Math.atan2(z, Math.hypot(x, y)) / toRad]
+}
+
 /** Height above the surface at fraction f of the flight (0 launch, 1 impact), metres. Symmetric arc. */
 export function heightAt(plan: BallisticPlan, f: number): number {
   const R = EARTH_RADIUS_METRES

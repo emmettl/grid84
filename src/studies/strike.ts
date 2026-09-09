@@ -3,7 +3,7 @@ import type { Evidenced, EvidenceTier, Provenance } from '../evidence/evidence.t
 import type { LngLat } from '../geo/geodesy.ts'
 import { allocate, megatons, type AllocationOptions, type Launcher, type Sortie, type SystemKind, type Target } from '../models/allocation.ts'
 import { fate } from '../models/attrition.ts'
-import { minimumEnergyTrajectory } from '../models/ballistic.ts'
+import { ballisticWaypoints, minimumEnergyTrajectory } from '../models/ballistic.ts'
 import { BLAST_MODEL, promptEffects } from '../models/blast.ts'
 import type { Entity } from './study.ts'
 
@@ -102,11 +102,16 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
     else lostPenetration += 1
     const endFraction = f.delivered ? 1 : Math.max(f.lostAtFraction ?? 0, 0.001)
     const endTime = timing.launch + (timing.arrival - timing.launch) * endFraction
-    const full = new Track([
-      { position: l.position, time: timing.launch },
-      { position: t.position, time: timing.arrival },
-    ])
+    const full = new Track(
+      timing.route === 'ballistic'
+        ? ballisticWaypoints(l.position, t.position, timing.launch, timing.arrival)
+        : [
+            { position: l.position, time: timing.launch },
+            { position: t.position, time: timing.arrival },
+          ],
+    )
     const endPosition: LngLat = f.delivered ? t.position : (full.positionAt(endTime) ?? l.position)
+    const endAltitude = f.delivered ? 0 : full.altitudeAt(endTime)
     entities.push({
       kind: 'track',
       id,
@@ -114,7 +119,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       designation: `${l.kind.toUpperCase()} · ${fmtYield(s.yieldKt)}${f.delivered ? '' : ` · LOST (${f.cause?.toUpperCase()})`}`,
       label: false,
       side: o.side,
-      track: f.delivered ? full : new Track([{ position: l.position, time: timing.launch }, { position: endPosition, time: endTime }]),
+      track: f.delivered ? full : new Track([...full.waypoints.filter((w) => w.time < endTime), { position: endPosition, time: endTime, altitude: endAltitude }]),
       reveal: 'progressive',
       evidence: o.vehicle.evidence,
       provenance: { ...o.vehicle.provenance, method: `${o.vehicle.provenance.method ? `${o.vehicle.provenance.method}. ` : ''}Assignment: ${o.allocationRule.method ?? o.allocationRule.source}` },
