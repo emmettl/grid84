@@ -57,7 +57,7 @@ The study has two halves and a second act.
 ## What the study would show
 
 - The ladder, drawn against the clock of one night: each message a step, each step with its time and its source, the readiness lab's option curve replaced by the DEFCON ladder as SAC and the fleet actually climbed it. Bombers move to the pads on the map; the carriers move on the Mediterranean; the 82nd stands to at Bragg. The Soviet side stays where it is, which is the finding.
-- Pressing RUN: SIOP-4 with the generated force, allocated by the NUWEP categories as a stated rule, Soviet nuclear forces first. The Minuteman fields fire from six wings in the northern plains, the Soviet fields from the Volga to Transbaikal; the sum runs over the 1970 grid. The visible point is what assured destruction meant with seven thousand warheads and no smaller option, next to what SIOP//62 meant with three thousand.
+- Pressing RUN: SIOP-4 with the generated force, allocated by the NUWEP categories as a stated rule, Soviet nuclear forces first. The Minuteman fields fire from six wings in the northern plains, the Soviet fields from the Volga to Transbaikal; the sum runs over the HYDE 1973 grid. The visible point is what assured destruction meant with seven thousand warheads and no smaller option, next to what SIOP//62 meant with three thousand.
 - The 1969 act: the same ladder for the secret alert, with the airborne B-52s over Alaska and the north Pacific as tracks, and nothing on the other side of the map, because the alert's whole purpose was to be seen.
 
 ## What it must not claim
@@ -73,4 +73,4 @@ The study has two halves and a second act.
 - The Soviet ICBM fields by location and type from the Databook volume 4 tables.
 - The alert ladder as timed messages from EBB 98 and the SAC history.
 - The carriers' positions on the 24th and 25th, from the Sixth Fleet records in EBB 98.
-- HYDE 1970 and 1976, both already prepared under `public/data/hyde/`.
+- HYDE 1973, prepared under `public/data/hyde/` as `popc_1973` (world total 3.91 billion), with 1970 for the 1969 act.

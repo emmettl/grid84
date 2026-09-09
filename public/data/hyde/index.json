@@ -43,6 +43,13 @@
       "licence": "CC BY-NC-SA 4.0"
     },
     {
+      "year": 1973,
+      "name": "popc_1973",
+      "totalPopulation": 3910454200,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
       "year": 1976,
       "name": "popc_1976",
       "totalPopulation": 4136812782,
