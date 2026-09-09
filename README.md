@@ -52,6 +52,7 @@ Use Node 24 or later and npm 11.19.0. Run `npm ci`, then `npm run dev` for the a
 
 - `npm run typecheck`, `npm run lint` and `npm test` verify the workspace.
 - `npm run build` writes the static site to `dist/`.
+- Pushes to `main` run the checks and deploy `dist/` to GitHub Pages (`.github/workflows/pages.yml`); `cloudflare.yml` then publishes that artifact to `https://motionstudies.app/grid84/` through the Motion Studies edition publisher (see its [hosting notes](https://github.com/emmettl/motionstudies/blob/main/docs/HOSTING.md)). The build ships the HYDE study grids and drops the local GHSL tiles, which the site reads from the R2 bucket named in the grids index.
 
 Grid/84 is a standalone repository. It borrows the [Motion Studies](https://github.com/emmettl/motionstudies) toolchain and ethos but not its timetable packages: every edition there is a bounded, pre-compiled study, whereas this atlas answers for anywhere on Earth through live open services. See the [roadmap](ROADMAP.md) for stages and the services each one depends on, and the [SIOP//62 brief](docs/SIOP-62.md) for the first execution study.
 
@@ -60,6 +61,6 @@ Grid/84 is a standalone repository. It borrows the [Motion Studies](https://gith
 - Geometry: [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors, served as [OpenFreeMap](https://openfreemap.org/) vector tiles.
 - Terrain: [Mapzen Terrain Tiles](https://registry.opendata.aws/terrain-tiles/) on AWS Open Data.
 - Geocoding: [Photon](https://photon.komoot.io/) by komoot.
-- Population: [HYDE 3.3](https://doi.org/10.24416/UU01-AEZZIT) (Utrecht University, CC BY-NC-SA 4.0) for the study years, and [GHSL GHS-POP R2023A](https://doi.org/10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE) (European Commission JRC, CC BY 4.0) at 30 arc seconds for 1975, 1985 and the present, prepared by the scripts under `scripts/` and served from a Cloudflare R2 bucket named in `public/data/hyde/index.json`; the tiles are not committed.
+- Population: [HYDE 3.3](https://doi.org/10.24416/UU01-AEZZIT) (Utrecht University, CC BY-NC-SA 4.0) for the study years, and [GHSL GHS-POP R2023A](https://doi.org/10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE) (European Commission JRC, CC BY 4.0) at 30 arc seconds for 1975, 1985 and the present, prepared by the scripts under `scripts/` and served from a Cloudflare R2 bucket named in `public/data/hyde/index.json`; the tiles are not committed. HYDE's licence is non-commercial and share-alike: the published site is non-commercial, names the dataset and its licence on every readout that uses it, and any redistribution of the prepared grids carries the same terms.
 
 Nothing on the map is invented. The ceremony is applied to real geometry; a designation such as `SUPPLY NODE CH-0447` is derived deterministically from the OpenStreetMap feature it decorates.

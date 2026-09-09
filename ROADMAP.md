@@ -32,7 +32,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 - [ ] Rank candidates so a station or settlement outranks a guidepost of the same name; Photon returns the `information=guidepost` node first for "Zürich HB".
 - [ ] Verify the descent on a real phone and set the first transfer budget for the opening view.
 - [ ] Contract test for the geocoder against a recorded Photon response, so a schema change is caught before a release.
-- [ ] Publish to GitHub Pages behind a custom path.
+- [x] Publication path built (see 5 — Publication): GitHub Pages, then `motionstudies.app/grid84/`.
 
 **Exit:** type an address anywhere on Earth, descend from orbit, and land over the correct buildings with an honest readout, in the first ten seconds.
 
@@ -111,6 +111,7 @@ Candidate studies after SIOP//62, each needing its own brief first: the Cuban mi
 ## 5 — Publication
 
 - [x] GHSL tiles on Cloudflare R2: bucket `grid84-grids`, public through its r2.dev URL with a CORS rule allowing GET from any origin, the 1,002 immutable tiles uploaded by `deploy/upload-ghsl-r2.sh` with a year's cache lifetime. The grids index names the bucket, `scripts/point-grids-at.py` switches it back to local, and the lab and the studies resolve their grids through the index. A custom domain in front of the bucket is a later nicety.
+- [x] Publication path: `pages.yml` checks, builds and deploys to GitHub Pages; `cloudflare.yml` publishes the same artifact to `motionstudies.app/grid84/` as an adjunct through the Motion Studies edition publisher (`grid84-hosting` Worker, entry in its `hosting/editions.json`). The build drops the local GHSL tiles (the site reads the bucket) and ships the HYDE study grids. HYDE's CC BY-NC-SA terms are stated in README; the site is non-commercial and every readout names the grid and its licence. Needs the repository on GitHub, Pages enabled, and the `cloudflare` environment's token to go live.
 - [ ] Own routing host or a licensed provider before public launch; the demo servers are for development only.
 - [ ] Tile and terrain budgets measured on a phone for the opening orbit and one descent.
 - [ ] Attribution and licence audit for every service in the table above.

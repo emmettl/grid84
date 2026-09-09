@@ -1,4 +1,8 @@
-import { Map as MapLibreMap } from 'maplibre-gl'
+import { Map as MapLibreMap, setWorkerUrl } from 'maplibre-gl'
+// MapLibre 6 looks for its worker beside its own module URL, which a bundled
+// site does not provide; Vite builds the worker and its shared chunk under a
+// hashed name and hands back the URL, which MapLibre is told to use.
+import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import type { LngLat } from '../geo/geodesy.ts'
 import { TERRAIN_MIN_ZOOM } from './descent.ts'
 import { createAtlasStyle } from './style.ts'
@@ -12,6 +16,7 @@ export interface BaseMapOptions {
 
 /** One MapLibre map with the Grid/84 style. The atlas, the studies and the labs all start here. */
 export function createBaseMap(container: HTMLElement, options: BaseMapOptions): MapLibreMap {
+  setWorkerUrl(maplibreWorkerUrl)
   const map = new MapLibreMap({
     container,
     style: createAtlasStyle(),
