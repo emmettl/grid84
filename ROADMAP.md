@@ -61,7 +61,8 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 - [ ] Blast model as a pure, unit-tested module against published Glasstone & Dolan reference values: fireball radius, overpressure bands (20, 5, 1 psi), thermal radiation (third-degree burns), prompt radiation (500 rem).
 - [ ] Fallout plume under selectable wind speed and direction, WSEG-10 style, drawn as a geodesic polygon.
 - [x] Population exposure lab at `#/lab/population`: HYDE 3.3 grids (1961, 2023) in a worker, OTA 1979 blast bands against a Postol fire bound, two-number readout, cells drawn under the rings.
-- [ ] Validate the exposure model against Hiroshima and Nagasaki with the nearest HYDE grid; add GHSL for finer contemporary resolution.
+- [x] Validate against Hiroshima and Nagasaki: [docs/VALIDATION.md](docs/VALIDATION.md). Planar radii within about 10 percent at Hiroshima; the blast-only method reproduces the 1946 counts and the fire bound the end-of-1945 count with the survey's density; Nagasaki fails by two to three times because of terrain; HYDE cannot resolve a city at kiloton scale.
+- [ ] A finer historical population grid, or documented city densities, for kiloton-scale studies; GHSL for finer contemporary resolution.
 - [ ] Yield and height-of-burst selection staged as a configuration sequence.
 - [ ] This contemporary single-weapon case is the base case for every later execution study and the thing most people use NUKEMAP for; it uses the present-day GHSL population grid, while historical studies swap in HYDE.
 

@@ -10,6 +10,9 @@ import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
 import { ExposureService, type GridSummary } from '../models/exposure-service.ts'
 import type { ExposureResult } from '../models/exposure.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
+import { formatProvenance } from '../evidence/evidence.ts'
+import { VALIDATION_CASES, type RecordedFigure, type ValidationCase } from '../models/validation-cases.ts'
+import { planarEstimate, radiusComparisons } from '../models/validation.ts'
 
 // Resolved against the page, because the worker would otherwise resolve a relative path against its own script URL.
 const gridUrl = (name: string) => new URL(`${import.meta.env.BASE_URL}data/hyde/${name}`, document.baseURI).href
@@ -60,6 +63,7 @@ export function PopulationLab() {
   const [center, setCenter] = useState<LngLat>(DEFAULT_CENTER)
   const [yieldKt, setYieldKt] = useState(1_440)
   const [year, setYear] = useState(1961)
+  const [validation, setValidation] = useState<ValidationCase | null>(null)
   const [years, setYears] = useState<GridIndexEntry[]>([{ year: 1961, name: 'popc_1961', totalPopulation: 0, dataset: 'HYDE 3.3' }])
 
   useEffect(() => {
@@ -217,6 +221,31 @@ export function PopulationLab() {
               </button>
             ))}
           </div>
+          <h2>Validation cases</h2>
+          <div className="clock-controls">
+            {VALIDATION_CASES.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                className={validation?.id === c.id ? 'is-active' : ''}
+                title={`${c.date} · ${c.yieldKt.note}`}
+                onClick={() => {
+                  setValidation(c)
+                  setCenter(c.hypocentre)
+                  setYieldKt(Math.round((c.yieldKt.low + c.yieldKt.high) / 2))
+                  if (years.some((y) => y.year === 1940)) setYear(1940)
+                  mapRef.current?.flyTo({ center: [c.hypocentre[0], c.hypocentre[1]], zoom: 11.5, pitch: 45, duration: 3_000, essential: true })
+                }}
+              >
+                {c.name}
+              </button>
+            ))}
+            {validation && (
+              <button type="button" onClick={() => setValidation(null)}>
+                Clear
+              </button>
+            )}
+          </div>
         </section>
 
         <section className="log" aria-label="Grid">
@@ -311,6 +340,8 @@ export function PopulationLab() {
           )}
         </section>
 
+        {validation && <RecordedPanel c={validation} yieldKt={yieldKt} />}
+
         <section className="omissions" aria-label="Not represented">
           <h2>Not represented</h2>
           <ul>
@@ -324,6 +355,95 @@ export function PopulationLab() {
         <EvidenceLegend />
       </div>
     </div>
+  )
+}
+
+function Figure({ f }: { f: RecordedFigure }) {
+  const value =
+    f.unit === 'people'
+      ? f.low === f.high
+        ? n(f.low)
+        : `${n(f.low)}–${n(f.high)}`
+      : f.unit === 'metres'
+        ? `${(f.low / 1_000).toFixed(2)} km`
+        : f.unit === 'km2'
+          ? `${f.low.toFixed(1)} km²`
+          : `${f.low}–${f.high} kt`
+  return (
+    <div className={`fact fact--${f.evidence}`} title={`${formatProvenance(f.provenance)}${f.note ? ` · ${f.note}` : ''}`}>
+      <dt>
+        {f.label} <span className={`badge badge--${f.evidence}`}>{f.provenance.source.split(',')[0]}</span>
+      </dt>
+      <dd>
+        {value}
+        {f.note && <span className="fact-note"> · {f.note}</span>}
+      </dd>
+    </div>
+  )
+}
+
+/** The recorded outcome beside the model, for Hiroshima and Nagasaki. */
+function RecordedPanel({ c, yieldKt }: { c: ValidationCase; yieldKt: number }) {
+  const radii = radiusComparisons(c, yieldKt)
+  const planar = c.population.map((p) => ({ p, e: planarEstimate(c, (p.low + p.high) / 2, yieldKt) }))
+  return (
+    <section className="provenance recorded" aria-label="Recorded outcome">
+      <h2>
+        {c.name} · {c.date} <span className="badge badge--documented">RECORDED</span>
+      </h2>
+      <dl>
+        <Figure f={c.yieldKt} />
+        <Figure f={c.burstHeightMetres} />
+        {c.population.map((f, i) => (
+          <Figure key={`p${i}`} f={f} />
+        ))}
+        {c.dead.map((f, i) => (
+          <Figure key={`d${i}`} f={f} />
+        ))}
+        {c.injured.map((f, i) => (
+          <Figure key={`i${i}`} f={f} />
+        ))}
+      </dl>
+      <h2>Model radii against the record</h2>
+      <table className="bands">
+        <tbody>
+          {radii.map((r) => (
+            <tr key={r.label}>
+              <td>{r.label}</td>
+              <td>{(r.modelMetres / 1_000).toFixed(2)} km</td>
+              <td>{(r.recordedMetres / 1_000).toFixed(2)} km</td>
+              <td className={Math.abs(r.ratio - 1) > 0.25 ? 'is-fire' : ''}>×{r.ratio.toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h2>Planners’ method with the survey’s density</h2>
+      <table className="bands">
+        <thead>
+          <tr>
+            <th>Population</th>
+            <th>Blast dead</th>
+            <th>Injured</th>
+            <th>Fire bound</th>
+          </tr>
+        </thead>
+        <tbody>
+          {planar.map(({ p, e }) =>
+            e ? (
+              <tr key={p.provenance.source}>
+                <td>{p.provenance.source.split(',')[0]}</td>
+                <td>{n(e.blastDead)}</td>
+                <td>{n(e.blastInjured)}</td>
+                <td>{n(e.fireDead)}</td>
+              </tr>
+            ) : null,
+          )}
+        </tbody>
+      </table>
+      <p className="provenance-method">{c.builtUp?.note}</p>
+      {c.terrainNote && <p className="provenance-method">{c.terrainNote.text}</p>}
+      <p className="provenance-method">The HYDE grid above cannot resolve a city at this scale: its cells are wider than the blast radii. The rows here use the survey’s own built-up density as a disc about the hypocentre, which is the planners’ arithmetic with the planners’ inputs.</p>
+    </section>
   )
 }
 

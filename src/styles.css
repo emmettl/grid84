@@ -831,3 +831,39 @@ body,
   color: var(--amber);
   border-top: 1px solid rgba(255, 179, 71, 0.3);
 }
+
+.recorded {
+  grid-column: 3;
+  grid-row: 3;
+  align-self: start;
+  max-height: none;
+  overflow: auto;
+}
+
+.recorded .bands td:first-child {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.fact-note {
+  color: var(--muted);
+}
+
+@media (min-width: 901px) {
+  .lab-hud {
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+  }
+  .lab-hud .provenance {
+    max-height: 42vh;
+  }
+  .lab-hud .recorded {
+    max-height: 38vh;
+  }
+  .lab-hud .omissions {
+    grid-row: 4;
+    align-self: end;
+  }
+  .lab-hud .legend {
+    grid-row: 4;
+  }
+}
