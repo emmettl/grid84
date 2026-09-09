@@ -7,3 +7,7 @@ playwright-report
 test-results
 *.local
 .claude/
+
+# SIOP//62 source scans and OCR cache are fetched, not committed.
+data/siop62/sources/
+data/siop62/ocr-cache/

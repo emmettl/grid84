@@ -61,6 +61,7 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 - [ ] Fallout plume under selectable wind speed and direction, WSEG-10 style, drawn as a geodesic polygon.
 - [ ] Population exposure from the GHSL grid, reported with its enormous uncertainty on the readout.
 - [ ] Yield and height-of-burst selection staged as a configuration sequence.
+- [ ] This contemporary single-weapon case is the base case for every later execution study and the thing most people use NUKEMAP for; it uses the present-day GHSL population grid, while historical studies swap in HYDE.
 
 **Exit:** the circles are calculated effects, the readout states the model and its limits, and the local Aldi's overpressure band is correct for the chosen yield.
 
@@ -80,6 +81,8 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 - [ ] Two-number outcome readout: the planners' estimate against the modern recomputation.
 
 **Exit:** the alert force plays end to end, every mark traces to a page, disagreements between sources are visible on the readout, and the study never claims to know more than the record.
+
+Candidate studies after SIOP//62, each needing its own brief first: Able Archer 83 gone hot, India–Pakistan after Toon and Robock (2019), the Korean peninsula. See [Beyond SIOP//62](docs/SIOP-62.md#beyond-siop62).
 
 ## 5 — Publication
 

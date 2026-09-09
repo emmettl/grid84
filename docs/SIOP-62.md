@@ -97,6 +97,30 @@ All of this is documented tier from published unit histories and weapon records,
 
 Open: a per-base bomber and tanker count for mid-1961. The Norris and Cochran NRDC tables and SAC unit histories will supply it.
 
+### Literature
+
+The academic record is deep, and the study should stand on it rather than on the archive alone. Titles marked "core" are the ones the evidence contract is built against.
+
+| Work | Why it matters here |
+| --- | --- |
+| David Alan Rosenberg, "The Origins of Overkill: Nuclear Weapons and American Strategy, 1945–1960," *International Security* 7:4 (1983) | Core. The founding account of how bureaucratic competition and damage criteria produced SIOP-62's scale. The National Security Archive's EBB 130 and 236 are titled after it. |
+| Scott D. Sagan, "SIOP-62: The Nuclear War Plan Briefing to President Kennedy," *International Security* 12:1 (1987) | Core. Reproduces and annotates the briefing; the source of the force tables above. |
+| Desmond Ball and Jeffrey Richelson, eds., *Strategic Nuclear Targeting* (Cornell, 1986) | Core. Thirteen essays on targets, timing and intent; the chapter on 1945–1960 war planning frames the 1956 study. |
+| Edward Kaplan, *To Kill Nations: American Strategy in the Air-Atomic Age and the Rise of Mutually Assured Destruction* (Cornell, 2015) | Core. By a retired Air Force intelligence officer; argues the air-atomic strategy sought to win by one massive, time-compressed strike. That compression is the study's clock. |
+| Fred Kaplan, *The Wizards of Armageddon* (1983) | The narrative history; the 285-million figure traces here and must be checked against its own source. |
+| Lynn Eden, *Whole World on Fire: Organizations, Knowledge, and Nuclear Weapons Devastation* (Cornell, 2004) | Why planners modelled blast and not fire, and what fire would have done. The fire-spread lab and the two-number readout both rest on this. |
+| Daniel Ellsberg, *The Doomsday Machine: Confessions of a Nuclear War Planner* (2017) | A participant's account of the 1961 casualty estimates and the plan's rigidity. |
+| Eric Schlosser, *Command and Control* (2013) | Alert posture, weapons safety and the airborne alert accidents; the Chrome Dome specimen's context. |
+| Paul Bracken, *The Command and Control of Nuclear Forces* (1983); Bruce Blair, *Strategic Command and Control* (1985) | Readiness states and the mechanics of execution, for the readiness-clock lab. |
+| Chuck Hansen, *Swords of Armageddon* (1995, rev. 2007) | Weapon yields and variants; the source behind most of the order-of-battle figures. |
+| Robert S. Norris and Thomas B. Cochran, *US–USSR/Russian Strategic Offensive Nuclear Forces 1945–1996* (NRDC, 1997) | Year-by-year force tables; the per-base bomber counts still open above come from here. |
+| William Burr's National Security Archive briefing books, especially EBB 130, 236, 538, 638 and 798 | The documentary spine. Burr's editorial notes are themselves a running historiography. |
+| Alex Wellerstein, *Restricted Data: The History of Nuclear Secrecy in the United States* (Chicago, 2021) | The secrecy itself, which is the withheld tier's subject. |
+| Wikipedia, ["Basic Encyclopedia"](https://en.wikipedia.org/wiki/Basic_Encyclopedia) | The Bombing Encyclopedia of the World, begun in 1946, with over 80,000 targets: BE numbers of eight digits, coordinates, elevation and category. The `BBBB-NNNN` numbers in the 1956 study are its identifiers. |
+| Office of Technology Assessment, *The Effects of Nuclear War* (1979) | The casualty curves and the government's own admission of what its models omit. |
+
+The National Security Archive keeps a [select literature list](https://nsarchive2.gwu.edu/nukevault/literature/) that should be read before this table is considered complete.
+
 ## Period geography
 
 The globe is 2026 OpenStreetMap. In 1961 the frontiers were different and Gorky, Sverdlovsk, Kuibyshev and Stalingrad existed under those names. Three things fix this:
@@ -111,7 +135,7 @@ This is the question that decides scope, and the answer is favourable.
 
 The city list is a 306-page PDF of typewritten, monospaced, cleanly scanned pages with no text layer. The row grammar is visible on the page: a priority number, a complex number, the period name in capitals, coordinates as `DDMM-DDDMM`, then indented rows of three-digit category codes with Bombing Encyclopedia numbers. Population rows carry category 275. On every page a box on the right covers the weapons column, printed with its statutory exemption under the Atomic Energy Act. That box is the first withheld-tier datum in the study.
 
-- Tesseract is not installed on this machine; it is a Homebrew install. OCR at 300 dpi with a parser for the row grammar, then sanity checks: coordinates must fall in the named country's 1960 borders, and a sample of rows is verified by eye against the scan.
+- **Trial, 9 September 2026.** Tesseract 5.5 at 300 dpi with page-segmentation mode 6 reads the typewritten rows cleanly. Complex rows such as `1045 0230 ANADYR 6444-17728` and `131 0249 AN SHAN MANCH 4107-12257` parse with their coordinates; category rows parse with occasional digit confusion in the Bombing Encyclopedia number; margin noise from the scan is the main source of rejected lines. Some complexes carry no priority number. The list is alphabetical by name, not by priority. The script is [`scripts/transcribe-1956-city-list.py`](../scripts/transcribe-1956-city-list.py); it writes JSONL with the raw line and a confidence flag on every record and records the redaction box on every page as a withheld datum. Sanity checks to add: coordinates must fall inside the named country's 1960 borders, and a hand-checked sample of rows against the scan.
 - The Future of Life Institute digitised about 1,100 city targets from this release and Alex Wellerstein rendered them with NUKEMAP in 2016. No download or licence for that transcription was located. Ask before reusing; never scrape the visualisation.
 - The 1956 study is a proxy. It shows the method and the categories of the 1961 target list, not the list itself. Targets from it render as documented-1956 and reconstructed-1961, never as SIOP-62 fact.
 
@@ -161,6 +185,19 @@ The first deliverable is not the plan. It is one of everything, across every tie
 5. One ghost: a ground zero known only to city level, inside its uncertainty ring.
 
 **Exit:** the proof plays from H-hour on the Terminal Atlas clock, every mark on it can be traced to a page, and the redaction is visible.
+
+## Beyond SIOP//62
+
+The engine is general and SIOP//62 is the jumping-off point. Grid/84 as a whole is an interactive exploration of the history and doctrine of strategic nuclear weapons, and the candidate studies below each need their own brief before any code. Each has a documentary spine already.
+
+| Study | Starting sources | Note |
+| --- | --- | --- |
+| **Contemporary single weapon** | Glasstone and Dolan; GHSL population; NUKEMAP as the validation reference | The base case, and the main thing people use NUKEMAP for. It is stage 3 of the roadmap on the 2026 map and shares every lab with SIOP//62; only the population grid changes. |
+| **Able Archer 83 gone hot** | The National Security Archive's [Able Archer 83 Sourcebook](https://nsarchive.gwu.edu/project/able-archer-83-sourcebook), over a thousand pages assembled by Nate Jones; the 1990 PFIAB report *The Soviet "War Scare"* released after a twelve-year fight; Jones, *Able Archer 83* (2016) | A counterfactual on a documented exercise, with both sides' readiness states in the record. The withheld tier would be busy: the 2025 briefing book is titled *The Censored History of Able Archer 83*. |
+| **India–Pakistan** | Toon, Robock et al., ["Rapidly expanding nuclear arsenals in Pakistan and India portend regional and global catastrophe,"](https://www.science.org/doi/10.1126/sciadv.aay5478) *Science Advances* 5 (2019) | A published, peer-reviewed scenario with explicit weapon counts, yields, city targets, fatality ranges of 50 to 125 million, and a soot model. The study would enact the paper's own scenario, cited as such. |
+| **Korean peninsula** | Zagurek, ["A Hypothetical Nuclear Attack on Seoul and Tokyo,"](https://www.38north.org/2017/10/mzagurek100417/) 38 North (2017); Kristensen and Korda's Nuclear Notebook on North Korean forces | Smaller arsenal, denser cities, contemporary population grid. A good second contemporary study. |
+
+The rule from the manifesto holds for all of them: impractical, never fake. A study that cannot name its sources on the readout does not get built.
 
 ## Open questions
 
