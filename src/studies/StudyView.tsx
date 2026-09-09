@@ -226,6 +226,10 @@ export function StudyView({ study }: { study: Study }) {
   const markers = useRef<Map<string, Marker>>(new Map())
   const terrainSync = useRef<((force?: boolean) => void) | null>(null)
   const trackLayer = useRef<TrackLayer | null>(null)
+  const flashLayer = useRef<TrackLayer | null>(null)
+  /** Whether flown trails fade behind the vehicles; on by default where the WebGL layer draws them. */
+  const [trails, setTrails] = useState<'keep' | 'fade'>('fade')
+  const trailsRef = useRef(trails)
   /** Sources are rewritten only when the clock moves, and once on first paint. */
   const primed = useRef(false)
   const exposureService = useRef<ExposureService | null>(null)
@@ -311,12 +315,16 @@ export function StudyView({ study }: { study: Study }) {
     map.on('load', () => {
       terrainSync.current = installTerrainSync(map)
       installEvidenceLayers(map)
-      // The WebGL layer is always present for the detonation flashes; it draws the tracks too when the study is large or leaves the surface.
-      const layer = new TrackLayer()
+      // Tracks go beneath the effect areas so the plumes and rings, which are the result, read over them; the flashes go on top.
+      const layer = new TrackLayer('ev-tracks-gl')
+      layer.setFade({ enabled: trailsRef.current === 'fade' })
       if (glTracks) layer.setScene(prepareTracks(trackSpecs(study)))
       else setSourceData(map, SOURCES.paths, statics.paths)
-      map.addLayer(layer, 'ev-vehicles-glow')
+      map.addLayer(layer, 'ev-areas-fill')
       trackLayer.current = layer
+      const flashes = new TrackLayer('ev-flash-gl')
+      map.addLayer(flashes, 'ev-vehicles-glow')
+      flashLayer.current = flashes
       setSourceData(map, SOURCES.sites, statics.sites)
       for (const e of study.entities) {
         if (e.label === false) continue
@@ -346,6 +354,7 @@ export function StudyView({ study }: { study: Study }) {
       map.remove()
       mapRef.current = null
       trackLayer.current = null
+      flashLayer.current = null
       setReady(false)
     }
   }, [study, statics, glTracks])
@@ -466,7 +475,7 @@ export function StudyView({ study }: { study: Study }) {
             const due = next.time >= e.time
             // A radial flash when the running clock crosses the detonation; scrubbing does not flash.
             if (changed && previous.time < e.time && next.time >= e.time && previous.playing) {
-              trackLayer.current?.flash(e.center[0], e.center[1], 40 + 24 * Math.log10(Math.max(1, e.effects.yieldKt)))
+              flashLayer.current?.flash(e.center[0], e.center[1], 40 + 24 * Math.log10(Math.max(1, e.effects.yieldKt)))
             }
             if (marker) {
               if (due && !marker.getElement().isConnected) marker.addTo(map)
@@ -638,6 +647,26 @@ export function StudyView({ study }: { study: Study }) {
               RESET
             </button>
           </div>
+          {glTracks && (
+            <div className="clock-controls">
+              <span className="clock-label">Trails</span>
+              {(['fade', 'keep'] as const).map((mode) => (
+                <button
+                  key={mode}
+                  type="button"
+                  className={trails === mode ? 'is-active' : ''}
+                  title={mode === 'fade' ? 'Flown paths hold for five minutes of study time, then fade over twenty-five to a trace' : 'Flown paths stay at full strength'}
+                  onClick={() => {
+                    setTrails(mode)
+                    trailsRef.current = mode
+                    trackLayer.current?.setFade({ enabled: mode === 'fade' })
+                  }}
+                >
+                  {mode}
+                </button>
+              ))}
+            </div>
+          )}
           {study.variants && (
             <div className="clock-controls clock-controls--variants" role="group" aria-label={study.variants.label}>
               <span className="clock-label">{study.variants.label}</span>

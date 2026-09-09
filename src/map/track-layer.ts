@@ -78,10 +78,13 @@ in vec4 a_color;
 in float a_dist;
 in vec2 a_dash;
 in float a_width;
+in float a_time;
 uniform vec2 u_step;
 uniform vec2 u_dir;
 uniform float u_frac;
 uniform float u_dpr;
+uniform float u_time;
+uniform vec4 u_fade;
 out vec4 v_color;
 out float v_dist;
 out vec2 v_dash;
@@ -90,7 +93,10 @@ void main() {
   gl_Position = project3d(a_pos, a_alt);
   vec2 offset = u_dir * u_frac * max(a_width * u_dpr - 1.0, 0.0) * u_step;
   gl_Position.xy += offset * gl_Position.w;
-  v_color = a_color;
+  // Trails fade in study time: full for u_fade.x seconds after the vehicle passed, then down to u_fade.z over u_fade.y more; u_fade.w switches it on.
+  float age = u_time - a_time;
+  float fade = u_fade.w > 0.5 ? mix(1.0, u_fade.z, clamp((age - u_fade.x) / max(u_fade.y, 1.0), 0.0, 1.0)) : 1.0;
+  v_color = vec4(a_color.rgb, a_color.a * fade);
   v_dist = a_dist;
   v_dash = a_dash;
 }`
@@ -233,9 +239,14 @@ function mul(m: Float32Array, p: [number, number, number, number]): [number, num
 }
 
 export class TrackLayer implements CustomLayerInterface {
-  readonly id = TRACK_LAYER_ID
+  readonly id: string
   readonly type = 'custom' as const
   readonly renderingMode = '2d' as const
+
+  /** Two instances share the code: one draws the tracks beneath the effects, another only the flashes above them. */
+  constructor(id: string = TRACK_LAYER_ID) {
+    this.id = id
+  }
 
   private map: MapLibreMap | null = null
   private gl: WebGL2RenderingContext | null = null
@@ -247,6 +258,13 @@ export class TrackLayer implements CustomLayerInterface {
   private scene: TrackScene | null = null
   private frame: TrackFrame | null = null
   private flashes: Flash[] = []
+  /** Trail fading in study seconds: hold, then fade over a span to a floor of the line's alpha. */
+  private fade = { enabled: false, holdSeconds: 5 * 60, spanSeconds: 25 * 60, floor: 0.08 }
+
+  setFade(fade: Partial<typeof this.fade>): void {
+    this.fade = { ...this.fade, ...fade }
+    this.map?.triggerRepaint()
+  }
   private flashBuffer: WebGLBuffer | null = null
   /** The projection of the last frame drawn, kept so labels can be lifted to a track's height on the CPU. */
   private view: { main: Float32Array; fallback: Float32Array; transition: number; globe: boolean; width: number; height: number } | null = null
@@ -330,6 +348,7 @@ export class TrackLayer implements CustomLayerInterface {
     attr('a_dist', 1, 7)
     attr('a_dash', 2, 8)
     attr('a_width', 1, 10)
+    attr('a_time', 1, 11)
     if (index) gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index)
     gl.bindVertexArray(null)
     return vao
@@ -376,7 +395,7 @@ export class TrackLayer implements CustomLayerInterface {
   private variant(gl: WebGL2RenderingContext, shaderData: CustomRenderMethodInput['shaderData']): Variant {
     const cached = this.variants.get(shaderData.variantName)
     if (cached) return cached
-    const line = link(gl, LINE_VERTEX(shaderData.vertexShaderPrelude, shaderData.define), LINE_FRAGMENT, [...PROJECTION_UNIFORMS, 'u_step', 'u_dir', 'u_frac', 'u_dpr', 'u_world_size'])
+    const line = link(gl, LINE_VERTEX(shaderData.vertexShaderPrelude, shaderData.define), LINE_FRAGMENT, [...PROJECTION_UNIFORMS, 'u_step', 'u_dir', 'u_frac', 'u_dpr', 'u_world_size', 'u_time', 'u_fade'])
     const point = link(gl, POINT_VERTEX(shaderData.vertexShaderPrelude, shaderData.define), POINT_FRAGMENT, [...PROJECTION_UNIFORMS, 'u_size', 'u_dpr', 'u_ink'])
     const flash = link(gl, FLASH_VERTEX(shaderData.vertexShaderPrelude, shaderData.define), FLASH_FRAGMENT, [...PROJECTION_UNIFORMS, 'u_dpr'])
     const v: Variant = {
@@ -517,6 +536,8 @@ export class TrackLayer implements CustomLayerInterface {
       gl.uniform2f(p.uniforms.u_step, 2 / gl.drawingBufferWidth, 2 / gl.drawingBufferHeight)
       gl.uniform1f(p.uniforms.u_dpr, dpr)
       gl.uniform1f(p.uniforms.u_world_size, worldSize)
+      gl.uniform1f(p.uniforms.u_time, this.time)
+      gl.uniform4f(p.uniforms.u_fade, this.fade.holdSeconds, this.fade.spanSeconds, this.fade.floor, this.fade.enabled ? 1 : 0)
       let widest = 1
       for (const t of scene.tracks) widest = Math.max(widest, t.width)
       const passes = Math.min(MAX_PASSES, Math.max(1, Math.ceil(widest * dpr) - 1))

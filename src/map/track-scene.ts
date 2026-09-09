@@ -25,8 +25,8 @@ export interface TrackSpec {
   reveal: 'full' | 'progressive'
 }
 
-/** Floats per line vertex: x, y, altitude (m), r, g, b, a, distance, dash on, dash period, width. */
-export const LINE_STRIDE = 11
+/** Floats per line vertex: x, y, altitude (m), r, g, b, a, distance, dash on, dash period, width, time (s). */
+export const LINE_STRIDE = 12
 /** Floats per point vertex: x, y, altitude (m), r, g, b, a. */
 export const POINT_STRIDE = 7
 
@@ -127,7 +127,7 @@ export function prepareTracks(specs: TrackSpec[]): TrackScene {
       merc[i * 2 + 1] = y
       dist[i] = d
       alt[i] = g[i].altitude ?? 0
-      writeLineVertex(vertices, (first + i) * LINE_STRIDE, x, y, alt[i], line, d, dash, width)
+      writeLineVertex(vertices, (first + i) * LINE_STRIDE, x, y, alt[i], line, d, dash, width, times[i])
     }
     tracks.push({ spec, first, count, times, merc, dist, alt, line, vehicle: vehicleColor(spec.evidence, spec.side), dash, width })
     first += count
@@ -159,7 +159,7 @@ function reached(times: Float64Array, time: number): number {
   return lo
 }
 
-function writeLineVertex(out: Float32Array, o: number, x: number, y: number, alt: number, color: Rgba, dist: number, dash: [number, number], width: number): void {
+function writeLineVertex(out: Float32Array, o: number, x: number, y: number, alt: number, color: Rgba, dist: number, dash: [number, number], width: number, time: number): void {
   out[o] = x
   out[o + 1] = y
   out[o + 2] = alt
@@ -171,6 +171,7 @@ function writeLineVertex(out: Float32Array, o: number, x: number, y: number, alt
   out[o + 8] = dash[0]
   out[o + 9] = dash[1]
   out[o + 10] = width
+  out[o + 11] = time
 }
 
 /** Fill `frame` for study time `time`. Buffers are reused; only the counts change. */
@@ -198,8 +199,8 @@ export function buildFrame(scene: TrackScene, time: number, frame: TrackFrame): 
       while (x - lx > 0.5) x -= 1
       while (x - lx < -0.5) x += 1
       const d = t.dist[k - 1] + Math.hypot(x - lx, y - ly)
-      writeLineVertex(heads, hv * LINE_STRIDE, lx, ly, t.alt[k - 1], t.line, t.dist[k - 1], t.dash, t.width)
-      writeLineVertex(heads, (hv + 1) * LINE_STRIDE, x, y, altitude, t.line, d, t.dash, t.width)
+      writeLineVertex(heads, hv * LINE_STRIDE, lx, ly, t.alt[k - 1], t.line, t.dist[k - 1], t.dash, t.width, t.times[k - 1])
+      writeLineVertex(heads, (hv + 1) * LINE_STRIDE, x, y, altitude, t.line, d, t.dash, t.width, time)
       hv += 2
     }
     const o = pc * POINT_STRIDE
