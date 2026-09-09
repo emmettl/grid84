@@ -3,6 +3,8 @@ import type { LngLat } from '../geo/geodesy.ts'
 import type { Track } from '../engine/track.ts'
 import type { PromptEffects } from '../models/blast.ts'
 
+export type LabelAnchor = 'left' | 'right' | 'top' | 'bottom' | 'bottom-left' | 'top-left'
+
 /** A fixed place: a base, a launch complex, a radar, a target complex. */
 export interface SiteEntity extends Evidenced {
   kind: 'site'
@@ -13,7 +15,7 @@ export interface SiteEntity extends Evidenced {
   /** Positional uncertainty in metres; drawn as a ring for inferred positions. */
   uncertaintyMetres?: number
   /** Label placement relative to the mark; default 'left' anchor (label to the right of the mark). */
-  labelAnchor?: 'left' | 'right' | 'top' | 'bottom'
+  labelAnchor?: LabelAnchor
   facts: Array<Evidenced & { label: string; value: string }>
 }
 
@@ -28,7 +30,7 @@ export interface TrackEntity extends Evidenced {
   route: Evidenced
   /** 'full' draws the whole path at once; 'progressive' reveals it behind the vehicle as the clock runs. */
   reveal: 'full' | 'progressive'
-  labelAnchor?: 'left' | 'right' | 'top' | 'bottom'
+  labelAnchor?: LabelAnchor
   facts: Array<Evidenced & { label: string; value: string }>
 }
 

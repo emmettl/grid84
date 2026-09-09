@@ -38,6 +38,7 @@ export function createAtlasStyle(): StyleSpecification {
     light: { anchor: 'viewport', color: PALETTE.cyan, intensity: 0.35, position: [1.15, 210, 30] },
     sources: {
       atlas: { type: 'vector', url: ATLAS_TILES_URL },
+      // Two DEM sources from the same tiles: MapLibre renders better when hillshade and 3D terrain do not share one.
       terrain: {
         type: 'raster-dem',
         tiles: [TERRAIN_TILES_URL],
@@ -46,13 +47,20 @@ export function createAtlasStyle(): StyleSpecification {
         maxzoom: 15,
         attribution: 'Terrain: Mapzen, AWS Terrain Tiles',
       },
+      relief: {
+        type: 'raster-dem',
+        tiles: [TERRAIN_TILES_URL],
+        encoding: 'terrarium',
+        tileSize: 256,
+        maxzoom: 15,
+      },
     },
     layers: [
       { id: 'background', type: 'background', paint: { 'background-color': PALETTE.land } },
       {
         id: 'relief',
         type: 'hillshade',
-        source: 'terrain',
+        source: 'relief',
         paint: {
           'hillshade-shadow-color': '#02020a',
           'hillshade-highlight-color': cyan(0.32),

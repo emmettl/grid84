@@ -6,7 +6,7 @@ import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
 import { EvidenceLegend } from './EvidenceLegend.tsx'
-import type { Entity, Study } from './study.ts'
+import type { Entity, LabelAnchor, Study } from './study.ts'
 
 const RATES = [1, 10, 60, 600]
 
@@ -60,6 +60,23 @@ function timedFeatures(study: Study, time: number) {
   return { vehicles, rings, areas, paths }
 }
 
+function labelOffset(anchor: LabelAnchor): [number, number] {
+  switch (anchor) {
+    case 'left':
+      return [10, 0]
+    case 'right':
+      return [-10, 0]
+    case 'top':
+      return [0, 12]
+    case 'bottom':
+      return [0, -12]
+    case 'bottom-left':
+      return [6, -8]
+    case 'top-left':
+      return [6, 8]
+  }
+}
+
 function labelElement(entity: Entity, onSelect: (id: string) => void): HTMLElement {
   const el = document.createElement('button')
   el.type = 'button'
@@ -78,6 +95,9 @@ export function StudyView({ study }: { study: Study }) {
   const container = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
   const markers = useRef<Map<string, Marker>>(new Map())
+  const terrainSync = useRef<((force?: boolean) => void) | null>(null)
+  /** Sources are rewritten only when the clock moves, and once on first paint. */
+  const primed = useRef(false)
   const initialClock: ClockState = { time: Math.max(study.bounds.start, -600), playing: false, rate: 60 }
   const clockRef = useRef<ClockState>(initialClock)
   const [clock, setClock] = useState<ClockState>(initialClock)
@@ -93,7 +113,7 @@ export function StudyView({ study }: { study: Study }) {
     mapRef.current = map
     const labels = markers.current
     map.on('load', () => {
-      installTerrainSync(map)
+      terrainSync.current = installTerrainSync(map)
       installEvidenceLayers(map)
       setSourceData(map, SOURCES.paths, statics.paths)
       setSourceData(map, SOURCES.sites, statics.sites)
@@ -101,16 +121,14 @@ export function StudyView({ study }: { study: Study }) {
         const position = e.kind === 'site' ? e.position : e.kind === 'effect' ? e.center : null
         if (!position) continue
         const anchor = e.kind === 'site' ? (e.labelAnchor ?? 'left') : 'left'
-        const offset: [number, number] = anchor === 'left' ? [10, 0] : anchor === 'right' ? [-10, 0] : anchor === 'top' ? [0, 12] : [0, -12]
-        const marker = new Marker({ element: labelElement(e, setSelectedId), anchor, offset }).setLngLat([position[0], position[1]])
+        const marker = new Marker({ element: labelElement(e, setSelectedId), anchor, offset: labelOffset(anchor) }).setLngLat([position[0], position[1]])
         if (e.kind === 'site') marker.addTo(map)
         markers.current.set(e.id, marker)
       }
       for (const e of study.entities) {
         if (e.kind !== 'track') continue
         const anchor = e.labelAnchor ?? 'left'
-        const offset: [number, number] = anchor === 'left' ? [12, 0] : anchor === 'right' ? [-12, 0] : anchor === 'top' ? [0, 12] : [0, -12]
-        const marker = new Marker({ element: labelElement(e, setSelectedId), anchor, offset })
+        const marker = new Marker({ element: labelElement(e, setSelectedId), anchor, offset: labelOffset(anchor) })
         markers.current.set(e.id, marker)
       }
       setReady(true)
@@ -146,7 +164,10 @@ export function StudyView({ study }: { study: Study }) {
           }
         }
       }
-      if (map) {
+      // Cheap when unchanged; keeps terrain honest even if MapLibre never reports the fly-to ending.
+      if (map) terrainSync.current?.()
+      if (map && (changed || !primed.current)) {
+        primed.current = true
         const timed = timedFeatures(study, next.time)
         setSourceData(map, SOURCES.vehicles, timed.vehicles)
         setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings])
@@ -177,6 +198,7 @@ export function StudyView({ study }: { study: Study }) {
 
   const setClockState = (patch: Partial<ClockState>) => {
     clockRef.current = { ...clockRef.current, ...patch }
+    primed.current = false
     setClock(clockRef.current)
   }
 
@@ -208,6 +230,7 @@ export function StudyView({ study }: { study: Study }) {
               type="button"
               onClick={() => {
                 setClockState({ time: Math.max(study.bounds.start, -600), playing: false })
+                terrainSync.current?.(false)
                 mapRef.current?.flyTo({ center: [study.view.center[0], study.view.center[1]], zoom: study.view.zoom, pitch: 0, bearing: 0, duration: 2_000, essential: true })
               }}
             >

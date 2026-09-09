@@ -28,7 +28,7 @@ TIER_ORDER.forEach((tier, i) => {
       { position: to, time: 3_600 },
     ]),
     reveal: 'full',
-    labelAnchor: 'bottom',
+    labelAnchor: 'bottom-left',
     evidence: tier,
     provenance: SPECIMEN,
     route: { evidence: tier, provenance: SPECIMEN },
