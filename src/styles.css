@@ -1115,12 +1115,23 @@ body,
   overflow: auto;
 }
 
-/* Short viewports: the legend keeps its swatches and names and drops the descriptions, so the log keeps its lines. */
+/* Short viewports: the subtitle goes (it is the brief's first line), the legend becomes one row of swatches and names, and the log takes what is left rather than forcing its floor over the legend. */
 @media (max-height: 860px) {
+  .study-hud .study-brand p {
+    display: none;
+  }
   .study-hud .legend li > span:last-child {
     display: none;
   }
   .study-hud .legend ul {
-    gap: 0.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.9rem;
+  }
+  .study-hud .legend li {
+    grid-template-rows: auto;
+  }
+  .study-hud .log {
+    min-height: 0;
   }
 }
