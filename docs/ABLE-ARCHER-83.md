@@ -95,7 +95,7 @@ The finding the study is built to reach is the PFIAB's own: the difference betwe
 | Targets | 27: the Pershing garrisons, the QRA airfields, Greenham, the headquarters and ports | 20: SS-20 garrisons, brigades, forward airfields |
 | First · last detonation | H+18 min · H+23 min | H+53 min · H+2 h 19 min |
 | Megatons | 10.5 | 9.1 |
-| Dead on the GHSL 1985 grid, blast only · with mass fire | 580,000 · 1.3 million on NATO territory | 330,000 · 540,000 on Warsaw Pact territory |
+| Dead on the GHSL 1985 grid, blast only · with mass fire, as a union | 580,000 · 1.3 million on NATO territory | 330,000 · 550,000 on Warsaw Pact territory |
 | Reference | Carte Blanche, 1955: 1.7 million West German dead from 335 simulated weapons | |
 
 The sums are over GHSL's 30-arc-second grid for 1985, which resolves the towns beside the airfields that HYDE's five-arc-minute cells smeared; the first run on HYDE 1983 read 500,000 and 1.2 million on NATO territory and 140,000 and 300,000 on the Pact's. NATO's answer grew when the generated aircraft came to carry two weapons each as one sortie, and when the SS-20 regiments were given three warheads to a missile.

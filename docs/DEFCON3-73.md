@@ -81,7 +81,8 @@ The study has two halves and a second act.
 | Targets · detonations | 900 · 1,070 | 183 · 178 |
 | Megatons assigned | 3,026 | 7,356 |
 | First · last detonation | H+22 min · H+9 h 17 min | H+44 min · H+57 min |
-| Dead, blast only · with mass fire, on GHSL 1975 | 83 million · 140 million Soviet | 19 million · 46 million American |
+| Dead, blast only · with mass fire, on GHSL 1975, as a union | 82 million · 140 million Soviet | 19 million · 46 million American |
+| The same summed per target | 83 million · 140 million | 19 million · 46 million |
 | The same on HYDE 1973, the first run | 54 million · 120 million | 17 million · 42 million |
 | Reference | OTA 1979, large attack: 50 to 100 million Soviet dead | OTA 1979, large attack: 155 to 165 million American dead |
 
