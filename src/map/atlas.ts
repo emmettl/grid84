@@ -1,9 +1,8 @@
-import { Map as MapLibreMap } from 'maplibre-gl'
 import type { AtlasTarget } from '../atlas/target.ts'
 import { designate, type Designation } from '../atlas/designation.ts'
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { ORBITAL_ZOOM, planDescent, TERRAIN_MIN_ZOOM } from './descent.ts'
-import { createAtlasStyle } from './style.ts'
+import { createBaseMap } from './base.ts'
 
 export interface AcquisitionReport {
   target: AtlasTarget
@@ -38,18 +37,7 @@ const STANDBY_ROTATION_MS = 240_000
 
 export function createAtlas(container: HTMLElement, options: AtlasOptions): Atlas {
   const reducedMotion = options.reducedMotion ?? false
-  const map = new MapLibreMap({
-    container,
-    style: createAtlasStyle(),
-    center: [STANDBY_CENTER[0], STANDBY_CENTER[1]],
-    zoom: ORBITAL_ZOOM,
-    maxPitch: 70,
-    attributionControl: { compact: true },
-    canvasContextAttributes: { antialias: true },
-  })
-
-  // Dev-only handle for inspecting the live map from the browser console.
-  if (import.meta.env.DEV) Object.assign(window, { __grid84: map })
+  const map = createBaseMap(container, { center: STANDBY_CENTER, zoom: ORBITAL_ZOOM })
 
   let previous: AtlasTarget | null = null
   let acquisition = 0

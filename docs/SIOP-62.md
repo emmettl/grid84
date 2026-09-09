@@ -4,7 +4,7 @@
 
 **An execution study. What if the end of the world had an interface, and someone pressed RUN?**
 
-**Status:** brief and source audit, 9 September 2026. No study code exists. The Terminal Atlas stage 0 platform exists; see the roadmap.
+**Status:** brief, source audit and bounded proof, 9 September 2026. The proof plays at `#/study/siop62`; the evidence-grammar lab at `#/lab/evidence`; the 1956 city list is transcribed to a first pass. See the roadmap.
 
 ## What Grid/84 turns out to be
 
@@ -164,6 +164,7 @@ Most of the study is subsystems, and each subsystem earns its place through a la
 | **Readiness clock** | DEFCON and alert states; the fourteen options as a force-generation curve from 1,004 systems at H-hour to 2,244 at 14 hours | The briefing's option table | Linear interpolation between documented points |
 | **Damage expectancy** | Reliability times probability of arrival times probability of damage, the arithmetic behind multiple weapons per ground zero | The 75, 85 and 95 percent figures; Atlas reliability 0.70 to 0.80 | The planners' own method, no better |
 | **Prompt effects** | Fireball, overpressure bands, thermal and prompt radiation rings by yield and height of burst | Glasstone and Dolan tables; NUKEMAP's published radii for reference yields | Ideal surface, no terrain |
+| **Terrain shock** | Blast propagation over real terrain rather than a plane: Nagasaki's Urakami valley confined and channelled the blast, and Glasstone treats terrain only qualitatively, which is why planar tools stop there. Three fidelities in order: line-of-sight shadowing of the burst point over the terrain tiles; a 2D acoustic wave solver over the height field on a small grid, run in a shader when the camera is close, showing reflections and channelling; and the planar model everywhere else. Real CFD is out of scope | Nagasaki damage surveys against the shadowed and channelled zones; the planar radii in the far field | A linear wave over a 2.5D surface; qualitative reflections, not pressures anyone should quote |
 | **Fallout plume** | Dose-rate contours over hours and days under a chosen wind, decay | Miller and WSEG-10 worked examples | Single wind vector, no shear |
 | **Fire spread** | Ignition radius, mass-fire growth, the firestorm threshold | Hiroshima and Hamburg | Explicitly speculative; rendered inferred |
 | **Population exposure** | Sampling the HYDE grid under effect geometry; the two-number readout | 1961 estimates against modern recomputation for one city | Grid resolution of 5 arc minutes |
@@ -187,6 +188,8 @@ The first deliverable is not the plan. It is one of everything, across every tie
 
 **Exit:** the proof plays from H-hour on the Terminal Atlas clock, every mark on it can be traced to a page, and the redaction is visible.
 
+**Built, 9 September 2026.** The proof runs. The Atlas D launches at H+15:00 on the documented reaction time, flies a minimum-energy arc of 21.6 minutes to apogee 1,026 km, and detonates at H+36:38 with the prompt-effects rings drawn on the Anadyr estuary; the camera descends to the target in the terminal phase. The Chrome Dome B-52 flies its reconstructed loop throughout, passing Thule half an hour before H-hour, its SIOP target logged as withheld. Every mark opens a provenance panel with its facts badged by tier. Population exposure is shown as not computed. Not yet built: fallout, the Soviet response, and the terrain-shock lab.
+
 ## Beyond SIOP//62
 
 The engine is general and SIOP//62 is the jumping-off point. Grid/84 as a whole is an interactive exploration of the history and doctrine of strategic nuclear weapons, and the candidate studies below each need their own brief before any code. Each has a documentary spine already.
@@ -194,6 +197,7 @@ The engine is general and SIOP//62 is the jumping-off point. Grid/84 as a whole 
 | Study | Starting sources | Note |
 | --- | --- | --- |
 | **Contemporary single weapon** | Glasstone and Dolan; GHSL population; NUKEMAP as the validation reference | The base case, and the main thing people use NUKEMAP for. It is stage 3 of the roadmap on the 2026 map and shares every lab with SIOP//62; only the population grid changes. |
+| **Tsar Bomba, 30 October 1961** | Soviet test records and Western yield estimates (about 50 Mt, air burst near 4 km over Novaya Zemlya); Wellerstein's writing on the test | A fully documented single detonation on real terrain, inside the SIOP-62 period, and the largest yield the effects models will be asked for. A natural first case study once the rendering lands, and the obvious specimen for the terrain-shock lab. |
 | **Able Archer 83 gone hot** | The National Security Archive's [Able Archer 83 Sourcebook](https://nsarchive.gwu.edu/project/able-archer-83-sourcebook), over a thousand pages assembled by Nate Jones; the 1990 PFIAB report *The Soviet "War Scare"* released after a twelve-year fight; Jones, *Able Archer 83* (2016) | A counterfactual on a documented exercise, with both sides' readiness states in the record. The withheld tier would be busy: the 2025 briefing book is titled *The Censored History of Able Archer 83*. |
 | **India–Pakistan** | Toon, Robock et al., ["Rapidly expanding nuclear arsenals in Pakistan and India portend regional and global catastrophe,"](https://www.science.org/doi/10.1126/sciadv.aay5478) *Science Advances* 5 (2019) | A published, peer-reviewed scenario with explicit weapon counts, yields, city targets, fatality ranges of 50 to 125 million, and a soot model. The study would enact the paper's own scenario, cited as such. |
 | **Korean peninsula** | Zagurek, ["A Hypothetical Nuclear Attack on Seoul and Tokyo,"](https://www.38north.org/2017/10/mzagurek100417/) 38 North (2017); Kristensen and Korda's Nuclear Notebook on North Korean forces | Smaller arsenal, denser cities, contemporary population grid. A good second contemporary study. |

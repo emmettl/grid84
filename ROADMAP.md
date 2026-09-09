@@ -23,6 +23,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 ## 0 — Target acquisition (now)
 
 - [x] Establish the Vite, React, TypeScript, oxlint and Vitest baseline from Motion Studies.
+- [x] Hash routes: `#/` atlas, `#/study/<id>` execution studies, `#/lab/<id>` labs.
 - [x] Globe in orbital standby with the Grid/84 style: dark ink, cyan conduits, amber rail, wireframe building footprints, hillshaded relief, no labels.
 - [x] Photon search with candidate list and Enter-to-acquire.
 - [x] Seven-second descent from orbit to the target, pitched along the line of flight, with terrain enabled below the orbital threshold.
@@ -65,18 +66,19 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 
 **Exit:** the circles are calculated effects, the readout states the model and its limits, and the local Aldi's overpressure band is correct for the chosen yield.
 
-The labs live in `lab/` as self-contained specimens with a pure model module, a validation table and a declared fidelity ceiling. The [SIOP//62 brief](docs/SIOP-62.md#labs-programme) lists them: ballistic arc, bomber sortie, readiness clock, damage expectancy, prompt effects, fallout plume, fire spread, population exposure and the evidence grammar. Labs exist to establish the lines of the possible, not to ship.
+The labs live in `lab/` as self-contained specimens with a pure model module, a validation table and a declared fidelity ceiling. The [SIOP//62 brief](docs/SIOP-62.md#labs-programme) lists them: ballistic arc, bomber sortie, readiness clock, damage expectancy, prompt effects, terrain shock, fallout plume, fire spread, population exposure and the evidence grammar. Labs exist to establish the lines of the possible, not to ship.
 
 ## 4 — SIOP//62 execution study
 
 The first historical execution study. Brief and source audit: [docs/SIOP-62.md](docs/SIOP-62.md).
 
-- [ ] Evidence contract: every entity carries a tier (documented, reconstructed, inferred, modelled, withheld) and a source reference; the renderer derives its line grammar from the tier.
+- [x] Evidence contract: every entity carries a tier (documented, reconstructed, inferred, modelled, withheld) and a source reference; the renderer derives its line grammar from the tier. Lab at `#/lab/evidence`.
 - [x] Transcribe the 1956 SAC city list (306 image-only pages) with OCR and a row-grammar parser: first pass complete, 1,691 complex rows and 8,875 category rows with confidence flags.
 - [ ] Verify the transcript: work the 3,032 unparsed lines, the low-confidence rows and the out-of-box coordinates; check coordinates against 1960 borders and a hand-checked sample.
 - [ ] Order of battle as data: bases, squadrons, boats, weapons and yields for mid-1961, each row cited.
 - [ ] Period layers: 1960 borders with precision shown; HYDE 1960 population grid.
-- [ ] Bounded proof: one base, one sortie, one transcribed target, one modelled consequence, one ghost, one redaction, playing from H-hour.
+- [x] Bounded proof at `#/study/siop62`: F.E. Warren, a Chrome Dome sortie on a reconstructed route, Anadyr from the 1956 list with its redaction, one modelled Atlas D flight and prompt effects, the population ghost; the clock runs from H-hour and the camera descends to the target at impact.
+- [ ] Study clock as a shared engine module for every later study: `src/engine` holds the clock and timed tracks; models live in `src/models` with their validation tests.
 - [ ] Alert force enactment: option 1, 1,004 systems, missiles first, forward areas second, US-based last.
 - [ ] Full force with the option selector, and the finding that the options barely differ.
 - [ ] Two-number outcome readout: the planners' estimate against the modern recomputation.

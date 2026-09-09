@@ -1,0 +1,111 @@
+import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl'
+import type { Feature, FeatureCollection, Geometry } from 'geojson'
+import { TIER_ORDER, type EvidenceTier } from '../evidence/evidence.ts'
+import { INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
+
+/**
+ * Sources and layers that draw evidenced geometry in the tier grammar.
+ * Features carry an `evidence` property; each tier gets its own layer so
+ * the dash patterns stay static, which MapLibre requires.
+ */
+export const SOURCES = {
+  paths: 'ev-paths',
+  sites: 'ev-sites',
+  rings: 'ev-rings',
+  areas: 'ev-areas',
+  vehicles: 'ev-vehicles',
+} as const
+
+export type EvidenceFeature = Feature<Geometry, { evidence: EvidenceTier; id: string; [key: string]: unknown }>
+
+const empty = (): FeatureCollection => ({ type: 'FeatureCollection', features: [] })
+
+export function installEvidenceLayers(map: MapLibreMap): void {
+  for (const id of Object.values(SOURCES)) map.addSource(id, { type: 'geojson', data: empty() })
+
+  // Modelled areas: faint fill under everything else.
+  map.addLayer({
+    id: 'ev-areas-fill',
+    type: 'fill',
+    source: SOURCES.areas,
+    paint: { 'fill-color': MODELLED_FILL },
+  })
+  for (const tier of TIER_ORDER) {
+    const g = LINE[tier]
+    map.addLayer({
+      id: `ev-paths-${tier}`,
+      type: 'line',
+      source: SOURCES.paths,
+      filter: ['==', ['get', 'evidence'], tier],
+      layout: { 'line-cap': 'round', 'line-join': 'round' },
+      paint: {
+        'line-color': g.color,
+        'line-width': g.width,
+        'line-opacity': g.opacity,
+        'line-blur': g.blur,
+        ...(g.dasharray ? { 'line-dasharray': g.dasharray } : {}),
+      },
+    })
+  }
+  // Rings: uncertainty rings (inferred) and effect rings (modelled) as outlines.
+  map.addLayer({
+    id: 'ev-rings-inferred',
+    type: 'line',
+    source: SOURCES.rings,
+    filter: ['==', ['get', 'evidence'], 'inferred'],
+    paint: { 'line-color': INFERRED_RING, 'line-width': 1, 'line-dasharray': [1, 2] },
+  })
+  map.addLayer({
+    id: 'ev-rings-modelled',
+    type: 'line',
+    source: SOURCES.rings,
+    filter: ['==', ['get', 'evidence'], 'modelled'],
+    paint: { 'line-color': LINE.modelled.color, 'line-width': LINE.modelled.width },
+  })
+  map.addLayer({
+    id: 'ev-rings-withheld',
+    type: 'line',
+    source: SOURCES.rings,
+    filter: ['==', ['get', 'evidence'], 'withheld'],
+    paint: { 'line-color': POINT.withheld.strokeColor, 'line-width': 1, 'line-dasharray': [2, 1] },
+  })
+  for (const tier of TIER_ORDER) {
+    const g = POINT[tier]
+    map.addLayer({
+      id: `ev-sites-${tier}`,
+      type: 'circle',
+      source: SOURCES.sites,
+      filter: ['==', ['get', 'evidence'], tier],
+      paint: {
+        'circle-radius': g.radius,
+        'circle-color': g.color,
+        'circle-stroke-color': g.strokeColor,
+        'circle-stroke-width': g.strokeWidth,
+        'circle-opacity': g.opacity,
+        'circle-stroke-opacity': g.opacity,
+      },
+    })
+  }
+  map.addLayer({
+    id: 'ev-vehicles',
+    type: 'circle',
+    source: SOURCES.vehicles,
+    paint: {
+      'circle-radius': 4,
+      'circle-color': '#050410',
+      'circle-stroke-color': ['match', ['get', 'evidence'], 'documented', LINE.documented.color, 'inferred', LINE.inferred.color, 'modelled', LINE.modelled.color, LINE.reconstructed.color],
+      'circle-stroke-width': 2,
+    },
+  })
+  map.addLayer({
+    id: 'ev-vehicles-glow',
+    type: 'circle',
+    source: SOURCES.vehicles,
+    paint: { 'circle-radius': 10, 'circle-color': 'rgba(141, 250, 255, 0.12)', 'circle-blur': 1 },
+  })
+}
+
+export function setSourceData(map: MapLibreMap, id: string, features: EvidenceFeature[]): void {
+  const source = map.getSource(id) as GeoJSONSource | undefined
+  source?.setData({ type: 'FeatureCollection', features })
+}
