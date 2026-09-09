@@ -1,7 +1,8 @@
 import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 import { TIER_ORDER, type EvidenceTier } from '../evidence/evidence.ts'
-import { INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
+import { HUE, INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
+import { planeImage } from './plane-icon.ts'
 
 /**
  * Sources and layers that draw evidenced geometry in the tier grammar.
@@ -91,6 +92,7 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     id: 'ev-vehicles',
     type: 'circle',
     source: SOURCES.vehicles,
+    filter: ['!=', ['get', 'vehicle'], 'aircraft'],
     paint: {
       'circle-radius': 4,
       'circle-color': '#050410',
@@ -125,6 +127,26 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     type: 'circle',
     source: SOURCES.vehicles,
     paint: { 'circle-radius': 10, 'circle-color': 'rgba(141, 250, 255, 0.12)', 'circle-blur': 1 },
+  })
+  // Aircraft: a silhouette per tier colour, turned to the track's heading.
+  const ink = `rgb(${HUE.ink[0]}, ${HUE.ink[1]}, ${HUE.ink[2]})`
+  const fills: Array<[string, string]> = [...TIER_ORDER.map((t): [string, string] => [t, LINE[t].color]), ['defender', 'rgba(255, 96, 96, 0.95)']]
+  for (const [name, fill] of fills) {
+    const image = planeImage(44, fill, ink)
+    if (image && !map.hasImage(`plane-${name}`)) map.addImage(`plane-${name}`, image, { pixelRatio: 2 })
+  }
+  map.addLayer({
+    id: 'ev-vehicles-air',
+    type: 'symbol',
+    source: SOURCES.vehicles,
+    filter: ['==', ['get', 'vehicle'], 'aircraft'],
+    layout: {
+      'icon-image': ['case', ['==', ['get', 'side'], 'defender'], 'plane-defender', ['concat', 'plane-', ['get', 'evidence']]],
+      'icon-rotate': ['coalesce', ['get', 'heading'], 0],
+      'icon-rotation-alignment': 'map',
+      'icon-allow-overlap': true,
+      'icon-ignore-placement': true,
+    },
   })
 }
 

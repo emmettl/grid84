@@ -21,6 +21,9 @@ export interface SiteEntity extends Evidenced {
   facts: Array<Evidenced & { label: string; value: string }>
 }
 
+/** What moves along a track. Aircraft draw as a silhouette pointing along the track; everything else as a ring. */
+export type VehicleKind = 'aircraft' | 'missile' | 'ship' | 'ground'
+
 /** A moving thing with a timed path. */
 export interface TrackEntity extends Evidenced {
   kind: 'track'
@@ -30,6 +33,8 @@ export interface TrackEntity extends Evidenced {
   label?: boolean
   /** Which side's vehicle; colours the mark. Default 'attacker'. */
   side?: 'attacker' | 'defender'
+  /** Default 'missile'. */
+  vehicle?: VehicleKind
   track: Track
   /** Provenance for the vehicle's existence and posture may differ from the route's. */
   route: Evidenced

@@ -130,6 +130,7 @@ function regionalStudy(): Study {
         id: `312-${n}`,
         name: `${b.name} → ${t.name}`,
         designation: 'OPLAN 312 STRIKE PACKAGE · CONVENTIONAL',
+        vehicle: 'aircraft',
         label: false,
         side: 'attacker',
         track: new Track([
@@ -214,6 +215,7 @@ function regionalStudy(): Study {
       id,
       name: `OPLAN 316 landing force → ${b.name}`,
       designation: `${D.oplan316.troops.toLocaleString('en-GB')} TROOPS IN THE PLAN · LANDING ON D+7`,
+      vehicle: 'ship',
       label: id === 'landing-east',
       side: 'attacker',
       track: new Track(timeByGroundSpeed([[b.lon, 24.6], [b.lon, b.lat]], LANDING - 6 * HOUR, 6)),

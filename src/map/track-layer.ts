@@ -1,6 +1,7 @@
 import type { CustomLayerInterface, CustomRenderMethodInput, Map as MapLibreMap } from 'maplibre-gl'
 import { HUE } from '../evidence/grammar.ts'
 import { allocateFrame, buildFrame, LINE_STRIDE, mercator, POINT_STRIDE, type TrackFrame, type TrackScene } from './track-scene.ts'
+import { planeGlsl, PLANE_SCALE } from './plane-icon.ts'
 
 /**
  * A MapLibre custom layer that draws every track and vehicle of a study from
@@ -122,13 +123,19 @@ ${define}
 in vec2 a_pos;
 in float a_alt;
 in vec4 a_color;
+in float a_shape;
+in float a_heading;
 uniform float u_size;
 out vec4 v_color;
+out float v_shape;
+out float v_heading;
 ${PROJECT_3D}
 void main() {
   gl_Position = project3d(a_pos, a_alt);
   gl_PointSize = u_size;
   v_color = a_color;
+  v_shape = a_shape;
+  v_heading = a_heading;
 }`
 
 const FLASH_VERTEX = (prelude: string, define: string) => `#version 300 es
@@ -167,13 +174,38 @@ void main() {
 const POINT_FRAGMENT = `#version 300 es
 precision highp float;
 in vec4 v_color;
+in float v_shape;
+in float v_heading;
 uniform float u_size;
 uniform float u_dpr;
 uniform vec3 u_ink;
 out vec4 fragColor;
+${planeGlsl()}
 void main() {
   float d = length(gl_PointCoord - 0.5) * u_size / u_dpr;
   float aa = 0.75;
+  if (v_shape > 0.5) {
+    // Aircraft: the silhouette turned to its heading, filled in the tier colour with an ink outline, over the same faint halo.
+    vec2 c = (gl_PointCoord - 0.5) * 2.0;
+    float h = v_heading;
+    vec2 q = vec2(c.x * cos(h) + c.y * sin(h), -c.x * sin(h) + c.y * cos(h));
+    float px = u_size * 0.5 / u_dpr;
+    float sd = sdPlane(q / ${PLANE_SCALE}) * ${PLANE_SCALE} * px;
+    if (sd < 0.0) {
+      float edge = smoothstep(-aa, 0.0, sd);
+      vec3 rgb = mix(v_color.rgb, u_ink, edge * 0.6);
+      fragColor = vec4(rgb * v_color.a, v_color.a);
+    } else if (sd < 1.0) {
+      float a = v_color.a * smoothstep(1.0, 1.0 - aa, sd);
+      fragColor = vec4(u_ink * a, a);
+    } else if (d < ${MARK.halo.toFixed(1)}) {
+      float a = 0.12 * (1.0 - d / ${MARK.halo.toFixed(1)});
+      fragColor = vec4(v_color.rgb * a, a);
+    } else {
+      discard;
+    }
+    return;
+  }
   if (d < ${MARK.fill.toFixed(1)}) {
     float edge = smoothstep(${MARK.fill.toFixed(1)}, ${MARK.fill.toFixed(1)} - aa, d);
     vec3 rgb = mix(v_color.rgb, u_ink, edge);
@@ -259,7 +291,7 @@ export class TrackLayer implements CustomLayerInterface {
   private frame: TrackFrame | null = null
   private flashes: Flash[] = []
   /** Trail fading in study seconds: hold, then fade over a span to a floor of the line's alpha. */
-  private fade = { enabled: false, holdSeconds: 5 * 60, spanSeconds: 25 * 60, floor: 0.08 }
+  private fade = { enabled: false, holdSeconds: 5 * 60, spanSeconds: 25 * 60, floor: 0 }
 
   setFade(fade: Partial<typeof this.fade>): void {
     this.fade = { ...this.fade, ...fade }
@@ -369,6 +401,12 @@ export class TrackLayer implements CustomLayerInterface {
     gl.vertexAttribPointer(alt, 1, gl.FLOAT, false, stride, 8)
     gl.enableVertexAttribArray(color)
     gl.vertexAttribPointer(color, 4, gl.FLOAT, false, stride, 12)
+    const shape = gl.getAttribLocation(program, 'a_shape')
+    gl.enableVertexAttribArray(shape)
+    gl.vertexAttribPointer(shape, 1, gl.FLOAT, false, stride, 28)
+    const heading = gl.getAttribLocation(program, 'a_heading')
+    gl.enableVertexAttribArray(heading)
+    gl.vertexAttribPointer(heading, 1, gl.FLOAT, false, stride, 32)
     gl.bindVertexArray(null)
     return vao
   }

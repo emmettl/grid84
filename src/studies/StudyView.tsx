@@ -90,7 +90,7 @@ function effectRings(e: Entity & { kind: 'effect' }, mode: Burst) {
 function trackSpecs(study: Study): TrackSpec[] {
   const specs: TrackSpec[] = []
   for (const e of study.entities) {
-    if (e.kind === 'track') specs.push({ id: e.id, track: e.track, route: e.route.evidence, evidence: e.evidence, side: e.side ?? 'attacker', reveal: e.reveal })
+    if (e.kind === 'track') specs.push({ id: e.id, track: e.track, route: e.route.evidence, evidence: e.evidence, side: e.side ?? 'attacker', vehicle: e.vehicle ?? 'missile', reveal: e.reveal })
   }
   return specs
 }
@@ -108,7 +108,7 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
     if (e.kind === 'track') {
       if (!tracks) continue
       const p = e.track.positionAt(time)
-      if (p) vehicles.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [p[0], p[1]] }, properties: { evidence: e.evidence, id: e.id, side: e.side ?? 'attacker' } })
+      if (p) vehicles.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [p[0], p[1]] }, properties: { evidence: e.evidence, id: e.id, side: e.side ?? 'attacker', vehicle: e.vehicle ?? 'missile', heading: e.vehicle === 'aircraft' ? (e.track.headingAt(time) ?? 0) : 0 } })
       if (e.reveal === 'progressive') {
         const flown = e.track.geometryUntil(time)
         if (flown.length > 1) paths.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: flown.map((q) => [q[0], q[1]]) }, properties: { evidence: e.route.evidence, id: e.id } })

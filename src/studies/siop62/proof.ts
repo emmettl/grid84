@@ -154,6 +154,7 @@ export const SIOP62_PROOF: Study = {
       id: 'b52',
       name: 'B-52 · Chrome Dome',
       designation: 'AIRBORNE ALERT · NORTHERN ROUTE',
+      vehicle: 'aircraft',
       track: bomberTrack,
       reveal: 'full',
       evidence: 'documented',

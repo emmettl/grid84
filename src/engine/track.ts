@@ -1,4 +1,4 @@
-import { EARTH_RADIUS_METRES, haversineMetres, type LngLat } from '../geo/geodesy.ts'
+import { EARTH_RADIUS_METRES, haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 
 /** Spherical linear interpolation along the great circle between two points. */
 export function slerp(a: LngLat, b: LngLat, f: number): LngLat {
@@ -59,6 +59,17 @@ export class Track {
   }
   get end(): number {
     return this.waypoints[this.waypoints.length - 1].time
+  }
+  /** Direction of travel at `time` in degrees clockwise from north, or null when the track is not in motion. */
+  headingAt(time: number): number | null {
+    const here = this.positionAt(time)
+    if (!here) return null
+    const dt = Math.max(1, (this.end - this.start) / 400)
+    const ahead = this.positionAt(Math.min(this.end, time + dt))
+    if (ahead && (ahead[0] !== here[0] || ahead[1] !== here[1])) return initialBearing(here, ahead)
+    const behind = this.positionAt(Math.max(this.start, time - dt))
+    if (behind && (behind[0] !== here[0] || behind[1] !== here[1])) return initialBearing(behind, here)
+    return null
   }
   /** Position at `time`, or null when the track is not yet, or no longer, in motion. */
   positionAt(time: number): LngLat | null {

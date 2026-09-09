@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Track } from '../engine/track.ts'
 import { allocateFrame, buildFrame, dashFor, LINE_STRIDE, mercator, parseRgba, POINT_STRIDE, prepareTracks, vehicleColor, type TrackSpec } from './track-scene.ts'
 
-const spec = (id: string, track: Track, reveal: 'full' | 'progressive' = 'progressive', side: 'attacker' | 'defender' = 'attacker'): TrackSpec => ({ id, track, route: 'reconstructed', evidence: 'inferred', side, reveal })
+const spec = (id: string, track: Track, reveal: 'full' | 'progressive' = 'progressive', side: 'attacker' | 'defender' = 'attacker', vehicle: TrackSpec['vehicle'] = 'missile'): TrackSpec => ({ id, track, route: 'reconstructed', evidence: 'inferred', side, vehicle, reveal })
 
 describe('mercator', () => {
   it('maps the origin to the centre of the unit square and clamps the poles', () => {
@@ -16,15 +16,17 @@ describe('mercator', () => {
   })
 })
 
-describe('colours and dashes', () => {
-  it('parses the grammar colours and picks the defender hue', () => {
+describe('colours', () => {
+  it('parses the grammar colours, picks the defender hue, and draws every tier solid', () => {
     expect(parseRgba('rgba(255, 96, 96, 0.9)')).toEqual([1, 96 / 255, 96 / 255, 0.9])
     expect(vehicleColor('documented', 'attacker')[0]).toBeCloseTo(141 / 255)
     expect(vehicleColor('documented', 'defender')[0]).toBe(1)
     expect(dashFor('documented')).toEqual([0, 0])
-    const [on, period] = dashFor('reconstructed')
-    expect(on).toBeGreaterThan(0)
-    expect(period).toBeGreaterThan(on)
+    expect(dashFor('reconstructed')).toEqual([0, 0])
+    // Reconstructed is told apart by colour, not by a dash.
+    const r = vehicleColor('reconstructed', 'attacker')
+    const d = vehicleColor('documented', 'attacker')
+    expect(r[0]).not.toBeCloseTo(d[0])
   })
 })
 
@@ -96,7 +98,22 @@ describe('prepareTracks and buildFrame', () => {
     buildFrame(scene, 1_050, frame)
     expect(frame.pointCount).toBe(1)
     expect(frame.points[3]).toBe(1)
-    expect(frame.points[POINT_STRIDE - 1]).toBeCloseTo(0.95)
+    expect(frame.points[6]).toBeCloseTo(0.95)
+    // A missile is a ring with no heading.
+    expect(frame.points[7]).toBe(0)
+    expect(frame.points[8]).toBe(0)
+  })
+
+  it('gives an aircraft its shape and its heading along the track', () => {
+    const scene = prepareTracks([spec('s', short, 'progressive', 'attacker', 'aircraft')])
+    const frame = allocateFrame(scene)
+    buildFrame(scene, 1_050, frame)
+    expect(frame.pointCount).toBe(1)
+    expect(frame.points[7]).toBe(1)
+    // Eastward along the parallel: a heading near 90 degrees, in radians.
+    expect(frame.points[8]).toBeCloseTo(Math.PI / 2, 1)
+    expect(short.headingAt(1_050)).toBeCloseTo(90, 0)
+    expect(short.headingAt(5_000)).toBeNull()
   })
 
   it('never exceeds the allocated capacity for many tracks', () => {

@@ -173,6 +173,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
     designation,
     label: false,
     side: o.side,
+    vehicle: route === 'cruise' ? 'aircraft' : 'missile',
     track: new Track(waypoints),
     reveal: 'progressive',
     evidence: o.vehicle.evidence,

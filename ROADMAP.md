@@ -115,5 +115,6 @@ Candidate studies after SIOP//62, each needing its own brief first: the Cuban mi
 - [ ] Own routing host or a licensed provider before public launch; the demo servers are for development only.
 - [ ] Tile and terrain budgets measured on a phone for the opening orbit and one descent.
 - [x] Attribution and licence audit for every service and dataset: [ATTRIBUTION.md](docs/ATTRIBUTION.md). It found the map credit hidden under the study panels and collapsed by default, the terrain credit absent from the terrain lab, and fonts fetched from Google; all three fixed, and the study readouts now carry the grid's licence.
+- [x] Aircraft draw as a silhouette turned to the track's heading, in both renderers (`src/map/plane-icon.ts`); missiles, ships and landing forces stay rings. The reconstructed tier is a colour of its own, lilac, drawn solid: the dashes read as noise across a thousand tracks. Trails fade to nothing. Phones get a one-column study layout with the map in the middle.
 - [x] Front page at `#/`: what the engine is, the six studies with their variants and briefs, the evidence grammar, the method in one paragraph with a link to the validation notes, the labs, and the data with its licences. The atlas moved to `#/atlas`.
 - [ ] Catalogue entry in Motion Studies as an adjunct, not an edition.

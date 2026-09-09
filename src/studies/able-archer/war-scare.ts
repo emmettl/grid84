@@ -209,6 +209,7 @@ function study(): Study {
       id: `airlift-${i}`,
       name: `Reforger 83 airlift · mission ${i + 1} of ${EX.airlift.flights}`,
       designation: 'C-141 · RADIO SILENT · 19,000 SOLDIERS IN 172 MISSIONS',
+      vehicle: 'aircraft',
       label: i === 0,
       side: 'attacker',
       track: new Track(timeByGroundSpeed([from, [dest.lon, dest.lat]], airliftStart + i * 0.6 * HOUR, (EX.airlift.speedKmh * 1_000) / 3_600)),

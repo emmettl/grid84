@@ -1,4 +1,5 @@
 import type { Track } from '../engine/track.ts'
+import type { VehicleKind } from '../studies/study.ts'
 import type { EvidenceTier } from '../evidence/evidence.ts'
 import { HUE, LINE } from '../evidence/grammar.ts'
 
@@ -22,13 +23,14 @@ export interface TrackSpec {
   /** Tier of the vehicle itself, which colours the moving mark. */
   evidence: EvidenceTier
   side: 'attacker' | 'defender'
+  vehicle: VehicleKind
   reveal: 'full' | 'progressive'
 }
 
 /** Floats per line vertex: x, y, altitude (m), r, g, b, a, distance, dash on, dash period, width, time (s). */
 export const LINE_STRIDE = 12
-/** Floats per point vertex: x, y, altitude (m), r, g, b, a. */
-export const POINT_STRIDE = 7
+/** Floats per point vertex: x, y, altitude (m), r, g, b, a, shape (0 ring, 1 aircraft), heading (radians clockwise from north). */
+export const POINT_STRIDE = 9
 
 export interface PreparedTrack {
   spec: TrackSpec
@@ -44,6 +46,7 @@ export interface PreparedTrack {
   alt: Float64Array
   line: Rgba
   vehicle: Rgba
+  shape: number
   dash: [number, number]
   width: number
 }
@@ -89,14 +92,8 @@ export function vehicleColor(tier: EvidenceTier, side: 'attacker' | 'defender'):
   return parseRgba(g.color)
 }
 
-/**
- * Dash in CSS pixels as [on, period]; solid lines are [0, 0]. In the GL layer the
- * grammar is calmer than in the GeoJSON one: a reconstructed route is a long,
- * slow dash, and an inferred one is a faint solid line rather than the dots,
- * which shimmer when there are thousands of one-pixel lines on the globe.
- */
-export function dashFor(tier: EvidenceTier): [number, number] {
-  if (tier === 'reconstructed') return [18, 27]
+/** Dash pattern in screen pixels per tier. Every tier is now drawn solid and told apart by colour; the pair stays for the shader's sake. */
+export function dashFor(_tier: EvidenceTier): [number, number] {
   return [0, 0]
 }
 
@@ -129,7 +126,7 @@ export function prepareTracks(specs: TrackSpec[]): TrackScene {
       alt[i] = g[i].altitude ?? 0
       writeLineVertex(vertices, (first + i) * LINE_STRIDE, x, y, alt[i], line, d, dash, width, times[i])
     }
-    tracks.push({ spec, first, count, times, merc, dist, alt, line, vehicle: vehicleColor(spec.evidence, spec.side), dash, width })
+    tracks.push({ spec, first, count, times, merc, dist, alt, line, vehicle: vehicleColor(spec.evidence, spec.side), shape: spec.vehicle === 'aircraft' ? 1 : 0, dash, width })
     first += count
     segmentCapacity += count // count - 1 flown segments plus one head segment
   })
@@ -211,6 +208,9 @@ export function buildFrame(scene: TrackScene, time: number, frame: TrackFrame): 
     points[o + 4] = t.vehicle[1]
     points[o + 5] = t.vehicle[2]
     points[o + 6] = t.vehicle[3]
+    points[o + 7] = t.shape
+    const heading = t.shape > 0 ? t.spec.track.headingAt(time) : null
+    points[o + 8] = heading == null ? 0 : (heading * Math.PI) / 180
     pc += 1
   }
   frame.indexCount = ic

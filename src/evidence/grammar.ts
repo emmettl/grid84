@@ -14,6 +14,8 @@ export const HUE = {
   cyan: [141, 250, 255] as const,
   amber: [255, 179, 71] as const,
   effect: [255, 96, 96] as const,
+  /** Reconstructed: derived from the record by a stated method; a hue of its own rather than a dash, which read as noise across a thousand tracks. */
+  lilac: [196, 168, 255] as const,
   ink: [5, 4, 16] as const,
 }
 
@@ -39,7 +41,7 @@ export interface PointGrammar {
 
 export const LINE: Record<EvidenceTier, LineGrammar> = {
   documented: { color: rgba(HUE.cyan, 1), width: 2, dasharray: null, opacity: 1, blur: 0 },
-  reconstructed: { color: rgba(HUE.cyan, 0.85), width: 1.6, dasharray: [6, 4], opacity: 1, blur: 0 },
+  reconstructed: { color: rgba(HUE.lilac, 0.95), width: 1.6, dasharray: null, opacity: 1, blur: 0 },
   inferred: { color: rgba(HUE.cyan, 0.55), width: 1.2, dasharray: [1, 3], opacity: 0.8, blur: 1 },
   modelled: { color: rgba(HUE.effect, 0.9), width: 1.2, dasharray: null, opacity: 1, blur: 0 },
   withheld: { color: rgba(HUE.ink, 1), width: 6, dasharray: null, opacity: 1, blur: 0 },
@@ -47,7 +49,7 @@ export const LINE: Record<EvidenceTier, LineGrammar> = {
 
 export const POINT: Record<EvidenceTier, PointGrammar> = {
   documented: { color: rgba(HUE.cyan, 1), strokeColor: rgba(HUE.cyan, 1), strokeWidth: 1, radius: 4, opacity: 1, ring: null },
-  reconstructed: { color: rgba(HUE.ink, 0.6), strokeColor: rgba(HUE.cyan, 0.9), strokeWidth: 1.5, radius: 4, opacity: 1, ring: null },
+  reconstructed: { color: rgba(HUE.ink, 0.6), strokeColor: rgba(HUE.lilac, 0.95), strokeWidth: 1.5, radius: 4, opacity: 1, ring: null },
   inferred: { color: rgba(HUE.cyan, 0.25), strokeColor: rgba(HUE.cyan, 0.5), strokeWidth: 1, radius: 3, opacity: 0.9, ring: 6 },
   modelled: { color: rgba(HUE.effect, 0.35), strokeColor: rgba(HUE.effect, 0.9), strokeWidth: 1, radius: 3, opacity: 1, ring: null },
   withheld: { color: rgba(HUE.ink, 1), strokeColor: rgba(HUE.cyan, 0.7), strokeWidth: 1, radius: 5, opacity: 1, ring: null },
