@@ -1,7 +1,7 @@
 {
-"source": "SAC Atomic Weapons Requirements Study for 1959 (June 1956), NSA EBB 538, section 6: airfield list; transcription first pass, high-confidence rows only",
-"count": 360,
-"coverage": "about 1,100 airfields in the release; this pass reads 360",
+"source": "SAC Atomic Weapons Requirements Study for 1959 (June 1956), NSA EBB 538, section 6: airfield list; transcription third pass, high-confidence rows only",
+"count": 442,
+"coverage": "about 1,100 airfields in the release; this pass reads 442",
 "targets": [
 {
 "be": "0204-8655",
@@ -31,6 +31,16 @@
 "lat": 56.5667,
 "lon": 32.3167,
 "page": 30,
+"letter": null
+},
+{
+"be": "0234-8075",
+"priority": 7,
+"complex": "6410",
+"name": "POLTAVA",
+"lat": 49.6167,
+"lon": 34.5,
+"page": 29,
 "letter": null
 },
 {
@@ -64,6 +74,16 @@
 "letter": null
 },
 {
+"be": "0232-8229",
+"priority": 11,
+"complex": "1515",
+"name": "RUONIKI POL",
+"lat": 50.8833,
+"lon": 19.2,
+"page": 31,
+"letter": "R"
+},
+{
 "be": "0167-8003",
 "priority": 14,
 "complex": "2350",
@@ -81,7 +101,7 @@
 "lat": 49.25,
 "lon": 23.8,
 "page": 35,
-"letter": null
+"letter": "8"
 },
 {
 "be": "0164-8007",
@@ -224,6 +244,16 @@
 "letter": "R"
 },
 {
+"be": "0092-8001",
+"priority": 53,
+"complex": "0270",
+"name": "ARKHANGELSK",
+"lat": 64.4333,
+"lon": 46.4167,
+"page": 2,
+"letter": "R"
+},
+{
 "be": "0051-8616",
 "priority": 54,
 "complex": "6080",
@@ -282,6 +312,16 @@
 "lon": 33.0167,
 "page": 16,
 "letter": null
+},
+{
+"be": "0292-8007",
+"priority": 72,
+"complex": "0290",
+"name": "NOVOROSSTYSKOYE",
+"lat": 43.35,
+"lon": 132.5833,
+"page": 26,
+"letter": "5"
 },
 {
 "be": "0232-8618",
@@ -514,6 +554,16 @@
 "letter": "RR"
 },
 {
+"be": "6252-8005",
+"priority": 125,
+"complex": "1045",
+"name": "BUDAPEST/TOKO HUNS",
+"lat": 47.35,
+"lon": 18.9833,
+"page": 6,
+"letter": null
+},
+{
 "be": "0250-8708",
 "priority": 132,
 "complex": "9695",
@@ -554,6 +604,16 @@
 "letter": "5"
 },
 {
+"be": "0232-8261",
+"priority": 138,
+"complex": "5745",
+"name": "PREROV CZECH",
+"lat": 49.4333,
+"lon": 17.4,
+"page": 30,
+"letter": null
+},
+{
 "be": "0169-8609",
 "priority": 139,
 "complex": "3180",
@@ -562,6 +622,16 @@
 "lon": 20.5833,
 "page": 13,
 "letter": "U"
+},
+{
+"be": "0168-8692",
+"priority": 147,
+"complex": "0676",
+"name": "BEREZA/KARTUZRAYA",
+"lat": 52.55,
+"lon": 24.8833,
+"page": 4,
+"letter": "R"
 },
 {
 "be": "0250-8763",
@@ -581,6 +651,16 @@
 "lat": 50.05,
 "lon": 26.2833,
 "page": 15,
+"letter": "5"
+},
+{
+"be": "0381-8010",
+"priority": 154,
+"complex": "6125",
+"name": "NAN YUAN CHINA",
+"lat": 39.7833,
+"lon": 116.3667,
+"page": 25,
 "letter": "5"
 },
 {
@@ -664,6 +744,16 @@
 "letter": null
 },
 {
+"be": "0233-8040",
+"priority": 172,
+"complex": "3870",
+"name": "KONO TOP",
+"lat": 51.2333,
+"lon": 33.15,
+"page": 17,
+"letter": "R"
+},
+{
 "be": "0283-8435",
 "priority": 181,
 "complex": "8601",
@@ -742,6 +832,16 @@
 "lon": 46.1667,
 "page": 9,
 "letter": "R"
+},
+{
+"be": "0169-8248",
+"priority": 195,
+"complex": "2255",
+"name": "GOYNIA POL",
+"lat": 54.5833,
+"lon": 18.5167,
+"page": 10,
+"letter": null
 },
 {
 "be": "0250-8661",
@@ -844,6 +944,16 @@
 "letter": "5"
 },
 {
+"be": "0493-8425",
+"priority": 214,
+"complex": "5364",
+"name": "HSIANG TANG CHINA",
+"lat": 28.4333,
+"lon": 115.9167,
+"page": 12,
+"letter": "5"
+},
+{
 "be": "0614-8420",
 "priority": 216,
 "complex": "1153",
@@ -887,10 +997,20 @@
 "be": "0381-8002",
 "priority": 223,
 "complex": "1543",
-"name": "CHOU SHUI TZU) MANCH",
+"name": "CHOU SHUI TZU MANCH",
 "lat": 38.9667,
 "lon": 121.55,
 "page": 8,
+"letter": null
+},
+{
+"be": "0170-8075",
+"priority": 228,
+"complex": "6043",
+"name": "PARCHIM E GER",
+"lat": 53.4333,
+"lon": 11.7833,
+"page": 28,
 "letter": null
 },
 {
@@ -964,6 +1084,16 @@
 "letter": "R"
 },
 {
+"be": "0169-8217",
+"priority": 245,
+"complex": "1935",
+"name": "FINOW E GER",
+"lat": 52.8333,
+"lon": 13.7,
+"page": 10,
+"letter": "R"
+},
+{
 "be": "0493-8419",
 "priority": 249,
 "complex": "1425",
@@ -994,6 +1124,26 @@
 "letter": null
 },
 {
+"be": "0231-8093",
+"priority": 251,
+"complex": "5455",
+"name": "SPROTTAU POL",
+"lat": 51.5667,
+"lon": 15.5833,
+"page": 34,
+"letter": "RR"
+},
+{
+"be": "0322-8026",
+"priority": 252,
+"complex": "6325",
+"name": "GRAF IGNATIEVO BULG",
+"lat": 42.2833,
+"lon": 24.7167,
+"page": 11,
+"letter": null
+},
+{
 "be": "0231-8069",
 "priority": 252,
 "complex": "3065",
@@ -1014,6 +1164,26 @@
 "letter": "R"
 },
 {
+"be": "0614-8414",
+"priority": 258,
+"complex": "1153",
+"name": "WHITE CLOUD CHINA",
+"lat": 23.1667,
+"lon": 113.25,
+"page": 41,
+"letter": "T"
+},
+{
+"be": "0231-8148",
+"priority": 259,
+"complex": "6335",
+"name": "DOBRANY CZECH",
+"lat": 49.6667,
+"lon": 13.2667,
+"page": 9,
+"letter": "R"
+},
+{
 "be": "0324-8615",
 "priority": 265,
 "complex": "6450",
@@ -1031,6 +1201,56 @@
 "lat": 53.7833,
 "lon": 15.8333,
 "page": 34,
+"letter": "R"
+},
+{
+"be": "0169-8281",
+"priority": 267,
+"complex": "7900",
+"name": "STOLP/RETTZ POL",
+"lat": 54.4833,
+"lon": 17.0833,
+"page": 35,
+"letter": "P"
+},
+{
+"be": "0250-8210",
+"priority": 268,
+"complex": "2880",
+"name": "TANCA RUM",
+"lat": 45.15,
+"lon": 27.45,
+"page": 12,
+"letter": "R"
+},
+{
+"be": "0492-8403",
+"priority": 271,
+"complex": "7475",
+"name": "CHIANG WAN CHINA",
+"lat": 31.3333,
+"lon": 121.5,
+"page": 7,
+"letter": null
+},
+{
+"be": "0249-8170",
+"priority": 272,
+"complex": "3400",
+"name": "KERCH/KATERLEZ",
+"lat": 45.3667,
+"lon": 36.4,
+"page": 14,
+"letter": "T"
+},
+{
+"be": "0493-8404",
+"priority": 274,
+"complex": "2585",
+"name": "HAN KOW CHINA",
+"lat": 30.6,
+"lon": 114.25,
+"page": 12,
 "letter": "R"
 },
 {
@@ -1084,6 +1304,16 @@
 "letter": "R"
 },
 {
+"be": "0322-8067",
+"priority": 285,
+"complex": "7685",
+"name": "SOFIVA/KUMARITSA BULG",
+"lat": 42.8,
+"lon": 23.3,
+"page": 34,
+"letter": "R"
+},
+{
 "be": "0328-8623",
 "priority": 289,
 "complex": "1360",
@@ -1102,6 +1332,26 @@
 "lon": 134.4833,
 "page": 2,
 "letter": "55"
+},
+{
+"be": "0323-8022",
+"priority": 292,
+"complex": "7765",
+"name": "BALCHIK BULG",
+"lat": 43.4333,
+"lon": 28.1833,
+"page": 3,
+"letter": "R"
+},
+{
+"be": "0232-8286",
+"priority": 293,
+"complex": "4005",
+"name": "BALICE POL",
+"lat": 50.0833,
+"lon": 19.8,
+"page": 3,
+"letter": "5"
 },
 {
 "be": "0165-8027",
@@ -1374,6 +1624,16 @@
 "letter": "Y"
 },
 {
+"be": "0251-8060",
+"priority": 353,
+"complex": "3358",
+"name": "KECSKEMET HUNG",
+"lat": 46.9167,
+"lon": 19.75,
+"page": 14,
+"letter": "R"
+},
+{
 "be": "0324-8694",
 "priority": 354,
 "complex": "0590",
@@ -1444,6 +1704,16 @@
 "letter": null
 },
 {
+"be": "0290-8472",
+"priority": 364,
+"complex": "2076",
+"name": "TA PAQ MANCH",
+"lat": 40.55,
+"lon": 124.2167,
+"page": 37,
+"letter": "RR"
+},
+{
 "be": "0224-8190",
 "priority": 369,
 "complex": "1420",
@@ -1474,6 +1744,26 @@
 "letter": "R"
 },
 {
+"be": "0251-8022",
+"priority": 385,
+"complex": "1483",
+"name": "CRATOVA RUM",
+"lat": 44.3167,
+"lon": 23.8833,
+"page": 8,
+"letter": "R"
+},
+{
+"be": "0252-8081",
+"priority": 386,
+"complex": "0433",
+"name": "FOKTO HUNG",
+"lat": 46.5333,
+"lon": 18.9333,
+"page": 10,
+"letter": "R"
+},
+{
 "be": "0250-8214",
 "priority": 394,
 "complex": "4925",
@@ -1482,6 +1772,16 @@
 "lon": 27.7333,
 "page": 8,
 "letter": null
+},
+{
+"be": "0169-8240",
+"priority": 396,
+"complex": "9483",
+"name": "WITTSTOCK E GER",
+"lat": 53.2,
+"lon": 12.5333,
+"page": 41,
+"letter": "R"
 },
 {
 "be": "0166-8012",
@@ -1531,7 +1831,7 @@
 "lat": 50.9667,
 "lon": 28.65,
 "page": 17,
-"letter": null
+"letter": "R"
 },
 {
 "be": "0249-8071",
@@ -1564,6 +1864,36 @@
 "letter": "R"
 },
 {
+"be": "0165-8026",
+"priority": 432,
+"complex": "3490",
+"name": "BOBROVKA",
+"lat": 53.15,
+"lon": 50.7,
+"page": 5,
+"letter": null
+},
+{
+"be": "0232-8232",
+"priority": 434,
+"complex": "2315",
+"name": "ZENDEK POL",
+"lat": 50.4833,
+"lon": 19.0833,
+"page": 43,
+"letter": null
+},
+{
+"be": "0322-8068",
+"priority": 436,
+"complex": "2230",
+"name": "GABROVNITSA BULG",
+"lat": 43.55,
+"lon": 23.2667,
+"page": 10,
+"letter": "R"
+},
+{
 "be": "0232-8245",
 "priority": 438,
 "complex": "0935",
@@ -1574,6 +1904,26 @@
 "letter": null
 },
 {
+"be": "0494-8417",
+"priority": 439,
+"complex": "1199",
+"name": "TA TOPU CHINA",
+"lat": 28.1,
+"lon": 112.9667,
+"page": 37,
+"letter": null
+},
+{
+"be": "0232-8246",
+"priority": 441,
+"complex": "0995",
+"name": "BRNO/TURANY CZECH",
+"lat": 49.15,
+"lon": 16.7,
+"page": 5,
+"letter": "5"
+},
+{
 "be": "0251-8073",
 "priority": 444,
 "complex": "0465",
@@ -1582,6 +1932,26 @@
 "lon": 24.9833,
 "page": 3,
 "letter": "8"
+},
+{
+"be": "0232-8209",
+"priority": 445,
+"complex": "5781",
+"name": "GROSS STEIN POL",
+"lat": 50.5333,
+"lon": 16.1,
+"page": 11,
+"letter": "R"
+},
+{
+"be": "0232-8222",
+"priority": 448,
+"complex": "1575",
+"name": "MIELEC POL",
+"lat": 50.3167,
+"lon": 21.45,
+"page": 23,
+"letter": "R"
 },
 {
 "be": "0292-8421",
@@ -1694,6 +2064,16 @@
 "letter": null
 },
 {
+"be": "0231-8116",
+"priority": 492,
+"complex": "1185",
+"name": "MIMON CZECH",
+"lat": 50.6167,
+"lon": 10.1333,
+"page": 23,
+"letter": "R"
+},
+{
 "be": "0200-8018",
 "priority": 493,
 "complex": "8850",
@@ -1722,6 +2102,36 @@
 "lon": 25.0333,
 "page": 13,
 "letter": "R"
+},
+{
+"be": "0232-8272",
+"priority": 500,
+"complex": "6535",
+"name": "SLIAC CZECH",
+"lat": 48.6333,
+"lon": 19.1,
+"page": 34,
+"letter": "R"
+},
+{
+"be": "0231-8062",
+"priority": 502,
+"complex": "1615",
+"name": "OESSAU E GER",
+"lat": 51.8333,
+"lon": 12.2,
+"page": 8,
+"letter": "R"
+},
+{
+"be": "0169-8306",
+"priority": 505,
+"complex": "8100",
+"name": "SZYMANY POL",
+"lat": 53.4833,
+"lon": 20.95,
+"page": 36,
+"letter": null
 },
 {
 "be": "0169-8628",
@@ -1757,7 +2167,7 @@
 "be": "0492-8410",
 "priority": 523,
 "complex": "7475",
-"name": "TA CHANG) CHINA",
+"name": "TA CHANG CHINA",
 "lat": 31.3167,
 "lon": 121.4,
 "page": 36,
@@ -1774,6 +2184,16 @@
 "letter": "R"
 },
 {
+"be": "0492-8407",
+"priority": 530,
+"complex": "1475",
+"name": "LUNG HUA CHINA",
+"lat": 31.1667,
+"lon": 121.45,
+"page": 21,
+"letter": "U"
+},
+{
 "be": "0154-8028",
 "priority": 534,
 "complex": "2960",
@@ -1781,6 +2201,56 @@
 "lat": 56.8,
 "lon": 37.3333,
 "page": 16,
+"letter": "R"
+},
+{
+"be": "0499-8401",
+"priority": 540,
+"complex": "2131",
+"name": "NAN TAI CHINA",
+"lat": 26.0,
+"lon": 119.3167,
+"page": 25,
+"letter": "R"
+},
+{
+"be": "0498-8424",
+"priority": 546,
+"complex": "1350",
+"name": "CHING YANG CHINA",
+"lat": 26.8,
+"lon": 118.5833,
+"page": 7,
+"letter": "R"
+},
+{
+"be": "0231-8164",
+"priority": 548,
+"complex": "0595",
+"name": "BALTZEN/LITTEN E GER",
+"lat": 51.35,
+"lon": 14.65,
+"page": 4,
+"letter": "A"
+},
+{
+"be": "0169-8268",
+"priority": 548,
+"complex": "6485",
+"name": "POZNAN/LAWICA POL",
+"lat": 52.4167,
+"lon": 16.8333,
+"page": 29,
+"letter": "R"
+},
+{
+"be": "0615-8416",
+"priority": 559,
+"complex": "7946",
+"name": "SUT CHI CHINA",
+"lat": 21.3833,
+"lon": 110.2,
+"page": 35,
 "letter": "R"
 },
 {
@@ -1794,6 +2264,36 @@
 "letter": "R"
 },
 {
+"be": "0206-8000",
+"priority": 563,
+"complex": "7440",
+"name": "KATAOKA",
+"lat": 50.7333,
+"lon": 156.2167,
+"page": 14,
+"letter": "R"
+},
+{
+"be": "0289-8423",
+"priority": 564,
+"complex": "0249",
+"name": "TENG AO PAQ MANCH",
+"lat": 41.1,
+"lon": 122.85,
+"page": 37,
+"letter": "5"
+},
+{
+"be": "9231-8063",
+"priority": 568,
+"complex": "1461",
+"name": "OREWITZ E GER",
+"lat": 51.8833,
+"lon": 14.5333,
+"page": 9,
+"letter": null
+},
+{
 "be": "0153-8102",
 "priority": 571,
 "complex": "4225",
@@ -1802,6 +2302,16 @@
 "lon": 22.5167,
 "page": 18,
 "letter": "R"
+},
+{
+"be": "0167-8039",
+"priority": 571,
+"complex": "5150",
+"name": "MOSCOW /BYKOVO",
+"lat": 55.6167,
+"lon": 38.05,
+"page": 23,
+"letter": "RA"
 },
 {
 "be": "0380-8439",
@@ -1914,6 +2424,16 @@
 "letter": null
 },
 {
+"be": "0102-8018",
+"priority": 602,
+"complex": "6240",
+"name": "PETROZAVODSK",
+"lat": 61.8333,
+"lon": 34.3,
+"page": 28,
+"letter": "RF"
+},
+{
 "be": "0028-8001",
 "priority": 603,
 "complex": "3926",
@@ -1952,6 +2472,16 @@
 "lon": 98.8833,
 "page": 40,
 "letter": "RR"
+},
+{
+"be": "9075-8023",
+"priority": 611,
+"complex": "4436",
+"name": "LAVRENTIYA",
+"lat": 65.5833,
+"lon": 171.0,
+"page": 19,
+"letter": "H"
 },
 {
 "be": "0102-8014",
@@ -2001,6 +2531,16 @@
 "lat": 63.8667,
 "lon": 30.3167,
 "page": 23,
+"letter": "R"
+},
+{
+"be": "0322-8082",
+"priority": 626,
+"complex": "1645",
+"name": "GORSKI IZVOR BULG",
+"lat": 42.05,
+"lon": 25.4167,
+"page": 11,
 "letter": "R"
 },
 {
@@ -2084,6 +2624,26 @@
 "letter": "T"
 },
 {
+"be": "0169-8249",
+"priority": 640,
+"complex": "2455",
+"name": "GRUDZIADZ POL",
+"lat": 53.4667,
+"lon": 18.7833,
+"page": 11,
+"letter": "R"
+},
+{
+"be": "0203-8628",
+"priority": 640,
+"complex": "6483",
+"name": "POZOEYEVKA",
+"lat": 50.5833,
+"lon": 128.9667,
+"page": 29,
+"letter": "R"
+},
+{
 "be": "0166-8028",
 "priority": 642,
 "complex": "7070",
@@ -2102,6 +2662,16 @@
 "lon": 30.6,
 "page": 40,
 "letter": "R"
+},
+{
+"be": "0169-8298",
+"priority": 647,
+"complex": "4538",
+"name": "LEZNICA WIELKA FOL",
+"lat": 52.0,
+"lon": 19.15,
+"page": 20,
+"letter": "2"
 },
 {
 "be": "0291-8664",
@@ -2162,6 +2732,36 @@
 "lon": 132.4333,
 "page": 28,
 "letter": null
+},
+{
+"be": "0386-8410",
+"priority": 682,
+"complex": "6031",
+"name": "PANG FOU CHINA",
+"lat": 32.9333,
+"lon": 117.3667,
+"page": 28,
+"letter": "R"
+},
+{
+"be": "0493-8413",
+"priority": 684,
+"complex": "2585",
+"name": "WU CHANG SATELLITE CHINA",
+"lat": 30.6,
+"lon": 124.35,
+"page": 42,
+"letter": "T"
+},
+{
+"be": "0169-8244",
+"priority": 687,
+"complex": "2255",
+"name": "GDANSK POL",
+"lat": 54.4,
+"lon": 18.6,
+"page": 10,
+"letter": "T"
 },
 {
 "be": "0291-8602",
@@ -2272,6 +2872,26 @@
 "lon": 92.9,
 "page": 18,
 "letter": "5"
+},
+{
+"be": "0232-8627",
+"priority": 729,
+"complex": "3987",
+"name": "KOVEL",
+"lat": 51.2333,
+"lon": 24.7167,
+"page": 17,
+"letter": "R"
+},
+{
+"be": "0322-8044",
+"priority": 732,
+"complex": "7841",
+"name": "STARA ZAGORA BULG",
+"lat": 42.3833,
+"lon": 25.65,
+"page": 35,
+"letter": "RR"
 },
 {
 "be": "0154-8069",
@@ -2584,6 +3204,46 @@
 "letter": "5"
 },
 {
+"be": "0250-8203",
+"priority": 815,
+"complex": "1455",
+"name": "CONSTANTA/MAMATA RUM",
+"lat": 44.3,
+"lon": 28.6167,
+"page": 8,
+"letter": null
+},
+{
+"be": "0169-8622",
+"priority": 820,
+"complex": "4430",
+"name": "LABEHN POL",
+"lat": 54.65,
+"lon": 17.7333,
+"page": 19,
+"letter": null
+},
+{
+"be": "0169-8624",
+"priority": 821,
+"complex": "1390",
+"name": "KONARZYNY POL",
+"lat": 53.8167,
+"lon": 17.35,
+"page": 17,
+"letter": "5"
+},
+{
+"be": "0232-8230",
+"priority": 825,
+"complex": "7095",
+"name": "RZEZOW/JASTONKA POL",
+"lat": 50.1,
+"lon": 22.05,
+"page": 31,
+"letter": "R"
+},
+{
 "be": "0325-8729",
 "priority": 829,
 "complex": "9310",
@@ -2642,6 +3302,16 @@
 "lon": 132.7833,
 "page": 5,
 "letter": "T"
+},
+{
+"be": "0322-8043",
+"priority": 857,
+"complex": "7685",
+"name": "SOPTYA/VRAZHDEBNA BULG",
+"lat": 43.7,
+"lon": 23.4,
+"page": 34,
+"letter": null
 },
 {
 "be": "0235-8030",
@@ -2704,6 +3374,16 @@
 "letter": null
 },
 {
+"be": "0233-8063",
+"priority": 875,
+"complex": "7660",
+"name": "ROTMISTROVKA",
+"lat": 49.1333,
+"lon": 31.6833,
+"page": 31,
+"letter": "R"
+},
+{
 "be": "0249-8004",
 "priority": 879,
 "complex": "0280",
@@ -2734,14 +3414,74 @@
 "letter": "2"
 },
 {
+"be": "0251-8024",
+"priority": 884,
+"complex": "5807",
+"name": "GHIMBAV RUM",
+"lat": 45.7,
+"lon": 25.5333,
+"page": 10,
+"letter": "5"
+},
+{
+"be": "0322-8032",
+"priority": 885,
+"complex": "4685",
+"name": "LOVECH BULG",
+"lat": 43.1667,
+"lon": 24.7167,
+"page": 21,
+"letter": "R"
+},
+{
+"be": "0322-8042",
+"priority": 886,
+"complex": "7685",
+"name": "SOFIYA/BOZHURISHTE BULG",
+"lat": 42.75,
+"lon": 23.2,
+"page": 34,
+"letter": "T"
+},
+{
+"be": "0232-8283",
+"priority": 888,
+"complex": "5925",
+"name": "HOLESOV CZECH",
+"lat": 49.3167,
+"lon": 17.5667,
+"page": 12,
+"letter": "R"
+},
+{
 "be": "0232-8259",
 "priority": 889,
 "complex": "5605",
-"name": "PIESTANY) CZECH",
+"name": "PIESTANY CZECH",
 "lat": 48.45,
 "lon": 27.8333,
 "page": 29,
 "letter": "0B"
+},
+{
+"be": "0232-8268",
+"priority": 891,
+"complex": "1805",
+"name": "TRENCIN CZECH.",
+"lat": 48.8667,
+"lon": 18.0167,
+"page": 38,
+"letter": "R"
+},
+{
+"be": "0065-8007",
+"priority": 893,
+"complex": "6242",
+"name": "PEVEK",
+"lat": 69.7,
+"lon": 170.3333,
+"page": 29,
+"letter": "RP"
 },
 {
 "be": "0153-8101",
@@ -2842,6 +3582,16 @@
 "lon": 35.4833,
 "page": 18,
 "letter": null
+},
+{
+"be": "0249-8188",
+"priority": 912,
+"complex": "4040",
+"name": "KRASNODAR/PASHKOVSKAYA",
+"lat": 45.0333,
+"lon": 39.15,
+"page": 18,
+"letter": "5"
 },
 {
 "be": "0234-8036",
@@ -2992,6 +3742,16 @@
 "lon": 132.8333,
 "page": 41,
 "letter": "5"
+},
+{
+"be": "0322-8047",
+"priority": 944,
+"complex": "9604",
+"name": "YAMBOL BULG",
+"lat": 42.6833,
+"lon": 26.5,
+"page": 42,
+"letter": "R"
 },
 {
 "be": "0167-8017",
@@ -3334,6 +4094,26 @@
 "letter": "R"
 },
 {
+"be": "0496-8404",
+"priority": 1032,
+"complex": "4203",
+"name": "CHENG KUNG CHINA",
+"lat": 24.85,
+"lon": 102.8,
+"page": 7,
+"letter": null
+},
+{
+"be": "0496-8411",
+"priority": 1034,
+"complex": "4673",
+"name": "LO PING CHINA",
+"lat": 24.8833,
+"lon": 104.35,
+"page": 21,
+"letter": "R"
+},
+{
 "be": "0498-8405",
 "priority": 1038,
 "complex": "8305",
@@ -3342,6 +4122,26 @@
 "lon": 114.6167,
 "page": 12,
 "letter": "RR"
+},
+{
+"be": "0383-8402",
+"priority": 1039,
+"complex": "4403",
+"name": "KAO LAN CHINA",
+"lat": 36.05,
+"lon": 103.8,
+"page": 14,
+"letter": "R"
+},
+{
+"be": "0497-8412",
+"priority": 1040,
+"complex": "4168",
+"name": "YANG TANG CHINA",
+"lat": 25.2167,
+"lon": 110.1667,
+"page": 42,
+"letter": null
 },
 {
 "be": "0497-8404",
@@ -3372,6 +4172,16 @@
 "lon": 49.9833,
 "page": 3,
 "letter": "5"
+},
+{
+"be": "0289-8004",
+"priority": 1053,
+"complex": "4575",
+"name": "CHIN HSI MANCH",
+"lat": 40.75,
+"lon": 120.8833,
+"page": 7,
+"letter": "R"
 },
 {
 "be": "0203-8616",
@@ -3592,6 +4402,16 @@
 "lon": 26.1,
 "page": 40,
 "letter": "R"
+},
+{
+"be": "0154-8033",
+"priority": 1107,
+"complex": "9110",
+"name": "DOBRYNSKOYE",
+"lat": 56.25,
+"lon": 40.6,
+"page": 9,
+"letter": null
 },
 {
 "be": "0328-8628",

@@ -53,12 +53,30 @@ def dm_to_degrees(value: str, width: int) -> float | None:
     return degrees + minutes / 60
 
 
+DIGIT_LOOKALIKES = str.maketrans({"O": "0", "o": "0", "B": "8", "S": "5", "l": "1", "I": "1", "§": "5", "£": "6"})
+
+
+def fix_digit_groups(line: str) -> str:
+    """Tokens that are mostly digits with look-alike letters become digits: O205=BOO1 -> 0205=8001."""
+    out = []
+    for tok in line.split(" "):
+        core = re.sub(r"[-~=*+\"'`]", "", tok)
+        digits = sum(ch.isdigit() for ch in core)
+        if len(core) >= 3 and digits >= max(2, len(core) - 2) and re.fullmatch(r"[0-9OoBSlI§£\-~=*+\"'`]+", tok):
+            tok = tok.translate(DIGIT_LOOKALIKES)
+        out.append(tok)
+    return " ".join(out)
+
+
 def clean(line: str) -> str:
     # Strip the scanner margin noise that tesseract reads as punctuation.
-    line = line.replace("€", "E").replace("°", " ").replace("§", "5").replace("—", "-").replace("–", "-")
+    line = line.replace("€", "E").replace("°", " ").replace("§", "5").replace("«", " ").replace("‘", " ")
+    line = fix_digit_groups(line).replace("—", "-").replace("–", "-")
     line = re.sub(r"^\s*\$(?=\d)", "5", line)
     line = re.sub(r"[|;:,'\"‘’“”`·•]+", " ", line)
     line = re.sub(r"(\d)~", r"\1-", line)
+    line = re.sub(r"(?<=\d)\s*[=*+\"'`]+\s*(?=\d)", "-", line)
+    line = re.sub(r"\b([A-Z]{3,})[a-z]{1,2}\b", r"\1", line)
     # Scanner margin marks read as short junk tokens before the real row.
     line = re.sub(r"^(?:[^\w\s]+\s*|[A-Za-z]{1,2}[^\w\s]*\s+)+", "", line.lstrip())
     line = re.sub(r"\s+", " ", line)

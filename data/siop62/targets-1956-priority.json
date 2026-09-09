@@ -1,6 +1,6 @@
 {
-"source": "SAC Atomic Weapons Requirements Study for 1959 (June 1956), NSA EBB 538, 1st city list; transcription first pass",
-"count": 863,
+"source": "SAC Atomic Weapons Requirements Study for 1959 (June 1956), NSA EBB 538, 1st city list; transcription third pass",
+"count": 870,
 "targets": [
 {
 "complex": "9150",
@@ -17,6 +17,7 @@
 30,
 48,
 54,
+55,
 62,
 64,
 66,
@@ -185,6 +186,7 @@
 "page": 185,
 "confidence": "high",
 "categories": [
+10,
 16,
 23,
 40,
@@ -208,12 +210,12 @@
 ],
 "population": false,
 "categoryNames": [
+"Agricultural equipment",
 "Airframes",
 "Ammunition",
 "Atomic energy industry",
 "Atomic energy feed material",
-"Cutting tools",
-"Electric power, major grids: Kuznetsk"
+"Cutting tools"
 ]
 },
 {
@@ -369,6 +371,7 @@
 "page": 199,
 "confidence": "high",
 "categories": [
+75,
 186,
 208,
 230,
@@ -386,12 +389,12 @@
 ],
 "population": true,
 "categoryNames": [
+"Coke chemicals",
 "Electric power, satellites: China, outside grids",
 "Government control centers",
 "Machine tools",
 "Military controls, Air Force",
-"Military headquarters, Army",
-"Military headquarters, Navy"
+"Military headquarters, Army"
 ]
 },
 {
@@ -492,6 +495,7 @@
 23,
 98,
 130,
+208,
 227,
 242,
 243,
@@ -514,9 +518,9 @@
 "Ammunition",
 "Electric equipment",
 "Electric power outside grids: Far East Economic Region",
+"Government control centers",
 "Liquid fuels, storage non-refinery",
-"Military headquarters, Navy",
-"Military schools"
+"Military headquarters, Navy"
 ]
 },
 {
@@ -743,7 +747,8 @@
 228,
 275,
 281,
-360
+360,
+470
 ],
 "population": true,
 "categoryNames": [
@@ -918,6 +923,7 @@
 "page": 260,
 "confidence": "high",
 "categories": [
+110,
 208,
 227,
 240,
@@ -937,12 +943,12 @@
 ],
 "population": true,
 "categoryNames": [
+"Electric power, major grids: Leningrad",
 "Government control centers",
 "Liquid fuels, storage non-refinery",
 "Military controls, Air Force",
 "Military headquarters, Navy",
-"Military storage areas, Army and Navy",
-"Military troop installations"
+"Military storage areas, Army and Navy"
 ]
 },
 {
@@ -1161,6 +1167,7 @@
 "page": 254,
 "confidence": "high",
 "categories": [
+55,
 64,
 82,
 90,
@@ -1190,12 +1197,12 @@
 ],
 "population": true,
 "categoryNames": [
+"Boilers, high pressure",
 "Chemical equipment",
 "Copper, refined",
 "Cutting tools",
 "Earth moving equipment",
-"Electric wire and cable",
-"Generators, heavy"
+"Electric wire and cable"
 ]
 },
 {
@@ -1363,6 +1370,7 @@
 227,
 230,
 240,
+246,
 248,
 275,
 280,
@@ -1381,7 +1389,7 @@
 "Liquid fuels, storage non-refinery",
 "Machine tools",
 "Military controls, Air Force",
-"Military troop installations"
+"Military storage areas, Army and Navy"
 ]
 },
 {
@@ -1473,6 +1481,7 @@
 "categories": [
 140,
 208,
+227,
 240,
 241,
 243,
@@ -1487,10 +1496,10 @@
 "categoryNames": [
 "Electric power outside grids: Northwest Economic Region",
 "Government control centers",
+"Liquid fuels, storage non-refinery",
 "Military controls, Air Force",
 "Military headquarters, Army",
-"Military schools",
-"Population"
+"Military schools"
 ]
 },
 {
@@ -1635,6 +1644,7 @@
 95,
 188,
 200,
+206,
 208,
 226,
 227,
@@ -1728,6 +1738,7 @@
 "confidence": "high",
 "categories": [
 5,
+10,
 19,
 23,
 30,
@@ -1776,17 +1787,18 @@
 430,
 440,
 480,
+485,
 690,
 910
 ],
 "population": true,
 "categoryNames": [
 "Abrasives, bonded",
+"Agricultural equipment",
 "Ammunition",
 "Anti-friction bearings",
 "Batteries, lead acid",
-"Boilers, high pressure",
-"Caustic soda"
+"Boilers, high pressure"
 ]
 },
 {
@@ -1856,6 +1868,7 @@
 200,
 202,
 208,
+214,
 227,
 230,
 240,
@@ -2102,6 +2115,7 @@
 112,
 208,
 224,
+226,
 227,
 246,
 275,
@@ -2115,10 +2129,10 @@
 "categoryNames": [
 "Electric power, major grids: Moscow-Gorkiy",
 "Government control centers",
+"Liquid fuels, storage at refineries",
 "Liquid fuels, storage non-refinery",
 "Military storage areas, Army and Navy",
-"Population",
-"Railroad bridges"
+"Population"
 ]
 },
 {
@@ -2263,7 +2277,8 @@
 430,
 445,
 450,
-475
+475,
+490
 ],
 "population": true,
 "categoryNames": [
@@ -2572,6 +2587,7 @@
 186,
 208,
 214,
+227,
 230,
 243,
 246,
@@ -2827,6 +2843,7 @@
 "page": 209,
 "confidence": "high",
 "categories": [
+10,
 50,
 90,
 196,
@@ -2843,12 +2860,12 @@
 ],
 "population": true,
 "categoryNames": [
+"Agricultural equipment",
 "Batteries, lead acid",
 "Cutting tools",
 "Electric power, satellites: Poland",
 "Government control centers",
-"Guns, small arms",
-"Machine tools"
+"Guns, small arms"
 ]
 },
 {
@@ -2901,16 +2918,11 @@
 208,
 227,
 242,
-246,
 248,
 275,
 280,
-281,
-285,
 290,
-312,
 358,
-360,
 420,
 437
 ],
@@ -2920,8 +2932,8 @@
 "Government control centers",
 "Liquid fuels, storage non-refinery",
 "Military headquarters, Navy",
-"Military storage areas, Army and Navy",
-"Military troop installations"
+"Military troop installations",
+"Population"
 ]
 },
 {
@@ -2942,6 +2954,7 @@
 248,
 275,
 280,
+354,
 420,
 437,
 470
@@ -3666,7 +3679,6 @@
 "confidence": "high",
 "categories": [
 50,
-120,
 208,
 246,
 275,
@@ -3675,7 +3687,6 @@
 "population": true,
 "categoryNames": [
 "Batteries, lead acid",
-"Electric power outside grids: Central Industrial Region",
 "Government control centers",
 "Military storage areas, Army and Navy",
 "Population"
@@ -3800,6 +3811,7 @@
 275,
 285,
 290,
+331,
 382,
 405,
 430,
@@ -4116,6 +4128,28 @@
 ]
 },
 {
+"complex": "7095",
+"priority": 156,
+"name": "R2ESZOW POL",
+"lat": 50.0167,
+"lon": 21.9833,
+"page": 224,
+"confidence": "high",
+"categories": [
+15,
+245,
+275,
+392
+],
+"population": true,
+"categoryNames": [
+"Aircraft engines",
+"Military storage areas, Air Force",
+"Population",
+"Railroad yards and shops, satellites: North Korea (uncertain code)"
+]
+},
+{
 "complex": "0935",
 "priority": 157,
 "name": "BRATISLAVA CZECH",
@@ -4211,6 +4245,7 @@
 55,
 56,
 62,
+64,
 68,
 75,
 82,
@@ -4242,9 +4277,9 @@
 "Ammonia, synthetic",
 "Boilers, high pressure",
 "Caustic soda",
+"Chemical equipment",
 "Chlorine",
-"Coke chemicals",
-"Copper, refined"
+"Coke chemicals"
 ]
 },
 {
@@ -4339,6 +4374,7 @@
 224,
 226,
 227,
+228,
 230,
 240,
 241,
@@ -4381,6 +4417,7 @@
 208,
 224,
 226,
+227,
 230,
 246,
 248,
@@ -4495,6 +4532,7 @@
 10,
 55,
 56,
+64,
 95,
 188,
 208,
@@ -4522,10 +4560,10 @@
 "categoryNames": [
 "Agricultural equipment",
 "Boilers, high pressure",
+"Chemical equipment",
 "Earth moving equipment",
 "Electric power, satellites: Czechoslovakia",
-"Government control centers",
-"Guns, major caliber"
+"Government control centers"
 ]
 },
 {
@@ -4570,6 +4608,7 @@
 70,
 75,
 196,
+208,
 216,
 246,
 248,
@@ -4609,6 +4648,7 @@
 188,
 200,
 246,
+248,
 256,
 275
 ],
@@ -5065,6 +5105,7 @@
 "page": 200,
 "confidence": "high",
 "categories": [
+23,
 120,
 208,
 227,
@@ -5077,12 +5118,12 @@
 ],
 "population": true,
 "categoryNames": [
+"Ammunition",
 "Electric power outside grids: Central Industrial Region",
 "Government control centers",
 "Liquid fuels, storage non-refinery",
 "Military schools",
-"Military storage areas, Army and Navy",
-"Military troop installations"
+"Military storage areas, Army and Navy"
 ]
 },
 {
@@ -5250,6 +5291,7 @@
 275,
 298,
 394,
+405,
 445
 ],
 "population": true,
@@ -5366,6 +5408,7 @@
 5,
 6,
 62,
+68,
 198,
 208,
 248,
@@ -5378,9 +5421,9 @@
 "Abrasives, bonded",
 "Abrasives, crude",
 "Caustic soda",
+"Chlorine",
 "Electric power, satellites: Rumania",
-"Government control centers",
-"Military troop installations"
+"Government control centers"
 ]
 },
 {
@@ -5632,6 +5675,7 @@
 68,
 106,
 186,
+206,
 208,
 224,
 226,
@@ -6091,25 +6135,22 @@
 "confidence": "high",
 "categories": [
 10,
-15,
 112,
 227,
 243,
-245,
 261,
 275,
 281,
-362,
-392
+362
 ],
 "population": true,
 "categoryNames": [
 "Agricultural equipment",
-"Aircraft engines",
 "Electric power, major grids: Moscow-Gorkiy",
 "Liquid fuels, storage non-refinery",
 "Military schools",
-"Military storage areas, Air Force"
+"Population",
+"Railroad yards and shops, USSR: Southern sub-region, Central Industrial Region"
 ]
 },
 {
@@ -6416,6 +6457,7 @@
 "categories": [
 16,
 196,
+208,
 245,
 248,
 252,
@@ -6426,10 +6468,10 @@
 "categoryNames": [
 "Airframes",
 "Electric power, satellites: Poland",
+"Government control centers",
 "Military storage areas, Air Force",
 "Military troop installations",
-"Motor vehicles",
-"Population"
+"Motor vehicles"
 ]
 },
 {
@@ -6921,6 +6963,7 @@
 "page": 190,
 "confidence": "high",
 "categories": [
+208,
 230,
 235,
 248,
@@ -6930,6 +6973,7 @@
 ],
 "population": true,
 "categoryNames": [
+"Government control centers",
 "Machine tools",
 "Military troop installations",
 "Population",
@@ -6979,12 +7023,14 @@
 "categories": [
 95,
 106,
+250,
 275
 ],
 "population": true,
 "categoryNames": [
 "Earth moving equipment",
 "Electric power, major grids: Dnepr-Donets",
+"Mining machinery",
 "Population"
 ]
 },
@@ -7192,6 +7238,7 @@
 "categories": [
 170,
 230,
+246,
 275,
 281,
 370
@@ -7200,6 +7247,7 @@
 "categoryNames": [
 "Electric power outside grids: West Economic Region",
 "Machine tools",
+"Military storage areas, Army and Navy",
 "Population",
 "Railroad yards and shops, USSR: Western Region"
 ]
@@ -7293,6 +7341,9 @@
 "categories": [
 47,
 72,
+75,
+82,
+84,
 190,
 227,
 250,
@@ -7301,6 +7352,7 @@
 275,
 386,
 388,
+390,
 445,
 475
 ],
@@ -7308,10 +7360,10 @@
 "categoryNames": [
 "Atomic energy heavy water",
 "Cobalt",
-"Electric power, satellites: East Germany",
-"Liquid fuels, storage non-refinery",
-"Mining machinery",
-"Nickel, refined"
+"Coke chemicals",
+"Copper, refined",
+"Copper, smelted",
+"Electric power, satellites: East Germany"
 ]
 },
 {
@@ -7472,6 +7524,7 @@
 "confidence": "high",
 "categories": [
 208,
+227,
 275,
 278,
 324,
@@ -7481,6 +7534,7 @@
 "population": true,
 "categoryNames": [
 "Government control centers",
+"Liquid fuels, storage non-refinery",
 "Population",
 "Railroad equipment repair plants, USSR: West Siberian Region",
 "Railroad yards and shops, USSR: East Siberian and Far Eastern Region",
@@ -7591,6 +7645,7 @@
 "page": 137,
 "confidence": "high",
 "categories": [
+82,
 208,
 230,
 243,
@@ -7598,6 +7653,7 @@
 ],
 "population": true,
 "categoryNames": [
+"Copper, refined",
 "Government control centers",
 "Machine tools",
 "Military schools",
@@ -7687,29 +7743,6 @@
 ]
 },
 {
-"complex": "5250",
-"priority": 316,
-"name": "MU TAN CHIANG MANCH",
-"lat": 44.5833,
-"lon": 129.6,
-"page": 174,
-"confidence": "medium",
-"categories": [
-186,
-248,
-275,
-290,
-623
-],
-"population": true,
-"categoryNames": [
-"Electric power, satellites: China, outside grids",
-"Military troop installations",
-"Population",
-"Railroad bridges"
-]
-},
-{
 "complex": "4050",
 "priority": 318,
 "name": "KRASNOKAMSK",
@@ -7781,6 +7814,7 @@
 215,
 227,
 230,
+235,
 241,
 245,
 246,
@@ -7798,6 +7832,7 @@
 390,
 392,
 430,
+435,
 475
 ],
 "population": true,
@@ -7915,12 +7950,14 @@
 "categories": [
 10,
 214,
+230,
 275
 ],
 "population": true,
 "categoryNames": [
 "Agricultural equipment",
 "Guns, small arms",
+"Machine tools",
 "Population"
 ]
 },
@@ -8132,6 +8169,7 @@
 "page": 255,
 "confidence": "high",
 "categories": [
+23,
 230,
 245,
 248,
@@ -8140,6 +8178,7 @@
 ],
 "population": true,
 "categoryNames": [
+"Ammunition",
 "Machine tools",
 "Military storage areas, Air Force",
 "Military troop installations",
@@ -8464,6 +8503,7 @@
 "categories": [
 10,
 135,
+208,
 275,
 372
 ],
@@ -8471,6 +8511,7 @@
 "categoryNames": [
 "Agricultural equipment",
 "Electric power outside grids: Kazakhstan-Central Asia Economic Region",
+"Government control centers",
 "Population",
 "Railroad yards and shops, USSR: West Siberian Region"
 ]
@@ -8927,13 +8968,17 @@
 "page": 296,
 "confidence": "high",
 "categories": [
+120,
 230,
-275
+275,
+362
 ],
 "population": true,
 "categoryNames": [
+"Electric power outside grids: Central Industrial Region",
 "Machine tools",
-"Population"
+"Population",
+"Railroad yards and shops, USSR: Southern sub-region, Central Industrial Region"
 ]
 },
 {
@@ -8963,6 +9008,7 @@
 "page": 201,
 "confidence": "high",
 "categories": [
+23,
 175,
 198,
 208,
@@ -8977,12 +9023,12 @@
 ],
 "population": true,
 "categoryNames": [
+"Ammunition",
 "Electric power outside grids: West Siberian Economic Region",
 "Electric power, satellites: Rumania",
 "Government control centers",
 "Liquid fuels, storage non-refinery",
-"Military storage areas, Army and Navy",
-"Military troop installations"
+"Military storage areas, Army and Navy"
 ]
 },
 {
@@ -8994,29 +9040,53 @@
 "page": 199,
 "confidence": "high",
 "categories": [
-23,
-190,
 192,
 208,
 241,
 248,
-254,
 275,
-280,
 335,
-384,
-390,
-415,
-420
+390
 ],
 "population": true,
 "categoryNames": [
-"Ammunition",
-"Electric power, satellites: East Germany",
 "Electric power, satellites: Hungary",
 "Government control centers",
 "Military headquarters, Army",
-"Military troop installations"
+"Military troop installations",
+"Population",
+"Railroad equipment repair plants, satellites: Hungary"
+]
+},
+{
+"complex": "5250",
+"priority": 387,
+"name": "MUROM",
+"lat": 55.5667,
+"lon": 42.05,
+"page": 174,
+"confidence": "high",
+"categories": [
+186,
+227,
+246,
+248,
+275,
+281,
+285,
+290,
+312,
+360,
+623
+],
+"population": true,
+"categoryNames": [
+"Electric power, satellites: China, outside grids",
+"Liquid fuels, storage non-refinery",
+"Military storage areas, Army and Navy",
+"Military troop installations",
+"Population",
+"Radio and television"
 ]
 },
 {
@@ -9178,12 +9248,14 @@
 "categories": [
 227,
 275,
+302,
 350
 ],
 "population": true,
 "categoryNames": [
 "Liquid fuels, storage non-refinery",
 "Population",
+"Railroad equipment repair plants, USSR: Caucasus Region",
 "Railroad yards and shops, USSR: Caucasus Region"
 ]
 },
@@ -9396,6 +9468,7 @@
 "page": 68,
 "confidence": "high",
 "categories": [
+10,
 95,
 190,
 227,
@@ -9408,12 +9481,12 @@
 ],
 "population": true,
 "categoryNames": [
+"Agricultural equipment",
 "Earth moving equipment",
 "Electric power, satellites: East Germany",
 "Liquid fuels, storage non-refinery",
 "Locks and dams",
-"Military schools",
-"Military storage areas, Army and Navy"
+"Military schools"
 ]
 },
 {
@@ -10271,11 +10344,13 @@
 "page": 61,
 "confidence": "high",
 "categories": [
+10,
 275,
 358
 ],
 "population": true,
 "categoryNames": [
+"Agricultural equipment",
 "Population",
 "Railroad yards and shops, USSR: Northern Region"
 ]
@@ -10332,6 +10407,34 @@
 "Electric power, satellites: Hungary",
 "Population",
 "Railroad yards and shops, satellites: Hungary"
+]
+},
+{
+"complex": "6095",
+"priority": 466,
+"name": "PEENEMUNDE E GER",
+"lat": 54.1333,
+"lon": 13.7833,
+"page": 199,
+"confidence": "high",
+"categories": [
+23,
+190,
+254,
+275,
+280,
+384,
+415,
+420
+],
+"population": true,
+"categoryNames": [
+"Ammunition",
+"Electric power, satellites: East Germany",
+"Naval operating bases",
+"Population",
+"Ports, maritime",
+"Railroad yards and shops, satellites: China"
 ]
 },
 {
@@ -10564,12 +10667,14 @@
 "page": 239,
 "confidence": "medium",
 "categories": [
+120,
 248,
 275,
 376
 ],
 "population": true,
 "categoryNames": [
+"Electric power outside grids: Central Industrial Region",
 "Military troop installations",
 "Population",
 "Railroad yards and shops, USSR: West sub-region, Ukraine Region"
@@ -10953,6 +11058,32 @@
 ]
 },
 {
+"complex": "0280",
+"priority": 499,
+"name": "ARMAVIR",
+"lat": 45.0,
+"lon": 61.1167,
+"page": 9,
+"confidence": "high",
+"categories": [
+227,
+246,
+248,
+262,
+275,
+350
+],
+"population": true,
+"categoryNames": [
+"Liquid fuels, storage non-refinery",
+"Military storage areas, Army and Navy",
+"Military troop installations",
+"Oil extraction equipment",
+"Population",
+"Railroad yards and shops, USSR: Caucasus Region"
+]
+},
+{
 "complex": "3910",
 "priority": 501,
 "name": "KOROSTEN .",
@@ -11203,6 +11334,7 @@
 "page": 228,
 "confidence": "high",
 "categories": [
+56,
 198,
 248,
 250,
@@ -11717,6 +11849,7 @@
 198,
 226,
 227,
+234,
 243,
 245,
 246,
@@ -11729,8 +11862,8 @@
 "Electric power, satellites: Rumania",
 "Liquid fuels, storage at refineries",
 "Liquid fuels, storage non-refinery",
-"Military schools",
-"Military storage areas, Air Force"
+"Mercury",
+"Military schools"
 ]
 },
 {
@@ -11992,12 +12125,14 @@
 "page": 176,
 "confidence": "high",
 "categories": [
+15,
 208,
 275,
 281
 ],
 "population": true,
 "categoryNames": [
+"Aircraft engines",
 "Government control centers",
 "Population"
 ]
@@ -12767,11 +12902,13 @@
 "page": 220,
 "confidence": "high",
 "categories": [
+10,
 275,
 290
 ],
 "population": true,
 "categoryNames": [
+"Agricultural equipment",
 "Population",
 "Railroad bridges"
 ]
@@ -12898,25 +13035,19 @@
 "confidence": "high",
 "categories": [
 23,
-208,
 230,
 240,
 246,
-248,
 272,
-278,
-282,
-350,
-390
+282
 ],
 "population": false,
 "categoryNames": [
 "Ammunition",
-"Government control centers",
 "Machine tools",
 "Military controls, Air Force",
 "Military storage areas, Army and Navy",
-"Military troop installations"
+"Ports, inland"
 ]
 },
 {
@@ -13076,6 +13207,36 @@
 "categoryNames": [
 "Population",
 "Railroad yards and shops, USSR: Northeast sub-region, Central Industrial Region"
+]
+},
+{
+"complex": "2996",
+"priority": 638,
+"name": "JAROCIN POL 302 0232-1096",
+"lat": 51.9667,
+"lon": 17.5,
+"page": 103,
+"confidence": "high",
+"categories": [
+190,
+246,
+248,
+264,
+266,
+268,
+275,
+334,
+388,
+435
+],
+"population": true,
+"categoryNames": [
+"Electric power, satellites: East Germany",
+"Military storage areas, Army and Navy",
+"Military troop installations",
+"Optical equipment",
+"Penicillin",
+"Periscopes, submarine"
 ]
 },
 {
@@ -13794,14 +13955,16 @@
 226,
 275,
 278,
-290
+290,
+336
 ],
 "population": true,
 "categoryNames": [
 "Electric power, satellites: Poland",
 "Liquid fuels, storage at refineries",
 "Population",
-"Railroad bridges"
+"Railroad bridges",
+"Railroad equipment repair plants, satellites: Poland"
 ]
 },
 {
@@ -13900,12 +14063,14 @@
 "page": 2,
 "confidence": "high",
 "categories": [
+116,
 248,
 275,
 278
 ],
 "population": true,
 "categoryNames": [
+"Electric power, major grids: Trans-Caucasus",
 "Military troop installations",
 "Population"
 ]
@@ -14386,22 +14551,13 @@
 "page": 9,
 "confidence": "high",
 "categories": [
-227,
-246,
-248,
-262,
 275,
-350,
 354
 ],
 "population": true,
 "categoryNames": [
-"Liquid fuels, storage non-refinery",
-"Military storage areas, Army and Navy",
-"Military troop installations",
-"Oil extraction equipment",
 "Population",
-"Railroad yards and shops, USSR: Caucasus Region"
+"Railroad yards and shops, USSR: East Siberian and Far Eastern Region"
 ]
 },
 {
@@ -14634,6 +14790,7 @@
 270,
 275,
 294,
+376,
 430
 ],
 "population": true,
@@ -14763,7 +14920,6 @@
 16,
 112,
 160,
-190,
 204,
 208,
 212,
@@ -14771,19 +14927,12 @@
 227,
 230,
 246,
-248,
 250,
-264,
-266,
-268,
 275,
 285,
 304,
-334,
 360,
-388,
 430,
-435,
 445
 ],
 "population": true,
@@ -14791,9 +14940,9 @@
 "Airframes",
 "Electric power, major grids: Moscow-Gorkiy",
 "Electric power outside grids: Urals Region",
-"Electric power, satellites: East Germany",
 "Ferro-alloys",
-"Government control centers"
+"Government control centers",
+"Guns, major caliber"
 ]
 },
 {
@@ -15469,6 +15618,31 @@
 ]
 },
 {
+"complex": "3356",
+"priority": 807,
+"name": "KAZI MAGOMED",
+"lat": 40.05,
+"lon": 48.9333,
+"page": 113,
+"confidence": "high",
+"categories": [
+208,
+248,
+275,
+278,
+350,
+390
+],
+"population": true,
+"categoryNames": [
+"Government control centers",
+"Military troop installations",
+"Population",
+"Railroad yards and shops, USSR: Caucasus Region",
+"Railroad yards and shops, satellites: Hungary"
+]
+},
+{
 "complex": "3473",
 "priority": 808,
 "name": "KHRISTINOVKA",
@@ -15636,11 +15810,13 @@
 "page": 227,
 "confidence": "high",
 "categories": [
-275
+275,
+376
 ],
 "population": true,
 "categoryNames": [
-"Population"
+"Population",
+"Railroad yards and shops, USSR: West sub-region, Ukraine Region"
 ]
 },
 {
@@ -15876,6 +16052,7 @@
 275,
 280,
 281,
+334,
 354,
 388,
 415,
@@ -16155,6 +16332,30 @@
 ]
 },
 {
+"complex": "5435",
+"priority": 854,
+"name": "NEUSTETTIN POL",
+"lat": 53.7,
+"lon": 16.7167,
+"page": 179,
+"confidence": "medium",
+"categories": [
+246,
+248,
+275,
+388,
+392
+],
+"population": true,
+"categoryNames": [
+"Military storage areas, Army and Navy",
+"Military troop installations",
+"Population",
+"Railroad yards and shops, satellites: East Germany",
+"Railroad yards and shops, satellites: North Korea (uncertain code)"
+]
+},
+{
 "complex": "5775",
 "priority": 855,
 "name": "OPAVA CZECH",
@@ -16324,6 +16525,32 @@
 "Military schools",
 "Military troop installations",
 "Population"
+]
+},
+{
+"complex": "4685",
+"priority": 865,
+"name": "LOVECH BULG",
+"lat": 43.1833,
+"lon": 24.7,
+"page": 152,
+"confidence": "high",
+"categories": [
+16,
+227,
+245,
+248,
+275,
+382
+],
+"population": true,
+"categoryNames": [
+"Airframes",
+"Liquid fuels, storage non-refinery",
+"Military storage areas, Air Force",
+"Military troop installations",
+"Population",
+"Railroad yards and shops, satellites: Bulgaria"
 ]
 },
 {
@@ -16534,12 +16761,14 @@
 "confidence": "high",
 "categories": [
 262,
-275
+275,
+430
 ],
 "population": true,
 "categoryNames": [
 "Oil extraction equipment",
-"Population"
+"Population",
+"Steel"
 ]
 },
 {
@@ -16580,6 +16809,7 @@
 302,
 350,
 358,
+372,
 415
 ],
 "population": true,
@@ -16693,6 +16923,7 @@
 190,
 202,
 204,
+248,
 264,
 270,
 275,
@@ -16707,8 +16938,8 @@
 "Electric power, satellites: East Germany",
 "Electron tubes",
 "Ferro-alloys",
-"Optical equipment",
-"Pig iron"
+"Military troop installations",
+"Optical equipment"
 ]
 },
 {
@@ -16759,12 +16990,14 @@
 "confidence": "high",
 "categories": [
 246,
-275
+275,
+370
 ],
 "population": true,
 "categoryNames": [
 "Military storage areas, Army and Navy",
-"Population"
+"Population",
+"Railroad yards and shops, USSR: Western Region"
 ]
 },
 {
@@ -17816,11 +18049,13 @@
 "page": 62,
 "confidence": "medium",
 "categories": [
-275
+275,
+376
 ],
 "population": true,
 "categoryNames": [
-"Population"
+"Population",
+"Railroad yards and shops, USSR: West sub-region, Ukraine Region"
 ]
 },
 {
@@ -17971,6 +18206,7 @@
 254,
 275,
 280,
+290,
 350,
 354,
 437
@@ -18185,11 +18421,13 @@
 "page": 281,
 "confidence": "high",
 "categories": [
-275
+275,
+358
 ],
 "population": true,
 "categoryNames": [
-"Population"
+"Population",
+"Railroad yards and shops, USSR: Northern Region"
 ]
 },
 {
@@ -18708,8 +18946,7 @@
 246,
 248,
 275,
-388,
-392
+388
 ],
 "population": true,
 "categoryNames": [
@@ -18717,8 +18954,7 @@
 "Military storage areas, Army and Navy",
 "Military troop installations",
 "Population",
-"Railroad yards and shops, satellites: East Germany",
-"Railroad yards and shops, satellites: North Korea (uncertain code)"
+"Railroad yards and shops, satellites: East Germany"
 ]
 },
 {
@@ -19400,6 +19636,7 @@
 "confidence": "high",
 "categories": [
 10,
+56,
 275,
 290
 ],
@@ -19955,6 +20192,7 @@
 227,
 235,
 241,
+248,
 275,
 285,
 314,
@@ -20396,20 +20634,11 @@
 "page": 152,
 "confidence": "high",
 "categories": [
-16,
-227,
-245,
-248,
 275,
-358,
-382
+358
 ],
 "population": true,
 "categoryNames": [
-"Airframes",
-"Liquid fuels, storage non-refinery",
-"Military storage areas, Air Force",
-"Military troop installations",
 "Population",
 "Railroad yards and shops, USSR: Northern Region"
 ]
@@ -20442,12 +20671,14 @@
 "confidence": "medium",
 "categories": [
 245,
+246,
 275,
 354
 ],
 "population": true,
 "categoryNames": [
 "Military storage areas, Air Force",
+"Military storage areas, Army and Navy",
 "Population",
 "Railroad yards and shops, USSR: East Siberian and Far Eastern Region"
 ]
@@ -20510,10 +20741,12 @@
 "page": 181,
 "confidence": "high",
 "categories": [
+275,
 280
 ],
-"population": false,
+"population": true,
 "categoryNames": [
+"Population",
 "Ports, maritime"
 ]
 },
@@ -20563,12 +20796,14 @@
 "confidence": "medium",
 "categories": [
 275,
+292,
 382,
 392
 ],
 "population": true,
 "categoryNames": [
 "Population",
+"Railroad freight cars",
 "Railroad yards and shops, satellites: Bulgaria",
 "Railroad yards and shops, satellites: North Korea (uncertain code)"
 ]
@@ -20907,6 +21142,8 @@
 "page": 112,
 "confidence": "high",
 "categories": [
+10,
+18,
 25,
 165,
 208,
@@ -20926,12 +21163,12 @@
 ],
 "population": true,
 "categoryNames": [
+"Agricultural equipment",
 "Electric power outside grids: Volga Economic Region",
 "Government control centers",
 "High explosives",
 "Liquid fuels, storage non-refinery",
-"Military schools",
-"Military storage areas, Army and Navy"
+"Military schools"
 ]
 },
 {
@@ -21071,11 +21308,13 @@
 "page": 140,
 "confidence": "high",
 "categories": [
-227
+227,
+275
 ],
-"population": false,
+"population": true,
 "categoryNames": [
-"Liquid fuels, storage non-refinery"
+"Liquid fuels, storage non-refinery",
+"Population"
 ]
 },
 {
