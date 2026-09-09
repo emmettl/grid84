@@ -4,7 +4,7 @@
 
 **The second execution study. A counterfactual on a documented exercise: what if the Soviet forces that were readying to preempt a NATO strike under cover of Able Archer had been ordered to.**
 
-**Status:** brief and source audit, 9 September 2026. No study code. The engine, the evidence contract, the population grid for 1983 and the labs exist; see the roadmap.
+**Status:** built, 9 September 2026, at `#/study/able-archer-83`; see the section at the end.
 
 ## Thesis
 
@@ -82,6 +82,22 @@ The finding the study is built to reach is the PFIAB's own: the difference betwe
 | Soviet alert geography | The record names East Germany and Poland and the 4th Air Army; regiment bases are to be reconstructed from published unit histories |
 | Winds, November 1983 | Climatological, labelled as such; the study is a counterfactual and has no weather |
 | Evidence grammar | Exists; the withheld tier needs a treatment for the 2025 deletions, a record of a record removed |
+
+## Built, 9 September 2026
+
+`#/study/able-archer-83` plays the week and the branch on one clock of hours from the morning of 11 November. The order of battle is built by [`scripts/build-order-of-battle-1983.py`](../scripts/build-order-of-battle-1983.py): fifteen NATO strike wings and squadrons, the three Pershing 1a battalions, Greenham Common drawn withheld with its sixteen missiles three days away, eight headquarters and ports; on the other side nine Soviet regiments in East Germany and Poland, four missile brigades, five SS-20 garrisons standing for the western share of 405 launchers, and two headquarters. The exercise's ladder is [`data/able-archer/exercise-1983.json`](../data/able-archer/exercise-1983.json), ten steps from the scenario's fictional 4 November to the record's verdicts, each with a source; a dozen of the 172 radio-silent airlift missions are drawn from the east-coast ports to Rhein-Main.
+
+| The morning of 11 November | Warsaw Pact strikes | NATO answers |
+| --- | --- | --- |
+| Weapons assigned · held back | 71 · 868 | 12 · 6 |
+| Delivered | 57 | 7 |
+| Targets | 27: the Pershing garrisons, the QRA airfields, Greenham, the headquarters and ports | 12: SS-20 garrisons, brigades, forward airfields |
+| First · last detonation | H+18 min · H+23 min | H+1 h 19 min · H+2 h 19 min |
+| Megatons | 10.5 | 2.0 |
+| Dead on the 1983 grid, blast only · with mass fire | 500,000 · 1.2 million on NATO territory | 140,000 · 300,000 on Warsaw Pact territory |
+| Reference | Carte Blanche, 1955: 1.7 million West German dead from 335 simulated weapons | |
+
+**The finding.** The first twenty minutes decide the answer. The Scud brigades fire at H+15 and land four minutes later; the SS-20s fire at H+10 and land at H+20; NATO's fifteen-minute alert forces leave at H+20 on warning of the first launches. Every Pershing garrison and most airfields are struck before that, so the answer is a dozen weapons from the two or three bases the first wave did not reach, and the generated force, four hours later, never leaves. The Warsaw Pact's own strike is small by the list, not the force: 71 weapons cover NATO's nuclear delivery means and headquarters three deep, and 868 stay unassigned because the rule gives them no target. The Soviet regiments and garrisons are reconstructed from the divisions the unit histories name, and the readout says so on each.
 
 ## Open questions
 

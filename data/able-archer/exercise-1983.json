@@ -1,0 +1,25 @@
+{
+  "title": "Able Archer 83, 4 to 11 November 1983",
+  "zero": "1983-11-11T06:00:00+01:00",
+  "zeroNote": "H-hour is the morning of 11 November, when the exercise executed its follow-on nuclear strike; times are hours from it, so the week before runs negative",
+  "steps": [
+    { "hours": -174, "text": "SCENARIO: ORANGE OPENS HOSTILITIES IN ALL REGIONS OF ALLIED COMMAND EUROPE (EXERCISE FICTION, DOCUMENTED)", "evidence": "documented", "source": "SHAPE exercise report, NSA EBB 427: hostilities on 4 November" },
+    { "hours": -126, "text": "SCENARIO: ORANGE INITIATES THE USE OF CHEMICAL WEAPONS (EXERCISE FICTION, DOCUMENTED)", "evidence": "documented", "source": "SHAPE exercise report, NSA EBB 427: 6 November" },
+    { "hours": -100, "text": "DAY 1 · ABLE ARCHER BEGINS · SACEUR REQUESTS POLITICAL GUIDANCE ON THE USE OF NUCLEAR WEAPONS · THE 170-FLIGHT RADIO-SILENT AIRLIFT OF 19,000 SOLDIERS IS UNDER WAY", "evidence": "documented", "source": "NSA EBB 427: SACEUR's request early on Day 1, 7 November; the Military Airlift Command report on Reforger 83, 172 missions", "action": "airlift", "camera": { "center": [-30, 48], "zoom": 2.2 } },
+    { "hours": -96, "text": "HEADQUARTERS SHIFT FROM THE PERMANENT WAR HEADQUARTERS TO THE ALTERNATE, CREST HIGH AT BIRKENFELD, UNDER SIMULATED CHEMICAL ATTACK", "evidence": "documented", "source": "Seventh Air Division after-action report, 1 December 1983, NSA EBB 427" },
+    { "hours": -76, "text": "SOVIET AIR UNITS IN EAST GERMANY AND POLAND ON HEIGHTENED READINESS · NUCLEAR-CAPABLE AIRCRAFT ON HIGH ALERT · THE 4TH AIR ARMY'S BOMBERS LOADED · GSFG FIGHTER-BOMBERS AT THIRTY-MINUTE ALERT", "evidence": "documented", "source": "CIA National Intelligence Daily, 10 November 1983; NSA message of 2 December 1983 (Kutakhov's order); Perroots's addendum of January 1989 (NSA EBB 2021-02-17). The day the alert began is not given; the 8th is the study's reading", "camera": { "center": [14, 52], "zoom": 5, "durationMs": 5000 }, "action": "soviet-alert" },
+    { "hours": -58, "text": "EVENING OF 8 NOVEMBER: INITIAL NUCLEAR RELEASE APPROVED IN THE EXERCISE, WITH THE NEW CONSULTATION PROCEDURES THROUGH WASHINGTON AND LONDON", "evidence": "documented", "source": "SHAPE exercise report, NSA EBB 427" },
+    { "hours": -46, "text": "MORNING OF 9 NOVEMBER: FIRST USE OF NUCLEAR WEAPONS AGAINST FIXED TARGETS IN ORANGE SATELLITE COUNTRIES, SIMULATED · NOTHING LEAVES THE GROUND", "evidence": "documented", "source": "SHAPE exercise report, NSA EBB 427" },
+    { "hours": -16, "text": "AFTERNOON OF 10 NOVEMBER: FOLLOW-ON NUCLEAR USE APPROVED IN THE EXERCISE", "evidence": "documented", "source": "SHAPE exercise report, NSA EBB 427" },
+    { "hours": 0, "text": "MORNING OF 11 NOVEMBER: THE FOLLOW-ON STRIKE IS EXECUTED IN THE EXERCISE · IN THE RECORD THE EXERCISE ENDS HERE · IN THIS STUDY THE SOVIET COMMAND READS IT AS REAL (COUNTERFACTUAL)", "evidence": "documented", "source": "SHAPE exercise report, NSA EBB 427; the branch is the study's", "camera": { "center": [11, 51.5], "zoom": 5.2, "durationMs": 5000 }, "action": "strike" },
+    { "hours": 24, "text": "THE RECORD'S VERDICTS: SNIE 11-10-84 OF MAY 1984, NO GENUINE BELIEF IN IMMINENT CONFLICT · CASEY, JUNE 1984, \"A DIMENSION OF GENUINENESS\" · PFIAB, FEBRUARY 1990, POTENTIALLY DISASTROUS", "evidence": "documented", "source": "NSA EBB 428 and 2021-02-17" }
+  ],
+  "airlift": { "from": [[-80.04, 32.9], [-74.59, 40.02], [-75.47, 39.13]], "to": "rhein-main", "flights": 172, "drawn": 12, "speedKmh": 800, "note": "Charleston, McGuire and Dover to Rhein-Main; twelve of the 172 missions drawn, the rest implied" },
+  "sources": [
+    "National Security Archive EBB 427, Able Archer 83 Declassified (SHAPE exercise report; Seventh Air Division after-action report; MAC report on Reforger 83)",
+    "National Security Archive EBB 428, A rather stunning array of indicators",
+    "National Security Archive EBB 2021-02-17, Able Archer War Scare Potentially Disastrous (CIA NID of 10 November 1983; Perroots 1989; PFIAB 1990)",
+    "National Security Archive EBB 426, The 1983 War Scare Part I (Operation RYaN)",
+    "Jones, Able Archer 83 (2016)"
+  ]
+}

@@ -91,6 +91,8 @@ export interface Study {
   title: string
   subtitle: string
   bounds: { start: number; end: number }
+  /** Where the clock opens; default ten minutes before H-hour or the start of the bounds, whichever is later. */
+  startTime?: number
   /** Initial camera. */
   view: { center: LngLat; zoom: number }
   entities: Entity[]

@@ -186,7 +186,7 @@ export function StudyView({ study }: { study: Study }) {
   useEffect(() => {
     boundsRef.current = bounds
   }, [bounds])
-  const initialClock: ClockState = { time: Math.max(study.bounds.start, -600), playing: false, rate: 60 }
+  const initialClock: ClockState = { time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: false, rate: 60 }
   const clockRef = useRef<ClockState>(initialClock)
   const [clock, setClock] = useState<ClockState>(initialClock)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -442,7 +442,7 @@ export function StudyView({ study }: { study: Study }) {
   const switchBurst = (mode: Burst) => {
     burstRef.current = mode
     setBurst(mode)
-    setClockState({ time: Math.max(study.bounds.start, -600), playing: false })
+    setClockState({ time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: false })
     computed.current.clear()
     falloutComputed.current.clear()
     setOutcomes({})
@@ -476,7 +476,7 @@ export function StudyView({ study }: { study: Study }) {
             <button
               type="button"
               onClick={() => {
-                setClockState({ time: Math.max(study.bounds.start, -600), playing: false })
+                setClockState({ time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: false })
                 computed.current.clear()
                 falloutComputed.current.clear()
                 setOutcomes({})
