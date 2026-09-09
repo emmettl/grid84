@@ -72,7 +72,8 @@ The labs live in `lab/` as self-contained specimens with a pure model module, a 
 The first historical execution study. Brief and source audit: [docs/SIOP-62.md](docs/SIOP-62.md).
 
 - [ ] Evidence contract: every entity carries a tier (documented, reconstructed, inferred, modelled, withheld) and a source reference; the renderer derives its line grammar from the tier.
-- [ ] Transcribe the 1956 SAC city list (306 image-only pages) with OCR and a row-grammar parser; verify coordinates against 1960 borders and a hand-checked sample.
+- [x] Transcribe the 1956 SAC city list (306 image-only pages) with OCR and a row-grammar parser: first pass complete, 1,691 complex rows and 8,875 category rows with confidence flags.
+- [ ] Verify the transcript: work the 3,032 unparsed lines, the low-confidence rows and the out-of-box coordinates; check coordinates against 1960 borders and a hand-checked sample.
 - [ ] Order of battle as data: bases, squadrons, boats, weapons and yields for mid-1961, each row cited.
 - [ ] Period layers: 1960 borders with precision shown; HYDE 1960 population grid.
 - [ ] Bounded proof: one base, one sortie, one transcribed target, one modelled consequence, one ghost, one redaction, playing from H-hour.
