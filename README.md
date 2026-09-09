@@ -53,7 +53,7 @@ Use Node 24 or later and npm 11.19.0. Run `npm ci`, then `npm run dev` for the a
 - `npm run typecheck`, `npm run lint` and `npm test` verify the workspace.
 - `npm run build` writes the static site to `dist/`.
 
-Grid/84 is a standalone repository. It borrows the [Motion Studies](https://github.com/emmettl/motionstudies) toolchain and ethos but not its timetable packages: every edition there is a bounded, pre-compiled study, whereas this atlas answers for anywhere on Earth through live open services. See the [roadmap](ROADMAP.md) for stages and the services each one depends on.
+Grid/84 is a standalone repository. It borrows the [Motion Studies](https://github.com/emmettl/motionstudies) toolchain and ethos but not its timetable packages: every edition there is a bounded, pre-compiled study, whereas this atlas answers for anywhere on Earth through live open services. See the [roadmap](ROADMAP.md) for stages and the services each one depends on, and the [SIOP//62 brief](docs/SIOP-62.md) for the first execution study.
 
 ## Sources
 

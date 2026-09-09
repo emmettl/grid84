@@ -1,8 +1,8 @@
 # Roadmap
 
-[Manifesto](README.md#introductionmanifesto) · [Sources](README.md#sources)
+[Manifesto](README.md#introductionmanifesto) · [Sources](README.md#sources) · [SIOP//62 brief](docs/SIOP-62.md)
 
-Grid/84 is an art-and-data instrument. Each stage should end in a coherent, viewable study rather than a long period of invisible infrastructure. Two rules govern every stage:
+Grid/84 is a world-state playback engine wearing a map. The Terminal Atlas is the engine idling with one entity, the camera; routing adds moving entities on real networks; the execution studies add thousands, each with provenance. It is an art-and-data instrument. Each stage should end in a coherent, viewable study rather than a long period of invisible infrastructure. Two rules govern every stage:
 
 1. **Impractical, never fake.** Every readout is computed from real geometry or a documented model. Where a value is uncertain, say so on the readout; never decorate a guess as a fact.
 2. **Ordinary map labels are beneath it.** The atlas names things through its own designations. If a stage needs labels for legibility, they are the atlas's labels, in the atlas's register.
@@ -52,7 +52,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 
 **Exit:** the Jungfrau looks like a reactor complex and the elevation on the readout matches the official figure within the tile resolution.
 
-## 3 — Consequence overlays
+## 3 — Consequence overlays and labs
 
 A generic overlay system: give it a coordinate and a set of geodesic zones and it renders them with maximum strategic ceremony. The first overlay set is the NukeMap sidequest.
 
@@ -64,7 +64,24 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 
 **Exit:** the circles are calculated effects, the readout states the model and its limits, and the local Aldi's overpressure band is correct for the chosen yield.
 
-## 4 — Publication
+The labs live in `lab/` as self-contained specimens with a pure model module, a validation table and a declared fidelity ceiling. The [SIOP//62 brief](docs/SIOP-62.md#labs-programme) lists them: ballistic arc, bomber sortie, readiness clock, damage expectancy, prompt effects, fallout plume, fire spread, population exposure and the evidence grammar. Labs exist to establish the lines of the possible, not to ship.
+
+## 4 — SIOP//62 execution study
+
+The first historical execution study. Brief and source audit: [docs/SIOP-62.md](docs/SIOP-62.md).
+
+- [ ] Evidence contract: every entity carries a tier (documented, reconstructed, inferred, modelled, withheld) and a source reference; the renderer derives its line grammar from the tier.
+- [ ] Transcribe the 1956 SAC city list (306 image-only pages) with OCR and a row-grammar parser; verify coordinates against 1960 borders and a hand-checked sample.
+- [ ] Order of battle as data: bases, squadrons, boats, weapons and yields for mid-1961, each row cited.
+- [ ] Period layers: 1960 borders with precision shown; HYDE 1960 population grid.
+- [ ] Bounded proof: one base, one sortie, one transcribed target, one modelled consequence, one ghost, one redaction, playing from H-hour.
+- [ ] Alert force enactment: option 1, 1,004 systems, missiles first, forward areas second, US-based last.
+- [ ] Full force with the option selector, and the finding that the options barely differ.
+- [ ] Two-number outcome readout: the planners' estimate against the modern recomputation.
+
+**Exit:** the alert force plays end to end, every mark traces to a page, disagreements between sources are visible on the readout, and the study never claims to know more than the record.
+
+## 5 — Publication
 
 - [ ] Own routing host or a licensed provider before public launch; the demo servers are for development only.
 - [ ] Tile and terrain budgets measured on a phone for the opening orbit and one descent.
