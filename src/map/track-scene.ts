@@ -89,14 +89,15 @@ export function vehicleColor(tier: EvidenceTier, side: 'attacker' | 'defender'):
   return parseRgba(g.color)
 }
 
-/** Dash in CSS pixels as [on, period]; solid lines are [0, 0]. Dashes are scaled up so one-pixel GL lines still read. */
+/**
+ * Dash in CSS pixels as [on, period]; solid lines are [0, 0]. In the GL layer the
+ * grammar is calmer than in the GeoJSON one: a reconstructed route is a long,
+ * slow dash, and an inferred one is a faint solid line rather than the dots,
+ * which shimmer when there are thousands of one-pixel lines on the globe.
+ */
 export function dashFor(tier: EvidenceTier): [number, number] {
-  const g = LINE[tier]
-  if (!g.dasharray) return [0, 0]
-  const scale = Math.max(g.width, 2)
-  const on = g.dasharray[0] * scale
-  const off = (g.dasharray[1] ?? g.dasharray[0]) * scale
-  return [on, on + off]
+  if (tier === 'reconstructed') return [18, 27]
+  return [0, 0]
 }
 
 export function prepareTracks(specs: TrackSpec[]): TrackScene {

@@ -11,10 +11,21 @@ import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Bur
 import { SURFACE_BLAST_MODEL, thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
 import { acuteMortality, plume } from '../models/fallout.ts'
 import { ExposureService } from '../models/exposure-service.ts'
+import type { UnionDetonation, UnionTotals } from '../models/exposure.ts'
 import { EvidenceLegend } from './EvidenceLegend.tsx'
 import type { Entity, LabelAnchor, Study } from './study.ts'
 
 const RATES = [1, 10, 60, 600, 3_600]
+
+/** Headline figures rounded to two significant figures, as the readout states. */
+function fmt(v: number) {
+    if (v < 10) return Math.round(v).toLocaleString('en-GB')
+    const magnitude = 10 ** (Math.floor(Math.log10(v)) - 1)
+    return (Math.round(v / magnitude) * magnitude).toLocaleString('en-GB')
+}
+
+/** The OTA bands' fatal and injured fractions, for the union. */
+const BAND_FRACTIONS = OTA_BANDS.map((b) => ({ fatal: b.fatal, injured: b.injured }))
 
 /**
  * Where a study's grid lives. A bare name is a HYDE grid under data/hyde; an
@@ -140,6 +151,44 @@ function drawnRadius(e: Entity & { kind: 'effect' }, burst: Burst, key: string):
   return ring ? ring.radius : 0
 }
 
+/**
+ * The headline cells for one side. With a union they are path-dependent: blast
+ * first, then fire as Postol's bound, then fallout among the survivors, and
+ * the last cell is all three in sequence. Before the union answers, the
+ * per-target sums stand in.
+ */
+function OutcomeCells({ union, blastDead, blastInjured, fireDead, falloutDead, under1, plumes }: { union: UnionTotals | undefined; blastDead: number; blastInjured: number; fireDead: number; falloutDead: number | null; under1: number; plumes: number }) {
+  const showFallout = union ? union.underPlume > 0 : falloutDead !== null
+  return (
+    <div className="two-numbers">
+      <div>
+        <span>Blast only · 1961 method</span>
+        <strong>{fmt(union ? union.blastDead : blastDead)}</strong>
+        <em>dead · {fmt(union ? union.blastInjured : blastInjured)} injured</em>
+      </div>
+      <div>
+        <span>With mass fire · Postol bound</span>
+        <strong>{fmt(union ? union.fireDead : fireDead)}</strong>
+        <em>dead</em>
+      </div>
+      {showFallout && (
+        <div>
+          <span>Fallout · no shelter{union ? ' · among the survivors' : ''}</span>
+          <strong>{fmt(union ? union.falloutDead : (falloutDead ?? 0))}</strong>
+          <em>acute deaths · {fmt(union ? union.underPlume : under1)} under the plumes{union ? '' : ` · ${plumes} plumes summed`}</em>
+        </div>
+      )}
+      {union && showFallout && (
+        <div>
+          <span>Blast, fire and fallout in sequence</span>
+          <strong>{fmt(union.combinedDead)}</strong>
+          <em>dead · one minus the product of the survivals, per grid sample</em>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function labelOffset(anchor: LabelAnchor): [number, number] {
   switch (anchor) {
     case 'left':
@@ -185,6 +234,20 @@ export function StudyView({ study }: { study: Study }) {
   const [burst, setBurst] = useState<Burst>(study.defaultBurst ?? 'air')
   const burstRef = useRef<Burst>(study.defaultBurst ?? 'air')
   const falloutComputed = useRef<Set<string>>(new Set())
+  /** Detonations due but not yet added to their side's union, and what the unions say so far. */
+  const unionQueue = useRef<Record<'attacker' | 'defender', UnionDetonation[]>>({ attacker: [], defender: [] })
+  const unionBusy = useRef<Record<'attacker' | 'defender', boolean>>({ attacker: false, defender: false })
+  const unionCount = useRef<Record<'attacker' | 'defender', number>>({ attacker: 0, defender: 0 })
+  const [unions, setUnions] = useState<Partial<Record<'attacker' | 'defender', { totals: UnionTotals; detonations: number; plumes: number }>>>({})
+  const unionPlumes = useRef<Record<'attacker' | 'defender', number>>({ attacker: 0, defender: 0 })
+  const resetUnions = () => {
+    unionQueue.current = { attacker: [], defender: [] }
+    unionCount.current = { attacker: 0, defender: 0 }
+    unionPlumes.current = { attacker: 0, defender: 0 }
+    setUnions({})
+    const service = exposureService.current
+    if (service) for (const side of ['attacker', 'defender'] as const) service.unionReset(side).catch(() => undefined)
+  }
   const [falloutOutcomes, setFalloutOutcomes] = useState<Record<string, { under1: number; dead: number; grid: string }>>({})
   const [gridName, setGridName] = useState<string | null>(null)
   const effectCount = useMemo(() => study.entities.filter((e) => e.kind === 'effect').length, [study])
@@ -248,14 +311,12 @@ export function StudyView({ study }: { study: Study }) {
     map.on('load', () => {
       terrainSync.current = installTerrainSync(map)
       installEvidenceLayers(map)
-      if (glTracks) {
-        const layer = new TrackLayer()
-        layer.setScene(prepareTracks(trackSpecs(study)))
-        map.addLayer(layer, 'ev-vehicles-glow')
-        trackLayer.current = layer
-      } else {
-        setSourceData(map, SOURCES.paths, statics.paths)
-      }
+      // The WebGL layer is always present for the detonation flashes; it draws the tracks too when the study is large or leaves the surface.
+      const layer = new TrackLayer()
+      if (glTracks) layer.setScene(prepareTracks(trackSpecs(study)))
+      else setSourceData(map, SOURCES.paths, statics.paths)
+      map.addLayer(layer, 'ev-vehicles-glow')
+      trackLayer.current = layer
       setSourceData(map, SOURCES.sites, statics.sites)
       for (const e of study.entities) {
         if (e.label === false) continue
@@ -325,6 +386,7 @@ export function StudyView({ study }: { study: Study }) {
     let lastSources = 0
     let lastPanel = 0
     let lastFlashes = 0
+    let lastUnion = 0
     let flashesKey = ''
     let ringsKey = ''
     const perf = { ticks: 0, updateMs: 0, maxUpdateMs: 0, renderer: glTracks ? 'webgl' : 'geojson' }
@@ -402,6 +464,10 @@ export function StudyView({ study }: { study: Study }) {
             } else if (marker.getElement().isConnected) marker.remove()
           } else if (e.kind === 'effect') {
             const due = next.time >= e.time
+            // A radial flash when the running clock crosses the detonation; scrubbing does not flash.
+            if (changed && previous.time < e.time && next.time >= e.time && previous.playing) {
+              trackLayer.current?.flash(e.center[0], e.center[1], 40 + 24 * Math.log10(Math.max(1, e.effects.yieldKt)))
+            }
             if (marker) {
               if (due && !marker.getElement().isConnected) marker.addTo(map)
               else if (!due && marker.getElement().isConnected) marker.remove()
@@ -413,6 +479,7 @@ export function StudyView({ study }: { study: Study }) {
               const mode = modeOf(e, burstRef.current)
               const rings = [...OTA_BANDS.map((b) => ({ key: b.key, radius: radiusForPsi(yieldKt, b.minPsi, mode) })), { key: 'fire', radius: thirdDegreeBurnRadiusMetres(yieldKt) }]
               const gridName = `${service.grid.source.name} · ${service.grid.source.year}`
+              unionQueue.current[e.side ?? 'attacker'].push({ center: e.center, bandRadii: OTA_BANDS.map((b) => radiusForPsi(yieldKt, b.minPsi, mode)), fireRadius: thirdDegreeBurnRadiusMetres(yieldKt) })
               service
                 .exposure({ center: e.center, rings, subsamples: 4 })
                 .then((result) => {
@@ -430,6 +497,12 @@ export function StudyView({ study }: { study: Study }) {
               const f = e.fallout
               const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: f.fissionFraction, windMph: f.windMph, downwindBearingDeg: f.downwindBearingDeg, untilHours: f.untilHours })
               const gridName = `${service.grid.source.name} · ${service.grid.source.year}`
+              const plumeSide = e.side ?? 'attacker'
+              unionPlumes.current[plumeSide] += 1
+              service
+                .unionPlumes(plumeSide, contours.map((c) => ({ ring: c.ring, doseMidRads: c.doseMidRads })), BAND_FRACTIONS)
+                .then((totals) => setUnions((prev) => ({ ...prev, [plumeSide]: { totals, detonations: unionCount.current[plumeSide], plumes: unionPlumes.current[plumeSide] } })))
+                .catch((error) => console.warn('plume union failed', error))
               service
                 .polygons(contours.map((c) => ({ key: c.key, ring: c.ring })))
                 .then((r) => {
@@ -456,6 +529,28 @@ export function StudyView({ study }: { study: Study }) {
         perf.updateMs += ms
         perf.maxUpdateMs = Math.max(perf.maxUpdateMs, ms)
       }
+      // Each side's union takes the new detonations in batches, so a person under several is counted once.
+      const unionService = exposureService.current
+      if (unionService && unionService.grid) {
+        for (const side of ['attacker', 'defender'] as const) {
+          const queue = unionQueue.current[side]
+          if (!queue.length || unionBusy.current[side] || (now - lastUnion < 1_500 && next.playing)) continue
+          lastUnion = now
+          const batch = queue.splice(0, queue.length)
+          unionBusy.current[side] = true
+          unionCount.current[side] += batch.length
+          const detonations = unionCount.current[side]
+          unionService
+            .union(side, batch, BAND_FRACTIONS)
+            .then((totals) => {
+              setUnions((prev) => ({ ...prev, [side]: { totals, detonations, plumes: unionPlumes.current[side] } }))
+            })
+            .catch((error) => console.warn('union failed', error))
+            .finally(() => {
+              unionBusy.current[side] = false
+            })
+        }
+      }
       if (changed && (now - lastPanel > 100 || !next.playing)) {
         lastPanel = now
         setClock(next)
@@ -472,11 +567,6 @@ export function StudyView({ study }: { study: Study }) {
     setClock(clockRef.current)
   }
 
-  const fmt = (v: number) => {
-    if (v < 10) return Math.round(v).toLocaleString('en-GB')
-    const magnitude = 10 ** (Math.floor(Math.log10(v)) - 1)
-    return (Math.round(v / magnitude) * magnitude).toLocaleString('en-GB')
-  }
   // Per-target outcome lines only for small studies; a large one reports through the aggregate panel.
   const outcomeEvents = study.entities.flatMap((e) => {
     if (e.kind !== 'effect' || effectCount > 20) return []
@@ -505,6 +595,7 @@ export function StudyView({ study }: { study: Study }) {
     falloutComputed.current.clear()
     setOutcomes({})
     setFalloutOutcomes({})
+    resetUnions()
     terrainSync.current?.(false)
     mapRef.current?.flyTo({ center: [study.view.center[0], study.view.center[1]], zoom: study.view.zoom, pitch: 0, bearing: 0, duration: 2_000, essential: true })
   }
@@ -539,6 +630,7 @@ export function StudyView({ study }: { study: Study }) {
                 falloutComputed.current.clear()
                 setOutcomes({})
                 setFalloutOutcomes({})
+                resetUnions()
                 terrainSync.current?.(false)
                 mapRef.current?.flyTo({ center: [study.view.center[0], study.view.center[1]], zoom: study.view.zoom, pitch: 0, bearing: 0, duration: 2_000, essential: true })
               }}
@@ -672,26 +764,14 @@ export function StudyView({ study }: { study: Study }) {
             </div>
             <p className="log-empty">
               {aggregate.computed} of {effectCount} detonations summed over {gridName ?? 'the population grid'}
+              {unions.attacker ? ` · ${unions.attacker.detonations} in the union, each person counted once` : ''}
             </p>
-            <div className="two-numbers">
-              <div>
-                <span>Blast only · 1961 method</span>
-                <strong>{fmt(aggregate.blastDead)}</strong>
-                <em>dead · {fmt(aggregate.blastInjured)} injured</em>
-              </div>
-              <div>
-                <span>With mass fire · Postol bound</span>
-                <strong>{fmt(aggregate.fireDead)}</strong>
-                <em>dead</em>
-              </div>
-              {aggregate.falloutComputed > 0 && (
-                <div>
-                  <span>Fallout · no shelter</span>
-                  <strong>{fmt(aggregate.falloutDead)}</strong>
-                  <em>acute deaths · {fmt(aggregate.under1)} under 1 rad/hr · {aggregate.falloutComputed} plumes summed</em>
-                </div>
-              )}
-            </div>
+            <OutcomeCells union={unions.attacker?.totals} blastDead={aggregate.blastDead} blastInjured={aggregate.blastInjured} fireDead={aggregate.fireDead} falloutDead={aggregate.falloutComputed > 0 ? aggregate.falloutDead : null} under1={aggregate.under1} plumes={aggregate.falloutComputed} />
+            {unions.attacker && aggregate.computed > 1 && (
+              <p className="log-empty">
+                Summed per target instead, as the log lines are, with people under several detonations counted each time: {fmt(aggregate.blastDead)} dead by blast, {fmt(aggregate.fireDead)} with fire
+              </p>
+            )}
             {study.outcomeReference && (
               <p className="provenance-source">
                 {study.outcomeReference.label}: {fmt(study.outcomeReference.value)} · {study.outcomeReference.source}
@@ -704,19 +784,14 @@ export function StudyView({ study }: { study: Study }) {
                 </h2>
                 <p className="log-empty">
                   {defence.computed} of {defence.total} detonations
+                  {unions.defender ? ` · ${unions.defender.detonations} in the union, each person counted once` : ''}
                 </p>
-                <div className="two-numbers">
-                  <div>
-                    <span>Blast only · 1961 method</span>
-                    <strong>{fmt(defence.blastDead)}</strong>
-                    <em>dead · {fmt(defence.blastInjured)} injured</em>
-                  </div>
-                  <div>
-                    <span>With mass fire · Postol bound</span>
-                    <strong>{fmt(defence.fireDead)}</strong>
-                    <em>dead</em>
-                  </div>
-                </div>
+                <OutcomeCells union={unions.defender?.totals} blastDead={defence.blastDead} blastInjured={defence.blastInjured} fireDead={defence.fireDead} falloutDead={defence.falloutComputed > 0 ? defence.falloutDead : null} under1={defence.under1} plumes={defence.falloutComputed} />
+                {unions.defender && defence.computed > 1 && (
+                  <p className="log-empty">
+                    Summed per target instead: {fmt(defence.blastDead)} dead by blast, {fmt(defence.fireDead)} with fire
+                  </p>
+                )}
                 {study.sides.defender.reference && (
                   <p className="provenance-source">
                     {study.sides.defender.reference.label}: {fmt(study.sides.defender.reference.value)} · {study.sides.defender.reference.source}

@@ -195,6 +195,7 @@ function squareLegStudy(): Study {
       'The launchers are the western SS-11 fields of 1973 and the SS-20 garrisons of 1983 standing for the force of 1980; the exercise did not say where its weapons came from',
       'Britain\'s own forces, the Polaris boats and the Vulcans, are not drawn; the exercise was about the home front',
       'The Home Office, Openshaw and this engine make different shelter and evacuation assumptions; the readout gives all three and resolves none',
+      'The blast and fire headlines are a union over the grid, each person counted once; the fallout figure still sums the plumes separately, so people under more than one plume are counted more than once',
       'Northern Ireland: no plot was released and none is drawn',
     ],
     events,

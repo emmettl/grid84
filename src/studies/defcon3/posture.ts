@@ -392,7 +392,7 @@ function executeStudy(): Study {
       'MIRVed missiles carry their warheads on one bus that splits after post-boost, each warhead to a target within 300 km of the first; the footprint and the split are rules, not the missiles\' own guidance',
       'Yields per system are the Databook figures; SRAM loads for the B-52 are not counted',
       'The OTA figures are for the force of 1979 against an unwarned population, and are the nearest documented reference',
-      'Population exposure is per target with the largest weapon; overlapping targets are summed, so cities within reach of several targets are counted more than once',
+      'Population exposure is computed per target with the largest weapon for the log; the headline is a union over the grid, each person counted once in the most severe band that reaches them',
     ],
     events,
     entities,

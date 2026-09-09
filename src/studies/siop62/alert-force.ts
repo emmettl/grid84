@@ -449,7 +449,7 @@ export function buildAlertForce(option = 1): { study: Study; summary: AlertForce
       'Soviet submarines and ICBMs: documented as unable to launch within the day; not drawn',
       'Airfields: a first-pass transcription reads about half of the 1,100 in the release; the Air Power Battle is under-represented by that much',
       option === 1 ? 'Yields: Mk-28 class assumed for bombers; the alert-force megatonnage check is on the readout' : `Yields: Mk-28 class assumed for every bomber weapon, which gives ${Math.round(summary.megatons).toLocaleString('en-GB')} Mt at this option; the documented ${GENERATED_MEGATONS.toLocaleString('en-GB')} Mt for the generated force implies the heavier Mk-36 and Mk-41 class weapons the non-alert bombers carried, which this enactment does not assign`,
-      'Population exposure is per target with the largest weapon; overlapping targets are summed, so cities within reach of several targets are counted more than once',
+      'Population exposure is computed per target with the largest weapon for the log; the headline is a union over the grid, each person counted once in the most severe band that reaches them',
       ...(option > 1 ? [`Generation is a straight line between the alert and fully generated tables, as the readiness lab draws it; the Soviet response is the tactical-warning one, and a Soviet force generated during the same ${generation.hours} hours of warning is not modelled`] : []),
     ],
     events,

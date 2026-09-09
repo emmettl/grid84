@@ -1,5 +1,5 @@
 /// <reference lib="webworker" />
-import { exposure, exposurePolygons, totalPopulation, type ExposurePolygon, type ExposureRequest, type PopulationGrid } from './exposure.ts'
+import { createUnion, exposure, exposurePolygons, totalPopulation, unionAdd, unionAddPlume, unionTotals, type BandFractions, type ExposurePolygon, type ExposureRequest, type GridOrigin, type PopulationGrid, type UnionDetonation, type UnionPlume, type UnionState, type UnionTotals } from './exposure.ts'
 import { loadGridMeta, loadPopulationGrid, TiledPopulationGrid } from './population-grid.ts'
 
 /**
@@ -13,6 +13,9 @@ export type WorkerRequest =
   | { id: number; type: 'exposure'; request: ExposureRequest }
   | { id: number; type: 'cells'; west: number; south: number; east: number; north: number }
   | { id: number; type: 'polygons'; polygons: ExposurePolygon[] }
+  | { id: number; type: 'union-add'; key: string; detonations: UnionDetonation[]; bands: BandFractions[] }
+  | { id: number; type: 'union-plumes'; key: string; plumes: UnionPlume[]; bands: BandFractions[] }
+  | { id: number; type: 'union-reset'; key: string }
 
 /** [west, south, east, north, count] per populated cell. */
 export type CellRow = [number, number, number, number, number]
@@ -22,10 +25,19 @@ export type WorkerResponse =
   | { id: number; type: 'result'; result: ReturnType<typeof exposure> }
   | { id: number; type: 'cells'; cells: CellRow[] }
   | { id: number; type: 'polygons'; within: Record<string, number>; cellsVisited: number }
+  | { id: number; type: 'union'; totals: UnionTotals }
   | { id: number; type: 'error'; message: string }
 
 let grid: PopulationGrid | null = null
 let tiled: TiledPopulationGrid | null = null
+/** Unions in progress, one per side of a study, kept between requests. */
+const unions = new Map<string, UnionState>()
+
+function origin(): GridOrigin {
+  if (tiled) return { west: tiled.west, north: tiled.south + tiled.height * tiled.cellSize, width: tiled.width, cellSize: tiled.cellSize }
+  if (!grid) throw new Error('grid not loaded')
+  return { west: grid.west, north: grid.south + grid.height * grid.cellSize, width: grid.width, cellSize: grid.cellSize }
+}
 
 /** The grid to answer a request over: the dense grid, or a window of the tiled one around the box. */
 async function gridFor(box: { west: number; south: number; east: number; north: number }): Promise<PopulationGrid> {
@@ -95,6 +107,36 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
       const g = await gridFor(boxOf(message.polygons))
       const r = exposurePolygons(g, message.polygons)
       const response: WorkerResponse = { id: message.id, type: 'polygons', within: r.within, cellsVisited: r.cellsVisited }
+      self.postMessage(response)
+      return
+    }
+    if (message.type === 'union-reset') {
+      unions.delete(message.key)
+      const response: WorkerResponse = { id: message.id, type: 'union', totals: { blastDead: 0, blastInjured: 0, fireDead: 0, falloutDead: 0, combinedDead: 0, underPlume: 0, samples: 0 } }
+      self.postMessage(response)
+      return
+    }
+    if (message.type === 'union-add' || message.type === 'union-plumes') {
+      const o = origin()
+      // Coarse cells are sub-sampled; a 30-arc-second cell is finer than the rings and is not.
+      let state = unions.get(message.key)
+      if (!state) {
+        state = createUnion(message.bands.length, o.cellSize > 0.02 ? 4 : 1)
+        unions.set(message.key, state)
+      }
+      if (message.type === 'union-add') {
+        for (const d of message.detonations) {
+          const outer = Math.max(d.fireRadius, ...d.bandRadii)
+          const g = await gridFor(boxAround(d.center, outer + 2_000))
+          unionAdd(g, state, d, o)
+        }
+      } else {
+        for (const p of message.plumes) {
+          const g = await gridFor(boxOf([{ key: 'p', ring: p.ring }]))
+          unionAddPlume(g, state, p, o)
+        }
+      }
+      const response: WorkerResponse = { id: message.id, type: 'union', totals: unionTotals(state, message.bands) }
       self.postMessage(response)
       return
     }

@@ -31,10 +31,25 @@ interface Program {
 interface Variant {
   line: Program
   point: Program
+  flash: Program
   lineVao: WebGLVertexArrayObject
   headVao: WebGLVertexArrayObject
   pointVao: WebGLVertexArrayObject
+  flashVao: WebGLVertexArrayObject
 }
+
+/** A detonation's flash: a radial burst of white that expands and fades over a moment of wall time, whatever the clock rate. */
+interface Flash {
+  x: number
+  y: number
+  /** Size of the burst at its widest, CSS pixels. */
+  size: number
+  /** performance.now() when it began. */
+  start: number
+}
+const FLASH_MS = 1_400
+/** Floats per flash vertex: x, y, size, age. */
+const FLASH_STRIDE = 4
 
 /**
  * Project a mercator position at a height in metres. MapLibre's prelude gives
@@ -108,6 +123,39 @@ void main() {
   gl_Position = project3d(a_pos, a_alt);
   gl_PointSize = u_size;
   v_color = a_color;
+}`
+
+const FLASH_VERTEX = (prelude: string, define: string) => `#version 300 es
+${prelude}
+${define}
+in vec2 a_pos;
+in float a_size;
+in float a_age;
+uniform float u_dpr;
+out float v_age;
+${PROJECT_3D}
+void main() {
+  gl_Position = project3d(a_pos, 0.0);
+  // Fast out of the fireball, then a slow spread as it dims.
+  float grow = 1.0 - pow(1.0 - a_age, 3.0);
+  gl_PointSize = a_size * u_dpr * (0.15 + 0.85 * grow);
+  v_age = a_age;
+}`
+
+const FLASH_FRAGMENT = `#version 300 es
+precision highp float;
+in float v_age;
+out vec4 fragColor;
+void main() {
+  float d = length(gl_PointCoord - 0.5) * 2.0;
+  if (d > 1.0) discard;
+  // White core going warm at the rim; the whole burst fades with age and the core faster than the rim.
+  float core = smoothstep(0.55, 0.0, d);
+  float rim = smoothstep(1.0, 0.35, d);
+  float fade = 1.0 - v_age;
+  float a = (core * 0.9 + rim * 0.45) * fade * fade;
+  vec3 rgb = mix(vec3(1.0, 0.62, 0.45), vec3(1.0, 0.98, 0.92), core);
+  fragColor = vec4(rgb * a, a);
 }`
 
 const POINT_FRAGMENT = `#version 300 es
@@ -198,6 +246,8 @@ export class TrackLayer implements CustomLayerInterface {
   private pointBuffer: WebGLBuffer | null = null
   private scene: TrackScene | null = null
   private frame: TrackFrame | null = null
+  private flashes: Flash[] = []
+  private flashBuffer: WebGLBuffer | null = null
   /** The projection of the last frame drawn, kept so labels can be lifted to a track's height on the CPU. */
   private view: { main: Float32Array; fallback: Float32Array; transition: number; globe: boolean; width: number; height: number } | null = null
   private sceneDirty = false
@@ -211,6 +261,13 @@ export class TrackLayer implements CustomLayerInterface {
     this.variants.forEach((v) => this.deleteVariant(v))
     this.variants.clear()
     this.setTime(this.time)
+  }
+
+  /** Begin a detonation flash at a position; `size` is the burst's width in CSS pixels. */
+  flash(lng: number, lat: number, size: number): void {
+    const [x, y] = mercator(lng, lat)
+    this.flashes.push({ x, y, size, start: performance.now() })
+    this.map?.triggerRepaint()
   }
 
   setTime(time: number): void {
@@ -229,6 +286,7 @@ export class TrackLayer implements CustomLayerInterface {
     this.indexBuffer = gl.createBuffer()
     this.headBuffer = gl.createBuffer()
     this.pointBuffer = gl.createBuffer()
+    this.flashBuffer = gl.createBuffer()
     this.sceneDirty = true
     this.frameDirty = true
   }
@@ -236,8 +294,8 @@ export class TrackLayer implements CustomLayerInterface {
   onRemove(_map: MapLibreMap, gl: WebGL2RenderingContext): void {
     this.variants.forEach((v) => this.deleteVariant(v))
     this.variants.clear()
-    for (const b of [this.staticBuffer, this.indexBuffer, this.headBuffer, this.pointBuffer]) if (b) gl.deleteBuffer(b)
-    this.staticBuffer = this.indexBuffer = this.headBuffer = this.pointBuffer = null
+    for (const b of [this.staticBuffer, this.indexBuffer, this.headBuffer, this.pointBuffer, this.flashBuffer]) if (b) gl.deleteBuffer(b)
+    this.staticBuffer = this.indexBuffer = this.headBuffer = this.pointBuffer = this.flashBuffer = null
     this.map = null
     this.gl = null
   }
@@ -247,9 +305,11 @@ export class TrackLayer implements CustomLayerInterface {
     if (!gl) return
     gl.deleteProgram(v.line.program)
     gl.deleteProgram(v.point.program)
+    gl.deleteProgram(v.flash.program)
     gl.deleteVertexArray(v.lineVao)
     gl.deleteVertexArray(v.headVao)
     gl.deleteVertexArray(v.pointVao)
+    gl.deleteVertexArray(v.flashVao)
   }
 
   private lineVao(gl: WebGL2RenderingContext, program: WebGLProgram, buffer: WebGLBuffer, index: WebGLBuffer | null): WebGLVertexArrayObject {
@@ -294,17 +354,39 @@ export class TrackLayer implements CustomLayerInterface {
     return vao
   }
 
+  private flashVao(gl: WebGL2RenderingContext, program: WebGLProgram, buffer: WebGLBuffer): WebGLVertexArrayObject {
+    const vao = gl.createVertexArray()
+    if (!vao) throw new Error('could not create vertex array')
+    gl.bindVertexArray(vao)
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+    const stride = FLASH_STRIDE * 4
+    const attr = (name: string, size: number, offset: number) => {
+      const loc = gl.getAttribLocation(program, name)
+      if (loc < 0) return
+      gl.enableVertexAttribArray(loc)
+      gl.vertexAttribPointer(loc, size, gl.FLOAT, false, stride, offset * 4)
+    }
+    attr('a_pos', 2, 0)
+    attr('a_size', 1, 2)
+    attr('a_age', 1, 3)
+    gl.bindVertexArray(null)
+    return vao
+  }
+
   private variant(gl: WebGL2RenderingContext, shaderData: CustomRenderMethodInput['shaderData']): Variant {
     const cached = this.variants.get(shaderData.variantName)
     if (cached) return cached
     const line = link(gl, LINE_VERTEX(shaderData.vertexShaderPrelude, shaderData.define), LINE_FRAGMENT, [...PROJECTION_UNIFORMS, 'u_step', 'u_dir', 'u_frac', 'u_dpr', 'u_world_size'])
     const point = link(gl, POINT_VERTEX(shaderData.vertexShaderPrelude, shaderData.define), POINT_FRAGMENT, [...PROJECTION_UNIFORMS, 'u_size', 'u_dpr', 'u_ink'])
+    const flash = link(gl, FLASH_VERTEX(shaderData.vertexShaderPrelude, shaderData.define), FLASH_FRAGMENT, [...PROJECTION_UNIFORMS, 'u_dpr'])
     const v: Variant = {
       line,
       point,
+      flash,
       lineVao: this.lineVao(gl, line.program, this.staticBuffer!, this.indexBuffer),
       headVao: this.lineVao(gl, line.program, this.headBuffer!, null),
       pointVao: this.pointVao(gl, point.program, this.pointBuffer!),
+      flashVao: this.flashVao(gl, flash.program, this.flashBuffer!),
     }
     this.variants.set(shaderData.variantName, v)
     return v
@@ -361,7 +443,47 @@ export class TrackLayer implements CustomLayerInterface {
     const scene = this.scene
     const frame = this.frame
     const map = this.map
-    if (!scene || !frame || !map || !this.staticBuffer || !this.indexBuffer || !this.headBuffer || !this.pointBuffer) return
+    if (!map || !this.staticBuffer || !this.indexBuffer || !this.headBuffer || !this.pointBuffer || !this.flashBuffer) return
+    if (scene && frame) this.renderTracks(gl, options, scene, frame)
+    else this.rememberView(gl, options)
+    this.renderFlashes(gl, options)
+  }
+
+  private rememberView(gl: WebGL2RenderingContext, options: CustomRenderMethodInput): void {
+    const dpr = window.devicePixelRatio || 1
+    const pd = options.defaultProjectionData
+    this.view = { main: asFloat32(pd.mainMatrix), fallback: asFloat32(pd.fallbackMatrix), transition: pd.projectionTransition, globe: /globe/i.test(options.shaderData.variantName), width: gl.drawingBufferWidth / dpr, height: gl.drawingBufferHeight / dpr }
+  }
+
+  private renderFlashes(gl: WebGL2RenderingContext, options: CustomRenderMethodInput): void {
+    const now = performance.now()
+    this.flashes = this.flashes.filter((f) => now - f.start < FLASH_MS)
+    if (!this.flashes.length || !this.flashBuffer) return
+    const data = new Float32Array(this.flashes.length * FLASH_STRIDE)
+    this.flashes.forEach((f, i) => {
+      data[i * FLASH_STRIDE] = f.x
+      data[i * FLASH_STRIDE + 1] = f.y
+      data[i * FLASH_STRIDE + 2] = f.size
+      data[i * FLASH_STRIDE + 3] = Math.min(1, (now - f.start) / FLASH_MS)
+    })
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.flashBuffer)
+    gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW)
+    const v = this.variant(gl, options.shaderData)
+    gl.enable(gl.BLEND)
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
+    gl.disable(gl.DEPTH_TEST)
+    gl.useProgram(v.flash.program)
+    this.setProjection(gl, v.flash, options.defaultProjectionData)
+    gl.uniform1f(v.flash.uniforms.u_dpr, window.devicePixelRatio || 1)
+    gl.bindVertexArray(v.flashVao)
+    gl.drawArrays(gl.POINTS, 0, this.flashes.length)
+    gl.bindVertexArray(null)
+    // Keep drawing while any flash is alive.
+    this.map?.triggerRepaint()
+  }
+
+  private renderTracks(gl: WebGL2RenderingContext, options: CustomRenderMethodInput, scene: TrackScene, frame: TrackFrame): void {
+    const map = this.map!
     if (this.sceneDirty) {
       gl.bindBuffer(gl.ARRAY_BUFFER, this.staticBuffer)
       gl.bufferData(gl.ARRAY_BUFFER, scene.vertices, gl.STATIC_DRAW)

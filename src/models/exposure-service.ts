@@ -1,4 +1,4 @@
-import type { ExposurePolygon, ExposureRequest, ExposureResult, PopulationGrid } from './exposure.ts'
+import type { BandFractions, ExposurePolygon, ExposureRequest, ExposureResult, PopulationGrid, UnionDetonation, UnionPlume, UnionTotals } from './exposure.ts'
 import type { CellRow, WorkerRequest, WorkerResponse } from './exposure.worker.ts'
 
 /** Omit that distributes over a union, so each request shape keeps its own fields. */
@@ -68,6 +68,28 @@ export class ExposureService {
     for (let i = 1; i < this.workers.length; i += 1) if (this.workers[i].busy < this.workers[slot].busy) slot = i
     const response = await this.send<WorkerResponse & { type: 'polygons' }>({ type: 'polygons', polygons }, slot)
     return { within: response.within, cellsVisited: response.cellsVisited }
+  }
+
+  /** Add detonations to a side's union and return its totals; a key always goes to the same worker, which keeps the state. */
+  async union(key: string, detonations: UnionDetonation[], bands: BandFractions[]): Promise<UnionTotals> {
+    const response = await this.send<WorkerResponse & { type: 'union' }>({ type: 'union-add', key, detonations, bands }, this.slotFor(key))
+    return response.totals
+  }
+
+  /** Add plumes at their deposited dose to a side's union; fallout deaths count only among the blast and fire survivors. */
+  async unionPlumes(key: string, plumes: UnionPlume[], bands: BandFractions[]): Promise<UnionTotals> {
+    const response = await this.send<WorkerResponse & { type: 'union' }>({ type: 'union-plumes', key, plumes, bands }, this.slotFor(key))
+    return response.totals
+  }
+
+  async unionReset(key: string): Promise<void> {
+    await this.send<WorkerResponse & { type: 'union' }>({ type: 'union-reset', key }, this.slotFor(key))
+  }
+
+  private slotFor(key: string): number {
+    let h = 0
+    for (let i = 0; i < key.length; i += 1) h = (h * 31 + key.charCodeAt(i)) >>> 0
+    return h % this.workers.length
   }
 
   /** Populated cells inside a bounding box, for drawing. */

@@ -108,7 +108,7 @@ Candidate studies after SIOP//62, each needing its own brief first: the Cuban mi
 
 ## 5 — Publication
 
-- [ ] GHSL tiles to Cloudflare R2: `deploy/upload-ghsl-r2.sh <bucket>` uploads the 1,002 immutable tiles (largest 4.1 MB), `deploy/r2-cors.json` is the CORS rule, and `scripts/point-grids-at.py <base>` points the index at the bucket; studies and the lab accept absolute grid URLs.
+- [x] GHSL tiles on Cloudflare R2: bucket `grid84-grids`, public through its r2.dev URL with a CORS rule allowing GET from any origin, the 1,002 immutable tiles uploaded by `deploy/upload-ghsl-r2.sh` with a year's cache lifetime. The grids index names the bucket, `scripts/point-grids-at.py` switches it back to local, and the lab and the studies resolve their grids through the index. A custom domain in front of the bucket is a later nicety.
 - [ ] Own routing host or a licensed provider before public launch; the demo servers are for development only.
 - [ ] Tile and terrain budgets measured on a phone for the opening orbit and one descent.
 - [ ] Attribution and licence audit for every service in the table above.
