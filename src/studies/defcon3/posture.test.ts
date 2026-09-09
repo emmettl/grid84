@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { DEFCON3_DOCUMENTED, defcon3Execute, defcon3Posture, defcon3Summary } from './posture.ts'
+import { DEFCON3_DOCUMENTED, defcon3Execute, defcon3Giant, defcon3Posture, defcon3Summary } from './posture.ts'
 
 describe('DEFCON 3 posture', () => {
   it('draws both forces and climbs the documented ladder', () => {
@@ -13,7 +13,7 @@ describe('DEFCON 3 posture', () => {
     const tracks = study.entities.filter((e) => e.kind === 'track')
     expect(tracks.filter((t) => t.id.startsWith('recall')).length).toBe(5)
     expect(tracks.filter((t) => t.id.startsWith('cv-')).length).toBe(3)
-    expect(study.variants?.items.map((i) => i.id)).toEqual(['posture', 'execute'])
+    expect(study.variants?.items.map((i) => i.id)).toEqual(['posture', 'execute', 'giant'])
   })
   it('fields the documented 1,054 American ICBMs and stays under the SALT I Soviet ceiling', () => {
     const study = defcon3Posture()
@@ -43,5 +43,19 @@ describe('SIOP-4 executed', () => {
     expect(study.bounds.end).toBeGreaterThan(Math.max(us.lastDetonation, su.lastDetonation))
     expect(study.populationGrid).toBe('popc_1973')
     console.log('DEFCON3 US', JSON.stringify(us), 'SU', JSON.stringify(su), 'entities', study.entities.length)
+  })
+})
+
+describe('1969 readiness test', () => {
+  it('flies eighteen B-52s in three waves of six over Alaska and draws nothing on the Soviet side', () => {
+    const study = defcon3Giant()
+    const sorties = study.entities.filter((e) => e.kind === 'track' && e.id.startsWith('giant-'))
+    expect(sorties).toHaveLength(18)
+    const first = sorties[0]
+    expect(first.kind === 'track' && first.track.end - first.track.start).toBeGreaterThan(12 * 3_600)
+    expect(first.kind === 'track' && first.track.end - first.track.start).toBeLessThan(20 * 3_600)
+    expect(study.entities.some((e) => e.kind === 'site' && /SS-/.test(e.designation))).toBe(false)
+    expect(study.events.some((e) => /GIANT LANCE/.test(e.text))).toBe(true)
+    expect(study.bounds.end).toBeGreaterThan(20 * 86_400)
   })
 })

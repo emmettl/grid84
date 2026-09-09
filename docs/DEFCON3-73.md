@@ -88,6 +88,8 @@ The Soviet sum brackets the OTA figure; the American sum falls far below it, and
 
 **What the execution shows.** The missiles decide the first hour: the American ICBMs and Poseidons land from H+22 minutes and the Soviet launch on warning lands from H+44, so both silo fields are struck after they have emptied, which is the counterforce paradox of the decade drawn on the map. The generated bombers leave at three hours into a country already burning and arrive after nine. With 7,000 warheads against 2,200 the exchange is not symmetrical and the sums are not either.
 
+**The 1969 act.** `#/study/defcon3-73/1969` plays the secret readiness test on a clock of days from Wheeler's message of 10 October: the stand-downs and communications silence from the 13th, the naval movements the Soviet navy noticed in the Gulf of Aden, Kissinger's "signal-type activity" on the 17th, SAC's order of the 23rd, and Giant Lance from the 26th, eighteen nuclear-armed B-52s in three waves of six flying eighteen-hour vigils on the Eielson East orbit over Alaska, the 92nd Strategic Aerospace Wing named in the record and the California wing reconstructed. The Soviet side of the map is empty on purpose: the alert was designed to be seen, and the record has no sign it was read as intended. The sites are the 1973 order of battle with a note, since the Minuteman wings were the same and the rest differs in models more than places.
+
 **Timing artefact to note.** The clock runs from the WSAG's convening; the JCS message time of 11:41 p.m. is Sagan's, while the memorandum for the record puts the DEFCON decision at the meeting's start. Both are on the readout.
 
 ## What it must not claim

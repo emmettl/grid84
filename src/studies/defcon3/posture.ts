@@ -6,6 +6,7 @@ import type { Entity, Study, StudyEvent } from '../study.ts'
 import { enactStrike, launcherSite, type StrikeAttrition, type StrikeResult } from '../strike.ts'
 import orderOfBattle from '../../../data/defcon3/order-of-battle-1973.json'
 import alertFile from '../../../data/defcon3/alert-1973.json'
+import giantFile from '../../../data/defcon3/alert-1969.json'
 import citiesFile from '../../../data/defcon3/us-cities-1970.json'
 import urbanFile from '../../../data/defcon3/us-urban-1973.json'
 import { haversineMetres } from '../../geo/geodesy.ts'
@@ -50,6 +51,15 @@ const ALERT = alertFile as unknown as {
   zeroNote: string
   steps: Array<{ hours: number; text: string; evidence: string; source: string; camera?: { center: [number, number]; zoom: number }; action?: string }>
   movements: { 'guam-recall': { from: [number, number]; aircraft: number; speedKmh: number; note: string }; 'sixth-fleet': Array<{ id: string; name: string; from: [number, number]; to: [number, number]; speedKmh: number; note: string }> }
+  sources: string[]
+}
+
+const GIANT = giantFile as unknown as {
+  title: string
+  zeroNote: string
+  steps: Array<{ days: number; text: string; evidence: string; source: string; camera?: { center: [number, number]; zoom: number }; action?: string }>
+  giantLance: { aircraft: number; perSortie: number; vigilHours: number; waves: number; bases: Array<{ id: string; name: string; lon: number; lat: number; evidence: string; source: string }>; orbit: { name: string; points: Array<[number, number]>; evidence: string; source: string }; speedKmh: number }
+  naval: Array<{ id: string; name: string; lon: number; lat: number }>
   sources: string[]
 }
 
@@ -203,6 +213,81 @@ function strikes(): { us: StrikeResult; su: StrikeResult } {
 
 const SOURCES = ALERT.sources.join('; ')
 
+function variants(current: 'posture' | 'execute' | 'giant'): Study['variants'] {
+  return {
+    label: 'Study',
+    current,
+    items: [
+      { id: 'posture', label: '1973 posture', href: '#/study/defcon3-73' },
+      { id: 'execute', label: 'Execute SIOP-4', href: '#/study/defcon3-73/execute' },
+      { id: 'giant', label: '1969 readiness test', href: '#/study/defcon3-73/1969' },
+    ],
+  }
+}
+
+/** The 1969 secret readiness test: the same engine, no crisis, an alert as a signal. */
+function giantLanceStudy(): Study {
+  const day = 86_400
+  const g = GIANT.giantLance
+  const entities: Entity[] = RAW.filter((r) => r.side === 'us').map(siteOf)
+  for (const n of GIANT.naval) {
+    entities.push({ kind: 'site', id: `naval-${n.id}`, name: n.name, designation: 'SHIPS MOVED · POSITION INFERRED', position: [n.lon, n.lat], evidence: 'inferred', provenance: { source: 'NSA EBB 81', method: 'The movements are documented by sea area; the positions are the areas\' centres' }, facts: [] })
+  }
+  const events: StudyEvent[] = GIANT.steps.map((st) => ({ time: st.days * day, text: `${st.text} (${st.evidence.toUpperCase()})`, camera: st.camera ? { center: st.camera.center, zoom: st.camera.zoom, durationMs: 5_000 } : undefined }))
+  const start = (GIANT.steps.find((st) => st.action === 'giant-lance')?.days ?? 16) * day
+  const speed = (g.speedKmh * 1_000) / 3_600
+  const orbit = g.orbit.points
+  let n = 0
+  for (let wave = 0; wave < g.waves; wave += 1) {
+    for (let k = 0; k < g.perSortie; k += 1) {
+      const base = g.bases[k % g.bases.length]
+      const origin: LngLat = [base.lon, base.lat]
+      const takeoff = start + wave * g.vigilHours * 3_600 + k * 600
+      // Out to the orbit, round it as many times as the vigil allows, and home.
+      const outbound = haversineMetres(origin, orbit[0]) / speed
+      const lap = orbit.reduce((sum, p, i) => sum + haversineMetres(p, orbit[(i + 1) % orbit.length]), 0) / speed
+      const laps = Math.max(1, Math.floor((g.vigilHours * 3_600 - 2 * outbound) / lap))
+      const positions: LngLat[] = [origin]
+      for (let l = 0; l < laps; l += 1) positions.push(...orbit.map((p) => p as LngLat))
+      positions.push(orbit[0] as LngLat, origin)
+      n += 1
+      entities.push({
+        kind: 'track',
+        id: `giant-${n}`,
+        name: `${base.name.split(' · ')[0]} · Giant Lance sortie ${n}`,
+        designation: `B-52 · NUCLEAR-ARMED · ${g.orbit.name.toUpperCase()} · WAVE ${wave + 1}`,
+        label: k === 0,
+        side: 'attacker',
+        track: new Track(timeByGroundSpeed(positions, takeoff, speed)),
+        reveal: 'progressive',
+        evidence: base.evidence === 'documented' ? 'documented' : 'reconstructed',
+        provenance: { source: base.source, method: `${g.aircraft} aircraft in sorties of ${g.perSortie}, ${g.vigilHours}-hour vigils (documented); this aircraft's base and timing are ${base.evidence === 'documented' ? 'the wing named in the record' : 'reconstructed'}` },
+        route: { evidence: 'reconstructed', provenance: { source: g.orbit.source } },
+        facts: [],
+      })
+    }
+  }
+  return {
+    id: 'defcon3-73-giant',
+    title: 'READINESS TEST · OCTOBER 1969',
+    subtitle: `${GIANT.title} · an alert with no crisis, designed to be seen · ${g.aircraft} B-52s over Alaska on the last four days`,
+    bounds: { start: -day, end: 21 * day },
+    view: { center: [-100, 50], zoom: 1.6 },
+    sides: { attacker: { name: 'United States' }, defender: { name: 'Soviet Union' } },
+    variants: variants('giant'),
+    omissions: [
+      GIANT.zeroNote,
+      'The sites are the order of battle of 1973; in 1969 the Minuteman wings were the same, the bomber force larger and the missiles older, and the sites carry that note',
+      'Which sorties flew which day is not in the released record; three waves of six from 26 October are drawn from the totals',
+      'The naval movements are documented by sea area only',
+      'Nothing is drawn on the Soviet side because nothing was observed: the alert\'s purpose was to be seen, and the record has no sign it was read as intended',
+      `Sources: ${GIANT.sources.join('; ')}`,
+    ],
+    events,
+    entities,
+  }
+}
+
 function postureStudy(): Study {
   const entities: Entity[] = RAW.map(siteOf)
   const events: StudyEvent[] = []
@@ -254,14 +339,7 @@ function postureStudy(): Study {
     bounds: { start: -3_600, end: 36 * 3_600 },
     view: { center: [-30, 50], zoom: 1.6 },
     sides: { attacker: { name: 'United States' }, defender: { name: 'Soviet Union' } },
-    variants: {
-      label: 'Study',
-      current: 'posture',
-      items: [
-        { id: 'posture', label: 'Posture', href: '#/study/defcon3-73' },
-        { id: 'execute', label: 'Execute SIOP-4', href: '#/study/defcon3-73/execute' },
-      ],
-    },
+    variants: variants('posture'),
     omissions: [
       `${ALERT.zeroNote}; the dates and times are from the Foreign Relations volume's own headings`,
       'Which bombers went to the pads, which boats sailed and which crews were recalled are not in the released record hour by hour; the sites show their strength, not their state',
@@ -302,14 +380,7 @@ function executeStudy(): Study {
       attacker: { name: 'United States' },
       defender: { name: 'Soviet strike · United States dead', reference: { label: 'OTA 1979, large attack, American dead', value: 155_000_000, source: OTA.source } },
     },
-    variants: {
-      label: 'Study',
-      current: 'execute',
-      items: [
-        { id: 'posture', label: 'Posture', href: '#/study/defcon3-73' },
-        { id: 'execute', label: 'Execute SIOP-4', href: '#/study/defcon3-73/execute' },
-      ],
-    },
+    variants: variants('execute'),
     omissions: [
       'No execution order was given in October 1973; this is the plan behind the posture, enacted as a counterfactual',
       'No SIOP-4 target list is in the record. Targets are the documented Soviet nuclear forces and the 1956 complexes standing in for the urban-industrial category of NUWEP-74, and every mark says so',
@@ -329,6 +400,12 @@ function executeStudy(): Study {
 
 let posture: Study | null = null
 let execute: Study | null = null
+let giant: Study | null = null
+
+export function defcon3Giant(): Study {
+  giant ??= giantLanceStudy()
+  return giant
+}
 
 export function defcon3Posture(): Study {
   posture ??= postureStudy()

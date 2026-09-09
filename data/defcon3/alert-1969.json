@@ -1,0 +1,38 @@
+{
+  "title": "The secret readiness test, 10 to 30 October 1969",
+  "zero": "1969-10-10T00:00:00-04:00",
+  "zeroNote": "H-hour is midnight Washington time at the start of 10 October 1969, the day Wheeler notified the commanders; times are days from it",
+  "steps": [
+    { "days": 0, "text": "JCS CHAIRMAN WHEELER TO THE COMMANDERS: \"TEST OUR MILITARY READINESS ... TO RESPOND TO POSSIBLE CONFRONTATION BY THE SOVIET UNION\"", "evidence": "documented", "source": "NSA EBB 81, Nixon's Nuclear Ploy (Burr and Kimball, 2002), doc. of 10 October 1969" },
+    { "days": 3, "text": "MEASURES BEGIN: TRAINING FLIGHTS STOOD DOWN · COMMUNICATIONS SILENCE (EMCON) · DEGRADED ALERT SORTIES REINSTATED · POLARIS DEPLOYMENTS TO THE MAXIMUM", "evidence": "documented", "source": "NSA EBB 81; Sagan and Suri, \"The Madman Nuclear Alert,\" International Security 27:4 (2003): the measures ran from 13 October" },
+    { "days": 4, "text": "NAVAL MOVEMENTS: GULF OF ADEN · MEDITERRANEAN · ATLANTIC · SEA OF JAPAN · THE SOVIET NAVY NOTICES THE SHIPS IN THE GULF OF ADEN", "evidence": "documented", "source": "NSA EBB 81", "camera": { "center": [40, 20], "zoom": 2.2 } },
+    { "days": 7, "text": "KISSINGER TO HALDEMAN: \"ALL SORTS OF SIGNAL-TYPE ACTIVITY GOING AROUND THE WORLD TO TRY TO JAR SOVIETS + NVN\"", "evidence": "documented", "source": "NSA EBB 81, Haldeman diary, 17 October 1969" },
+    { "days": 13, "text": "SAC ORDERED TO PREPARE AIRBORNE ALERT OPERATIONS", "evidence": "documented", "source": "NSA EBB 81, 23 October 1969" },
+    { "days": 16, "text": "GIANT LANCE: NUCLEAR-ARMED B-52s OF THE 92ND STRATEGIC AEROSPACE WING FLY THE EIELSON EAST ORBIT OVER ALASKA · EIGHTEEN AIRCRAFT IN SORTIES OF SIX · EIGHTEEN-HOUR VIGILS · DESIGNED TO BE SEEN", "evidence": "documented", "source": "NSA EBB 81: implementation from 26 October, 92nd Strategic Aerospace Wing, the \"Eielson East SEAGA orbit\"; Wikipedia, Operation Giant Lance: eighteen B-52s in sorties of six, eighteen-hour vigils", "camera": { "center": [-150, 62], "zoom": 3.2 }, "action": "giant-lance" },
+    { "days": 18, "text": "JCS ORDERS THE TEST TERMINATED", "evidence": "documented", "source": "NSA EBB 81, 28 October 1969" },
+    { "days": 20, "text": "EARLY MORNING: RETURN TO NORMAL OPERATIONS · NO SOVIET STRATEGIC RESPONSE OBSERVED · MOSCOW GAVE NO SIGN OF HAVING READ THE SIGNAL AS INTENDED", "evidence": "documented", "source": "NSA EBB 81, 30 October 1969; Sagan and Suri 2003 on the absence of a Soviet response" }
+  ],
+  "giantLance": {
+    "aircraft": 18,
+    "perSortie": 6,
+    "vigilHours": 18,
+    "waves": 3,
+    "bases": [
+      { "id": "fairchild-92", "name": "Fairchild AFB · 92nd Strategic Aerospace Wing", "lon": -117.647, "lat": 47.616, "evidence": "documented", "source": "NSA EBB 81" },
+      { "id": "castle-93", "name": "Castle AFB · 93rd Bombardment Wing", "lon": -120.571, "lat": 37.38, "evidence": "reconstructed", "source": "Wikipedia, Operation Giant Lance: bases in California and Washington State; the California wing is not named" }
+    ],
+    "orbit": { "name": "Eielson East orbit", "points": [[-147.1, 64.7], [-141.5, 65.6], [-141.0, 63.9], [-146.5, 63.2]], "evidence": "reconstructed", "source": "The orbit is named in the record; its box east of Eielson AFB is drawn from the name and the aircraft's endurance" },
+    "speedKmh": 845
+  },
+  "naval": [
+    { "id": "aden", "name": "Naval movements · Gulf of Aden", "lon": 46.0, "lat": 12.5 },
+    { "id": "med", "name": "Naval movements · Mediterranean", "lon": 18.0, "lat": 35.0 },
+    { "id": "atlantic", "name": "Naval movements · Atlantic", "lon": -35.0, "lat": 40.0 },
+    { "id": "japan", "name": "Naval movements · Sea of Japan", "lon": 135.0, "lat": 40.0 }
+  ],
+  "sources": [
+    "National Security Archive EBB 81, Nixon's Nuclear Ploy (Burr and Kimball, 2002)",
+    "Sagan and Suri, \"The Madman Nuclear Alert: Secrecy, Signaling, and Safety in October 1969,\" International Security 27:4 (2003)",
+    "Burr and Kimball, \"Nixon's Nuclear Ploy,\" Bulletin of the Atomic Scientists (2003)"
+  ]
+}
