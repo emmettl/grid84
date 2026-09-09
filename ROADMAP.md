@@ -99,7 +99,7 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 
 **Exit:** the alert force plays end to end, every mark traces to a page, disagreements between sources are visible on the readout, and the study never claims to know more than the record.
 
-Candidate studies after SIOP//62, each needing its own brief first: the Cuban missile crisis gone hot ([brief written](docs/CUBA-62.md): the R-12 regiments against Florida and the south-east, the FKR cruise missiles and Lunas against Guantánamo and a landing, then the general exchange under SIOP-63), Able Archer 83 gone hot ([brief written](docs/ABLE-ARCHER-83.md)), India–Pakistan after Toon and Robock (2019), the Korean peninsula. See [Beyond SIOP//62](docs/SIOP-62.md#beyond-siop62).
+Candidate studies after SIOP//62, each needing its own brief first: the Cuban missile crisis gone hot ([brief written](docs/CUBA-62.md): the R-12 regiments against Florida and the south-east, the FKR cruise missiles and Lunas against Guantánamo and a landing, then the general exchange under SIOP-63), DEFCON 3 in October 1973 as a force-posture study of the seventies, with the 1969 readiness test as its second act ([brief written](docs/DEFCON3-73.md)), Able Archer 83 gone hot as the European theatre war, INF and release procedures included ([brief written](docs/ABLE-ARCHER-83.md)), India–Pakistan after Toon and Robock (2019), the Korean peninsula. See [Beyond SIOP//62](docs/SIOP-62.md#beyond-siop62).
 
 ## 5 — Publication
 
