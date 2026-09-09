@@ -43,7 +43,13 @@ function staticFeatures(study: Study) {
   return { paths, sites, rings }
 }
 
-function effectRings(e: Entity & { kind: 'effect' }, burst: Burst) {
+/** An effect with plume assumptions follows the burst switch; one without keeps the burst its study gave it. */
+function modeOf(e: Entity & { kind: 'effect' }, burst: Burst): Burst {
+  return e.fallout ? burst : (e.burst ?? burst)
+}
+
+function effectRings(e: Entity & { kind: 'effect' }, mode: Burst) {
+  const burst = modeOf(e, mode)
   if (burst === 'air') return e.effects.rings
   // Surface burst: overpressure rings shrink to the contact-burst radii; thermal and fireball rings are kept as drawn.
   return e.effects.rings.map((r) => (r.key.startsWith('psi') ? { ...r, radius: radiusForPsi(e.effects.yieldKt, Number(r.key.slice(3)), 'surface') } : r))
@@ -77,9 +83,14 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
       }
     } else if (e.kind === 'effect' && time >= e.time) {
       if (e.compact && e.id !== selectedId) {
-        // One mark per detonation, radius from the 5 psi ring so it scales with yield; rings only when selected.
+        // One mark per detonation, radius from the 5 psi ring so it scales with yield; rings only when selected, plumes always.
         const r5 = drawnRadius(e, burst, 'psi5')
         flashes.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [e.center[0], e.center[1]] }, properties: { evidence: 'modelled', id: e.id, radiusMetres: r5, age: time - e.time, side: e.side ?? 'attacker' } })
+        if (burst === 'surface' && e.fallout) {
+          animated = true
+          const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, reachedHours: (time - e.time) / 3_600 })
+          for (const c of [...contours].reverse()) areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [c.ring.map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}` } })
+        }
         continue
       }
       const drawn = effectRings(e, burst)
@@ -150,8 +161,8 @@ export function StudyView({ study }: { study: Study }) {
   const exposureService = useRef<ExposureService | null>(null)
   const computed = useRef<Set<string>>(new Set())
   const [outcomes, setOutcomes] = useState<Record<string, Outcome & { grid: string }>>({})
-  const [burst, setBurst] = useState<Burst>('air')
-  const burstRef = useRef<Burst>('air')
+  const [burst, setBurst] = useState<Burst>(study.defaultBurst ?? 'air')
+  const burstRef = useRef<Burst>(study.defaultBurst ?? 'air')
   const falloutComputed = useRef<Set<string>>(new Set())
   const [falloutOutcomes, setFalloutOutcomes] = useState<Record<string, { under1: number; dead: number; grid: string }>>({})
   const [gridName, setGridName] = useState<string | null>(null)
@@ -169,16 +180,22 @@ export function StudyView({ study }: { study: Study }) {
       const values = Object.entries(outcomes)
         .filter(([id]) => sideOf[id] === side)
         .map(([, o]) => o)
+      const fallout = Object.entries(falloutOutcomes)
+        .filter(([id]) => sideOf[id] === side)
+        .map(([, o]) => o)
       return {
         computed: values.length,
         total: totals[side],
         blastDead: values.reduce((s, o) => s + o.blast.fatal, 0),
         blastInjured: values.reduce((s, o) => s + o.blast.injured, 0),
         fireDead: values.reduce((s, o) => s + o.fire.fatal, 0),
+        falloutComputed: fallout.length,
+        falloutDead: fallout.reduce((s, o) => s + o.dead, 0),
+        under1: fallout.reduce((s, o) => s + o.under1, 0),
       }
     }
     return { all: Object.keys(outcomes).length, attacker: forSide('attacker'), defender: forSide('defender') }
-  }, [outcomes, study])
+  }, [outcomes, falloutOutcomes, study])
   const aggregate = { ...sums.attacker, computed: sums.all }
   const defence = sums.defender
   const bounds = burst === 'surface' && study.surfaceBounds ? study.surfaceBounds : study.bounds
@@ -322,7 +339,7 @@ export function StudyView({ study }: { study: Study }) {
           setSourceData(map, SOURCES.paths, [...statics.paths, ...timed.paths])
         }
         // Rings and areas only change with selection, burst mode or a spreading plume; flashes age slowly.
-        const nextRingsKey = `${timed.rings.length}:${timed.areas.length}:${selectedRef.current}:${burstRef.current}:${timed.animated ? next.time : ''}`
+        const nextRingsKey = `${timed.rings.length}:${timed.areas.length}:${selectedRef.current}:${burstRef.current}:${timed.animated ? Math.floor(now / 500) : ''}`
         if (nextRingsKey !== ringsKey) {
           ringsKey = nextRingsKey
           setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings])
@@ -353,7 +370,7 @@ export function StudyView({ study }: { study: Study }) {
             if (due && service && service.grid && !computed.current.has(e.id)) {
               computed.current.add(e.id)
               const yieldKt = e.effects.yieldKt
-              const mode = burstRef.current
+              const mode = modeOf(e, burstRef.current)
               const rings = [...OTA_BANDS.map((b) => ({ key: b.key, radius: radiusForPsi(yieldKt, b.minPsi, mode) })), { key: 'fire', radius: thirdDegreeBurnRadiusMetres(yieldKt) }]
               const gridName = `${service.grid.source.name} · ${service.grid.source.year}`
               service
@@ -627,6 +644,13 @@ export function StudyView({ study }: { study: Study }) {
                 <strong>{fmt(aggregate.fireDead)}</strong>
                 <em>dead</em>
               </div>
+              {aggregate.falloutComputed > 0 && (
+                <div>
+                  <span>Fallout · no shelter</span>
+                  <strong>{fmt(aggregate.falloutDead)}</strong>
+                  <em>acute deaths · {fmt(aggregate.under1)} under 1 rad/hr · {aggregate.falloutComputed} plumes summed</em>
+                </div>
+              )}
             </div>
             {study.outcomeReference && (
               <p className="provenance-source">

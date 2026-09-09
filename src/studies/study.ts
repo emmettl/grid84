@@ -101,6 +101,8 @@ export interface Study {
   omissions: string[]
   /** Name of a prepared population grid under data/hyde, e.g. 'popc_1961'; effects then compute exposure. */
   populationGrid?: string
+  /** Which burst mode the study opens in; default air. */
+  defaultBurst?: 'air' | 'surface'
   /** Bounds to use when the study is switched to surface bursts, so the plume has days to fall. */
   surfaceBounds?: { start: number; end: number }
   /** Exposure workers to run; large studies ask for more. */

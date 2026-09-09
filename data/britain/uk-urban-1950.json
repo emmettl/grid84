@@ -1,0 +1,69 @@
+{
+ "name": "United Kingdom",
+ "year": 1950,
+ "rule": "The 12 most populous 5-arc-minute cells of the HYDE 3.3 1950 population grid inside the box -8.0, 49.9 to 2.0, 59.0, in descending order, skipping any cell within 40 km of one already taken; 1 boxes of neighbouring cities left out",
+ "evidence": "modelled",
+ "source": "Klein Goldewijk, K. (2023). History Database of the Global Environment 3.3 (CC BY-NC-SA 4.0)",
+ "targets": [
+  {
+   "lon": -0.1251,
+   "lat": 51.5416,
+   "population": 313332
+  },
+  {
+   "lon": -1.1251,
+   "lat": 52.6249,
+   "population": 174005
+  },
+  {
+   "lon": -1.4584,
+   "lat": 53.3749,
+   "population": 168755
+  },
+  {
+   "lon": -2.2084,
+   "lat": 53.4583,
+   "population": 154466
+  },
+  {
+   "lon": -4.2917,
+   "lat": 55.8749,
+   "population": 153981
+  },
+  {
+   "lon": -2.5417,
+   "lat": 51.4583,
+   "population": 150215
+  },
+  {
+   "lon": -3.2084,
+   "lat": 55.9583,
+   "population": 148652
+  },
+  {
+   "lon": -1.8751,
+   "lat": 52.4583,
+   "population": 143151
+  },
+  {
+   "lon": -1.5417,
+   "lat": 53.7916,
+   "population": 138528
+  },
+  {
+   "lon": -2.9584,
+   "lat": 53.4583,
+   "population": 123086
+  },
+  {
+   "lon": -0.9584,
+   "lat": 51.4583,
+   "population": 111921
+  },
+  {
+   "lon": -4.1251,
+   "lat": 50.3749,
+   "population": 109228
+  }
+ ]
+}

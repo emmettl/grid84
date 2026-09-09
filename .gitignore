@@ -15,6 +15,7 @@ data/siop62/ocr-cache/
 # Prepared HYDE grids are reproducible from scripts/prepare-hyde-grid.py; only study years are committed.
 public/data/hyde/popc_*
 !public/data/hyde/popc_1940.*
+!public/data/hyde/popc_1950.*
 !public/data/hyde/popc_1961.*
 !public/data/hyde/popc_1962.*
 !public/data/hyde/popc_1973.*

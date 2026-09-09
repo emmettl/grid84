@@ -5,7 +5,7 @@ import { allocate, megatons, type AllocationOptions, type Launcher, type Sortie,
 import { fate } from '../models/attrition.ts'
 import { ballisticWaypoints, minimumEnergyTrajectory } from '../models/ballistic.ts'
 import { BLAST_MODEL, promptEffects } from '../models/blast.ts'
-import type { Entity } from './study.ts'
+import type { Entity, FalloutAssumption } from './study.ts'
 
 /**
  * One side's strike, enacted: allocation by a stated rule, a timed track per
@@ -39,6 +39,8 @@ export interface StrikeOptions {
   /** Extra facts per struck target; the designation prefix names the target's category. */
   targetFacts?: (target: Target) => Array<Evidenced & { label: string; value: string }>
   targetCategory?: (target: Target) => string
+  /** Burst height per target and, for surface bursts, the plume assumptions; default air. */
+  burstFor?: (target: Target) => { burst: 'air' | 'surface'; fallout?: FalloutAssumption }
 }
 
 export interface FirstArrival {
@@ -139,6 +141,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
   for (const [targetId, fa] of Object.entries(firstArrival)) {
     const t = targetById[targetId]
     const category = o.targetCategory?.(t) ?? 'TARGET'
+    const burst = o.burstFor?.(t) ?? { burst: 'air' as const }
     entities.push({
       kind: 'effect',
       id: `${o.prefix}-e-${targetId}`,
@@ -150,7 +153,8 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       center: t.position,
       time: fa.time,
       effects: promptEffects(fa.yieldKt),
-      burst: 'air',
+      burst: burst.burst,
+      fallout: burst.fallout,
       evidence: 'modelled',
       provenance: { source: BLAST_MODEL },
       facts: [

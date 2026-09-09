@@ -1,0 +1,15 @@
+{
+  "dataset": "HYDE 3.3",
+  "variable": "popc",
+  "year": 1950,
+  "width": 4320,
+  "height": 2160,
+  "cellSize": 0.0833333,
+  "west": -180.0,
+  "south": -90.0,
+  "encoding": "float32-le row-major from north-west, gzip",
+  "totalPopulation": 2529568054,
+  "source": "Klein Goldewijk, K. (2023). History Database of the Global Environment 3.3. Utrecht University. https://doi.org/10.24416/UU01-AEZZIT",
+  "licence": "CC BY-NC-SA 4.0",
+  "sourceFile": "/Users/louisemmett/Downloads/1950AD_pop/popc_1950AD.asc"
+}
