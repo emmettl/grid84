@@ -68,6 +68,7 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 - [ ] Nonlinear shock over terrain, if ever: a Mach-stem-capable solver, out of scope for a browser lab.
 - [ ] Yield and height-of-burst selection staged as a configuration sequence.
 - [x] This contemporary single-weapon case is the population lab with the GHSL grid selected: click the ground, choose the yield, read the two numbers over 30-arc-second cells; historical studies swap in HYDE.
+- [x] NUKEMAP comparison: eight published runs as one-click cases in the lab with NUKEMAP's figures and rings beside the lab's; the method is the same, the 5 psi ring differs by a third in radius through the burst-height convention, and the large-yield case agrees within a fifth. Recorded in [VALIDATION.md](docs/VALIDATION.md#nukemap-comparison).
 
 **Exit:** the circles are calculated effects, the readout states the model and its limits, and the local Aldi's overpressure band is correct for the chosen yield.
 
@@ -107,6 +108,7 @@ Candidate studies after SIOP//62, each needing its own brief first: the Cuban mi
 
 ## 5 — Publication
 
+- [ ] GHSL tiles to Cloudflare R2: `deploy/upload-ghsl-r2.sh <bucket>` uploads the 1,002 immutable tiles (largest 4.1 MB), `deploy/r2-cors.json` is the CORS rule, and `scripts/point-grids-at.py <base>` points the index at the bucket; studies and the lab accept absolute grid URLs.
 - [ ] Own routing host or a licensed provider before public launch; the demo servers are for development only.
 - [ ] Tile and terrain budgets measured on a phone for the opening orbit and one descent.
 - [ ] Attribution and licence audit for every service in the table above.

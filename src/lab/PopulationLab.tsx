@@ -6,18 +6,19 @@ import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
 import { applyBands, bandPopulations, bandsFor, CASUALTY_MODEL, FIRE_MODEL, outcome, overpressureRadiusForPsi, STRUCTURE_CLASSES, type Outcome, type BandExposure } from '../models/casualties.ts'
-import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
+import { promptEffects, thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
 import { ExposureService, type GridSummary } from '../models/exposure-service.ts'
 import type { ExposureResult } from '../models/exposure.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
 import { formatProvenance } from '../evidence/evidence.ts'
 import { VALIDATION_CASES, type RecordedFigure, type ValidationCase } from '../models/validation-cases.ts'
+import { COMPARISON_CASES, NUKEMAP_METHOD, radiusOfSqMi, type ComparisonCase } from '../models/comparison-cases.ts'
 import { planarEstimate, radiusComparisons } from '../models/validation.ts'
 
 // Resolved against the page, because the worker would otherwise resolve a relative path against its own script URL.
 const gridUrl = (name: string) => new URL(`${import.meta.env.BASE_URL}data/hyde/${name}`, document.baseURI).href
 /** Grids live under data/hyde by default; an index entry may name another path under data/, such as the GHSL tiles. */
-const entryUrl = (entry: GridIndexEntry) => (entry.path ? new URL(`${import.meta.env.BASE_URL}data/${entry.path}`, document.baseURI).href : gridUrl(entry.name))
+const entryUrl = (entry: GridIndexEntry) => (entry.path ? (/^https?:/.test(entry.path) ? entry.path : new URL(`${import.meta.env.BASE_URL}data/${entry.path}`, document.baseURI).href) : gridUrl(entry.name))
 const SPECIMEN_BASE = gridUrl('specimen')
 interface GridIndexEntry {
   year: number
@@ -71,6 +72,7 @@ export function PopulationLab() {
   const [yieldKt, setYieldKt] = useState(1_440)
   const [year, setYear] = useState(1961)
   const [validation, setValidation] = useState<ValidationCase | null>(null)
+  const [comparison, setComparison] = useState<ComparisonCase | null>(null)
   const [collapsePsi, setCollapsePsi] = useState(5)
   const [years, setYears] = useState<GridIndexEntry[]>([{ year: 1961, name: 'popc_1961', totalPopulation: 0, dataset: 'HYDE 3.3' }])
   const entry = years.find((y) => y.year === year) ?? { year, name: `popc_${year}`, totalPopulation: 0, dataset: 'HYDE 3.3' }
@@ -271,6 +273,33 @@ export function PopulationLab() {
               </button>
             )}
           </div>
+          <h2>NUKEMAP comparison</h2>
+          <div className="clock-controls">
+            {COMPARISON_CASES.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                className={comparison?.id === c.id ? 'is-active' : ''}
+                title={`${c.weapon} · ${c.yieldKt >= 1_000 ? `${c.yieldKt / 1_000} Mt` : `${c.yieldKt} kt`} · ${c.provenance.source}`}
+                onClick={() => {
+                  setComparison(c)
+                  setValidation(null)
+                  setCenter(c.center)
+                  setYieldKt(c.yieldKt)
+                  const latest = years.reduce((a, b) => (b.year > a.year ? b : a), years[0])
+                  if (latest) setYear(latest.year)
+                  mapRef.current?.flyTo({ center: [c.center[0], c.center[1]], zoom: c.yieldKt > 5_000 ? 8 : 10, pitch: 30, duration: 3_000, essential: true })
+                }}
+              >
+                {c.name}
+              </button>
+            ))}
+            {comparison && (
+              <button type="button" onClick={() => setComparison(null)}>
+                Clear
+              </button>
+            )}
+          </div>
         </section>
 
         <section className="log" aria-label="Grid">
@@ -366,6 +395,7 @@ export function PopulationLab() {
         </section>
 
         {validation && <RecordedPanel c={validation} yieldKt={yieldKt} />}
+        {comparison && <ComparisonPanel c={comparison} result={result} gridName={grid.summary ? `${grid.summary.source.name} ${grid.summary.source.year}` : null} />}
 
         <section className="omissions" aria-label="Not represented">
           <h2>Not represented</h2>
@@ -404,6 +434,98 @@ function Figure({ f }: { f: RecordedFigure }) {
         {f.note && <span className="fact-note"> · {f.note}</span>}
       </dd>
     </div>
+  )
+}
+
+/** A published NUKEMAP result beside the lab's, same method, different population. */
+function ComparisonPanel({ c, result, gridName }: { c: ComparisonCase; result: { outcome: Outcome } | null; gridName: string | null }) {
+  const ours = result?.outcome
+  const ratio = (a: number, b: number) => (b > 0 ? `×${(a / b).toFixed(2)}` : '—')
+  const ringRows = c.areasSqMi
+    ? (
+        [
+          ['Fireball', c.areasSqMi.fireball, promptEffects(c.yieldKt).rings.find((r) => r.key === 'fireball')?.radius ?? 0],
+          ['20 psi', c.areasSqMi.psi20, overpressureRadiusForPsi(c.yieldKt, 20)],
+          ['500 rem', c.areasSqMi.rad500, promptEffects(c.yieldKt).rings.find((r) => r.key === 'rad500')?.radius ?? 0],
+          ['5 psi', c.areasSqMi.psi5, overpressureRadiusForPsi(c.yieldKt, 5)],
+          ['Third-degree burns', c.areasSqMi.burn3, promptEffects(c.yieldKt).rings.find((r) => r.key === 'burn3')?.radius ?? 0],
+          ['1 psi', c.areasSqMi.psi1, overpressureRadiusForPsi(c.yieldKt, 1)],
+        ] as Array<[string, number, number]>
+      ).map(([label, sqMi, ours]) => ({ label, theirs: radiusOfSqMi(sqMi), ours }))
+    : []
+  return (
+    <section className="provenance recorded" aria-label="NUKEMAP comparison">
+      <h2>
+        {c.name} · {c.weapon} <span className="badge badge--reconstructed">PUBLISHED RUN</span>
+      </h2>
+      <table className="bands">
+        <thead>
+          <tr>
+            <th></th>
+            <th>NUKEMAP · LandScan 2011</th>
+            <th>This lab · {gridName ?? 'grid'}</th>
+            <th>Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Blast dead</td>
+            <td>{n(c.nukemap.dead)}</td>
+            <td>{ours ? n(ours.blast.fatal) : '…'}</td>
+            <td>{ours ? ratio(ours.blast.fatal, c.nukemap.dead) : ''}</td>
+          </tr>
+          <tr>
+            <td>Injured</td>
+            <td>{n(c.nukemap.injured)}</td>
+            <td>{ours ? n(ours.blast.injured) : '…'}</td>
+            <td>{ours ? ratio(ours.blast.injured, c.nukemap.injured) : ''}</td>
+          </tr>
+          <tr>
+            <td>With mass fire</td>
+            <td>not counted</td>
+            <td>{ours ? n(ours.fire.fatal) : '…'}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      {ringRows.length > 0 && (
+        <>
+          <h2>Rings, from NUKEMAP's quoted areas</h2>
+          <table className="bands">
+            <thead>
+              <tr>
+                <th></th>
+                <th>NUKEMAP</th>
+                <th>This lab</th>
+                <th>Ratio</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ringRows.map((r) => (
+                <tr key={r.label}>
+                  <td>{r.label}</td>
+                  <td>{(r.theirs / 1_000).toFixed(2)} km</td>
+                  <td>{(r.ours / 1_000).toFixed(2)} km</td>
+                  <td className={Math.abs(r.ours / r.theirs - 1) > 0.25 ? 'is-fire' : ''}>×{(r.ours / r.theirs).toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
+      <p className="provenance-method">{NUKEMAP_METHOD.method}. The bands are the same here, so a difference comes from the rings, the population under them, and the ground zero. The lab's overpressure radii are Glasstone's optimum-height figures; NUKEMAP's quoted 5 psi ring is smaller, which is a lower burst height, and the 5 psi band is where most of the dead are counted. LandScan's 2011 ambient count differs from this grid's residential count, and the published run does not state its ground zero. {c.centerNote}.</p>
+      <p className="provenance-source">
+        {c.provenance.source}
+        {c.provenance.url && (
+          <>
+            {' · '}
+            <a href={c.provenance.url} target="_blank" rel="noreferrer">
+              source
+            </a>
+          </>
+        )}
+      </p>
+    </section>
   )
 }
 

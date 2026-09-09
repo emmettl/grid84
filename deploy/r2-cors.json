@@ -1,0 +1,9 @@
+[
+  {
+    "AllowedOrigins": ["http://127.0.0.1:4184", "http://localhost:4184", "https://YOUR-SITE-ORIGIN"],
+    "AllowedMethods": ["GET", "HEAD"],
+    "AllowedHeaders": ["Range", "Content-Type"],
+    "ExposeHeaders": ["Content-Length", "Content-Encoding"],
+    "MaxAgeSeconds": 86400
+  }
+]

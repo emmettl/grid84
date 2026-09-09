@@ -122,3 +122,35 @@ The scaled total lands between the RERF and City of Hiroshima end-of-1945 figure
 Inside the scaled collapse radius of 2.47 km the scaled model gives an area-weighted 64.9 percent dead against a recorded 34.4 percent; the unscaled bands give a figure within a tenth of the record. The correction reaches the right total by killing the wrong people: it doubles the near-field mortality that the record does not support, and the extra deaths it produces are the fire and radiation deaths that the blast-only method cannot see, arrived at by a different route.
 
 The reason is that the DCPA curves were fitted to these two cities. Their pressure labels are labels; the fractions already embed the Japanese houses. A structure correction on top double counts, and the test now asserts that it does. The class remains in the lab as an exploratory control, badged inferred, for building stock the record cannot calibrate, and the readout says when it is off the baseline. For the 1961 Soviet cities of SIOP//62 the honest position is to leave the bands as published and state that their building stock is not in the calibration.
+
+## NUKEMAP comparison
+
+NUKEMAP's casualty method is this engine's: the DCPA bands of 1973 as reprinted in OTA 1979, applied to the overpressure rings, with no shielding and no thermal or radiation count. A difference between the two is therefore a difference of rings, of population data, or of ground zero. NUKEMAP sums LandScan 2011 ambient population; the lab sums GHSL residential population for 2025. The published runs are Newsweek's of 30 October 2025, a W88 of 455 kt air burst over seven cities, and of 16 May 2022, the Tsar Bomba over New York; neither states its ground zero, so the city's geocoded centre stands for it. The lab's numbers are the population lab on the 2025 grid, blast only.
+
+| City, W88 455 kt air burst | NUKEMAP dead | Lab dead | Ratio | NUKEMAP injured | Lab injured | Ratio |
+| --- | --- | --- | --- | --- | --- | --- |
+| Moscow | 507,500 | 952,842 | ×1.88 | 1,442,990 | 3,340,191 | ×2.31 |
+| Beijing | 695,260 | 1,655,853 | ×2.38 | 1,502,500 | 4,156,674 | ×2.77 |
+| London | 225,930 | 929,187 | ×4.11 | 202,370 | 2,482,353 | ×12.27 |
+| New York | 1,258,610 | 896,596 | ×0.71 | 1,436,630 | 2,395,583 | ×1.67 |
+| Los Angeles | 320,580 | 437,236 | ×1.36 | 601,150 | 1,250,854 | ×2.08 |
+| Tokyo | 673,950 | 1,201,561 | ×1.78 | 1,752,400 | 3,609,989 | ×2.06 |
+| Paris | 1,072,840 | 1,672,735 | ×1.56 | 1,537,060 | 2,518,599 | ×1.64 |
+| New York, Tsar Bomba 50 Mt | 7,600,000 | 8,856,454 | ×1.17 | 4,200,000 | 5,147,568 | ×1.23 |
+
+**The rings account for most of it.** NUKEMAP's report quotes its ring areas, which give its radii; the lab's are Glasstone's optimum-height figures.
+
+| 455 kt | NUKEMAP | Lab | Ratio |
+| --- | --- | --- | --- |
+| Fireball | 0.78 km | 0.71 km | ×0.91 |
+| 20 psi | 1.80 km | 2.15 km | ×1.19 |
+| 500 rem | 2.17 km | 2.40 km | ×1.11 |
+| 5 psi | 4.15 km | 5.46 km | ×1.32 |
+| Third-degree burns | 8.62 km | 8.24 km | ×0.96 |
+| 1 psi | 15.19 km | 16.92 km | ×1.11 |
+
+The fireball, burn and 1 psi radii agree within ten percent. The 5 psi ring differs by a third in radius and by 73 percent in area, and the 5 to 12 psi band is where the method counts most of its dead, so a lab figure 1.5 to 2 times NUKEMAP's is what the rings alone predict. The lab's 5.46 km is Glasstone's optimum-height 5 psi radius scaled from 1 Mt; NUKEMAP's 4.15 km sits between that and the surface-burst figure of 4.43 km, so its run used a lower burst height than the 5 psi optimum. That is a choice, not an error, on either side, and the lab's panel now shows both sets of rings.
+
+**The rest is population and ground zero.** New York runs below NUKEMAP because LandScan's ambient count puts Manhattan's daytime workers under the rings where a residential grid does not. London runs four times above, with NUKEMAP's injured fewer than its dead, which no set of bands produces from a centred ground zero; the published London run's ground zero must have been off the centre, or on the river. Beijing has grown since 2011. The Tsar Bomba case, where the rings are tens of kilometres and the population is a whole metropolis, agrees within a fifth, which is the comparison that tests the population data rather than the burst height.
+
+**What it validates.** The method is the same and the large-yield case agrees, so the exposure chain is sound; the disagreement at half a megaton is the burst-height convention, which the lab states on every readout as an optimum-height air burst. A NUKEMAP run at the optimum height for 5 psi with a stated ground zero would settle the remaining difference, and the lab's comparison buttons put the cases one click away for anyone with both tools open.
