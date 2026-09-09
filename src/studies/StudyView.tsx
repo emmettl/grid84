@@ -15,6 +15,27 @@ import { EvidenceLegend } from './EvidenceLegend.tsx'
 import type { Entity, LabelAnchor, Study } from './study.ts'
 
 const RATES = [1, 10, 60, 600, 3_600]
+
+/**
+ * Where a study's grid lives. A bare name is a HYDE grid under data/hyde; an
+ * absolute URL is used as given; a path such as ghsl/popc_1985 is looked up
+ * in the grids index, which is where `scripts/point-grids-at.py` records
+ * whether the tiles are local or in the bucket.
+ */
+async function resolveGridBase(grid: string): Promise<string> {
+  if (/^https?:/.test(grid)) return grid
+  const local = (path: string) => new URL(`${import.meta.env.BASE_URL}data/${path}`, document.baseURI).href
+  if (!grid.includes('/')) return local(`hyde/${grid}`)
+  const name = grid.split('/').pop() ?? grid
+  try {
+    const index = (await fetch(local('hyde/index.json')).then((r) => (r.ok ? r.json() : null))) as { grids: Array<{ name: string; path?: string }> } | null
+    const entry = index?.grids.find((g) => g.name === name)
+    if (entry?.path) return /^https?:/.test(entry.path) ? entry.path : local(entry.path)
+  } catch {
+    // fall through to the local path
+  }
+  return local(grid)
+}
 /** Studies with more tracks than this draw them through the WebGL layer instead of GeoJSON sources. */
 export const GL_TRACK_THRESHOLD = 100
 
@@ -271,24 +292,28 @@ export function StudyView({ study }: { study: Study }) {
   // Population grid for outcome calculation, loaded once per study in a worker.
   useEffect(() => {
     if (!study.populationGrid) return
-    // A bare name is a HYDE grid; a path with a slash, such as ghsl/popc_1985, is relative to data/.
-    const base = /^https?:/.test(study.populationGrid) ? study.populationGrid : new URL(`${import.meta.env.BASE_URL}data/${study.populationGrid.includes('/') ? study.populationGrid : `hyde/${study.populationGrid}`}`, document.baseURI).href
-    const service = new ExposureService(base, study.exposureWorkers ?? 1)
-    exposureService.current = service
-    if (import.meta.env.DEV) Object.assign(window, { __grid84Exposure: service })
-    service
-      .load()
+    let service: ExposureService | null = null
+    let cancelled = false
+    resolveGridBase(study.populationGrid)
+      .then((base) => {
+        if (cancelled) return
+        service = new ExposureService(base, study.exposureWorkers ?? 1)
+        exposureService.current = service
+        if (import.meta.env.DEV) Object.assign(window, { __grid84Exposure: service })
+        return service.load()
+      })
       .then((summary) => {
-        if (exposureService.current === service) setGridName(`${summary.source.name} ${summary.source.year}`)
+        if (summary && exposureService.current === service) setGridName(`${summary.source.name} ${summary.source.year}`)
       })
       .catch((error) => {
-      // A destroyed service rejects its load; only clear the ref if it is still ours.
-      if (exposureService.current !== service) return
-      console.warn('population grid unavailable', error)
-      exposureService.current = null
-    })
+        // A destroyed service rejects its load; only clear the ref if it is still ours.
+        if (service && exposureService.current !== service) return
+        console.warn('population grid unavailable', error)
+        exposureService.current = null
+      })
     return () => {
-      service.destroy()
+      cancelled = true
+      service?.destroy()
       exposureService.current = null
     }
   }, [study])

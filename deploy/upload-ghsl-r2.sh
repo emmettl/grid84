@@ -10,7 +10,7 @@
 # Usage: deploy/upload-ghsl-r2.sh <bucket> [public base URL]
 #   deploy/upload-ghsl-r2.sh grid84-grids https://grids.example.org
 # Then set the CORS rule (edit deploy/r2-cors.json with the site's origin first):
-#   wrangler r2 bucket cors put <bucket> --file deploy/r2-cors.json
+#   wrangler r2 bucket cors set <bucket> --file deploy/r2-cors.json
 # And point the index at the bucket:
 #   scripts/point-grids-at.py https://grids.example.org
 set -euo pipefail
@@ -20,10 +20,10 @@ cd "$(dirname "$0")/.."
 count=0
 for meta in public/data/ghsl/popc_*.json; do
   name=$(basename "$meta" .json)
-  wrangler r2 object put "$BUCKET/ghsl/$name.json" --file "$meta" --content-type application/json --cache-control "public, max-age=31536000, immutable" >/dev/null
+  wrangler r2 object put "$BUCKET/ghsl/$name.json" --remote --file "$meta" --content-type application/json --cache-control "public, max-age=31536000, immutable" >/dev/null
   for tile in public/data/ghsl/"$name"/tiles/*.bin.gz; do
     key="ghsl/$name/tiles/$(basename "$tile")"
-    wrangler r2 object put "$BUCKET/$key" --file "$tile" --content-type application/octet-stream --cache-control "public, max-age=31536000, immutable" >/dev/null
+    wrangler r2 object put "$BUCKET/$key" --remote --file "$tile" --content-type application/octet-stream --cache-control "public, max-age=31536000, immutable" >/dev/null
     count=$((count + 1))
     if (( count % 50 == 0 )); then echo "$count tiles"; fi
   done
