@@ -249,6 +249,8 @@ Lemnitzer's warning is the finding: the response comes anyway, from the bombers 
 
 **What it omits**, on the readout: refuelling and routing; Soviet air defence and any Soviet response; about six in ten of the 1,100 airfields, which the transcription does not yet read; per-weapon yields, with Mk-28 class assumed for bombers; and overlap between targets, which the summing counts more than once. Airfields sit inside or beside the cities whose complexes are also struck, so the airfield weapons add little to the death count and much to the picture: the Air Power Battle is the first hour of the day.
 
+**Rendering.** A study with more than a hundred tracks draws them through a WebGL custom layer rather than GeoJSON sources ([`src/map/track-layer.ts`](../src/map/track-layer.ts)). Every track is densified once into a static vertex buffer with the time it reaches each vertex; a study tick rewrites only an index list of the flown segments, one head segment per moving vehicle, and one point per vehicle. Projection is MapLibre's own shader prelude, so the lines follow the globe and its transition to mercator. The evidence grammar survives the change: dashes are drawn in screen pixels per tier, and vehicle marks keep their dark fill, tier-coloured ring and halo. On the alert force this costs 1 to 6 ms of main-thread time per update against 65 to 95 ms just to build the GeoJSON features it replaces.
+
 ## Open questions
 
 - Which 1956 targets can be tied to 1961 ground zeros, and by what stated rule? Airfields and the largest cities are the safest reconstruction.

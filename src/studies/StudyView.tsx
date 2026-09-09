@@ -5,6 +5,8 @@ import { formatProvenance, TIER_LABEL, type Evidenced } from '../evidence/eviden
 import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
+import { TrackLayer } from '../map/track-layer.ts'
+import { prepareTracks, type TrackSpec } from '../map/track-scene.ts'
 import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst, type Outcome } from '../models/casualties.ts'
 import { SURFACE_BLAST_MODEL, thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
 import { acuteMortality, plume } from '../models/fallout.ts'
@@ -13,6 +15,8 @@ import { EvidenceLegend } from './EvidenceLegend.tsx'
 import type { Entity, LabelAnchor, Study } from './study.ts'
 
 const RATES = [1, 10, 60, 600, 3_600]
+/** Studies with more tracks than this draw them through the WebGL layer instead of GeoJSON sources. */
+export const GL_TRACK_THRESHOLD = 100
 
 function Badge({ evidence }: { evidence: Evidenced['evidence'] }) {
   return <span className={`badge badge--${evidence}`}>{TIER_LABEL[evidence]}</span>
@@ -45,14 +49,26 @@ function effectRings(e: Entity & { kind: 'effect' }, burst: Burst) {
   return e.effects.rings.map((r) => (r.key.startsWith('psi') ? { ...r, radius: radiusForPsi(e.effects.yieldKt, Number(r.key.slice(3)), 'surface') } : r))
 }
 
-function timedFeatures(study: Study, time: number, burst: Burst, selectedId: string | null) {
+function trackSpecs(study: Study): TrackSpec[] {
+  const specs: TrackSpec[] = []
+  for (const e of study.entities) {
+    if (e.kind === 'track') specs.push({ id: e.id, track: e.track, route: e.route.evidence, evidence: e.evidence, side: e.side ?? 'attacker', reveal: e.reveal })
+  }
+  return specs
+}
+
+/** Timed geometry for the GeoJSON sources. `tracks` is false when the WebGL layer draws vehicles and flown paths. */
+function timedFeatures(study: Study, time: number, burst: Burst, selectedId: string | null, tracks: boolean) {
   const vehicles: EvidenceFeature[] = []
   const rings: EvidenceFeature[] = []
   const areas: EvidenceFeature[] = []
   const paths: EvidenceFeature[] = []
   const flashes: EvidenceFeature[] = []
+  /** True when something drawn here changes continuously with time, such as a spreading plume. */
+  let animated = false
   for (const e of study.entities) {
     if (e.kind === 'track') {
+      if (!tracks) continue
       const p = e.track.positionAt(time)
       if (p) vehicles.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [p[0], p[1]] }, properties: { evidence: e.evidence, id: e.id, side: e.side ?? 'attacker' } })
       if (e.reveal === 'progressive') {
@@ -74,6 +90,7 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
       const outer = drawn.reduce((a, b) => (b.radius > a.radius ? b : a))
       areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [geodesicCircle(e.center, outer.radius).map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-area` } })
       if (burst === 'surface' && e.fallout) {
+        animated = true
         const hoursSince = (time - e.time) / 3_600
         const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, reachedHours: hoursSince })
         for (const c of [...contours].reverse()) {
@@ -83,7 +100,7 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
       }
     }
   }
-  return { vehicles, rings, areas, paths, flashes }
+  return { vehicles, rings, areas, paths, flashes, animated }
 }
 
 function drawnRadius(e: Entity & { kind: 'effect' }, burst: Burst, key: string): number {
@@ -127,6 +144,7 @@ export function StudyView({ study }: { study: Study }) {
   const mapRef = useRef<MapLibreMap | null>(null)
   const markers = useRef<Map<string, Marker>>(new Map())
   const terrainSync = useRef<((force?: boolean) => void) | null>(null)
+  const trackLayer = useRef<TrackLayer | null>(null)
   /** Sources are rewritten only when the clock moves, and once on first paint. */
   const primed = useRef(false)
   const exposureService = useRef<ExposureService | null>(null)
@@ -180,6 +198,7 @@ export function StudyView({ study }: { study: Study }) {
   const [ready, setReady] = useState(false)
 
   const statics = useMemo(() => staticFeatures(study), [study])
+  const glTracks = useMemo(() => study.entities.filter((e) => e.kind === 'track').length > GL_TRACK_THRESHOLD, [study])
   const selected = study.entities.find((e) => e.id === selectedId) ?? null
 
   useEffect(() => {
@@ -190,7 +209,14 @@ export function StudyView({ study }: { study: Study }) {
     map.on('load', () => {
       terrainSync.current = installTerrainSync(map)
       installEvidenceLayers(map)
-      setSourceData(map, SOURCES.paths, statics.paths)
+      if (glTracks) {
+        const layer = new TrackLayer()
+        layer.setScene(prepareTracks(trackSpecs(study)))
+        map.addLayer(layer, 'ev-vehicles-glow')
+        trackLayer.current = layer
+      } else {
+        setSourceData(map, SOURCES.paths, statics.paths)
+      }
       setSourceData(map, SOURCES.sites, statics.sites)
       for (const e of study.entities) {
         if (e.label === false) continue
@@ -219,9 +245,10 @@ export function StudyView({ study }: { study: Study }) {
       labels.clear()
       map.remove()
       mapRef.current = null
+      trackLayer.current = null
       setReady(false)
     }
-  }, [study, statics])
+  }, [study, statics, glTracks])
 
   // Population grid for outcome calculation, loaded once per study in a worker.
   useEffect(() => {
@@ -253,6 +280,11 @@ export function StudyView({ study }: { study: Study }) {
     let last = performance.now()
     let lastSources = 0
     let lastPanel = 0
+    let lastFlashes = 0
+    let flashesKey = ''
+    let ringsKey = ''
+    const perf = { ticks: 0, updateMs: 0, maxUpdateMs: 0, renderer: glTracks ? 'webgl' : 'geojson' }
+    if (import.meta.env.DEV) Object.assign(window, { __grid84Perf: perf })
     const tick = (now: number) => {
       // Slow frames must not slow the study clock: allow up to a second of wall time per frame.
       const dt = Math.min(1, (now - last) / 1_000)
@@ -275,15 +307,32 @@ export function StudyView({ study }: { study: Study }) {
       if (map) terrainSync.current?.()
       // Map sources are rewritten at most about fifteen times a second; the readout about ten.
       const refreshSources = !primed.current || now - lastSources > 66
+      let updated = false
+      const updateStart = performance.now()
       if (map && (changed || !primed.current) && refreshSources) {
         primed.current = true
         lastSources = now
-        const timed = timedFeatures(study, next.time, burstRef.current, selectedRef.current)
-        setSourceData(map, SOURCES.vehicles, timed.vehicles)
-        setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings])
-        setSourceData(map, SOURCES.areas, timed.areas)
-        setSourceData(map, SOURCES.paths, [...statics.paths, ...timed.paths])
-        setSourceData(map, SOURCES.flashes, timed.flashes)
+        updated = true
+        const timed = timedFeatures(study, next.time, burstRef.current, selectedRef.current, !glTracks)
+        if (glTracks) {
+          trackLayer.current?.setTime(next.time)
+        } else {
+          setSourceData(map, SOURCES.vehicles, timed.vehicles)
+          setSourceData(map, SOURCES.paths, [...statics.paths, ...timed.paths])
+        }
+        // Rings and areas only change with selection, burst mode or a spreading plume; flashes age slowly.
+        const nextRingsKey = `${timed.rings.length}:${timed.areas.length}:${selectedRef.current}:${burstRef.current}:${timed.animated ? next.time : ''}`
+        if (nextRingsKey !== ringsKey) {
+          ringsKey = nextRingsKey
+          setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings])
+          setSourceData(map, SOURCES.areas, timed.areas)
+        }
+        const nextFlashesKey = `${timed.flashes.length}:${selectedRef.current}`
+        if (nextFlashesKey !== flashesKey || now - lastFlashes > 500) {
+          flashesKey = nextFlashesKey
+          lastFlashes = now
+          setSourceData(map, SOURCES.flashes, timed.flashes)
+        }
         for (const e of study.entities) {
           const marker = markers.current.get(e.id)
           if (e.kind === 'track') {
@@ -342,6 +391,13 @@ export function StudyView({ study }: { study: Study }) {
           }
         }
       }
+      if (updated && import.meta.env.DEV) {
+        // Dev-only counters for the main-thread cost of a source update, readable as window.__grid84Perf.
+        const ms = performance.now() - updateStart
+        perf.ticks += 1
+        perf.updateMs += ms
+        perf.maxUpdateMs = Math.max(perf.maxUpdateMs, ms)
+      }
       if (changed && (now - lastPanel > 100 || !next.playing)) {
         lastPanel = now
         setClock(next)
@@ -350,7 +406,7 @@ export function StudyView({ study }: { study: Study }) {
     }
     frame = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(frame)
-  }, [ready, study, statics])
+  }, [ready, study, statics, glTracks])
 
   const setClockState = (patch: Partial<ClockState>) => {
     clockRef.current = { ...clockRef.current, ...patch }

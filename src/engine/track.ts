@@ -95,6 +95,26 @@ export class Track {
     return unwrapAntimeridian([...all.slice(0, n + 1), here])
   }
 
+  /**
+   * The densified path with the time the track reaches every point, for
+   * renderers that reveal it progressively. Legs are cut at about one point per
+   * 250 km, never fewer than two segments nor more than 64, and the time within a
+   * leg follows the fraction of arc, which is how `positionAt` moves along it.
+   */
+  timedGeometry(): Waypoint[] {
+    const out: Waypoint[] = []
+    for (let i = 1; i < this.waypoints.length; i += 1) {
+      const p = this.waypoints[i - 1]
+      const q = this.waypoints[i]
+      const metres = haversineMetres(p.position, q.position)
+      const n = Math.max(2, Math.min(64, Math.ceil(metres / 250_000)))
+      const leg = greatCirclePoints(p.position, q.position, n)
+      for (let j = i === 1 ? 0 : 1; j <= n; j += 1) out.push({ position: leg[j], time: p.time + ((q.time - p.time) * j) / n })
+    }
+    const positions = unwrapAntimeridian(out.map((w) => w.position))
+    return out.map((w, k) => ({ position: positions[k], time: w.time }))
+  }
+
   /** The path densified along great circles, for drawing. */
   geometry(): LngLat[] {
     const points: LngLat[] = []
