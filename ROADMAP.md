@@ -18,7 +18,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 | Geocoding | [Photon](https://photon.komoot.io/) public instance | Fair use, no key | In use |
 | Routing | OSRM or Valhalla public demo servers | Demo only; own host for publication | Stage 1 |
 | Contours | `maplibre-contour` from the terrain tiles | Client side | Stage 2 |
-| Population | HYDE 3.3 grids (Utrecht), prepared by `scripts/prepare-hyde-grid.py`; GHSL later for finer contemporary resolution | CC BY-NC-SA 4.0; behind a bot check, manual download | In use |
+| Population | HYDE 3.3 grids (Utrecht), prepared by `scripts/prepare-hyde-grid.py`; 1940, 1961, 1983 and 2023 are committed, other years prepare locally in seconds; GHSL later for finer contemporary resolution | CC BY-NC-SA 4.0; behind a bot check, manual download | In use |
 
 ## 0 — Target acquisition (now)
 

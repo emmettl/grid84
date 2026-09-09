@@ -1,0 +1,81 @@
+{
+  "grids": [
+    {
+      "year": 1940,
+      "name": "popc_1940",
+      "totalPopulation": 2328459965,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1950,
+      "name": "popc_1950",
+      "totalPopulation": 2529568054,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1951,
+      "name": "popc_1951",
+      "totalPopulation": 2571632294,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1961,
+      "name": "popc_1961",
+      "totalPopulation": 3075836224,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1962,
+      "name": "popc_1962",
+      "totalPopulation": 3134330643,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1970,
+      "name": "popc_1970",
+      "totalPopulation": 3685696055,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1976,
+      "name": "popc_1976",
+      "totalPopulation": 4136812782,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1983,
+      "name": "popc_1983",
+      "totalPopulation": 4683022803,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1989,
+      "name": "popc_1989",
+      "totalPopulation": 5202229068,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1999,
+      "name": "popc_1999",
+      "totalPopulation": 6036800096,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 2023,
+      "name": "popc_2023",
+      "totalPopulation": 7858534127,
+      "dataset": "HYDE 3.3",
+      "licence": "CC BY-NC-SA 4.0"
+    }
+  ]
+}

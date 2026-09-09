@@ -14,10 +14,19 @@ import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
 // Resolved against the page, because the worker would otherwise resolve a relative path against its own script URL.
 const gridUrl = (name: string) => new URL(`${import.meta.env.BASE_URL}data/hyde/${name}`, document.baseURI).href
 const SPECIMEN_BASE = gridUrl('specimen')
-const YEARS: Array<{ year: number; label: string; note: string }> = [
-  { year: 1961, label: '1961', note: 'HYDE 3.3 · the SIOP-62 year' },
-  { year: 2023, label: '2023', note: 'HYDE 3.3 · the contemporary case' },
-]
+interface GridIndexEntry {
+  year: number
+  name: string
+  totalPopulation: number
+  dataset: string
+}
+const YEAR_NOTES: Record<number, string> = {
+  1940: 'nearest grid to Hiroshima and Nagasaki, 1945',
+  1961: 'the SIOP-62 year',
+  1962: 'the Cuban crisis',
+  1983: 'Able Archer',
+  2023: 'the contemporary case',
+}
 
 const YIELDS: Array<{ kt: number; label: string; note: string }> = [
   { kt: 15, label: '15 KT', note: 'Hiroshima class' },
@@ -51,6 +60,14 @@ export function PopulationLab() {
   const [center, setCenter] = useState<LngLat>(DEFAULT_CENTER)
   const [yieldKt, setYieldKt] = useState(1_440)
   const [year, setYear] = useState(1961)
+  const [years, setYears] = useState<GridIndexEntry[]>([{ year: 1961, name: 'popc_1961', totalPopulation: 0, dataset: 'HYDE 3.3' }])
+
+  useEffect(() => {
+    fetch(gridUrl('index.json'))
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((index: { grids: GridIndexEntry[] }) => setYears(index.grids))
+      .catch(() => undefined)
+  }, [])
   const [grid, setGrid] = useState<{ status: 'loading' | 'ready' | 'specimen' | 'missing'; summary?: GridSummary; error?: string }>({ status: 'loading' })
   const [result, setResult] = useState<{ exposure: ExposureResult; bands: BandExposure[]; outcome: Outcome; fireZone: number } | null>(null)
   const [ready, setReady] = useState(false)
@@ -178,7 +195,7 @@ export function PopulationLab() {
         <header className="hud-brand study-brand">
           <span>SurfaceStudies · Terminal Atlas</span>
           <strong>LAB · POPULATION EXPOSURE</strong>
-          <span>Click the ground to move ground zero · HYDE 1961 where present</span>
+          <span>Click the ground to move ground zero · HYDE 3.3 grids by year</span>
         </header>
 
         <section className="clock" aria-label="Weapon">
@@ -194,9 +211,9 @@ export function PopulationLab() {
           <p className="log-empty">Ground zero {formatGrid(center)}</p>
           <h2>Year</h2>
           <div className="clock-controls">
-            {YEARS.map((y) => (
-              <button key={y.year} type="button" className={year === y.year ? 'is-active' : ''} title={y.note} onClick={() => setYear(y.year)}>
-                {y.label}
+            {years.map((y) => (
+              <button key={y.year} type="button" className={year === y.year ? 'is-active' : ''} title={`${y.dataset} · ${YEAR_NOTES[y.year] ?? ''}`} onClick={() => setYear(y.year)}>
+                {y.year}
               </button>
             ))}
           </div>

@@ -88,6 +88,14 @@ def main() -> int:
     }
     Path(str(args.out) + '.json').write_text(json.dumps(meta, indent=2) + '\n')
     print(json.dumps(meta, indent=2))
+    # Maintain an index of prepared grids for the lab's year switch.
+    index_path = args.out.parent / 'index.json'
+    entries = {}
+    if index_path.exists():
+        for e in json.loads(index_path.read_text()).get('grids', []):
+            entries[e['name']] = e
+    entries[args.out.name] = {'year': args.year, 'name': args.out.name, 'totalPopulation': round(total), 'dataset': meta['dataset'], 'licence': meta['licence']}
+    index_path.write_text(json.dumps({'grids': sorted(entries.values(), key=lambda e: e['year'])}, indent=2) + '\n')
     return 0
 
 

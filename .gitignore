@@ -11,3 +11,10 @@ test-results
 # SIOP//62 source scans and OCR cache are fetched, not committed.
 data/siop62/sources/
 data/siop62/ocr-cache/
+
+# Prepared HYDE grids are reproducible from scripts/prepare-hyde-grid.py; only study years are committed.
+public/data/hyde/popc_*
+!public/data/hyde/popc_1940.*
+!public/data/hyde/popc_1961.*
+!public/data/hyde/popc_1983.*
+!public/data/hyde/popc_2023.*
