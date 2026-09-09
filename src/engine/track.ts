@@ -83,6 +83,13 @@ export class Track {
   geometryUntil(time: number): LngLat[] {
     const here = this.positionAt(time)
     if (!here) return time > this.end ? this.geometry() : []
+    if (this.waypoints.length === 2) {
+      // Single leg: densify only the part flown, with points in proportion to its length.
+      const start = this.waypoints[0].position
+      const metres = haversineMetres(start, here)
+      const n = Math.max(2, Math.min(64, Math.ceil(metres / 250_000)))
+      return greatCirclePoints(start, here, n)
+    }
     const all = this.geometry()
     const n = Math.floor(this.progressAt(time) * (all.length - 1))
     return unwrapAntimeridian([...all.slice(0, n + 1), here])

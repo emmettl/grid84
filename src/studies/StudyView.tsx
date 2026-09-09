@@ -235,8 +235,11 @@ export function StudyView({ study }: { study: Study }) {
     if (!ready) return
     let frame = 0
     let last = performance.now()
+    let lastSources = 0
+    let lastPanel = 0
     const tick = (now: number) => {
-      const dt = Math.min(0.25, (now - last) / 1_000)
+      // Slow frames must not slow the study clock: allow up to a second of wall time per frame.
+      const dt = Math.min(1, (now - last) / 1_000)
       last = now
       const previous = clockRef.current
       const next = advance(previous, dt, boundsRef.current)
@@ -254,8 +257,11 @@ export function StudyView({ study }: { study: Study }) {
       }
       // Cheap when unchanged; keeps terrain honest even if MapLibre never reports the fly-to ending.
       if (map) terrainSync.current?.()
-      if (map && (changed || !primed.current)) {
+      // Map sources are rewritten at most about fifteen times a second; the readout about ten.
+      const refreshSources = !primed.current || now - lastSources > 66
+      if (map && (changed || !primed.current) && refreshSources) {
         primed.current = true
+        lastSources = now
         const timed = timedFeatures(study, next.time, burstRef.current, selectedRef.current)
         setSourceData(map, SOURCES.vehicles, timed.vehicles)
         setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings])
@@ -320,7 +326,10 @@ export function StudyView({ study }: { study: Study }) {
           }
         }
       }
-      if (changed) setClock(next)
+      if (changed && (now - lastPanel > 100 || !next.playing)) {
+        lastPanel = now
+        setClock(next)
+      }
       frame = requestAnimationFrame(tick)
     }
     frame = requestAnimationFrame(tick)

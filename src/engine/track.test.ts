@@ -49,7 +49,9 @@ describe('geometryUntil', () => {
     expect(track.geometryUntil(-1)).toEqual([])
     const half = track.geometryUntil(50)
     expect(half[half.length - 1][0]).toBeCloseTo(5, 6)
-    expect(half.length).toBeGreaterThan(20)
+    // Points scale with the distance flown: about one per 250 km, at least three for a 550 km half leg.
+    expect(half.length).toBeGreaterThanOrEqual(3)
+    expect(half.length).toBeLessThan(10)
     expect(track.geometryUntil(1_000).length).toBe(track.geometry().length)
   })
 })
