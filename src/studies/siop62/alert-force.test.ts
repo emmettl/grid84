@@ -22,6 +22,11 @@ describe('alert force enactment', () => {
     expect(missiles.every((e) => e.designation.startsWith('AIRFIELD'))).toBe(true)
     console.log('ALERT FORCE SUMMARY', JSON.stringify(s), 'entities', study.entities.length)
   })
+  it('loses about fifteen percent of the force, as the documented assurance implies', () => {
+    expect(s.delivered / s.weapons).toBeGreaterThan(0.8)
+    expect(s.delivered / s.weapons).toBeLessThan(0.9)
+    expect(s.lostReliability + s.lostPenetration + s.delivered).toBe(s.weapons)
+  })
   it('states its omissions and its reference', () => {
     expect(ALERT_FORCE.study.omissions.length).toBeGreaterThan(4)
     expect(ALERT_FORCE.study.outcomeReference?.value).toBe(80_000_000)

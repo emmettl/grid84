@@ -2,6 +2,7 @@ import { Track } from '../../engine/track.ts'
 import type { Provenance } from '../../evidence/evidence.ts'
 import type { LngLat } from '../../geo/geodesy.ts'
 import { allocate, megatons, type Launcher, type Sortie, type Target } from '../../models/allocation.ts'
+import { ATTRITION_MODEL, calibrate, DOCUMENTED_ASSURANCE, fate, RELIABILITY } from '../../models/attrition.ts'
 import { minimumEnergyTrajectory } from '../../models/ballistic.ts'
 import { BLAST_MODEL, promptEffects } from '../../models/blast.ts'
 import type { Entity, Study, StudyEvent } from '../study.ts'
@@ -99,6 +100,10 @@ function buildTargets(): Target[] {
 export interface AlertForceSummary {
   launchers: number
   weapons: number
+  delivered: number
+  lostReliability: number
+  lostPenetration: number
+  penetration: number
   sorties: number
   targetsCovered: number
   airfieldsCovered: number
@@ -106,6 +111,14 @@ export interface AlertForceSummary {
   megatons: number
   alertFraction: number
   bomberVehicles: number
+}
+
+function slerpTo(a: LngLat, b: LngLat, f: number): LngLat {
+  const t = new Track([
+    { position: a, time: 0 },
+    { position: b, time: 1 },
+  ])
+  return t.positionAt(Math.max(0, Math.min(1, f))) ?? a
 }
 
 function sortieTiming(launcher: Launcher, sortie: Sortie, target: Target): { launch: number; arrival: number; route: 'ballistic' | 'cruise' } {
@@ -150,7 +163,13 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     })
   }
 
-  // Sorties as tracks; one effect per target at first arrival, with the largest yield assigned.
+  // Attrition: reliability and penetration, calibrated to the documented average assurance.
+  const calibration = calibrate(result.sorties, DOCUMENTED_ASSURANCE)
+  let delivered = 0
+  let lostReliability = 0
+  let lostPenetration = 0
+
+  // Sorties as tracks; lost sorties end where they are lost. One effect per target at first delivered arrival.
   const firstArrival: Record<string, { time: number; yieldKt: number; weapons: number; kinds: Set<string> }> = {}
   let index = 0
   for (const s of result.sorties) {
@@ -158,15 +177,23 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     const t = targetById[s.targetId]
     const timing = sortieTiming(l, s, t)
     index += 1
+    const sortieId = `s-${index}`
+    const f = fate(`${s.launcherId}:${s.targetId}:${index}`, s.kind, calibration.penetration)
+    if (f.delivered) delivered += 1
+    else if (f.cause === 'reliability') lostReliability += 1
+    else lostPenetration += 1
+    const endFraction = f.delivered ? 1 : (f.lostAtFraction ?? 0)
+    const endTime = timing.launch + (timing.arrival - timing.launch) * Math.max(endFraction, 0.001)
+    const endPosition: LngLat = f.delivered ? t.position : slerpTo(l.position, t.position, endFraction)
     entities.push({
       kind: 'track',
-      id: `s-${index}`,
+      id: sortieId,
       name: `${l.name} → ${t.name}`,
-      designation: `${l.kind.toUpperCase()} · ${s.yieldKt >= 1_000 ? `${(s.yieldKt / 1_000).toFixed(2)} MT` : `${s.yieldKt} KT`}`,
+      designation: `${l.kind.toUpperCase()} · ${s.yieldKt >= 1_000 ? `${(s.yieldKt / 1_000).toFixed(2)} MT` : `${s.yieldKt} KT`}${f.delivered ? '' : ` · LOST (${f.cause?.toUpperCase()})`}`,
       label: false,
       track: new Track([
         { position: l.position, time: timing.launch },
-        { position: t.position, time: timing.arrival },
+        { position: endPosition, time: endTime },
       ]),
       reveal: 'progressive',
       evidence: 'inferred',
@@ -174,6 +201,7 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
       route: { evidence: timing.route === 'ballistic' ? 'modelled' : 'reconstructed', provenance: { source: timing.route === 'ballistic' ? 'Minimum-energy trajectory' : 'Great circle at cruise speed, no refuelling' } },
       facts: [],
     })
+    if (!f.delivered) continue
     const fa = firstArrival[s.targetId]
     if (!fa) firstArrival[s.targetId] = { time: timing.arrival, yieldKt: s.yieldKt, weapons: 1, kinds: new Set([l.kind]) }
     else {
@@ -213,6 +241,7 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
   events.push({ time: 1, text: 'SEQUENCE: BALLISTIC MISSILES · FORWARD AREAS · CONUS FORCES (DOCUMENTED)' })
   events.push({ time: REACTION_FIXED, text: `H+15 MIN · FIXED BASES LAUNCH · ${byKind('icbm')} ICBM · ${byKind('irbm')} IRBM · ${byKind('bomber')} BOMBER AND THEATRE SORTIES` })
   events.push({ time: REACTION_SEA, text: `H+2 H · POLARIS ON STATION LAUNCH · ${byKind('slbm')} MISSILES` })
+  events.push({ time: REACTION_FIXED + 1, text: `DELIVERY ASSURANCE ${Math.round(DOCUMENTED_ASSURANCE * 100)}% (DOCUMENTED AVERAGE) · ${delivered} DELIVERED · ${lostReliability} RELIABILITY LOSSES · ${lostPenetration} LOST IN PENETRATION (MODELLED)` })
   const arrivals = Object.values(firstArrival).map((f) => f.time).sort((a, b) => a - b)
   if (arrivals.length) {
     events.push({ time: arrivals[0], text: 'FIRST DETONATION' })
@@ -223,6 +252,10 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
   const summary: AlertForceSummary = {
     launchers: launchers.filter((l) => l.weapons > 0).length,
     weapons: result.weaponsAssigned,
+    delivered,
+    lostReliability,
+    lostPenetration,
+    penetration: calibration.penetration,
     sorties: result.sorties.length,
     targetsCovered: result.targetsCovered,
     airfieldsCovered: Object.keys(firstArrival).filter((id) => id.startsWith('a-')).length,
@@ -243,7 +276,9 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     outcomeReference: { label: 'JCS estimate, 1961, alert force, Soviet dead', value: 80_000_000, source: `${EBB798.source}: 80 million, 37 percent of the population` },
     omissions: [
       'Every weapon-to-target assignment is an illustration by a stated rule; no assignment is in the record',
-      'Bomber refuelling, routing, penetration and attrition: great circles at cruise speed, all arrive',
+      'Bomber refuelling and routing: great circles at cruise speed',
+      `Attrition is statistical: ${ATTRITION_MODEL}; reliabilities ${Object.entries(RELIABILITY).map(([k, v]) => `${k} ${v.value} (${v.evidence})`).join(', ')}; bomber penetration solved as ${calibration.penetration.toFixed(2)}`,
+      'Non-all-weather forces, 22 percent of the force carrying 16 percent of the weapons, had a further planning factor the briefing does not state',
       'Soviet air defence and any Soviet response',
       'Airfields: a first-pass transcription reads about half of the 1,100 in the release; the Air Power Battle is under-represented by that much',
       'Yields: Mk-28 class assumed for bombers; the alert-force megatonnage check is on the readout',
@@ -272,6 +307,7 @@ export function alertForceCheck(): Array<{ label: string; enacted: string; docum
   return [
     { label: 'Weapons launched', enacted: fmt(s.weapons), documented: `${fmt(ALERT_FORCE_DOCUMENTED.weapons)} (briefing) · ${fmt(ALERT_FORCE_DOCUMENTED.tableWeapons)} (Table 1)` },
     { label: 'Megatons', enacted: fmt(s.megatons), documented: fmt(ALERT_FORCE_DOCUMENTED.megatons) },
+    { label: 'Weapons delivered', enacted: `${fmt(s.delivered)} (${fmt(s.lostReliability)} reliability, ${fmt(s.lostPenetration)} penetration losses)`, documented: `assurance averaged ${Math.round(DOCUMENTED_ASSURANCE * 100)}% (JSTPS history); bomber penetration solved as ${s.penetration.toFixed(2)}` },
     { label: 'Targets covered', enacted: `${fmt(s.targetsCovered)} (${s.airfieldsCovered} airfields, ${s.complexesCovered} complexes)`, documented: '1,060 DGZs in the full plan, about 800 of them military; the alert force struck the highest-priority ones' },
     { label: 'Launch sites', enacted: fmt(s.launchers), documented: '112 bases in the plan' },
   ]

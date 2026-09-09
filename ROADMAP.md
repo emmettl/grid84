@@ -89,7 +89,8 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 - [x] Transcribe the 1956 airfield list, third pass: 598 rows read from section 6, 442 high-confidence airfields with priorities and coordinates in `data/siop62/airfields-1956-priority.json`; the alert force now strikes airfields first, as the study's own task order says. About half the release's 1,100 airfields remain to be read.
 - [x] Transcribe the category code list (section 3) to `data/siop62/categories-1956.json`; every target now carries its category names, and the proof's Anadyr row reads them.
 - [x] Second and third passes on both lists: separators read as quotes or digits, look-alike letters inside numbers, glued lowercase tails. 351 airfield rows and 2,787 city-list lines remain unparsed, mostly heavily damaged scans; a hand pass is the next step, not another regex.
-- [ ] Bomber refuelling tracks and a Soviet air-defence attrition model, both reconstructed from published sources.
+- [x] Attrition model: reliability by system with Atlas documented, bomber penetration solved so the force averages the documented 85 percent assurance; lost sorties end on their routes. Refuelling tracks remain open.
+- [ ] Bomber refuelling tracks from published Chrome Dome and Reflex practice.
 - [ ] Full force with the option selector, and the finding that the options barely differ.
 - [x] Two-number outcome readout at impact: blast-only by the 1961 method against the mass-fire bound, computed in a worker from HYDE 1961.
 
