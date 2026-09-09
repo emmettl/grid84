@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { thirdDegreeBurnRadiusMetres } from './blast.ts'
-import { applyBands, bandPopulations, OTA_BANDS, outcome, overpressureRadiusForPsi } from './casualties.ts'
+import { applyBands, bandPopulations, bandsFor, OTA_BANDS, outcome, overpressureRadiusForPsi, STRUCTURE_CLASSES } from './casualties.ts'
 import { exposure, type PopulationGrid } from './exposure.ts'
 import { HIROSHIMA, NAGASAKI } from './validation-cases.ts'
 import { areaWeightedFraction, otaFatalFractionAt, planarEstimate, radiusComparisons, recordedFractionAt } from './validation.ts'
@@ -52,6 +52,17 @@ describe('Hiroshima: OTA fatality fractions against the mortality-by-distance ta
     }
     const n = planarEstimate(NAGASAKI, 195_000, 21)!
     lines.push(`N planar | MED 195,000 | density ${Math.round(n.densityPerKm2)}/km² | blast dead ${Math.round(n.blastDead)} | injured ${Math.round(n.blastInjured)} | fire dead ${Math.round(n.fireDead)}`)
+    const japan = bandsFor(STRUCTURE_CLASSES.find((s) => s.key === 'japan-1945')!)
+    for (const [pop, label] of [[245_000, 'USSBS 245,000'], [255_000, 'MED 255,000'], [345_000, 'RERF 340,000–350,000']] as const) {
+      const e = planarEstimate(HIROSHIMA, pop, 15, japan)!
+      lines.push(`H planar japan-1945 | ${label} | blast dead ${Math.round(e.blastDead)} | injured ${Math.round(e.blastInjured)} | fire dead ${Math.round(e.fireDead)}`)
+    }
+    const r5j = overpressureRadiusForPsi(15, japan[1].minPsi)
+    lines.push(`H japan-1945 collapse radius ${(r5j / 1000).toFixed(2)} km | weighted fatal inside it: model ${(areaWeightedFraction((m) => otaFatalFractionAt(15, m, japan), r5j) * 100).toFixed(1)}% | recorded ${(areaWeightedFraction((m) => recordedFractionAt(HIROSHIMA.mortalityByDistance!.zones, m), r5j) * 100).toFixed(1)}%`)
+    for (const z of HIROSHIMA.mortalityByDistance!.zones) {
+      const mid = (z.from + z.to) / 2
+      lines.push(`H fraction japan-1945 | ${Math.round(z.from)}–${Math.round(z.to)} m | recorded ${(z.fraction * 100).toFixed(1)}% | scaled ${(otaFatalFractionAt(15, mid, japan) * 100).toFixed(0)}%`)
+    }
     console.log('\nVALIDATION TABLE\n' + lines.join('\n'))
     expect(lines.length).toBeGreaterThan(10)
   })
@@ -68,6 +79,27 @@ describe('Hiroshima: the planners’ method with the survey’s own density', ()
     // City of Hiroshima: roughly 140,000 by 31 December 1945; RERF 90,000 to 166,000.
     expect(estimate.fireDead).toBeGreaterThan(110_000)
     expect(estimate.fireDead).toBeLessThan(166_000)
+  })
+})
+
+describe('Hiroshima: the structure-class correction is refused by the record', () => {
+  const japan = bandsFor(STRUCTURE_CLASSES.find((s) => s.key === 'japan-1945')!)
+
+  it('raises the blast-only total by more than half, past the immediate counts', () => {
+    const baseline = planarEstimate(HIROSHIMA, 255_000, 15)!
+    const corrected = planarEstimate(HIROSHIMA, 255_000, 15, japan)!
+    expect(corrected.blastDead).toBeGreaterThan(baseline.blastDead * 1.5)
+    expect(corrected.blastDead).toBeGreaterThan(100_000)
+  })
+
+  it('but breaks the mortality-by-distance agreement: the scaled bands nearly double the recorded fraction inside the collapse radius', () => {
+    const collapseRadius = overpressureRadiusForPsi(15, japan[1].minPsi)
+    const model = areaWeightedFraction((m) => otaFatalFractionAt(15, m, japan), collapseRadius)
+    const recorded = areaWeightedFraction((m) => recordedFractionAt(HIROSHIMA.mortalityByDistance!.zones, m), collapseRadius)
+    expect(model).toBeGreaterThan(recorded * 1.7)
+    // The unscaled bands inside the same radius are within a tenth of the record.
+    const unscaled = areaWeightedFraction((m) => otaFatalFractionAt(15, m), collapseRadius)
+    expect(Math.abs(unscaled - recorded)).toBeLessThan(0.1)
   })
 })
 

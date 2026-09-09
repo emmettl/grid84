@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { overpressureRadiusMetres } from './blast.ts'
-import { applyBands, bandPopulations, OTA_BANDS, outcome, overpressureRadiusForPsi } from './casualties.ts'
+import { applyBands, bandPopulations, bandsFor, OTA_BANDS, outcome, overpressureRadiusForPsi, STRUCTURE_CLASSES } from './casualties.ts'
 
 describe('OTA bands', () => {
   it('reproduces figure II-1', () => {
@@ -47,5 +47,23 @@ describe('bandPopulations', () => {
   it('differences cumulative counts and ignores rings that are not bands', () => {
     const within = { psi12: 100, psi5: 250, fire: 900, psi2: 400, psi1: 1_000 }
     expect(bandPopulations(within)).toEqual({ psi12: 100, psi5: 150, psi2: 150, psi1: 600 })
+  })
+})
+
+describe('bandsFor', () => {
+  it('scales the thresholds to the collapse pressure and keeps the fractions', () => {
+    const japan = STRUCTURE_CLASSES.find((s) => s.key === 'japan-1945')!
+    const bands = bandsFor(japan)
+    for (const [i, psi] of [7.2, 3, 1.2, 0.6].entries()) expect(bands[i].minPsi).toBeCloseTo(psi, 9)
+    expect(bands[1].maxPsi).toBeCloseTo(7.2, 9)
+    expect(bands[0].maxPsi).toBe(Infinity)
+    expect(bands.map((b) => b.fatal)).toEqual(OTA_BANDS.map((b) => b.fatal))
+    expect(bandsFor(5)).toEqual(OTA_BANDS)
+  })
+  it('puts the Japanese collapse band at 15 kt near the recorded 1.5 mile "all homes destroyed" radius', () => {
+    const japan = bandsFor(3)
+    const collapseRadius = overpressureRadiusForPsi(15, japan[1].minPsi)
+    expect(collapseRadius / 2_414).toBeGreaterThan(0.9)
+    expect(collapseRadius / 2_414).toBeLessThan(1.15)
   })
 })

@@ -5,7 +5,7 @@ import { formatGrid, type LngLat } from '../geo/geodesy.ts'
 import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
-import { applyBands, bandPopulations, CASUALTY_MODEL, FIRE_MODEL, OTA_BANDS, outcome, overpressureRadiusForPsi, type Outcome, type BandExposure } from '../models/casualties.ts'
+import { applyBands, bandPopulations, bandsFor, CASUALTY_MODEL, FIRE_MODEL, outcome, overpressureRadiusForPsi, STRUCTURE_CLASSES, type Outcome, type BandExposure } from '../models/casualties.ts'
 import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
 import { ExposureService, type GridSummary } from '../models/exposure-service.ts'
 import type { ExposureResult } from '../models/exposure.ts'
@@ -43,9 +43,10 @@ const YIELDS: Array<{ kt: number; label: string; note: string }> = [
 /** Leningrad: 145 installations in the 1956 study, and the largest city near the Baltic. */
 const DEFAULT_CENTER: LngLat = [30.32, 59.94]
 
-function ringsFor(yieldKt: number) {
-  const bands = OTA_BANDS.map((b) => ({ key: b.key, radius: overpressureRadiusForPsi(yieldKt, b.minPsi), label: b.label }))
-  return { bands, fire: { key: 'fire', radius: thirdDegreeBurnRadiusMetres(yieldKt), label: 'FIRE ZONE' } }
+function ringsFor(yieldKt: number, collapsePsi: number) {
+  const scaled = bandsFor(collapsePsi)
+  const bands = scaled.map((b) => ({ key: b.key, radius: overpressureRadiusForPsi(yieldKt, b.minPsi), label: b.label, band: b }))
+  return { bands, scaled, fire: { key: 'fire', radius: thirdDegreeBurnRadiusMetres(yieldKt), label: 'FIRE ZONE' } }
 }
 
 const n = (v: number) => Math.round(v).toLocaleString('en-GB')
@@ -64,6 +65,7 @@ export function PopulationLab() {
   const [yieldKt, setYieldKt] = useState(1_440)
   const [year, setYear] = useState(1961)
   const [validation, setValidation] = useState<ValidationCase | null>(null)
+  const [collapsePsi, setCollapsePsi] = useState(5)
   const [years, setYears] = useState<GridIndexEntry[]>([{ year: 1961, name: 'popc_1961', totalPopulation: 0, dataset: 'HYDE 3.3' }])
 
   useEffect(() => {
@@ -76,7 +78,7 @@ export function PopulationLab() {
   const [result, setResult] = useState<{ exposure: ExposureResult; bands: BandExposure[]; outcome: Outcome; fireZone: number } | null>(null)
   const [ready, setReady] = useState(false)
 
-  const rings = useMemo(() => ringsFor(yieldKt), [yieldKt])
+  const rings = useMemo(() => ringsFor(yieldKt, collapsePsi), [yieldKt, collapsePsi])
 
   useEffect(() => {
     if (!container.current) return
@@ -176,7 +178,7 @@ export function PopulationLab() {
       .exposure(request)
       .then((exposureResult) => {
         if (cancelled) return
-        const bands = applyBands(bandPopulations(exposureResult.within))
+        const bands = applyBands(bandPopulations(exposureResult.within, rings.scaled), rings.scaled)
         const fireZone = exposureResult.within.fire ?? 0
         setResult({ exposure: exposureResult, bands, outcome: outcome(bands, fireZone), fireZone })
         void drawCells(mapRef.current, svc, center, outer * 1.4)
@@ -221,6 +223,20 @@ export function PopulationLab() {
               </button>
             ))}
           </div>
+          <h2>
+            Structure class <span className="badge badge--inferred">EXPLORATORY</span>
+          </h2>
+          <div className="clock-controls">
+            {STRUCTURE_CLASSES.map((s) => (
+              <button key={s.key} type="button" className={collapsePsi === s.collapsePsi ? 'is-active' : ''} title={s.source} onClick={() => setCollapsePsi(s.collapsePsi)}>
+                {s.collapsePsi} psi
+              </button>
+            ))}
+            <input type="range" min={1.5} max={12} step={0.5} value={collapsePsi} aria-label="Collapse pressure" onChange={(e) => setCollapsePsi(Number(e.target.value))} />
+          </div>
+          <p className="log-empty">
+            Bands scaled to a collapse pressure of {collapsePsi} psi. {collapsePsi === 5 ? 'The OTA baseline, which already fits Hiroshima’s mortality by distance.' : 'Not calibrated: at Hiroshima this double counts, see VALIDATION.md.'}
+          </p>
           <h2>Validation cases</h2>
           <div className="clock-controls">
             {VALIDATION_CASES.map((c) => (

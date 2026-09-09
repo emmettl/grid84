@@ -26,6 +26,38 @@ export const OTA_BANDS: Band[] = [
 export const CASUALTY_MODEL = 'OTA 1979 fig. II-1 (DCPA 1973) blast-only casualty fractions'
 
 /**
+ * Structure class as a collapse pressure. The OTA bands assume the 1970s
+ * American residential stock, which "most residential buildings collapse"
+ * at 5 psi; Glasstone's 1953 and 1955 Nevada houses collapsed or were
+ * damaged beyond repair at 5 psi (§5.57, §5.67). Japanese-style wooden
+ * dwellings at Hiroshima and Nagasaki "collapsed at distances up to 7,500
+ * feet from ground zero, where the peak overpressure was estimated to be
+ * about 3 pounds per square inch" (§5.53). People are hurt by buildings
+ * more than by pressure, so the bands scale with the collapse pressure.
+ */
+export interface StructureClass {
+  key: string
+  label: string
+  collapsePsi: number
+  evidence: 'documented' | 'reconstructed' | 'inferred'
+  source: string
+}
+
+export const STRUCTURE_CLASSES: StructureClass[] = [
+  { key: 'ota-1979', label: 'US residential, 1979 baseline', collapsePsi: 5, evidence: 'documented', source: 'OTA 1979 fig. II-1; Glasstone & Dolan §5.57, §5.67' },
+  { key: 'japan-1945', label: 'Japanese wooden dwellings, 1945', collapsePsi: 3, evidence: 'documented', source: 'Glasstone & Dolan §5.53: collapsed to 7,500 ft at about 3 psi' },
+]
+
+export const BASELINE_COLLAPSE_PSI = 5
+
+/** The OTA bands with their thresholds scaled to a structure's collapse pressure. */
+export function bandsFor(structure: StructureClass | number): Band[] {
+  const collapse = typeof structure === 'number' ? structure : structure.collapsePsi
+  const k = collapse / BASELINE_COLLAPSE_PSI
+  return OTA_BANDS.map((b) => ({ ...b, minPsi: b.minPsi * k, maxPsi: b.maxPsi === Infinity ? Infinity : b.maxPsi * k }))
+}
+
+/**
  * Radius for an arbitrary overpressure by log-log interpolation between the
  * Sublette constants (20, 10, 5, 3, 1 psi). The 12 and 2 psi radii the OTA
  * bands need fall between tabulated points.
@@ -52,11 +84,11 @@ export function overpressureRadiusForPsi(yieldKt: number, psi: number): number {
  * Band populations from cumulative "within" counts, so rings that are not
  * bands (the fire zone, the fireball) do not disturb the arithmetic.
  */
-export function bandPopulations(within: Record<string, number>): Record<string, number> {
+export function bandPopulations(within: Record<string, number>, bands: Band[] = OTA_BANDS): Record<string, number> {
   const out: Record<string, number> = {}
   let previous = 0
-  // Innermost band first: OTA_BANDS is ordered from ≥12 psi outward.
-  for (const band of OTA_BANDS) {
+  // Innermost band first: bands are ordered from the highest pressure outward.
+  for (const band of bands) {
     const cumulative = within[band.key] ?? previous
     out[band.key] = Math.max(0, cumulative - previous)
     previous = cumulative
@@ -72,8 +104,8 @@ export interface BandExposure {
   injured: number
 }
 
-export function applyBands(populationByBand: Record<string, number>): BandExposure[] {
-  return OTA_BANDS.map((band) => {
+export function applyBands(populationByBand: Record<string, number>, bands: Band[] = OTA_BANDS): BandExposure[] {
+  return bands.map((band) => {
     const population = populationByBand[band.key] ?? 0
     return { band, population, fatal: population * band.fatal, injured: population * band.injured }
   })

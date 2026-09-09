@@ -99,3 +99,26 @@ The terrain lab (`#/lab/terrain`) puts the Nagasaki burst, 21 kt at 503 m, over 
 **Reading.** Geometric shadowing does not explain Nagasaki. From a burst 500 m up, hills of 200 to 400 m a kilometre or two away hide only 3 percent of the ground inside the 5 psi radius; the thermal flash reached almost all of it. So the confinement the survey describes is a blast and fire phenomenon, not a line-of-sight one. The acoustic run points the same way: reflections off the valley walls hold the peak inside the valley at about the flat-ground level while the ground beyond the ridges drops to six tenths, which is the survey's sentence drawn as a map. It is not a measurement. The wave is linear, two-dimensional and stopped at the edge of the box; it cannot produce the Mach stem that carries a real shock along a valley floor, and it knows nothing of the wooden houses that burned. The lab's contribution is to rule out the cheap explanation and to show where a real solver would have to work.
 
 Structure class is the other half. "All Japanese homes destroyed" at 2.4 km against a 2 psi radius of 3.3 km is the American masonry criterion applied to a wooden city, and the OTA fractions were fitted to these two cities and no others. A structure-class correction belongs beside terrain as the second departure from the planar model.
+
+## Structure class: a correction the record refuses
+
+Glasstone and Dolan §5.53: Japanese-style wooden dwellings "collapsed at distances up to 7,500 feet (1.4 miles) from ground zero, where the peak overpressure was estimated to be about 3 pounds per square inch". The American test houses of 1953 and 1955 collapsed or were damaged beyond repair at 5 psi (§5.57, §5.67), which is the collapse pressure the OTA bands assume. The obvious correction scales the band thresholds by 3/5, so that the Japanese city's people are counted at the pressures at which their houses fell.
+
+| Hiroshima, 15 kt, MED density | Blast-only dead | Injured |
+| --- | --- | --- |
+| OTA bands as published (collapse at 5 psi) | 70,600 | 68,900 |
+| Bands scaled to a 3 psi collapse | 125,800 | 52,600 |
+
+The scaled total lands between the RERF and City of Hiroshima end-of-1945 figures, which looks like a success until the mortality-by-distance table is consulted:
+
+| Distance | Recorded | OTA as published | Scaled to 3 psi |
+| --- | --- | --- | --- |
+| 914–1,219 m | 69.0% | 50% | 98% |
+| 1,219–1,524 m | 49.0% | 50% | 98% |
+| 1,524–1,829 m | 31.5% | 50% | 50% |
+| 1,829–2,134 m | 12.5% | 5% | 50% |
+| 2,134–2,438 m | 1.3% | 5% | 50% |
+
+Inside the scaled collapse radius of 2.47 km the scaled model gives an area-weighted 64.9 percent dead against a recorded 34.4 percent; the unscaled bands give a figure within a tenth of the record. The correction reaches the right total by killing the wrong people: it doubles the near-field mortality that the record does not support, and the extra deaths it produces are the fire and radiation deaths that the blast-only method cannot see, arrived at by a different route.
+
+The reason is that the DCPA curves were fitted to these two cities. Their pressure labels are labels; the fractions already embed the Japanese houses. A structure correction on top double counts, and the test now asserts that it does. The class remains in the lab as an exploratory control, badged inferred, for building stock the record cannot calibrate, and the readout says when it is off the baseline. For the 1961 Soviet cities of SIOP//62 the honest position is to leave the bands as published and state that their building stock is not in the calibration.

@@ -1,5 +1,5 @@
 import { thirdDegreeBurnRadiusMetres } from './blast.ts'
-import { OTA_BANDS, overpressureRadiusForPsi } from './casualties.ts'
+import { OTA_BANDS, overpressureRadiusForPsi, type Band } from './casualties.ts'
 import type { MortalityZone, ValidationCase } from './validation-cases.ts'
 
 /**
@@ -33,8 +33,8 @@ export function radiusComparisons(c: ValidationCase, yieldKt = (c.yieldKt.low + 
 }
 
 /** The OTA fatality fraction at a distance, for a yield. */
-export function otaFatalFractionAt(yieldKt: number, metres: number): number {
-  for (const band of OTA_BANDS) {
+export function otaFatalFractionAt(yieldKt: number, metres: number, bands: Band[] = OTA_BANDS): number {
+  for (const band of bands) {
     if (metres <= overpressureRadiusForPsi(yieldKt, band.minPsi)) return band.fatal
   }
   return 0
@@ -70,14 +70,14 @@ export interface PlanarEstimate {
  * the built-up area as a disc centred on the hypocentre. This is the
  * planners' own arithmetic with the survey's own inputs.
  */
-export function planarEstimate(c: ValidationCase, population: number, yieldKt = (c.yieldKt.low + c.yieldKt.high) / 2): PlanarEstimate | null {
+export function planarEstimate(c: ValidationCase, population: number, yieldKt = (c.yieldKt.low + c.yieldKt.high) / 2, bands: Band[] = OTA_BANDS): PlanarEstimate | null {
   if (!c.builtUp) return null
   const density = (population * c.builtUp.populationShare) / c.builtUp.areaKm2
   const R = Math.sqrt((c.builtUp.areaKm2 * 1e6) / Math.PI)
   let dead = 0
   let injured = 0
   let previous = 0
-  for (const band of OTA_BANDS) {
+  for (const band of bands) {
     const outer = Math.min(R, overpressureRadiusForPsi(yieldKt, band.minPsi))
     const area = Math.max(0, Math.PI * (outer * outer - previous * previous)) / 1e6
     dead += area * density * band.fatal
