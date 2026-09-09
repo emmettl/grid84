@@ -472,7 +472,8 @@ body,
 .log {
   grid-column: 1;
   grid-row: 3;
-  min-height: 0;
+  /* The log is the study's narrative: it keeps at least a dozen lines and scrolls for the rest. */
+  min-height: min(13rem, 30vh);
   overflow: auto;
   padding: 0.7rem 0.8rem;
   border-left: 2px solid rgba(141, 250, 255, 0.4);
@@ -624,13 +625,15 @@ body,
 
 .omissions {
   grid-column: 3;
-  grid-row: 3;
+  grid-row: 4;
   align-self: end;
   padding: 0.7rem 1rem;
   border-right: 2px solid var(--amber);
   background: var(--panel);
   backdrop-filter: blur(10px);
   text-align: right;
+  max-height: 28vh;
+  overflow: auto;
 }
 
 .omissions h2 {
@@ -873,7 +876,9 @@ body,
   .lab-hud .omissions {
     grid-row: 4;
     align-self: end;
-  }
+  max-height: 28vh;
+  overflow: auto;
+}
   .lab-hud .legend {
     grid-row: 4;
   }
@@ -1078,6 +1083,8 @@ body,
   grid-column: 3;
   grid-row: 3;
   align-self: end;
+  max-height: 100%;
+  overflow: auto;
   padding: 0.7rem 1rem;
   border-right: 2px solid rgb(255, 96, 96);
   background: var(--panel);
@@ -1104,4 +1111,16 @@ body,
 .study-hud .aggregate + .omissions {
   grid-row: 4;
   align-self: end;
+  max-height: 28vh;
+  overflow: auto;
+}
+
+/* Short viewports: the legend keeps its swatches and names and drops the descriptions, so the log keeps its lines. */
+@media (max-height: 860px) {
+  .study-hud .legend li > span:last-child {
+    display: none;
+  }
+  .study-hud .legend ul {
+    gap: 0.2rem;
+  }
 }
