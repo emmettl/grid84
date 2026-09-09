@@ -236,13 +236,24 @@ The rule from the manifesto holds for all of them: impractical, never fake. A st
 
 **Attrition** is statistical and calibrated, not invented: each system has a reliability, Atlas's documented and the others inferred beside it, and bombers also have a penetration probability, the one free number, solved so the weapon-weighted average delivery equals the documented 85 percent. It comes out at 0.95. Each sortie's fate is a deterministic hash of its identity, so the same sorties are lost every run; reliability losses happen at launch and penetration losses in the last part of the route, where the track simply ends. The readout states the reliabilities and their tiers.
 
+**The Soviet response** is drawn from documented force levels and inferred everything else, and says so on every mark. Sagan's Table 4 for September 1961 gives 10 to 25 ICBMs with none on alert and one to three hours to fuel (the R-7 needed twenty hours' preparation), about 78 to 90 submarine missiles that had to close to 150 to 350 nautical miles and surface, and about 200 bombers that could be put over North America, of which the NATO planning material put 10 percent on ground alert with Schelling's caveat that the figure may be an artefact of the game. So the missiles and submarines cannot launch within the day, and the log says so; the bombers can. The 200 are spread over six inferred Long Range Aviation fields; the alert tenth launches thirty minutes after the first US launches, the rest generate in three hours and fly only if no delivered US weapon has landed within 30 km of their base by then, which couples the response to the strike above. Their targets are the SAC launch sites of the order of battle and the ten largest cities of the 1960 census; their yield is assumed at 3 Mt; US air defence, for which Sagan notes no official estimate exists, is assumed to stop half.
+
+| Soviet response | Enacted | Documented |
+| --- | --- | --- |
+| Bombers destroyed on the ground before generating | 30, one base struck at H+2 h | Lemnitzer: "even [with] preemptive attack by the U.S. ... some portion of the Soviet long-range nuclear force would strike the United States" |
+| Sorties flown · penetrating | 126 · 66 | 200 that could be put over North America, before US air-defence attrition |
+| Detonations on the United States | 42 | |
+| American dead, blast only · with fire | 5.6 million · 17 million | Pentagon civilians, 1961: two to fifteen million; the Air Force to Kennedy: probably under ten million |
+
+Lemnitzer's warning is the finding: the response comes anyway, from the bombers that were already alert or at fields the missiles did not reach in time.
+
 **What it omits**, on the readout: refuelling and routing; Soviet air defence and any Soviet response; about six in ten of the 1,100 airfields, which the transcription does not yet read; per-weapon yields, with Mk-28 class assumed for bombers; and overlap between targets, which the summing counts more than once. Airfields sit inside or beside the cities whose complexes are also struck, so the airfield weapons add little to the death count and much to the picture: the Air Power Battle is the first hour of the day.
 
 ## Open questions
 
 - Which 1956 targets can be tied to 1961 ground zeros, and by what stated rule? Airfields and the largest cities are the safest reconstruction.
 - Does the Future of Life Institute transcription exist as data with a licence, or is a fresh transcription the cleaner path?
-- What is the right treatment of the Soviet response? The briefing says some Soviet weapons would reach the United States under any circumstances. The study is about the plan, and a one-sided plan is the honest scope, but the readout should state that omission.
+- The Soviet response is now enacted from documented force levels with inferred bases, targets and air defence; the open question is whether any documented Soviet targeting or basing for 1961 can replace the inferred parts.
 - Publication review. The study is history and its inputs are public, but the register is deliberately disturbing. Decide the framing text before anything is public.
 
 ## Sources

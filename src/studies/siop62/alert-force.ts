@@ -9,6 +9,8 @@ import type { Entity, Study, StudyEvent } from '../study.ts'
 import orderOfBattle from '../../../data/siop62/order-of-battle-1961.json'
 import targetFile from '../../../data/siop62/targets-1956-priority.json'
 import airfieldFile from '../../../data/siop62/airfields-1956-priority.json'
+import sovietFile from '../../../data/siop62/soviet-response-1961.json'
+import { haversineMetres } from '../../geo/geodesy.ts'
 
 /**
  * SIOP//62 alert force enactment: option 1, the 1,004 delivery systems and
@@ -111,6 +113,15 @@ export interface AlertForceSummary {
   megatons: number
   alertFraction: number
   bomberVehicles: number
+}
+
+function hash01Local(key: string): number {
+  let h = 2166136261
+  for (let i = 0; i < key.length; i += 1) {
+    h ^= key.charCodeAt(i)
+    h = Math.imul(h, 16777619)
+  }
+  return ((h >>> 0) % 1_000_003) / 1_000_003
 }
 
 function slerpTo(a: LngLat, b: LngLat, f: number): LngLat {
@@ -235,6 +246,104 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     })
   }
 
+  // The Soviet response: documented force levels, inferred bases and targets, coupled to the strikes above.
+  const soviet = sovietFile as typeof sovietFile
+  const sovietSummary = { launched: 0, delivered: 0, destroyedOnGround: 0, lost: 0 }
+  {
+    const doc = soviet.documented
+    const inf = soviet.inferred
+    const bombersTotal = doc.bombersOverNorthAmerica.value
+    const perBase = Math.round(bombersTotal / inf.bases.length)
+    const alertFraction = doc.bomberGroundAlert.value
+    const usTargets: Target[] = [
+      ...launchers.filter((l) => l.weapons > 0 && (l.kind === 'icbm' || l.kind === 'irbm' || l.kind === 'bomber') && raw[l.id].kind !== 'tactical' && raw[l.id].kind !== 'cruise').map((l, i) => ({ id: `us-${l.id}`, name: l.name, priority: l.kind === 'icbm' ? i : 100 + i, position: l.position })),
+      ...inf.cities1960.map((c, i) => ({ id: `us-city-${i}`, name: c.name, priority: 50 + i, position: [c.lon, c.lat] as LngLat })),
+    ]
+    // Delivered US detonations by time, to decide which Soviet bases are struck before they can generate.
+    const usStrikes = Object.entries(firstArrival).map(([id, fa]) => ({ position: targetById[id].position, time: fa.time }))
+    const sovietLaunchers: Launcher[] = []
+    const sovietSites: Entity[] = []
+    for (const b of inf.bases) {
+      const position: LngLat = [b.lon, b.lat]
+      const struckAt = usStrikes.filter((st) => haversineMetres(st.position, position) < 30_000).map((st) => st.time).sort((p, q) => p - q)[0]
+      const generationTime = inf.generationHours * 3_600
+      const alertBombers = Math.round(perBase * alertFraction)
+      const nonAlertSurvive = struckAt === undefined || struckAt > generationTime
+      const bombers = alertBombers + (nonAlertSurvive ? perBase - alertBombers : 0)
+      sovietSummary.destroyedOnGround += nonAlertSurvive ? 0 : perBase - alertBombers
+      sovietLaunchers.push({ id: `sov-${b.id}`, name: b.name, kind: 'bomber', position, weapons: bombers, weaponsPerVehicle: 1, rangeMetres: inf.bomberRangeKm * 1_000, yieldKt: inf.bomberYieldKt.value, reactionSeconds: inf.launchOnWarningMinutes * 60, speedMs: (inf.bomberSpeedKmh * 1_000) / 3_600 })
+      sovietSites.push({
+        kind: 'site',
+        id: `sov-${b.id}`,
+        name: b.name,
+        designation: `LONG RANGE AVIATION · ${perBase} BOMBERS · ${alertBombers} ON ALERT${nonAlertSurvive ? '' : ` · STRUCK AT H+${Math.round((struckAt ?? 0) / 60)} MIN`}`,
+        position,
+        evidence: 'inferred',
+        provenance: { source: b.source, method: `Bombers per base: ${bombersTotal} that could reach North America (documented) spread over ${inf.bases.length} inferred bases` },
+        facts: [
+          { label: 'On ground alert', value: `${Math.round(alertFraction * 100)}% (${alertBombers}); launch ${inf.launchOnWarningMinutes} minutes after the first US launches are detected`, evidence: 'documented', provenance: { source: doc.bomberGroundAlert.source, method: 'Launch-on-warning timing inferred' } },
+          { label: 'Non-alert bombers', value: nonAlertSurvive ? `Generate in ${inf.generationHours} hours and launch` : `Destroyed on the ground at H+${Math.round((struckAt ?? 0) / 60)} min, before they could generate`, evidence: 'inferred', provenance: { source: 'Coupling to the US strikes above', method: `A base is lost when a delivered US weapon lands within 30 km before ${inf.generationHours} hours` } },
+        ],
+      })
+    }
+    entities.push(...sovietSites)
+    const sovietResult = allocate(sovietLaunchers, usTargets, { maxWeaponsPerTarget: 3, order: ['bomber'] })
+    let sIndex = 0
+    for (const s2 of sovietResult.sorties) {
+      const l = sovietLaunchers.find((x) => x.id === s2.launcherId)!
+      const t = usTargets.find((x) => x.id === s2.targetId)!
+      const isAlert = sIndex % Math.max(1, Math.round(1 / alertFraction)) === 0
+      const launch = isAlert ? l.reactionSeconds : inf.generationHours * 3_600
+      const arrival = launch + s2.distanceMetres / (l.speedMs ?? 220)
+      sIndex += 1
+      const r = hash01Local(`sov:${s2.launcherId}:${s2.targetId}:${sIndex}`)
+      const delivered = r < inf.usAirDefencePenetration.value
+      sovietSummary.launched += 1
+      if (delivered) sovietSummary.delivered += 1
+      else sovietSummary.lost += 1
+      const endFraction = delivered ? 1 : 0.7 + 0.28 * hash01Local(`sov-where:${sIndex}`)
+      entities.push({
+        kind: 'track',
+        id: `sov-s-${sIndex}`,
+        name: `${l.name} → ${t.name}`,
+        designation: `SOVIET BOMBER · ${(s2.yieldKt / 1_000).toFixed(0)} MT ASSUMED${delivered ? '' : ' · LOST TO AIR DEFENCE'}`,
+        label: false,
+        side: 'defender',
+        track: new Track([
+          { position: l.position, time: launch },
+          { position: delivered ? t.position : slerpTo(l.position, t.position, endFraction), time: launch + (arrival - launch) * endFraction },
+        ]),
+        reveal: 'progressive',
+        evidence: 'inferred',
+        provenance: { source: 'Soviet response', method: 'Force level documented, bases and targets inferred, US air-defence penetration one half assumed' },
+        route: { evidence: 'reconstructed', provenance: { source: 'Great circle at cruise speed' } },
+        facts: [],
+      })
+      if (!delivered) continue
+      const existing = entities.find((x) => x.kind === 'effect' && x.id === `sov-e-${t.id}`)
+      if (existing) continue
+      entities.push({
+        kind: 'effect',
+        id: `sov-e-${t.id}`,
+        name: t.name,
+        designation: `SOVIET WEAPON · ${(s2.yieldKt / 1_000).toFixed(0)} MT ASSUMED`,
+        label: false,
+        compact: true,
+        side: 'defender',
+        center: t.position,
+        time: arrival,
+        effects: promptEffects(s2.yieldKt),
+        burst: 'air',
+        evidence: 'modelled',
+        provenance: { source: BLAST_MODEL },
+        facts: [
+          { label: 'Target', value: t.id.startsWith('us-city') ? 'One of the ten largest US cities, 1960 census' : 'A SAC launch site of the order of battle', evidence: 'inferred', provenance: { source: 'Soviet targeting is not in the record' } },
+          { label: 'Yield', value: `${(s2.yieldKt / 1_000).toFixed(0)} Mt`, evidence: 'inferred', provenance: { source: inf.bomberYieldKt.note } },
+        ],
+      })
+    }
+  }
+
   // Events: the documented sequence, and the waves as they leave.
   const byKind = (k: string) => result.sorties.filter((s) => s.kind === k).length
   events.push({ time: 0, text: `EXECUTION ORDER · OPTION 1 · ALERT FORCE · ${result.weaponsAssigned.toLocaleString('en-GB')} WEAPONS ON ${result.targetsCovered.toLocaleString('en-GB')} TARGETS · AIR POWER BATTLE FIRST (ALLOCATION INFERRED)` })
@@ -242,6 +351,8 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
   events.push({ time: REACTION_FIXED, text: `H+15 MIN · FIXED BASES LAUNCH · ${byKind('icbm')} ICBM · ${byKind('irbm')} IRBM · ${byKind('bomber')} BOMBER AND THEATRE SORTIES` })
   events.push({ time: REACTION_SEA, text: `H+2 H · POLARIS ON STATION LAUNCH · ${byKind('slbm')} MISSILES` })
   events.push({ time: REACTION_FIXED + 1, text: `DELIVERY ASSURANCE ${Math.round(DOCUMENTED_ASSURANCE * 100)}% (DOCUMENTED AVERAGE) · ${delivered} DELIVERED · ${lostReliability} RELIABILITY LOSSES · ${lostPenetration} LOST IN PENETRATION (MODELLED)` })
+  events.push({ time: soviet.inferred.launchOnWarningMinutes * 60, text: `SOVIET RESPONSE · ${Math.round(soviet.documented.bomberGroundAlert.value * 100)}% OF LONG RANGE AVIATION ON GROUND ALERT LAUNCHES ON WARNING (DOCUMENTED LEVEL, INFERRED TIMING) · ICBMs NOT ON ALERT, R-7 NEEDS 20 HOURS · SUBMARINES DAYS FROM LAUNCH RANGE` })
+  events.push({ time: soviet.inferred.generationHours * 3_600, text: `SOVIET NON-ALERT BOMBERS GENERATE · ${sovietSummary.destroyedOnGround} DESTROYED ON THE GROUND BEFORE THEY COULD · ${sovietSummary.launched} SORTIES IN ALL · ${sovietSummary.delivered} PENETRATE (AIR DEFENCE ONE HALF, ASSUMED)` })
   const arrivals = Object.values(firstArrival).map((f) => f.time).sort((a, b) => a - b)
   if (arrivals.length) {
     events.push({ time: arrivals[0], text: 'FIRST DETONATION' })
@@ -274,12 +385,17 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     populationGrid: 'popc_1961',
     exposureWorkers: 4,
     outcomeReference: { label: 'JCS estimate, 1961, alert force, Soviet dead', value: 80_000_000, source: `${EBB798.source}: 80 million, 37 percent of the population` },
+    sides: {
+      attacker: { name: 'United States' },
+      defender: { name: 'Soviet response · United States dead', reference: { label: 'Pentagon civilians, 1961', value: 15_000_000, source: 'Kaplan via Sagan n. 47: two to fifteen million in a successful first strike; Ellsberg: the Air Force told Kennedy probably under ten million' } },
+    },
     omissions: [
       'Every weapon-to-target assignment is an illustration by a stated rule; no assignment is in the record',
       'Bomber refuelling and routing: great circles at cruise speed',
       `Attrition is statistical: ${ATTRITION_MODEL}; reliabilities ${Object.entries(RELIABILITY).map(([k, v]) => `${k} ${v.value} (${v.evidence})`).join(', ')}; bomber penetration solved as ${calibration.penetration.toFixed(2)}`,
       'Non-all-weather forces, 22 percent of the force carrying 16 percent of the weapons, had a further planning factor the briefing does not state',
-      'Soviet air defence and any Soviet response',
+      'US air defence against the Soviet response: no official estimate exists; one half assumed',
+      'Soviet submarines and ICBMs: documented as unable to launch within the day; not drawn',
       'Airfields: a first-pass transcription reads about half of the 1,100 in the release; the Air Power Battle is under-represented by that much',
       'Yields: Mk-28 class assumed for bombers; the alert-force megatonnage check is on the readout',
       'Population exposure is per target with the largest weapon; overlapping targets are summed, so cities within reach of several targets are counted more than once',

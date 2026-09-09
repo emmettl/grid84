@@ -94,7 +94,7 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     paint: {
       'circle-radius': 4,
       'circle-color': '#050410',
-      'circle-stroke-color': ['match', ['get', 'evidence'], 'documented', LINE.documented.color, 'inferred', LINE.inferred.color, 'modelled', LINE.modelled.color, LINE.reconstructed.color],
+      'circle-stroke-color': ['case', ['==', ['get', 'side'], 'defender'], 'rgba(255, 96, 96, 0.95)', ['match', ['get', 'evidence'], 'documented', LINE.documented.color, 'inferred', LINE.inferred.color, 'modelled', LINE.modelled.color, LINE.reconstructed.color]],
       'circle-stroke-width': 2,
     },
   })
@@ -116,7 +116,7 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     paint: {
       'circle-radius': ['interpolate', ['exponential', 2], ['zoom'], 2, 2.5, 6, 6, 10, 18],
       'circle-color': ['interpolate', ['linear'], ['get', 'age'], 0, '#ffffff', 60, 'rgba(255, 96, 96, 0.95)', 3600, 'rgba(255, 96, 96, 0.55)'],
-      'circle-stroke-color': 'rgba(255, 96, 96, 0.9)',
+      'circle-stroke-color': ['case', ['==', ['get', 'side'], 'defender'], 'rgba(255, 179, 71, 0.95)', 'rgba(255, 96, 96, 0.9)'],
       'circle-stroke-width': 1,
     },
   })

@@ -1,0 +1,182 @@
+{
+ "date": "September 1961",
+ "documented": {
+  "bombersOverNorthAmerica": {
+   "value": 200,
+   "source": "September 1961 Berlin-crisis war game material and McNamara testimony, via Sagan 1987 n. 14: \"about 200 bombers over North America\", Bison and Bear with Badger and Blinder, before US air-defence attrition"
+  },
+  "longRangeBombersAndTankers": {
+   "value": 165,
+   "source": "McNamara, 5 September 1962, via Sagan n. 14"
+  },
+  "icbms": {
+   "low": 10,
+   "high": 25,
+   "source": "Sagan Table 4; NIE via McQuade memo"
+  },
+  "icbmAlert": {
+   "value": "none on alert; one to three hours to warm and fuel",
+   "source": "Sagan p. 29 and n. 20"
+  },
+  "r7": {
+   "units": 6,
+   "sites": "Baikonur site 31; Plesetsk sites 16, 41, 43",
+   "preparationHours": 20,
+   "yieldMt": "3 to 5",
+   "source": "Wikipedia R-7 Semyorka, citing Siddiqi 2000"
+  },
+  "submarineMissiles": {
+   "low": 78,
+   "high": 90,
+   "source": "Sagan Table 4 and n. 17; must close to 150\u2013350 nautical miles and surface"
+  },
+  "bomberGroundAlert": {
+   "value": 0.1,
+   "source": "NATO Planning Conference material via Sagan n. 22; Schelling: possibly an artifice of the game"
+  },
+  "weaponsPerBomber": {
+   "value": 1,
+   "source": "Collins 1978 via Sagan n. 42: one large gravity bomb or AS-3"
+  },
+  "usFatalityEstimates": [
+   {
+    "label": "Pentagon civilians, 1961",
+    "low": 2000000,
+    "high": 15000000,
+    "source": "Kaplan via Sagan n. 47"
+   },
+   {
+    "label": "Air Force to Kennedy, Berlin crisis",
+    "low": 0,
+    "high": 10000000,
+    "source": "Ellsberg via Herken, Sagan n. 47: \"probably under ten million if the United States struck first\""
+   }
+  ]
+ },
+ "inferred": {
+  "bases": [
+   {
+    "id": "engels",
+    "name": "Engels",
+    "lon": 46.12,
+    "lat": 51.48,
+    "evidence": "inferred",
+    "source": "Long Range Aviation heavy bomber field of the period; regiment assignment not sourced here"
+   },
+   {
+    "id": "uzin",
+    "name": "Uzin",
+    "lon": 30.44,
+    "lat": 49.79,
+    "evidence": "inferred",
+    "source": "Long Range Aviation heavy bomber field of the period; regiment assignment not sourced here"
+   },
+   {
+    "id": "mozdok",
+    "name": "Mozdok",
+    "lon": 44.6,
+    "lat": 43.79,
+    "evidence": "inferred",
+    "source": "Long Range Aviation heavy bomber field of the period; regiment assignment not sourced here"
+   },
+   {
+    "id": "chagan",
+    "name": "Semipalatinsk (Chagan)",
+    "lon": 79.19,
+    "lat": 50.55,
+    "evidence": "inferred",
+    "source": "Long Range Aviation heavy bomber field of the period; regiment assignment not sourced here"
+   },
+   {
+    "id": "ukrainka",
+    "name": "Ukrainka",
+    "lon": 128.45,
+    "lat": 51.17,
+    "evidence": "inferred",
+    "source": "Long Range Aviation heavy bomber field of the period; regiment assignment not sourced here"
+   },
+   {
+    "id": "belaya",
+    "name": "Belaya",
+    "lon": 103.57,
+    "lat": 52.92,
+    "evidence": "inferred",
+    "source": "Long Range Aviation heavy bomber field of the period; regiment assignment not sourced here"
+   }
+  ],
+  "bomberYieldKt": {
+   "value": 3000,
+   "note": "A large Soviet gravity bomb of the period; assumed"
+  },
+  "bomberSpeedKmh": 800,
+  "bomberRangeKm": 9000,
+  "generationHours": 3,
+  "launchOnWarningMinutes": 30,
+  "usAirDefencePenetration": {
+   "value": 0.5,
+   "note": "No official estimate of NORAD effectiveness is available (Sagan n. 15); one half assumed"
+  },
+  "cities1960": [
+   {
+    "name": "New York",
+    "population1960": 7781984,
+    "lon": -74.006,
+    "lat": 40.7127
+   },
+   {
+    "name": "Chicago",
+    "population1960": 3550404,
+    "lon": -87.6244,
+    "lat": 41.8756
+   },
+   {
+    "name": "Los Angeles",
+    "population1960": 2479015,
+    "lon": -118.2428,
+    "lat": 34.0537
+   },
+   {
+    "name": "Philadelphia",
+    "population1960": 2002512,
+    "lon": -75.1635,
+    "lat": 39.9527
+   },
+   {
+    "name": "Detroit",
+    "population1960": 1670144,
+    "lon": -83.0466,
+    "lat": 42.3316
+   },
+   {
+    "name": "Baltimore",
+    "population1960": 939024,
+    "lon": -76.6108,
+    "lat": 39.2909
+   },
+   {
+    "name": "Houston",
+    "population1960": 938219,
+    "lon": -95.3677,
+    "lat": 29.7589
+   },
+   {
+    "name": "Cleveland",
+    "population1960": 876050,
+    "lon": -81.6937,
+    "lat": 41.4997
+   },
+   {
+    "name": "Washington, D.C.",
+    "population1960": 783956,
+    "lon": -77.0364,
+    "lat": 38.8951
+   },
+   {
+    "name": "St. Louis",
+    "population1960": 750026,
+    "lon": -90.19,
+    "lat": 38.6254
+   }
+  ]
+ }
+}

@@ -54,7 +54,7 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
   for (const e of study.entities) {
     if (e.kind === 'track') {
       const p = e.track.positionAt(time)
-      if (p) vehicles.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [p[0], p[1]] }, properties: { evidence: e.evidence, id: e.id } })
+      if (p) vehicles.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [p[0], p[1]] }, properties: { evidence: e.evidence, id: e.id, side: e.side ?? 'attacker' } })
       if (e.reveal === 'progressive') {
         const flown = e.track.geometryUntil(time)
         if (flown.length > 1) paths.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: flown.map((q) => [q[0], q[1]]) }, properties: { evidence: e.route.evidence, id: e.id } })
@@ -63,7 +63,7 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
       if (e.compact && e.id !== selectedId) {
         // One mark per detonation, radius from the 5 psi ring so it scales with yield; rings only when selected.
         const r5 = drawnRadius(e, burst, 'psi5')
-        flashes.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [e.center[0], e.center[1]] }, properties: { evidence: 'modelled', id: e.id, radiusMetres: r5, age: time - e.time } })
+        flashes.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [e.center[0], e.center[1]] }, properties: { evidence: 'modelled', id: e.id, radiusMetres: r5, age: time - e.time, side: e.side ?? 'attacker' } })
         continue
       }
       const drawn = effectRings(e, burst)
@@ -138,15 +138,31 @@ export function StudyView({ study }: { study: Study }) {
   const [falloutOutcomes, setFalloutOutcomes] = useState<Record<string, { under1: number; dead: number; grid: string }>>({})
   const [gridName, setGridName] = useState<string | null>(null)
   const effectCount = useMemo(() => study.entities.filter((e) => e.kind === 'effect').length, [study])
-  const aggregate = useMemo(() => {
-    const values = Object.values(outcomes)
-    return {
-      computed: values.length,
-      blastDead: values.reduce((s, o) => s + o.blast.fatal, 0),
-      blastInjured: values.reduce((s, o) => s + o.blast.injured, 0),
-      fireDead: values.reduce((s, o) => s + o.fire.fatal, 0),
+  const sums = useMemo(() => {
+    const sideOf: Record<string, 'attacker' | 'defender'> = {}
+    const totals = { attacker: 0, defender: 0 }
+    for (const e of study.entities) {
+      if (e.kind !== 'effect') continue
+      const side = e.side ?? 'attacker'
+      sideOf[e.id] = side
+      totals[side] += 1
     }
-  }, [outcomes])
+    const forSide = (side: 'attacker' | 'defender') => {
+      const values = Object.entries(outcomes)
+        .filter(([id]) => sideOf[id] === side)
+        .map(([, o]) => o)
+      return {
+        computed: values.length,
+        total: totals[side],
+        blastDead: values.reduce((s, o) => s + o.blast.fatal, 0),
+        blastInjured: values.reduce((s, o) => s + o.blast.injured, 0),
+        fireDead: values.reduce((s, o) => s + o.fire.fatal, 0),
+      }
+    }
+    return { all: Object.keys(outcomes).length, attacker: forSide('attacker'), defender: forSide('defender') }
+  }, [outcomes, study])
+  const aggregate = { ...sums.attacker, computed: sums.all }
+  const defence = sums.defender
   const bounds = burst === 'surface' && study.surfaceBounds ? study.surfaceBounds : study.bounds
   const boundsRef = useRef(bounds)
   useEffect(() => {
@@ -549,6 +565,33 @@ export function StudyView({ study }: { study: Study }) {
               <p className="provenance-source">
                 {study.outcomeReference.label}: {fmt(study.outcomeReference.value)} · {study.outcomeReference.source}
               </p>
+            )}
+            {study.sides && defence.total > 0 && (
+              <>
+                <h2>
+                  {study.sides.defender.name} <span className="badge badge--inferred">INFERRED</span>
+                </h2>
+                <p className="log-empty">
+                  {defence.computed} of {defence.total} detonations
+                </p>
+                <div className="two-numbers">
+                  <div>
+                    <span>Blast only · 1961 method</span>
+                    <strong>{fmt(defence.blastDead)}</strong>
+                    <em>dead · {fmt(defence.blastInjured)} injured</em>
+                  </div>
+                  <div>
+                    <span>With mass fire · Postol bound</span>
+                    <strong>{fmt(defence.fireDead)}</strong>
+                    <em>dead</em>
+                  </div>
+                </div>
+                {study.sides.defender.reference && (
+                  <p className="provenance-source">
+                    {study.sides.defender.reference.label}: {fmt(study.sides.defender.reference.value)} · {study.sides.defender.reference.source}
+                  </p>
+                )}
+              </>
             )}
           </section>
         )}

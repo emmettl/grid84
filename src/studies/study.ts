@@ -28,6 +28,8 @@ export interface TrackEntity extends Evidenced {
   name: string
   designation: string
   label?: boolean
+  /** Which side's vehicle; colours the mark. Default 'attacker'. */
+  side?: 'attacker' | 'defender'
   track: Track
   /** Provenance for the vehicle's existence and posture may differ from the route's. */
   route: Evidenced
@@ -54,6 +56,8 @@ export interface EffectEntity extends Evidenced {
   label?: boolean
   /** Compact effects draw one mark scaled by yield instead of the ring set; the rings appear when selected. */
   compact?: boolean
+  /** Whose weapon; the aggregate outcome is summed per side. Default 'attacker'. */
+  side?: 'attacker' | 'defender'
   center: LngLat
   time: number
   effects: PromptEffects
@@ -101,4 +105,6 @@ export interface Study {
   exposureWorkers?: number
   /** A documented figure to set the aggregate outcome against, with its source. */
   outcomeReference?: { label: string; value: number; source: string }
+  /** Names and references for the two sides, when a study has a response. */
+  sides?: { attacker: { name: string }; defender: { name: string; reference?: { label: string; value: number; source: string } } }
 }
