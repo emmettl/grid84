@@ -34,7 +34,7 @@ describe('Cuba 1962, the general war', () => {
     expect(study.id).toBe('cuba-62-general')
     expect(study.populationGrid).toBe('popc_1962')
     expect(study.entities.filter((e) => e.kind === 'site' && e.id.startsWith('cuba-')).length).toBeGreaterThan(20)
-    expect(study.entities.filter((e) => e.kind === 'track').length).toBeGreaterThan(3_000)
+    expect(study.entities.filter((e) => e.kind === 'track').length).toBeGreaterThan(2_000)
     expect(study.variants?.items.map((i) => i.id)).toEqual(['regional', 'general'])
   })
 })

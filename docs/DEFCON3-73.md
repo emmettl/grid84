@@ -90,6 +90,8 @@ The Soviet sum brackets the OTA figure; the American sum falls far below it, and
 
 **The 1969 act.** `#/study/defcon3-73/1969` plays the secret readiness test on a clock of days from Wheeler's message of 10 October: the stand-downs and communications silence from the 13th, the naval movements the Soviet navy noticed in the Gulf of Aden, Kissinger's "signal-type activity" on the 17th, SAC's order of the 23rd, and Giant Lance from the 26th, eighteen nuclear-armed B-52s in three waves of six flying eighteen-hour vigils on the Eielson East orbit over Alaska, the 92nd Strategic Aerospace Wing named in the record and the California wing reconstructed. The Soviet side of the map is empty on purpose: the alert was designed to be seen, and the record has no sign it was read as intended. The sites are the 1973 order of battle with a note, since the Minuteman wings were the same and the rest differs in models more than places.
 
+**MIRVs.** The Minuteman IIIs and Poseidons fly as buses: each missile carries its warheads on one arc until post-boost, then the reentry vehicles part for targets within 300 km of the first, which is the footprint rule the builder applies. A missile that fails takes every warhead with it. The American strike is 4,176 warheads on about 1,900 vehicles.
+
 **Timing artefact to note.** The clock runs from the WSAG's convening; the JCS message time of 11:41 p.m. is Sagan's, while the memorandum for the record puts the DEFCON decision at the meeting's start. Both are on the readout.
 
 ## What it must not claim

@@ -418,7 +418,7 @@ export function buildAlertForce(option = 1): { study: Study; summary: AlertForce
     complexesCovered: Object.keys(firstArrival).filter((id) => id.startsWith('t-')).length,
     megatons: megatons(result.sorties),
     alertFraction,
-    bomberVehicles: Math.round(result.sorties.filter((s) => s.kind === 'bomber').length / 1.5),
+    bomberVehicles: strike.entities.filter((e) => e.kind === 'track' && /^BOMBER/.test(e.designation)).length,
   }
 
   const study: Study = {

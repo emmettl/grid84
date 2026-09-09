@@ -126,7 +126,8 @@ function usLaunchers(): Launcher[] {
       out.push({ id: `${l.id}-alert`, name: `${l.name} (alert)`, kind: 'bomber', position, weapons: alert, weaponsPerVehicle: l.weaponsPerAircraft ?? 4, rangeMetres: Infinity, yieldKt: l.yieldKt ?? 1_100, reactionSeconds: REACTION_FIXED, speedMs: speed })
       out.push({ id: `${l.id}-generated`, name: `${l.name} (generated)`, kind: 'bomber', position, weapons: total - alert, weaponsPerVehicle: l.weaponsPerAircraft ?? 4, rangeMetres: Infinity, yieldKt: l.yieldKt ?? 1_100, reactionSeconds: GENERATION, speedMs: speed })
     } else if (l.kind === 'slbm') {
-      out.push({ id: l.id, name: l.name, kind: 'slbm', position, weapons: weaponsOf(l), weaponsPerVehicle: 1, rangeMetres: l.name.includes('Poseidon') && !l.name.includes('Polaris') ? 4_600_000 : 4_600_000, yieldKt: l.yieldKt ?? 200, reactionSeconds: REACTION_FIXED })
+      const perMissile = l.missiles ? Math.max(1, Math.round(weaponsOf(l) / l.missiles)) : 1
+      out.push({ id: l.id, name: l.name, kind: 'slbm', position, weapons: weaponsOf(l), weaponsPerVehicle: perMissile, rangeMetres: 4_600_000, yieldKt: l.yieldKt ?? 200, reactionSeconds: REACTION_FIXED })
     }
   }
   return out
@@ -388,7 +389,7 @@ function executeStudy(): Study {
       `Attrition: ${US_ATTRITION.note}; Soviet side, ${SOVIET_ATTRITION.note}`,
       'Soviet launch on warning is an inference from the doctrine entering service in the decade; a Soviet force that rode out the attack would lose most of its silos and change the picture',
       'Bomber routing: great circles at cruise speed; tankers, the Arctic routes and the PVO are not modelled beyond the penetration number',
-      'MIRVed warheads fly as separate weapons on the same trajectory; footprint limits are not modelled',
+      'MIRVed missiles carry their warheads on one bus that splits after post-boost, each warhead to a target within 300 km of the first; the footprint and the split are rules, not the missiles\' own guidance'
       'Yields per system are the Databook figures; SRAM loads for the B-52 are not counted',
       'The OTA figures are for the force of 1979 against an unwarned population, and are the nearest documented reference',
       'Population exposure is per target with the largest weapon; overlapping targets are summed, so cities within reach of several targets are counted more than once',
