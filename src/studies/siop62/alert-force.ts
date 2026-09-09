@@ -50,6 +50,35 @@ const MACE_MS = 1_040_000 / 3_600
 /** Documented SAC aircraft weapons on alert, 15 July 1961; the bomber bases are scaled to carry it. */
 const SAC_AIRCRAFT_WEAPONS_ON_ALERT = 1_212
 
+/**
+ * Air-refuelling areas, from the Chrome Dome record: KC-135s "operating out
+ * of bases in the northeast United States, Alaska, and Spain", the BLACK
+ * GOAT track over Newfoundland, and a Pacific refuelling on the western
+ * route (Wikipedia, Operation Chrome Dome). A bomber leaving North America
+ * for the bloc routes through the area that adds least to its great circle
+ * and holds there ten minutes. Reconstructed: the areas are documented, the
+ * choice per sortie is not.
+ */
+const REFUEL_AREAS: Array<{ id: string; name: string; position: LngLat }> = [
+  { id: 'newfoundland', name: 'BLACK GOAT · Newfoundland', position: [-56.0, 49.5] },
+  { id: 'alaska', name: 'Alaska', position: [-150.0, 66.0] },
+  { id: 'spain', name: 'Spain', position: [-4.0, 39.5] },
+  { id: 'pacific', name: 'Pacific', position: [-142.0, 57.0] },
+]
+const REFUEL_HOLD_SECONDS = 10 * 60
+
+/** Bombers based in North America refuel en route; those already forward do not. */
+function refuelVia(from: LngLat, to: LngLat): { area: (typeof REFUEL_AREAS)[number]; extraMetres: number } | null {
+  if (from[0] > -30 && from[0] < 100) return null
+  const direct = haversineMetres(from, to)
+  let best: { area: (typeof REFUEL_AREAS)[number]; extraMetres: number } | null = null
+  for (const area of REFUEL_AREAS) {
+    const extra = haversineMetres(from, area.position) + haversineMetres(area.position, to) - direct
+    if (!best || extra < best.extraMetres) best = { area, extraMetres: extra }
+  }
+  return best
+}
+
 function buildLaunchers(): { launchers: Launcher[]; alertFraction: number; bomberWeaponsNominal: number } {
   const raw = (orderOfBattle as { launchers: RawLauncher[] }).launchers
   const bombers = raw.filter((l) => l.kind === 'b52' || l.kind === 'b52h' || l.kind === 'b47' || l.kind === 'b47r')
@@ -187,6 +216,8 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     const l = launcherById[s.launcherId]
     const t = targetById[s.targetId]
     const timing = sortieTiming(l, s, t)
+    const refuel = l.kind === 'bomber' && (l.speedMs ?? 0) < 300 ? refuelVia(l.position, t.position) : null
+    if (refuel) timing.arrival += refuel.extraMetres / (l.speedMs ?? B52_MS) + REFUEL_HOLD_SECONDS
     index += 1
     const sortieId = `s-${index}`
     const f = fate(`${s.launcherId}:${s.targetId}:${index}`, s.kind, calibration.penetration)
@@ -195,21 +226,30 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     else lostPenetration += 1
     const endFraction = f.delivered ? 1 : (f.lostAtFraction ?? 0)
     const endTime = timing.launch + (timing.arrival - timing.launch) * Math.max(endFraction, 0.001)
-    const endPosition: LngLat = f.delivered ? t.position : slerpTo(l.position, t.position, endFraction)
+    const waypoints = refuel
+      ? [
+          { position: l.position, time: timing.launch },
+          { position: refuel.area.position, time: timing.launch + haversineMetres(l.position, refuel.area.position) / (l.speedMs ?? B52_MS) },
+          { position: refuel.area.position, time: timing.launch + haversineMetres(l.position, refuel.area.position) / (l.speedMs ?? B52_MS) + REFUEL_HOLD_SECONDS },
+          { position: t.position, time: timing.arrival },
+        ]
+      : [
+          { position: l.position, time: timing.launch },
+          { position: t.position, time: timing.arrival },
+        ]
+    const fullTrack = new Track(waypoints)
+    const endPosition: LngLat = f.delivered ? t.position : (fullTrack.positionAt(endTime) ?? l.position)
     entities.push({
       kind: 'track',
       id: sortieId,
       name: `${l.name} → ${t.name}`,
       designation: `${l.kind.toUpperCase()} · ${s.yieldKt >= 1_000 ? `${(s.yieldKt / 1_000).toFixed(2)} MT` : `${s.yieldKt} KT`}${f.delivered ? '' : ` · LOST (${f.cause?.toUpperCase()})`}`,
       label: false,
-      track: new Track([
-        { position: l.position, time: timing.launch },
-        { position: endPosition, time: endTime },
-      ]),
+      track: f.delivered ? fullTrack : new Track(waypoints.filter((w) => w.time < endTime).concat([{ position: endPosition, time: endTime }])),
       reveal: 'progressive',
       evidence: 'inferred',
       provenance: { source: 'Allocation rule', method: 'Highest-priority targets first, nearest launcher in range, missiles before bombers; not a documented assignment' },
-      route: { evidence: timing.route === 'ballistic' ? 'modelled' : 'reconstructed', provenance: { source: timing.route === 'ballistic' ? 'Minimum-energy trajectory' : 'Great circle at cruise speed, no refuelling' } },
+      route: { evidence: timing.route === 'ballistic' ? 'modelled' : 'reconstructed', provenance: { source: timing.route === 'ballistic' ? 'Minimum-energy trajectory' : refuel ? `Great circle at cruise speed via the ${refuel.area.name} refuelling area, ten-minute hold` : 'Great circle at cruise speed' } },
       facts: [],
     })
     if (!f.delivered) continue
@@ -391,7 +431,7 @@ export function buildAlertForce(): { study: Study; summary: AlertForceSummary } 
     },
     omissions: [
       'Every weapon-to-target assignment is an illustration by a stated rule; no assignment is in the record',
-      'Bomber refuelling and routing: great circles at cruise speed',
+      'Bomber routing: great circles at cruise speed through the documented refuelling areas (Newfoundland, Alaska, Spain, Pacific), one hold each; tanker numbers and tracks beyond that are not modelled',
       `Attrition is statistical: ${ATTRITION_MODEL}; reliabilities ${Object.entries(RELIABILITY).map(([k, v]) => `${k} ${v.value} (${v.evidence})`).join(', ')}; bomber penetration solved as ${calibration.penetration.toFixed(2)}`,
       'Non-all-weather forces, 22 percent of the force carrying 16 percent of the weapons, had a further planning factor the briefing does not state',
       'US air defence against the Soviet response: no official estimate exists; one half assumed',

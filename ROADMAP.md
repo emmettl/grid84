@@ -91,7 +91,7 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 - [x] Second and third passes on both lists: separators read as quotes or digits, look-alike letters inside numbers, glued lowercase tails. 351 airfield rows and 2,787 city-list lines remain unparsed, mostly heavily damaged scans; a hand pass is the next step, not another regex.
 - [x] Attrition model: reliability by system with Atlas documented, bomber penetration solved so the force averages the documented 85 percent assurance; lost sorties end on their routes. Refuelling tracks remain open.
 - [x] Soviet response: documented 1961 force levels (Sagan Table 4), 10 percent bomber ground alert, six inferred Long Range Aviation fields, generation coupled to the US strikes, SAC sites and the ten largest 1960 cities as inferred targets, US air defence assumed at one half; sums per side against the 1961 estimates of American dead.
-- [ ] Bomber refuelling tracks from published Chrome Dome and Reflex practice.
+- [x] Refuelling: North American bombers route through the Chrome Dome refuelling areas (Newfoundland's BLACK GOAT, Alaska, Spain, the Pacific) with a ten-minute hold; areas documented, the choice per sortie reconstructed.
 - [ ] Performance: the alert force's 2,800 entities run at about 300× effective on a laptop when 600× is asked for; the cost is re-tiling 1,600 GeoJSON lines per update. A custom WebGL layer for tracks, as the Motion Studies renderer does, is the next step.
 - [ ] Full force with the option selector, and the finding that the options barely differ.
 - [x] Two-number outcome readout at impact: blast-only by the 1961 method against the mass-fire bound, computed in a worker from HYDE 1961.
