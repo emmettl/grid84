@@ -32,6 +32,8 @@ export interface Target {
   name: string
   priority: number
   position: LngLat
+  /** Weapons this target may receive, overriding the allocation-wide maximum; a field of silos takes more than a city. */
+  maxWeapons?: number
 }
 
 export interface Sortie {
@@ -76,9 +78,11 @@ export function allocate(launchers: Launcher[], targets: Target[], options: Allo
   const perTarget: Record<string, number> = {}
   let weaponsAssigned = 0
 
-  for (let pass = 0; pass < maxPer; pass += 1) {
+  const passes = Math.max(maxPer, ...targets.map((t) => t.maxWeapons ?? 0))
+  for (let pass = 0; pass < passes; pass += 1) {
     for (const target of sorted) {
-      if ((perTarget[target.id] ?? 0) > pass) continue
+      const have = perTarget[target.id] ?? 0
+      if (have > pass || have >= (target.maxWeapons ?? maxPer)) continue
       let chosen: { launcher: Launcher; distance: number } | null = null
       for (const kind of order) {
         for (const launcher of launchers) {

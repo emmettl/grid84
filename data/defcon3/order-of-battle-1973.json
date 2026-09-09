@@ -1,0 +1,1442 @@
+{
+ "date": "24 October 1973",
+ "rules": {
+  "minutemanYields": {
+   "MM I": {
+    "warheads": 1,
+    "yieldKt": 1000
+   },
+   "MM II": {
+    "warheads": 1,
+    "yieldKt": 1200
+   },
+   "MM III": {
+    "warheads": 3,
+    "yieldKt": 170
+   }
+  },
+  "b52": {
+   "total": 400,
+   "guam": 75,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "groundAlert": 0.33
+  },
+  "fb111": {
+   "total": 76,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 170
+  },
+  "ssbn": {
+   "boats": 41,
+   "tubes": 656,
+   "atSea": 23,
+   "note": "About 23 of 41 boats at sea, a reconstruction from the usual half-plus deployment rate; the split between areas is inferred"
+  },
+  "sovietIcbm": {
+   "SS-11": {
+    "launchers": 990,
+    "fields": 12,
+    "yieldKt": 1000
+   },
+   "SS-9": {
+    "launchers": 288,
+    "fields": 5,
+    "yieldKt": 20000
+   },
+   "SS-13": {
+    "launchers": 60,
+    "fields": 1,
+    "yieldKt": 600
+   },
+   "SS-7": {
+    "launchers": 186,
+    "fields": 5,
+    "yieldKt": 5000
+   }
+  },
+  "lra": {
+   "bombers": 195,
+   "fields": 5,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000
+  },
+  "yankee": {
+   "onPatrol": 3,
+   "inPort": 27
+  }
+ },
+ "launchers": [
+  {
+   "side": "us",
+   "name": "Malmstrom AFB · 341st SMW",
+   "kind": "icbm",
+   "missiles": 200,
+   "weapons": 200,
+   "squadrons": [
+    {
+     "missiles": 200,
+     "version": "MM II",
+     "warheads": 1,
+     "yieldKt": 1200
+    }
+   ],
+   "note": "10th, 12th, 490th SMS with 150 and the 564th with 50; all Minuteman II by June 1969, the 564th to Minuteman III only in 1975",
+   "evidence": "documented",
+   "source": "Wikipedia, 341st Missile Wing",
+   "id": "malmstrom-341",
+   "lon": -111.1785,
+   "lat": 47.5049,
+   "geocoded": "Malmstrom Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Ellsworth AFB · 44th SMW",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 150,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "MM II",
+     "warheads": 1,
+     "yieldKt": 1200
+    }
+   ],
+   "note": "Force Modernization from Minuteman I to II, October 1971 to March 1973",
+   "evidence": "documented",
+   "source": "Wikipedia, 44th Missile Wing",
+   "id": "ellsworth-44",
+   "lon": -103.0868,
+   "lat": 44.1472,
+   "geocoded": "Ellsworth Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Whiteman AFB · 351st SMW",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 150,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "MM II",
+     "warheads": 1,
+     "yieldKt": 1200
+    }
+   ],
+   "note": "Minuteman II since October 1967",
+   "evidence": "documented",
+   "source": "Wikipedia, 351st Missile Wing",
+   "id": "whiteman-351",
+   "lon": -93.5545,
+   "lat": 38.7303,
+   "geocoded": "Whiteman Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Minot AFB · 91st SMW",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "MM III",
+     "warheads": 3,
+     "yieldKt": 170
+    }
+   ],
+   "note": "Minuteman III from 1972",
+   "evidence": "documented",
+   "source": "Wikipedia, 91st Missile Wing",
+   "id": "minot-91",
+   "lon": -101.3372,
+   "lat": 48.42,
+   "geocoded": "Minot Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Grand Forks AFB · 321st SMW",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "MM III",
+     "warheads": 3,
+     "yieldKt": 170
+    }
+   ],
+   "note": "Converted to Minuteman III, December 1971 to March 1973",
+   "evidence": "documented",
+   "source": "Wikipedia, 321st Missile Wing",
+   "id": "grand-forks-321",
+   "lon": -97.4004,
+   "lat": 47.9636,
+   "geocoded": "Grand Forks Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "F.E. Warren AFB · 90th SMW",
+   "kind": "icbm",
+   "missiles": 200,
+   "weapons": 300,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "MM I",
+     "warheads": 1,
+     "yieldKt": 1000
+    },
+    {
+     "missiles": 50,
+     "version": "MM III",
+     "warheads": 3,
+     "yieldKt": 170
+    }
+   ],
+   "note": "Changeout from Minuteman I to III began June 1973 and completed October 1974; the 400th SMS first. Fifty converted by 24 October is a straight-line reconstruction",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, 90th Missile Wing",
+   "id": "warren-90",
+   "lon": -104.8633,
+   "lat": 41.1659,
+   "geocoded": "Francis E. Warren Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Davis-Monthan AFB · 390th SMW",
+   "kind": "icbm",
+   "missiles": 18,
+   "weapons": 18,
+   "squadrons": [
+    {
+     "missiles": 18,
+     "version": "Titan II",
+     "warheads": 1,
+     "yieldKt": 9000
+    }
+   ],
+   "note": "Two squadrons of nine",
+   "evidence": "documented",
+   "source": "Wikipedia, LGM-25C Titan II",
+   "id": "davis-monthan-390",
+   "lon": -110.8833,
+   "lat": 32.1661,
+   "geocoded": "Davis-Monthan Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Little Rock AFB · 308th SMW",
+   "kind": "icbm",
+   "missiles": 18,
+   "weapons": 18,
+   "squadrons": [
+    {
+     "missiles": 18,
+     "version": "Titan II",
+     "warheads": 1,
+     "yieldKt": 9000
+    }
+   ],
+   "note": "Two squadrons of nine",
+   "evidence": "documented",
+   "source": "Wikipedia, LGM-25C Titan II",
+   "id": "little-rock-308",
+   "lon": -92.1388,
+   "lat": 34.9059,
+   "geocoded": "Little Rock Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "McConnell AFB · 381st SMW",
+   "kind": "icbm",
+   "missiles": 18,
+   "weapons": 18,
+   "squadrons": [
+    {
+     "missiles": 18,
+     "version": "Titan II",
+     "warheads": 1,
+     "yieldKt": 9000
+    }
+   ],
+   "note": "Two squadrons of nine",
+   "evidence": "documented",
+   "source": "Wikipedia, LGM-25C Titan II",
+   "id": "mcconnell-381",
+   "lon": -97.2619,
+   "lat": 37.6259,
+   "geocoded": "McConnell Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Barksdale AFB · 2nd BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "barksdale-2",
+   "lon": -93.6108,
+   "lat": 32.4975,
+   "geocoded": "Barksdale Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Minot AFB · 5th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "minot-5",
+   "lon": -101.3372,
+   "lat": 48.42,
+   "geocoded": "Minot Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Carswell AFB · 7th BW",
+   "kind": "bomber",
+   "model": "B-52D",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "carswell-7",
+   "lon": -97.4312,
+   "lat": 32.7664,
+   "geocoded": "Naval Air Station Joint Reserve Base Fort Worth (Carswell Field)",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Robins AFB · 19th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "robins-19",
+   "lon": -83.5832,
+   "lat": 32.5991,
+   "geocoded": "Robins Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "March AFB · 22nd BW",
+   "kind": "bomber",
+   "model": "B-52D",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "march-22",
+   "lon": -117.2558,
+   "lat": 33.8838,
+   "geocoded": "March Air Reserve Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Ellsworth AFB · 28th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "ellsworth-28",
+   "lon": -103.0868,
+   "lat": 44.1472,
+   "geocoded": "Ellsworth Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Loring AFB · 42nd BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "loring-42",
+   "lon": -67.89,
+   "lat": 46.95,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Seymour Johnson AFB · 68th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "seymour-johnson-68",
+   "lon": -77.956,
+   "lat": 35.3451,
+   "geocoded": "Seymour Johnson Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Fairchild AFB · 92nd BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "fairchild-92",
+   "lon": -117.647,
+   "lat": 47.6161,
+   "geocoded": "Fairchild Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Castle AFB · 93rd BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 16,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "castle-93",
+   "lon": -120.5706,
+   "lat": 37.3803,
+   "geocoded": "Castle Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Dyess AFB · 96th BW",
+   "kind": "bomber",
+   "model": "B-52D",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "dyess-96",
+   "lon": -99.8382,
+   "lat": 32.4206,
+   "geocoded": "Dyess Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Blytheville AFB · 97th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "blytheville-97",
+   "lon": -89.9449,
+   "lat": 35.9655,
+   "geocoded": "Arkansas International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Westover AFB · 99th BW",
+   "kind": "bomber",
+   "model": "B-52D",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "westover-99",
+   "lon": -72.5455,
+   "lat": 42.1972,
+   "geocoded": "Westover Air Reserve Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "McCoy AFB · 306th BW",
+   "kind": "bomber",
+   "model": "B-52D",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "mccoy-306",
+   "lon": -81.31,
+   "lat": 28.43,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Grand Forks AFB · 319th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "grand-forks-319",
+   "lon": -97.4004,
+   "lat": 47.9636,
+   "geocoded": "Grand Forks Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Mather AFB · 320th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "mather-320",
+   "lon": -121.3039,
+   "lat": 38.5532,
+   "geocoded": "Mather Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Wurtsmith AFB · 379th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "wurtsmith-379",
+   "lon": -83.3751,
+   "lat": 44.457,
+   "geocoded": "Oscoda-Wurtsmith Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "K.I. Sawyer AFB · 410th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "ki-sawyer-410",
+   "lon": -87.3892,
+   "lat": 46.3394,
+   "geocoded": "Sawyer International Airport General Aviation Terminal",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Griffiss AFB · 416th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "griffiss-416",
+   "lon": -75.4143,
+   "lat": 43.2322,
+   "geocoded": "Griffiss International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Kincheloe AFB · 449th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "kincheloe-449",
+   "lon": -84.47,
+   "lat": 46.25,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Beale AFB · 456th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "400 B-52s less the 75 at Guam spread evenly over 21 wings",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, List of B-52 units; Databook vol. 1 for the total",
+   "id": "beale-456",
+   "lon": -121.3801,
+   "lat": 39.1229,
+   "geocoded": "Beale Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Andersen AFB · 43rd SW",
+   "kind": "bomber",
+   "model": "B-52D",
+   "aircraft": 75,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "note": "Seventy-five B-52s recalled from Guam on the night of the alert",
+   "evidence": "documented",
+   "source": "FRUS 1969–76 vol. XXV doc. 269",
+   "id": "andersen-43",
+   "lon": 144.9263,
+   "lat": 13.5596,
+   "geocoded": "Andersen Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Pease AFB · 509th BW",
+   "kind": "bomber",
+   "model": "FB-111A",
+   "aircraft": 38,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 170,
+   "note": "76 FB-111As in two wings",
+   "evidence": "documented",
+   "source": "Wikipedia, General Dynamics F-111 Aardvark",
+   "id": "pease-509",
+   "lon": -70.8187,
+   "lat": 43.079,
+   "geocoded": "Portsmouth International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Plattsburgh AFB · 380th BW",
+   "kind": "bomber",
+   "model": "FB-111A",
+   "aircraft": 38,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 170,
+   "note": "76 FB-111As in two wings",
+   "evidence": "documented",
+   "source": "Wikipedia, General Dynamics F-111 Aardvark",
+   "id": "plattsburgh-380",
+   "lon": -73.4644,
+   "lat": 44.6517,
+   "geocoded": "Plattsburgh International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "id": "ssbn-norwegian",
+   "name": "Polaris and Poseidon patrol · Norwegian Sea",
+   "kind": "slbm",
+   "lon": 5.0,
+   "lat": 68.0,
+   "boats": 10,
+   "missiles": 160,
+   "weapons": 480,
+   "yieldKt": 200,
+   "note": "Boats from Submarine Squadron 14, Holy Loch. About 23 of 41 boats at sea, a reconstruction from the usual half-plus deployment rate; the split between areas is inferred",
+   "geocoded": "hand-set",
+   "evidence": "inferred",
+   "positionEvidence": "inferred",
+   "source": "Databook vol. 1: 41 boats, 656 tubes; Wikipedia, UGM-73 Poseidon"
+  },
+  {
+   "side": "us",
+   "id": "ssbn-atlantic",
+   "name": "Poseidon patrol · North Atlantic",
+   "kind": "slbm",
+   "lon": -40.0,
+   "lat": 45.0,
+   "boats": 6,
+   "missiles": 96,
+   "weapons": 960,
+   "yieldKt": 40,
+   "note": "Boats from Charleston. About 23 of 41 boats at sea, a reconstruction from the usual half-plus deployment rate; the split between areas is inferred",
+   "geocoded": "hand-set",
+   "evidence": "inferred",
+   "positionEvidence": "inferred",
+   "source": "Databook vol. 1: 41 boats, 656 tubes; Wikipedia, UGM-73 Poseidon"
+  },
+  {
+   "side": "us",
+   "id": "ssbn-mediterranean",
+   "name": "Polaris patrol · Mediterranean",
+   "kind": "slbm",
+   "lon": 18.0,
+   "lat": 35.0,
+   "boats": 3,
+   "missiles": 48,
+   "weapons": 144,
+   "yieldKt": 200,
+   "note": "Boats from Submarine Squadron 16, Rota. About 23 of 41 boats at sea, a reconstruction from the usual half-plus deployment rate; the split between areas is inferred",
+   "geocoded": "hand-set",
+   "evidence": "inferred",
+   "positionEvidence": "inferred",
+   "source": "Databook vol. 1: 41 boats, 656 tubes; Wikipedia, UGM-73 Poseidon"
+  },
+  {
+   "side": "us",
+   "id": "ssbn-pacific",
+   "name": "Polaris patrol · western Pacific",
+   "kind": "slbm",
+   "lon": 150.0,
+   "lat": 30.0,
+   "boats": 4,
+   "missiles": 64,
+   "weapons": 192,
+   "yieldKt": 200,
+   "note": "Boats from Submarine Squadron 15, Guam. About 23 of 41 boats at sea, a reconstruction from the usual half-plus deployment rate; the split between areas is inferred",
+   "geocoded": "hand-set",
+   "evidence": "inferred",
+   "positionEvidence": "inferred",
+   "source": "Databook vol. 1: 41 boats, 656 tubes; Wikipedia, UGM-73 Poseidon"
+  },
+  {
+   "side": "su",
+   "name": "Kozelsk · 28th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 83,
+   "weapons": 83,
+   "squadrons": [
+    {
+     "missiles": 83,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "kozelsk",
+   "lon": 35.7926,
+   "lat": 54.0356,
+   "geocoded": "Kozelsk",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Tatishchevo · 60th Rocket Division",
+   "kind": "icbm",
+   "missiles": 83,
+   "weapons": 83,
+   "squadrons": [
+    {
+     "missiles": 83,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "tatishchevo",
+   "lon": 45.5947,
+   "lat": 51.6726,
+   "geocoded": "Tatishchevo",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Teykovo · 54th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 83,
+   "weapons": 83,
+   "squadrons": [
+    {
+     "missiles": 83,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "teykovo",
+   "lon": 40.5406,
+   "lat": 56.8555,
+   "geocoded": "Teykovo",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Kostroma · 10th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 83,
+   "weapons": 83,
+   "squadrons": [
+    {
+     "missiles": 83,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "kostroma",
+   "lon": 40.9269,
+   "lat": 57.7679,
+   "geocoded": "Kostroma",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Bershet · 52nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 83,
+   "weapons": 83,
+   "squadrons": [
+    {
+     "missiles": 83,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "bershet",
+   "lon": 57.77,
+   "lat": 57.73,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Pervomaysk · 46th Rocket Division",
+   "kind": "icbm",
+   "missiles": 83,
+   "weapons": 83,
+   "squadrons": [
+    {
+     "missiles": 83,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "pervomaysk",
+   "lon": 30.8476,
+   "lat": 48.0457,
+   "geocoded": "Pervomaisk",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Derazhnya · 19th Rocket Division",
+   "kind": "icbm",
+   "missiles": 82,
+   "weapons": 82,
+   "squadrons": [
+    {
+     "missiles": 82,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "derazhnya",
+   "lon": 27.4338,
+   "lat": 49.2686,
+   "geocoded": "Derazhnia",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Drovyanaya · 4th Rocket Division",
+   "kind": "icbm",
+   "missiles": 82,
+   "weapons": 82,
+   "squadrons": [
+    {
+     "missiles": 82,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "drovyanaya",
+   "lon": 113.05,
+   "lat": 51.6,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Svobodny · 27th Rocket Division",
+   "kind": "icbm",
+   "missiles": 82,
+   "weapons": 82,
+   "squadrons": [
+    {
+     "missiles": 82,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "svobodny",
+   "lon": 128.32,
+   "lat": 51.45,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Gladkaya · 36th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 82,
+   "weapons": 82,
+   "squadrons": [
+    {
+     "missiles": 82,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "gladkaya",
+   "lon": 91.75,
+   "lat": 56.17,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Pashino · 39th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 82,
+   "weapons": 82,
+   "squadrons": [
+    {
+     "missiles": 82,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "pashino",
+   "lon": 83.02,
+   "lat": 55.18,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Olovyannaya · 47th Rocket Division",
+   "kind": "icbm",
+   "missiles": 82,
+   "weapons": 82,
+   "squadrons": [
+    {
+     "missiles": 82,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "990 SS-11 launchers spread evenly over 12 fields",
+   "evidence": "reconstructed",
+   "source": "UR-100: 990 launchers by 1972; 0.5 to 1.1 Mt (Wikipedia, UR-100)",
+   "id": "olovyannaya",
+   "lon": 115.58,
+   "lat": 50.95,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Aleysk · 41st Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 58,
+   "weapons": 58,
+   "squadrons": [
+    {
+     "missiles": 58,
+     "version": "SS-9",
+     "warheads": 1,
+     "yieldKt": 20000
+    }
+   ],
+   "note": "288 SS-9 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-36: about 288 launchers at peak, 20 Mt or 8.3 Mt warhead (Wikipedia, R-36; Databook vol. 4 for the count)",
+   "id": "aleysk",
+   "lon": 82.7752,
+   "lat": 52.4987,
+   "geocoded": "Aleysk",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Dombarovsky · 13th Rocket Division",
+   "kind": "icbm",
+   "missiles": 58,
+   "weapons": 58,
+   "squadrons": [
+    {
+     "missiles": 58,
+     "version": "SS-9",
+     "warheads": 1,
+     "yieldKt": 20000
+    }
+   ],
+   "note": "288 SS-9 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-36: about 288 launchers at peak, 20 Mt or 8.3 Mt warhead (Wikipedia, R-36; Databook vol. 4 for the count)",
+   "id": "dombarovsky",
+   "lon": 59.53,
+   "lat": 50.76,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Kartaly · 59th Rocket Division",
+   "kind": "icbm",
+   "missiles": 58,
+   "weapons": 58,
+   "squadrons": [
+    {
+     "missiles": 58,
+     "version": "SS-9",
+     "warheads": 1,
+     "yieldKt": 20000
+    }
+   ],
+   "note": "288 SS-9 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-36: about 288 launchers at peak, 20 Mt or 8.3 Mt warhead (Wikipedia, R-36; Databook vol. 4 for the count)",
+   "id": "kartaly",
+   "lon": 60.6392,
+   "lat": 53.0533,
+   "geocoded": "Kartaly",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Uzhur · 62nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 57,
+   "weapons": 57,
+   "squadrons": [
+    {
+     "missiles": 57,
+     "version": "SS-9",
+     "warheads": 1,
+     "yieldKt": 20000
+    }
+   ],
+   "note": "288 SS-9 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-36: about 288 launchers at peak, 20 Mt or 8.3 Mt warhead (Wikipedia, R-36; Databook vol. 4 for the count)",
+   "id": "uzhur",
+   "lon": 89.8424,
+   "lat": 55.3197,
+   "geocoded": "Uzhur",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Zhangiz-Tobe · 57th Rocket Division",
+   "kind": "icbm",
+   "missiles": 57,
+   "weapons": 57,
+   "squadrons": [
+    {
+     "missiles": 57,
+     "version": "SS-9",
+     "warheads": 1,
+     "yieldKt": 20000
+    }
+   ],
+   "note": "288 SS-9 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-36: about 288 launchers at peak, 20 Mt or 8.3 Mt warhead (Wikipedia, R-36; Databook vol. 4 for the count)",
+   "id": "zhangiz-tobe",
+   "lon": 81.2,
+   "lat": 49.2,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yoshkar-Ola · 14th Rocket Division",
+   "kind": "icbm",
+   "missiles": 60,
+   "weapons": 60,
+   "squadrons": [
+    {
+     "missiles": 60,
+     "version": "SS-13",
+     "warheads": 1,
+     "yieldKt": 600
+    }
+   ],
+   "note": "60 SS-13 launchers spread evenly over 1 fields",
+   "evidence": "reconstructed",
+   "source": "RT-2: about 60 built by 1972, all in the Yoshkar-Ola field, 600 kt (Wikipedia, RT-2)",
+   "id": "yoshkar-ola",
+   "lon": 47.8869,
+   "lat": 56.6316,
+   "geocoded": "Yoshkar-Ola",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Yurya · 8th Rocket Division",
+   "kind": "icbm",
+   "missiles": 38,
+   "weapons": 38,
+   "squadrons": [
+    {
+     "missiles": 38,
+     "version": "SS-7",
+     "warheads": 1,
+     "yieldKt": 5000
+    }
+   ],
+   "note": "186 SS-7 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-16: 202 at peak in 1965, retired by 1976 under the SALT I replacement rule; 186 in October 1973 is a reconstruction (Wikipedia, R-16)",
+   "id": "yurya",
+   "lon": 49.32,
+   "lat": 59.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Verkhnyaya Salda · 42nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 37,
+   "weapons": 37,
+   "squadrons": [
+    {
+     "missiles": 37,
+     "version": "SS-7",
+     "warheads": 1,
+     "yieldKt": 5000
+    }
+   ],
+   "note": "186 SS-7 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-16: 202 at peak in 1965, retired by 1976 under the SALT I replacement rule; 186 in October 1973 is a reconstruction (Wikipedia, R-16)",
+   "id": "nizhny-tagil",
+   "lon": 60.55,
+   "lat": 58.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Shadrinsk · 17th Rocket Brigade",
+   "kind": "icbm",
+   "missiles": 37,
+   "weapons": 37,
+   "squadrons": [
+    {
+     "missiles": 37,
+     "version": "SS-7",
+     "warheads": 1,
+     "yieldKt": 5000
+    }
+   ],
+   "note": "186 SS-7 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-16: 202 at peak in 1965, retired by 1976 under the SALT I replacement rule; 186 in October 1973 is a reconstruction (Wikipedia, R-16)",
+   "id": "shadrinsk",
+   "lon": 63.63,
+   "lat": 56.08,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Itatka · 97th Rocket Brigade",
+   "kind": "icbm",
+   "missiles": 37,
+   "weapons": 37,
+   "squadrons": [
+    {
+     "missiles": 37,
+     "version": "SS-7",
+     "warheads": 1,
+     "yieldKt": 5000
+    }
+   ],
+   "note": "186 SS-7 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-16: 202 at peak in 1965, retired by 1976 under the SALT I replacement rule; 186 in October 1973 is a reconstruction (Wikipedia, R-16)",
+   "id": "itatka",
+   "lon": 85.55,
+   "lat": 56.85,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Tyumen · 93rd Rocket Brigade",
+   "kind": "icbm",
+   "missiles": 37,
+   "weapons": 37,
+   "squadrons": [
+    {
+     "missiles": 37,
+     "version": "SS-7",
+     "warheads": 1,
+     "yieldKt": 5000
+    }
+   ],
+   "note": "186 SS-7 launchers spread evenly over 5 fields",
+   "evidence": "reconstructed",
+   "source": "R-16: 202 at peak in 1965, retired by 1976 under the SALT I replacement rule; 186 in October 1973 is a reconstruction (Wikipedia, R-16)",
+   "id": "tyumen",
+   "lon": 65.53,
+   "lat": 57.15,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Uzin · 106th Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95",
+   "aircraft": 39,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "note": "195 Long Range Aviation bombers at five fields (CIA), spread evenly",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, Soviet Long Range Aviation; Tupolev Tu-95 units",
+   "id": "uzin",
+   "lon": 30.4197,
+   "lat": 49.8285,
+   "geocoded": "Uzyn",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Mozdok · 182nd Guards Regiment",
+   "kind": "bomber",
+   "model": "Tu-95",
+   "aircraft": 39,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "note": "195 Long Range Aviation bombers at five fields (CIA), spread evenly",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, Soviet Long Range Aviation; Tupolev Tu-95 units",
+   "id": "mozdok",
+   "lon": 44.6536,
+   "lat": 43.7356,
+   "geocoded": "Mozdok",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Dolon · 79th Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95",
+   "aircraft": 39,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "note": "195 Long Range Aviation bombers at five fields (CIA), spread evenly",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, Soviet Long Range Aviation; Tupolev Tu-95 units",
+   "id": "dolon",
+   "lon": 79.15,
+   "lat": 50.45,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Ukrainka · 73rd Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95",
+   "aircraft": 39,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "note": "195 Long Range Aviation bombers at five fields (CIA), spread evenly",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, Soviet Long Range Aviation; Tupolev Tu-95 units",
+   "id": "ukrainka",
+   "lon": 124.24,
+   "lat": 51.17,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Engels · 201st Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "M-4/3M",
+   "aircraft": 39,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "note": "195 Long Range Aviation bombers at five fields (CIA), spread evenly",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, Soviet Long Range Aviation; Tupolev Tu-95 units",
+   "id": "engels",
+   "lon": 46.2,
+   "lat": 51.48,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "id": "yankee-bermuda",
+   "name": "Yankee patrol box · east of Bermuda",
+   "kind": "slbm",
+   "lon": -60.0,
+   "lat": 33.0,
+   "boats": 2,
+   "missiles": 32,
+   "weapons": 32,
+   "yieldKt": 1000,
+   "note": "About three Yankee boats continually on patrol in the 1970s",
+   "geocoded": "hand-set",
+   "evidence": "documented",
+   "positionEvidence": "inferred",
+   "source": "Wikipedia, Yankee-class submarine; R-27 Zyb"
+  },
+  {
+   "side": "su",
+   "id": "yankee-pacific",
+   "name": "Yankee patrol box · off the Pacific coast",
+   "kind": "slbm",
+   "lon": -132.0,
+   "lat": 40.0,
+   "boats": 1,
+   "missiles": 16,
+   "weapons": 16,
+   "yieldKt": 1000,
+   "note": "About three Yankee boats continually on patrol in the 1970s",
+   "geocoded": "hand-set",
+   "evidence": "documented",
+   "positionEvidence": "inferred",
+   "source": "Wikipedia, Yankee-class submarine; R-27 Zyb"
+  },
+  {
+   "side": "su",
+   "name": "Gadzhiyevo · Northern Fleet",
+   "kind": "slbm-port",
+   "boats": 18,
+   "missiles": 288,
+   "weapons": 288,
+   "yieldKt": 1000,
+   "note": "Boats in port, days from launch range; the split between fleets is reconstructed",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, Yankee-class submarine: 34 built 1964–1974",
+   "id": "gadzhiyevo",
+   "lon": 33.3153,
+   "lat": 69.2504,
+   "geocoded": "Gadzhiyevo",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Rybachiy · Pacific Fleet",
+   "kind": "slbm-port",
+   "boats": 9,
+   "missiles": 144,
+   "weapons": 144,
+   "yieldKt": 1000,
+   "note": "Boats in port, days from launch range; the split between fleets is reconstructed",
+   "evidence": "reconstructed",
+   "source": "Wikipedia, Yankee-class submarine: 34 built 1964–1974",
+   "id": "rybachiy",
+   "lon": 158.4054,
+   "lat": 52.9318,
+   "geocoded": "Vilyuchinsk",
+   "positionEvidence": "reconstructed"
+  }
+ ]
+}

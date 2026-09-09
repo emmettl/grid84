@@ -60,6 +60,36 @@ The study has two halves and a second act.
 - Pressing RUN: SIOP-4 with the generated force, allocated by the NUWEP categories as a stated rule, Soviet nuclear forces first. The Minuteman fields fire from six wings in the northern plains, the Soviet fields from the Volga to Transbaikal; the sum runs over the HYDE 1973 grid. The visible point is what assured destruction meant with seven thousand warheads and no smaller option, next to what SIOP//62 meant with three thousand.
 - The 1969 act: the same ladder for the secret alert, with the airborne B-52s over Alaska and the north Pacific as tracks, and nothing on the other side of the map, because the alert's whole purpose was to be seen.
 
+## Built, 9 September 2026
+
+`#/study/defcon3-73` plays the posture and `#/study/defcon3-73/execute` the plan behind it. The order of battle is built by [`scripts/build-order-of-battle-1973.py`](../scripts/build-order-of-battle-1973.py) from the unit histories: 37 American and 32 Soviet strategic sites, positions geocoded from the modern map with the Soviet fields hand-set where the town is not the field. The ladder is [`data/defcon3/alert-1973.json`](../data/defcon3/alert-1973.json), fifteen steps with a time and a source each, from Dobrynin's telephone call at 9:35 p.m. to the Sixth Fleet's stand-down on 17 November. The Guam recall and the carriers' orders are drawn as tracks from the Foreign Relations volume's memorandum for the record.
+
+| Force on the night | Enacted | Documented |
+| --- | --- | --- |
+| American ICBMs | 1,054: 650 Minuteman II, 350 Minuteman III, 54 Titan II, with F.E. Warren's changeout fifty missiles in | 1,000 Minuteman and 54 Titan II (Databook vol. 1); the wing conversions from the unit histories |
+| American warheads on launchers | 5,434 | about 7,000 strategic warheads (Kristensen and Norris 2013); the gap is bombers at four weapons each and half the Poseidon conversion |
+| Soviet ICBM launchers | 1,524 at 23 fields | about 1,500 within the SALT I ceiling of 1,618 |
+| Soviet warheads on launchers | 2,394 | about 2,200 (Kristensen and Norris 2013) |
+| Long Range Aviation | 195 bombers at five fields | "195 bombers ... concentrated at only five primary airfields" (CIA, via Wikipedia) |
+
+**Execution.** SIOP-4 is enacted by the NUWEP-74 categories as a rule, Soviet nuclear forces first with one weapon per silo, then the 1956 complexes standing in for the urban-industrial list; the Soviet force launches on warning twenty-five minutes after the first American launches, against the American silos and bomber bases and the 150 most populous cells of the 1973 grid by a stated rule, because no Soviet list is in the record either. Both sides hold back what has no target rather than being given invented ones.
+
+| Exchange | United States strikes | Soviet Union strikes |
+| --- | --- | --- |
+| Weapons assigned · held back | 4,176 · 1,258 | 1,506 · 888 (the bombers, which find every target taken) |
+| Delivered | 2,989 | 1,126 |
+| Targets · detonations | 900 · 1,070 | 183 · 178 |
+| Megatons assigned | 3,026 | 7,356 |
+| First · last detonation | H+22 min · H+9 h 17 min | H+44 min · H+57 min |
+| Dead, blast only · with mass fire, on HYDE 1973 | 54 million · 120 million Soviet | 17 million · 42 million American |
+| Reference | OTA 1979, large attack: 50 to 100 million Soviet dead | OTA 1979, large attack: 155 to 165 million American dead |
+
+The Soviet sum brackets the OTA figure; the American sum falls far below it, and the reason is on the readout: the Soviet strike here has 150 urban targets and holds back a third of its force, where the OTA case put the whole force on every urban area. That is the target list's poverty, not the model's, and the study says so rather than inventing the list.
+
+**What the execution shows.** The missiles decide the first hour: the American ICBMs and Poseidons land from H+22 minutes and the Soviet launch on warning lands from H+44, so both silo fields are struck after they have emptied, which is the counterforce paradox of the decade drawn on the map. The generated bombers leave at three hours into a country already burning and arrive after nine. With 7,000 warheads against 2,200 the exchange is not symmetrical and the sums are not either.
+
+**Timing artefact to note.** The clock runs from the WSAG's convening; the JCS message time of 11:41 p.m. is Sagan's, while the memorandum for the record puts the DEFCON decision at the meeting's start. Both are on the readout.
+
 ## What it must not claim
 
 - No seventies target list is in the record. Targeting is by the documented categories and says so on every mark; the 1956 list has no part here.
@@ -73,4 +103,4 @@ The study has two halves and a second act.
 - The Soviet ICBM fields by location and type from the Databook volume 4 tables.
 - The alert ladder as timed messages from EBB 98 and the SAC history.
 - The carriers' positions on the 24th and 25th, from the Sixth Fleet records in EBB 98.
-- HYDE 1973, prepared under `public/data/hyde/` as `popc_1973` (world total 3.91 billion), with `popc_1969` (3.61 billion) for the 1969 act.
+- HYDE 1973 and 1969, prepared under `public/data/hyde/` as `popc_1973` (world total 3.91 billion) and `popc_1969` (3.61 billion); 1973 is committed with the study.

@@ -22,6 +22,9 @@ export const RELIABILITY: Record<SystemKind, { value: number; evidence: 'documen
   bomber: { value: 0.9, evidence: 'inferred', note: 'Aborts and mechanical failures on a fifteen-minute launch' },
 }
 
+/** The 1961 reliabilities as plain numbers, the default for `fate`. */
+export const DEFAULT_RELIABILITY: Record<SystemKind, number> = { icbm: RELIABILITY.icbm.value, irbm: RELIABILITY.irbm.value, slbm: RELIABILITY.slbm.value, bomber: RELIABILITY.bomber.value }
+
 export interface AttritionCalibration {
   /** Probability a bomber that works also gets through. */
   penetration: number
@@ -66,9 +69,9 @@ export interface SortieFate {
 }
 
 /** Decide each sortie's fate from its id. Reliability failures happen at launch; penetration losses in the last part of the route. */
-export function fate(sortieId: string, kind: SystemKind, penetration: number): SortieFate {
+export function fate(sortieId: string, kind: SystemKind, penetration: number, reliability: Record<SystemKind, number> = DEFAULT_RELIABILITY): SortieFate {
   const r = hash01(`${sortieId}:reliability`)
-  if (r > RELIABILITY[kind].value) return { delivered: false, cause: 'reliability', lostAtFraction: kind === 'bomber' ? hash01(`${sortieId}:abort`) * 0.15 : 0 }
+  if (r > reliability[kind]) return { delivered: false, cause: 'reliability', lostAtFraction: kind === 'bomber' ? hash01(`${sortieId}:abort`) * 0.15 : 0 }
   if (kind === 'bomber') {
     const p = hash01(`${sortieId}:penetration`)
     if (p > penetration) return { delivered: false, cause: 'penetration', lostAtFraction: 0.6 + hash01(`${sortieId}:where`) * 0.38 }

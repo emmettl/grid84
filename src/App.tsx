@@ -8,15 +8,23 @@ import { ReadinessLab } from './lab/ReadinessLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
 import { ALERT_FORCE, forceForOption } from './studies/siop62/alert-force.ts'
+import { defcon3Execute, defcon3Posture } from './studies/defcon3/posture.ts'
 import { StudyView } from './studies/StudyView.tsx'
 
-type Route = { kind: 'atlas' } | { kind: 'study'; id: 'siop62' } | { kind: 'study'; id: 'siop62-alert'; option: number } | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' }
+type Route =
+  | { kind: 'atlas' }
+  | { kind: 'study'; id: 'siop62' }
+  | { kind: 'study'; id: 'siop62-alert'; option: number }
+  | { kind: 'study'; id: 'defcon3-73'; execute: boolean }
+  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' }
 
 function parseRoute(hash: string): Route {
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
   if (hash === '#/study/siop62-alert') return { kind: 'study', id: 'siop62-alert', option: 1 }
   const option = /^#\/study\/siop62-alert\/(\d{1,2})$/.exec(hash)
   if (option) return { kind: 'study', id: 'siop62-alert', option: Math.max(1, Math.min(14, Number(option[1]))) }
+  if (hash === '#/study/defcon3-73') return { kind: 'study', id: 'defcon3-73', execute: false }
+  if (hash === '#/study/defcon3-73/execute') return { kind: 'study', id: 'defcon3-73', execute: true }
   if (hash === '#/lab/evidence') return { kind: 'lab', id: 'evidence' }
   if (hash === '#/lab/population') return { kind: 'lab', id: 'population' }
   if (hash === '#/lab/terrain') return { kind: 'lab', id: 'terrain' }
@@ -65,12 +73,18 @@ function OptionStudy({ option }: { option: number }) {
   return <StudyView key={force.study.id} study={force.study} />
 }
 
+function Defcon3Study({ execute }: { execute: boolean }) {
+  const study = useMemo(() => (execute ? defcon3Execute() : defcon3Posture()), [execute])
+  return <StudyView key={study.id} study={study} />
+}
+
 export default function App() {
   const route = useRoute()
   const links: Array<{ href: string; label: string; active: boolean }> = [
     { href: '#/', label: 'Atlas', active: route.kind === 'atlas' },
     { href: '#/study/siop62', label: 'SIOP//62', active: route.kind === 'study' && route.id === 'siop62' },
     { href: '#/study/siop62-alert', label: 'Alert force', active: route.kind === 'study' && route.id === 'siop62-alert' },
+    { href: '#/study/defcon3-73', label: 'DEFCON 3', active: route.kind === 'study' && route.id === 'defcon3-73' },
     { href: '#/lab/evidence', label: 'Lab · Evidence', active: route.kind === 'lab' && route.id === 'evidence' },
     { href: '#/lab/population', label: 'Lab · Population', active: route.kind === 'lab' && route.id === 'population' },
     { href: '#/lab/terrain', label: 'Lab · Terrain', active: route.kind === 'lab' && route.id === 'terrain' },
@@ -89,6 +103,7 @@ export default function App() {
       {route.kind === 'atlas' && <AtlasView />}
       {route.kind === 'study' && route.id === 'siop62' && <StudyView key="siop62" study={SIOP62_PROOF} />}
       {route.kind === 'study' && route.id === 'siop62-alert' && <OptionStudy option={route.option} />}
+      {route.kind === 'study' && route.id === 'defcon3-73' && <Defcon3Study execute={route.execute} />}
       {route.kind === 'lab' && route.id === 'evidence' && <StudyView key="lab-evidence" study={EVIDENCE_LAB} />}
       {route.kind === 'lab' && route.id === 'population' && <PopulationLab key="lab-population" />}
       {route.kind === 'lab' && route.id === 'terrain' && <TerrainLab key="lab-terrain" />}
