@@ -5,13 +5,14 @@ import { formatProvenance, TIER_LABEL, type Evidenced } from '../evidence/eviden
 import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
-import { applyBands, bandPopulations, OTA_BANDS, outcome, overpressureRadiusForPsi, type Outcome } from '../models/casualties.ts'
-import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
+import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst, type Outcome } from '../models/casualties.ts'
+import { SURFACE_BLAST_MODEL, thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
+import { acuteMortality, plume } from '../models/fallout.ts'
 import { ExposureService } from '../models/exposure-service.ts'
 import { EvidenceLegend } from './EvidenceLegend.tsx'
 import type { Entity, LabelAnchor, Study } from './study.ts'
 
-const RATES = [1, 10, 60, 600]
+const RATES = [1, 10, 60, 600, 3_600]
 
 function Badge({ evidence }: { evidence: Evidenced['evidence'] }) {
   return <span className={`badge badge--${evidence}`}>{TIER_LABEL[evidence]}</span>
@@ -38,7 +39,13 @@ function staticFeatures(study: Study) {
   return { paths, sites, rings }
 }
 
-function timedFeatures(study: Study, time: number) {
+function effectRings(e: Entity & { kind: 'effect' }, burst: Burst) {
+  if (burst === 'air') return e.effects.rings
+  // Surface burst: overpressure rings shrink to the contact-burst radii; thermal and fireball rings are kept as drawn.
+  return e.effects.rings.map((r) => (r.key.startsWith('psi') ? { ...r, radius: radiusForPsi(e.effects.yieldKt, Number(r.key.slice(3)), 'surface') } : r))
+}
+
+function timedFeatures(study: Study, time: number, burst: Burst) {
   const vehicles: EvidenceFeature[] = []
   const rings: EvidenceFeature[] = []
   const areas: EvidenceFeature[] = []
@@ -52,12 +59,21 @@ function timedFeatures(study: Study, time: number) {
         if (flown.length > 1) paths.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: flown.map((q) => [q[0], q[1]]) }, properties: { evidence: e.route.evidence, id: e.id } })
       }
     } else if (e.kind === 'effect' && time >= e.time) {
-      for (const ring of e.effects.rings) {
+      const drawn = effectRings(e, burst)
+      for (const ring of drawn) {
         const coords = geodesicCircle(e.center, ring.radius).map((p) => [p[0], p[1]])
         rings.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: coords }, properties: { evidence: 'modelled', id: `${e.id}-${ring.key}` } })
       }
-      const outer = e.effects.rings[e.effects.rings.length - 1]
+      const outer = drawn.reduce((a, b) => (b.radius > a.radius ? b : a))
       areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [geodesicCircle(e.center, outer.radius).map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-area` } })
+      if (burst === 'surface' && e.fallout) {
+        const hoursSince = (time - e.time) / 3_600
+        const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, reachedHours: hoursSince })
+        for (const c of [...contours].reverse()) {
+          areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [c.ring.map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}` } })
+          rings.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: c.ring.map((p) => [p[0], p[1]]) }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}-line` } })
+        }
+      }
     }
   }
   return { vehicles, rings, areas, paths }
@@ -104,6 +120,15 @@ export function StudyView({ study }: { study: Study }) {
   const exposureService = useRef<ExposureService | null>(null)
   const computed = useRef<Set<string>>(new Set())
   const [outcomes, setOutcomes] = useState<Record<string, Outcome & { grid: string }>>({})
+  const [burst, setBurst] = useState<Burst>('air')
+  const burstRef = useRef<Burst>('air')
+  const falloutComputed = useRef<Set<string>>(new Set())
+  const [falloutOutcomes, setFalloutOutcomes] = useState<Record<string, { under1: number; dead: number; grid: string }>>({})
+  const bounds = burst === 'surface' && study.surfaceBounds ? study.surfaceBounds : study.bounds
+  const boundsRef = useRef(bounds)
+  useEffect(() => {
+    boundsRef.current = bounds
+  }, [bounds])
   const initialClock: ClockState = { time: Math.max(study.bounds.start, -600), playing: false, rate: 60 }
   const clockRef = useRef<ClockState>(initialClock)
   const [clock, setClock] = useState<ClockState>(initialClock)
@@ -176,7 +201,7 @@ export function StudyView({ study }: { study: Study }) {
       const dt = Math.min(0.25, (now - last) / 1_000)
       last = now
       const previous = clockRef.current
-      const next = advance(previous, dt, study.bounds)
+      const next = advance(previous, dt, boundsRef.current)
       const changed = next !== previous
       clockRef.current = next
       const map = mapRef.current
@@ -193,7 +218,7 @@ export function StudyView({ study }: { study: Study }) {
       if (map) terrainSync.current?.()
       if (map && (changed || !primed.current)) {
         primed.current = true
-        const timed = timedFeatures(study, next.time)
+        const timed = timedFeatures(study, next.time, burstRef.current)
         setSourceData(map, SOURCES.vehicles, timed.vehicles)
         setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings])
         setSourceData(map, SOURCES.areas, timed.areas)
@@ -215,7 +240,8 @@ export function StudyView({ study }: { study: Study }) {
             if (due && service && service.grid && !computed.current.has(e.id)) {
               computed.current.add(e.id)
               const yieldKt = e.effects.yieldKt
-              const rings = [...OTA_BANDS.map((b) => ({ key: b.key, radius: overpressureRadiusForPsi(yieldKt, b.minPsi) })), { key: 'fire', radius: thirdDegreeBurnRadiusMetres(yieldKt) }]
+              const mode = burstRef.current
+              const rings = [...OTA_BANDS.map((b) => ({ key: b.key, radius: radiusForPsi(yieldKt, b.minPsi, mode) })), { key: 'fire', radius: thirdDegreeBurnRadiusMetres(yieldKt) }]
               const gridName = `${service.grid.source.name} · ${service.grid.source.year}`
               service
                 .exposure({ center: e.center, rings, subsamples: 4 })
@@ -226,6 +252,28 @@ export function StudyView({ study }: { study: Study }) {
                 .catch((error) => {
                   console.warn('exposure failed', error)
                   computed.current.delete(e.id)
+                })
+            }
+            // Fallout outcome once the plume has had its full time to fall.
+            if (burstRef.current === 'surface' && e.fallout && service && service.grid && next.time >= e.time + e.fallout.untilHours * 3_600 && !falloutComputed.current.has(e.id)) {
+              falloutComputed.current.add(e.id)
+              const f = e.fallout
+              const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: f.fissionFraction, windMph: f.windMph, downwindBearingDeg: f.downwindBearingDeg, untilHours: f.untilHours })
+              const gridName = `${service.grid.source.name} · ${service.grid.source.year}`
+              service
+                .polygons(contours.map((c) => ({ key: c.key, ring: c.ring })))
+                .then((r) => {
+                  let dead = 0
+                  for (let i = 0; i < contours.length; i += 1) {
+                    const inner = i > 0 ? (r.within[contours[i - 1].key] ?? 0) : 0
+                    const band = Math.max(0, (r.within[contours[i].key] ?? 0) - inner)
+                    dead += band * acuteMortality(contours[i].doseMidRads)
+                  }
+                  setFalloutOutcomes((prev) => ({ ...prev, [e.id]: { under1: r.within[contours[contours.length - 1].key] ?? 0, dead, grid: gridName } }))
+                })
+                .catch((error) => {
+                  console.warn('fallout exposure failed', error)
+                  falloutComputed.current.delete(e.id)
                 })
             }
           }
@@ -258,7 +306,27 @@ export function StudyView({ study }: { study: Study }) {
       { time: e.time + 3, text: `OUTCOME · ${e.name.toUpperCase()} · WITH MASS FIRE (POSTOL BOUND): ${fmt(o.fire.fatal)} DEAD (MODELLED)`, entityId: e.id },
     ]
   })
-  const log = [...study.events, ...outcomeEvents].filter((e) => e.time <= clock.time).sort((a, b) => b.time - a.time)
+  const falloutEvents = study.entities.flatMap((e) => {
+    if (e.kind !== 'effect' || !e.fallout || burst !== 'surface') return []
+    const f = e.fallout
+    const lines = [{ time: e.time + 4, text: `FALLOUT · CONTACT SURFACE BURST · PLUME UNDER ${f.windMph} MPH WIND TOWARDS ${String(f.downwindBearingDeg).padStart(3, '0')}° · FISSION ${Math.round(f.fissionFraction * 100)}% (ASSUMED)`, entityId: e.id }]
+    const o = falloutOutcomes[e.id]
+    if (o) lines.push({ time: e.time + f.untilHours * 3_600, text: `OUTCOME · FALLOUT TO H+${f.untilHours} H · ${fmt(o.under1)} UNDER 1 RAD/HR · ${fmt(o.dead)} ACUTE DEATHS, NO SHELTER (INFERRED)`, entityId: e.id })
+    return lines
+  })
+  const log = [...study.events, ...outcomeEvents, ...falloutEvents].filter((e) => e.time <= clock.time).sort((a, b) => b.time - a.time)
+  const hasSurfaceOption = study.entities.some((e) => e.kind === 'effect' && e.fallout)
+  const switchBurst = (mode: Burst) => {
+    burstRef.current = mode
+    setBurst(mode)
+    setClockState({ time: Math.max(study.bounds.start, -600), playing: false })
+    computed.current.clear()
+    falloutComputed.current.clear()
+    setOutcomes({})
+    setFalloutOutcomes({})
+    terrainSync.current?.(false)
+    mapRef.current?.flyTo({ center: [study.view.center[0], study.view.center[1]], zoom: study.view.zoom, pitch: 0, bearing: 0, duration: 2_000, essential: true })
+  }
 
   return (
     <div className="study">
@@ -287,7 +355,9 @@ export function StudyView({ study }: { study: Study }) {
               onClick={() => {
                 setClockState({ time: Math.max(study.bounds.start, -600), playing: false })
                 computed.current.clear()
+                falloutComputed.current.clear()
                 setOutcomes({})
+                setFalloutOutcomes({})
                 terrainSync.current?.(false)
                 mapRef.current?.flyTo({ center: [study.view.center[0], study.view.center[1]], zoom: study.view.zoom, pitch: 0, bearing: 0, duration: 2_000, essential: true })
               }}
@@ -295,18 +365,28 @@ export function StudyView({ study }: { study: Study }) {
               RESET
             </button>
           </div>
+          {hasSurfaceOption && (
+            <div className="clock-controls">
+              <span className="clock-label">Burst</span>
+              {(['air', 'surface'] as Burst[]).map((mode) => (
+                <button key={mode} type="button" className={burst === mode ? 'is-active' : ''} onClick={() => switchBurst(mode)}>
+                  {mode}
+                </button>
+              ))}
+            </div>
+          )}
           <input
             type="range"
-            min={study.bounds.start}
-            max={study.bounds.end}
+            min={bounds.start}
+            max={bounds.end}
             step={1}
             value={clock.time}
             aria-label="Scrub study time"
             onChange={(event) => setClockState({ time: Number(event.target.value), playing: false })}
           />
           <div className="clock-bounds">
-            <span>{formatStudyTime(study.bounds.start)}</span>
-            <span>{formatStudyTime(study.bounds.end)}</span>
+            <span>{formatStudyTime(bounds.start)}</span>
+            <span>{formatStudyTime(bounds.end)}</span>
           </div>
         </section>
 
@@ -340,6 +420,23 @@ export function StudyView({ study }: { study: Study }) {
                   Route <Badge evidence={selected.route.evidence} /> {formatProvenance(selected.route.provenance)}
                   {selected.route.provenance.method && <> · {selected.route.provenance.method}</>}
                 </p>
+              )}
+              {selected.kind === 'effect' && burst === 'surface' && (
+                <p className="provenance-method">Surface burst: overpressure radii by {SURFACE_BLAST_MODEL}. {selected.fallout?.provenance.method}</p>
+              )}
+              {selected.kind === 'effect' && falloutOutcomes[selected.id] && (
+                <div className="two-numbers">
+                  <div>
+                    <span>Under the 1 rad/hr contour</span>
+                    <strong>{fmt(falloutOutcomes[selected.id].under1)}</strong>
+                    <em>people · {falloutOutcomes[selected.id].grid}</em>
+                  </div>
+                  <div>
+                    <span>Acute fallout deaths, no shelter</span>
+                    <strong>{fmt(falloutOutcomes[selected.id].dead)}</strong>
+                    <em>to H+{selected.fallout?.untilHours} h · Table 12.108</em>
+                  </div>
+                </div>
               )}
               {selected.kind === 'effect' && outcomes[selected.id] && (
                 <div className="two-numbers">

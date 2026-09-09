@@ -882,3 +882,9 @@ body,
     padding-top: calc(max(1rem, env(safe-area-inset-top)) + 2.4rem);
   }
 }
+
+.clock-label {
+  align-self: center;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+}

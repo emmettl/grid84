@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { fireballRadiusMetres, overpressureRadiusMetres, promptEffects, radiationRadiusMetres, thirdDegreeBurnRadiusMetres } from './blast.ts'
+import { brodeFreeAirBars, brodeScaledDistance, fireballRadiusMetres, kinneyGrahamScaledDistance, overpressureRadiusMetres, surfaceOverpressureRadiusMetres, promptEffects, radiationRadiusMetres, thirdDegreeBurnRadiusMetres } from './blast.ts'
 
 describe('overpressure', () => {
   it('reproduces the FAQ constants at 1 kt', () => {
@@ -55,5 +55,31 @@ describe('promptEffects', () => {
     expect(radius('burn3')).toBeLessThan(radius('psi1'))
     // At megaton yields prompt radiation is dwarfed by blast: the 500 rad ring sits inside 20 psi.
     expect(radius('rad500')).toBeLessThan(radius('psi20'))
+  })
+})
+
+describe('surface burst', () => {
+  it('inverts the Brode fit and agrees with Kinney & Graham within 15 percent over the band', () => {
+    for (const bars of [0.2, 0.5, 1, 3]) {
+      expect(brodeFreeAirBars(brodeScaledDistance(bars))).toBeCloseTo(bars, 6)
+      const ratio = kinneyGrahamScaledDistance(bars) / brodeScaledDistance(bars)
+      expect(ratio).toBeGreaterThan(0.85)
+      expect(ratio).toBeLessThan(1.15)
+    }
+  })
+  it('nearly matches the optimum air burst at 20 psi and falls well short of it at 1 psi', () => {
+    const r20 = surfaceOverpressureRadiusMetres(1, 20) / overpressureRadiusMetres(1, 20)
+    const r5 = surfaceOverpressureRadiusMetres(1, 5) / overpressureRadiusMetres(1, 5)
+    const r1 = surfaceOverpressureRadiusMetres(1, 1) / overpressureRadiusMetres(1, 1)
+    expect(r20).toBeGreaterThan(0.85)
+    expect(r20).toBeLessThan(1.1)
+    expect(r5).toBeGreaterThan(0.65)
+    expect(r5).toBeLessThan(0.9)
+    expect(r1).toBeGreaterThan(0.6)
+    expect(r1).toBeLessThan(0.85)
+    expect(r1).toBeLessThan(r5)
+  })
+  it('scales with the cube root of yield', () => {
+    expect(surfaceOverpressureRadiusMetres(8_000, 5) / surfaceOverpressureRadiusMetres(1_000, 5)).toBeCloseTo(2, 6)
   })
 })

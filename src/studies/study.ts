@@ -34,6 +34,14 @@ export interface TrackEntity extends Evidenced {
   facts: Array<Evidenced & { label: string; value: string }>
 }
 
+export interface FalloutAssumption {
+  fissionFraction: number
+  windMph: number
+  downwindBearingDeg: number
+  untilHours: number
+  provenance: Evidenced['provenance']
+}
+
 /** Rings that appear at a moment. */
 export interface EffectEntity extends Evidenced {
   kind: 'effect'
@@ -43,6 +51,10 @@ export interface EffectEntity extends Evidenced {
   center: LngLat
   time: number
   effects: PromptEffects
+  /** Air burst by default; a surface burst shrinks the prompt radii and raises a plume. */
+  burst?: 'air' | 'surface'
+  /** Plume assumptions, used when the burst is on the surface. */
+  fallout?: FalloutAssumption
   facts: Array<Evidenced & { label: string; value: string }>
 }
 
@@ -77,4 +89,6 @@ export interface Study {
   omissions: string[]
   /** Name of a prepared population grid under data/hyde, e.g. 'popc_1961'; effects then compute exposure. */
   populationGrid?: string
+  /** Bounds to use when the study is switched to surface bursts, so the plume has days to fall. */
+  surfaceBounds?: { start: number; end: number }
 }

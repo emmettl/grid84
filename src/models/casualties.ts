@@ -64,6 +64,15 @@ export function bandsFor(structure: StructureClass | number): Band[] {
  */
 const REFERENCE: Array<[psi: number, kmPerKtCubeRoot: number]> = [[20, 0.28], [10, 0.45], [5, 0.71], [3, 1.0], [1, 2.2]]
 
+import { surfaceOverpressureRadiusMetres } from './blast.ts'
+
+export type Burst = 'air' | 'surface'
+
+/** Radius for a band threshold under either burst mode. */
+export function radiusForPsi(yieldKt: number, psi: number, burst: Burst): number {
+  return burst === 'surface' ? surfaceOverpressureRadiusMetres(yieldKt, psi) : overpressureRadiusForPsi(yieldKt, psi)
+}
+
 export function overpressureRadiusForPsi(yieldKt: number, psi: number): number {
   const cube = Math.cbrt(yieldKt)
   if (psi >= REFERENCE[0][0]) return REFERENCE[0][1] * (psi / REFERENCE[0][0]) ** -0.5 * cube * 1_000

@@ -99,23 +99,40 @@ export function acuteMortality(rems: number): number {
  * The cigar profile is a drawing convention for Fig. 9.93, not a formula
  * from the book.
  */
-export function contourRing(center: LngLat, dims: ContourDimensions, downwindBearingDeg: number, steps = 48): LngLat[] {
+export function contourRing(center: LngLat, dims: ContourDimensions, downwindBearingDeg: number, steps = 48, clipAlongMetres = Infinity): LngLat[] {
   const points: Array<[number, number]> = [] // [along, across] metres, along positive downwind
   const halfGz = dims.groundZeroWidthMetres / 2
   const halfMax = dims.maxWidthMetres / 2
   const L = dims.downwindMetres
+  const clip = Math.min(L, Math.max(0, clipAlongMetres))
   const profile = (f: number) => {
     // f in [0, 1] along the plume; blend from the ground-zero half width to the peak and down to zero.
     const peak = Math.sin(Math.PI * f) ** 0.6
     return halfGz * (1 - f) + (halfMax - halfGz * (1 - f)) * peak
   }
-  for (let i = 0; i <= steps; i += 1) points.push([(i / steps) * L, profile(i / steps)])
+  for (let i = 0; i <= steps; i += 1) {
+    const along = (i / steps) * L
+    if (along > clip) {
+      points.push([clip, profile(clip / L)])
+      break
+    }
+    points.push([along, profile(i / steps)])
+  }
   // Upwind semicircle from the downwind-side end back around.
   for (let i = 0; i <= steps / 2; i += 1) {
     const a = Math.PI / 2 + (i / (steps / 2)) * Math.PI
     points.push([Math.cos(a) * dims.upwindMetres, -Math.sin(a) * halfGz])
   }
-  for (let i = steps; i >= 0; i -= 1) points.push([(i / steps) * L, -profile(i / steps)])
+  for (let i = steps; i >= 0; i -= 1) {
+    const along = (i / steps) * L
+    if (along > clip) {
+      if (i === steps || (i + 1) / steps * L > clip) {
+        if (points[points.length - 1][0] !== clip) points.push([clip, -profile(clip / L)])
+      }
+      continue
+    }
+    points.push([along, -profile(i / steps)])
+  }
   const brg = (downwindBearingDeg * Math.PI) / 180
   const cosLat = Math.cos((center[1] * Math.PI) / 180)
   const ring: LngLat[] = points.map(([along, across]) => {
@@ -146,10 +163,13 @@ export interface PlumeOptions {
   /** Direction the fallout travels, degrees clockwise from north. */
   downwindBearingDeg: number
   untilHours: number
+  /** Draw only the part of each contour the cloud has reached by this many hours after the burst. */
+  reachedHours?: number
 }
 
 export function plume(options: PlumeOptions): PlumeContour[] {
   const metresPerHour = options.windMph * MILE
+  const clip = options.reachedHours === undefined ? Infinity : Math.max(0, options.reachedHours) * metresPerHour
   return TABLE_9_93.map((row) => {
     const dims = contourDimensions(row, options.yieldKt, options.fissionFraction, options.windMph)
     const arrivalTip = dims.downwindMetres / metresPerHour
@@ -158,7 +178,7 @@ export function plume(options: PlumeOptions): PlumeContour[] {
     return {
       key: `r${row.radsPerHour}`,
       ...dims,
-      ring: contourRing(options.center, dims, options.downwindBearingDeg),
+      ring: contourRing(options.center, dims, options.downwindBearingDeg, 48, clip),
       arrivalTipHours: arrivalTip,
       arrivalMidHours: arrivalMid,
       doseMidRads: dose,

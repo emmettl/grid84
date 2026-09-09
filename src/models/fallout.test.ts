@@ -83,3 +83,16 @@ describe('contourRing and plume', () => {
     expect(p[0].mortalityMid).toBe(1)
   })
 })
+
+describe('plume growth', () => {
+  it('clips contours to the distance the wind has carried the cloud', () => {
+    const full = plume({ center: [0, 0], yieldKt: 1_000, fissionFraction: 0.5, windMph: 15, downwindBearingDeg: 90, untilHours: 96 })
+    const early = plume({ center: [0, 0], yieldKt: 1_000, fissionFraction: 0.5, windMph: 15, downwindBearingDeg: 90, untilHours: 96, reachedHours: 1 })
+    const reach = 15 * 1_609.344
+    const eastOf = (ring: ReadonlyArray<readonly [number, number]>) => Math.max(...ring.map((p) => p[0])) * 111_320
+    expect(eastOf(full[7].ring)).toBeGreaterThan(reach * 5)
+    expect(eastOf(early[7].ring) / reach).toBeGreaterThan(0.98)
+    expect(eastOf(early[7].ring) / reach).toBeLessThan(1.02)
+    expect(early[7].ring[0]).toEqual(early[7].ring[early[7].ring.length - 1])
+  })
+})
