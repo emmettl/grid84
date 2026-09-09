@@ -1,6 +1,6 @@
 import type { CustomLayerInterface, CustomRenderMethodInput, Map as MapLibreMap } from 'maplibre-gl'
 import { HUE } from '../evidence/grammar.ts'
-import { allocateFrame, buildFrame, LINE_STRIDE, POINT_STRIDE, type TrackFrame, type TrackScene } from './track-scene.ts'
+import { allocateFrame, buildFrame, LINE_STRIDE, mercator, POINT_STRIDE, type TrackFrame, type TrackScene } from './track-scene.ts'
 
 /**
  * A MapLibre custom layer that draws every track and vehicle of a study from
@@ -174,6 +174,16 @@ function asFloat32(m: ArrayLike<number>): Float32Array {
   return m instanceof Float32Array ? m : new Float32Array(m)
 }
 
+/** Column-major 4×4 times a column vector. */
+function mul(m: Float32Array, p: [number, number, number, number]): [number, number, number, number] {
+  return [
+    m[0] * p[0] + m[4] * p[1] + m[8] * p[2] + m[12] * p[3],
+    m[1] * p[0] + m[5] * p[1] + m[9] * p[2] + m[13] * p[3],
+    m[2] * p[0] + m[6] * p[1] + m[10] * p[2] + m[14] * p[3],
+    m[3] * p[0] + m[7] * p[1] + m[11] * p[2] + m[15] * p[3],
+  ]
+}
+
 export class TrackLayer implements CustomLayerInterface {
   readonly id = TRACK_LAYER_ID
   readonly type = 'custom' as const
@@ -188,6 +198,8 @@ export class TrackLayer implements CustomLayerInterface {
   private pointBuffer: WebGLBuffer | null = null
   private scene: TrackScene | null = null
   private frame: TrackFrame | null = null
+  /** The projection of the last frame drawn, kept so labels can be lifted to a track's height on the CPU. */
+  private view: { main: Float32Array; fallback: Float32Array; transition: number; globe: boolean; width: number; height: number } | null = null
   private sceneDirty = false
   private frameDirty = false
   private time = 0
@@ -307,6 +319,44 @@ export class TrackLayer implements CustomLayerInterface {
     if (u.u_projection_transition) gl.uniform1f(u.u_projection_transition, data.projectionTransition)
   }
 
+  /**
+   * Screen offset in CSS pixels from a position on the surface to the same
+   * position at `altitude` metres, under the projection last drawn. Mirrors
+   * the shader's `projectTileFor3D` on the CPU; null before the first frame.
+   */
+  screenOffset(lng: number, lat: number, altitude: number): [number, number] | null {
+    const v = this.view
+    if (!v) return null
+    const [x, y] = mercator(lng, lat)
+    const ground = this.toScreen(v, x, y, 0)
+    const lifted = this.toScreen(v, x, y, altitude)
+    if (!ground || !lifted) return null
+    return [lifted[0] - ground[0], lifted[1] - ground[1]]
+  }
+
+  private toScreen(v: NonNullable<typeof this.view>, x: number, y: number, alt: number): [number, number] | null {
+    let clip: [number, number, number, number]
+    if (v.globe) {
+      const sx = x * 2 * Math.PI + Math.PI
+      const t = Math.exp(Math.PI - y * 2 * Math.PI)
+      const t2 = t * t
+      const sinSy = (t2 - 1) / (t2 + 1)
+      const cosSy = (2 * t) / (t2 + 1)
+      const scale = 1 + alt / 6_371_008.8
+      const globe = mul(v.main, [Math.sin(sx) * cosSy * scale, sinSy * scale, Math.cos(sx) * cosSy * scale, 1])
+      if (v.transition > 0.999) clip = globe
+      else {
+        const flat = mul(v.fallback, [x, y, alt, 1])
+        const k = v.transition
+        clip = [flat[0] + (globe[0] - flat[0]) * k, flat[1] + (globe[1] - flat[1]) * k, flat[2] + (globe[2] - flat[2]) * k, flat[3] + (globe[3] - flat[3]) * k]
+      }
+    } else {
+      clip = mul(v.main, [x, y, alt, 1])
+    }
+    if (clip[3] <= 0) return null
+    return [((clip[0] / clip[3] + 1) / 2) * v.width, ((1 - clip[1] / clip[3]) / 2) * v.height]
+  }
+
   render(gl: WebGL2RenderingContext, options: CustomRenderMethodInput): void {
     const scene = this.scene
     const frame = this.frame
@@ -329,6 +379,8 @@ export class TrackLayer implements CustomLayerInterface {
     const v = this.variant(gl, options.shaderData)
     const dpr = window.devicePixelRatio || 1
     const worldSize = 512 * 2 ** map.getZoom()
+    const pd = options.defaultProjectionData
+    this.view = { main: asFloat32(pd.mainMatrix), fallback: asFloat32(pd.fallbackMatrix), transition: pd.projectionTransition, globe: /globe/i.test(options.shaderData.variantName), width: gl.drawingBufferWidth / dpr, height: gl.drawingBufferHeight / dpr }
 
     gl.enable(gl.BLEND)
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)

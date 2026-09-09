@@ -323,6 +323,20 @@ export function StudyView({ study }: { study: Study }) {
       }
       // Cheap when unchanged; keeps terrain honest even if MapLibre never reports the fly-to ending.
       if (map) terrainSync.current?.()
+      // Labels on tracks that leave the surface are lifted to the vehicle's height every frame, since the camera may move without the clock.
+      const layer = trackLayer.current
+      if (map && layer) {
+        for (const e of study.entities) {
+          if (e.kind !== 'track' || !e.track.elevated) continue
+          const marker = markers.current.get(e.id)
+          if (!marker || !marker.getElement().isConnected) continue
+          const p = e.track.positionAt(next.time)
+          if (!p) continue
+          const base = labelOffset(e.labelAnchor ?? 'left')
+          const lift = layer.screenOffset(p[0], p[1], e.track.altitudeAt(next.time))
+          marker.setOffset(lift ? [base[0] + lift[0], base[1] + lift[1]] : base)
+        }
+      }
       // Map sources are rewritten at most about fifteen times a second; the readout about ten.
       const refreshSources = !primed.current || now - lastSources > 66
       let updated = false
