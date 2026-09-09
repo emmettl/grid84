@@ -374,7 +374,7 @@ function executeStudy(): Study {
     subtitle: `Counterfactual · the force of 24 October 1973 · ${us.summary.weapons.toLocaleString('en-GB')} American and ${su.summary.weapons.toLocaleString('en-GB')} Soviet weapons · every assignment inferred`,
     bounds: { start: -600, end },
     view: { center: [-30, 55], zoom: 1.5 },
-    populationGrid: 'popc_1973',
+    populationGrid: 'ghsl/popc_1975',
     exposureWorkers: 4,
     outcomeReference: { label: 'OTA 1979, large attack, Soviet dead', value: 100_000_000, source: `${OTA.source}: ${OTA.locator}` },
     sides: {

@@ -271,7 +271,8 @@ export function StudyView({ study }: { study: Study }) {
   // Population grid for outcome calculation, loaded once per study in a worker.
   useEffect(() => {
     if (!study.populationGrid) return
-    const base = new URL(`${import.meta.env.BASE_URL}data/hyde/${study.populationGrid}`, document.baseURI).href
+    // A bare name is a HYDE grid; a path with a slash, such as ghsl/popc_1985, is relative to data/.
+    const base = new URL(`${import.meta.env.BASE_URL}data/${study.populationGrid.includes('/') ? study.populationGrid : `hyde/${study.populationGrid}`}`, document.baseURI).href
     const service = new ExposureService(base, study.exposureWorkers ?? 1)
     exposureService.current = service
     if (import.meta.env.DEV) Object.assign(window, { __grid84Exposure: service })

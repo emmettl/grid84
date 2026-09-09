@@ -42,7 +42,7 @@ def main() -> int:
     ap.add_argument('--tile', type=int, default=1200, help='cells per tile edge; 1200 is ten degrees at 30 arc seconds')
     ap.add_argument('--bbox', nargs=4, type=float, default=None, metavar=('W', 'S', 'E', 'N'), help='only write tiles touching this box')
     ap.add_argument('--memmap', type=Path, default=None, help='where to put the decoded copy; default beside the tif')
-    ap.add_argument('--dataset', default=None, help='dataset label; default names GHS-POP R2023A and the epoch. Use it to label a synthetic specimen honestly')
+    ap.add_argument('--dataset', default=None, help='dataset label; default GHSL GHS-POP R2023A. Use it to label a synthetic specimen honestly')
     args = ap.parse_args()
 
     with tifffile.TiffFile(args.tif) as tif:
@@ -94,7 +94,7 @@ def main() -> int:
             present.append([ty, tx, round(s)])
         print(f'row {ty + 1}/{tiles_y}: {len(present)} tiles so far, {total:,.0f} people')
     meta = {
-        'dataset': args.dataset or f'GHSL GHS-POP R2023A, epoch {args.epoch}',
+        'dataset': args.dataset or 'GHSL GHS-POP R2023A',
         'variable': 'popc',
         'year': args.epoch,
         'width': W,

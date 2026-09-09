@@ -23,7 +23,7 @@ describe('Able Archer 83 gone hot', () => {
     const effects = study.entities.filter((e) => e.kind === 'effect')
     expect(effects.some((e) => /Schwäbisch Gmünd|Neu-Ulm|Neckarsulm/.test(e.name))).toBe(true)
     expect(effects.some((e) => /Postavy|Lida|Mozyr|Lutsk|Belokorovichi/.test(e.name))).toBe(true)
-    expect(study.populationGrid).toBe('popc_1983')
+    expect(study.populationGrid).toBe('ghsl/popc_1985')
     console.log('ABLE ARCHER WP', JSON.stringify(wp), 'NATO', JSON.stringify(nato), 'entities', study.entities.length)
   })
 })

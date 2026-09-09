@@ -81,10 +81,11 @@ The study has two halves and a second act.
 | Targets · detonations | 900 · 1,070 | 183 · 178 |
 | Megatons assigned | 3,026 | 7,356 |
 | First · last detonation | H+22 min · H+9 h 17 min | H+44 min · H+57 min |
-| Dead, blast only · with mass fire, on HYDE 1973 | 54 million · 120 million Soviet | 17 million · 42 million American |
+| Dead, blast only · with mass fire, on GHSL 1975 | 83 million · 140 million Soviet | 19 million · 46 million American |
+| The same on HYDE 1973, the first run | 54 million · 120 million | 17 million · 42 million |
 | Reference | OTA 1979, large attack: 50 to 100 million Soviet dead | OTA 1979, large attack: 155 to 165 million American dead |
 
-The Soviet sum brackets the OTA figure; the American sum falls far below it, and the reason is on the readout: the Soviet strike here has 150 urban targets and holds back a third of its force, where the OTA case put the whole force on every urban area. That is the target list's poverty, not the model's, and the study says so rather than inventing the list.
+On the 30-arc-second grid the Soviet blast-only sum passes the top of the OTA range, where the five-arc-minute grid had put it inside: the finer grid keeps a city's people in its core, under the rings, where the coarser one had spread them over nine-kilometre cells. The American sum falls far below the OTA figure on either grid, and the reason is on the readout: the Soviet strike here has 150 urban targets and holds back a third of its force, where the OTA case put the whole force on every urban area. That is the target list's poverty, not the model's, and the study says so rather than inventing the list.
 
 **What the execution shows.** The missiles decide the first hour: the American ICBMs and Poseidons land from H+22 minutes and the Soviet launch on warning lands from H+44, so both silo fields are struck after they have emptied, which is the counterforce paradox of the decade drawn on the map. The generated bombers leave at three hours into a country already burning and arrive after nine. With 7,000 warheads against 2,200 the exchange is not symmetrical and the sums are not either.
 

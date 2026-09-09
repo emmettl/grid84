@@ -237,7 +237,7 @@ function study(): Study {
     bounds: { start: -180 * HOUR, end },
     startTime: -175 * HOUR,
     view: { center: [9, 51], zoom: 4.2 },
-    populationGrid: 'popc_1983',
+    populationGrid: 'ghsl/popc_1985',
     exposureWorkers: 3,
     outcomeReference: { label: 'Carte Blanche, 1955, West German dead', value: 1_700_000, source: `${CARTE_BLANCHE.source}: ${CARTE_BLANCHE.locator}` },
     sides: {

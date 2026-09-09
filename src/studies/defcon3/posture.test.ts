@@ -41,7 +41,7 @@ describe('SIOP-4 executed', () => {
     expect(effects.some((e) => e.name.startsWith('Kozelsk'))).toBe(true)
     expect(effects.some((e) => e.name === 'New York' && e.side === 'defender')).toBe(true)
     expect(study.bounds.end).toBeGreaterThan(Math.max(us.lastDetonation, su.lastDetonation))
-    expect(study.populationGrid).toBe('popc_1973')
+    expect(study.populationGrid).toBe('ghsl/popc_1975')
     console.log('DEFCON3 US', JSON.stringify(us), 'SU', JSON.stringify(su), 'entities', study.entities.length)
   })
 })

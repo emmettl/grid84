@@ -20,7 +20,7 @@ describe('Square Leg, 1980', () => {
       expect(a.kind === 'effect' && a.time).toBeLessThan(3 * 3_600 + 600)
     }
     expect(study.defaultBurst).toBe('surface')
-    expect(study.populationGrid).toBe('popc_1983')
+    expect(study.populationGrid).toBe('ghsl/popc_1985')
     expect(study.entities.filter((e) => e.kind === 'site' && e.evidence === 'withheld').length).toBeGreaterThan(50)
     console.log('SQUARE LEG', ground.length, 'ground', air.length, 'air', 'entities', study.entities.length)
   })

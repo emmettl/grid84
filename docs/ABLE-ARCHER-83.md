@@ -89,13 +89,16 @@ The finding the study is built to reach is the PFIAB's own: the difference betwe
 
 | The morning of 11 November | Warsaw Pact strikes | NATO answers |
 | --- | --- | --- |
-| Weapons assigned · held back | 71 · 868 | 12 · 6 |
-| Delivered | 57 | 7 |
-| Targets | 27: the Pershing garrisons, the QRA airfields, Greenham, the headquarters and ports | 12: SS-20 garrisons, brigades, forward airfields |
-| First · last detonation | H+18 min · H+23 min | H+1 h 19 min · H+2 h 19 min |
-| Megatons | 10.5 | 2.0 |
-| Dead on the 1983 grid, blast only · with mass fire | 500,000 · 1.2 million on NATO territory | 140,000 · 300,000 on Warsaw Pact territory |
+| Weapons assigned · held back | 71 · 868 | 51 · 231 |
+| Vehicles | 26: the SS-20s three warheads to a missile | 38 |
+| Delivered | 56 | 28 |
+| Targets | 27: the Pershing garrisons, the QRA airfields, Greenham, the headquarters and ports | 20: SS-20 garrisons, brigades, forward airfields |
+| First · last detonation | H+18 min · H+23 min | H+53 min · H+2 h 19 min |
+| Megatons | 10.5 | 9.1 |
+| Dead on the GHSL 1985 grid, blast only · with mass fire | 580,000 · 1.3 million on NATO territory | 330,000 · 540,000 on Warsaw Pact territory |
 | Reference | Carte Blanche, 1955: 1.7 million West German dead from 335 simulated weapons | |
+
+The sums are over GHSL's 30-arc-second grid for 1985, which resolves the towns beside the airfields that HYDE's five-arc-minute cells smeared; the first run on HYDE 1983 read 500,000 and 1.2 million on NATO territory and 140,000 and 300,000 on the Pact's. NATO's answer grew when the generated aircraft came to carry two weapons each as one sortie, and when the SS-20 regiments were given three warheads to a missile.
 
 **The finding.** The first twenty minutes decide the answer. The Scud brigades fire at H+15 and land four minutes later; the SS-20s fire at H+10 and land at H+20; NATO's fifteen-minute alert forces leave at H+20 on warning of the first launches. Every Pershing garrison and most airfields are struck before that, so the answer is a dozen weapons from the two or three bases the first wave did not reach, and the generated force, four hours later, never leaves. The Warsaw Pact's own strike is small by the list, not the force: 71 weapons cover NATO's nuclear delivery means and headquarters three deep, and 868 stay unassigned because the rule gives them no target. The Soviet regiments and garrisons are reconstructed from the divisions the unit histories name, and the readout says so on each.
 

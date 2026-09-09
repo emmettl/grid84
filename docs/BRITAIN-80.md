@@ -51,14 +51,16 @@ The Soviet side is the withheld tier made literal. The Warsaw Pact's 1979 Seven 
 
 `#/study/britain-80` plays Square Leg's attack and `#/study/britain-80/strath` the ten bombs of 1955. The sites are built by [`scripts/build-britain-1980.py`](../scripts/build-britain-1980.py): 57 sites in the categories the record names, the airfields, naval bases, ports and command sites of 1980, all drawn withheld because the plot that may or may not have included them is; the seventeen regional government headquarters of the final configuration; and the 29 ROC group controls where the fallout would have been read. The bomb plot itself could not be had: the Ministry refused the requests of 2009 and 2011 and the written answer of December 1980 declined to name targets, so the weapons fall by a stated rule from the documented totals, Campbell's 69 ground and 62 air bursts, 1 Mt on the ground and 2 Mt in the air inside the documented range, the cities taken as the most populous cells of the 1983 grid with inner London left out as the exercise left it. The timing is the exercise's own, the first strike from 12:01 to 12:10 and the second drifting in from 13:00 to 15:00, and so is the southerly wind.
 
-| Square Leg on the engine, 48 hours in | Engine, HYDE 1983 | Home Office, 1982 | Openshaw, Steadman and Greene, 1983 |
-| --- | --- | --- | --- |
-| Blast dead | 14 million by the 1961 method | 8.5 million | 29 million dead in all |
-| With mass fire | 34 million, the Postol bound | | |
-| Fallout | 8 million acute deaths with no shelter, from 57 plumes summed | 2.5 million radiation dead | |
-| Severely injured | 23 million by the blast method | 2 million | 7 million |
+| Square Leg on the engine, 48 hours in | Engine, GHSL 1985 | Engine, HYDE 1983 | Home Office, 1982 | Openshaw, Steadman and Greene, 1983 |
+| --- | --- | --- | --- | --- |
+| Blast dead | 16 million by the 1961 method | 14 million | 8.5 million | 29 million dead in all |
+| With mass fire | 36 million, the Postol bound | 34 million | | |
+| Fallout | 1.4 million acute deaths with no shelter, 57 plumes summed | 8 million | 2.5 million radiation dead | |
+| Severely injured | 23 million by the blast method | 23 million | 2 million | 7 million |
 
-The engine brackets both estimates rather than choosing between them, and the readout says why: the Home Office assumed its shelters, Openshaw modelled the country without them, and the engine assumes none and sums every plume separately, so the people under more than one plume are counted more than once, which is why its count under one rad an hour exceeds the population. The plumes themselves are the picture the Home Office did not publish: 57 ground bursts on a southerly wind put the whole island north of the Thames under fallout by the second day, with the regional headquarters at Hexham, Cultybraggan and Goosnargh sitting inside it.
+The two grids agree on the blast and disagree on the fallout by a factor of six, and the reason is the shape of a plume: tens of kilometres wide and hundreds long, it falls between HYDE's nine-kilometre cells and takes whole cells' people with it, while the 30-arc-second grid puts the people where they were. The finer grid is the one to read; the coarser column stays to show what resolution does to a fallout sum.
+
+The engine brackets both estimates rather than choosing between them, and the readout says why: the Home Office assumed its shelters, Openshaw modelled the country without them, and the engine assumes none and sums every plume separately, so the people under more than one plume are counted more than once. The plumes themselves are the picture the Home Office did not publish: 57 ground bursts on a southerly wind put the whole island north of the Thames under fallout by the second day, with the regional headquarters at Hexham, Cultybraggan and Goosnargh sitting inside it.
 
 **Strath** drops ten 10 Mt ground bursts at night on the ten most populous cells of 1950 from Long Range Aviation's fields. On the 1950 grid the engine reads 5.9 million dead by the blast-only method and 19 million with mass fire against the report's twelve million, which was blast, heat and radiation together; the report's own targets are not in the public summary.
 

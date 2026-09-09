@@ -182,7 +182,7 @@ function squareLegStudy(): Study {
     surfaceBounds: { start: -HOUR, end: 3 * DAY },
     defaultBurst: 'surface',
     view: { center: [-2.5, 54.5], zoom: 4.8 },
-    populationGrid: 'popc_1983',
+    populationGrid: 'ghsl/popc_1985',
     exposureWorkers: 3,
     outcomeReference: { label: 'Home Office estimate, 1982, blast dead', value: D.homeOffice1982.blastDead, source: `${D.homeOffice1982.source}; radiation dead ${(D.homeOffice1982.radiationDead / 1e6).toFixed(1)} million. Openshaw, Steadman and Greene 1983: ${(D.openshaw1983.dead / 1e6).toFixed(0)} million dead in all` },
     sides: { attacker: { name: 'Soviet strike · British dead' }, defender: { name: 'No answer drawn' } },

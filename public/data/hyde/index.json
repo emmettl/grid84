@@ -57,6 +57,16 @@
       "licence": "CC BY-NC-SA 4.0"
     },
     {
+      "year": 1975,
+      "name": "popc_1975",
+      "path": "ghsl/popc_1975",
+      "totalPopulation": 4069437259,
+      "dataset": "GHSL GHS-POP R2023A",
+      "licence": "CC BY 4.0",
+      "tiled": true,
+      "cellSize": 0.008333333300326923
+    },
+    {
       "year": 1976,
       "name": "popc_1976",
       "totalPopulation": 4136812782,
@@ -69,6 +79,16 @@
       "totalPopulation": 4683022803,
       "dataset": "HYDE 3.3",
       "licence": "CC BY-NC-SA 4.0"
+    },
+    {
+      "year": 1985,
+      "name": "popc_1985",
+      "path": "ghsl/popc_1985",
+      "totalPopulation": 4861730652,
+      "dataset": "GHSL GHS-POP R2023A",
+      "licence": "CC BY 4.0",
+      "tiled": true,
+      "cellSize": 0.008333333300326878
     },
     {
       "year": 1989,
@@ -93,13 +113,13 @@
     },
     {
       "year": 2025,
-      "name": "specimen",
-      "path": "ghsl/specimen",
-      "totalPopulation": 23941451,
-      "dataset": "SPECIMEN (synthetic, GHSL-shaped, 30 arc seconds)",
-      "licence": "none",
+      "name": "popc_2025",
+      "path": "ghsl/popc_2025",
+      "totalPopulation": 8191988536,
+      "dataset": "GHSL GHS-POP R2023A",
+      "licence": "CC BY 4.0",
       "tiled": true,
-      "cellSize": 0.008333333333333333
+      "cellSize": 0.008333333300326923
     }
   ]
 }

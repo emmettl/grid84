@@ -99,7 +99,7 @@ export interface Study {
   events: StudyEvent[]
   /** What the study does not compute, stated on the readout. */
   omissions: string[]
-  /** Name of a prepared population grid under data/hyde, e.g. 'popc_1961'; effects then compute exposure. */
+  /** A prepared population grid: a HYDE name under data/hyde such as 'popc_1961', or a path under data/ such as 'ghsl/popc_1985'; effects then compute exposure. */
   populationGrid?: string
   /** Which burst mode the study opens in; default air. */
   defaultBurst?: 'air' | 'surface'
