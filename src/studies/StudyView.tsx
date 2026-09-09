@@ -373,7 +373,7 @@ export function StudyView({ study }: { study: Study }) {
         return service.load()
       })
       .then((summary) => {
-        if (summary && exposureService.current === service) setGridName(`${summary.source.name} ${summary.source.year}`)
+        if (summary && exposureService.current === service) setGridName(`${summary.source.name} ${summary.source.year} · ${summary.source.licence}`)
       })
       .catch((error) => {
         // A destroyed service rejects its load; only clear the ref if it is still ours.

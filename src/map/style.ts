@@ -8,6 +8,14 @@ import type { StyleSpecification } from 'maplibre-gl'
 export const ATLAS_TILES_URL = 'https://tiles.openfreemap.org/planet'
 export const TERRAIN_TILES_URL = 'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'
 
+/**
+ * The terrain credit, shown on every map whether or not the relief is in
+ * view, because the terrain lab reads the same tiles outside MapLibre. The
+ * tiles blend a dozen national and global elevation sets whose full
+ * attributions are on the front page under Data and licences.
+ */
+export const TERRAIN_ATTRIBUTION = '<a href="#/sources">Terrain: Mapzen terrain tiles from USGS, NASA SRTM, NOAA, EU-DEM and others</a>'
+
 export const PALETTE = {
   ink: '#050410',
   cyan: '#8dfaff',
@@ -45,7 +53,6 @@ export function createAtlasStyle(): StyleSpecification {
         encoding: 'terrarium',
         tileSize: 256,
         maxzoom: 15,
-        attribution: 'Terrain: Mapzen, AWS Terrain Tiles',
       },
       relief: {
         type: 'raster-dem',

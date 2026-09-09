@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { TIER_LABEL, TIER_MEANING, TIER_ORDER } from '../evidence/evidence.ts'
 
 const REPO = 'https://github.com/emmettl/grid84'
@@ -81,14 +82,34 @@ const LABS: Array<{ title: string; line: string; href: string }> = [
 ]
 
 const SOURCES: Array<{ what: string; who: string; href: string; terms: string }> = [
-  { what: 'Map geometry', who: 'OpenStreetMap contributors, as OpenFreeMap vector tiles', href: 'https://www.openstreetmap.org/copyright', terms: 'ODbL' },
-  { what: 'Terrain', who: 'Mapzen terrain tiles on AWS Open Data', href: 'https://registry.opendata.aws/terrain-tiles/', terms: 'Open' },
-  { what: 'Geocoding', who: 'Photon by komoot', href: 'https://photon.komoot.io/', terms: 'Public instance, fair use' },
-  { what: 'Population, study years', who: 'HYDE 3.3, Utrecht University', href: 'https://doi.org/10.24416/UU01-AEZZIT', terms: 'CC BY-NC-SA 4.0' },
-  { what: 'Population, 1975 · 1985 · present', who: 'GHSL GHS-POP R2023A, European Commission JRC', href: 'https://doi.org/10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE', terms: 'CC BY 4.0' },
+  { what: 'Map geometry', who: 'OpenFreeMap © OpenMapTiles, data from OpenStreetMap contributors', href: 'https://www.openstreetmap.org/copyright', terms: 'ODbL; attribution on every map' },
+  { what: 'Terrain', who: 'Mapzen terrain tiles on AWS Open Data, blended from the sources listed below', href: 'https://github.com/tilezen/joerd/blob/master/docs/attribution.md', terms: 'Per source, below' },
+  { what: 'Geocoding', who: 'Photon by komoot, an OpenStreetMap project', href: 'https://photon.komoot.io/', terms: 'Public instance, fair use' },
+  { what: 'Population, study years', who: 'Klein Goldewijk, K. (2023). History Database of the Global Environment 3.3. Utrecht University', href: 'https://doi.org/10.24416/UU01-AEZZIT', terms: 'CC BY-NC-SA 4.0' },
+  { what: 'Population, 1975 · 1985 · present', who: 'Schiavina, M., Freire, S., Carioli, A., MacManus, K. (2023). GHS-POP R2023A, GHS population grid multitemporal (1975–2030). European Commission, Joint Research Centre. PID http://data.europa.eu/89h/2ff68a52-5b5b-4a22-8f40-c41da8332cfe', href: 'https://doi.org/10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE', terms: 'CC BY 4.0' },
+  { what: 'Analytics', who: 'Cloudflare Web Analytics: page views without cookies or personal data', href: 'https://www.cloudflare.com/web-analytics/', terms: 'Cookieless' },
+  { what: 'Software', who: 'MapLibre GL JS (BSD-3-Clause), React (MIT), DM Mono served from this site (SIL Open Font Licence 1.1)', href: 'https://github.com/emmettl/grid84/blob/main/docs/ATTRIBUTION.md', terms: 'Open source' },
+]
+
+/** The elevation sets the terrain tiles blend, each with the statement its provider asks for. */
+const TERRAIN_SOURCES: string[] = [
+  'United States: 3DEP, GMTED2010 and SRTM terrain data courtesy of the U.S. Geological Survey',
+  'Global: ETOPO1 terrain data, U.S. National Oceanic and Atmospheric Administration',
+  'Europe: produced using Copernicus data and information funded by the European Union (EU-DEM)',
+  'Arctic: DEMs created from DigitalGlobe, Inc., imagery and funded under National Science Foundation awards 1043681, 1559691 and 1542736 (ArcticDEM)',
+  'Austria: © offene Daten Österreichs, Digitales Geländemodell (DGM) Österreich',
+  'Australia: © Commonwealth of Australia (Geoscience Australia) 2017',
+  'Canada: contains information licensed under the Open Government Licence, Canada',
+  'Mexico: source INEGI, Continental relief, 2016',
+  'New Zealand: copyright 2011 Crown copyright (c) Land Information New Zealand and the New Zealand Government',
+  'Norway: © Kartverket',
+  'United Kingdom: © Environment Agency copyright and/or database right 2015. All rights reserved',
 ]
 
 export function FrontPage() {
+  useEffect(() => {
+    if (window.location.hash === '#/sources') document.getElementById('front-sources')?.scrollIntoView()
+  }, [])
   return (
     <main className="front" aria-label="Grid/84">
       <div className="front-inner">
@@ -192,8 +213,20 @@ export function FrontPage() {
               ))}
             </tbody>
           </table>
+          <details className="front-terrain">
+            <summary>Terrain sources</summary>
+            <ul>
+              {TERRAIN_SOURCES.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </details>
           <p>
-            This site is non-commercial. The HYDE grids are used under a non-commercial, share-alike licence and any redistribution of the prepared grids carries the same terms. The plans, exercises and estimates are cited page by page in each study's brief and on each mark's provenance panel.
+            This site is non-commercial. The HYDE grids are used under a non-commercial, share-alike licence and any redistribution of the prepared grids carries the same terms; the GHSL grids are re-tiled from the published product and the HYDE grids re-encoded, both unchanged in value. The plans, exercises and estimates are cited page by page in each study's brief and on each mark's provenance panel. The full audit of every service and dataset against its terms is in the{' '}
+            <a href={brief('ATTRIBUTION.md')} rel="noreferrer">
+              attribution notes
+            </a>
+            .
           </p>
         </section>
 

@@ -27,7 +27,7 @@ type Route =
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' }
 
 function parseRoute(hash: string): Route {
-  if (hash === '' || hash === '#' || hash === '#/') return { kind: 'front' }
+  if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources') return { kind: 'front' }
   if (hash === '#/atlas') return { kind: 'atlas' }
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
   if (hash === '#/study/siop62-alert') return { kind: 'study', id: 'siop62-alert', option: 1 }

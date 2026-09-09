@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+/* DM Mono is served from the site itself (see main.tsx), so no visitor's address goes to a font service. */
 
 :root {
   --ink: #e8fbff;
@@ -370,8 +370,9 @@ body,
   grid-template-columns: minmax(0, 22rem) 1fr minmax(0, 24rem);
   grid-template-rows: auto auto minmax(0, 1fr) auto;
   gap: 0.8rem;
+  /* The bottom edge clears the map credit, which sits under this panel and must stay readable. */
   padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
-    max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+    calc(max(1rem, env(safe-area-inset-bottom)) + 1.5rem) max(1rem, env(safe-area-inset-left));
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1430,4 +1431,20 @@ body,
   .front-sources th {
     white-space: normal;
   }
+}
+
+.front-terrain summary {
+  cursor: pointer;
+  color: var(--cyan);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.front-terrain ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.7rem;
+  display: grid;
+  gap: 0.25rem;
 }

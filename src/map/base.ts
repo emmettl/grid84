@@ -5,7 +5,7 @@ import { Map as MapLibreMap, setWorkerUrl } from 'maplibre-gl'
 import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import type { LngLat } from '../geo/geodesy.ts'
 import { TERRAIN_MIN_ZOOM } from './descent.ts'
-import { createAtlasStyle } from './style.ts'
+import { createAtlasStyle, TERRAIN_ATTRIBUTION } from './style.ts'
 
 export interface BaseMapOptions {
   center: LngLat
@@ -25,7 +25,8 @@ export function createBaseMap(container: HTMLElement, options: BaseMapOptions): 
     pitch: options.pitch ?? 0,
     bearing: options.bearing ?? 0,
     maxPitch: 70,
-    attributionControl: { compact: true },
+    // Open by default on wide maps, collapsed behind the toggle on narrow ones, as the OpenStreetMap guidelines ask.
+    attributionControl: { customAttribution: TERRAIN_ATTRIBUTION },
     canvasContextAttributes: { antialias: true },
   })
   // Dev-only handle for inspecting the live map from the browser console.
