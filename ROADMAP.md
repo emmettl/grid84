@@ -115,4 +115,5 @@ Candidate studies after SIOP//62, each needing its own brief first: the Cuban mi
 - [ ] Own routing host or a licensed provider before public launch; the demo servers are for development only.
 - [ ] Tile and terrain budgets measured on a phone for the opening orbit and one descent.
 - [ ] Attribution and licence audit for every service in the table above.
+- [x] Front page at `#/`: what the engine is, the six studies with their variants and briefs, the evidence grammar, the method in one paragraph with a link to the validation notes, the labs, and the data with its licences. The atlas moved to `#/atlas`.
 - [ ] Catalogue entry in Motion Studies as an adjunct, not an edition.

@@ -13,8 +13,10 @@ import { cubaGeneral, cubaRegional } from './studies/cuba62/crisis.ts'
 import { ableArcher } from './studies/able-archer/war-scare.ts'
 import { britainSquareLeg, britainStrath } from './studies/britain/protect.ts'
 import { StudyView } from './studies/StudyView.tsx'
+import { FrontPage } from './front/FrontPage.tsx'
 
 type Route =
+  | { kind: 'front' }
   | { kind: 'atlas' }
   | { kind: 'study'; id: 'siop62' }
   | { kind: 'study'; id: 'siop62-alert'; option: number }
@@ -25,6 +27,8 @@ type Route =
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' }
 
 function parseRoute(hash: string): Route {
+  if (hash === '' || hash === '#' || hash === '#/') return { kind: 'front' }
+  if (hash === '#/atlas') return { kind: 'atlas' }
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
   if (hash === '#/study/siop62-alert') return { kind: 'study', id: 'siop62-alert', option: 1 }
   const option = /^#\/study\/siop62-alert\/(\d{1,2})$/.exec(hash)
@@ -108,7 +112,8 @@ function BritainStudy({ strath }: { strath: boolean }) {
 export default function App() {
   const route = useRoute()
   const links: Array<{ href: string; label: string; active: boolean }> = [
-    { href: '#/', label: 'Atlas', active: route.kind === 'atlas' },
+    { href: '#/', label: 'Grid/84', active: route.kind === 'front' },
+    { href: '#/atlas', label: 'Atlas', active: route.kind === 'atlas' },
     { href: '#/study/siop62', label: 'SIOP//62', active: route.kind === 'study' && route.id === 'siop62' },
     { href: '#/study/siop62-alert', label: 'Alert force', active: route.kind === 'study' && route.id === 'siop62-alert' },
     { href: '#/study/cuba-62', label: 'Cuba 62', active: route.kind === 'study' && route.id === 'cuba-62' },
@@ -130,6 +135,7 @@ export default function App() {
           </a>
         ))}
       </nav>
+      {route.kind === 'front' && <FrontPage />}
       {route.kind === 'atlas' && <AtlasView />}
       {route.kind === 'study' && route.id === 'siop62' && <StudyView key="siop62" study={SIOP62_PROOF} />}
       {route.kind === 'study' && route.id === 'siop62-alert' && <OptionStudy option={route.option} />}
