@@ -1,0 +1,209 @@
+{
+ "name": "South-eastern United States",
+ "year": 1962,
+ "rule": "The 40 most populous 5-arc-minute cells of the HYDE 3.3 1962 population grid inside the box -100.0, 25.3 to -75.0, 40.5, in descending order, skipping any cell within 40 km of one already taken; 2 boxes of neighbouring cities left out; cells south of the land border left out",
+ "evidence": "modelled",
+ "source": "Klein Goldewijk, K. (2023). History Database of the Global Environment 3.3 (CC BY-NC-SA 4.0)",
+ "targets": [
+  {
+   "lon": -77.0417,
+   "lat": 38.8749,
+   "population": 356817
+  },
+  {
+   "lon": -75.2084,
+   "lat": 39.9583,
+   "population": 264397
+  },
+  {
+   "lon": -79.9584,
+   "lat": 40.4583,
+   "population": 154848
+  },
+  {
+   "lon": -76.625,
+   "lat": 39.2916,
+   "population": 134811
+  },
+  {
+   "lon": -84.5417,
+   "lat": 39.1249,
+   "population": 124169
+  },
+  {
+   "lon": -83.0417,
+   "lat": 39.9583,
+   "population": 103987
+  },
+  {
+   "lon": -90.125,
+   "lat": 29.9583,
+   "population": 92013
+  },
+  {
+   "lon": -88.2084,
+   "lat": 40.1249,
+   "population": 83357
+  },
+  {
+   "lon": -90.2084,
+   "lat": 38.6249,
+   "population": 82103
+  },
+  {
+   "lon": -76.2917,
+   "lat": 40.0416,
+   "population": 77956
+  },
+  {
+   "lon": -76.875,
+   "lat": 40.2916,
+   "population": 76457
+  },
+  {
+   "lon": -86.125,
+   "lat": 39.7916,
+   "population": 76173
+  },
+  {
+   "lon": -84.375,
+   "lat": 33.7916,
+   "population": 73366
+  },
+  {
+   "lon": -95.4584,
+   "lat": 29.7083,
+   "population": 72738
+  },
+  {
+   "lon": -86.7917,
+   "lat": 36.1249,
+   "population": 70735
+  },
+  {
+   "lon": -84.2084,
+   "lat": 39.7916,
+   "population": 68627
+  },
+  {
+   "lon": -75.9584,
+   "lat": 40.3749,
+   "population": 68168
+  },
+  {
+   "lon": -77.4584,
+   "lat": 37.5416,
+   "population": 67357
+  },
+  {
+   "lon": -97.4584,
+   "lat": 25.875,
+   "population": 66186
+  },
+  {
+   "lon": -85.7917,
+   "lat": 38.2083,
+   "population": 66158
+  },
+  {
+   "lon": -80.2084,
+   "lat": 25.7916,
+   "population": 64756
+  },
+  {
+   "lon": -96.7917,
+   "lat": 32.7916,
+   "population": 63607
+  },
+  {
+   "lon": -94.7084,
+   "lat": 38.9583,
+   "population": 62315
+  },
+  {
+   "lon": -97.7084,
+   "lat": 30.2916,
+   "population": 59523
+  },
+  {
+   "lon": -89.625,
+   "lat": 39.7916,
+   "population": 59279
+  },
+  {
+   "lon": -93.2917,
+   "lat": 37.2083,
+   "population": 58087
+  },
+  {
+   "lon": -91.125,
+   "lat": 30.4583,
+   "population": 55924
+  },
+  {
+   "lon": -92.0417,
+   "lat": 30.2083,
+   "population": 55555
+  },
+  {
+   "lon": -84.5417,
+   "lat": 38.0416,
+   "population": 55314
+  },
+  {
+   "lon": -97.2917,
+   "lat": 37.7083,
+   "population": 53929
+  },
+  {
+   "lon": -97.5417,
+   "lat": 35.4583,
+   "population": 53911
+  },
+  {
+   "lon": -79.9584,
+   "lat": 39.6249,
+   "population": 52441
+  },
+  {
+   "lon": -76.2917,
+   "lat": 36.8749,
+   "population": 51908
+  },
+  {
+   "lon": -86.7917,
+   "lat": 33.5416,
+   "population": 51570
+  },
+  {
+   "lon": -88.9584,
+   "lat": 40.4583,
+   "population": 51444
+  },
+  {
+   "lon": -98.5417,
+   "lat": 29.4583,
+   "population": 50800
+  },
+  {
+   "lon": -95.9584,
+   "lat": 36.1249,
+   "population": 50421
+  },
+  {
+   "lon": -87.5417,
+   "lat": 33.2083,
+   "population": 49223
+  },
+  {
+   "lon": -93.7084,
+   "lat": 32.4583,
+   "population": 47898
+  },
+  {
+   "lon": -88.9584,
+   "lat": 39.8749,
+   "population": 47591
+  }
+ ]
+}

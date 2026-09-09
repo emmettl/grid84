@@ -60,6 +60,22 @@ Norris and Kristensen count about 3,000 American strategic warheads against abou
 - The escalation as a clock event: the moment the general exchange is ordered, the study becomes the alert-force enactment at DEFCON 2, with the readiness lab's option curve replaced by the documented posture. The finding to test is whether the SAC force that had been generated for a month changes the day's shape, given that the option selector on SIOP//62 says generation only adds weapons per target.
 - Population on the HYDE 1962 grid, which is already prepared under `public/data/hyde/`. The south-eastern United States, Cuba, Turkey, Italy, Britain and the Soviet Union are all on the same grid.
 
+## Built, 9 September 2026
+
+`#/study/cuba-62` plays the first two acts on one clock and `#/study/cuba-62/general` the third. The order of battle is built by [`scripts/build-order-of-battle-1962.py`](../scripts/build-order-of-battle-1962.py): fifteen Soviet sites from the Anadyr record and Norris and Kristensen's count, sixteen American sites for OPLAN 312's bases, the carriers, Guantánamo, the beaches of OPLAN 316 and the capital, positions geocoded from the modern towns and tiered reconstructed or inferred. The south-eastern urban targets are the forty most populous cells of the 1962 grid by the stated rule, since no target list for the regiments exists.
+
+| The force in Cuba | Enacted | Documented |
+| --- | --- | --- |
+| R-12 | 24 launchers at six sites, 36 missiles, 1 Mt each; 25 fly in two salvoes after the air strike leaves half the launchers | Three regiments of eight launchers and 1.5 missiles per launcher (Anadyr record); 36 warheads (Norris and Kristensen); readiness one 30 minutes, readiness four 3 h 25 min (the missile record) |
+| R-14 | Three sites drawn withheld: warheads at Mariel, no missiles | Sixteen launchers planned, 24 warheads landed, no missiles arrived |
+| FKR-1 | Eight of eighty warheads fired: four on Guantánamo and the carrier in the Windward Passage in the first hour, four on the landing fleet a week later | Two regiments, 16 launchers, 80 warheads of about 12 kt |
+| Luna | Four rockets on the western beach from the Artemisa battalion; the others out of reach | Three battalions, six launchers, twelve 2 kt warheads |
+| Il-28 | Drawn at San Julián, not flown | Six aircraft, six bombs, most still crated |
+
+**The clock.** H-hour is the OPLAN 312 first strike at dawn, ordered in the counterfactual on the night the Joint Chiefs pressed for it. The strike packages fly out and back from the Florida bases as movements without effects. At H+20 minutes the eastern FKR regiment fires; at H+30 the R-12 regiments fire at readiness one, Moscow's order broken or overtaken; the reloads follow at three and a half hours; on D+7 the landing force closes the beaches east and west of Havana and the Lunas and the western FKR regiment answer. A day in, the sum over the 1962 grid reads 2.4 million American dead by the blast-only method and 5.9 million with mass fire, from 23 detonations, and the readout says no period estimate exists to set it against.
+
+**The general war** is the SIOP//62 force at option 14, standing for the month at DEFCON 2, with the Cuban sites in front of it and the trigger chain in the log. SIOP-63's own list is withheld; the readout says the 1956 list and the 1961 order of battle stand for it, and that the Atlas, Titan and Minuteman added by October 1962 are not.
+
 ## What it must not claim
 
 - No document says what the R-12 regiments were targeted on. The targets are inferred from range and the American order of battle, and every mark says so.
