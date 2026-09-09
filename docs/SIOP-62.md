@@ -243,10 +243,10 @@ The rule from the manifesto holds for all of them: impractical, never fake. A st
 
 | Soviet response | Enacted | Documented |
 | --- | --- | --- |
-| Bombers destroyed on the ground before generating | 30, one base struck at H+2 h | Lemnitzer: "even [with] preemptive attack by the U.S. ... some portion of the Soviet long-range nuclear force would strike the United States" |
-| Sorties flown · penetrating | 126 · 66 | 200 that could be put over North America, before US air-defence attrition |
-| Detonations on the United States | 42 | |
-| American dead, blast only · with fire | 5.6 million · 17 million | Pentagon civilians, 1961: two to fifteen million; the Air Force to Kennedy: probably under ten million |
+| Bombers destroyed on the ground before generating | None in the current run: no delivered weapon lands within 30 km of an inferred base before three hours. An earlier run lost one base at H+2 h, so the coupling turns on a single sortie's fate | Lemnitzer: "even [with] preemptive attack by the U.S. ... some portion of the Soviet long-range nuclear force would strike the United States" |
+| Sorties flown · penetrating | 138 · 79 | 200 that could be put over North America, before US air-defence attrition |
+| Detonations on the United States | 47 | |
+| American dead, blast only · with fire | see the readout | Pentagon civilians, 1961: two to fifteen million; the Air Force to Kennedy: probably under ten million |
 
 Lemnitzer's warning is the finding: the response comes anyway, from the bombers that were already alert or at fields the missiles did not reach in time.
 

@@ -1,9 +1,7 @@
-import { Track } from '../../engine/track.ts'
 import type { Provenance } from '../../evidence/evidence.ts'
 import type { LngLat } from '../../geo/geodesy.ts'
-import { allocate, megatons, type Launcher, type Target } from '../../models/allocation.ts'
+import { megatons, type Launcher, type Target } from '../../models/allocation.ts'
 import { ATTRITION_MODEL, calibrate, DEFAULT_RELIABILITY, DOCUMENTED_ASSURANCE, RELIABILITY } from '../../models/attrition.ts'
-import { BLAST_MODEL, promptEffects } from '../../models/blast.ts'
 import { enactStrike } from '../strike.ts'
 import { generationAt, optionHours, SYSTEMS } from '../../models/readiness.ts'
 import type { Entity, Study, StudyEvent } from '../study.ts'
@@ -236,23 +234,6 @@ export interface AlertForceSummary {
   bomberVehicles: number
 }
 
-function hash01Local(key: string): number {
-  let h = 2166136261
-  for (let i = 0; i < key.length; i += 1) {
-    h ^= key.charCodeAt(i)
-    h = Math.imul(h, 16777619)
-  }
-  return ((h >>> 0) % 1_000_003) / 1_000_003
-}
-
-function slerpTo(a: LngLat, b: LngLat, f: number): LngLat {
-  const t = new Track([
-    { position: a, time: 0 },
-    { position: b, time: 1 },
-  ])
-  return t.positionAt(Math.max(0, Math.min(1, f))) ?? a
-}
-
 export function buildAlertForce(option = 1): { study: Study; summary: AlertForceSummary } {
   const generation = forceGeneration(option)
   const { launchers, alertFraction, growth } = buildLaunchers(generation)
@@ -371,61 +352,35 @@ export function buildAlertForce(option = 1): { study: Study; summary: AlertForce
       })
     }
     entities.push(...sovietSites)
-    const sovietResult = allocate(sovietLaunchers, usTargets, { maxWeaponsPerTarget: 3, order: ['bomber'] })
-    let sIndex = 0
-    for (const s2 of sovietResult.sorties) {
-      const l = sovietLaunchers.find((x) => x.id === s2.launcherId)!
-      const t = usTargets.find((x) => x.id === s2.targetId)!
-      const isAlert = sIndex % Math.max(1, Math.round(1 / alertFraction)) === 0
-      const launch = isAlert ? l.reactionSeconds : inf.generationHours * 3_600
-      const arrival = launch + s2.distanceMetres / (l.speedMs ?? 220)
-      sIndex += 1
-      const r = hash01Local(`sov:${s2.launcherId}:${s2.targetId}:${sIndex}`)
-      const delivered = r < inf.usAirDefencePenetration.value
-      sovietSummary.launched += 1
-      if (delivered) sovietSummary.delivered += 1
-      else sovietSummary.lost += 1
-      const endFraction = delivered ? 1 : 0.7 + 0.28 * hash01Local(`sov-where:${sIndex}`)
-      entities.push({
-        kind: 'track',
-        id: `sov-s-${sIndex}`,
-        name: `${l.name} → ${t.name}`,
-        designation: `SOVIET BOMBER · ${(s2.yieldKt / 1_000).toFixed(0)} MT ASSUMED${delivered ? '' : ' · LOST TO AIR DEFENCE'}`,
-        label: false,
-        side: 'defender',
-        track: new Track([
-          { position: l.position, time: launch },
-          { position: delivered ? t.position : slerpTo(l.position, t.position, endFraction), time: launch + (arrival - launch) * endFraction },
-        ]),
-        reveal: 'progressive',
-        evidence: 'inferred',
-        provenance: { source: 'Soviet response', method: 'Force level documented, bases and targets inferred, US air-defence penetration one half assumed' },
-        route: { evidence: 'reconstructed', provenance: { source: 'Great circle at cruise speed' } },
-        facts: [],
-      })
-      if (!delivered) continue
-      const existing = entities.find((x) => x.kind === 'effect' && x.id === `sov-e-${t.id}`)
-      if (existing) continue
-      entities.push({
-        kind: 'effect',
-        id: `sov-e-${t.id}`,
-        name: t.name,
-        designation: `SOVIET WEAPON · ${(s2.yieldKt / 1_000).toFixed(0)} MT ASSUMED`,
-        label: false,
-        compact: true,
-        side: 'defender',
-        center: t.position,
-        time: arrival,
-        effects: promptEffects(s2.yieldKt),
-        burst: 'air',
-        evidence: 'modelled',
-        provenance: { source: BLAST_MODEL },
-        facts: [
-          { label: 'Target', value: t.id.startsWith('us-city') ? 'One of the ten largest US cities, 1960 census' : 'A SAC launch site of the order of battle', evidence: 'inferred', provenance: { source: 'Soviet targeting is not in the record' } },
-          { label: 'Yield', value: `${(s2.yieldKt / 1_000).toFixed(0)} Mt`, evidence: 'inferred', provenance: { source: inf.bomberYieldKt.note } },
-        ],
-      })
-    }
+    // Through the shared builder: the alert tenth launches on warning, the generated rest three hours on, and US air defence is the one loss.
+    const split: Launcher[] = sovietLaunchers.flatMap((l) => {
+      const alert = Math.round(perBase * alertFraction)
+      const generated = l.weapons - alert
+      return [
+        { ...l, id: `${l.id}-alert`, name: `${l.name} (alert)`, weapons: Math.min(alert, l.weapons) },
+        { ...l, id: `${l.id}-generated`, name: `${l.name} (generated)`, weapons: Math.max(0, generated), reactionSeconds: inf.generationHours * 3_600 },
+      ]
+    })
+    const response = enactStrike({
+      prefix: 'sov',
+      side: 'defender',
+      launchers: split,
+      targets: usTargets,
+      allocation: { maxWeaponsPerTarget: 3, order: ['bomber'] },
+      attrition: { reliability: { icbm: 1, irbm: 1, slbm: 1, bomber: 1 }, penetration: inf.usAirDefencePenetration.value, note: 'No reliability loss counted; US air defence stops one half, assumed' },
+      allocationRule: { source: 'Soviet targeting is not in the record', method: 'The SAC launch sites of the order of battle and the ten largest cities of the 1960 census, up to three weapons each, nearest base first' },
+      vehicle: { evidence: 'inferred', provenance: { source: 'Soviet response', method: 'Force level documented, bases and targets inferred, US air-defence penetration one half assumed' } },
+      route: { cruise: { source: 'Great circle at cruise speed' }, ballistic: { source: 'Minimum-energy trajectory' } },
+      targetCategory: (t) => (t.id.startsWith('us-city') ? 'SOVIET WEAPON · CITY, 1960 CENSUS' : 'SOVIET WEAPON · SAC LAUNCH SITE'),
+      targetFacts: (t) => [
+        { label: 'Target', value: t.id.startsWith('us-city') ? 'One of the ten largest US cities, 1960 census' : 'A SAC launch site of the order of battle', evidence: 'inferred', provenance: { source: 'Soviet targeting is not in the record' } },
+        { label: 'Yield', value: `${(inf.bomberYieldKt.value / 1_000).toFixed(0)} Mt assumed`, evidence: 'inferred', provenance: { source: inf.bomberYieldKt.note } },
+      ],
+    })
+    entities.push(...response.entities)
+    sovietSummary.launched = response.summary.weapons
+    sovietSummary.delivered = response.summary.delivered
+    sovietSummary.lost = response.summary.lostPenetration + response.summary.lostReliability
   }
 
   // Events: the documented sequence, and the waves as they leave.
