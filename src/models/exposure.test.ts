@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { exposure, totalPopulation, type PopulationGrid } from './exposure.ts'
+import { exposure, exposurePolygons, pointInRing, totalPopulation, type PopulationGrid } from './exposure.ts'
 
 /** A synthetic grid of uniform density: `perDegree2` people per square degree, on a 0.1° lattice. */
 function uniformGrid(perDegree2: number, cellSize = 0.1): PopulationGrid {
@@ -37,5 +37,17 @@ describe('exposure', () => {
     const result = exposure(grid, { center: [0, 0], rings: [{ key: 'r', radius: 50_000 }] })
     expect(result.cellsVisited).toBe(0)
     expect(result.within.r).toBe(0)
+  })
+})
+
+describe('exposurePolygons', () => {
+  it('counts a square polygon as area × density and agrees with the ring sum for a circle', () => {
+    const grid = uniformGrid(1_000_000)
+    const square = { key: 'sq', ring: [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5], [-0.5, -0.5]] as [number, number][] }
+    const r = exposurePolygons(grid, [square], 3)
+    expect(r.within.sq / 1_000_000).toBeGreaterThan(0.97)
+    expect(r.within.sq / 1_000_000).toBeLessThan(1.03)
+    expect(pointInRing(0, 0, square.ring)).toBe(true)
+    expect(pointInRing(0.6, 0, square.ring)).toBe(false)
   })
 })

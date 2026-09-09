@@ -107,3 +107,66 @@ export function totalPopulation(grid: PopulationGrid): number {
   for (let i = 0; i < grid.counts.length; i += 1) total += grid.counts[i]
   return total
 }
+
+export interface ExposurePolygon {
+  key: string
+  /** Closed ring of [lon, lat]. */
+  ring: LngLat[]
+}
+
+/** Ray-casting point-in-polygon on [lon, lat]. */
+export function pointInRing(lon: number, lat: number, ring: LngLat[]): boolean {
+  let inside = false
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
+    const [xi, yi] = ring[i]
+    const [xj, yj] = ring[j]
+    if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) inside = !inside
+  }
+  return inside
+}
+
+/**
+ * Population inside each polygon, with the same sub-sampling as `exposure`.
+ * Polygons are independent: the caller nests or differences them as it likes.
+ */
+export function exposurePolygons(grid: PopulationGrid, polygons: ExposurePolygon[], subsamples = 3): { within: Record<string, number>; cellsVisited: number } {
+  const sub = Math.max(1, Math.floor(subsamples))
+  const within: Record<string, number> = Object.fromEntries(polygons.map((p) => [p.key, 0]))
+  let west = Infinity
+  let east = -Infinity
+  let south = Infinity
+  let north = -Infinity
+  for (const p of polygons) {
+    for (const [lon, lat] of p.ring) {
+      if (lon < west) west = lon
+      if (lon > east) east = lon
+      if (lat < south) south = lat
+      if (lat > north) north = lat
+    }
+  }
+  const top = grid.south + grid.height * grid.cellSize
+  const r0 = Math.max(0, Math.floor((top - north) / grid.cellSize))
+  const r1 = Math.min(grid.height - 1, Math.floor((top - south) / grid.cellSize))
+  const c0 = Math.floor((west - grid.west) / grid.cellSize)
+  const c1 = Math.floor((east - grid.west) / grid.cellSize)
+  const share = 1 / (sub * sub)
+  let cellsVisited = 0
+  for (let row = r0; row <= r1; row += 1) {
+    for (let cc = c0; cc <= c1; cc += 1) {
+      const col = ((cc % grid.width) + grid.width) % grid.width
+      const count = grid.counts[row * grid.width + col]
+      if (!count) continue
+      cellsVisited += 1
+      const cellWest = grid.west + cc * grid.cellSize
+      const cellNorth = top - row * grid.cellSize
+      for (let sy = 0; sy < sub; sy += 1) {
+        const lat = cellNorth - ((sy + 0.5) / sub) * grid.cellSize
+        for (let sx = 0; sx < sub; sx += 1) {
+          const lon = cellWest + ((sx + 0.5) / sub) * grid.cellSize
+          for (const p of polygons) if (pointInRing(lon, lat, p.ring)) within[p.key] += count * share
+        }
+      }
+    }
+  }
+  return { within, cellsVisited }
+}

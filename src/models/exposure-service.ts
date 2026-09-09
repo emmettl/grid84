@@ -1,4 +1,4 @@
-import type { ExposureRequest, ExposureResult, PopulationGrid } from './exposure.ts'
+import type { ExposurePolygon, ExposureRequest, ExposureResult, PopulationGrid } from './exposure.ts'
 import type { CellRow, WorkerRequest, WorkerResponse } from './exposure.worker.ts'
 
 /** Omit that distributes over a union, so each request shape keeps its own fields. */
@@ -58,6 +58,14 @@ export class ExposureService {
     for (let i = 1; i < this.workers.length; i += 1) if (this.workers[i].busy < this.workers[slot].busy) slot = i
     const response = await this.send<WorkerResponse & { type: 'result' }>({ type: 'exposure', request }, slot)
     return response.result
+  }
+
+  /** Population inside each polygon. */
+  async polygons(polygons: ExposurePolygon[]): Promise<{ within: Record<string, number>; cellsVisited: number }> {
+    let slot = 0
+    for (let i = 1; i < this.workers.length; i += 1) if (this.workers[i].busy < this.workers[slot].busy) slot = i
+    const response = await this.send<WorkerResponse & { type: 'polygons' }>({ type: 'polygons', polygons }, slot)
+    return { within: response.within, cellsVisited: response.cellsVisited }
   }
 
   /** Populated cells inside a bounding box, for drawing. */

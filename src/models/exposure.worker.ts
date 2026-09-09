@@ -1,5 +1,5 @@
 /// <reference lib="webworker" />
-import { exposure, totalPopulation, type ExposureRequest, type PopulationGrid } from './exposure.ts'
+import { exposure, exposurePolygons, totalPopulation, type ExposurePolygon, type ExposureRequest, type PopulationGrid } from './exposure.ts'
 import { loadPopulationGrid } from './population-grid.ts'
 
 /**
@@ -12,6 +12,7 @@ export type WorkerRequest =
   | { id: number; type: 'load'; base: string }
   | { id: number; type: 'exposure'; request: ExposureRequest }
   | { id: number; type: 'cells'; west: number; south: number; east: number; north: number }
+  | { id: number; type: 'polygons'; polygons: ExposurePolygon[] }
 
 /** [west, south, east, north, count] per populated cell. */
 export type CellRow = [number, number, number, number, number]
@@ -20,6 +21,7 @@ export type WorkerResponse =
   | { id: number; type: 'loaded'; source: PopulationGrid['source']; total: number }
   | { id: number; type: 'result'; result: ReturnType<typeof exposure> }
   | { id: number; type: 'cells'; cells: CellRow[] }
+  | { id: number; type: 'polygons'; within: Record<string, number>; cellsVisited: number }
   | { id: number; type: 'error'; message: string }
 
 let grid: PopulationGrid | null = null
@@ -54,6 +56,12 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
       return
     }
     if (!grid) throw new Error('grid not loaded')
+    if (message.type === 'polygons') {
+      const r = exposurePolygons(grid, message.polygons)
+      const response: WorkerResponse = { id: message.id, type: 'polygons', within: r.within, cellsVisited: r.cellsVisited }
+      self.postMessage(response)
+      return
+    }
     if (message.type === 'cells') {
       const response: WorkerResponse = { id: message.id, type: 'cells', cells: cellsIn(grid, message) }
       self.postMessage(response)

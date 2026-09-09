@@ -867,3 +867,18 @@ body,
     grid-row: 4;
   }
 }
+
+.clock input[type='range'] + input[type='range'] {
+  margin-top: 0.3rem;
+}
+
+.grid-nav a {
+  white-space: nowrap;
+}
+
+@media (min-width: 901px) {
+  /* Leave the top row clear for the view navigation on study and lab pages. */
+  .study-hud {
+    padding-top: calc(max(1rem, env(safe-area-inset-top)) + 2.4rem);
+  }
+}
