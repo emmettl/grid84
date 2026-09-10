@@ -5,6 +5,7 @@ import { formatProvenance, TIER_LABEL, type Evidenced } from '../evidence/eviden
 import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
+import { ALARM_HATCH, ensureAlarmHatch } from '../map/hatch.ts'
 import { TrackLayer } from '../map/track-layer.ts'
 import { prepareTracks, type TrackSpec } from '../map/track-scene.ts'
 import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst, type Outcome } from '../models/casualties.ts'
@@ -396,8 +397,10 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
       // Outlines the study carries, such as a target's boundary, under the effects.
       if (study.overlays && study.overlays.length > 0) {
         map.addSource('ev-overlays', { type: 'geojson', data: { type: 'FeatureCollection', features: study.overlays.flatMap((o) => o.rings.map((ring) => ({ type: 'Feature' as const, geometry: { type: 'Polygon' as const, coordinates: [ring.map((p) => [p[0], p[1]])] }, properties: { id: o.id, name: o.name } }))) } })
-        map.addLayer({ id: 'ev-overlays-fill', type: 'fill', source: 'ev-overlays', paint: { 'fill-color': 'rgba(141, 250, 255, 0.05)' } }, 'ev-areas-fill')
-        map.addLayer({ id: 'ev-overlays-line', type: 'line', source: 'ev-overlays', paint: { 'line-color': 'rgba(141, 250, 255, 0.7)', 'line-width': 1.2, 'line-dasharray': [3, 2] } }, 'ev-areas-fill')
+        ensureAlarmHatch(map)
+        map.addLayer({ id: 'ev-overlays-fill', type: 'fill', source: 'ev-overlays', paint: { 'fill-pattern': ALARM_HATCH, 'fill-opacity': 0.22 } }, 'ev-areas-fill')
+        map.addLayer({ id: 'ev-overlays-line', type: 'line', source: 'ev-overlays', paint: { 'line-color': '#ff8a1f', 'line-width': 1.6, 'line-opacity': 0.9 } }, 'ev-areas-fill')
+        map.addLayer({ id: 'ev-overlays-line-dark', type: 'line', source: 'ev-overlays', paint: { 'line-color': '#0a0602', 'line-width': 1.6, 'line-dasharray': [2, 2], 'line-opacity': 0.85 } }, 'ev-areas-fill')
       }
       // The focus of a selection: the other targets of the same missile or launch point, ringed, and the bus separation point.
       map.addSource('ev-focus', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })

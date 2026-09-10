@@ -92,6 +92,15 @@ function useRoute(): Route {
   return route
 }
 
+/** The document title: Grid/84, with the mode or the study after it. */
+function useTitle(route: Route) {
+  useEffect(() => {
+    const part =
+      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'study' ? route.id : route.kind === 'lab' ? `${route.id} lab` : ''
+    document.title = part ? `Grid/84 · ${part}` : 'Grid/84'
+  }, [route])
+}
+
 function AtlasView() {
   const [study, setStudy] = useState<Study | null>(null)
   if (study) {
@@ -181,6 +190,7 @@ function BritainStudy({ strath }: { strath: boolean }) {
 
 export default function App() {
   const route = useRoute()
+  useTitle(route)
   const inLab = route.kind === 'lab'
   const labs: Array<{ href: string; label: string; active: boolean }> = [
     { href: '#/lab/evidence', label: 'Evidence', active: inLab && route.id === 'evidence' },

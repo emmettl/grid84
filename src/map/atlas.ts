@@ -1,6 +1,7 @@
 import { Marker, type GeoJSONSource } from 'maplibre-gl'
 import type { AtlasTarget } from '../atlas/target.ts'
 import type { Boundary } from '../atlas/boundary.ts'
+import { ALARM_HATCH, ensureAlarmHatch } from './hatch.ts'
 import { designate, type Designation } from '../atlas/designation.ts'
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { ORBITAL_ZOOM, planDescent, TERRAIN_MIN_ZOOM } from './descent.ts'
@@ -75,9 +76,11 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
   let label: Marker | null = null
   const ensureBoundaryLayers = () => {
     if (map.getSource('atlas-boundary')) return
+    ensureAlarmHatch(map)
     map.addSource('atlas-boundary', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
-    map.addLayer({ id: 'atlas-boundary-fill', type: 'fill', source: 'atlas-boundary', paint: { 'fill-color': 'rgba(141, 250, 255, 0.06)' } })
-    map.addLayer({ id: 'atlas-boundary-line', type: 'line', source: 'atlas-boundary', paint: { 'line-color': 'rgba(141, 250, 255, 0.85)', 'line-width': 1.5, 'line-dasharray': [3, 2] } })
+    map.addLayer({ id: 'atlas-boundary-fill', type: 'fill', source: 'atlas-boundary', paint: { 'fill-pattern': ALARM_HATCH, 'fill-opacity': 0.28 } })
+    map.addLayer({ id: 'atlas-boundary-line', type: 'line', source: 'atlas-boundary', paint: { 'line-color': '#ff8a1f', 'line-width': 2, 'line-opacity': 0.95 } })
+    map.addLayer({ id: 'atlas-boundary-line-dark', type: 'line', source: 'atlas-boundary', paint: { 'line-color': '#0a0602', 'line-width': 2, 'line-dasharray': [2, 2], 'line-opacity': 0.9 } })
   }
   map.on('load', () => {
     ensureBoundaryLayers()

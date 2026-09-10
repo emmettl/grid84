@@ -139,7 +139,7 @@ export function FrontPage() {
     <main className="front" aria-label="Grid/84">
       <div className="front-inner">
         <header className="front-masthead">
-          <span className="front-eyebrow">SurfaceStudies presents · Terminal Atlas</span>
+          <span className="front-eyebrow">SurfaceStudies presents</span>
           <h1>GRID/84</h1>
           <p className="front-standfirst">
             A world-state playback engine. Anywhere on Earth, real geography, indefensibly dramatic presentation, turned on the history and doctrine of strategic nuclear weapons.

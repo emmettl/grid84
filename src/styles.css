@@ -2040,7 +2040,8 @@ body,
   display: grid;
   gap: 0.05rem;
   padding: 0.2rem 0.5rem;
-  border-left: 2px solid var(--cyan);
+  border-left: 3px solid #ff8a1f;
+  border-image: repeating-linear-gradient(135deg, #ff8a1f 0 4px, #0a0602 4px 8px) 1;
   background: rgba(5, 4, 16, 0.72);
   font-family: var(--mono);
   letter-spacing: 0.14em;
@@ -2056,7 +2057,7 @@ body,
 }
 
 .atlas-target-kind {
-  color: var(--cyan);
+  color: #ff8a1f;
   font-size: 0.5rem;
 }
 
