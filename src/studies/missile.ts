@@ -10,13 +10,15 @@ import type { EffectEntity, SiteEntity, Study, TrackEntity } from './study.ts'
  */
 export interface Missile {
   bus: TrackEntity
+  /** 'bus' for a ballistic missile's reentry vehicles; 'aircraft' for a bomber's cruise missiles released at a standoff. */
+  kind: 'bus' | 'aircraft'
   vehicles: TrackEntity[]
   separation: { position: LngLat; time: number; altitude: number }
   /** The detonations the bus's vehicles delivered, in the order of the vehicles. */
   effects: EffectEntity[]
 }
 
-const RV = /^(.+)-rv(\d+)$/
+const RV = /^(.+)-(?:rv|cm)(\d+)$/
 
 export function busIdOf(trackId: string): string {
   const m = RV.exec(trackId)
@@ -38,7 +40,10 @@ export function missileOf(study: Study, entityId: string | null): Missile | null
     const ids = new Set(vehicles.map((v) => v.id))
     const effects: EffectEntity[] = []
     for (const e of study.entities) if (e.kind === 'effect' && (e.deliveredBy ?? []).some((d) => ids.has(d))) effects.push(e)
-    return { bus, vehicles, separation: { position: last.position, time: last.time, altitude: last.altitude ?? 0 }, effects }
+    const kind: Missile['kind'] = vehicles.some((v) => /-cm\d+$/.test(v.id)) ? 'aircraft' : 'bus'
+    // A bus ends at separation; an aircraft turns for home there, so the release point is the vehicles' start.
+    const at = kind === 'aircraft' ? vehicles[0].track.waypoints[0] : last
+    return { bus, kind, vehicles, separation: { position: at.position, time: at.time, altitude: at.altitude ?? 0 }, effects }
   }
   return null
 }

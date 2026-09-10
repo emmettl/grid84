@@ -1,6 +1,7 @@
 import { Track, type Waypoint } from '../engine/track.ts'
 import type { Evidenced, EvidenceTier, Provenance } from '../evidence/evidence.ts'
-import { haversineMetres } from '../geo/geodesy.ts'
+import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
+import { destinationPoint } from '../geo/sector.ts'
 import { allocate, megatons, type AllocationOptions, type Launcher, type Sortie, type SystemKind, type Target } from '../models/allocation.ts'
 import { fate } from '../models/attrition.ts'
 import { ballisticWaypoints, minimumEnergyTrajectory } from '../models/ballistic.ts'
@@ -94,6 +95,10 @@ export function sortieTiming(launcher: Launcher, sortie: Sortie, target: Target)
   const launch = launcher.reactionSeconds
   if (launcher.kind === 'bomber') {
     const speed = launcher.speedMs ?? 230
+    if (launcher.standoffMetres !== undefined) {
+      const leg = Math.max(0, sortie.distanceMetres - launcher.standoffMetres)
+      return { launch, arrival: launch + leg / speed + (sortie.distanceMetres - leg) / (launcher.missileSpeedMs ?? 240), route: 'cruise' }
+    }
     return { launch, arrival: launch + sortie.distanceMetres / speed, route: 'cruise' }
   }
   const plan = minimumEnergyTrajectory(launcher.position, target.position)
@@ -169,14 +174,14 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
     }
   }
   const provenance = { ...o.vehicle.provenance, method: `${o.vehicle.provenance.method ? `${o.vehicle.provenance.method}. ` : ''}Assignment: ${o.allocationRule.method ?? o.allocationRule.source}` }
-  const track = (id: string, name: string, designation: string, waypoints: Waypoint[], route: 'ballistic' | 'cruise', routeProvenance: Provenance): Entity => ({
+  const track = (id: string, name: string, designation: string, waypoints: Waypoint[], route: 'ballistic' | 'cruise', routeProvenance: Provenance, vehicle?: 'aircraft' | 'missile'): Entity => ({
     kind: 'track',
     id,
     name,
     designation,
     label: false,
     side: o.side,
-    vehicle: route === 'cruise' ? 'aircraft' : 'missile',
+    vehicle: vehicle ?? (route === 'cruise' ? 'aircraft' : 'missile'),
     track: new Track(waypoints),
     reveal: 'progressive',
     evidence: o.vehicle.evidence,
@@ -202,6 +207,37 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
     const id = `${o.prefix}-s-${index}`
     const f = fate(`${o.prefix}:${l.id}:${v.sorties.map((s) => s.targetId).join('+')}:${index}`, l.kind, attrition.penetration, attrition.reliability)
     const launch = l.reactionSeconds
+    if (l.kind === 'bomber' && l.standoffMetres !== undefined) {
+      // Standoff: the aircraft flies to a release point short of its first target, lets its missiles go and turns for home; each missile flies its own way from there.
+      const speed = l.speedMs ?? 230
+      const missileSpeed = l.missileSpeedMs ?? 240
+      const first = targetById[v.sorties[0].targetId]
+      const distance = haversineMetres(l.position, first.position)
+      const leg = Math.max(0, distance - l.standoffMetres)
+      const release: LngLat = leg > 0 ? destinationPoint(l.position, initialBearing(l.position, first.position), leg) : l.position
+      const releaseTime = launch + leg / speed
+      const weapons = v.sorties.length
+      if (leg > 0) {
+        const outbound: Waypoint[] = [{ position: l.position, time: launch }, { position: release, time: releaseTime }]
+        const home: Waypoint[] = [...outbound, { position: l.position, time: releaseTime + leg / speed }]
+        const lostAt = launch + (releaseTime - launch) * Math.max(f.lostAtFraction ?? 0, 0.001)
+        entities.push(track(id, `${l.name} → release ${Math.round(l.standoffMetres / 1000)} km short of ${first.name}`, `AIRCRAFT · ${weapons} MISSILE${weapons > 1 ? 'S' : ''} OF ${fmtYield(v.sorties[0].yieldKt)} · RELEASE AT H+${Math.round(releaseTime / 60)} MIN${f.delivered ? ' · THEN HOME' : ` · LOST (${f.cause?.toUpperCase()})`}`, f.delivered ? home : cut(outbound, lostAt), 'cruise', o.route.cruise, 'aircraft'))
+      }
+      if (!f.delivered) {
+        if (f.cause === 'reliability') lostReliability += weapons
+        else lostPenetration += weapons
+        continue
+      }
+      v.sorties.forEach((s, k) => {
+        const t = targetById[s.targetId]
+        const arrival = releaseTime + haversineMetres(release, t.position) / missileSpeed
+        const cmId = leg > 0 ? `${id}-cm${k + 1}` : `${id}${weapons > 1 ? `-cm${k + 1}` : ''}`
+        entities.push(track(cmId, `${l.name} → ${t.name}`, `CRUISE MISSILE ${k + 1} OF ${weapons} · ${fmtYield(s.yieldKt)}${leg > 0 ? '' : ' · FROM THE LAUNCHER'}`, [{ position: release, time: releaseTime }, { position: t.position, time: arrival }], 'cruise', o.route.cruise, 'missile'))
+        delivered += 1
+        arrive(t.id, arrival, s.yieldKt, l.kind, cmId)
+      })
+      continue
+    }
     if (l.kind === 'bomber') {
       // One aircraft visits its targets in turn; the first leg may go through a refuelling area.
       const speed = l.speedMs ?? 230

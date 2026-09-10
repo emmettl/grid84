@@ -31,7 +31,9 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     rangeMetres: site.rangeKm * 1_000,
     yieldKt: sizing.yieldKt,
     reactionSeconds: 0,
-    speedMs: site.kind === 'bomber' ? 240 : undefined,
+    speedMs: site.kind === 'bomber' ? (site.carrierSpeedMs && site.carrierSpeedMs > 0 ? site.carrierSpeedMs : 240) : undefined,
+    standoffMetres: site.kind === 'bomber' && site.standoffKm !== undefined ? site.standoffKm * 1_000 : undefined,
+    missileSpeedMs: site.missileSpeedMs,
   }
   const designation = designate(target)
   const targets: Target[] = sizing.aimPoints.map((p, i) => ({ id: i === 0 ? 'target' : `target-aim-${i + 1}`, name: i === 0 ? target.name : `${target.name} · aim point ${i + 1}`, priority: i, position: p, maxWeapons: 1 }))
@@ -44,7 +46,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     attrition: { reliability: { icbm: 1, irbm: 1, slbm: 1, bomber: 1 }, penetration: 1, note: 'No attrition: the strike is shown as ordered, every weapon arriving' },
     allocationRule: { source: 'The atlas solver', method: `${sizing.reason}. Aim points in a sunflower spaced so the 5 psi discs meet` },
     vehicle: { evidence: site.evidence, provenance: { source: FORCES_SOURCE, method: site.note || 'The system, its load and its yield as the open literature gives them' } },
-    route: { cruise: { source: 'Great circle at 240 m/s' }, ballistic: { source: 'Minimum-energy trajectory over a spherical Earth', method: 'The bus splits after twelve per cent of the flight and each reentry vehicle takes its own arc' } },
+    route: { cruise: { source: 'Great circles: the aircraft to its release point at its cruising speed, then home; each missile from there to its aim point at cruise-missile speed' }, ballistic: { source: 'Minimum-energy trajectory over a spherical Earth', method: 'The bus splits after twelve per cent of the flight and each reentry vehicle takes its own arc' } },
     targetCategory: () => classification.category,
     burstFor: () => ({ burst: sizing.burst, fallout: sizing.burst === 'surface' ? { fissionFraction: 0.5, windMph: wind.mph, downwindBearingDeg: (wind.fromDeg + 180) % 360, untilHours: 48, shearDeg: wind.shearDeg, terrainFactor: 0.7, provenance: { source: wind.source, method: `Effective wind from ${Math.round(wind.fromDeg)}° at ${Math.round(wind.mph)} mph (${wind.level}), shear ${Math.round(wind.shearDeg)}°; fission fraction 0.5 assumed; dose rates at 0.7 of the idealized plane for a real surface (Glasstone §9.95)` } } : undefined }),
     targetFacts: () => [

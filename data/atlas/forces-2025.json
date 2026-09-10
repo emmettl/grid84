@@ -134,7 +134,10 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "W80-1 on the air-launched cruise missile",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 2400,
+   "carrierSpeedMs": 250,
+   "missileSpeedMs": 240
   },
   {
    "id": "us-7",
@@ -150,7 +153,10 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "B61-12 at its highest option; B83-1 1.2 Mt retiring",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 60,
+   "carrierSpeedMs": 250,
+   "missileSpeedMs": 200
   },
   {
    "id": "ru-8",
@@ -342,7 +348,10 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "Kh-102 yield inferred at 250 kt",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 3000,
+   "carrierSpeedMs": 260,
+   "missileSpeedMs": 230
   },
   {
    "id": "ru-20",
@@ -358,7 +367,10 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 3000,
+   "carrierSpeedMs": 200,
+   "missileSpeedMs": 230
   },
   {
    "id": "ru-21",
@@ -601,7 +613,26 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "fr-36",
+   "id": "cn-36",
+   "side": "cn",
+   "name": "Neixiang · 106th Brigade",
+   "kind": "bomber",
+   "system": "H-6N with CJ-20A",
+   "warheadsPerMissile": 6,
+   "yieldKt": 200,
+   "rangeKm": 5000,
+   "lon": 111.85,
+   "lat": 33.05,
+   "positionEvidence": "documented",
+   "evidence": "inferred",
+   "note": "The air leg of the triad since 2020; a nuclear cruise missile is reported and its yield inferred",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 1500,
+   "carrierSpeedMs": 220,
+   "missileSpeedMs": 240
+  },
+  {
+   "id": "fr-37",
    "side": "fr",
    "name": "Atlantic patrol · Force océanique stratégique",
    "kind": "slbm",
@@ -617,7 +648,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "fr-37",
+   "id": "fr-38",
    "side": "fr",
    "name": "Saint-Dizier · Escadron 1/4 Gascogne",
    "kind": "bomber",
@@ -630,10 +661,13 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "TNA of up to 300 kt; the aircraft carries the missile most of the way",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 500,
+   "carrierSpeedMs": 290,
+   "missileSpeedMs": 260
   },
   {
-   "id": "uk-38",
+   "id": "uk-39",
    "side": "uk",
    "name": "North Atlantic patrol · Vanguard class",
    "kind": "slbm",
@@ -649,7 +683,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "in-39",
+   "id": "in-40",
    "side": "in",
    "name": "Central India · Agni-V regiment",
    "kind": "icbm",
@@ -665,7 +699,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "in-40",
+   "id": "in-41",
    "side": "in",
    "name": "Northern India · Agni-II and Agni-III regiments",
    "kind": "irbm",
@@ -681,7 +715,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "in-41",
+   "id": "in-42",
    "side": "in",
    "name": "Bay of Bengal patrol · Arihant class",
    "kind": "slbm",
@@ -697,7 +731,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "pk-42",
+   "id": "pk-43",
    "side": "pk",
    "name": "Sargodha · Army Strategic Forces Command",
    "kind": "irbm",
@@ -713,7 +747,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "pk-43",
+   "id": "pk-44",
    "side": "pk",
    "name": "Central Punjab · Shaheen-II and Ghauri brigades",
    "kind": "irbm",
@@ -729,7 +763,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "pk-44",
+   "id": "pk-45",
    "side": "pk",
    "name": "Pano Aqil · Nasr and Babur batteries",
    "kind": "irbm",
@@ -745,7 +779,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "il-45",
+   "id": "il-46",
    "side": "il",
    "name": "Sdot Micha",
    "kind": "irbm",
@@ -761,7 +795,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "il-46",
+   "id": "il-47",
    "side": "il",
    "name": "Eastern Mediterranean patrol · Dolphin class",
    "kind": "bomber",
@@ -774,10 +808,13 @@
    "positionEvidence": "inferred",
    "evidence": "withheld",
    "note": "A submarine-launched cruise missile is widely reported and unconfirmed; treated as a cruise weapon",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 1500,
+   "carrierSpeedMs": 0,
+   "missileSpeedMs": 240
   },
   {
-   "id": "nk-47",
+   "id": "nk-48",
    "side": "nk",
    "name": "Sunan · Pyongyang",
    "kind": "icbm",
@@ -793,7 +830,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "nk-48",
+   "id": "nk-49",
    "side": "nk",
    "name": "Sil-li · missile support facility",
    "kind": "icbm",
@@ -809,7 +846,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "nk-49",
+   "id": "nk-50",
    "side": "nk",
    "name": "Sohae · Tongchang-ri",
    "kind": "irbm",
@@ -825,7 +862,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "nk-50",
+   "id": "nk-51",
    "side": "nk",
    "name": "Wonsan · KN-23 brigade",
    "kind": "irbm",
@@ -841,7 +878,7 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
   },
   {
-   "id": "nk-51",
+   "id": "nk-52",
    "side": "nk",
    "name": "Sinpo · Pukguksong boat",
    "kind": "slbm",

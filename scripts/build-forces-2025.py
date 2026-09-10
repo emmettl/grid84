@@ -20,6 +20,7 @@ from pathlib import Path
 NOTEBOOK = 'Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025'
 
 # side, name, kind, system, warheads per missile, yield kt, range km, lon, lat, evidence of the position, evidence of the load, note
+# Bombers and submarine cruise systems carry a standoff in STANDOFF below: how far short of the target the missiles are released.
 SITES = [
     # United States
     ('us', 'Malmstrom AFB · 341st Missile Wing', 'icbm', 'Minuteman III', 1, 300, 13_000, -111.19, 47.50, 'documented', 'reconstructed', 'W87-0 on one reentry vehicle since the 2014 de-MIRV; 150 silos'),
@@ -59,6 +60,7 @@ SITES = [
     ('cn', 'Qingzhou · 651 Brigade', 'irbm', 'DF-26', 1, 200, 4_000, 118.50, 36.70, 'documented', 'inferred', ''),
     ('cn', 'Chizhou · 613 Brigade', 'irbm', 'DF-21A', 1, 300, 2_100, 117.50, 30.70, 'documented', 'inferred', ''),
     ('cn', 'South China Sea patrol · Type 094', 'slbm', 'JL-3', 1, 250, 10_000, 112.0, 16.0, 'inferred', 'inferred', 'Six boats from Yulin, Hainan; the load and yield are inferred'),
+    ('cn', 'Neixiang · 106th Brigade', 'bomber', 'H-6N with CJ-20A', 6, 200, 5_000, 111.85, 33.05, 'documented', 'inferred', 'The air leg of the triad since 2020; a nuclear cruise missile is reported and its yield inferred'),
     # France
     ('fr', 'Atlantic patrol · Force océanique stratégique', 'slbm', 'M51.3 (Triomphant)', 4, 100, 9_000, -15.0, 50.0, 'inferred', 'reconstructed', 'TNO of about 100 kt, four to six per missile; the patrol area is a guess'),
     ('fr', 'Saint-Dizier · Escadron 1/4 Gascogne', 'bomber', 'Rafale with ASMPA-R', 1, 300, 2_500, 4.90, 48.64, 'documented', 'reconstructed', 'TNA of up to 300 kt; the aircraft carries the missile most of the way'),
@@ -83,6 +85,17 @@ SITES = [
     ('nk', 'Sinpo · Pukguksong boat', 'slbm', 'Pukguksong-3', 1, 100, 1_900, 128.20, 40.03, 'documented', 'inferred', 'One experimental boat; treated as if at sea off the port'),
 ]
 
+# Standoff by system: release distance km, carrier speed m/s, missile speed m/s. A standoff at the range means the launcher itself fires.
+STANDOFF = {
+    'B-52H with AGM-86B': (2_400, 250, 240),
+    'B-2A with B61-12': (60, 250, 200),
+    'Tu-160 with Kh-102': (3_000, 260, 230),
+    'Tu-95MS with Kh-102': (3_000, 200, 230),
+    'Rafale with ASMPA-R': (500, 290, 260),
+    'Popeye Turbo cruise missile': (1_500, 0, 240),
+    'H-6N with CJ-20A': (1_500, 220, 240),
+}
+
 POWERS = {
     'us': {'name': 'United States', 'adjective': 'American'},
     'ru': {'name': 'Russia', 'adjective': 'Russian'},
@@ -105,6 +118,7 @@ def main() -> int:
         sites.append({
             'id': f'{side}-{i + 1}', 'side': side, 'name': name, 'kind': kind, 'system': system, 'warheadsPerMissile': per, 'yieldKt': kt, 'rangeKm': rng,
             'lon': lon, 'lat': lat, 'positionEvidence': pos_ev, 'evidence': load_ev, 'note': note, 'source': NOTEBOOK,
+            **({'standoffKm': STANDOFF[system][0], 'carrierSpeedMs': STANDOFF[system][1], 'missileSpeedMs': STANDOFF[system][2]} if system in STANDOFF else {}),
         })
     out = {'date': '2025', 'note': 'Launch points for the atlas: one entry per system and place, not a count of the force. Bases are public; patrol areas are guesses; the loads and yields of the opaque arsenals are inferred, and Israel\'s is withheld.', 'powers': POWERS, 'sites': sites}
     args.out.parent.mkdir(parents=True, exist_ok=True)

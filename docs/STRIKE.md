@@ -14,6 +14,10 @@
 8. **The countdown** from ten, with hold, vector now, and stand down.
 9. **The study.** Surface burst by default so the plume is drawn, with the console saying doctrine would airburst a city and the readout can show it; further reading links to the 72 minutes, the fallout and accuracy labs, the chronicle and the sources.
 
+## Standoff air delivery
+
+The bombers and the submarine cruise systems in the forces file carry a standoff: how far short of the target their missiles are released, with the carrier's and the missile's speeds (B-52 with AGM-86B 2,400 km; Tu-160 and Tu-95 with Kh-102 3,000 km; Rafale with ASMPA-R 500 km; H-6N with CJ-20A 1,500 km; B-2 with B61-12 sixty; the Dolphin's Popeye at its full range, so the boat fires from where it sits). The engine flies the aircraft to the release point on the great circle, turns it for home, and sends each missile on from there to its own aim point; the console's flight time is the carrier leg plus the missile leg. Aircraft are set aside while a missile reaches unless the reader asks for the air leg with the *Delivery* control, and selecting one of the missiles or their detonations lights the whole load and marks the release point. Where it matters: places within a bomber's reach but outside a missile's, such as much of the southern hemisphere for Russia's Tu-160s; the theatre air legs, the Rafale over Europe; and, by choice, the classic Cold War air leg against any target.
+
 ## Honesty
 
 The adversary and the weapon are a heuristic and are printed as one, line by line, with the rule that produced each. Nothing here is a plan on record. The forces file is one entry per system and place, not a count; the file says so. No attrition, no defence, no warning.

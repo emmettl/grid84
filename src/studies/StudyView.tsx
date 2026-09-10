@@ -365,7 +365,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     if (missile && map) {
       const el = document.createElement('div')
       el.className = 'ev-focus-label'
-      el.textContent = `BUS SEPARATION · ${formatStudyTime(missile.separation.time)} · ${Math.round(missile.separation.altitude / 1000)} KM · ${missile.vehicles.length} RV`
+      el.textContent = missile.kind === 'aircraft' ? `RELEASE · ${formatStudyTime(missile.separation.time)} · ${missile.vehicles.length} MISSILE${missile.vehicles.length > 1 ? 'S' : ''}` : `BUS SEPARATION · ${formatStudyTime(missile.separation.time)} · ${Math.round(missile.separation.altitude / 1000)} KM · ${missile.vehicles.length} RV`
       focusMarker.current = new Marker({ element: el, anchor: 'left', offset: [10, 0] }).setLngLat([missile.separation.position[0], missile.separation.position[1]]).addTo(map)
     }
   }, [selectedId, study, missile, launch])
@@ -869,9 +869,9 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               )}
               {missile && (
                 <div className="delivered">
-                  <span className="clock-label">The whole missile</span>
+                  <span className="clock-label">{missile.kind === 'aircraft' ? 'The whole load' : 'The whole missile'}</span>
                   <p className="provenance-method">
-                    {missile.bus.name.split(' → ')[0]} · {missile.vehicles.length} reentry vehicles · bus separation at {formatStudyTime(missile.separation.time)}, {Math.round(missile.separation.altitude / 1000)} km up
+                    {missile.bus.name.split(' → ')[0]} · {missile.vehicles.length} {missile.kind === 'aircraft' ? 'cruise missiles · released at' : 'reentry vehicles · bus separation at'} {formatStudyTime(missile.separation.time)}{missile.kind === 'aircraft' ? '' : `, ${Math.round(missile.separation.altitude / 1000)} km up`}
                     {(() => {
                       const known = missile.effects.filter((x) => outcomes[x.id])
                       if (known.length === 0) return null
@@ -886,7 +886,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
                       return (
                         <li key={v.id} className={own ? 'is-own' : ''}>
                           <button type="button" onClick={() => setSelectedId(hit ? hit.id : v.id)}>
-                            RV {k + 1} → {v.name.split(' → ')[1] ?? v.name}
+                            {missile.kind === 'aircraft' ? 'Missile' : 'RV'} {k + 1} → {v.name.split(' → ')[1] ?? v.name}
                             {hit ? ` · ${formatStudyTime(hit.time)}${outcomes[hit.id] ? ` · ${fmt(outcomes[hit.id].fire.fatal)} dead` : ''}` : ' · no detonation recorded'}
                           </button>
                         </li>

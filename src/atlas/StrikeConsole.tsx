@@ -3,7 +3,7 @@ import { formatGrid } from '../geo/geodesy.ts'
 import type { Study } from '../studies/study.ts'
 import { POWER_IDS, POWERS, type Power } from './forces.ts'
 import { readProfile } from './profile.ts'
-import { planStrike, PROFILE_RINGS, type StrikePlan } from './solver.ts'
+import { planStrike, PROFILE_RINGS, type DeliveryPreference, type StrikePlan } from './solver.ts'
 import { buildStrikeStudy } from './strike-study.ts'
 import type { AtlasTarget } from './target.ts'
 import { fetchWindAloft } from './wind.ts'
@@ -39,6 +39,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { tar
   const [count, setCount] = useState(COUNTDOWN)
   const [override, setOverride] = useState<Power | null>(null)
   const [pickOpen, setPickOpen] = useState(false)
+  const [prefer, setPrefer] = useState<DeliveryPreference>('best')
   const heldRef = useRef(false)
   const skipRef = useRef(false)
   const started = useRef(performance.now())
@@ -84,7 +85,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { tar
       }
       say(`POPULATION · ${PROFILE_RINGS.map((r) => `${r / 1000} KM ${Math.round(profile.within[r]).toLocaleString('en-GB')}`).join(' · ')} · ${profile.gridName.toUpperCase()}`, 'calib', true)
       await sleep(CADENCE_MS)
-      const plan = planStrike(target, profile, override ?? undefined)
+      const plan = planStrike(target, profile, override ?? undefined, true, prefer)
       for (const line of plan.lines) {
         if (cancelled) return
         await waitWhileHeld()
@@ -121,7 +122,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { tar
       controller.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, override])
+  }, [target, override, prefer])
 
   const toggleHold = () => {
     heldRef.current = !heldRef.current
@@ -159,6 +160,27 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { tar
         <button type="button" onClick={onStandDown}>
           Stand down
         </button>
+      </div>
+      <div className="wopr-group strike-controls">
+        <span className="clock-label">Delivery</span>
+        {(['best', 'missile', 'aircraft'] as const).map((d) => (
+          <button
+            key={d}
+            type="button"
+            className={prefer === d ? 'is-active' : ''}
+            disabled={phase === 'launching'}
+            onClick={() => {
+              if (d === prefer) return
+              skipRef.current = false
+              heldRef.current = false
+              setHeld(false)
+              setLines([])
+              setPrefer(d)
+            }}
+          >
+            {d === 'best' ? 'As the rule says' : d === 'missile' ? 'Missile' : 'Aircraft standoff'}
+          </button>
+        ))}
       </div>
       <div className="wopr-group strike-controls">
         <button type="button" className="strike-pick" onClick={() => setPickOpen((o) => !o)} disabled={phase === 'launching'} aria-expanded={pickOpen}>

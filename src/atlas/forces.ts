@@ -14,6 +14,10 @@ export interface ForceSite {
   warheadsPerMissile: number
   yieldKt: number
   rangeKm: number
+  /** Air-delivered and submarine cruise systems: release this far short of the target; the carrier's and the missile's speeds. */
+  standoffKm?: number
+  carrierSpeedMs?: number
+  missileSpeedMs?: number
   position: LngLat
   positionEvidence: EvidenceTier
   evidence: EvidenceTier
@@ -23,7 +27,7 @@ export interface ForceSite {
 
 interface Raw {
   powers: Record<string, { name: string; adjective: string }>
-  sites: Array<Omit<ForceSite, 'position' | 'side' | 'kind' | 'positionEvidence' | 'evidence'> & { lon: number; lat: number; side: string; kind: string; positionEvidence: string; evidence: string }>
+  sites: Array<Omit<ForceSite, 'position' | 'side' | 'kind' | 'positionEvidence' | 'evidence'> & { lon: number; lat: number; side: string; kind: string; positionEvidence: string; evidence: string; standoffKm?: number; carrierSpeedMs?: number; missileSpeedMs?: number }>
 }
 
 const raw = forces as Raw
@@ -40,6 +44,9 @@ export const FORCES: ForceSite[] = raw.sites.map((s) => ({
   warheadsPerMissile: s.warheadsPerMissile,
   yieldKt: s.yieldKt,
   rangeKm: s.rangeKm,
+  standoffKm: s.standoffKm,
+  carrierSpeedMs: s.carrierSpeedMs,
+  missileSpeedMs: s.missileSpeedMs,
   position: [s.lon, s.lat],
   positionEvidence: s.positionEvidence as EvidenceTier,
   evidence: s.evidence as EvidenceTier,

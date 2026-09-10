@@ -25,6 +25,14 @@ export interface Launcher {
   reactionSeconds: number
   /** Ground speed for bombers, m/s; ballistic systems use the trajectory model. */
   speedMs?: number
+  /**
+   * Standoff delivery: the aircraft releases its weapons this far short of
+   * the target and turns for home, and the cruise missiles fly the rest at
+   * `missileSpeedMs`. A standoff beyond the range means the launcher itself
+   * fires the missiles, as a submarine does.
+   */
+  standoffMetres?: number
+  missileSpeedMs?: number
 }
 
 export interface Target {

@@ -80,6 +80,14 @@ export interface DeliveryOption {
 
 const CRUISE_SPEED_MS = 240
 
+/** Time from launch to the target for an air-delivered weapon: the carrier to its release point, the missile the rest. */
+export function cruiseFlightSeconds(site: ForceSite, distanceMetres: number): number {
+  const standoff = (site.standoffKm ?? 0) * 1_000
+  const leg = Math.max(0, distanceMetres - standoff)
+  const carrier = site.carrierSpeedMs && site.carrierSpeedMs > 0 ? site.carrierSpeedMs : CRUISE_SPEED_MS
+  return leg / carrier + (distanceMetres - leg) / (site.missileSpeedMs ?? CRUISE_SPEED_MS)
+}
+
 export function deliveryOptions(power: Power, position: LngLat): DeliveryOption[] {
   const out: DeliveryOption[] = []
   for (const site of FORCES) {
@@ -87,7 +95,7 @@ export function deliveryOptions(power: Power, position: LngLat): DeliveryOption[
     const distanceMetres = haversineMetres(site.position, position)
     const inRange = distanceMetres <= site.rangeKm * 1_000
     const route = site.kind === 'bomber' ? 'cruise' : 'ballistic'
-    const flightSeconds = route === 'cruise' ? distanceMetres / CRUISE_SPEED_MS : minimumEnergyTrajectory(site.position, position).flightSeconds
+    const flightSeconds = route === 'cruise' ? cruiseFlightSeconds(site, distanceMetres) : minimumEnergyTrajectory(site.position, position).flightSeconds
     out.push({ site, distanceMetres, flightSeconds, route, inRange })
   }
   // In range first, ballistic before cruise, then the shortest flight.
@@ -155,7 +163,9 @@ export interface StrikePlan {
 const fmtKm = (m: number) => `${Math.round(m / 1000).toLocaleString('en-GB')} KM`
 const fmtMin = (s: number) => (s >= 3600 ? `${(s / 3600).toFixed(1)} H` : `${Math.round(s / 60)} MIN`)
 
-export function planStrike(target: AtlasTarget, profile: Profile, override?: Power, wantFallout = true): StrikePlan | { failure: string; lines: string[] } {
+export type DeliveryPreference = 'best' | 'missile' | 'aircraft'
+
+export function planStrike(target: AtlasTarget, profile: Profile, override?: Power, wantFallout = true, prefer: DeliveryPreference = 'best'): StrikePlan | { failure: string; lines: string[] } {
   const lines: string[] = []
   const classification = classify(target, profile)
   lines.push(`TARGET IDENTIFIED · ${classification.category} · ${classification.reason}`)
@@ -168,14 +178,24 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
     const nearest = options[0]
     return { failure: `NO ${POWERS[adversary.power].name.toUpperCase()} SYSTEM REACHES ${target.name.toUpperCase()}${nearest ? ` · NEAREST ${nearest.site.system.toUpperCase()} AT ${fmtKm(nearest.distanceMetres)} AGAINST A RANGE OF ${fmtKm(nearest.site.rangeKm * 1000)}` : ''}`, lines }
   }
-  // Missiles before aircraft: a bomber's ten hours are the option of last resort.
+  // Missiles before aircraft unless the reader asks for the air leg: a bomber's hours are otherwise the option of last resort.
   const missiles = reachable.filter((o) => o.route === 'ballistic')
-  const pool = missiles.length > 0 ? missiles : reachable
-  if (missiles.length > 0 && missiles.length < reachable.length) lines.push(`${reachable.length - missiles.length} AIRCRAFT AND CRUISE OPTION${reachable.length - missiles.length > 1 ? 'S' : ''} SET ASIDE WHILE A MISSILE REACHES`)
+  const aircraft = reachable.filter((o) => o.route === 'cruise')
+  let pool = reachable
+  if (prefer === 'aircraft' && aircraft.length > 0) {
+    pool = aircraft
+    lines.push(`AIR DELIVERY ASKED FOR · ${aircraft.length} STANDOFF OPTION${aircraft.length > 1 ? 'S' : ''} IN RANGE`)
+  } else if (prefer === 'aircraft') {
+    lines.push('AIR DELIVERY ASKED FOR · NONE IN RANGE · MISSILES CONSIDERED')
+    pool = missiles.length > 0 ? missiles : reachable
+  } else if (missiles.length > 0) {
+    pool = missiles
+    if (missiles.length < reachable.length) lines.push(`${reachable.length - missiles.length} AIRCRAFT AND CRUISE OPTION${reachable.length - missiles.length > 1 ? 'S' : ''} SET ASIDE WHILE A MISSILE REACHES`)
+  }
   // Sized for effect: each option's load against the area, then the shortest flight among those that cover it best.
   const scored = pool.map((o) => ({ o, coverage: coverageOf(classification, o.site, wantFallout) }))
   const bestCoverage = Math.max(...scored.map((x) => x.coverage))
-  for (const { o, coverage } of scored.slice(0, 5)) lines.push(`DELIVERY OPTION · ${o.site.system.toUpperCase()} · ${o.site.name.toUpperCase()} · ${fmtKm(o.distanceMetres)} · ${fmtMin(o.flightSeconds)} · ${o.site.warheadsPerMissile} × ${o.site.yieldKt} KT${classification.countervalue && classification.urbanRadiusMetres > 0 ? ` · COVERS ${Math.round(coverage * 100)}% OF THE AREA` : ''}`)
+  for (const { o, coverage } of scored.slice(0, 5)) lines.push(`DELIVERY OPTION · ${o.site.system.toUpperCase()} · ${o.site.name.toUpperCase()} · ${fmtKm(o.distanceMetres)} · ${fmtMin(o.flightSeconds)}${o.route === 'cruise' && o.site.standoffKm ? ` · RELEASE ${fmtKm(Math.min(o.distanceMetres, o.site.standoffKm * 1000))} OUT` : ''} · ${o.site.warheadsPerMissile} × ${o.site.yieldKt} KT${classification.countervalue && classification.urbanRadiusMetres > 0 ? ` · COVERS ${Math.round(coverage * 100)}% OF THE AREA` : ''}`)
   const delivery = scored.filter((x) => x.coverage >= bestCoverage - 1e-9).sort((a, b) => a.o.flightSeconds - b.o.flightSeconds)[0].o
   lines.push(`SELECTED · ${delivery.site.system.toUpperCase()} FROM ${delivery.site.name.toUpperCase()} · ${classification.countervalue && classification.urbanRadiusMetres > 0 ? `THE LOAD THAT COVERS MOST OF THE AREA (${Math.round(bestCoverage * 100)}%), THEN THE SHORTEST FLIGHT` : 'THE SHORTEST FLIGHT IN RANGE'} · ${fmtMin(delivery.flightSeconds)}`)
   const sizing = sizeWeapon(classification, delivery.site, target.position, wantFallout)
