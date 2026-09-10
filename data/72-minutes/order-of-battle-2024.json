@@ -1,0 +1,1153 @@
+{
+ "date": "2024",
+ "rules": {
+  "minuteman": {
+   "missiles": 400,
+   "warheadsPerMissile": 1,
+   "note": "One warhead per missile under New START; W87 at Warren, W78 at Malmstrom and Minot, the split reconstructed"
+  },
+  "trident": {
+   "boats": 14,
+   "operational": 12,
+   "atSea": 8,
+   "tubes": 20,
+   "warheadsPerMissile": 4,
+   "yieldKt": 90,
+   "w88Kt": 455
+  },
+  "usBombers": {
+   "aircraft": 66,
+   "alert": 0.0
+  },
+  "gmd": {
+   "interceptors": 44,
+   "testHits": 12,
+   "tests": 21,
+   "salvo": 4,
+   "note": "Four interceptors per incoming warhead is the stated doctrine; the 97 per cent it claims assumes independent shots"
+  },
+  "ruIcbm": {
+   "launchers": 324,
+   "warheads": 1092,
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)"
+  },
+  "ruSsbn": {
+   "boats": 12,
+   "atSea": 3
+  },
+  "ruBombers": {
+   "aircraft": 58,
+   "alert": 0.0
+  },
+  "nk": {
+   "icbmLaunchers": 17,
+   "warheads": 50,
+   "yieldKt": 250,
+   "note": "The 2017 test yield stands for the warhead; the book's one megaton is a scenario choice"
+  },
+  "deployedStrategic": {
+   "us": 1670,
+   "ru": 1796,
+   "source": "Federation of American Scientists, Status of World Nuclear Forces (2025 update)"
+  }
+ },
+ "sites": [
+  {
+   "side": "us",
+   "name": "F. E. Warren AFB · 90th Missile Wing",
+   "kind": "icbm",
+   "missiles": 134,
+   "weapons": 134,
+   "squadrons": [
+    {
+     "missiles": 134,
+     "version": "Minuteman III · W87",
+     "warheads": 1,
+     "yieldKt": 300
+    }
+   ],
+   "note": "Three squadrons (319th, 320th, 321st) in fifteen alert facilities over south-east Wyoming, Nebraska and Colorado; drawn at the base",
+   "evidence": "documented",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, LGM-30 Minuteman",
+   "id": "warren-90",
+   "lon": -104.8633,
+   "lat": 41.1659,
+   "geocoded": "Francis E. Warren Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Minot AFB · 91st Missile Wing",
+   "kind": "icbm",
+   "missiles": 133,
+   "weapons": 133,
+   "squadrons": [
+    {
+     "missiles": 133,
+     "version": "Minuteman III · W78",
+     "warheads": 1,
+     "yieldKt": 335
+    }
+   ],
+   "note": "Three squadrons (740th, 741st, 742nd) north and west of Minot; drawn at the base",
+   "evidence": "documented",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, LGM-30 Minuteman",
+   "id": "minot-91",
+   "lon": -101.3372,
+   "lat": 48.42,
+   "geocoded": "Minot Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Malmstrom AFB · 341st Missile Wing",
+   "kind": "icbm",
+   "missiles": 133,
+   "weapons": 133,
+   "squadrons": [
+    {
+     "missiles": 133,
+     "version": "Minuteman III · W78",
+     "warheads": 1,
+     "yieldKt": 335
+    }
+   ],
+   "note": "Three squadrons (10th, 12th, 490th) over central Montana; drawn at the base",
+   "evidence": "documented",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, LGM-30 Minuteman",
+   "id": "malmstrom-341",
+   "lon": -111.1785,
+   "lat": 47.5049,
+   "geocoded": "Malmstrom Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Trident patrol · Gulf of Alaska",
+   "kind": "slbm",
+   "boats": 3,
+   "missiles": 60,
+   "weapons": 240,
+   "weaponsPerVehicle": 4,
+   "yieldKt": 90,
+   "note": "Boats from Bangor. At-sea numbers and areas are inferred; the loading of four W76-1 per missile is the fleet average",
+   "evidence": "inferred",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook)",
+   "id": "ssbn-pacific-north",
+   "lon": -150.0,
+   "lat": 52.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Trident patrol · north-west Pacific",
+   "kind": "slbm",
+   "boats": 2,
+   "missiles": 40,
+   "weapons": 160,
+   "weaponsPerVehicle": 4,
+   "yieldKt": 90,
+   "note": "Boats from Bangor, forward in the western Pacific; the book's USS Nebraska stands here. At-sea numbers and areas are inferred; the loading of four W76-1 per missile is the fleet average",
+   "evidence": "inferred",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook)",
+   "id": "ssbn-pacific-west",
+   "lon": 170.0,
+   "lat": 40.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Trident patrol · North Atlantic",
+   "kind": "slbm",
+   "boats": 3,
+   "missiles": 60,
+   "weapons": 240,
+   "weaponsPerVehicle": 4,
+   "yieldKt": 90,
+   "note": "Boats from Kings Bay. At-sea numbers and areas are inferred; the loading of four W76-1 per missile is the fleet average",
+   "evidence": "inferred",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook)",
+   "id": "ssbn-atlantic",
+   "lon": -45.0,
+   "lat": 42.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Naval Base Kitsap · Bangor",
+   "kind": "slbm-port",
+   "boats": 3,
+   "missiles": 60,
+   "weapons": 240,
+   "weaponsPerVehicle": 4,
+   "yieldKt": 90,
+   "note": "Boats in port or refit; the split is reconstructed from eight at Bangor and six at Kings Bay less those at sea",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook)",
+   "id": "bangor",
+   "lon": -122.7192,
+   "lat": 47.7255,
+   "geocoded": "Naval Base Kitsap - Bangor",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Naval Submarine Base Kings Bay",
+   "kind": "slbm-port",
+   "boats": 3,
+   "missiles": 60,
+   "weapons": 240,
+   "weaponsPerVehicle": 4,
+   "yieldKt": 90,
+   "note": "Boats in port or refit; the split is reconstructed from eight at Bangor and six at Kings Bay less those at sea",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook)",
+   "id": "kings-bay",
+   "lon": -81.5399,
+   "lat": 30.7926,
+   "geocoded": "Naval Submarine Base Kings Bay",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Minot AFB · 5th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 23,
+   "weaponsPerAircraft": 20,
+   "yieldKt": 150,
+   "alert": 0.0,
+   "note": "Twenty AGM-86B cruise missiles of the W80-1 at up to 150 kt. No bomber alert since 1991; generation takes hours to days",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, List of B-52 units; 509th Bomb Wing",
+   "id": "minot-5",
+   "lon": -101.3372,
+   "lat": 48.42,
+   "geocoded": "Minot Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Barksdale AFB · 2nd Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 23,
+   "weaponsPerAircraft": 20,
+   "yieldKt": 150,
+   "alert": 0.0,
+   "note": "Twenty AGM-86B cruise missiles of the W80-1 at up to 150 kt. No bomber alert since 1991; generation takes hours to days",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, List of B-52 units; 509th Bomb Wing",
+   "id": "barksdale-2",
+   "lon": -93.6108,
+   "lat": 32.4975,
+   "geocoded": "Barksdale Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Whiteman AFB · 509th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-2A",
+   "aircraft": 20,
+   "weaponsPerAircraft": 16,
+   "yieldKt": 50,
+   "alert": 0.0,
+   "note": "Sixteen B61-12 gravity bombs at up to 50 kt; the B83 is being retired. No bomber alert since 1991; generation takes hours to days",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"United States nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, List of B-52 units; 509th Bomb Wing",
+   "id": "whiteman-509",
+   "lon": -93.5545,
+   "lat": 38.7303,
+   "geocoded": "Whiteman Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Fort Greely · Missile Defense Complex",
+   "kind": "interceptor",
+   "interceptors": 40,
+   "testRecord": {
+    "hits": 12,
+    "tests": 21
+   },
+   "note": "40 ground-based interceptors; 12 hits in 21 intercept tests through December 2023",
+   "evidence": "documented",
+   "source": "Missile Defense Agency; Wikipedia, Ground-Based Midcourse Defense",
+   "id": "fort-greely",
+   "lon": -145.73,
+   "lat": 63.97,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Vandenberg SFB · interceptor silos",
+   "kind": "interceptor",
+   "interceptors": 4,
+   "testRecord": {
+    "hits": 12,
+    "tests": 21
+   },
+   "note": "4 ground-based interceptors; 12 hits in 21 intercept tests through December 2023",
+   "evidence": "documented",
+   "source": "Missile Defense Agency; Wikipedia, Ground-Based Midcourse Defense",
+   "id": "vandenberg-gbi",
+   "lon": -120.5447,
+   "lat": 34.7088,
+   "geocoded": "Vandenberg Space Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Buckley SFB · SBIRS ground station",
+   "kind": "sensor",
+   "note": "Overhead infrared; the satellites themselves are not placed",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "buckley",
+   "lon": -104.756,
+   "lat": 39.7027,
+   "geocoded": "Buckley Space Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Beale AFB · upgraded early warning radar",
+   "kind": "sensor",
+   "note": "PAVE PAWS, facing the Pacific",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "beale",
+   "lon": -121.3801,
+   "lat": 39.1229,
+   "geocoded": "Beale Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Clear SFS · upgraded early warning radar",
+   "kind": "sensor",
+   "note": "Facing the polar approaches",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "clear",
+   "lon": -149.1783,
+   "lat": 64.2881,
+   "geocoded": "Clear Space Force Station",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Cape Cod SFS · upgraded early warning radar",
+   "kind": "sensor",
+   "note": "Facing the Atlantic",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "cape-cod",
+   "lon": -70.5463,
+   "lat": 41.7598,
+   "geocoded": "Cape Cod Space Force Station",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "RAF Fylingdales · upgraded early warning radar",
+   "kind": "sensor",
+   "note": "Facing the polar approaches from the east",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "fylingdales",
+   "lon": -0.67,
+   "lat": 54.36,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Pituffik SB · upgraded early warning radar",
+   "kind": "sensor",
+   "note": "Thule; the polar approaches",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "pituffik",
+   "lon": -68.3,
+   "lat": 76.57,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Shemya · Cobra Dane radar",
+   "kind": "sensor",
+   "note": "Aleutians; the north-west Pacific approaches",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "cobra-dane",
+   "lon": 174.09,
+   "lat": 52.74,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Shariki · AN/TPY-2 forward radar",
+   "kind": "sensor",
+   "note": "Forward X-band radar in northern Japan",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "shariki",
+   "lon": 140.58,
+   "lat": 40.9,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Kyogamisaki · AN/TPY-2 forward radar",
+   "kind": "sensor",
+   "note": "Forward X-band radar on the Sea of Japan",
+   "evidence": "documented",
+   "source": "Wikipedia, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System",
+   "id": "kyogamisaki",
+   "lon": 135.1,
+   "lat": 35.77,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "SBX-1 · sea-based X-band radar",
+   "kind": "sensor",
+   "note": "Home port Pearl Harbor, formerly Adak; the mid-Pacific station is inferred",
+   "evidence": "documented",
+   "source": "Wikipedia, Sea-Based X-Band Radar",
+   "id": "sbx-1",
+   "lon": -165.0,
+   "lat": 40.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "The Pentagon · National Military Command Center",
+   "kind": "command",
+   "note": "The book's ground zero",
+   "evidence": "documented",
+   "source": "Wikipedia",
+   "id": "pentagon",
+   "lon": -77.0553,
+   "lat": 38.8733,
+   "geocoded": "The Pentagon",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Offutt AFB · US Strategic Command",
+   "kind": "command",
+   "note": "The commander who executes",
+   "evidence": "documented",
+   "source": "Wikipedia",
+   "id": "offutt",
+   "lon": -95.9101,
+   "lat": 41.1184,
+   "geocoded": "Offutt Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Cheyenne Mountain · NORAD alternate command center",
+   "kind": "command",
+   "note": "NORAD and NORTHCOM assess",
+   "evidence": "documented",
+   "source": "Wikipedia",
+   "id": "cheyenne-mountain",
+   "lon": -104.85,
+   "lat": 38.74,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Raven Rock Mountain Complex",
+   "kind": "command",
+   "note": "The alternate joint communications center",
+   "evidence": "documented",
+   "source": "Wikipedia",
+   "id": "raven-rock",
+   "lon": -77.42,
+   "lat": 39.73,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Tatishchevo · 60th Rocket Division",
+   "kind": "icbm",
+   "missiles": 50,
+   "weapons": 50,
+   "squadrons": [
+    {
+     "missiles": 50,
+     "version": "Topol-M silo",
+     "warheads": 1,
+     "yieldKt": 800
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "tatishchevo",
+   "lon": 45.5947,
+   "lat": 51.6726,
+   "geocoded": "Tatishchevo",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "ru",
+   "name": "Kozelsk · 28th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 72,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "Yars silo",
+     "warheads": 3,
+     "yieldKt": 150
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "kozelsk",
+   "lon": 35.7926,
+   "lat": 54.0356,
+   "geocoded": "Kozelsk",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "ru",
+   "name": "Teykovo · 54th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 36,
+   "weapons": 72,
+   "squadrons": [
+    {
+     "missiles": 18,
+     "version": "Topol-M mobile",
+     "warheads": 1,
+     "yieldKt": 800
+    },
+    {
+     "missiles": 18,
+     "version": "Yars mobile",
+     "warheads": 3,
+     "yieldKt": 150
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "teykovo",
+   "lon": 40.5406,
+   "lat": 56.8555,
+   "geocoded": "Teykovo",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "ru",
+   "name": "Yoshkar-Ola · 14th Rocket Division",
+   "kind": "icbm",
+   "missiles": 27,
+   "weapons": 81,
+   "squadrons": [
+    {
+     "missiles": 27,
+     "version": "Yars mobile",
+     "warheads": 3,
+     "yieldKt": 150
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "yoshkar-ola",
+   "lon": 47.8869,
+   "lat": 56.6316,
+   "geocoded": "Yoshkar-Ola",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "ru",
+   "name": "Vypolzovo · 7th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 27,
+   "weapons": 81,
+   "squadrons": [
+    {
+     "missiles": 27,
+     "version": "Yars mobile",
+     "warheads": 3,
+     "yieldKt": 150
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "vypolzovo",
+   "lon": 33.8,
+   "lat": 57.85,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Nizhny Tagil · 42nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 27,
+   "weapons": 81,
+   "squadrons": [
+    {
+     "missiles": 27,
+     "version": "Yars mobile",
+     "warheads": 3,
+     "yieldKt": 150
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "nizhny-tagil",
+   "lon": 60.55,
+   "lat": 58.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Novosibirsk · 39th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 27,
+   "weapons": 81,
+   "squadrons": [
+    {
+     "missiles": 27,
+     "version": "Yars mobile",
+     "warheads": 3,
+     "yieldKt": 150
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "novosibirsk",
+   "lon": 83.02,
+   "lat": 55.18,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Irkutsk · 29th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 27,
+   "weapons": 81,
+   "squadrons": [
+    {
+     "missiles": 27,
+     "version": "Yars mobile",
+     "warheads": 3,
+     "yieldKt": 150
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "irkutsk",
+   "lon": 104.2798,
+   "lat": 52.2891,
+   "geocoded": "Irkutsk",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "ru",
+   "name": "Barnaul · 35th Rocket Division",
+   "kind": "icbm",
+   "missiles": 27,
+   "weapons": 81,
+   "squadrons": [
+    {
+     "missiles": 27,
+     "version": "Yars mobile",
+     "warheads": 3,
+     "yieldKt": 150
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "barnaul",
+   "lon": 83.62,
+   "lat": 53.28,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Dombarovsky · 13th Rocket Division",
+   "kind": "icbm",
+   "missiles": 32,
+   "weapons": 212,
+   "squadrons": [
+    {
+     "missiles": 20,
+     "version": "R-36M2",
+     "warheads": 10,
+     "yieldKt": 800
+    },
+    {
+     "missiles": 12,
+     "version": "UR-100NUTTH Avangard",
+     "warheads": 1,
+     "yieldKt": 800
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "dombarovsky",
+   "lon": 59.53,
+   "lat": 50.76,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Uzhur · 62nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 20,
+   "weapons": 200,
+   "squadrons": [
+    {
+     "missiles": 20,
+     "version": "R-36M2",
+     "warheads": 10,
+     "yieldKt": 800
+    }
+   ],
+   "note": "Launchers per division are the Nuclear Notebook's per-type totals spread over the divisions that field the type; warheads per missile and yields are the Notebook's estimates (Yars three to four of about 100 to 300 kt, R-36M2 ten of about 800 kt, Topol-M one of 800 kt, Avangard one glide vehicle of uncertain yield drawn at 800 kt)",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Strategic Rocket Forces",
+   "id": "uzhur",
+   "lon": 89.83,
+   "lat": 55.3,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Borei and Delta IV patrol · Barents Sea bastion",
+   "kind": "slbm",
+   "boats": 2,
+   "missiles": 32,
+   "weapons": 160,
+   "weaponsPerVehicle": 5,
+   "yieldKt": 100,
+   "note": "Boats from Gadzhiyevo. One or two boats at sea at a time in the bastions; inferred",
+   "evidence": "inferred",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook)",
+   "id": "ru-ssbn-barents",
+   "lon": 38.0,
+   "lat": 73.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Borei patrol · Sea of Okhotsk bastion",
+   "kind": "slbm",
+   "boats": 1,
+   "missiles": 16,
+   "weapons": 96,
+   "weaponsPerVehicle": 6,
+   "yieldKt": 100,
+   "note": "Boats from Vilyuchinsk. One or two boats at sea at a time in the bastions; inferred",
+   "evidence": "inferred",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook)",
+   "id": "ru-ssbn-okhotsk",
+   "lon": 150.0,
+   "lat": 54.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Gadzhiyevo · Northern Fleet",
+   "kind": "slbm-port",
+   "boats": 5,
+   "missiles": 80,
+   "weapons": 400,
+   "weaponsPerVehicle": 5,
+   "yieldKt": 100,
+   "note": "Boats in port; the book has them launching from there, which Russia's boats can",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Borei-class submarine; Delta-class submarine",
+   "id": "gadzhiyevo",
+   "lon": 33.33,
+   "lat": 69.25,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Vilyuchinsk · Pacific Fleet",
+   "kind": "slbm-port",
+   "boats": 4,
+   "missiles": 64,
+   "weapons": 384,
+   "weaponsPerVehicle": 6,
+   "yieldKt": 100,
+   "note": "Boats in port; the book has them launching from there, which Russia's boats can",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Borei-class submarine; Delta-class submarine",
+   "id": "vilyuchinsk",
+   "lon": 158.4,
+   "lat": 52.93,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Engels-2 · 22nd Guards Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-160 / Tu-95MS",
+   "aircraft": 32,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 250,
+   "alert": 0.0,
+   "note": "Kh-102 cruise missiles; eight per Tu-95MS, twelve per Tu-160, drawn as eight",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Russian Long Range Aviation",
+   "id": "engels",
+   "lon": 46.2,
+   "lat": 51.48,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Ukrainka · 326th Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95MS",
+   "aircraft": 26,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 250,
+   "alert": 0.0,
+   "note": "Kh-102 cruise missiles",
+   "evidence": "reconstructed",
+   "source": "Kristensen, Korda, Johns and Knight, \"Russian nuclear weapons, 2024,\" Bulletin of the Atomic Scientists (Nuclear Notebook); Wikipedia, Russian Long Range Aviation",
+   "id": "ukrainka",
+   "lon": 124.24,
+   "lat": 51.17,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Serpukhov-15 · western satellite ground station",
+   "kind": "sensor",
+   "note": "The 1983 false alarm's station; the book's commander reports from here",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "serpukhov-15",
+   "lon": 36.83,
+   "lat": 54.85,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Pivan-1 · eastern satellite ground station",
+   "kind": "sensor",
+   "note": "Eastern control of the EKS satellites",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "pivan-1",
+   "lon": 137.05,
+   "lat": 50.53,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Lekhtusi · Voronezh-M radar",
+   "kind": "sensor",
+   "note": "North-west",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "lekhtusi",
+   "lon": 30.55,
+   "lat": 60.28,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Olenegorsk · Dnestr/Voronezh radar",
+   "kind": "sensor",
+   "note": "North",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "olenegorsk",
+   "lon": 33.17,
+   "lat": 68.11,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Pechora · Daryal radar",
+   "kind": "sensor",
+   "note": "North",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "pechora",
+   "lon": 57.29,
+   "lat": 65.21,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Vorkuta · Voronezh radar",
+   "kind": "sensor",
+   "note": "North, under construction into the 2020s",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "vorkuta",
+   "lon": 64.08,
+   "lat": 67.5,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Armavir · Voronezh-DM radar",
+   "kind": "sensor",
+   "note": "South-west",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "armavir",
+   "lon": 40.98,
+   "lat": 44.92,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Pionersky · Voronezh-DM radar",
+   "kind": "sensor",
+   "note": "West",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "pionersky",
+   "lon": 20.17,
+   "lat": 54.86,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Orsk · Voronezh-M radar",
+   "kind": "sensor",
+   "note": "South",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "orsk",
+   "lon": 58.35,
+   "lat": 51.2,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Barnaul · Voronezh-DM radar",
+   "kind": "sensor",
+   "note": "South-east",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "barnaul-radar",
+   "lon": 83.55,
+   "lat": 53.3,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Yeniseysk · Voronezh-DM radar",
+   "kind": "sensor",
+   "note": "North-east",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "yeniseysk",
+   "lon": 92.1,
+   "lat": 58.4,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Mishelevka · Voronezh-M radar",
+   "kind": "sensor",
+   "note": "East",
+   "evidence": "documented",
+   "source": "Wikipedia, Main Centre for Missile Attack Warning; Voronezh radar",
+   "id": "mishelevka",
+   "lon": 103.27,
+   "lat": 52.86,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "ru",
+   "name": "Moscow · General Staff",
+   "kind": "command",
+   "note": "The Russian president and the General Staff; the book's unanswered line",
+   "evidence": "documented",
+   "source": "Wikipedia",
+   "id": "moscow-genstaff",
+   "lon": 37.6181,
+   "lat": 55.7516,
+   "geocoded": "Moscow Kremlin",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "nk",
+   "name": "Sunan · Pyongyang International Airport",
+   "kind": "icbm",
+   "missiles": 8,
+   "weapons": 8,
+   "squadrons": [
+    {
+     "missiles": 8,
+     "version": "Hwasong-17 / 15 / 18",
+     "warheads": 1,
+     "yieldKt": 250
+    }
+   ],
+   "note": "The Hwasong-17 test launches of 2022 and 2023. 17 launchers in all, spread by the sites the tests have used; about 50 warheads for every system",
+   "evidence": "reconstructed",
+   "source": "SIPRI Yearbook 2024, world nuclear forces; Federation of American Scientists, Status of World Nuclear Forces (2025 update); Wikipedia, Hwasong-17",
+   "id": "sunan",
+   "lon": 125.67,
+   "lat": 39.22,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "nk",
+   "name": "Sil-li · missile support facility",
+   "kind": "icbm",
+   "missiles": 5,
+   "weapons": 5,
+   "squadrons": [
+    {
+     "missiles": 5,
+     "version": "Hwasong-17 / 15 / 18",
+     "warheads": 1,
+     "yieldKt": 250
+    }
+   ],
+   "note": "The base identified near the airport in open-source imagery. 17 launchers in all, spread by the sites the tests have used; about 50 warheads for every system",
+   "evidence": "reconstructed",
+   "source": "SIPRI Yearbook 2024, world nuclear forces; Federation of American Scientists, Status of World Nuclear Forces (2025 update); Wikipedia, Hwasong-17",
+   "id": "sil-li",
+   "lon": 125.65,
+   "lat": 39.21,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "nk",
+   "name": "Sohae · satellite launching station",
+   "kind": "icbm",
+   "missiles": 2,
+   "weapons": 2,
+   "squadrons": [
+    {
+     "missiles": 2,
+     "version": "Hwasong-17 / 15 / 18",
+     "warheads": 1,
+     "yieldKt": 250
+    }
+   ],
+   "note": "The west coast station. 17 launchers in all, spread by the sites the tests have used; about 50 warheads for every system",
+   "evidence": "reconstructed",
+   "source": "SIPRI Yearbook 2024, world nuclear forces; Federation of American Scientists, Status of World Nuclear Forces (2025 update); Wikipedia, Hwasong-17",
+   "id": "sohae",
+   "lon": 124.71,
+   "lat": 39.66,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "nk",
+   "name": "Tonghae · Musudan-ri",
+   "kind": "icbm",
+   "missiles": 2,
+   "weapons": 2,
+   "squadrons": [
+    {
+     "missiles": 2,
+     "version": "Hwasong-17 / 15 / 18",
+     "warheads": 1,
+     "yieldKt": 250
+    }
+   ],
+   "note": "The east coast station. 17 launchers in all, spread by the sites the tests have used; about 50 warheads for every system",
+   "evidence": "reconstructed",
+   "source": "SIPRI Yearbook 2024, world nuclear forces; Federation of American Scientists, Status of World Nuclear Forces (2025 update); Wikipedia, Hwasong-17",
+   "id": "tonghae",
+   "lon": 129.67,
+   "lat": 40.86,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "nk",
+   "name": "Sinpo · South shipyard · Hero Kim Kun Ok",
+   "kind": "slbm-port",
+   "boats": 1,
+   "missiles": 2,
+   "weapons": 2,
+   "weaponsPerVehicle": 1,
+   "yieldKt": 250,
+   "rangeKm": 1900,
+   "note": "One boat, up to ten tubes claimed, Pukguksong-3 at about 1,900 km",
+   "evidence": "documented",
+   "source": "Wikipedia, Hero Kim Kun Ok; Pukguksong-3",
+   "id": "sinpo",
+   "lon": 128.19,
+   "lat": 40.03,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "nk",
+   "name": "Pyongyang · State Affairs Commission",
+   "kind": "command",
+   "note": "The leadership",
+   "evidence": "documented",
+   "source": "Wikipedia",
+   "id": "pyongyang",
+   "lon": 125.7526,
+   "lat": 39.0197,
+   "geocoded": "Pyongyang",
+   "positionEvidence": "reconstructed"
+  }
+ ]
+}

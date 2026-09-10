@@ -2,7 +2,7 @@
 
 **A modern scenario: one missile from the east, the decision clock, and the exchange that follows.** After Annie Jacobsen, *Nuclear War: A Scenario* (Dutton, 2024) and Kathryn Bigelow's *A House of Dynamite* (Netflix, 2025), with the present-day forces of the Federation of American Scientists' counts and the 2025 population grid.
 
-Brief, 10 September 2026. Not yet built.
+Brief, 10 September 2026. Built the same day; see below.
 
 ## Thesis
 
@@ -74,9 +74,23 @@ The Diablo Canyon strike raises a question the engine cannot answer: the book's 
 | The film's timeline | The film; reviews and the Pentagon exchange for the interceptor number | Have enough for the first act |
 | Nuclear winter | Toon, Robock and colleagues, 2019 and the book's Part V | Cited in the omissions, not modelled |
 
+## Built, 10 September 2026
+
+Routes: `#/study/72-minutes` (the film, as filmed), `/record` (the same missile with each interceptor drawn at the test record), `/claim` (at the agency's salvo claim, a hit), `/jacobsen` (the book's seventy-two minutes). Code in `src/studies/minutes72/scenario.ts`; forces from `scripts/build-order-of-battle-2024.py` (63 sites, three countries, the interceptor and early-warning sites included); urban targets from the HYDE 2023 grid by `scripts/derive-urban-targets.py` (300 American, 300 Russian, 40 North Korean cells); the book's and the film's minute marks in `data/72-minutes/scenario.json`; a coarse hand-traced outline of Russia in `data/72-minutes/russia-outline.json` for the overflight test. The sixth marking was not added: scenario events draw as inferred with the book named, and the log tags them `SCENARIO`. Population is GHSL 2025 from the bucket.
+
+What the arithmetic says, before the outcome sums:
+
+- **The film's clock.** A minimum-energy arc from the Sea of Japan to Chicago flies 31 minutes, so nineteen minutes on the radar puts the launch thirteen minutes before the film opens. Two interceptors from Fort Greely meet the arc over the Bering Sea about nine minutes after they leave. As filmed, one fails on the pad and one misses; at the test record two shots give 82 per cent, and the engine's draw decides; at the claim they hit and nothing arrives. The film never shows the warhead land; the study does, with the book's megaton borrowed and labelled.
+- **Four misses.** The book's four interceptors all miss. At twelve hits in twenty-one tests, four independent misses happen 3.4 per cent of the time. The book's turn rests on a three-in-a-hundred event, and the log says so at minute eight.
+- **The Pentagon** by the model's arc arrives at H+34:05 against the book's thirty-three minutes: the book's flight time is right.
+- **The overflight.** Of the 58 arcs the 82 warheads ride (50 Minuteman and eight Trident buses), 45 cross Russian territory by the coarse outline, the first ground track entering at H+39:30 over the Far East, fourteen minutes after the Minuteman launch and thirteen before the book's Russian president gives the order. This is the one part of the book's central turn that is plain geometry, and the study draws the crossing point with its hundred-kilometre uncertainty.
+- **The counts.** The rule puts the 82 warheads on 46 North Korean targets. Russia's counted force is 2,132 warheads on missiles; the rule finds 324 American targets for 1,114 of them and holds 1,018 back for want of a target, close to the book's "about a thousand" by accident of the target cap rather than by the book's reasoning. The American answer is 958 warheads on 328 Russian targets against the book's 975 aim points. The last American warhead lands at H+1:26, fourteen minutes after the book ends.
+
+The outcome sums on the 2025 grid, blast, fire and fallout in sequence, are on the readout of the Jacobsen act and are to be recorded here from a run with the page visible: the union flushes on the animation frame and does not advance in a hidden tab.
+
 ## Open questions
 
-- The sixth marking: draw scenario events as inferred with the book named, as proposed above, or add a tier. The proposal is to keep five.
+- The sixth marking was kept at five tiers; the log tags scenario events. Revisit if readers confuse the scenario lines with the record.
 - The yield over Chicago in the film is never stated. A choice must be made and shown; the book's one megaton is the obvious borrowing and the readout should say it is borrowed.
 - The Diablo Canyon reactor inventory: a bounded estimate from published source-term work could be added later as its own modelled entity; the first build leaves it out and says so.
 - The Russian misread depends on the ground track crossing Russian territory. The great circle from Montana to Pyongyang passes over Kamchatka and the Sea of Okhotsk; from Wyoming it grazes the Kurils. The study should draw the crossing points and time them, because that geometry is the one part of the book's central turn that is simply true.

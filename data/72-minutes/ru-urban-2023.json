@@ -1,0 +1,1509 @@
+{
+ "name": "Russian urban targets",
+ "year": 2023,
+ "rule": "The 300 most populous 5-arc-minute cells of the HYDE 3.3 2023 population grid inside the box 27.0, 41.0 to 180.0, 72.0, in descending order, skipping any cell within 40 km of one already taken; 2 boxes of neighbouring cities left out; cells south of the land border left out",
+ "evidence": "modelled",
+ "source": "Klein Goldewijk, K. (2023). History Database of the Global Environment 3.3 (CC BY-NC-SA 4.0)",
+ "targets": [
+  {
+   "lon": 50.2082,
+   "lat": 53.2083,
+   "population": 3142355
+  },
+  {
+   "lon": 92.9582,
+   "lat": 56.0416,
+   "population": 1670538
+  },
+  {
+   "lon": 86.0416,
+   "lat": 55.3749,
+   "population": 1642977
+  },
+  {
+   "lon": 49.2916,
+   "lat": 53.5416,
+   "population": 1489634
+  },
+  {
+   "lon": 87.1249,
+   "lat": 53.7916,
+   "population": 1311809
+  },
+  {
+   "lon": 91.4582,
+   "lat": 53.7083,
+   "population": 802935
+  },
+  {
+   "lon": 30.3749,
+   "lat": 59.9583,
+   "population": 582943
+  },
+  {
+   "lon": 95.7082,
+   "lat": 56.2083,
+   "population": 516297
+  },
+  {
+   "lon": 37.5416,
+   "lat": 55.7083,
+   "population": 466348
+  },
+  {
+   "lon": 88.0416,
+   "lat": 53.7083,
+   "population": 459396
+  },
+  {
+   "lon": 63.6249,
+   "lat": 53.2083,
+   "population": 451254
+  },
+  {
+   "lon": 49.7082,
+   "lat": 52.9583,
+   "population": 429575
+  },
+  {
+   "lon": 86.2916,
+   "lat": 54.4583,
+   "population": 392184
+  },
+  {
+   "lon": 48.4582,
+   "lat": 53.1249,
+   "population": 369782
+  },
+  {
+   "lon": 92.4582,
+   "lat": 58.2083,
+   "population": 350144
+  },
+  {
+   "lon": 93.5416,
+   "lat": 56.2083,
+   "population": 321740
+  },
+  {
+   "lon": 82.9582,
+   "lat": 55.0416,
+   "population": 319380
+  },
+  {
+   "lon": 89.2082,
+   "lat": 55.5416,
+   "population": 303870
+  },
+  {
+   "lon": 44.9582,
+   "lat": 53.2083,
+   "population": 302778
+  },
+  {
+   "lon": 60.6249,
+   "lat": 56.8749,
+   "population": 285775
+  },
+  {
+   "lon": 141.3749,
+   "lat": 43.0416,
+   "population": 281160
+  },
+  {
+   "lon": 90.4582,
+   "lat": 56.2916,
+   "population": 267274
+  },
+  {
+   "lon": 49.1249,
+   "lat": 55.7916,
+   "population": 255010
+  },
+  {
+   "lon": 73.3749,
+   "lat": 54.9583,
+   "population": 254173
+  },
+  {
+   "lon": 43.8749,
+   "lat": 56.2916,
+   "population": 247467
+  },
+  {
+   "lon": 84.8749,
+   "lat": 55.7083,
+   "population": 246422
+  },
+  {
+   "lon": 55.9582,
+   "lat": 54.7083,
+   "population": 230490
+  },
+  {
+   "lon": 61.3749,
+   "lat": 55.2083,
+   "population": 228673
+  },
+  {
+   "lon": 41.9582,
+   "lat": 45.0416,
+   "population": 225492
+  },
+  {
+   "lon": 86.0416,
+   "lat": 56.1249,
+   "population": 224927
+  },
+  {
+   "lon": 55.1249,
+   "lat": 51.7916,
+   "population": 221587
+  },
+  {
+   "lon": 63.1249,
+   "lat": 52.9583,
+   "population": 212211
+  },
+  {
+   "lon": 51.3749,
+   "lat": 53.3749,
+   "population": 210634
+  },
+  {
+   "lon": 104.2916,
+   "lat": 52.2916,
+   "population": 207415
+  },
+  {
+   "lon": 94.6249,
+   "lat": 56.1249,
+   "population": 200669
+  },
+  {
+   "lon": 52.1249,
+   "lat": 53.6249,
+   "population": 200269
+  },
+  {
+   "lon": 39.2916,
+   "lat": 48.5416,
+   "population": 199278
+  },
+  {
+   "lon": 83.7082,
+   "lat": 53.3749,
+   "population": 196163
+  },
+  {
+   "lon": 49.6249,
+   "lat": 58.6249,
+   "population": 193676
+  },
+  {
+   "lon": 37.6249,
+   "lat": 54.2083,
+   "population": 192806
+  },
+  {
+   "lon": 39.2082,
+   "lat": 51.7083,
+   "population": 190978
+  },
+  {
+   "lon": 39.8749,
+   "lat": 57.6249,
+   "population": 189560
+  },
+  {
+   "lon": 51.3749,
+   "lat": 51.2083,
+   "population": 187314
+  },
+  {
+   "lon": 32.0416,
+   "lat": 54.7916,
+   "population": 186334
+  },
+  {
+   "lon": 135.1249,
+   "lat": 48.4583,
+   "population": 185976
+  },
+  {
+   "lon": 46.0416,
+   "lat": 51.5416,
+   "population": 185754
+  },
+  {
+   "lon": 48.0416,
+   "lat": 46.3749,
+   "population": 179578
+  },
+  {
+   "lon": 53.2082,
+   "lat": 56.8749,
+   "population": 177950
+  },
+  {
+   "lon": 39.5416,
+   "lat": 52.6249,
+   "population": 172971
+  },
+  {
+   "lon": 47.2082,
+   "lat": 56.1249,
+   "population": 172554
+  },
+  {
+   "lon": 47.8749,
+   "lat": 56.6249,
+   "population": 169277
+  },
+  {
+   "lon": 35.8749,
+   "lat": 56.8749,
+   "population": 164880
+  },
+  {
+   "lon": 39.7082,
+   "lat": 54.6249,
+   "population": 162123
+  },
+  {
+   "lon": 45.2082,
+   "lat": 54.2083,
+   "population": 157808
+  },
+  {
+   "lon": 36.2916,
+   "lat": 54.5416,
+   "population": 156814
+  },
+  {
+   "lon": 40.5416,
+   "lat": 64.5416,
+   "population": 156596
+  },
+  {
+   "lon": 41.4582,
+   "lat": 52.7083,
+   "population": 155790
+  },
+  {
+   "lon": 48.2916,
+   "lat": 54.2916,
+   "population": 153302
+  },
+  {
+   "lon": 87.7082,
+   "lat": 56.2083,
+   "population": 151684
+  },
+  {
+   "lon": 127.5415,
+   "lat": 50.2916,
+   "population": 150395
+  },
+  {
+   "lon": 47.5416,
+   "lat": 42.9583,
+   "population": 150324
+  },
+  {
+   "lon": 86.6249,
+   "lat": 54.0416,
+   "population": 146627
+  },
+  {
+   "lon": 142.7082,
+   "lat": 46.9583,
+   "population": 145978
+  },
+  {
+   "lon": 113.4582,
+   "lat": 52.0416,
+   "population": 145171
+  },
+  {
+   "lon": 39.8749,
+   "lat": 59.2083,
+   "population": 142159
+  },
+  {
+   "lon": 84.9582,
+   "lat": 56.5416,
+   "population": 140382
+  },
+  {
+   "lon": 65.2916,
+   "lat": 55.4583,
+   "population": 139977
+  },
+  {
+   "lon": 44.4582,
+   "lat": 48.7083,
+   "population": 136517
+  },
+  {
+   "lon": 40.3749,
+   "lat": 56.1249,
+   "population": 136244
+  },
+  {
+   "lon": 87.8749,
+   "lat": 52.7916,
+   "population": 131043
+  },
+  {
+   "lon": 36.0416,
+   "lat": 52.9583,
+   "population": 130704
+  },
+  {
+   "lon": 39.7916,
+   "lat": 47.2083,
+   "population": 129372
+  },
+  {
+   "lon": 65.5416,
+   "lat": 57.1249,
+   "population": 128034
+  },
+  {
+   "lon": 55.9582,
+   "lat": 53.6249,
+   "population": 127318
+  },
+  {
+   "lon": 89.5416,
+   "lat": 56.2083,
+   "population": 126962
+  },
+  {
+   "lon": 129.7082,
+   "lat": 62.0416,
+   "population": 121736
+  },
+  {
+   "lon": 56.2082,
+   "lat": 57.9583,
+   "population": 121524
+  },
+  {
+   "lon": 142.3749,
+   "lat": 43.7916,
+   "population": 112329
+  },
+  {
+   "lon": 40.9582,
+   "lat": 57.0416,
+   "population": 112095
+  },
+  {
+   "lon": 31.2916,
+   "lat": 58.5416,
+   "population": 111958
+  },
+  {
+   "lon": 33.1249,
+   "lat": 68.9583,
+   "population": 110639
+  },
+  {
+   "lon": 158.6249,
+   "lat": 53.0416,
+   "population": 110250
+  },
+  {
+   "lon": 40.9582,
+   "lat": 57.7916,
+   "population": 109148
+  },
+  {
+   "lon": 34.2916,
+   "lat": 53.2916,
+   "population": 108398
+  },
+  {
+   "lon": 37.8749,
+   "lat": 59.1249,
+   "population": 107463
+  },
+  {
+   "lon": 36.6249,
+   "lat": 50.6249,
+   "population": 106085
+  },
+  {
+   "lon": 36.1249,
+   "lat": 51.7083,
+   "population": 106067
+  },
+  {
+   "lon": 47.7916,
+   "lat": 52.0416,
+   "population": 105729
+  },
+  {
+   "lon": 52.3749,
+   "lat": 55.7083,
+   "population": 104860
+  },
+  {
+   "lon": 107.6249,
+   "lat": 51.7916,
+   "population": 104519
+  },
+  {
+   "lon": 89.7916,
+   "lat": 55.2916,
+   "population": 103871
+  },
+  {
+   "lon": 76.5416,
+   "lat": 60.9583,
+   "population": 99320
+  },
+  {
+   "lon": 59.9582,
+   "lat": 57.9583,
+   "population": 97970
+  },
+  {
+   "lon": 101.6249,
+   "lat": 56.1249,
+   "population": 96515
+  },
+  {
+   "lon": 34.3749,
+   "lat": 61.7916,
+   "population": 95719
+  },
+  {
+   "lon": 44.7082,
+   "lat": 43.0416,
+   "population": 94031
+  },
+  {
+   "lon": 53.7082,
+   "lat": 63.5416,
+   "population": 92073
+  },
+  {
+   "lon": 43.0416,
+   "lat": 44.0416,
+   "population": 90889
+  },
+  {
+   "lon": 43.6249,
+   "lat": 43.4583,
+   "population": 89519
+  },
+  {
+   "lon": 41.2916,
+   "lat": 56.3749,
+   "population": 88995
+  },
+  {
+   "lon": 73.3749,
+   "lat": 61.2916,
+   "population": 88228
+  },
+  {
+   "lon": 41.1249,
+   "lat": 44.9583,
+   "population": 88107
+  },
+  {
+   "lon": 28.3749,
+   "lat": 57.7916,
+   "population": 87658
+  },
+  {
+   "lon": 137.0415,
+   "lat": 50.5416,
+   "population": 85958
+  },
+  {
+   "lon": 40.2082,
+   "lat": 47.7083,
+   "population": 85151
+  },
+  {
+   "lon": 58.9582,
+   "lat": 53.3749,
+   "population": 84969
+  },
+  {
+   "lon": 38.4582,
+   "lat": 55.7916,
+   "population": 84150
+  },
+  {
+   "lon": 49.6249,
+   "lat": 54.2083,
+   "population": 83257
+  },
+  {
+   "lon": 46.6249,
+   "lat": 53.1249,
+   "population": 81839
+  },
+  {
+   "lon": 50.7916,
+   "lat": 61.7083,
+   "population": 80097
+  },
+  {
+   "lon": 61.2082,
+   "lat": 52.2083,
+   "population": 78363
+  },
+  {
+   "lon": 42.0416,
+   "lat": 44.2083,
+   "population": 77729
+  },
+  {
+   "lon": 36.6249,
+   "lat": 55.1249,
+   "population": 77631
+  },
+  {
+   "lon": 41.9582,
+   "lat": 44.6249,
+   "population": 75665
+  },
+  {
+   "lon": 150.7915,
+   "lat": 59.5416,
+   "population": 70579
+  },
+  {
+   "lon": 42.0416,
+   "lat": 55.5416,
+   "population": 69451
+  },
+  {
+   "lon": 85.2082,
+   "lat": 52.5416,
+   "population": 68742
+  },
+  {
+   "lon": 42.1249,
+   "lat": 47.5416,
+   "population": 64221
+  },
+  {
+   "lon": 43.2916,
+   "lat": 54.9583,
+   "population": 63820
+  },
+  {
+   "lon": 94.4582,
+   "lat": 51.7083,
+   "population": 63381
+  },
+  {
+   "lon": 38.5416,
+   "lat": 52.6249,
+   "population": 63136
+  },
+  {
+   "lon": 37.8749,
+   "lat": 51.2916,
+   "population": 62424
+  },
+  {
+   "lon": 38.2916,
+   "lat": 54.0416,
+   "population": 61748
+  },
+  {
+   "lon": 56.7916,
+   "lat": 59.6249,
+   "population": 60943
+  },
+  {
+   "lon": 59.7082,
+   "lat": 55.2083,
+   "population": 60601
+  },
+  {
+   "lon": 61.9582,
+   "lat": 56.3749,
+   "population": 59770
+  },
+  {
+   "lon": 53.4582,
+   "lat": 54.4583,
+   "population": 58256
+  },
+  {
+   "lon": 53.7916,
+   "lat": 56.4583,
+   "population": 57723
+  },
+  {
+   "lon": 72.6249,
+   "lat": 61.1249,
+   "population": 57419
+  },
+  {
+   "lon": 38.8749,
+   "lat": 58.0416,
+   "population": 55763
+  },
+  {
+   "lon": 29.7916,
+   "lat": 62.6249,
+   "population": 55432
+  },
+  {
+   "lon": 48.2916,
+   "lat": 42.0416,
+   "population": 55008
+  },
+  {
+   "lon": 52.2916,
+   "lat": 54.8749,
+   "population": 52918
+  },
+  {
+   "lon": 44.2916,
+   "lat": 46.2916,
+   "population": 52549
+  },
+  {
+   "lon": 94.2916,
+   "lat": 55.7916,
+   "population": 52117
+  },
+  {
+   "lon": 94.7082,
+   "lat": 58.2083,
+   "population": 51858
+  },
+  {
+   "lon": 40.2916,
+   "lat": 48.2916,
+   "population": 51716
+  },
+  {
+   "lon": 62.4582,
+   "lat": 52.5416,
+   "population": 50267
+  },
+  {
+   "lon": 40.4582,
+   "lat": 52.8749,
+   "population": 50120
+  },
+  {
+   "lon": 56.9582,
+   "lat": 57.4583,
+   "population": 49436
+  },
+  {
+   "lon": 59.9582,
+   "lat": 56.8749,
+   "population": 49389
+  },
+  {
+   "lon": 52.7916,
+   "lat": 54.5416,
+   "population": 49191
+  },
+  {
+   "lon": 54.2916,
+   "lat": 56.1249,
+   "population": 48787
+  },
+  {
+   "lon": 35.3749,
+   "lat": 52.3749,
+   "population": 48635
+  },
+  {
+   "lon": 54.1249,
+   "lat": 56.7916,
+   "population": 48080
+  },
+  {
+   "lon": 143.8749,
+   "lat": 43.7916,
+   "population": 47481
+  },
+  {
+   "lon": 42.1249,
+   "lat": 57.4583,
+   "population": 47083
+  },
+  {
+   "lon": 44.5416,
+   "lat": 43.5416,
+   "population": 46768
+  },
+  {
+   "lon": 30.5416,
+   "lat": 56.3749,
+   "population": 46263
+  },
+  {
+   "lon": 91.3749,
+   "lat": 53.1249,
+   "population": 46209
+  },
+  {
+   "lon": 52.2916,
+   "lat": 52.7916,
+   "population": 45163
+  },
+  {
+   "lon": 143.2082,
+   "lat": 42.9583,
+   "population": 43928
+  },
+  {
+   "lon": 38.7082,
+   "lat": 56.3749,
+   "population": 42752
+  },
+  {
+   "lon": 40.1249,
+   "lat": 45.8749,
+   "population": 42248
+  },
+  {
+   "lon": 39.0416,
+   "lat": 55.3749,
+   "population": 42032
+  },
+  {
+   "lon": 40.5416,
+   "lat": 45.4583,
+   "population": 41465
+  },
+  {
+   "lon": 57.7916,
+   "lat": 58.1249,
+   "population": 41408
+  },
+  {
+   "lon": 52.6249,
+   "lat": 58.1249,
+   "population": 41104
+  },
+  {
+   "lon": 39.7082,
+   "lat": 48.2916,
+   "population": 40693
+  },
+  {
+   "lon": 92.7082,
+   "lat": 53.8749,
+   "population": 40666
+  },
+  {
+   "lon": 83.2916,
+   "lat": 54.6249,
+   "population": 40468
+  },
+  {
+   "lon": 37.8749,
+   "lat": 56.0416,
+   "population": 40127
+  },
+  {
+   "lon": 128.1249,
+   "lat": 51.3749,
+   "population": 40048
+  },
+  {
+   "lon": 85.6249,
+   "lat": 54.9583,
+   "population": 40034
+  },
+  {
+   "lon": 144.3749,
+   "lat": 43.0416,
+   "population": 39563
+  },
+  {
+   "lon": 60.7082,
+   "lat": 55.7916,
+   "population": 39457
+  },
+  {
+   "lon": 45.7082,
+   "lat": 43.2916,
+   "population": 39148
+  },
+  {
+   "lon": 76.7082,
+   "lat": 66.1249,
+   "population": 38822
+  },
+  {
+   "lon": 75.4582,
+   "lat": 63.2083,
+   "population": 38365
+  },
+  {
+   "lon": 43.8749,
+   "lat": 55.3749,
+   "population": 37961
+  },
+  {
+   "lon": 37.3749,
+   "lat": 56.8749,
+   "population": 37606
+  },
+  {
+   "lon": 141.0415,
+   "lat": 42.3749,
+   "population": 37495
+  },
+  {
+   "lon": 48.3749,
+   "lat": 55.8749,
+   "population": 37364
+  },
+  {
+   "lon": 44.2082,
+   "lat": 52.4583,
+   "population": 37191
+  },
+  {
+   "lon": 60.6249,
+   "lat": 59.6249,
+   "population": 36943
+  },
+  {
+   "lon": 124.6249,
+   "lat": 56.7083,
+   "population": 36879
+  },
+  {
+   "lon": 29.7082,
+   "lat": 60.2083,
+   "population": 36033
+  },
+  {
+   "lon": 51.2082,
+   "lat": 53.9583,
+   "population": 36003
+  },
+  {
+   "lon": 141.5415,
+   "lat": 42.6249,
+   "population": 35861
+  },
+  {
+   "lon": 92.0416,
+   "lat": 49.9583,
+   "population": 35565
+  },
+  {
+   "lon": 43.3749,
+   "lat": 56.6249,
+   "population": 35439
+  },
+  {
+   "lon": 37.2082,
+   "lat": 56.0416,
+   "population": 35083
+  },
+  {
+   "lon": 61.4582,
+   "lat": 57.0416,
+   "population": 34686
+  },
+  {
+   "lon": 39.3749,
+   "lat": 56.2916,
+   "population": 34330
+  },
+  {
+   "lon": 34.9582,
+   "lat": 57.0416,
+   "population": 34301
+  },
+  {
+   "lon": 61.5416,
+   "lat": 54.1249,
+   "population": 34174
+  },
+  {
+   "lon": 60.3749,
+   "lat": 54.9583,
+   "population": 34155
+  },
+  {
+   "lon": 45.3749,
+   "lat": 50.0416,
+   "population": 34135
+  },
+  {
+   "lon": 54.1249,
+   "lat": 54.1249,
+   "population": 34018
+  },
+  {
+   "lon": 102.7082,
+   "lat": 57.9583,
+   "population": 33815
+  },
+  {
+   "lon": 118.0415,
+   "lat": 50.1249,
+   "population": 33250
+  },
+  {
+   "lon": 85.4582,
+   "lat": 55.8749,
+   "population": 32723
+  },
+  {
+   "lon": 87.4582,
+   "lat": 53.1249,
+   "population": 32704
+  },
+  {
+   "lon": 40.1249,
+   "lat": 44.6249,
+   "population": 32537
+  },
+  {
+   "lon": 69.0416,
+   "lat": 61.0416,
+   "population": 32226
+  },
+  {
+   "lon": 38.7916,
+   "lat": 55.0416,
+   "population": 32034
+  },
+  {
+   "lon": 52.2082,
+   "lat": 56.4583,
+   "population": 31777
+  },
+  {
+   "lon": 59.7916,
+   "lat": 58.6249,
+   "population": 31483
+  },
+  {
+   "lon": 44.1249,
+   "lat": 44.7916,
+   "population": 31424
+  },
+  {
+   "lon": 34.2916,
+   "lat": 55.2083,
+   "population": 31419
+  },
+  {
+   "lon": 28.2083,
+   "lat": 61.0416,
+   "population": 31299
+  },
+  {
+   "lon": 43.2082,
+   "lat": 50.0416,
+   "population": 31224
+  },
+  {
+   "lon": 85.9582,
+   "lat": 51.9583,
+   "population": 31103
+  },
+  {
+   "lon": 57.2082,
+   "lat": 65.1249,
+   "population": 31026
+  },
+  {
+   "lon": 41.7916,
+   "lat": 53.4583,
+   "population": 30860
+  },
+  {
+   "lon": 68.2916,
+   "lat": 58.2083,
+   "population": 30754
+  },
+  {
+   "lon": 41.5416,
+   "lat": 46.4583,
+   "population": 30434
+  },
+  {
+   "lon": 47.8749,
+   "lat": 42.5416,
+   "population": 30360
+  },
+  {
+   "lon": 51.0416,
+   "lat": 56.2083,
+   "population": 30191
+  },
+  {
+   "lon": 63.6249,
+   "lat": 56.1249,
+   "population": 30181
+  },
+  {
+   "lon": 47.1249,
+   "lat": 61.2916,
+   "population": 29968
+  },
+  {
+   "lon": 46.8749,
+   "lat": 43.2083,
+   "population": 29815
+  },
+  {
+   "lon": 55.7916,
+   "lat": 52.7916,
+   "population": 29525
+  },
+  {
+   "lon": 65.3749,
+   "lat": 62.1249,
+   "population": 29293
+  },
+  {
+   "lon": 50.9582,
+   "lat": 52.8749,
+   "population": 29050
+  },
+  {
+   "lon": 27.2916,
+   "lat": 61.7083,
+   "population": 29038
+  },
+  {
+   "lon": 40.6249,
+   "lat": 55.6249,
+   "population": 28712
+  },
+  {
+   "lon": 36.7916,
+   "lat": 56.7083,
+   "population": 28578
+  },
+  {
+   "lon": 61.8749,
+   "lat": 57.3749,
+   "population": 28412
+  },
+  {
+   "lon": 42.1249,
+   "lat": 51.3749,
+   "population": 28325
+  },
+  {
+   "lon": 33.3749,
+   "lat": 67.5416,
+   "population": 28182
+  },
+  {
+   "lon": 37.6249,
+   "lat": 52.4583,
+   "population": 28061
+  },
+  {
+   "lon": 37.2082,
+   "lat": 54.8749,
+   "population": 28049
+  },
+  {
+   "lon": 50.4582,
+   "lat": 54.2083,
+   "population": 28017
+  },
+  {
+   "lon": 43.0416,
+   "lat": 55.9583,
+   "population": 27951
+  },
+  {
+   "lon": 57.7916,
+   "lat": 56.6249,
+   "population": 27903
+  },
+  {
+   "lon": 32.7082,
+   "lat": 55.0416,
+   "population": 27777
+  },
+  {
+   "lon": 58.4582,
+   "lat": 51.4583,
+   "population": 27530
+  },
+  {
+   "lon": 32.8749,
+   "lat": 53.9583,
+   "population": 27467
+  },
+  {
+   "lon": 39.5416,
+   "lat": 50.2083,
+   "population": 27421
+  },
+  {
+   "lon": 58.3749,
+   "lat": 53.9583,
+   "population": 27329
+  },
+  {
+   "lon": 36.5416,
+   "lat": 53.2916,
+   "population": 27305
+  },
+  {
+   "lon": 46.2916,
+   "lat": 60.7916,
+   "population": 27224
+  },
+  {
+   "lon": 92.4582,
+   "lat": 56.3749,
+   "population": 27211
+  },
+  {
+   "lon": 93.0416,
+   "lat": 60.3749,
+   "population": 26824
+  },
+  {
+   "lon": 34.4582,
+   "lat": 53.8749,
+   "population": 26796
+  },
+  {
+   "lon": 50.6249,
+   "lat": 55.3749,
+   "population": 26790
+  },
+  {
+   "lon": 41.7082,
+   "lat": 45.3749,
+   "population": 26374
+  },
+  {
+   "lon": 41.3749,
+   "lat": 54.9583,
+   "population": 25925
+  },
+  {
+   "lon": 50.4582,
+   "lat": 52.3749,
+   "population": 25695
+  },
+  {
+   "lon": 99.0416,
+   "lat": 54.8749,
+   "population": 25582
+  },
+  {
+   "lon": 39.2082,
+   "lat": 51.2916,
+   "population": 25409
+  },
+  {
+   "lon": 46.7082,
+   "lat": 43.8749,
+   "population": 25358
+  },
+  {
+   "lon": 124.7082,
+   "lat": 55.1249,
+   "population": 25345
+  },
+  {
+   "lon": 51.4582,
+   "lat": 54.4583,
+   "population": 25297
+  },
+  {
+   "lon": 84.9582,
+   "lat": 53.7083,
+   "population": 25219
+  },
+  {
+   "lon": 28.7916,
+   "lat": 60.7083,
+   "population": 25146
+  },
+  {
+   "lon": 30.1249,
+   "lat": 59.5416,
+   "population": 25027
+  },
+  {
+   "lon": 42.0416,
+   "lat": 50.7916,
+   "population": 24961
+  },
+  {
+   "lon": 93.4582,
+   "lat": 54.3749,
+   "population": 24856
+  },
+  {
+   "lon": 35.9582,
+   "lat": 50.2916,
+   "population": 24803
+  },
+  {
+   "lon": 47.4582,
+   "lat": 55.5416,
+   "population": 24716
+  },
+  {
+   "lon": 74.5416,
+   "lat": 62.2916,
+   "population": 24680
+  },
+  {
+   "lon": 38.1249,
+   "lat": 53.1249,
+   "population": 24226
+  },
+  {
+   "lon": 44.0416,
+   "lat": 53.2083,
+   "population": 24137
+  },
+  {
+   "lon": 43.6249,
+   "lat": 49.7916,
+   "population": 23995
+  },
+  {
+   "lon": 34.2916,
+   "lat": 56.2916,
+   "population": 23961
+  },
+  {
+   "lon": 40.6249,
+   "lat": 44.8749,
+   "population": 23882
+  },
+  {
+   "lon": 58.6249,
+   "lat": 52.7083,
+   "population": 23870
+  },
+  {
+   "lon": 103.6249,
+   "lat": 52.7916,
+   "population": 23815
+  },
+  {
+   "lon": 34.5416,
+   "lat": 57.6249,
+   "population": 23603
+  },
+  {
+   "lon": 58.4582,
+   "lat": 54.7916,
+   "population": 23486
+  },
+  {
+   "lon": 44.0416,
+   "lat": 43.7916,
+   "population": 23406
+  },
+  {
+   "lon": 64.7916,
+   "lat": 60.1249,
+   "population": 23305
+  },
+  {
+   "lon": 103.1249,
+   "lat": 53.1249,
+   "population": 23298
+  },
+  {
+   "lon": 51.7082,
+   "lat": 53.0416,
+   "population": 23245
+  },
+  {
+   "lon": 57.4582,
+   "lat": 65.9583,
+   "population": 23212
+  },
+  {
+   "lon": 27.7083,
+   "lat": 64.2083,
+   "population": 22984
+  },
+  {
+   "lon": 39.5416,
+   "lat": 50.9583,
+   "population": 22893
+  },
+  {
+   "lon": 69.4582,
+   "lat": 56.1249,
+   "population": 22821
+  },
+  {
+   "lon": 86.6249,
+   "lat": 67.4583,
+   "population": 22790
+  },
+  {
+   "lon": 98.0416,
+   "lat": 55.9583,
+   "population": 22757
+  },
+  {
+   "lon": 88.2916,
+   "lat": 55.7916,
+   "population": 22542
+  },
+  {
+   "lon": 36.7082,
+   "lat": 57.7916,
+   "population": 22419
+  },
+  {
+   "lon": 61.2916,
+   "lat": 54.4583,
+   "population": 22412
+  },
+  {
+   "lon": 142.0415,
+   "lat": 47.0416,
+   "population": 22399
+  },
+  {
+   "lon": 61.7082,
+   "lat": 57.8749,
+   "population": 22096
+  },
+  {
+   "lon": 43.1249,
+   "lat": 51.5416,
+   "population": 22015
+  },
+  {
+   "lon": 124.7082,
+   "lat": 52.2916,
+   "population": 21594
+  },
+  {
+   "lon": 66.2916,
+   "lat": 56.6249,
+   "population": 21535
+  },
+  {
+   "lon": 88.5416,
+   "lat": 56.1249,
+   "population": 21500
+  },
+  {
+   "lon": 33.8749,
+   "lat": 58.3749,
+   "population": 21297
+  },
+  {
+   "lon": 42.1249,
+   "lat": 56.2083,
+   "population": 21068
+  },
+  {
+   "lon": 48.9582,
+   "lat": 52.6249,
+   "population": 20897
+  },
+  {
+   "lon": 34.2916,
+   "lat": 62.2083,
+   "population": 20802
+  },
+  {
+   "lon": 37.5416,
+   "lat": 56.3749,
+   "population": 20759
+  },
+  {
+   "lon": 78.2916,
+   "lat": 55.4583,
+   "population": 20690
+  },
+  {
+   "lon": 28.2083,
+   "lat": 59.3749,
+   "population": 20659
+  },
+  {
+   "lon": 64.0416,
+   "lat": 67.5416,
+   "population": 20634
+  },
+  {
+   "lon": 81.2916,
+   "lat": 53.7916,
+   "population": 20603
+  },
+  {
+   "lon": 96.0416,
+   "lat": 56.7083,
+   "population": 20379
+  },
+  {
+   "lon": 58.9582,
+   "lat": 55.0416,
+   "population": 20253
+  },
+  {
+   "lon": 45.5416,
+   "lat": 58.3749,
+   "population": 20196
+  },
+  {
+   "lon": 48.7916,
+   "lat": 52.0416,
+   "population": 20181
+  },
+  {
+   "lon": 41.5416,
+   "lat": 58.4583,
+   "population": 20103
+  },
+  {
+   "lon": 95.4582,
+   "lat": 55.6249,
+   "population": 19986
+  },
+  {
+   "lon": 96.5416,
+   "lat": 56.2083,
+   "population": 19844
+  },
+  {
+   "lon": 74.5416,
+   "lat": 63.7916,
+   "population": 19792
+  },
+  {
+   "lon": 38.1249,
+   "lat": 54.8749,
+   "population": 19626
+  },
+  {
+   "lon": 93.0416,
+   "lat": 52.2083,
+   "population": 19537
+  }
+ ]
+}

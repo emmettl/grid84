@@ -1,0 +1,72 @@
+{
+  "film": {
+    "title": "A House of Dynamite",
+    "source": "Kathryn Bigelow (dir.), Noah Oppenheim (writer), A House of Dynamite (Netflix, 2025); minute marks read from the film's own clock and are approximate",
+    "zeroNote": "The film's clock opens when the radar sees the missile; the launch, about twelve minutes earlier by the flight time, is not in the film",
+    "launch": [134.5, 40.8],
+    "launchNote": "Unattributed in the film; a point in the Sea of Japan consistent with a launch from the Korean coast is inferred",
+    "target": { "name": "Chicago", "position": [-87.63, 41.88] },
+    "yieldKt": 1000,
+    "yieldNote": "The film never states a yield. The book's one megaton is borrowed and the readout says so; the 2017 test yield of about 250 kt is the documented alternative",
+    "minutesToImpactAtDetection": 19,
+    "interceptors": 2,
+    "steps": [
+      { "minutes": -12, "text": "A BALLISTIC MISSILE LEAVES THE SEA OF JAPAN · NOT IN THE FILM, PLACED BY THE FLIGHT TIME", "evidence": "inferred" },
+      { "minutes": 0, "text": "SBX-1 IN THE PACIFIC ACQUIRES A BALLISTIC OBJECT · ORIGIN NOT ATTRIBUTED", "evidence": "inferred", "camera": { "center": [-160, 45], "zoom": 2.2 } },
+      { "minutes": 1, "text": "NORAD ASSESSES · IMPACT POINT CHICAGO · ABOUT NINETEEN MINUTES", "evidence": "inferred" },
+      { "minutes": 2, "text": "THE CONFERENCE FORMS · SITUATION ROOM, NORTHCOM, STRATCOM", "evidence": "inferred" },
+      { "minutes": 4, "text": "FORT GREELY ORDERED TO ENGAGE WITH TWO INTERCEPTORS", "evidence": "inferred", "camera": { "center": [-150, 58], "zoom": 3 } },
+      { "minutes": 5, "text": "THE FIRST INTERCEPTOR FAILS TO LEAVE ITS SILO", "evidence": "inferred" },
+      { "minutes": 15, "text": "STRATCOM PRESENTS OPLAN 8010 AND ADVISES RETALIATION · THE DEPUTY NATIONAL SECURITY ADVISER ADVISES WAITING FOR ATTRIBUTION", "evidence": "inferred" },
+      { "minutes": 17, "text": "THE PRESIDENT HAS NOT DECIDED · THE ORIGIN IS STILL UNKNOWN", "evidence": "inferred" },
+      { "minutes": 18.5, "text": "THE FILM ENDS HERE, BEFORE THE MISSILE ARRIVES · WHAT FOLLOWS IS THE ENGINE WITH A BORROWED YIELD", "evidence": "inferred", "camera": { "center": [-87.63, 41.88], "zoom": 7 } }
+    ]
+  },
+  "book": {
+    "title": "Nuclear War: A Scenario",
+    "source": "Annie Jacobsen, Nuclear War: A Scenario (Dutton, 2024); minute marks from the chapter heads of Parts II to IV, taken from published summaries and to be checked against the text",
+    "zeroNote": "Minute zero is the book's 3:03 pm Eastern launch",
+    "hwasong": { "from": "sunan", "target": { "name": "The Pentagon", "position": [-77.055, 38.873] }, "yieldKt": 1000, "flightMinutes": 33 },
+    "slbm": { "from": [-125.8, 34.2], "fromNote": "The book's submarine 350 miles off California; the position is inferred from that distance", "target": { "name": "Diablo Canyon Power Plant", "position": [-120.856, 35.211] }, "yieldKt": 300, "launchMinute": 16, "surface": true },
+    "interceptors": 4,
+    "usCounter": { "orderMinute": 20, "icbmLaunchMinute": 25, "minuteman": 50, "tridentLaunchMinute": 36, "tridentMissiles": 8, "tridentWarheadsPerMissile": 4, "tridentYieldKt": 455, "warheads": 82 },
+    "russia": { "readMinute": 27, "orderMinute": 43, "icbmLaunchMinute": 45, "slbmLaunchMinute": 50, "warheadsClaimed": 1000, "slbmMissilesClaimed": 192 },
+    "usAnswer": { "orderMinute": 52, "launchMinute": 55, "aimPointsClaimed": 975 },
+    "endMinute": 72,
+    "washingtonClaim": { "label": "The book: dead in Washington within minutes", "value": 1000000 },
+    "steps": [
+      { "minutes": 0, "text": "3:03 PM EASTERN · A HWASONG-17 LEAVES SUNAN · SBIRS SEES THE BOOST WITHIN SECONDS", "evidence": "inferred", "camera": { "center": [125.7, 39.2], "zoom": 4 } },
+      { "minutes": 1, "text": "NRO AND NORAD: AN ICBM BOUND FOR THE EAST COAST", "evidence": "inferred" },
+      { "minutes": 3, "text": "NORAD MISSILE CONFERENCE · THE PRESIDENT IS TOLD", "evidence": "inferred" },
+      { "minutes": 8, "text": "FOUR INTERCEPTORS LEAVE FORT GREELY", "evidence": "inferred", "camera": { "center": [-160, 55], "zoom": 2.4 } },
+      { "minutes": 12, "text": "THE PRESIDENT'S SIX MINUTES · LAUNCH UNDER ATTACK ON THE TABLE", "evidence": "inferred" },
+      { "minutes": 16, "text": "SBIRS SEES A SECOND LAUNCH · A SUBMARINE 350 MILES OFF CALIFORNIA · TARGET DIABLO CANYON", "evidence": "inferred", "camera": { "center": [-123, 35], "zoom": 5 } },
+      { "minutes": 20, "text": "THE PRESIDENT ORDERS 82 WARHEADS AT NORTH KOREA · 50 MINUTEMAN III AND 8 TRIDENT II", "evidence": "inferred" },
+      { "minutes": 26, "text": "TUNDRA SATELLITES SEE THE MINUTEMAN LAUNCHES · SERPUKHOV-15 REPORTS TO MOSCOW", "evidence": "inferred", "camera": { "center": [100, 60], "zoom": 2 } },
+      { "minutes": 27, "text": "THE GENERAL STAFF READS AN ATTACK ON RUSSIA · THE AMERICAN PRESIDENT DOES NOT CALL", "evidence": "inferred" },
+      { "minutes": 40, "text": "THE STRATCOM COMMANDER ASSUMES LAUNCH AUTHORITY", "evidence": "inferred" },
+      { "minutes": 43, "text": "THE RUSSIAN PRESIDENT, UNREACHED, ORDERS THE FORCE LAUNCHED", "evidence": "inferred", "camera": { "center": [60, 58], "zoom": 2.2 } },
+      { "minutes": 48, "text": "THE SECRETARY OF DEFENSE IS SWORN IN AS ACTING PRESIDENT", "evidence": "inferred" },
+      { "minutes": 52, "text": "THE ACTING PRESIDENT ORDERS 975 AIM POINTS IN RUSSIA", "evidence": "inferred" },
+      { "minutes": 72, "text": "MINUTE 72 · THE BOOK ENDS · \"HUNDREDS OF MILLIONS\" · THE ENGINE RUNS ON TO THE LAST ARRIVAL", "evidence": "inferred", "camera": { "center": [-40, 55], "zoom": 1.5 } }
+    ]
+  },
+  "gmd": {
+    "site": "fort-greely",
+    "testHits": 12,
+    "tests": 21,
+    "salvoClaim": 0.97,
+    "filmClaim": 0.61,
+    "source": "Missile Defense Agency test record through December 2023; the four-on-one salvo claim of 97 per cent; the film's 61 per cent and the screenwriter's twelve-in-twenty-one"
+  },
+  "sources": [
+    "Annie Jacobsen, Nuclear War: A Scenario (Dutton, 2024)",
+    "Kathryn Bigelow (dir.), A House of Dynamite (Netflix, 2025)",
+    "Kristensen, Korda, Johns and Knight, United States nuclear weapons, 2024, and Russian nuclear weapons, 2024, Bulletin of the Atomic Scientists",
+    "Federation of American Scientists, Status of World Nuclear Forces (2025)",
+    "SIPRI Yearbook 2024",
+    "Missile Defense Agency; Wikipedia, Ground-Based Midcourse Defense: twelve intercepts in twenty-one tests",
+    "Wikipedia: Hwasong-17; LGM-30 Minuteman; Strategic Rocket Forces; Main Centre for Missile Attack Warning",
+    "National Security Archive, the 26 September 1983 Serpukhov-15 false alarm"
+  ]
+}

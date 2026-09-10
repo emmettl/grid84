@@ -1,0 +1,209 @@
+{
+ "name": "North Korean urban targets",
+ "year": 2023,
+ "rule": "The 40 most populous 5-arc-minute cells of the HYDE 3.3 2023 population grid inside the box 124.0, 37.7 to 131.0, 43.1, in descending order, skipping any cell within 25 km of one already taken; 4 boxes of neighbouring cities left out; cells south of the land border left out",
+ "evidence": "modelled",
+ "source": "Klein Goldewijk, K. (2023). History Database of the Global Environment 3.3 (CC BY-NC-SA 4.0)",
+ "targets": [
+  {
+   "lon": 125.7082,
+   "lat": 39.0416,
+   "population": 907572
+  },
+  {
+   "lon": 124.3749,
+   "lat": 40.1249,
+   "population": 784272
+  },
+  {
+   "lon": 125.3749,
+   "lat": 38.7083,
+   "population": 498342
+  },
+  {
+   "lon": 129.7915,
+   "lat": 41.7916,
+   "population": 393280
+  },
+  {
+   "lon": 127.4582,
+   "lat": 39.1249,
+   "population": 314112
+  },
+  {
+   "lon": 127.5415,
+   "lat": 39.8749,
+   "population": 281650
+  },
+  {
+   "lon": 125.7082,
+   "lat": 38.0416,
+   "population": 248778
+  },
+  {
+   "lon": 126.6249,
+   "lat": 40.9583,
+   "population": 213718
+  },
+  {
+   "lon": 126.5415,
+   "lat": 37.9583,
+   "population": 209777
+  },
+  {
+   "lon": 125.9582,
+   "lat": 39.4583,
+   "population": 193382
+  },
+  {
+   "lon": 129.2082,
+   "lat": 40.7083,
+   "population": 180737
+  },
+  {
+   "lon": 125.8749,
+   "lat": 39.7083,
+   "population": 172289
+  },
+  {
+   "lon": 125.7915,
+   "lat": 38.5416,
+   "population": 165792
+  },
+  {
+   "lon": 128.2082,
+   "lat": 41.3749,
+   "population": 163085
+  },
+  {
+   "lon": 125.2082,
+   "lat": 39.7083,
+   "population": 148624
+  },
+  {
+   "lon": 128.8749,
+   "lat": 40.4583,
+   "population": 142838
+  },
+  {
+   "lon": 126.2915,
+   "lat": 39.7916,
+   "population": 140399
+  },
+  {
+   "lon": 126.2915,
+   "lat": 40.2083,
+   "population": 121909
+  },
+  {
+   "lon": 124.0415,
+   "lat": 40.4583,
+   "population": 119661
+  },
+  {
+   "lon": 124.1249,
+   "lat": 39.8749,
+   "population": 106135
+  },
+  {
+   "lon": 126.4582,
+   "lat": 40.6249,
+   "population": 105034
+  },
+  {
+   "lon": 128.2082,
+   "lat": 40.0416,
+   "population": 103525
+  },
+  {
+   "lon": 125.0415,
+   "lat": 40.3749,
+   "population": 102544
+  },
+  {
+   "lon": 129.2915,
+   "lat": 40.9583,
+   "population": 101455
+  },
+  {
+   "lon": 125.6249,
+   "lat": 39.2916,
+   "population": 99607
+  },
+  {
+   "lon": 127.2082,
+   "lat": 39.5416,
+   "population": 89666
+  },
+  {
+   "lon": 126.2915,
+   "lat": 39.5416,
+   "population": 86754
+  },
+  {
+   "lon": 125.5415,
+   "lat": 39.6249,
+   "population": 85144
+  },
+  {
+   "lon": 125.2082,
+   "lat": 39.9583,
+   "population": 82218
+  },
+  {
+   "lon": 124.7082,
+   "lat": 39.8749,
+   "population": 81317
+  },
+  {
+   "lon": 125.3749,
+   "lat": 37.9583,
+   "population": 79393
+  },
+  {
+   "lon": 130.2915,
+   "lat": 42.2083,
+   "population": 70579
+  },
+  {
+   "lon": 126.1249,
+   "lat": 39.1249,
+   "population": 70135
+  },
+  {
+   "lon": 128.6249,
+   "lat": 40.2916,
+   "population": 70111
+  },
+  {
+   "lon": 125.4582,
+   "lat": 38.3749,
+   "population": 67408
+  },
+  {
+   "lon": 129.7915,
+   "lat": 42.4583,
+   "population": 64639
+  },
+  {
+   "lon": 126.1249,
+   "lat": 37.8749,
+   "population": 56874
+  },
+  {
+   "lon": 127.4582,
+   "lat": 38.8749,
+   "population": 55454
+  },
+  {
+   "lon": 126.6249,
+   "lat": 39.2083,
+   "population": 50117
+  },
+  {
+   "lon": 126.3749,
+   "lat": 38.3749,
+   "population": 49043
+  }
+ ]
+}

@@ -71,6 +71,18 @@ const STUDIES: FrontStudy[] = [
     brief: brief('BRITAIN-80.md'),
     variants: [{ label: 'Strath 1955', href: '#/study/britain-80/strath' }],
   },
+  {
+    id: '72-minutes',
+    epoch: 'The present',
+    title: 'Seventy-two minutes',
+    line: 'A modern scenario after Jacobsen\'s Nuclear War and Bigelow\'s A House of Dynamite, on the forces of 2024 and the 2025 grid: one unattributed missile at Chicago with the interceptors at the film\'s odds, the agency\'s and the test record; then the book\'s seventy-two minutes, with the Minuteman arcs crossing the Russian Far East drawn where the geometry puts them. Nothing here is in any record, and every mark says so.',
+    href: '#/study/72-minutes',
+    brief: brief('72-MINUTES.md'),
+    variants: [
+      { label: 'Test record', href: '#/study/72-minutes/record' },
+      { label: 'Jacobsen', href: '#/study/72-minutes/jacobsen' },
+    ],
+  },
 ]
 
 const LABS: Array<{ title: string; line: string; href: string }> = [

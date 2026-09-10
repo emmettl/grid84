@@ -12,6 +12,7 @@ import { defcon3Execute, defcon3Giant, defcon3Posture } from './studies/defcon3/
 import { cubaGeneral, cubaRegional } from './studies/cuba62/crisis.ts'
 import { ableArcher } from './studies/able-archer/war-scare.ts'
 import { britainSquareLeg, britainStrath } from './studies/britain/protect.ts'
+import { seventyTwoMinutes } from './studies/minutes72/scenario.ts'
 import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 
@@ -24,6 +25,7 @@ type Route =
   | { kind: 'study'; id: 'cuba-62'; general: boolean }
   | { kind: 'study'; id: 'able-archer-83' }
   | { kind: 'study'; id: 'britain-80'; strath: boolean }
+  | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'book' }
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' }
 
 function parseRoute(hash: string): Route {
@@ -41,6 +43,10 @@ function parseRoute(hash: string): Route {
   if (hash === '#/study/able-archer-83') return { kind: 'study', id: 'able-archer-83' }
   if (hash === '#/study/britain-80') return { kind: 'study', id: 'britain-80', strath: false }
   if (hash === '#/study/britain-80/strath') return { kind: 'study', id: 'britain-80', strath: true }
+  if (hash === '#/study/72-minutes') return { kind: 'study', id: '72-minutes', variant: 'film' }
+  if (hash === '#/study/72-minutes/record') return { kind: 'study', id: '72-minutes', variant: 'record' }
+  if (hash === '#/study/72-minutes/claim') return { kind: 'study', id: '72-minutes', variant: 'claim' }
+  if (hash === '#/study/72-minutes/jacobsen') return { kind: 'study', id: '72-minutes', variant: 'book' }
   if (hash === '#/lab/evidence') return { kind: 'lab', id: 'evidence' }
   if (hash === '#/lab/population') return { kind: 'lab', id: 'population' }
   if (hash === '#/lab/terrain') return { kind: 'lab', id: 'terrain' }
@@ -104,6 +110,11 @@ function AbleArcherStudy() {
   return <StudyView key={study.id} study={study} />
 }
 
+function SeventyTwoStudy({ variant }: { variant: 'film' | 'record' | 'claim' | 'book' }) {
+  const study = useMemo(() => seventyTwoMinutes(variant), [variant])
+  return <StudyView key={study.id} study={study} />
+}
+
 function BritainStudy({ strath }: { strath: boolean }) {
   const study = useMemo(() => (strath ? britainStrath() : britainSquareLeg()), [strath])
   return <StudyView key={study.id} study={study} />
@@ -120,6 +131,7 @@ export default function App() {
     { href: '#/study/defcon3-73', label: 'DEFCON 3', active: route.kind === 'study' && route.id === 'defcon3-73' },
     { href: '#/study/able-archer-83', label: 'Able Archer', active: route.kind === 'study' && route.id === 'able-archer-83' },
     { href: '#/study/britain-80', label: 'Britain', active: route.kind === 'study' && route.id === 'britain-80' },
+    { href: '#/study/72-minutes', label: '72 minutes', active: route.kind === 'study' && route.id === '72-minutes' },
     { href: '#/lab/evidence', label: 'Lab · Evidence', active: route.kind === 'lab' && route.id === 'evidence' },
     { href: '#/lab/population', label: 'Lab · Population', active: route.kind === 'lab' && route.id === 'population' },
     { href: '#/lab/terrain', label: 'Lab · Terrain', active: route.kind === 'lab' && route.id === 'terrain' },
@@ -143,6 +155,7 @@ export default function App() {
       {route.kind === 'study' && route.id === 'cuba-62' && <CubaStudy general={route.general} />}
       {route.kind === 'study' && route.id === 'able-archer-83' && <AbleArcherStudy />}
       {route.kind === 'study' && route.id === 'britain-80' && <BritainStudy strath={route.strath} />}
+      {route.kind === 'study' && route.id === '72-minutes' && <SeventyTwoStudy variant={route.variant} />}
       {route.kind === 'lab' && route.id === 'evidence' && <StudyView key="lab-evidence" study={EVIDENCE_LAB} />}
       {route.kind === 'lab' && route.id === 'population' && <PopulationLab key="lab-population" />}
       {route.kind === 'lab' && route.id === 'terrain' && <TerrainLab key="lab-terrain" />}
