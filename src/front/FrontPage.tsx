@@ -302,6 +302,10 @@ export function FrontPage() {
               <a href="#/chronicle">The stockpiles</a>
               <span>Every warhead the nine states are estimated to have held, 1945 to the present, with the studies marked on the curve. The first chapter of the history between the studies; the labs on accuracy and defence carry the next two.</span>
             </li>
+            <li>
+              <a href="./dossier/sino-soviet-1969.html">The 1969 strike question</a>
+              <span>A research dossier on the Sino-Soviet crisis and the Soviet consideration of a strike on China's nuclear programme, with every claim tiered as documented, inferred, contested or untraceable. The groundwork for a study, published as it was written, including the parts that say a thing could not be established.</span>
+            </li>
           </ul>
         </section>
 

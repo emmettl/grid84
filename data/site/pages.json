@@ -205,5 +205,12 @@
    "description": "One engagement at a time on the globe: a real launcher, a real city, a real interceptor site, and whether the shot connects. Most do not, and each attempt says which of the four reasons it failed for.",
    "summary": "No probability of kill is taken from a test range. Each attempt is drawn from the same arithmetic the intercept lab draws: whether anything was in reach, which object it went for, and whether the kill vehicle could null the error in the time it had."
   }
+ ],
+ "extras": [
+  {
+   "path": "dossier/sino-soviet-1969.html",
+   "title": "The 1969 Strike Question — a research dossier",
+   "note": "A static supporting document, not an app route: it ships as it is and is listed in the sitemap so it can be found."
+  }
  ]
 }

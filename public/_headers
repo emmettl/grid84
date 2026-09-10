@@ -30,6 +30,9 @@
 /studies/*
   Cache-Control: public, max-age=0, must-revalidate
 
+/dossier/*
+  Cache-Control: public, max-age=0, must-revalidate
+
 /labs/*
   Cache-Control: public, max-age=0, must-revalidate
 

@@ -1,0 +1,1202 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>The 1969 Strike Question</title>
+
+<style>
+:root{
+  --paper:#EDEEE9;
+  --paper-2:#E3E5DE;
+  --card:#F6F7F3;
+  --ink:#191C1A;
+  --ink-2:#4A504C;
+  --ink-3:#6E756F;
+  --rule:#C8CCC4;
+  --rule-soft:#D8DBD3;
+
+  --doc:#28595E;      /* documented */
+  --inf:#7E6415;      /* inferred */
+  --con:#9C3222;      /* contested */
+  --unt:#5B5F63;      /* untraceable */
+
+  --doc-bg:#DCE7E6;
+  --inf-bg:#EDE6D0;
+  --con-bg:#F0DCD6;
+  --unt-bg:#E0E2E1;
+
+  --accent:#9C3222;
+  --focus:#28595E;
+
+  --measure:70ch;
+  --step--1:0.815rem;
+  --step-0:1.0rem;
+  --step-1:1.16rem;
+  --step-2:1.42rem;
+  --step-3:1.78rem;
+  --step-4:2.3rem;
+  --step-5:3.1rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141715;
+    --paper-2:#1B1F1C;
+    --card:#1E2220;
+    --ink:#E6E8E2;
+    --ink-2:#AFB5AF;
+    --ink-3:#878E88;
+    --rule:#333937;
+    --rule-soft:#282D2B;
+
+    --doc:#7FC3C6;
+    --inf:#D6B558;
+    --con:#E68A73;
+    --unt:#A0A6A8;
+
+    --doc-bg:#1D3234;
+    --inf-bg:#332C13;
+    --con-bg:#3A211B;
+    --unt-bg:#262A2B;
+
+    --accent:#E68A73;
+    --focus:#7FC3C6;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141715;
+  --paper-2:#1B1F1C;
+  --card:#1E2220;
+  --ink:#E6E8E2;
+  --ink-2:#AFB5AF;
+  --ink-3:#878E88;
+  --rule:#333937;
+  --rule-soft:#282D2B;
+
+  --doc:#7FC3C6;
+  --inf:#D6B558;
+  --con:#E68A73;
+  --unt:#A0A6A8;
+
+  --doc-bg:#1D3234;
+  --inf-bg:#332C13;
+  --con-bg:#3A211B;
+  --unt-bg:#262A2B;
+
+  --accent:#E68A73;
+  --focus:#7FC3C6;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  font-size:var(--step-0);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(1rem,4vw,2.75rem) 6rem}
+
+/* ---------- masthead ---------- */
+.mast{
+  border-bottom:2px solid var(--ink);
+  padding:clamp(2rem,5vw,3.4rem) 0 1.3rem;
+  display:grid;gap:1.1rem;
+}
+.stamp{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:0.66rem;letter-spacing:0.19em;text-transform:uppercase;
+  color:var(--accent);
+  display:flex;flex-wrap:wrap;gap:0.5rem 1.4rem;align-items:center;
+}
+.stamp b{font-weight:500;color:var(--ink-3)}
+h1{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-weight:700;font-size:clamp(2.2rem,6.2vw,var(--step-5));
+  line-height:1.02;letter-spacing:-0.022em;margin:0;text-wrap:balance;
+}
+.dek{
+  font-size:var(--step-1);color:var(--ink-2);max-width:62ch;margin:0;
+  line-height:1.55;
+}
+.mast-meta{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:0.7rem;color:var(--ink-3);line-height:1.8;
+  display:flex;flex-wrap:wrap;gap:0.2rem 1.6rem;
+}
+
+/* ---------- evidence tiers ---------- */
+.legend{
+  margin:2.2rem 0 0;padding:1.35rem 1.4rem;
+  background:var(--card);border:1px solid var(--rule);
+}
+.legend h2{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.72rem;font-weight:600;
+  letter-spacing:0.17em;text-transform:uppercase;color:var(--ink-3);margin:0 0 0.9rem;
+}
+.tiers{display:grid;gap:0.85rem;grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.tier{display:grid;grid-template-columns:auto 1fr;gap:0.65rem;align-items:start}
+.tier .swatch{width:0.42rem;height:100%;min-height:2.4rem;border-radius:1px}
+.tier p{margin:0;font-size:var(--step--1);line-height:1.45;color:var(--ink-2)}
+.tier strong{
+  display:block;font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.7rem;font-weight:600;
+  letter-spacing:0.13em;text-transform:uppercase;color:var(--ink);margin-bottom:0.15rem;
+}
+.sw-doc{background:var(--doc)} .sw-inf{background:var(--inf)}
+.sw-con{background:var(--con)} .sw-unt{background:var(--unt)}
+
+.filters{
+  display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;
+  margin-top:1.25rem;padding-top:1.1rem;border-top:1px solid var(--rule-soft);
+}
+.filters .lab{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.66rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--ink-3);margin-right:0.3rem;
+}
+.fbtn{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.09em;
+  text-transform:uppercase;padding:0.36rem 0.7rem;cursor:pointer;
+  background:transparent;color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:2px;
+  transition:background .12s,color .12s,border-color .12s;
+}
+.fbtn:hover{border-color:var(--ink-3);color:var(--ink)}
+.fbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.fbtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* ---------- sections ---------- */
+section{margin-top:clamp(3rem,7vw,4.6rem);scroll-margin-top:1.5rem}
+.sec-head{border-top:1px solid var(--ink);padding-top:1rem;margin-bottom:1.8rem}
+.sec-num{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.68rem;letter-spacing:0.2em;
+  color:var(--accent);display:block;margin-bottom:0.5rem;
+}
+h2.sec-title{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:700;
+  font-size:clamp(1.6rem,3.6vw,var(--step-4));line-height:1.08;letter-spacing:-0.017em;
+  margin:0 0 0.5rem;text-wrap:balance;
+}
+.sec-sub{margin:0;color:var(--ink-2);max-width:var(--measure);font-size:var(--step-1)}
+
+h3{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:600;font-size:var(--step-2);
+  letter-spacing:-0.011em;line-height:1.2;margin:2.6rem 0 0.75rem;text-wrap:balance;
+}
+h4{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:600;font-size:0.78rem;
+  letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-3);
+  margin:1.9rem 0 0.65rem;
+}
+p,ul,ol{max-width:var(--measure)}
+p{margin:0 0 1rem}
+ul,ol{margin:0 0 1.15rem;padding-left:1.15rem}
+li{margin-bottom:0.42rem}
+li::marker{color:var(--ink-3)}
+strong{font-weight:600}
+em{font-style:italic}
+
+/* ---------- claim blocks ---------- */
+.claim{
+  border-left:3px solid var(--rule);
+  padding:0.15rem 0 0.15rem 1.05rem;
+  margin:0 0 1.5rem;max-width:var(--measure);
+}
+.claim.doc{border-left-color:var(--doc)}
+.claim.inf{border-left-color:var(--inf)}
+.claim.con{border-left-color:var(--con)}
+.claim.unt{border-left-color:var(--unt)}
+.claim > :last-child{margin-bottom:0}
+.pill{
+  display:inline-block;font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.6rem;font-weight:600;
+  letter-spacing:0.14em;text-transform:uppercase;padding:0.16rem 0.44rem;border-radius:2px;
+  vertical-align:0.14em;margin-right:0.5rem;
+}
+.doc .pill{background:var(--doc-bg);color:var(--doc)}
+.inf .pill{background:var(--inf-bg);color:var(--inf)}
+.con .pill{background:var(--con-bg);color:var(--con)}
+.unt .pill{background:var(--unt-bg);color:var(--unt)}
+body.filtering .claim{display:none}
+body.filtering .claim.on{display:block}
+
+/* ---------- document facsimile ---------- */
+.doccard{
+  background:var(--card);border:1px solid var(--rule);
+  margin:1.6rem 0;max-width:var(--measure);
+}
+.dochead{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.68rem;line-height:1.75;
+  padding:0.8rem 1.1rem;border-bottom:1px solid var(--rule);
+  color:var(--ink-2);background:var(--paper-2);
+}
+.dochead .cls{color:var(--accent);letter-spacing:0.16em;display:block;margin-bottom:0.25rem}
+.dochead .ttl{color:var(--ink);font-weight:500}
+.docbody{padding:1.05rem 1.15rem}
+.docbody p{margin:0 0 0.75rem;font-size:0.97rem}
+.docbody p:last-child{margin:0}
+blockquote{
+  margin:0 0 0.85rem;padding:0;font-size:1.02rem;line-height:1.55;
+}
+blockquote p{margin:0 0 0.7rem}
+blockquote p:last-child{margin:0}
+.attrib{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.66rem;color:var(--ink-3);
+  line-height:1.65;margin-top:0.65rem;
+}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:1.4rem 0 1.7rem;border:1px solid var(--rule);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:0.86rem;min-width:540px}
+caption{
+  text-align:left;font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.68rem;font-weight:600;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);
+  padding:0.75rem 0.95rem;border-bottom:1px solid var(--rule);background:var(--paper-2);
+}
+th,td{
+  text-align:left;padding:0.52rem 0.95rem;border-bottom:1px solid var(--rule-soft);
+  vertical-align:top;line-height:1.45;
+}
+thead th{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.09em;
+  text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--rule);
+}
+tbody tr:last-child td{border-bottom:none}
+td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.76rem;white-space:nowrap}
+.yes{color:var(--doc);font-weight:600}
+.no{color:var(--con);font-weight:600}
+
+/* ---------- callout: do not repeat ---------- */
+.reject{
+  border:1px solid var(--con);background:var(--con-bg);
+  padding:1.3rem 1.4rem;margin:1.6rem 0;
+}
+.reject h4{color:var(--con);margin-top:0}
+.reject ul{margin-bottom:0;max-width:none}
+.reject li{margin-bottom:0.6rem}
+
+.note{
+  font-size:var(--step--1);color:var(--ink-3);max-width:var(--measure);
+  border-top:1px solid var(--rule-soft);padding-top:0.75rem;margin-top:1.3rem;
+}
+
+/* ---------- verdict ---------- */
+.verdict{
+  border:1px solid var(--ink);padding:clamp(1.3rem,3.4vw,2rem);
+  margin:2rem 0;max-width:var(--measure);background:var(--card);
+}
+.verdict h3{margin-top:0;font-size:var(--step-2)}
+.verdict p:last-child{margin-bottom:0}
+
+/* ---------- refs ---------- */
+.refs{font-size:var(--step--1);line-height:1.55;max-width:none}
+.refs li{margin-bottom:0.55rem;max-width:88ch}
+a{color:var(--ink);text-decoration-color:var(--ink-3);text-underline-offset:2px}
+a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+footer{
+  margin-top:4rem;padding-top:1.2rem;border-top:2px solid var(--ink);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.68rem;color:var(--ink-3);
+  line-height:1.8;
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:640px){
+  table{min-width:460px}
+  .claim{padding-left:0.85rem}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="stamp">
+    <span>Research dossier</span>
+    <b>Sino-Soviet crisis, March–December 1969</b>
+  </div>
+  <h1>The 1969 Strike Question</h1>
+  <p class="dek">What is actually documented about the Soviet consideration of a strike on China's nuclear programme — and what is inference, contested reading, or unsourced repetition.</p>
+  <div class="mast-meta">
+    <span>Compiled 10 September 2026</span>
+    <span>Primary documents read in facsimile where cited verbatim</span>
+  </div>
+</header>
+
+<div class="legend" style="margin-top:1.6rem">
+  <h2>What this is</h2>
+  <p style="margin:0 0 0.8rem;max-width:70ch">A research dossier compiled for <a href="/">Grid/84</a>, the engine for the history and doctrine of strategic nuclear weapons, as the groundwork for a study of the 1969 Sino-Soviet crisis. It is published as it was written, including the parts that say a thing could not be established.</p>
+  <p style="margin:0 0 0.8rem;max-width:70ch"><strong>Method.</strong> Compiled from the declassified American documentary record, the published Chinese and Russian scholarship, and the Cold War International History Project's document sets. Quotations in Sections 02 and 05 were read from document facsimiles or full-text scholarly PDFs and are transcribed verbatim. Where a claim rests on one source, the text names it and says so.</p>
+  <p style="margin:0;max-width:70ch"><strong>Limits.</strong> Several standard works are paywalled and were read only through page-level citation by others; Section 07 lists every gap of that kind rather than papering over it. The Soviet decision-making record for 1969 remains closed, and no amount of care with the American and Chinese sources can substitute for it. Claims that could not be traced to a credible source are marked <em>untraceable</em> and should not be repeated.</p>
+</div>
+
+<div class="legend">
+  <h2>Evidence tiers used throughout</h2>
+  <div class="tiers">
+    <div class="tier"><span class="swatch sw-doc"></span><p><strong>Documented</strong>Rests on a primary document with an archival citation, read or quoted at page level.</p></div>
+    <div class="tier"><span class="swatch sw-inf"></span><p><strong>Inferred</strong>A historian's reading of documented facts. Reasonable, but not itself a documented finding.</p></div>
+    <div class="tier"><span class="swatch sw-con"></span><p><strong>Contested</strong>Credible sources disagree, or the claim rests on a single memoir or interview.</p></div>
+    <div class="tier"><span class="swatch sw-unt"></span><p><strong>Untraceable</strong>Widely repeated; could not be traced to any credible source. Do not use.</p></div>
+  </div>
+  <div class="filters">
+    <span class="lab">Filter claims</span>
+    <button class="fbtn" data-t="doc" aria-pressed="false">Documented</button>
+    <button class="fbtn" data-t="inf" aria-pressed="false">Inferred</button>
+    <button class="fbtn" data-t="con" aria-pressed="false">Contested</button>
+    <button class="fbtn" data-t="unt" aria-pressed="false">Untraceable</button>
+    <button class="fbtn" id="clearf" aria-pressed="false">Show all</button>
+  </div>
+</div>
+
+<!-- ============ 1 ============ -->
+<section id="s1">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 01</span>
+    <h2 class="sec-title">The clashes</h2>
+    <p class="sec-sub">Zhenbao/Damansky in March, Tielieketi/Zhalanashkol in August, and the smaller incidents between.</p>
+  </div>
+
+  <h3>Zhenbao / Damansky, March 1969</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Dates.</strong> Chinese troops moved onto the island overnight 1–2 March; the first engagement began about 11:00 on <strong>2 March 1969</strong> and lasted nearly two hours. A second, far larger engagement on <strong>15 March</strong> ran roughly nine hours. Further actions on <strong>17 March</strong> (failed Soviet tank recovery), <strong>21 March</strong> (Soviets shelled the ice to sink the tank) and <strong>22 March</strong> (last Soviet fatality). Chinese accounts conventionally count three engagements: 2, 15 and 17 March.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Soviet casualties are settled.</strong> Dmitri Ryabushkin, working from central and local Russian archives with nominal rolls giving names, ranks and addresses, gives a complete accounting for 2–22 March: <strong>58 killed</strong> (49 border guards, 9 Soviet Army) and <strong>94 wounded</strong> (61 border troops, 33 Army).</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Soviet dead, 2–22 March 1969 (Ryabushkin, Russian archives)</caption>
+      <thead><tr><th>Date</th><th class="num">Killed</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">2 Mar</td><td class="num">32</td><td>Border guards — 31 on the island, one (Cpl P. A. Akulov) in Chinese captivity. Sr Lt Ivan Strelnikov killed at the outset.</td></tr>
+        <tr><td class="mono">15 Mar</td><td class="num">24</td><td>Border guards and Soviet Army. Col Demokrat V. Leonov, commanding the 57th (Iman) Border Detachment, shot by a sniper leaving his disabled T-62.</td></tr>
+        <tr><td class="mono">17 Mar</td><td class="num">1</td><td>Soviet Army, during the tank recovery attempt.</td></tr>
+        <tr><td class="mono">22 Mar</td><td class="num">1</td><td>Soviet Army.</td></tr>
+        <tr><td class="mono">Total</td><td class="num"><strong>58</strong></td><td>Plus 94 wounded.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Chinese casualties are not settled, and the widely-quoted figures are bad.</strong> The defensible reconstruction is roughly <strong>20–40 killed on 2 March</strong> (Ryabushkin, from 20 named graves dated 2 March 1969 at the Baoqing martyrs' cemetery plus one dated 4 March) and <strong>12 acknowledged for 15 March</strong>, again matching the Baoqing graves. Chinese sources give ~71 dead as of November 1969 across all March fighting. Losses on 15 March could plausibly have been far higher, because the Grad salvo fell on massed reserves — but no source establishes it.</p></div>
+
+  <div class="reject">
+    <h4>Casualty figures to reject</h4>
+    <ul>
+      <li><strong>"248 Chinese killed on 2 March"</strong> — from V. D. Bubenin's 2004 memoir <em>Krovavyi sneg Damanskogo</em>; Ryabushkin calls it "one unlikely figure without a source." English Wikipedia repeats it as authoritative, which is how it spreads.</li>
+      <li><strong>"350–400 Chinese dead"</strong> — Plugatarev, <em>Nezavisimoye Voyennoye Obozreniye</em>, 27 March 2009; an extrapolation from Bubenin, not independent.</li>
+      <li><strong>"800 Chinese killed on 15 March"</strong> — Thomas Robinson (1972). Robinson himself later revised this to 39. His Soviet figures (60, then 140) are both wrong against the archival 58.</li>
+      <li><strong>"Three mass graves of several hundred each"</strong> — a Chinese deserter's 1970 debriefing, recounted to Ryabushkin in a 2001 interview. Uncorroborated hearsay at two removes.</li>
+      <li><strong>Atrocity stories — ears cut off, matches in the eyes</strong> — first aired at a Soviet MFA press conference on 7 March 1969 and <em>not</em> supported by the Soviet medical examination document. (What that document does establish is grimmer and better evidenced: 19 of the 31 Soviet bodies recovered on 2 March had been wounded, then killed at close quarters.)</li>
+    </ul>
+  </div>
+
+  <h4>Who initiated on 2 March</h4>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The Chinese planning chain is on the record.</strong> After the 5 January 1968 clash at Qiliqin Island killed four Chinese, the Central Military Commission ordered the Beijing and Shenyang Military Regions to prepare a counter-attack at "a politically advantageous time, place, and situation." In late January 1969 the Heilongjiang MD proposed the <em>Zhenbao Island Counter-Interference Struggle Plan</em>; on <strong>19 February 1969</strong> the General Staff and the Ministry of Foreign Affairs approved it. General Staff instructions were to "strive for suddenness of action," fight quickly, avoid entanglement, withdraw after victory, and obtain "reliable proof" — captured weapons or photographs. Zhenbao was chosen because China's legal claim there was strongest and the tactical geometry favoured it.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The physical inventory corroborates premeditation.</strong> Ryabushkin publishes a Soviet inventory (Central Borderguard Archive, Pushkino) of Chinese equipment left on the island: 3 field telephones, <strong>up to 2,000 metres of field cable</strong>, 5 cable bobbins, 5 entrenching tools, 25 reed or wooden mats, 2 white camouflage cloaks, 50 first-aid packs. Two kilometres of laid telephone wire and sleeping mats are not consistent with a chance patrol encounter.</p></div>
+
+  <div class="claim inf"><p><span class="pill">Inferred</span><strong>That it was an ambush, and that the Chinese fired first.</strong> The judgement is near-unanimous but rests on testimony and circumstance, not on a smoking-gun order. Lyle Goldstein's 2001 survey of 11 Russian and 7 Chinese specialists is the pivot: Yang Kuisong calls it an ambush (埋伏) rather than a clash (冲突); Li Danhui says preparations to "create a small war on the border" began in 1968; Li Jingjie, then director of the CASS institute, conceded the Chinese "started the shooting." CIA's own <em>Weekly Review</em> of 21 March 1969 concluded Beijing "triggered" the incident. Goldstein is explicit that this is "a second best" pending archival access.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>The earlier Western reading.</strong> Kissinger argued in <em>Diplomacy</em> (1994, p. 722) that the Soviets were the aggressors, reasoning from proximity to Soviet railheads — but in <em>White House Years</em> (1979, p. 177) that railhead argument concerned only the <em>Xinjiang</em> incidents months later. Neville Maxwell (<em>China Quarterly</em> 56, 1973) presented the Chinese case; Barnouin and Yu still followed it in 1998. Robinson wrote in 1991 that "the essential facts will probably never be known."</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Who authorised the Grad salvo on 15 March.</strong> Gerson's main text says it followed "a Politburo debate and Brezhnev's approval" — but his own footnote concedes two Russian sources say a local commander decided without Moscow. Ryabushkin's evidence points the same way: artillery was under tight restriction all day, <strong>Brezhnev was not in Moscow</strong>, Col Leonov could not get authority from above, and two generals separately claim the decision (P. M. Plotnikov and O. A. Losik). Neither was decorated for it. Treat "Brezhnev approved the Grad strike" as probably wrong.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>15 March, scale.</strong> A nine-hour firefight. Chinese forces exceeded a regiment (~2,000 men); the Soviets used at least 50 tanks and APCs, fired approximately 10,000 artillery rounds and flew 36 aircraft sorties. It was the <strong>first combat use of the BM-21 "Grad"</strong> 122 mm 40-tube rocket launcher; participant letters date the decisive ten-minute salvo to about 17:00. Afterwards Moscow alerted the Strategic Rocket Forces in the Far East for several days, standing down on 20 March.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>T-62 no. 545.</strong> Disabled on 15 March, then still a secret type. Soviet recovery failed on 17 March; on <strong>21 March</strong> the Soviets shelled the ice to sink it. Chinese divers raised it on <strong>27 April 1969</strong>; it is displayed at the Military Museum of the Chinese People's Revolution in Beijing. Sources that date the <em>capture</em> to 21 March have confused sinking with recovery. The claim that the Type 69 tank was "reverse-engineered" from it is an oversimplification.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Location and transfer.</strong> Coordinates 46°29′08″N 133°50′40″E, area 0.74 km², rest on English Wikipedia alone — indicative only. In the 1964 talks the USSR had accepted the thalweg principle, conceding some 400 river islands including Zhenbao; Moscow then declined to sign pending the Khabarovsk-area islands. The eastern sector was settled by the <strong>Sino-Soviet Border Agreement signed in Moscow on 16 May 1991</strong> (Wikipedia's 19 May appears to be the end of Jiang Zemin's visit, not the signing). The <strong>2004 Complementary Agreement is a different matter</strong> — it concerned Tarabarov/Yinlong and half of Bolshoy Ussuriysky/Heixiazi near Khabarovsk, not Zhenbao.</p></div>
+
+  <h3>Tielieketi / Terekty / Zhalanashkol, 13 August 1969</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>One battle, three names.</strong> Tielieketi (铁列克提), Terekty and Zhalanashkol are the same engagement under Chinese, Kazakh and Soviet names. The date is <strong>13 August 1969</strong>; the place is Yumin County, Xinjiang, on the border with what was then Semipalatinsk oblast. Because the two national historiographies describe it so differently, secondary literature sometimes treats them as separate events.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Two incompatible accounts of 13 August 1969</caption>
+      <thead><tr><th>&nbsp;</th><th>Chinese / Western-secondary</th><th>Soviet / Russian</th></tr></thead>
+      <tbody>
+        <tr><th>Who crossed</th><td>Soviet cross-border ambush.</td><td>Chinese groups of 9 and 6 men crossed 400 m and 100 m into Soviet territory overnight and dug in on "Kamennaya" hill.</td></tr>
+        <tr><th>Scale</th><td>~300 Soviet troops; APCs <em>and tanks</em>, supported by two helicopters.</td><td>Border guards only — 2, later 3, BTR APCs. No army troops, no tanks, no artillery. Helicopters in a reconnaissance role.</td></tr>
+        <tr><th>Duration</th><td>Not specified.</td><td>~07:00–09:00; under an hour of actual combat.</td></tr>
+        <tr><th>Chinese losses</th><td>38 killed (Gerson, from Yang Kuisong); or 28 killed, 40 wounded, 1 captured.</td><td>21 killed, 40 wounded, 1 prisoner (two more died en route to Ucharal).</td></tr>
+        <tr><th>Soviet losses</th><td>2 killed, 10 wounded.</td><td>2 killed (Dulepov; Pte V. Ryazanov), 10 wounded.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Inferred</span><strong>Why it mattered more than Zhenbao.</strong> It reversed the direction of initiative. Mao had intended 2 March as a limited one-off — Zhou told Chen Xilian "we do not want to expand it" — but Moscow read Chinese willingness to attack despite overwhelming Soviet superiority as evidence Beijing might do anything. The August ambush took Mao by surprise and forced a reassessment. It fell in the region Beijing believed itself most vulnerable, close to Soviet railheads and to China's own nuclear facilities, and it coincided with the peak of Soviet nuclear signalling — including the appointment that month of Col-Gen <strong>Vladimir F. Tolubko</strong>, former Deputy Commander of the Strategic Rocket Forces, to command the Far Eastern Military District.</p></div>
+
+  <div class="claim unt"><p><span class="pill">Untraceable</span><strong>"The Russians lost about 60 men and the Chinese 800" at Zhalanashkol.</strong> These are Robinson's discredited figures for 15 March at Damansky, mechanically transplanted onto the August battle. Also: sources listing Bacha Dao among Xinjiang locations are wrong — Bacha Island is on the Amur in Heilongjiang and its incident was in July.</p></div>
+
+  <h3>Other 1969 incidents</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>10/11 June</strong> — a Chinese protest note; <strong>19 June</strong> — a shooting in the Xinjiang mountains leaving, by Chinese account, one herdswoman dead. <strong>8 July — Bacha / Pacha / Goldinsky Island on the Amur</strong>: by Moscow's account one Soviet worker killed and three wounded; Soviet troops returned that afternoon and burned a Chinese house and forest. Moscow framed it as a Chinese provocation aimed at sabotaging the Khabarovsk river-navigation talks. Both sides' versions are single-source and contradictory.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>April–May 1969.</strong> China claimed incidents on 16, 17 and 25 April and on 2, 12, 14, 15, 20, 25 and 28–31 May, reporting no deaths but alleging kidnappings of civilians. Gerson judges these claims "likely fabricated" — his assessment, not a documented finding.</p></div>
+
+  <div class="claim unt"><p><span class="pill">Untraceable</span><strong>Dulata / Dulaty and Tasiti.</strong> Both appear in the literature as Xinjiang locations but neither could be pinned to a date, scale or casualty figure from a credible source. A "Dulaty" episode in the Mayli-Dulaty area in spring/summer 1969 is probably real — Ryabushkin's Helion volume has a chapter "From Dulaty to Kirkinsky" — but do not cite a June 1969 Dulata incident without going to that book.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Claimed incident counts — these measure propaganda output as much as events</caption>
+      <thead><tr><th>Claim by</th><th class="num">Figure</th><th>Period</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>China</td><td class="num">4,189</td><td>15 Oct 1964 – 15 Mar 1969</td><td><em>Peking Review</em>, 30 May 1969 — the Chinese historian <strong>Niu Jun</strong> regards this as an exaggeration</td></tr>
+        <tr><td>China</td><td class="num">429</td><td>1 Jun – 31 Jul 1969</td><td><em>Peking Review</em>, 22 Aug 1969</td></tr>
+        <tr><td>USSR</td><td class="num">488</td><td>Jun–Aug 1969</td><td><em>CDSP</em>, 8 Oct 1969</td></tr>
+        <tr><td>USSR</td><td class="num">8,690</td><td>1965–1968</td><td>Kireev — involving 35,000 Chinese, incl. 3,000 soldiers</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">Before 2 March 1969, fatalities on the border were rare and had never resulted from shooting — water hoses, boat-ramming and beatings with sticks were standard practice. That is why 2 March was a genuine threshold, and it is the one point on which every account agrees.</p>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="s2">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 02 — CORE</span>
+    <h2 class="sec-title">The strike consideration</h2>
+    <p class="sec-sub">What the record actually contains: a documented Soviet signalling campaign, a documented American reaction, and no Soviet decision document of any kind.</p>
+  </div>
+
+  <h3>The Davydov approach — confirmed in full</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span>Your recollection is correct on every particular, and the memorandum of conversation is public. It was declassified and published for the first time as Document 10 in William Burr's National Security Archive briefing book in 2001, and the covering Rogers memorandum is also printed in <em>FRUS</em>.</p></div>
+
+  <div class="doccard">
+    <div class="dochead">
+      <span class="cls">SECRET / SENSITIVE</span>
+      <span class="ttl">Department of State — Memorandum of Conversation</span><br>
+      DATE: August 18, 1969<br>
+      SUBJECT: China: US Reaction to Soviet Destruction of CPR Nuclear Capability; Significance of Latest Sino-Soviet Border Clash; Internal Opposition. Vietnam… SALT… Laos…<br>
+      PARTICIPANTS: Boris N. Davydov, Second Secretary of the Soviet Embassy · William L. Stearman, Special Assistant for North Vietnam, INR/REA
+    </div>
+    <div class="docbody">
+      <blockquote>
+        <p>"The reported conversation was during lunch at the Hotel America (Beef and Bird Restaurant) in Washington on August 18, 1969. Davydov, whom I have known for several years, was the host. Expectedly, he began the conversation with questions on our Vietnam policy, but quickly changed the subject to China with a rather startling line of questioning."</p>
+        <p>"Davydov asked point blank what the US would do if the Soviet Union attacked and destroyed China's nuclear installations. I replied by asking him if he really meant this to be a serious question. He assured me that he was completely serious…"</p>
+        <p>"He then rephrased his original question by asking: 'What would the US do if Peking called for US assistance in the event Chinese nuclear installations were attacked by us? Wouldn't the US try to take advantage of this situation?'"</p>
+        <p>"I replied that I was obviously in no position to predict exactly what the US would do in such a hypothetical contingency, but added that one could count on two things. One, the US would view any outbreak of major hostilities between the USSR and China with considerable concern as no one could predict the consequences. Two, the US would most certainly want to keep out of any such conflict."</p>
+        <p>"…I answered that while we are very much in favor limiting the number of nuclear powers through the NPT, an attack on Chinese nuclear installations was quite another thing altogether."</p>
+      </blockquote>
+      <p class="attrib">Source: National Archives, RG 59, Subject-Numeric Files 1967–69, Def 12 Chicom. Published as Doc. 10, National Security Archive EBB 49 (William Burr, ed., 12 June 2001). Read here in facsimile.</p>
+    </div>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Davydov's argument.</strong> He volunteered a rationale, unprompted — which is what made the approach unusual. Two objectives would be served: "the Chinese nuclear threat would be eliminated for decades," and the blow "would so weaken and discredit the 'Mao clique' that dissident senior officers and Party cadres could gain ascendency in Peking." He insisted a strike "would not affect the US and there was nothing to fear from this," and that China would not attack the Soviet Union in return "because they would fear a more massive Soviet attack in retaliation." He also told Stearman the 13 August Xinjiang clash involved a "mob of peasants" and "had nothing to do with Chinese nuclear installations in Sinkiang."</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Davydov was a KGB officer under diplomatic cover.</strong> Raymond Garthoff attests to his credentials (<em>Detente and Confrontation</em>, 2nd edn, p. 237). The meeting had been reported before Burr published the memcon — by Garthoff, and by Patrick Tyler, <em>A Great Wall</em> (1999), pp. 66–67.</p></div>
+
+  <h3>Davydov was one of at least six Soviet approaches</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span>Secretary of State Rogers set out the full pattern for Nixon on <strong>10 September 1969</strong>, in a memorandum titled "The Possibility of a Soviet Strike Against Chinese Nuclear Facilities." Drafted by INR/RSE (R. Baraz) on 29 August, forwarded by Marshall Green on 30 August. This is the single best document on the question.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>The Soviet probes, as catalogued by the State Department, 10 September 1969</caption>
+      <thead><tr><th>When</th><th>Who</th><th>What</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">Late Mar / early Apr</td><td>Jermen Gvishiani (Kosygin's son-in-law) and Prof. Lev Artsimovich, in Boston</td><td>"the USSR would have to destroy Communist China's nuclear arsenal… They seemed to be soliciting the reaction of the American to whom they were speaking." A CIA report adds "even if this meant using nuclear weapons."</td></tr>
+        <tr><td class="mono">June</td><td>Science editor of <em>Izvestia</em>'s Sunday supplement, Moscow</td><td>Asked a US Embassy officer what the American reaction to a possible Soviet attack on China might be. Nature of the blow unspecified. Later avoided the subject.</td></tr>
+        <tr><td class="mono">June</td><td>A Soviet leader at the World Communist Conference, Moscow</td><td>Per a Finnish Communist account: the USSR "had a capability to deal China an immediate mortal blow… but did not wish to do something so 'un-Leninist,' except as an extreme defensive measure."</td></tr>
+        <tr><td class="mono">July</td><td>Message from Moscow to the Italian Communist leadership</td><td>Claimed by Rossana Rossanda: asked how the Italians would react if the USSR "were forced to make a preventive strike against Chinese missile and atomic installations." State cautioned that "Rossanda is not to be taken too literally as a reporter."</td></tr>
+        <tr><td class="mono">July</td><td>Delyusin, Soviet Institute of Asian and African Affairs</td><td>Asked Sidney Liu of <em>Newsweek</em> what Chinese popular reaction to a major Soviet attack would be.</td></tr>
+        <tr><td class="mono">18 Aug</td><td>Boris Davydov to William Stearman, Washington</td><td>The point-blank question, with a worked-out rationale — "unusual for the length of the argument that he presented."</td></tr>
+        <tr><td class="mono">Late Aug</td><td>Mikhail Kapitsa, Southeast Asia Chief, Soviet MFA</td><td>Told a Canadian newsman a Soviet strike on Chinese nuclear targets was <strong>"unthinkable"</strong> and "the very idea was an invention of the Western press." The denials kept the issue alive.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>27 August 1969 — the US went public.</strong> CIA Director Richard Helms told the press that Moscow had been sounding out foreign governments on their reactions to a preemptive strike on China. It ran on 28–29 August in the <em>Washington Post</em> ("Russia Reported Eyeing Strikes at China A-Sites") and the <em>New York Times</em>. Lüthi notes that "it is unclear why the US government went public." Beijing knew within a day, and Mao and Zhou ordered general mobilisation of the PLA and massive civil defence preparations.</p></div>
+
+  <h3>The Victor Louis article</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>"Will Russia Czech-Mate China?", London <em>Evening News</em>, 16 September 1969, p. 7</strong>; translated in FBIS <em>USSR</em>, 19 September 1969, pp. A11–A12. Victor Louis (born Vitaly Yevgenyevich Lui) was a Soviet citizen with close KGB connections, labelled "an agent of the Soviet State" by the CIA and previously accused by Beijing of carrying out "secret activities" on Taiwan for Moscow.</p></div>
+
+  <div class="doccard">
+    <div class="dochead"><span class="cls">Press — attributable to no one</span><span class="ttl">Victor Louis, "Will Russia Czech-Mate China?"</span><br>London Evening News, 16 September 1969, p. 7</div>
+    <div class="docbody">
+      <blockquote>
+        <p>There was not "a shadow of a doubt that Russian nuclear installations stand aimed at the Chinese nuclear facilities."</p>
+        <p>The Soviet Union "prefers using rockets to manpower" and has "a variety of rockets to choose from."</p>
+        <p>"Whether or not the Soviet Union will dare to attack Lop Nor… is a question of strategy, and so the world would only learn about it afterwards."</p>
+        <p>And, in the same piece: there were "no noticeable preparations for a war" in Moscow.</p>
+      </blockquote>
+      <p class="attrib">The article also floated Soviet support for opposition forces inside China — the "Czech-Mate" of the title being the Brezhnev Doctrine analogy Beijing most feared.</p>
+    </div>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Inferred</span><strong>How it is read.</strong> Universally, as orchestrated signalling rather than evidence of an ordered strike — the threat-then-denial structure inside a single article is itself the tell. The US Embassy in Moscow called it "Soviet psychological warfare" in a cable of 19 September 1969. Its documented effect was on Beijing: it landed the same day the Politburo was discussing Zhou's draft letter to Kosygin, and it convinced Mao and Zhou that Kosygin's visit five days earlier had been a Pearl Harbor–style deception.</p></div>
+
+  <p class="note">One citation slip to be aware of: Lüthi's 2012 article names the outlet the "London Evening Times" in his text while his footnote correctly gives the <em>Evening News</em>. Note also that the Louis article is not mentioned anywhere in National Security Archive EBB 49.</p>
+
+  <h3>What US intelligence assessed</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>NIE 11/13-69, "The USSR and China," 12 August 1969</strong> — six days before the Davydov lunch — found there was "at least some chance" that Moscow "may be preparing to take action" against Chinese nuclear forces, and that "a conventional air strike aimed at destroying China's missile and nuclear facilities might be the most attractive military option available to Moscow, if the Soviets believed that they could do this without getting involved in a prolonged and full-scale war." The Estimate "did not think it likely that the Kremlin would reach this conclusion, but felt that there was some chance that it would."</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Rogers to Nixon, 10 September 1969 — the bottom line.</strong> "It is extremely unlikely that Davydov would be privy to top-level Soviet discussions on this matter, much less any decisions taken… his questioning about the strike hypothesis was in the context of trying to elicit discussion of American views." Davydov's conversation and the Boston remarks "are curiosities rather than signals." And: "Thus the possibility of a Soviet strike at Chinese nuclear facilities cannot be ruled out. Nevertheless, my advisers and I do not believe such a move to be probable." The Department's analysts judged the chances <strong>"substantially less than fifty-fifty,"</strong> and that if conflict came it "might more likely result from escalation of border clashes." Rogers: "That assessment seems reasonable to me."</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The CIA Board of National Estimates was more forward-leaning.</strong> Special Memorandum 4-69, "The Soviet Buildup Against China," 6 May 1969: "Soviet military exercises in the Far East have played China as the opponent, and have involved Soviet use of nuclear weapons." Dispositions in Mongolia "could be lead elements for a heavily armored offensive ground force around Lake Baykal which might attack either toward Peking or toward the Chinese missile and nuclear facilities." And, strikingly: <strong>"Given an opportunity or an excuse, the Soviets would probably excise the Chinese nuclear threat. There can be little doubt that Chinese nuclear facilities would be attacked immediately should large scale conflict with the Chinese break out."</strong> But the same memorandum concludes: "Evidence of Soviet strategic attack preparations against China is thus quite tenuous at present."</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The dissenting voice inside the US government was Allen Whiting's.</strong> His 16 August 1969 report to Kissinger, "Sino-Soviet Hostilities and Implications for U.S. Policy," written overnight after briefing Kissinger at San Clemente, argued that "Soviet military deployments and political behavior indicate an increasing probability of a Soviet attack on China, presumably aimed at destroying China's nuclear capability." The briefing significantly shaped Kissinger's thinking and inspired secret NSC contingency planning.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Kissinger's marginal note.</strong> On the Holdridge/Sonnenfeldt memorandum of 12 September 1969, Kissinger wrote in the margin that he disagreed with State's assessment: <em>"Soviets would not ask such questions lightly."</em> Two renderings circulate — Burr quotes "I disagree with State analysis. Soviets would not ask such questions lightly"; Gerson quotes "would not ask such questions lightly – though this does not mean that they intend to attack." The qualifying clause matters and is usually dropped.</p></div>
+
+  <h3>What Washington actually decided, and in which document</h3>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>The formulation you have seen — "Washington concluded that the destruction of China by the USSR was contrary to American interests" — is Kissinger's memoir paraphrase, not a document.</strong> Its documentary root is Nixon at the NSC meeting of <strong>14 August 1969</strong> at San Clemente (09:39–12:25). What Nixon actually said, in the minutes as revised by Haig, is looser and more tentative than the paraphrase suggests.</p></div>
+
+  <div class="doccard">
+    <div class="dochead">
+      <span class="cls">NSC — minutes revised by Haig</span>
+      <span class="ttl">Minutes of Meeting of the National Security Council</span><br>
+      San Clemente, August 14, 1969, 09:30 a.m.–12:25 p.m.<br>
+      FRUS 1969–1976, Vol. XII, Document 74
+    </div>
+    <div class="docbody">
+      <blockquote>
+        <p><strong>The President:</strong> "We must recall the Brezhnev doctrine and the invasion of Czechoslovakia. The Soviets continue to move forward and act aggressively when progress is threatened. They are a tough group. We should relook at our own estimates. They may have a 'knock them off now' policy developing with respect to China."</p>
+        <p><strong>The President:</strong> "Now, in terms of our role, <em>I am not sure if it is in our long term interest to let the Soviets knock them off. We must think through whether it is a safer world with China down, or should we look to keeping China strong?</em> These are rhetorical questions."</p>
+        <p><strong>Director Helms:</strong> "Border incidents don't prove anything, but the Soviets have moved from 15 up to 30 divisions to China's border. They now have 3 new missile sites with a range of 500 miles along the border. The Soviets fear they will soon lose their first strike capability vis-à-vis China."</p>
+        <p><strong>Secretary Rogers:</strong> "No one at State would favor a Soviet takeover of China."</p>
+        <p><strong>Assistant Secretary Green:</strong> "The Soviets are certainly probably tempted to surgically remove the Chinese nuclear threat."</p>
+      </blockquote>
+      <p class="attrib">Source: Library of Congress, Manuscript Division, Kissinger Papers, Box CL 312. Nixon's own handwritten notes of Helms's briefing are printed separately at FRUS 1969–76, Vol. XVII, Doc. 25.</p>
+    </div>
+  </div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>The "smashed" wording is Kissinger's, written a decade later.</strong> <em>White House Years</em> (1979), p. 182: "the President startled his Cabinet colleagues by his revolutionary thesis (which I strongly shared) that the Soviet Union was the more aggressive party and that it was against our interests to let China be 'smashed' in a Sino-Soviet war. It was a major event in American foreign policy when a President declared that we had a strategic interest in the survival of a major Communist country, long an enemy, and with which we had no contact." The FRUS editors print this quotation in the footnote to Nixon's notes — i.e. the State Department historians themselves flag it as the memoirist's gloss on the meeting. <strong>Cite the minutes for what was said and Kissinger for how he later characterised it; do not merge them.</strong></p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The operative decision came six weeks later, and it was a diplomatic one.</strong> Kissinger's memorandum to Nixon of <strong>29 September 1969</strong>, "The US Role in Soviet Maneuvering Against China" (FRUS XII, Doc. 88), recommended that Nixon authorise him to ask State "to prepare instructions to the field setting forth guidance to be used with the USSR and others, <strong>deploring reports of a Soviet plan to make a preemptive military strike against Communist China</strong>." Nixon circled <em>Approve</em> and added a handwritten instruction to base it on "reports which have come here." Haig's memorandum to Kissinger of 11 October 1969 confirms: "The President has authorized you to ask State to prepare instructions to the field…"</p></div>
+
+  <div class="doccard">
+    <div class="dochead"><span class="cls">SECRET — ACTION</span><span class="ttl">Memorandum for the President from Henry A. Kissinger</span><br>September 29, 1969 · Subject: The US Role in Soviet Maneuvering Against China</div>
+    <div class="docbody">
+      <blockquote>
+        <p>"In the last two months, the increase in Sino-Soviet tensions has led the Soviets to sound out numerous American contacts on their attitude toward a possible Soviet air strike against China's nuclear/missile facilities or toward other Soviet military actions. These probes have varied in character from point-blank questioning of our reaction to provocative musings by Soviets over what they might be forced to do against the Chinese, including the use of nuclear weapons. <strong>Some of these contacts have featured adamant denials that the Soviets were planning any military moves — thereby keeping the entire issue alive.</strong>"</p>
+        <p>"…the Soviets may be using us to generate an impression in China and the world that we are being consulted in secret and would look with equanimity on their military actions."</p>
+        <p>"I believe we should make clear that we are not playing along with these tactics, in pursuance of your policy of avoiding the appearance of siding with the Soviets."</p>
+      </blockquote>
+      <p class="attrib">Rogers's 10 September memorandum was attached at Tab A. Read here in facsimile from NSA EBB 49, Doc. 24.</p>
+    </div>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The public signal was Elliot Richardson's, on 5 September 1969</strong> — before the Kissinger memorandum, and drawn from State's own consultants' advice to "avoid any whiff of collusion." Speaking to the American Political Science Association in New York, the Under Secretary of State said: "In the case of Communist China, long run improvement in our relations is in our own national interest. We do not seek to exploit for our own advantage the hostility between the Soviet Union and the People's Republic. Ideological differences between the two Communist giants are not our affair. <strong>We could not fail to be deeply concerned, however, with an escalation of this quarrel into a massive breach of international peace and security.</strong>" (Full text: <em>Department of State Bulletin</em>, 22 September 1969, pp. 257–260.)</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The formal policy study was NSSM 63</strong> ("U.S. Policy on Current Sino-Soviet Differences," issued 3 July 1969; response completed 10 November 1969; Senior Review Group 20 November). Its conclusion was <em>neutrality</em>: clear support for either country would forfeit advantage with the other. The Washington Special Actions Group recommended the US "do all possible to avoid involvement while doing what we can to encourage termination of the hostilities." The only mention of US nuclear forces anywhere in this context is a WSAG recommendation to <em>raise the DEFCON</em> in response to a Soviet nuclear attack on China. Kissinger's private position was that neutrality could still "lean toward China."</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Not everyone in the White House thought a strike would be bad for the US.</strong> William Hyland's NSC critique of the NSSM 63 draft, 28 August 1969 — which Kissinger called "1st rate" — held that a limited Sino-Soviet war was "by no means a disaster for the US," and that Soviet destruction of Chinese nuclear facilities might be a "solution" to the China nuclear problem. State's academic consultants took the opposite view, warning that "a non-nuclear Soviet strike would have a vast destabilizing effect."</p></div>
+
+  <h3>What Soviet and Russian sources have said since</h3>
+
+  <div class="verdict">
+    <h3>The answer to your question</h3>
+    <p><strong>No Soviet document confirming a planned strike has surfaced.</strong> The affirmative case rests entirely on memoir, on second-hand claims of privileged access, and on the American and Chinese records of Soviet <em>signalling</em>. The Soviet decision-making record for 1969 remains closed, and every documentary advance since 2015 has come from outside Moscow — Romanian, Chinese, East German, Albanian, Hungarian files.</p>
+    <p>Gerson's formulation is the one to use: <em>"it is likely that military planners and political officials considered a nuclear strike as at least one option among many. There is no available evidence, however, that Moscow ever seriously contemplated launching a nuclear strike."</em></p>
+  </div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Grechko's "nuclear blockbuster" — the load-bearing claim, and it is one memoir.</strong> Arkady Shevchenko, <em>Breaking with Moscow</em> (Knopf, 1985), pp. 164–165, reports that after 2 March Defence Minister Andrei Grechko advocated "unrestricted use" of multi-megaton weapons to "once and for all get rid of the Chinese threat," while Nikolai Ogarkov argued a massive nuclear attack "would inevitably mean world war" and that even a limited counterforce strike was dangerous because a few weapons would "hardly annihilate" a country China's size. Shevchenko was a UN-based diplomat, not a Politburo participant; the claim is second-hand within his own account and written sixteen years after the fact. Its standing has steadily fallen: Ostermann cited a secondary work rather than Shevchenko for it; Gerson cites him and declines to credit it as evidence of intent; RAND's 2024 study does not cite him at all. Niu Jun's 1999 article independently confirms that Chinese scholarship rests the claim on Shevchenko alone.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Gobarev's claim of allied notification.</strong> Viktor M. Gobarev, "Soviet Policy Toward China: Developing Nuclear Weapons 1949–1969," <em>Journal of Slavic Military Studies</em> 12:4 (December 1999), claims Moscow told East European allies that its Far Eastern strategic air forces were on alert to strike Lop Nur, and deliberately leaked this so it would reach Beijing. This is the strongest affirmative claim in the literature. Gobarev asserts privileged access to Soviet records; the claim is not independently verifiable, and RAND presents it alongside the "psychological operation" reading without adjudicating.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The Soviet denials are on the record.</strong> Kosygin, at the Beijing airport on 11 September 1969, per the CPSU Central Committee's own circular to the SED: "We declared the provocative nature of the contrived imperialist propaganda to the effect that the Soviet Union allegedly is preparing a preventive strike on China." Kapitsa called the idea "unthinkable" and "an invention of the Western press." Denials are not disproof — but they are the only contemporaneous Soviet statements on the question in the archives.</p></div>
+
+  <div class="claim inf"><p><span class="pill">Inferred</span><strong>Other Russian-language memoir.</strong> N. S. Leonov, <em>Likholet'e</em> (Moscow, 2003), p. 119, reports that some in Moscow argued the only defence against a mass conventional onslaught was nuclear weapons, and that some advocated nuclear mines along the border. Aleksei Yelizavetin, the Soviet chargé in Beijing, published a participant account of the airport meeting in <em>Problemy Dal'nego Vostoka</em> No. 5 (1992) which insists all Soviet threats were pressure. Mikhail Kapitsa's memoir <em>Na raznykh parallelakh</em> covers the meeting. All are memoir, not archive.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Some Soviet officials were talking openly about nuclear use.</strong> Maj-Gen Sergei Krakhmalov, Soviet military attaché in Tehran, told US diplomats in September 1969 that Moscow "would not hesitate to use nuclear weapons against the Chinese if they attacked with major forces." Arkady Shevchenko, then at the UN, told a US diplomat on 5 September 1969 that Beijing was wrong to think the Kremlin would not "use larger-than-tactical nuclear weapons" — a hawkishness rather at odds with the tone of his own 1985 memoir.</p></div>
+
+  <p class="note">Burr's 2001 framing has not been improved on: "Soviet archives and perhaps the memories of former Soviet officials may someday disclose whether Davydov's approach was part of a campaign to intimidate the Chinese or an effort to test U.S. reactions to real contingency plans (or both)."</p>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="s3">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 03</span>
+    <h2 class="sec-title">The Chinese response</h2>
+    <p class="sec-sub">The airport meeting, Order Number One, the shelters, and the Third Front — with three corrections to the standard account.</p>
+  </div>
+
+  <h3>Kosygin and Zhou Enlai, Beijing airport, 11 September 1969</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Date and duration confirmed.</strong> 11 September 1969, Beijing Capital Airport. The Chinese official record gives <strong>3 hours 40 minutes</strong>; the Soviet circular says "about four hours"; Ryabushkin says three and a half. Soviet side: Kosygin, CPSU CC Secretary Konstantin Katushev, Mikhail Yasnov. Chinese side: Zhou Enlai, Li Xiannian, Xie Fuzhi.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Correction to the standard account: this was not a flight diverted on the way home from Hanoi.</strong> Ho Chi Minh died 2 September; the funeral was 9 September. The CPSU Central Committee's own memorandum to the East German leadership states that the Chinese reply reached Hanoi <em>an hour after</em> the Soviet delegation had already left for Moscow via Calcutta, and that Kosygin "set off for Beijing already from the territory of the Soviet Union." Sources differ on which Central Asian city — Ryabushkin says Tashkent, Kapitsa's memoir (via Lüthi) says a refuelling stop at Dushanbe; from there Kosygin ordered the aircraft to fly via Siberia to Beijing.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>What was agreed — the Chinese four points.</strong> (1) maintain the status quo of the border; (2) avoid military conflict on the border; (3) military forces to avoid contact in disputed areas; (4) border authorities to consult in case of dispute. Both sides agreed to confirm this by exchanging formal letters after reporting to their leaderships — which is what generated Zhou's letter of 18 September. Zhou declared "China has no territorial pretensions toward the Soviet Union," repeated the "unequal treaties" characterisation but said China did not demand their annulment, and told Kosygin polemics would continue. The Soviets separately proposed restoring rail and air links, the severed high-frequency communications line, and ambassadors.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>The nuclear question at the airport.</strong> This is the crux, and the two records diverge. The contemporaneous <strong>Soviet</strong> circular records only that Moscow denounced "the contrived imperialist propaganda" about a preventive strike, and that Zhou said "China has no intentions to attack the Soviet Union." <strong>It contains no no-first-use pledge and no nuclear non-attack undertaking.</strong> The stronger claims — that Zhou opened by asking Kosygin to clarify Soviet intentions on the nuclear facilities, and warned that if the USSR destroyed Chinese nuclear bases China "would consider itself at war" and "would fight to the bitter end" — come from <strong>Yelizavetin's memoir and Yang Kuisong</strong>, and are not corroborated by the Soviet record.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The nuclear clause is Zhou's, added afterwards, and Moscow never confirmed it.</strong> Zhou's letter to Kosygin of <strong>18 September 1969</strong>, Section II.1: "The two sides promise that the armed forces of each side, <em>including nuclear forces</em>, will not attack and open fire on the other side." Kosygin replied on <strong>26 September</strong> proposing talks in Beijing in early October — but, as Zhou told the Chinese delegation on 7 October, "in their letter of reply, they only mentioned that they had issued the order to their border forces, <strong>without mentioning the mutual understandings that had been reached</strong>." Mao and Zhou read the omission as meaning war was imminent. Talks opened in Beijing on <strong>20 October 1969</strong>: Qiao Guanhua for China, First Deputy Foreign Minister Vasily Kuznetsov for the USSR.</p></div>
+
+  <div class="claim unt"><p><span class="pill">Untraceable</span><strong>A non-aggression pact at the airport meeting.</strong> Neither the Soviet memorandum nor Zhou's letter mentions one. Soviet non-aggression treaty proposals belong to the 1970s. Treat any claim that one was exchanged on 11 September 1969 as unsupported.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The Four Marshals told Mao an attack was unlikely.</strong> Their report of <strong>17 September 1969</strong> (Chen Yi, Ye Jianying, Nie Rongzhen, Xu Xiangqian) says the Soviets were "openly threatening us with a nuclear strike, and conspiring to launch a surprise attack on our nuclear facilities" — and concludes that "the Soviet revisionists <em>dare not</em> start a major war against China." China's most senior military-strategic advisers reached that judgement six days after the airport meeting. The leadership panicked anyway a month later. The war scare was not driven by the expert assessment.</p></div>
+
+  <h3>Lin Biao's Order Number One</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Dates.</strong> On <strong>17 October 1969</strong>, from Suzhou, Lin Biao formulated the "Urgent Directive on Strengthening War Preparedness and Preventing an Enemy Surprise Attack," conveyed by his secretary Zhang Yunsheng by telephone to Chief of the General Staff <strong>Huang Yongsheng</strong>. On <strong>18 October</strong> (21:30, per Chinese sources) Huang transmitted it to the whole army as "林副主席第一个号令" — Vice-Chairman Lin's First Order. It was reported to Mao on 19 October. Gerson dates Lin's message to Huang to 18 October; the discrepancy is minor.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>What it directed.</strong> Dispersal and protection of heavy weapons — tanks, aircraft, artillery — especially in the three northern military regions; accelerated production of anti-tank weapons; command organs to move to wartime positions; strengthened duty rotations; intelligence units on constant surveillance. Whether it originally contained four or six items is disputed between sources.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>The nuclear alert.</strong> The second directive is reported to have instructed the Second Artillery to conduct "launching preparations" — the first and only combat alert of China's nuclear forces, transmitted only to Second Artillery headquarters, with Lin insisting Mao must personally approve any launch. An aide warned: "The Second Artillery fires by pressing a button; if they fail to be cautious, even a single shot could start a world war." <strong>Lin also included the DF-3 in the order, though none were yet operational.</strong> This striking material rests on a narrow base: Zhang Yunsheng's memoir (p. 317), a party-history newspaper article by Yan Mingzai, and Lewis and Xue, <em>Imagined Enemies</em> (2006), pp. 63–66. It is widely repeated but not archivally corroborated.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Correction: the dispersal of the leadership was Mao's decision of 14 October, four days before the Order.</strong> The CCP Central Committee's notice of 14 October required principal leaders in Beijing to complete war-preparedness dispersal before 20 October. Mao's reasoning: "The concentration of all of the members of the central leadership in Beijing is not good; one atom bomb would kill many."</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Dispersal from Beijing, October 1969</caption>
+      <thead><tr><th>Leader</th><th>To</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td>Mao Zedong</td><td>Wuhan</td><td class="mono">14 or 15 Oct — uncertain</td></tr>
+        <tr><td>Lin Biao</td><td>Suzhou</td><td class="mono">c. 17 Oct</td></tr>
+        <tr><td><strong>Zhou Enlai</strong></td><td><strong>remained in Beijing</strong></td><td class="mono">—</td></tr>
+        <tr><td>Liu Shaoqi</td><td>Kaifeng</td><td class="mono">17 Oct</td></tr>
+        <tr><td>Deng Xiaoping</td><td>Nanchang</td><td class="mono">22 Oct</td></tr>
+        <tr><td>Zhu De</td><td>Guangzhou</td><td class="mono">20 Oct</td></tr>
+        <tr><td>Chen Yun</td><td>Nanchang</td><td class="mono">20 Oct</td></tr>
+        <tr><td>Ye Jianying</td><td>Changsha</td><td class="mono">20 Oct</td></tr>
+        <tr><td>Chen Yi</td><td>Shijiazhuang</td><td class="mono">21 Oct</td></tr>
+        <tr><td>Nie Rongzhen</td><td>Handan</td><td class="mono">20 Oct</td></tr>
+        <tr><td>Xu Xiangqian</td><td>Kaifeng</td><td class="mono">20 Oct</td></tr>
+        <tr><td>Liu Bocheng</td><td>Wuhan, later Shanghai</td><td class="mono">20 Oct</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span>Key military officials went to a hardened wartime command centre under <strong>Baiwang Shan</strong> (百望山) in western Beijing; the State Council and the Party's Central General Office to hardened posts in <strong>Xiangbizi Gou</strong> (象鼻子沟), also in the western hills. <strong>Liu Shaoqi died at Kaifeng on 12 November 1969.</strong></p></div>
+
+  <div class="claim unt"><p><span class="pill">Untraceable</span><strong>"Liu Shaoqi was exiled to Kaifeng under Order Number One."</strong> Chronologically impossible — he was moved on 17 October, the order was transmitted on 18 October — and contradicted by the evidence that the dispersal flowed from Mao's 14 October decision. Widely repeated in Chinese popular articles. Also reject the two mutually incompatible mobilisation figures in circulation ("90-odd divisions, 520-odd regiments, 4,100-odd aircraft" vs "940,000 troops, 4,000+ aircraft, 600+ ships").</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Mao's reaction, and whether Lin cleared it in advance.</strong> Wang Dongxing's memoir has Mao reading the 19 October circulation, looking displeased, saying "烧掉" — burn it — and burning it himself. That is a single source. The historian Xiao Xiang argues Mao objected to the <em>numbering</em> ("Order Number One" implying Lin was arrogating supreme command) rather than the content. On advance clearance the accounts flatly conflict: Wang Dongxing says Lin acted behind Mao's back; Zhang Yunsheng says Ye Qun agreed to report it that evening; Wu Faxian's memoir suggests Mao approved. <strong>Xiao Xiang reports that archival searches in the early 1980s found a record of Lin reporting to Mao, and that the Party dropped the charge for insufficient evidence.</strong> Order Number One does not appear among the formal charges at the 1980–81 trial. Su Caiqing argued in 1989 that the order and the evacuation had no direct causal relationship.</p></div>
+
+  <h3>Shelters, and the slogan that is usually misdated</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>27 August 1969</strong> — the CCP Central Committee and the Central Military Commission established a national <strong>Leading Group for People's Air Defence, headed by Zhou Enlai</strong>, tasked with preparing large-scale evacuations and dispersing critical industries out of large cities; citizens in major cities were told to dig air-raid shelters and stockpile necessities. <strong>28 August</strong> — the CC's "Order for General Mobilization in Border Provinces and Regions" (full text in <em>CWIHP Bulletin</em> 11). Gansu ordered its urban population to scatter on 30 August; Beijing mobilised its eight million inhabitants on 2 September. After the Victor Louis article, a crash shelter-building programme was established nationwide.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>The slogan 深挖洞，广积粮，不称霸 is documented only from December 1972, not 1969.</strong> It was formally transmitted on <strong>10 December 1972</strong>, when the Central Committee forwarded the State Council's grain report of 24 November 1972 conveying Mao's instruction. Chinese Wikipedia asserts April 1969; the more careful party-history treatment says the date of Mao's first utterance is uncertain and that the 1969 claim rests on the recollection of one man, Li Genqing, and "lacks authoritative documentation." <strong>Using the slogan to date the campaign is a three-year anachronism.</strong> Keep it separate from the earlier 备战、备荒、为人民 ("prepare for war, prepare for famine, for the people"), which Mao formulated in January 1965 and Zhou condensed in August 1965.</p></div>
+
+  <div class="claim unt"><p><span class="pill">Untraceable</span><strong>Every figure for the Beijing Underground City.</strong> Construction 1969–1979 is not in dispute; the numbers are. 85 km² of coverage, 8–18 m depth, "over 30 km" of tunnel, 3.61 million m² completed by 1979, 2,300 ventilation shafts, ~90 hidden entrances, 300,000+ builders — none carries an attribution. The "capacity for all six million inhabitants" is a government claim, not an engineering assessment. <strong>No cost figure exists in any source.</strong> English Wikipedia concedes "there is no official disclosure about the actual extent of the complex." No credible national total for shelter area or cost exists either, nor any scholarly assessment of the shelter programme's specific economic burden as distinct from the Third Front.</p></div>
+
+  <h3>The Third Front (三线建设)</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>It began in 1964 — and Mao's push predates the Gulf of Tonkin by three months.</strong> On <strong>10 May 1964</strong> Mao rejected the draft Third Five-Year Plan's agriculture-first emphasis and demanded acceleration of the Panzhihua steel base; on <strong>27 May 1964</strong> he convened an enlarged Politburo Standing Committee meeting on the Third Front. The <strong>Gulf of Tonkin incident of 2 August 1964</strong> then catalysed full mobilisation; on 17 August at Beidaihe Mao demanded acceleration of the Chengdu–Kunming railway. Mao's rationale: "in the period of the atomic bomb, we need a strategic rear for retreat."</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Geography.</strong> The <em>Great</em> Third Front, centrally administered: Sichuan (including present-day Chongqing), Yunnan, Guizhou; Shaanxi, Gansu east of Wushaoling, Qinghai, <strong>Ningxia</strong>; and the parts of Hebei, Henan, Hubei and Hunan <strong>west of the Beijing–Guangzhou railway</strong>, plus Guangxi's Hechi region and Shanxi south of Yanmen Pass. The <em>Small</em> Third Front was provincially administered in the mountainous interiors of coastal provinces; the Shanghai programme was the largest.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Scale, 1964–1980</caption>
+      <thead><tr><th>Measure</th><th>Figure</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Share of national basic construction investment</td><td class="num"><strong>39.01%</strong> (205.26 bn yuan)</td><td>Chinese official-derived. <strong>Note the units error in circulation:</strong> 2,052.6 亿元 = 205.26 <em>billion</em> yuan, not 20.52 billion.</td></tr>
+        <tr><td>Share of total state investment to armaments, at the peak</td><td class="num"><strong>11% (1969–71)</strong></td><td>Naughton, <em>China Quarterly</em> 115 (1988) — the quantitative signature of the Soviet shock</td></tr>
+        <tr><td>Sichuan industrial investment to military industry, 1950–81</td><td class="num">22.8%</td><td>Naughton (1988)</td></tr>
+        <tr><td>Large and medium projects</td><td class="num">1,100+</td><td>1,945 industrial enterprises and research institutions; ~400 SOEs relocated inland</td></tr>
+        <tr><td>Workers moved inland, 1964–70</td><td class="num">145,000</td><td>with 38,000 units of equipment, across 380 large projects</td></tr>
+        <tr><td>People mobilised overall</td><td class="num">~15 million</td><td>Meyskens, <em>Mao's Third Front</em> (Cambridge UP, 2020)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Inferred</span><strong>What 1969 changed.</strong> Zhenbao triggered a second investment surge, generally dated 1969/70–1971, and shifted strategic emphasis toward the north and northwest — against the USSR — rather than exclusively the southwest against the United States. Naughton's verdict on the whole programme: it "was immensely costly, having a negative impact on China's economic development that was certainly more far-reaching than the disruption of the Cultural Revolution." Meyskens: it received "more government investment than any other developmental initiative of the Mao era," and was not officially acknowledged for over a decade and a half.</p></div>
+
+  <p class="note">Uncertain: the date of the Li Fuchun / Bo Yibo / Luo Ruiqing report on defending the economy against surprise attack — usually August 1964 with Mao approving on 19 August, but Chinese Wikipedia gives August 1965. Verify before citing.</p>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="s4">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 04</span>
+    <h2 class="sec-title">The targets</h2>
+    <p class="sec-sub">China's nuclear complex as it actually stood in 1969 — separating what was operating from what was still a hole in the ground.</p>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span>The dates below rest chiefly on <strong>Hui Zhang, <em>China's Fissile Material Production and Stockpile</em></strong>, IPFM Research Report No. 17 (2017), built from Chinese-language official and semi-official histories. Zhang's coordinates are read off commercial satellite imagery. <strong>Every arc-minute coordinate from FAS, GlobalSecurity or AtomicArchive is a 1990s open-source estimate, not an official datum</strong> — and AtomicArchive's six-decimal renderings of FAS's arc-minute figures are false precision, not independent confirmation.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>The 1969 target set — operational status is the column that matters</caption>
+      <thead><tr><th>Facility</th><th>Function</th><th>Location</th><th>Operating 1969?</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Lop Nur test site</strong><br>罗布泊 · run by the <strong>21st Test Training Base</strong> at Malan (马兰), Unit 63650</td>
+          <td>China's only nuclear test site; all 45 tests 1964–96</td>
+          <td>Bayingolin, Xinjiang. Site centroid ~41°30′N 88°30′E (FAS). The zone that mattered in 1969 was <strong>Area D</strong>, the atmospheric ground-zero area, ~40.72–40.82°N, 89.5–89.8°E. Malan town ~125 km NW; its coordinates are contested between sources by ~11 km.</td>
+          <td class="yes">Yes — ten tests by end-1969</td>
+        </tr>
+        <tr>
+          <td><strong>Plant 404</strong><br>Jiuquan Atomic Energy Complex, 酒泉原子能联合企业 · "404 City"</td>
+          <td>Reactor 801 plutonium production; UF<sub>6</sub> conversion feeding Lanzhou; pilot and large reprocessing; <strong>the first HEU weapon core was machined here in May 1964</strong></td>
+          <td><strong>Not at Jiuquan city and not at Subei.</strong> On the Gobi ~30 km east of Yumenzhen, ~100 km west of Jiayuguan, Gansu. <strong>40°13′50″N 97°21′49″E</strong> (Zhang, imagery). US intelligence called it the "Yumen Plutonium Production Facility."</td>
+          <td class="yes">Yes — but reactor critical Oct 1966 and still far below design power; a serious accident in Jan 1969 melted a channel liner. Pilot reprocessing operating since Sep 1968; the <em>large</em> reprocessing plant only started April 1970.</td>
+        </tr>
+        <tr>
+          <td><strong>Plant 504</strong><br>Lanzhou gaseous diffusion plant, 兰州铀浓缩厂</td>
+          <td>China's <em>only</em> operating enrichment plant in 1969 — sole HEU source</td>
+          <td>Beside the Yellow River near Lanzhou (Xigu), Gansu. <strong>36°08′53″N 103°31′24″E</strong> (Zhang). Buildings demolished mid-2017.</td>
+          <td class="yes">Yes — 90% enriched uranium from <strong>14 January 1964</strong>; all cascades from July 1964</td>
+        </tr>
+        <tr>
+          <td><strong>Plant 202</strong><br>Baotou Nuclear Fuel Component Plant, 包头核燃料元件厂</td>
+          <td>Uranium purification and conversion; fuel elements for the Plant 404 reactor. A lithium deuteride line designated <strong>Plant 212</strong> is also identified here.</td>
+          <td>Baotou, Inner Mongolia. ~40°38′N 109°59′E (FAS — no better figure found).</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td><strong>Plant 221</strong><br>Northwest Nuclear Weapons Research and Design Academy · the <strong>Ninth Academy</strong> · cover name "Qinghai Provincial Mining Area"</td>
+          <td>Weapon physics, HE development, component fabrication and <strong>final device assembly</strong>. Los Alamos and Pantex in one place.</td>
+          <td>Jinyintan grassland (金银滩), Haiyan County, Qinghai — today Xihai Town. ~100 km NW of Xining, ~16 km east of Qinghai Lake, at ~3,200 m. ~1,170 km² in 12 factory areas. ~36°57′N 100°55′E (FAS). US intelligence: the "Koko Nor complex."</td>
+          <td class="yes">Yes — and on any rational targeting logic <strong>the highest-value single aim point in China.</strong> Its Third Front relocation to Mianyang began only in October 1969.</td>
+        </tr>
+        <tr>
+          <td><strong>Base 20</strong><br>Jiuquan Satellite Launch Centre · Unit 63600 · US name "Shuang-cheng-tzu Missile Test Range"</td>
+          <td>China's only operational ballistic-missile flight-test range; the 27 October 1966 live-warhead DF-2 shot was fired from here</td>
+          <td>Named for Jiuquan but physically in <strong>Ejin Banner, Alxa League, Inner Mongolia</strong>, extending into Jinta County, Gansu. 40°57′29″N 100°17′28″E.</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td><strong>Institute 401</strong>, Tuoli<br>Beijing Institute of Atomic Energy (today CIAE)</td>
+          <td>Soviet-supplied 7.5–10 MWt heavy-water research reactor and 25 MeV cyclotron, both 1958; the pilot UF<sub>6</sub> line that made the first feed for Lanzhou</td>
+          <td>Tuoli (坨里), Fangshan District, ~40 km SW of central Beijing. ~39°48′N 116°03′E (FAS).</td>
+          <td class="yes">Yes. Note: "Plant 601" appears to be the construction project code, not the operating body — verify before asserting.</td>
+        </tr>
+        <tr>
+          <td><strong>Plant 272</strong>, Hengyang (originally Plant 414); <strong>711 mine</strong>, Chenzhou; <strong>Shangrao</strong> mine</td>
+          <td>Uranium milling and mining — the front end</td>
+          <td>Hunan (~26°54′N 112°36′E and ~25°48′N 113°02′E) and Jiangxi (~28°28′N 117°58′E). FAS figures.</td>
+          <td class="yes">Yes — Plant 272 producing qualified UO<sub>2</sub> from October 1962</td>
+        </tr>
+        <tr>
+          <td><strong>Base 25</strong>, Wuzhai / Taiyuan</td>
+          <td>Third Front back-up missile test range</td>
+          <td>Kelan County, Xinzhou, Shanxi (outside Wuzhai County, despite the US name)</td>
+          <td class="yes">Yes — established March 1966, operational 1968. Sourcing is weak (Wikipedia/GlobalSecurity lineage).</td>
+        </tr>
+        <tr>
+          <td><strong>Plant 814</strong>, Heping / Jinkouhe</td>
+          <td>Second gaseous diffusion plant</td>
+          <td>Leshan, Sichuan, on the Dadu river. 29°13′58″N 103°03′50″E (Zhang).</td>
+          <td class="no">No — construction from 1966, operating June 1970</td>
+        </tr>
+        <tr>
+          <td><strong>Plant 821</strong>, Guangyuan</td>
+          <td>Second plutonium complex</td>
+          <td>Guangyuan, Sichuan. ~32°26′N 105°52′E (FAS).</td>
+          <td class="no">No — <strong>construction began October 1969</strong>, during the crisis; reactor critical December 1973</td>
+        </tr>
+        <tr>
+          <td><strong>Plant 816</strong>, Fuling; <strong>Plant 405</strong>, Hanzhong</td>
+          <td>Underground plutonium reactor; third-line enrichment</td>
+          <td>Chongqing; Shaanxi</td>
+          <td class="no">No — 816 begun Feb 1967 and never completed; 405 decided 1969, not operating until the 1990s</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Corrections worth carrying into your notes</h4>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Plant 812 is not Guangyuan.</strong> Plant 821 (821厂) is Guangyuan. <strong>Plant 812</strong> is the Yibin Nuclear Fuel Element Plant in Sichuan (~28°46′N 104°34′E) — a Third Front fuel-fabrication and lithium plant of the late 1960s, not a fissile-material node. Your instinct that the Guangyuan plutonium plant was a later Third Front project is right: October 1969.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>The "Baotou plutonium reactor" is very probably a fossilised US intelligence error.</strong> FAS and GlobalSecurity describe a small air-cooled reactor at Baotou producing ~10 kg of plutonium a year. US intelligence in 1963–64 read Baotou's building configuration, separation infrastructure and security perimeter as a plutonium production reactor, estimated criticality "early 1962," and expected China's first test to use Baotou plutonium — <strong>debris analysis after 16 October 1964 showed uranium instead.</strong> Zhang's Chinese-sourced account lists only Jiuquan (404) and Guangyuan (821) as plutonium sites. Do not repeat the Baotou reactor as fact — though it is precisely the kind of artifact a 1969 Soviet target list might itself have contained, which makes it interesting in its own right.</p></div>
+
+  <div class="claim unt"><p><span class="pill">Untraceable</span><strong>"The Soviets planned strikes on Beijing, Changchun, Anshan, and the nuclear sites at Jiuquan, Xichang and Lop Nur."</strong> This list circulates widely. <strong>The inclusion of Xichang is an anachronism</strong> — the Xichang launch centre was a product of the later Project 714 decision and did not become operational until 1984. Nothing existed there to target in 1969. That single tell suggests a later Chinese-media reconstruction rather than a documented target set. Do not use it without running the underlying Chinese citation to ground.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Malan's founding date.</strong> The commonly given 16 October 1959 falls exactly five years before the first test — the kind of tidy anniversary that gets retrofitted. Treat with suspicion.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>What US intelligence could see.</strong> Lop Nur was identified from CORONA imagery of 6–9 August 1964 — a ground scar forming ~60% of a circle 19,600 ft across, with a 325 ft tower first seen in April 1964. The suspected Yumen reactor was first photographed in 1962; October 1965 imagery showed four of six cooling towers finished, all six complete by September 1967. Lanzhou was identified in September 1959 but consistently underestimated — a well-documented analytic failure, since analysts expected China's first test to be plutonium-fuelled. Declassified CORONA coverage of Lanzhou exists for 10 August 1964, <strong>17 December 1969</strong> and 31 March 1971; the December 1969 pass falls squarely in your period and would be worth ordering from NARA.</p></div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="s5">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 05</span>
+    <h2 class="sec-title">The forces, 1969</h2>
+    <p class="sec-sub">What each side could actually do — including a direct answer on Soviet IRBMs east of the Urals, which is not what the secondary literature says.</p>
+  </div>
+
+  <h3>Soviet ground forces</h3>
+
+  <div class="tw">
+    <table>
+      <caption>Soviet divisions facing China, by date of estimate</caption>
+      <thead><tr><th>Estimated</th><th class="num">Divisions</th><th>Detail and source</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1963</td><td class="num">~13</td><td>"from Turkestan to the Far East… probably fewer than half were combat ready" — CIA Board of National Estimates, SM 4-69, 6 May 1969</td></tr>
+        <tr><td class="mono">Mar 1968</td><td class="num">~26</td><td>"almost equals the number of Soviet ground force divisions in Eastern Europe (26)"; as many as 12 added since mid-1964 — CIA BNE, SM 7-68, 25 March 1968</td></tr>
+        <tr><td class="mono">May 1969</td><td class="num">27 → 30</td><td>"either combat ready or being built up opposite China. We now expect this total to reach as many as 30." Now 5–6 army/corps HQ, probably 2 front-level HQ — CIA BNE, SM 4-69</td></tr>
+        <tr><td class="mono">Aug 1969</td><td class="num">"15 up to 30"</td><td>Helms to the NSC, 14 August 1969</td></tr>
+        <tr><td class="mono">1969 (retrospective)</td><td class="num">27–34</td><td>~half combat-ready, 270,000–290,000 men — Gerson, noting explicitly that CIA reports disagree among themselves</td></tr>
+        <tr><td class="mono">Oct 1970</td><td class="num">37–41</td><td>~6 fully combat ready; 210,000 with the divisions, <strong>335,000 with support</strong>. 29–33 opposite NE China; <strong>8 in the new Central Asian MD</strong> opposite Xinjiang — CIA, via FRUS XII Doc. 227</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Named transfers.</strong> CIA's annex to SM 7-68 lists them: a motorised rifle regiment to the Xinjiang border in late 1963; the <strong>265th MRD</strong> from Moscow MD to the Manchurian border in late 1964; an army corps HQ to the Xinjiang border in late 1965; the <strong>322nd MRD</strong> from North Caucasus and an MRD from the Baltic to Xinjiang in mid/late 1966; the <strong>18th Guards Tank Division</strong> from North Caucasus and the <strong>315th MRD</strong> from Odessa to the Mongolian border in late 1966/1967. CIA's own caveat: "Most of these divisions are probably not, at this time, equivalent in strength or quality to the Soviet divisions now stationed in Eastern Europe."</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The Central Asian Military District was created on 24 June 1969</strong>, HQ Alma-Ata, by splitting the Turkestan MD — forces concentrated on the Chinese border. In the Far East MD, the 29th Army Corps was redesignated the 35th Army in mid-1969, the 51st Combined Arms Army staff was formed, and the 43rd Army Corps moved from Petropavlovsk-Kamchatsky to Birobidzhan. In Mongolia, the January 1966 treaty and the 4 March 1967 stationing agreement brought as many as six more divisions plus <strong>six new graded earth airfields</strong>.</p></div>
+
+  <h3>Air and strike forces</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Tactical air more than doubled after 1966.</strong> By May 1969 CIA counted a new tactical air army in Transbaikal–Mongolia with 300 aircraft — the second largest Soviet tactical air army — plus 230 in the Far East MD: <strong>530 tactical combat aircraft</strong> in the two districts, over 30 airfields renovated or built along the border, most of the new regiments on older MiG-17 and Il-28. By October 1970 CIA gave "at least 725 combat aircraft and 300 helicopters" along the whole border.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Long Range Aviation.</strong> CIA, May 1969: "a Badger medium bomber regiment from the western USSR (Southwest Bomber Command) deployed to the Far East and conducted exercises." LRA units had been flying reconnaissance against China since 1965. The LRA headquarters at Blagoveshchensk on the border had been moved back to Ukrainka, "perhaps for physical security reasons," with a new high-echelon headquarters at Irkutsk. CIA's assessment: "Soviet medium bombers could probably penetrate Chinese air defenses rather easily to deliver either conventional or nuclear bombs."</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>The eastern bomber force — 8th Separate Heavy Bomber Aviation Corps (HQ Irkutsk from 1965)</caption>
+      <thead><tr><th>Base</th><th>Unit</th><th>Type in 1969</th></tr></thead>
+      <tbody>
+        <tr><td>Belaya, Irkutsk obl.</td><td>1225 TBAP · 1229 TBAP</td><td>Tu-16K (missile-carrier) from 1960–61</td></tr>
+        <tr><td>Zavitinsk, Amur obl.</td><td>303 TBAP (55 TBAD)</td><td>Tu-16 from 1956</td></tr>
+        <tr><td>Vozdvizhenka, Primorsky</td><td>444 TBAP (55 TBAD)</td><td>Tu-16 from Oct 1956</td></tr>
+        <tr><td>Spassk-Dalniy / Khvalynka</td><td>219 ODRAP</td><td>Tu-16R reconnaissance, Tu-16Z tankers</td></tr>
+        <tr><td>Ukrainka, Seryshevo</td><td>40 &amp; 79 TBAP (73 TBAD)</td><td><strong>M-4 / 3M Bison</strong> — not Tu-95</td></tr>
+        <tr><td>Dolon / Chagan, Semipalatinsk obl.</td><td>1023 &amp; 1226 TBAP (79 TBAD)</td><td>Tu-95K from 1960</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Tu-22: essentially none east of the Urals.</strong> The type sat with 2 and 6 OTBAK in Belorussia and Ukraine. The one exception, single-sourced to Michael Holm and uncorroborated: <strong>444 TBAP at Vozdvizhenka held five Tu-22 from 1967 to May 1968</strong> — a trial that ended before the crisis. Wikipedia claims of Tu-22 at Zavitinsk and Ukrainka contradict Holm's regiment records. Two further corrections: the <strong>30th Air Army did not exist in 1969</strong> (created 1980 from 8 OTBAK), and the 73rd Air Army was Turkestan MD frontal aviation, not a Long Range Aviation formation. <strong>No sourced total of Tu-16 airframes east of the Urals was found</strong> — the IISS <em>Military Balance</em> 1969–70 could not be checked and any figure attributed to it should be verified against a physical copy.</p></div>
+
+  <h3>The IRBM question — a direct answer</h3>
+
+  <div class="doccard">
+    <div class="dochead"><span class="cls">TOP SECRET</span><span class="ttl">CIA, Board of National Estimates — Special Memorandum 4-69</span><br>"The Soviet Buildup Against China: Dimensions and Implications," 6 May 1969, para. 6</div>
+    <div class="docbody">
+      <blockquote><p>"<strong>There is nothing arrayed against China comparable to the massive MR/IRBM force targeted against Europe.</strong> However, the Soviets could use some of their ICBMs against China if necessary."</p></blockquote>
+      <p class="attrib">Para. 7: "Evidence of Soviet strategic attack preparations against China is thus quite tenuous at present." Corroborated 17 months later: "Strategic ballistic missile and bomber forces have not undergone any major changes that can be attributed to the confrontation with China" (CIA via FRUS XII, Doc. 227, 9 October 1970).</p>
+    </div>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>What R-12/R-14 there was, was in the wrong places.</strong> Four pockets, none in Transbaikal, Amur or Mongolia: the <strong>45th Rocket Division</strong> at Ussuriysk/Manzovka in Primorye (~32–35 launchers, and <strong>disbanded in September 1970</strong> — the eastern MRBM force was liquidated immediately after the crisis, not reinforced); the <strong>83rd Separate Rocket Regiment at Anadyr</strong>, four R-14 aimed at Alaska, <strong>taken off alert on 1 June 1969</strong>; ~10 launchers at Sary-Ozek; 12 R-12 at Kattakurgan and three R-14U silos at Aktyubinsk. Total east of the Urals in 1969: roughly <strong>45–60 launchers and falling</strong> — about 7–8% of a force of 608 R-12 and 97 R-14 launchers.</p></div>
+
+  <div class="claim inf"><p><span class="pill">Inferred</span><strong>What the SRF <em>had</em> done was retarget.</strong> CIA, March 1968: "Certain units of the Strategic Rocket Forces have almost certainly been <em>earmarked</em> for potential missile strikes against Chinese targets." Note the verb — existing units retargeted, no new deployment, no numbers. This is very plausibly the germ from which "missiles moved to the Chinese border" grew. The four eastern <strong>UR-100 (SS-11)</strong> divisions fielding from Nov 1966 — Drovyanaya, Olovyannaya, Svobodny, Krasnoyarsk/Gladkaya — geometrically covered both North America and China, but no source states an explicit China-targeting mission for them.</p></div>
+
+  <div class="claim unt"><p><span class="pill">Untraceable</span><strong>"375,000 men, 1,200 aircraft and 120 medium-range missiles by 1968."</strong> The passage carrying this on English Wikipedia has <em>no footnote at all</em>. The aircraft figure is hard to reconcile with CIA's 530; the missile figure is contradicted outright by CIA's "nothing arrayed against China." Also reject: <strong>"13 divisions in 1965 rising to 21 by end-1969"</strong> (GlobalSecurity, uncited, and inconsistent with CIA's 27 in May 1969); <strong>"one-third of the Strategic Missile Forces was east of the Urals targeted primarily against China"</strong>; and <strong>"about 500 R-12 deployed mainly in Central Asia to menace China"</strong> — arithmetically impossible, since peak <em>total</em> R-12 inventory was 608 launchers and the documented Central Asian presence is one 12-launcher site. <strong>"45+ divisions by the mid-1970s"</strong> is plausible but was not verified; Gelman's RAND study R-2943-AF would settle it.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The real nuclear buildup was theatre, not strategic — and it started against China.</strong> CIA, March 1968: Moscow stationed <strong>Scaleboard (SS-12)</strong> missile units "in at least three of the four Soviet military districts along the Chinese border… <em>the fact that the Scaleboard has not yet been identified elsewhere in the Soviet armed forces</em> underscores the increased military priority which the Soviets now accord to the areas near China." By May 1969: <strong>45–54 Scaleboard launchers, 8–12 Shaddock, and a larger-than-normal Scud complement</strong> — against a Soviet <em>front</em> in Eastern Europe holding only some 9, possibly 18, Scud launchers. Range is given variously as 450 miles (CIA 1968), 500 nm (CIA 1970) and 500 miles with a 500 kt warhead (Gerson).</p></div>
+
+  <h3>Stockpiles, 1969</h3>
+
+  <div class="tw">
+    <table>
+      <caption>Warhead inventories, 1969 (Kristensen / Norris series, FAS)</caption>
+      <thead><tr><th>State</th><th class="num">Warheads</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>United States</td><td class="num">27,552</td><td>&nbsp;</td></tr>
+        <tr><td><strong>Soviet Union</strong></td><td class="num"><strong>10,671</strong></td><td>&nbsp;</td></tr>
+        <tr><td><strong>China</strong></td><td class="num"><strong>50</strong></td><td>A smooth back-projection (1–5–20–25–35–50–75–100), not a count. Put very little weight on it.</td></tr>
+        <tr><td>World</td><td class="num">38,278</td><td>&nbsp;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Contemporary US intelligence declined to give China a number at all.</strong> NIE 13-8-69 (27 February 1969): China "could now have <em>a few</em> thermonuclear weapons for delivery by <em>its two operational medium jet bombers</em>," plus "some fission weapons in stock." NIE 13-8/1-69 (30 October 1969): moving toward MRBM deployment, but permanent complexes had not begun construction. NIE 13-8-71: <strong>fewer than 10 DF-2 MRBMs and "a handful" of strategic bombers</strong> — an arsenal a capable opponent could destroy preemptively. <strong>Actually deliverable Chinese warheads in 1969 were plausibly in the single digits to low tens.</strong> Do not conflate the FAS "50" with the NIE picture.</p></div>
+
+  <h3>Chinese delivery systems</h3>
+
+  <div class="tw">
+    <table>
+      <caption>What China had, and when — DIA assessment of March 1972 with modern corrections</caption>
+      <thead><tr><th>System</th><th>First test</th><th>Range</th><th>Status in 1969</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>DF-2 / DF-2A (CSS-1)</strong></td>
+          <td>1963</td>
+          <td>~1,050 km / ~1,250 km</td>
+          <td>A handful at most. <strong>Cryogenic propellant</strong> — LOX and alcohol, so it could not sit fuelled; launch preparation 150–180 minutes. Soft above-ground sites in northern and northeastern China. Yield 12 kt demonstrated (Oct 1966). Real deployment began 1969–70. <em>Do not use Wikipedia's "~90 deployed from 1966"</em> — it conflicts with both the declassified NIEs and FAS.</td>
+        </tr>
+        <tr>
+          <td><strong>DF-3 (CSS-2)</strong></td>
+          <td>26 Dec 1966</td>
+          <td>2,780–3,000 km</td>
+          <td class="no">Not operational. IOC 1971; deployment from 1972. The decisive evidence is that <strong>Lin Biao included the DF-3 in his 18 October 1969 alert order and none existed to alert.</strong></td>
+        </tr>
+        <tr>
+          <td><strong>DF-4 (CSS-3)</strong></td>
+          <td>1970 or Sep 1971 — contested</td>
+          <td>4,750–5,500 km</td>
+          <td class="no">Did not exist. DIA in 1972: "The Chinese realize that, to threaten Moscow and western USSR, a longer-range missile than the IRBM is required."</td>
+        </tr>
+        <tr>
+          <td><strong>DF-5 (CSS-4)</strong></td>
+          <td>Reduced-range 10 Sep 1971; full range May 1980</td>
+          <td>12,000–13,000 km</td>
+          <td class="no">Did not exist</td>
+        </tr>
+        <tr>
+          <td><strong>Tu-16 / H-6</strong></td>
+          <td>—</td>
+          <td>Combat radius ~1,770 km, no refuelling</td>
+          <td><strong>Two aircraft</strong> — the pair delivered from the USSR in January 1959, in the 4th Independent Regiment at Wukung. The first Chinese-built H-6 flew 24 December 1968; the fleet reached 13 in 1970 and 32 in 1972. DIA: the Badger "would be hard-pressed to survive in the air defense environment over the Soviet Union."</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="verdict">
+    <h3>Could anything reach Moscow in 1969? No — and not by a wide margin.</h3>
+    <p>Beijing to Moscow is ~5,806 km. China's longest-reaching system was the DF-2A at ~1,250 km. Vladivostok (~1,339 km) and Khabarovsk (~1,770 km) were reachable only from launch points well up in Heilongjiang or Jilin; Irkutsk (~1,660 km) at the extreme edge from far-northern Inner Mongolia. Novosibirsk, Semipalatinsk and Alma-Ata were out of reach from eastern China. From the Urumqi area Semipalatinsk and Alma-Ata are within DF-2A range in principle — <strong>but no evidence exists that China based missiles in Xinjiang in 1969.</strong> DIA's own table records Chinese Missile Forces personnel as blank for 1969, first appearing as 5,000–10,000 in 1970.</p>
+  </div>
+
+  <h3>The test record to 1969</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Your list of ten is correct and complete</strong> — nothing missing, nothing spurious. Yields below are Western seismic and radiochemical estimates; none is Chinese-declared. The contemporaneous DIA table of March 1972 is given where it differs.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Chinese nuclear tests to end-1969</caption>
+      <thead><tr><th class="num">#</th><th>Date</th><th>Mode</th><th class="num">Yield</th><th>Significance</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="mono">16 Oct 1964</td><td>Tower, ~102 m</td><td class="num">22 kt</td><td>"596" — U-235 implosion. First Chinese test. DIA gives 25 kt; CTBTO ~15 kt.</td></tr>
+        <tr><td class="num">2</td><td class="mono">14 May 1965</td><td>Airdrop</td><td class="num">35 kt</td><td>Militarised 596 — the weapon adapted for a bomber</td></tr>
+        <tr><td class="num">3</td><td class="mono">9 May 1966</td><td>Airdrop</td><td class="num">250 kt</td><td>First attempt to burn thermonuclear fuel; first use of lithium-6</td></tr>
+        <tr><td class="num">4</td><td class="mono">27 Oct 1966</td><td><strong>DF-2 missile-delivered live warhead</strong>, 894 km</td><td class="num">12 kt</td><td>Fired from Shuangchengzi, burst over Lop Nur Area D</td></tr>
+        <tr><td class="num">5</td><td class="mono">28 Dec 1966</td><td>Tower, ~102 m</td><td class="num">122 kt <span class="no">/ 300 kt</span></td><td>Reduced-scale proof of a two-stage design. <strong>The largest unresolved yield conflict in the set</strong> — modern reconstruction 122 kt, DIA 1972 gives 300 kt, design yield reportedly 100 kt.</td></tr>
+        <tr><td class="num">6</td><td class="mono">17 Jun 1967</td><td>Parachute-retarded airdrop, burst ~2,960 m</td><td class="num">3.3 Mt</td><td><strong>First thermonuclear test</strong> — 32 months after the first fission test</td></tr>
+        <tr><td class="num">7</td><td class="mono">24 Dec 1967</td><td>Airdrop</td><td class="num">20 kt</td><td>DIA: "two-stage failure" — a fizzle</td></tr>
+        <tr><td class="num">8</td><td class="mono">27 Dec 1968</td><td>Airdrop</td><td class="num">3 Mt</td><td><strong>First use of plutonium</strong> — from the Plant 404 pilot reprocessing line</td></tr>
+        <tr><td class="num">9</td><td class="mono">22 Sep 1969</td><td><strong>Underground, horizontal tunnel</strong>; vented</td><td class="num">19.2 kt</td><td>China's first underground test. Gerson dates it 23 September Beijing time; the emplacement zone (Area A vs Area B) is contested.</td></tr>
+        <tr><td class="num">10</td><td class="mono">29 Sep 1969</td><td>Airdrop, Area D</td><td class="num">3 Mt</td><td>DF-3-class warhead</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Inferred</span><strong>The September pair as signalling.</strong> Two tests seven days apart was unprecedented in Chinese practice and is widely read as a deterrent message. Gerson cautions against inferring too much: Beijing was uncharacteristically quiet about them, delaying announcement until early October and then virtually ignoring them in the press — behaviour suggesting acute sensitivity to the dangers of nuclear sabre-rattling rather than confidence in it. The two are unambiguously separate events — seven days and ~110 km apart, three orders of magnitude apart in yield, different emplacement modes.</p></div>
+
+  <h3>Chinese conventional posture</h3>
+
+  <div class="claim doc"><p><span class="pill">Documented</span>~<strong>59 divisions</strong> along the border (NIE 11/13-69), lightly armed and not motorised against motorised Soviet forces with superior artillery, armour and helicopters. DIA's tables show total ground-force army-level units <em>unchanged at 34</em> from 1966 through 1970, with Northeast China actually falling from 8 to 6 — deployment "remained rather surprisingly stable." <strong>The big movement came after the crisis, not during it</strong>: DIA calls the transfer of five armies from South China northward in late 1969–early 1970 "the largest troop movement since the end of the China Civil War in 1950." Ground force strength in 1969: 2,379,000. CIA's own dry verdict in May 1969: "The Chinese military posture vis-à-vis the Soviets certainly does not provide a rationale for the Soviet military buildup."</p></div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="s6">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 06</span>
+    <h2 class="sec-title">How close</h2>
+    <p class="sec-sub">The scholarship, what each work argues, and where the burden of proof now sits.</p>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Your two references check out, with one correction.</strong> The CNA study is <strong>Michael S. Gerson, <em>The Sino-Soviet Border Conflict: Deterrence, Escalation, and the Threat of Nuclear War in 1969</em>, CNA report CRM D0022974.A2/Final, November 2010, 74 pp.</strong>, prepared for the Defense Threat Reduction Agency (ASCO 2010 027). <strong>There is no CNA report titled "The Sino-Soviet Border War and the Possibility of Soviet Nuclear Attack on China"</strong> — that title could not be traced to any publication and should be treated as a garbled citation in circulation, not a second work. Goldstein's two articles are confirmed: "Return to Zhenbao Island: Who Started Shooting and Why It Matters," <em>The China Quarterly</em> 168 (December 2001), pp. 985–997; and "Do Nascent WMD Arsenals Deter? The Sino-Soviet Crisis of 1969," <em>Political Science Quarterly</em> 118:1 (Spring 2003), pp. 53–79.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Where the principal works stand on the strike question</caption>
+      <thead><tr><th>Work</th><th>Argument</th><th>Evidence base</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Gerson</strong>, CNA (2010)</td>
+          <td>"There is no available evidence… that Moscow ever seriously contemplated launching a nuclear strike." The threats were coercive diplomacy. The real danger was <em>inadvertent</em> escalation from Chinese misperception, culminating in the 18 October alert of the Second Artillery. Calls the episode "a rare case of successful nuclear compellence."</td>
+          <td>Declassified US: NIEs, CIA reports, State cables, FRUS vols. 12/17/34. Soviet side entirely memoir and secondary.</td>
+        </tr>
+        <tr>
+          <td><strong>Goldstein</strong>, <em>China Quarterly</em> (2001)</td>
+          <td>China premeditated and executed an ambush on 2 March. Mao's domestic need for an external enemy explains it better than the balance of power. <em>About who started it, not about Soviet planning.</em></td>
+          <td>18 expert interviews in Moscow and Beijing, 2000. Explicitly "a second best" pending archives.</td>
+        </tr>
+        <tr>
+          <td><strong>Goldstein</strong>, <em>PSQ</em> (2003)</td>
+          <td>What restrained Moscow was not China's nascent arsenal but the prospect of a protracted conventional "people's war" and the impossibility of a clean disarming strike. Soviet consideration of a <em>conventional</em> air strike is the more plausible reading.</td>
+          <td>Read here only through page-specific citation by others; not directly consulted.</td>
+        </tr>
+        <tr>
+          <td><strong>Yang Kuisong</strong>, <em>Cold War History</em> (2000)</td>
+          <td>Established the ambush reading. Motive: Mao's domestic mobilisation needs. <strong>Sceptical that Mao planned the ambush in order to precipitate the American rapprochement</strong> — Nixon's initiatives plus the October war scare did that.</td>
+          <td>CCP archival material; interview with Gen. Chen Xilian, Shenyang MR commander during the crisis.</td>
+        </tr>
+        <tr>
+          <td><strong>Li Danhui</strong> (1996, 2020)</td>
+          <td>Strong instrumentalism: Mao used the border to lever open relations with Washington. Frames the Soviet nuclear threat consistently as coercion — "the threat of a nuclear surgery." Does not argue Moscow was going to strike.</td>
+          <td>Chinese archives; documents the CMC directive of 24 January 1968 and the General Staff/MFA approval of 19 February 1969.</td>
+        </tr>
+        <tr>
+          <td><strong>Niu Jun</strong> (1999)</td>
+          <td>A named rebuttal of Li: the Soviet <em>reaction</em> produced Mao's war crisis, not the reverse. Mao overestimated the threat; Zhou and Chen Yi were more realistic.</td>
+          <td>Chinese sources. <strong>His only support for "the Soviet military intended a nuclear strike" is Shevchenko's memoir</strong> — memoir against memoir, no documentation.</td>
+        </tr>
+        <tr>
+          <td><strong>Li &amp; Xia</strong>, <em>Mao and the Sino-Soviet Split</em> (2018)</td>
+          <td>Moscow applied pressure to China's "soft spot," alternately threatening nuclear deterrence and regime change; Mao's fear of a nuclear attack drove his adjustment. Soviet coercion plus Chinese fear, not assessed Soviet intention.</td>
+          <td>75 Russian documents collected for 1969, but the book argues from the Chinese vantage; they say so explicitly and invite others to do the Russian side.</td>
+        </tr>
+        <tr>
+          <td><strong>Chen Jian</strong>, <em>Mao's China and the Cold War</em> (2001); Chen &amp; Wilson, CWIHP Bulletin 11 (1998)</td>
+          <td>Argues about Mao's conceptual world, not Soviet planning. His entire statement on the nuclear question is one hedged, <strong>uncited</strong> parenthesis: Soviet leaders "even <em>reportedly</em> considered using nuclear weapons."</td>
+          <td>Fifteen translated documents, several from the CCP Central Archives — the indispensable document set.</td>
+        </tr>
+        <tr>
+          <td><strong>Lüthi</strong>, <em>China Quarterly</em> (2012)</td>
+          <td>The strongest structural argument against any "plan" reading by <em>any</em> of the three powers: none had a formulated policy in 1969; the year was "mutual misunderstanding, lack of communication, exaggerated threat perceptions and improvised decision making." On the strike: "the Soviet leadership was undecided… eventually, it would dismiss nuclear war as unfeasible against populous China."</td>
+          <td>NARA/Nixon NSC, UK National Archives, published Romanian archives, Chinese memoir and documentary material. <strong>His footnote for the "undecided" sentence is Shevchenko, pp. 165–66, and nothing else.</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Radchenko</strong>, in <em>Trust, but Verify</em> (2016); <em>War on the Rocks</em> (2021)</td>
+          <td>Moscow "floated hints of a pre-emptive nuclear strike on China… <strong>though there is no evidence as yet that anyone in the Kremlin was serious about these threats.</strong>" Mao failed to grasp that Moscow read the conflict as evidence of Chinese irrationality.</td>
+          <td>The deepest Soviet archival access of anyone working on this — and he reports finding nothing. <strong>Note: <em>Two Suns in the Heavens</em> (2009) ends in 1967 and does not cover the crisis.</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Ostermann</strong>, CWIHP Bulletin 6/7 (1995/96)</td>
+          <td>Moscow "had no interest in escalating the crisis beyond control"; on 15 March it used overwhelming artillery while "foregoing… air or nuclear strikes."</td>
+          <td><strong>Routinely miscited.</strong> The three East German documents he prints say <em>nothing</em> about strike planning; his Grechko sentence footnotes Harvey Nelsen's secondary work. One of the printed documents is Kosygin <em>denying</em> a preventive strike.</td>
+        </tr>
+        <tr>
+          <td><strong>Wishnick</strong>, <em>Mending Fences</em> (2001)</td>
+          <td>Evidence for Soviet signalling and Chinese perception — bomber redeployments to Mongolia, exercises simulating attacks in northwest China, the 13 July 1969 MFA note threatening "additional measures" — <em>not</em> for a decided plan.</td>
+          <td>Russian central and regional party archives.</td>
+        </tr>
+        <tr>
+          <td><strong>Gobarev</strong>, <em>JSMS</em> (1999)</td>
+          <td><strong>The strongest affirmative claim in the literature</strong>: Moscow told East European allies its Far Eastern strategic air forces were on alert to strike Lop Nur, then leaked it so it would reach Beijing.</td>
+          <td>Asserted privileged access to Soviet records. Not independently verifiable.</td>
+        </tr>
+        <tr>
+          <td><strong>Cho</strong>, <em>Security Studies</em> (2021)</td>
+          <td><strong>The live challenge.</strong> Directly attacks Gerson's compellence thesis: Soviet nuclear threats did <em>not</em> coerce China back to the table; the decision to talk was tactical, aimed at Washington. Explains China's subsequent decades of intransigence.</td>
+          <td>Romanian archival documents plus Chinese-language sources.</td>
+        </tr>
+        <tr>
+          <td><strong>RAND</strong>, <em>Managing Escalation</em> RR-A1743-2 (2024), ch. 3</td>
+          <td>"While source limitations preclude a conclusive determination, <strong>scholars have not found evidence that the Soviets were readying to launch an attack.</strong>" Presents Burr's "psychological operation" and Gobarev's claim side by side without adjudicating.</td>
+          <td>Notably does not cite Shevchenko at all, routing the Grechko material through Yang Kuisong.</td>
+        </tr>
+        <tr>
+          <td><strong>Burr</strong>, <em>Cold War History</em> (2001) and NSA EBB 49</td>
+          <td>Explicitly agnostic: Moscow "may have intended only to conduct a complex psychological operation," or may have been testing reactions to real contingency plans, "(or both)."</td>
+          <td>The declassified US documentary record — the foundation everyone else builds on.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The 2010 "Nixon saved China" story — traced</h3>
+
+  <div class="claim unt"><p><span class="pill">Untraceable</span><strong>Origin:</strong> Liu Chenshan, "The 1969 Zhenbao Island Conflict: The Soviet Union's Desire to Conduct a Surgical Nuclear Strike Against China," <strong><em>Wenshi Cankao</em> (文史参考, "Historical Reference"), 30 April 2010</strong> — a popular history semi-monthly published under the <em>People's Daily</em>. It was one of a series on the five nuclear threats China has faced since 1949. <strong>Two corrections to the brief:</strong> the magazine is <em>Wenshi Cankao</em>, not 历史参考; and 《五评苏共中央的公开信》 is one of the CCP's 1963–64 polemics against the CPSU and is entirely unrelated. The claims as recycled: Soviet diplomats told Washington of plans to wipe out the Chinese threat; Kissinger told Dobrynin that Nixon had signed a secret order to prepare nuclear reprisal against <strong>over 130 Soviet cities and military bases</strong>; Kosygin reported to Brezhnev on 15 October that Washington had detailed plans.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Transmission:</strong> <em>Daily Telegraph</em> c. 12–13 May 2010 → <em>South China Morning Post</em>, 12 May 2010 ("Nixon intervention saved China from Soviet nuclear attack") → <em>Le Figaro</em>, History News Network, and outward. <strong>Liu cites no archives, no documents, no file references.</strong> The Telegraph's justification was inferential — that a six-part series in an official outlet implies archival access. That is not evidence.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Two serious scholars addressed it, and both reject it.</strong> Gerson: "The available archival evidence, however, does not support these claims. On the contrary, much of the debate within the Nixon administration reflected the view that there were significant drawbacks to strong and overt support for either Beijing or Moscow." He then lays out the documented US position — the opposite of Liu's story. <strong>Li Danhui</strong>, interviewed by the <em>Global Times</em> on 19 May 2010: "I think the planned Soviet nuclear surgical strike on China was actually more bluffing than a real plan," and the US "might have helped to stop the so-called nuclear attack unintentionally" — while noting she lacks evidence the Soviets ever deployed nuclear weapons against China, and expressing scepticism about the original article's dramatic language.</p></div>
+
+  <div class="claim con"><p><span class="pill">Contested</span><strong>Keep the Madman alert separate.</strong> Nixon <em>did</em> run a secret global nuclear readiness operation in October 1969 (Giant Lance). Scott Sagan and Jeremi Suri, "The Madman Nuclear Alert," <em>International Security</em> 27:4 (2003), establish that it was aimed at Moscow and Hanoi over <strong>Vietnam</strong>, and "produced the worst of all worlds." It is frequently folded into the "Nixon deterred the Soviet strike on China" story. Different event, different purpose. Likewise, H. R. Haldeman's memoir account, sometimes used to argue about 1969, concerns the 1964 American consideration of striking Lop Nur — a separate episode documented by Burr and Richelson.</p></div>
+
+  <h3>Where this leaves the question</h3>
+
+  <div class="verdict">
+    <h3>Three things settled, one not</h3>
+    <p><strong>China started it, deliberately.</strong> Since roughly 2000, Chinese, Russian and Western scholars agree 2 March 1969 was a premeditated ambush. What remains debated is Mao's motive — Li Danhui's instrumentalism against Niu Jun's and Yang Kuisong's reactive reading.</p>
+    <p><strong>Moscow conducted a deliberate, deniable campaign of nuclear signalling.</strong> Bomber redeployments, exercises against China-like targets, the late-August air stand-down, six or more diplomatic probes, briefings to Warsaw Pact allies, and the Victor Louis article. Every scholar reads Louis as orchestrated; none reads it as evidence of an ordered strike.</p>
+    <p><strong>Beijing believed it.</strong> The October evacuation and the 18 October alert are the best-documented facts in the episode, and they are documented from the <em>Chinese</em> side. That is where the real danger lay — the possibility that Moscow would detect Chinese launch preparations and misread them.</p>
+    <p><strong>Unsettled, but the burden has shifted decisively.</strong> No document from any archive shows a Soviet decision, plan, or preparation to strike. The affirmative case reduces to two pages of a 1985 defector memoir plus one 1999 article claiming unverifiable access. Everyone with the best Soviet archival access reports finding nothing. <strong>The honest formulation is RAND's: no evidence has been found that Moscow was readying an attack, and source limitations preclude a conclusive determination.</strong></p>
+    <p>The frontier has also moved. The live scholarly question in 2021–2026 is no longer "was Moscow going to strike?" but "did the coercion even work?" — Cho's challenge to the compellence thesis. And every documentary advance since 2015 has come from outside Moscow: Romanian, Chinese, East European files.</p>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Inferred</span><strong>Two things to watch.</strong> Joseph Torigian, "Echoes of June 1941 in March 1969: Intelligence and Escalation on the (Far) Eastern Front," forthcoming in the <em>Journal of Cold War Studies</em>; and the unpublished David Logan and Joseph Torigian paper "The 1969 Nuclear Crisis: Confusion, Contingency, and China," presented at Stanford CISAC on 9 April 2024, drawing on "hundreds of newly available and previously unused archival and primary sources" from Albania, China, France, India, Italy, Japan, the Soviet Union and the United States. That is the first work in years that could change the picture.</p></div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="s7">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 07</span>
+    <h2 class="sec-title">Gaps worth closing</h2>
+    <p class="sec-sub">Things this research could not reach, listed so you can decide whether they matter to the study.</p>
+  </div>
+
+  <ul>
+    <li><strong>NIE 11/13-69, "The USSR and China," 12 August 1969</strong> — quoted here only through Gerson and the Rogers memorandum. It is CIA FOIA document DOC_0000261304, but the reading room now redirects direct PDF requests. The working route is the Internet Archive, or a manual download.</li>
+    <li><strong>Yang Kuisong's <em>Cold War History</em> article in full</strong> — the single most-cited source in this literature, read here only through others' page-level citations.</li>
+    <li><strong>Ryabushkin's 2020 <em>Journal of Slavic Military Studies</em> article on Zhalanashkol</strong> — the only specialist treatment of the August incident. It would probably resolve the casualty and weapons disputes, and the Dulaty and Tasiti questions.</li>
+    <li><strong>The original Liu Chenshan article.</strong> The <em>People's Daily</em> URL is dead; one Internet Archive snapshot (13 November 2019) exists. The author's Chinese characters (刘晨山) and the issue number could not be verified against the original.</li>
+    <li><strong>The complete Yelizavetin citation</strong> — <em>Problemy Dal'nego Vostoka</em> No. 5 (1992), but sources give the pagination variously as pp. 39–63, p. 46, and pp. 107–119, and at least one attributes the article to Goncharov and Usov instead.</li>
+    <li><strong>Viktor Usov, «Трагедия на Уссури», <em>Проблемы Дальнего Востока</em> № 3 (1994), pp. 84–93</strong> — cited by Goldstein and propagated from there, but it appears in no bibliographic database. Plausible, unverified.</li>
+    <li><strong>IISS <em>The Military Balance</em> 1969–70</strong> in hard copy — no scan is available, and it is the natural check on aircraft and division totals.</li>
+    <li><strong>Harry Gelman, <em>The Soviet Far East Buildup and Soviet Risk-Taking Against China</em>, RAND R-2943-AF (1982)</strong> — would settle the "45+ divisions by the mid-1970s" figure. Both RAND and DTIC blocked retrieval.</li>
+    <li><strong>Teiwes and Sun, <em>The Tragedy of Lin Biao</em> (1996), pp. 103–104</strong> — their argument on Order Number One is indexed but was not accessible.</li>
+    <li><strong>Naughton (1988 and 2024) and Meyskens (2020) in full</strong> — Third Front figures here come from abstracts, indexed extracts and secondary summaries. Verify before quoting.</li>
+    <li><strong>The Wilson Center Digital Archive</strong> was unreachable throughout this research. The CWIHP Bulletin PDFs on wilsoncenter.org carry the same documents and were used instead, but the 41-document topic collection should be re-tried.</li>
+  </ul>
+</section>
+
+<!-- ============ refs ============ -->
+<section id="refs">
+  <div class="sec-head">
+    <span class="sec-num">SOURCES</span>
+    <h2 class="sec-title">Principal references</h2>
+  </div>
+
+  <h4>Primary documents read in facsimile or full text</h4>
+  <ul class="refs">
+    <li>Memorandum of Conversation, "China: US Reaction to Soviet Destruction of CPR Nuclear Capability…", 18 August 1969, SECRET/SENSITIVE. NARA, RG 59, SN 67-69, Def 12 Chicom. — <a href="https://nsarchive2.gwu.edu/NSAEBB/NSAEBB49/sino.sov.10.pdf">NSA EBB 49, Doc. 10</a></li>
+    <li>Memorandum for the President from Secretary of State William Rogers, "The Possibility of a Soviet Strike Against Chinese Nuclear Facilities," 10 September 1969. — <a href="https://nsarchive2.gwu.edu/NSAEBB/NSAEBB49/sino.sov.19.pdf">NSA EBB 49, Doc. 19</a>; also <a href="https://history.state.gov/historicaldocuments/frus1969-76v12/d88">FRUS 1969–76 XII, Doc. 88, Tab A</a></li>
+    <li>Minutes of Meeting of the National Security Council, San Clemente, 14 August 1969. — <a href="https://history.state.gov/historicaldocuments/frus1969-76v12/d74">FRUS 1969–76 XII, Doc. 74</a>; Nixon's notes at <a href="https://history.state.gov/historicaldocuments/frus1969-76v17/d25">FRUS XVII, Doc. 25</a></li>
+    <li>Memorandum from Kissinger to Nixon, "The US Role in Soviet Maneuvering Against China," 29 September 1969, with Nixon's approval. — <a href="https://nsarchive2.gwu.edu/NSAEBB/NSAEBB49/sino.sov.24.pdf">NSA EBB 49, Doc. 24</a></li>
+    <li>Richardson speech to the American Political Science Association, 5 September 1969. — <em>Department of State Bulletin</em>, 22 September 1969, pp. 257–260; quoted at <a href="https://history.state.gov/historicaldocuments/frus1969-76v17/d38">FRUS XVII, Doc. 38 n.8</a></li>
+    <li>CIA, Board of National Estimates, Special Memorandum 4-69, "The Soviet Buildup Against China," 6 May 1969; and SM 7-68, 25 March 1968.</li>
+    <li>Chen Jian and David L. Wilson, eds., "'All Under the Heaven Is Great Chaos'," <em>CWIHP Bulletin</em> 11 (Winter 1998), pp. 155–175 — includes Zhou's letter of 18 September 1969 and the Four Marshals reports. — <a href="https://www.wilsoncenter.org/sites/default/files/media/documents/publication/CWIHP_Bulletin_11.pdf">PDF</a></li>
+    <li>Christian F. Ostermann, "East German Documents on the Sino-Soviet Border Conflict, 1969," <em>CWIHP Bulletin</em> 6/7 (Winter 1995/96), pp. 186–193 — includes the Soviet circular on the Kosygin–Zhou meeting (SAPMO-BArch J IV 2/202/359). — <a href="https://www.wilsoncenter.org/sites/default/files/media/documents/publication/CWIHP_Bulletin_6-7.pdf">PDF</a></li>
+    <li>William Burr, ed., <em>The Sino-Soviet Border Conflict, 1969: U.S. Reactions and Diplomatic Maneuvers</em>, National Security Archive EBB 49, 12 June 2001 — 28 documents. — <a href="https://nsarchive2.gwu.edu/NSAEBB/NSAEBB49/index2.html">Contents and editorial essay</a></li>
+  </ul>
+
+  <h4>Secondary works</h4>
+  <ul class="refs">
+    <li>Michael S. Gerson, <em>The Sino-Soviet Border Conflict: Deterrence, Escalation, and the Threat of Nuclear War in 1969</em>, CNA CRM D0022974.A2/Final, November 2010. — <a href="https://www.cna.org/reports/2010/d0022974.a2.pdf">PDF</a></li>
+    <li>Lorenz M. Lüthi, "Restoring Chaos to History: Sino-Soviet-American Relations, 1969," <em>The China Quarterly</em> 210 (June 2012), pp. 378–397.</li>
+    <li>Lyle J. Goldstein, "Return to Zhenbao Island," <em>The China Quarterly</em> 168 (2001), pp. 985–997; and "Do Nascent WMD Arsenals Deter?", <em>Political Science Quarterly</em> 118:1 (2003), pp. 53–79.</li>
+    <li>Yang Kuisong, "The Sino-Soviet Border Clash of 1969," <em>Cold War History</em> 1:1 (2000), pp. 21–52.</li>
+    <li>Dmitri S. Ryabushkin, "New Documents on the Sino-Soviet Ussuri Border Clashes of 1969," <em>Eurasia Border Review</em> 3 (2012), pp. 161–174. — <a href="https://src-h.slav.hokudai.ac.jp/publictn/eurasia_border_review/Vol3SI/ryabushkin.pdf">PDF</a></li>
+    <li>Hyun-Binn Cho, "Nuclear Coercion, Crisis Bargaining, and The Sino-Soviet Border Conflict of 1969," <em>Security Studies</em> 30:4 (2021), pp. 550–577.</li>
+    <li>Alexandra T. Evans et al., <em>Managing Escalation</em>, RAND RR-A1743-2 (2024), ch. 3.</li>
+    <li>Hui Zhang, <em>China's Fissile Material Production and Stockpile</em>, IPFM Research Report 17 (2017). — <a href="https://fissilematerials.org/library/rr17.pdf">PDF</a>. See also his <em>The Untold Story of China's Nuclear Weapon Development and Testing</em> (MIT Press, November 2025), not consulted here and likely to supersede parts of Section 04.</li>
+    <li>John W. Lewis and Xue Litai, <em>China Builds the Bomb</em> (Stanford UP, 1988) and <em>Imagined Enemies</em> (Stanford UP, 2006).</li>
+    <li>Barry Naughton, "The Third Front," <em>The China Quarterly</em> 115 (1988), pp. 351–386; Covell F. Meyskens, <em>Mao's Third Front</em> (Cambridge UP, 2020).</li>
+    <li>Arkady N. Shevchenko, <em>Breaking with Moscow</em> (Knopf, 1985), pp. 164–165 — the single memoir on which the affirmative case largely rests.</li>
+    <li>Viktor M. Gobarev, "Soviet Policy Toward China: Developing Nuclear Weapons 1949–1969," <em>Journal of Slavic Military Studies</em> 12:4 (1999).</li>
+  </ul>
+</section>
+
+<footer>
+  Prepared 10 September 2026 · Verbatim quotations in Sections 02 and 05 read from document facsimiles or full-text scholarly PDFs<br>
+  Where a claim rests on a single source, the source is named in the text · Weak citations are marked as such<br>
+  A supporting document of <a href="/">Grid/84</a> · <a href="/">grid84.app</a>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var body = document.body;
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.fbtn[data-t]'));
+  var clear = document.getElementById('clearf');
+  var claims = Array.prototype.slice.call(document.querySelectorAll('.claim'));
+  var active = {};
+
+  function apply(){
+    var keys = Object.keys(active).filter(function(k){ return active[k]; });
+    if (keys.length === 0){
+      body.classList.remove('filtering');
+      claims.forEach(function(c){ c.classList.remove('on'); });
+      clear.setAttribute('aria-pressed','false');
+      return;
+    }
+    body.classList.add('filtering');
+    claims.forEach(function(c){
+      var match = keys.some(function(k){ return c.classList.contains(k); });
+      c.classList.toggle('on', match);
+    });
+    clear.setAttribute('aria-pressed','false');
+  }
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var t = b.getAttribute('data-t');
+      active[t] = !active[t];
+      b.setAttribute('aria-pressed', active[t] ? 'true' : 'false');
+      apply();
+    });
+  });
+
+  clear.addEventListener('click', function(){
+    active = {};
+    btns.forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    apply();
+  });
+})();
+</script>
+
+</body></html>

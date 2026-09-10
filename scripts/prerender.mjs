@@ -69,7 +69,9 @@ for (const page of site.pages) {
   written.push(url)
 }
 
-const urls = [`${site.origin}/`, ...written]
+// Static supporting documents are already files; they need no shell, only a line in the sitemap.
+const extras = (site.extras ?? []).map((e) => `${site.origin}/${e.path}`)
+const urls = [`${site.origin}/`, ...written, ...extras]
 writeFileSync(
   'dist/sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
@@ -77,4 +79,4 @@ writeFileSync(
     .join('\n')}\n</urlset>\n`,
 )
 writeFileSync('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`)
-console.log(`prerender: ${written.length} pages, a sitemap of ${urls.length} and a robots.txt`)
+console.log(`prerender: ${written.length} pages, ${extras.length} static document(s), a sitemap of ${urls.length} and a robots.txt`)
