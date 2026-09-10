@@ -65,7 +65,24 @@ export function optimumBurstHeightMetres(yieldKt: number, psi: 20 | 10 | 5 | 3 |
   return overpressureRadiusMetres(yieldKt, psi) * fraction
 }
 
-/** Third-degree burn radius in km: 0.67 · Y^0.41. */
+/**
+ * Third-degree burn radius in km: 0.67 · Y^0.41.
+ *
+ * The fit is Sublette's, and it is a fit to the book. Glasstone & Dolan
+ * 1977 §7.96 gives the radiant exposure a target receives as
+ * Q ≈ 3.07 f W τ / D², so a fixed exposure would put the radius at the
+ * square root of the yield; the exponent is below a half because the
+ * thermal pulse lengthens with yield and a longer pulse needs more energy
+ * to do the same damage to skin.
+ *
+ * The 1962 edition tabulates the result directly, in Table 12.31: ranges
+ * from ground zero for burns to bare skin from air bursts, half a mile at
+ * one kilotonne to twenty-four miles at ten megatonnes for second-degree
+ * burns. Those ranges scale as Y^0.423, against the 0.41 here, and this
+ * radius sits at 64 to 83 per cent of them across four decades of yield —
+ * inside them, as a third-degree burn must be. The comparison is in
+ * blast.test.ts.
+ */
 export function thirdDegreeBurnRadiusMetres(yieldKt: number): number {
   return 0.67 * yieldKt ** 0.41 * 1_000
 }

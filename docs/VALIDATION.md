@@ -238,6 +238,35 @@ A forty-eight hour window is not where the dying stops; it is where the model us
 
 **What is still missing is larger than either.** Between the acute deaths and the cancers lie the injured who die because there is no hospital, the people who die of a winter without heat or water, the crops that fail and the famine that the atmospheric work of the last decade puts above every prompt effect combined. The studies of consequence, from the Office of Technology Assessment in 1979 to the crop-model work of the 2020s, are mostly about that gap. This engine does not model it and now says so on every surface-burst readout.
 
+## The thermal radius, against the book rather than a fit of it
+
+The third-degree burn radius has always been Sublette's closed form,
+0.67 · Y^0.41 km, which is a fit to Glasstone and not Glasstone. Both
+editions are now to hand, and the fit holds.
+
+The 1977 edition gives the mechanism in §7.96: a target receives
+Q ≈ 3.07 f W τ / D² calories per square centimetre, so a fixed exposure
+would put the radius at the square root of the yield. The exponent is below
+a half because the thermal pulse lengthens with yield and a longer pulse
+needs more energy to do the same damage to skin. The 1962 edition tabulates
+the outcome directly, in Table 12.31:
+
+| Yield | First-degree | Second-degree | This model, third-degree | Ratio to second |
+| --- | --- | --- | --- | --- |
+| 1 kt | 0.7 mi | 0.5 mi | 0.42 mi | 0.83 |
+| 10 kt | 1.9 mi | 1.5 mi | 1.07 mi | 0.71 |
+| 100 kt | 5.3 mi | 4.0 mi | 2.75 mi | 0.69 |
+| 1 Mt | 14 mi | 11 mi | 7.07 mi | 0.64 |
+| 10 Mt | >30 mi | 24 mi | 18.2 mi | 0.76 |
+
+The tabulated second-degree ranges scale as Y^0.423 against this model's
+Y^0.41, and the model's radius sits inside them across four decades, which
+is where a third-degree burn belongs. §12.66 of the 1977 edition puts 4.5
+to 6 cal/cm² at nine to ten miles for a megatonne, which is the same place.
+
+The check is in `blast.test.ts`, with the table as data, so the fit cannot
+drift away from the source it was fitted to.
+
 ## Reading the ground: land use in target identification
 
 The classifier's inputs were the geocoder's tag and the population density.

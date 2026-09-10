@@ -95,3 +95,43 @@ describe('the fireball and the ground', () => {
     expect(fireballTouchesGround(335, 5_000)).toBe(false)
   })
 })
+
+describe('the thermal radius against the book itself', () => {
+  /**
+   * Glasstone, The Effects of Nuclear Weapons, revised edition 1962,
+   * Table 12.31: ranges from ground zero for burns to bare skin from air
+   * bursts, in miles. The 1977 edition gives the same thing as a graph
+   * (Figure 12.65), which is why the 1962 table is the one quoted here.
+   * Third-degree burns, the table's own note says, occur at shorter ranges.
+   */
+  const TABLE_12_31: Array<{ yieldKt: number; firstDegreeMiles: number | null; secondDegreeMiles: number }> = [
+    { yieldKt: 1, firstDegreeMiles: 0.7, secondDegreeMiles: 0.5 },
+    { yieldKt: 10, firstDegreeMiles: 1.9, secondDegreeMiles: 1.5 },
+    { yieldKt: 100, firstDegreeMiles: 5.3, secondDegreeMiles: 4.0 },
+    { yieldKt: 1_000, firstDegreeMiles: 14, secondDegreeMiles: 11 },
+    // The first-degree range at ten megatonnes is printed as "greater than 30".
+    { yieldKt: 10_000, firstDegreeMiles: null, secondDegreeMiles: 24 },
+  ]
+  const MILE = 1_609.344
+
+  it('falls inside the tabulated second-degree ranges, by the margin a third-degree burn needs', () => {
+    for (const row of TABLE_12_31) {
+      const ours = thirdDegreeBurnRadiusMetres(row.yieldKt)
+      const second = row.secondDegreeMiles * MILE
+      expect(ours, `${row.yieldKt} kt is not inside the second-degree range`).toBeLessThan(second)
+      expect(ours / second).toBeGreaterThan(0.55)
+      if (row.firstDegreeMiles) expect(ours).toBeLessThan(row.firstDegreeMiles * MILE)
+    }
+  })
+
+  it('scales with yield as the table does, because the same lengthening pulse is behind both', () => {
+    const slope = (a: { yieldKt: number; secondDegreeMiles: number }, b: { yieldKt: number; secondDegreeMiles: number }) =>
+      Math.log10(b.secondDegreeMiles / a.secondDegreeMiles) / Math.log10(b.yieldKt / a.yieldKt)
+    const book = slope(TABLE_12_31[0], TABLE_12_31[TABLE_12_31.length - 1])
+    // The book's second-degree ranges go as Y^0.42; this model's radius as Y^0.41.
+    expect(book).toBeGreaterThan(0.38)
+    expect(book).toBeLessThan(0.46)
+    const ours = Math.log10(thirdDegreeBurnRadiusMetres(10_000) / thirdDegreeBurnRadiusMetres(1)) / 4
+    expect(Math.abs(ours - book)).toBeLessThan(0.05)
+  })
+})
