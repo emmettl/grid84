@@ -1586,3 +1586,115 @@ body,
 .accuracy .sys text {
   pointer-events: none;
 }
+
+/* ---------- The loop ---------- */
+
+.loop {
+  position: fixed;
+  inset: 0;
+}
+
+.study-hud--loop .log,
+.study-hud--loop .provenance,
+.study-hud--loop .omissions,
+.study-hud--loop .legend,
+.study-hud--loop .aggregate,
+.study-hud--loop .clock-controls,
+.study-hud--loop .clock-bounds,
+.study-hud--loop .clock input[type='range'],
+.study-hud--loop .study-brand > span:first-child {
+  display: none;
+}
+
+.study-hud--loop .clock {
+  border-left-color: rgba(141, 250, 255, 0.5);
+}
+
+.loop-line {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 1.6rem);
+  z-index: 25;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.5rem 0.8rem;
+  border-left: 2px solid var(--amber);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.loop-line span:first-child {
+  color: var(--amber);
+}
+
+.loop-tally {
+  position: fixed;
+  inset: 0;
+  z-index: 26;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem 4rem;
+  padding: 2rem;
+  background: rgba(5, 4, 16, 0.55);
+  pointer-events: none;
+  animation: loop-tally-in 600ms ease-out;
+}
+
+@keyframes loop-tally-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.loop-side {
+  display: grid;
+  gap: 0.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.loop-side strong {
+  color: var(--ink);
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.loop-side-name {
+  color: var(--cyan);
+}
+
+.loop-exit {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  top: max(1rem, env(safe-area-inset-top));
+  z-index: 27;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(141, 250, 255, 0.35);
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.loop-exit:hover,
+.loop-exit:focus-visible {
+  color: var(--ink);
+  outline: none;
+}

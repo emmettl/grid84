@@ -220,7 +220,31 @@ function labelElement(entity: Entity, onSelect: (id: string) => void): HTMLEleme
   return el
 }
 
-export function StudyView({ study }: { study: Study }) {
+/** What a study reports when the loop runs it to its end. */
+export interface LoopSide {
+  name: string
+  detonations: number
+  /** Dead by the union in sequence where the grid was summed, else the per-target sum with fire; null when nothing was computed. */
+  dead: number | null
+  injured: number | null
+  method: 'union' | 'summed' | 'none'
+}
+export interface LoopResult {
+  attacker: LoopSide
+  defender: LoopSide
+}
+/** Driving the study from outside: run at this rate from the start, orbit the camera, and report when the clock and the sums have finished. */
+export interface LoopOptions {
+  rate: number
+  onFinished: (result: LoopResult) => void
+}
+
+export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions }) {
+  const loopRef = useRef<LoopOptions | undefined>(loop)
+  useEffect(() => {
+    loopRef.current = loop
+  }, [loop])
+  const finished = useRef(false)
   const container = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
   const markers = useRef<Map<string, Marker>>(new Map())
@@ -288,10 +312,11 @@ export function StudyView({ study }: { study: Study }) {
   const defence = sums.defender
   const bounds = burst === 'surface' && study.surfaceBounds ? study.surfaceBounds : study.bounds
   const boundsRef = useRef(bounds)
+
   useEffect(() => {
     boundsRef.current = bounds
   }, [bounds])
-  const initialClock: ClockState = { time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: false, rate: 60 }
+  const initialClock: ClockState = { time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: !!loop, rate: loop?.rate ?? 60 }
   const clockRef = useRef<ClockState>(initialClock)
   const [clock, setClock] = useState<ClockState>(initialClock)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -560,6 +585,12 @@ export function StudyView({ study }: { study: Study }) {
             })
         }
       }
+      // The loop's camera: a slow drift of longitude whenever no flight is under way.
+      const orbitMap = mapRef.current
+      if (loopRef.current && orbitMap && !orbitMap.isMoving()) {
+        const c = orbitMap.getCenter()
+        orbitMap.jumpTo({ center: [c.lng + 0.025, c.lat] })
+      }
       if (changed && (now - lastPanel > 100 || !next.playing)) {
         lastPanel = now
         setClock(next)
@@ -575,6 +606,35 @@ export function StudyView({ study }: { study: Study }) {
     primed.current = false
     setClock(clockRef.current)
   }
+
+  // The loop is told when the clock has reached the end and every detonation has been summed, or after a grace period if the sums cannot finish.
+  useEffect(() => {
+    const l = loopRef.current
+    if (!l || finished.current || clock.playing || clock.time < bounds.end - 1) return
+    const sideResult = (side: 'attacker' | 'defender'): LoopSide => {
+      const s = side === 'attacker' ? sums.attacker : sums.defender
+      const u = unions[side]
+      const name = side === 'attacker' ? (study.sides?.attacker.name ?? 'Attacker') : (study.sides?.defender.name ?? 'Defender')
+      if (u && u.detonations >= s.total && s.total > 0) return { name, detonations: s.total, dead: u.totals.underPlume > 0 ? u.totals.combinedDead : u.totals.fireDead, injured: u.totals.blastInjured, method: 'union' }
+      if (s.computed > 0) return { name, detonations: s.total, dead: s.fireDead, injured: s.blastInjured, method: 'summed' }
+      return { name, detonations: s.total, dead: null, injured: null, method: 'none' }
+    }
+    const complete = (['attacker', 'defender'] as const).every((side) => {
+      const s = side === 'attacker' ? sums.attacker : sums.defender
+      return s.total === 0 || (unions[side]?.detonations ?? 0) >= s.total
+    })
+    const report = () => {
+      if (finished.current) return
+      finished.current = true
+      l.onFinished({ attacker: sideResult('attacker'), defender: sideResult('defender') })
+    }
+    if (complete) {
+      report()
+      return
+    }
+    const grace = window.setTimeout(report, 20_000)
+    return () => window.clearTimeout(grace)
+  }, [clock.playing, clock.time, bounds.end, sums, unions, study])
 
   // Per-target outcome lines only for small studies; a large one reports through the aggregate panel.
   const outcomeEvents = study.entities.flatMap((e) => {
@@ -613,7 +673,7 @@ export function StudyView({ study }: { study: Study }) {
     <div className="study">
       <div ref={container} className="atlas-map" aria-label={`${study.title} globe`} />
       <div className="atlas-vignette" aria-hidden="true" />
-      <div className="study-hud">
+      <div className={`study-hud${loop ? ' study-hud--loop' : ''}`}>
         <header className="hud-brand study-brand">
           <span>SurfaceStudies · Terminal Atlas</span>
           <strong>{study.title}</strong>

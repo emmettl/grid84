@@ -17,9 +17,11 @@ import { britainSquareLeg, britainStrath } from './studies/britain/protect.ts'
 import { seventyTwoMinutes } from './studies/minutes72/scenario.ts'
 import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
+import { LoopView } from './studies/LoopView.tsx'
 
 type Route =
   | { kind: 'front' }
+  | { kind: 'loop' }
   | { kind: 'atlas' }
   | { kind: 'study'; id: 'siop62' }
   | { kind: 'study'; id: 'siop62-alert'; option: number }
@@ -33,6 +35,7 @@ type Route =
 function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources') return { kind: 'front' }
   if (hash === '#/atlas') return { kind: 'atlas' }
+  if (hash === '#/loop') return { kind: 'loop' }
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
   if (hash === '#/study/siop62-alert') return { kind: 'study', id: 'siop62-alert', option: 1 }
   const option = /^#\/study\/siop62-alert\/(\d{1,2})$/.exec(hash)
@@ -147,6 +150,7 @@ export default function App() {
   ]
   return (
     <>
+      {route.kind !== 'loop' && (
       <nav className="grid-nav" aria-label="Views">
         {links.map((l) => (
           <a key={l.href} href={l.href} className={l.active ? 'is-active' : ''} aria-current={l.active ? 'page' : undefined}>
@@ -154,6 +158,8 @@ export default function App() {
           </a>
         ))}
       </nav>
+      )}
+      {route.kind === 'loop' && <LoopView />}
       {route.kind === 'front' && <FrontPage />}
       {route.kind === 'atlas' && <AtlasView />}
       {route.kind === 'study' && route.id === 'siop62' && <StudyView key="siop62" study={SIOP62_PROOF} />}
