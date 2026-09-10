@@ -135,9 +135,20 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
       // The aim points materialise one by one through the prelude.
       // The aim points come up in the first moments of the hold, so they sit on the opening view before the launch pulls the camera out.
       appearsAt: -countdownSeconds + Math.round(countdownSeconds * (0.06 + (0.24 * i) / Math.max(1, all.length))),
-      name: `Aim point ${a.index + 1}`,
-      designation: `${a.index === 0 ? 'AIM POINT 1 · CENTRE' : `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}°`} · CEP ${site.cepMetres} M`,
-      label: a.index < 8,
+      name: a.index < 8 ? `Aim point ${a.index + 1}` : `${a.index + 1}`,
+      // Every aim point is named. The first few carry the whole line, because
+      // a reader is reading them one at a time as the console places them; the
+      // rest of a sunflower carries the number and the bearing, because forty
+      // of the full line laid over four kilometres of spacing is not a label
+      // set, it is a wall. The full designation is on the readout for any of
+      // them when it is selected.
+      designation:
+        a.index === 0
+          ? `AIM POINT 1 · CENTRE · CEP ${site.cepMetres} M`
+          : a.index < 8
+            ? `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}° · CEP ${site.cepMetres} M`
+            : `${(a.distanceMetres / 1000).toFixed(1)} KM · ${Math.round(a.bearingDeg).toString().padStart(3, '0')}°`,
+      label: true,
       // The ring is the weapon's CEP: half the warheads fall inside it.
       uncertaintyMetres: site.cepMetres,
       labelAnchor: (a.bearingDeg > 180 ? 'right' : 'left') as 'left' | 'right',
