@@ -109,10 +109,21 @@ export function WoprView() {
     mapRef.current = map
     let sync: ((force?: boolean) => void) | null = null
     let frame = 0
+    /**
+     * The globe takes whatever the terminal column leaves, and fills it. The
+     * padding moves the sphere's centre into the free space; the zoom sizes it
+     * to that space. In MapLibre's globe projection the sphere's circumference
+     * is the world width, 512·2^zoom pixels, so a sphere of diameter D wants
+     * zoom = log₂(Dπ / 512).
+     */
     const pad = () => {
       const w = terminal.current?.getBoundingClientRect().width ?? 0
       const phone = window.innerWidth <= 700
-      map.setPadding(phone ? { top: Math.round(window.innerHeight * 0.4), left: 0 } : { left: Math.round(w + 32), top: 0 })
+      const top = phone ? Math.round(window.innerHeight * 0.4) : 0
+      const left = phone ? 0 : Math.round(w + 32)
+      map.setPadding({ top, left, right: 0, bottom: 0 })
+      const diameter = Math.min(window.innerWidth - left, window.innerHeight - top) * 0.94
+      map.setZoom(Math.max(1.2, Math.min(3.4, Math.log2((diameter * Math.PI) / 512))))
     }
     map.on('load', () => {
       sync = installTerrainSync(map)
