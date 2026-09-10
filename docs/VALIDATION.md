@@ -161,3 +161,7 @@ The defence lab's model (`src/models/defence.ts`) is the bookkeeping every publi
 
 Checks: two shots at the test record's 12 in 21 give 82 per cent, against the film's 61; four give 97, which is the agency's claim exactly, so the claim is the record with independence assumed; forty-four interceptors in salvos of four engage eleven objects and leak the twelfth onward; ten undiscriminated balloons per warhead (UCS 2000) raise the credible objects elevenfold and the leakage to nearly everything. The reference cases' kill probabilities are the test record where one exists and stated assumptions where none does, and the lab says which on every case.
 
+## Yield and accuracy
+
+The accuracy lab's model (`src/models/lethality.ts`) is the standard single-shot kill rule: the warhead kills if it lands within the radius at which the target's overpressure is reached, and the miss distance is circular normal with median CEP, so P = 1 − 0.5^((r/CEP)²). Radii come from the engine's own blast fits: the optimum-height air burst at 5 psi and below, the contact surface burst above. Checks: a CEP equal to the lethal radius gives exactly one half; Atlas D at 1.44 Mt and 3.7 km has better than a 60 per cent chance against a city and under 10 against a 2,000 psi silo; Trident II at 455 kt and 120 m has better than 90 against the silo; no American system before 1966 reaches an even chance against the silo and the first that does enters service between 1970 and 1986. Yields are the Databook's; CEPs are the open literature's estimates and are tiered as such.
+

@@ -1564,3 +1564,25 @@ body,
   text-transform: none;
   letter-spacing: 0.03em;
 }
+
+/* ---------- Accuracy lab ---------- */
+
+.accuracy .matrix {
+  margin-top: 0.6rem;
+  font-size: 0.56rem;
+}
+
+.accuracy .matrix th {
+  text-align: right;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.accuracy .matrix .cell {
+  text-align: right;
+  color: var(--ink);
+}
+
+.accuracy .sys text {
+  pointer-events: none;
+}

@@ -44,4 +44,18 @@ describe('seventy-two minutes', () => {
     expect(book.events.some((ev) => /FOUR INTERCEPTORS MISS/.test(ev.text))).toBe(true)
     expect(book.populationGrid).toBe('ghsl/popc_2025')
   })
+
+  it('draws the shot exchange: seventeen missiles, eleven engaged, the rest through', () => {
+    const salvo = seventyTwoMinutes('salvo')
+    const tracks = salvo.entities.filter((e) => e.kind === 'track')
+    const missiles = tracks.filter((t) => t.id.startsWith('salvo-s-'))
+    const gbis = tracks.filter((t) => /-gbi-/.test(t.id))
+    expect(missiles).toHaveLength(17)
+    expect(gbis).toHaveLength(44)
+    const effects = salvo.entities.filter((e) => e.kind === 'effect')
+    const intercepted = missiles.filter((t) => /INTERCEPTED/.test(t.designation)).length
+    expect(effects.length + intercepted).toBe(17)
+    expect(effects.length).toBeGreaterThanOrEqual(6)
+    expect(salvo.events.some((ev) => /NEVER ENGAGED/.test(ev.text))).toBe(true)
+  })
 })

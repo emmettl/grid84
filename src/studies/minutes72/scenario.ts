@@ -393,6 +393,7 @@ const VARIANT_ITEMS = [
   { id: 'film', label: 'As filmed', href: '#/study/72-minutes' },
   { id: 'record', label: 'Test record', href: '#/study/72-minutes/record' },
   { id: 'claim', label: 'Salvo claim', href: '#/study/72-minutes/claim' },
+  { id: 'salvo', label: 'Seventeen missiles', href: '#/study/72-minutes/salvo' },
   { id: 'book', label: 'Jacobsen · 72 minutes', href: '#/study/72-minutes/jacobsen' },
 ]
 const variants = (current: string): Study['variants'] => ({ label: 'Act', current, items: VARIANT_ITEMS })
@@ -644,12 +645,91 @@ function bookStudy(): Study {
   }
 }
 
+/** The shot exchange on the map: every North Korean launcher fires at a city, the interceptors engage what they can in salvos of four at the test record, and the rest arrive. */
+function salvoStudy(): Study {
+  const gmd = RULES.gmd
+  const launch = 0
+  const nk = RAW.filter((r) => r.side === 'nk' && r.kind === 'icbm')
+  const launchers: Launcher[] = nk.map((l) => ({ id: l.id, name: l.name, kind: 'icbm', position: [l.lon, l.lat], weapons: l.missiles ?? 0, weaponsPerVehicle: 1, rangeMetres: 13_000_000, yieldKt: l.squadrons?.[0]?.yieldKt ?? 250, reactionSeconds: launch }))
+  const total = launchers.reduce((n, l) => n + l.weapons, 0)
+  const cities = urbanTargets('us', usUrban, false).slice(0, total).map((t) => ({ ...t, maxWeapons: 1 }))
+  const strike = enactStrike({
+    prefix: 'salvo',
+    side: 'defender',
+    launchers,
+    targets: cities,
+    allocation: { maxWeaponsPerTarget: 1 },
+    attrition: { reliability: { icbm: 1, irbm: 1, slbm: 1, bomber: 1 }, penetration: 1, note: 'Every missile flies; the interceptors are the only attrition, so the exchange is seen whole' },
+    allocationRule: { source: 'One warhead per city, the most populous first', method: `${total} launchers, one warhead each at the 2017 test yield, against the ${total} most populous cells of the 2023 grid` },
+    vehicle: { evidence: 'inferred', provenance: { source: 'The seventeen launchers of the 2024 order of battle, all fired at once', method: 'A salvo the defence was sized for: no decoys, no submarine' } },
+    route: { cruise: { source: 'No bombers' }, ballistic: { source: 'Minimum-energy trajectory' } },
+    targetCategory: () => 'URBAN',
+    targetFacts: () => [{ label: 'Why this target', value: 'One of the most populous cells of the 2023 grid; there is no North Korean target list in any record', evidence: 'modelled', provenance: { source: (usUrban as { source: string }).source } }],
+  })
+  // The defence: four shots per object while the stock lasts, in the order the missiles were launched.
+  const tracks = strike.entities.filter((e): e is Extract<Entity, { kind: 'track' }> => e.kind === 'track').sort((a, b) => a.track.start - b.track.start)
+  const perObject = gmd.salvo
+  const engaged = Math.min(tracks.length, Math.floor(gmd.interceptors / perObject))
+  const p = gmd.testHits / gmd.tests
+  const entities: Entity[] = [...RAW.filter((r) => r.side === 'us').map(siteOf), ...RAW.filter((r) => r.side === 'nk').map(siteOf)]
+  const events: StudyEvent[] = [
+    { time: launch, text: `${total} MISSILES LEAVE NORTH KOREA AT ONCE · ONE WARHEAD EACH AT THE 2017 TEST YIELD · THE CITIES BY POPULATION (INFERRED)`, camera: { center: [-170, 50], zoom: 2, durationMs: 3_000 } },
+    { time: launch + 3 * MIN, text: `FORT GREELY ENGAGES THE FIRST ${engaged} OBJECTS WITH ${perObject} SHOTS EACH · ${gmd.interceptors} INTERCEPTORS, ${gmd.testHits} HITS IN ${gmd.tests} TESTS · THE REST ARE NOT ENGAGED` },
+  ]
+  let killed = 0
+  const through: string[] = []
+  tracks.forEach((t, i) => {
+    const effect = strike.entities.find((e) => e.kind === 'effect' && e.name === t.name.split(' → ')[1])
+    if (i < engaged) {
+      const shots: Shot[] = []
+      for (let k = 0; k < perObject; k += 1) shots.push({ launch: launch + 5 * MIN + i * 20 + k * 30, hit: hash01(`salvo:${t.id}:${k}`) < p })
+      const g = interceptors(`salvo-${i + 1}`, t.track, shots, { source: 'The test record, one deterministic draw per shot', method: `Each shot at ${Math.round(p * 100)} per cent; the engine's draw decides` })
+      entities.push(...g.entities)
+      if (g.hitAt !== null) {
+        killed += 1
+        entities.push({ ...t, designation: `${t.designation} · INTERCEPTED ${hhmm(g.hitAt)}`, track: new Track(cutAt(t.track.waypoints, g.hitAt)) })
+        events.push({ time: g.hitAt, text: `INTERCEPT · ${t.name.split(' → ')[1].toUpperCase()} SPARED ${hhmm(g.hitAt)}` })
+        return
+      }
+    }
+    entities.push(t)
+    if (effect) {
+      entities.push(effect)
+      through.push(effect.name)
+    }
+  })
+  events.push({ time: strike.summary.firstDetonation, text: `THE FIRST WARHEAD ARRIVES · ${through.length} OF ${total} THROUGH, ${killed} KILLED, ${total - engaged} NEVER ENGAGED` })
+  events.push({ time: strike.summary.lastDetonation, text: `LAST ARRIVAL · ${through.slice(0, 6).map((n) => n.toUpperCase()).join(', ')}${through.length > 6 ? ` AND ${through.length - 6} MORE` : ''}` })
+  events.sort((a, b) => a.time - b.time)
+  return {
+    id: '72-minutes-salvo',
+    title: 'SEVENTY-TWO MINUTES · THE SHOT EXCHANGE',
+    subtitle: `${total} missiles at ${total} cities against ${gmd.interceptors} interceptors at the test record · ${through.length} through · every event a scenario`,
+    bounds: { start: -2 * MIN, end: strike.summary.lastDetonation + 10 * MIN },
+    startTime: -MIN,
+    view: { center: [-150, 50], zoom: 2 },
+    populationGrid: 'ghsl/popc_2025',
+    exposureWorkers: 2,
+    sides: { attacker: { name: 'United States' }, defender: { name: 'The salvo · American dead' } },
+    variants: variants('salvo'),
+    omissions: [
+      `The map form of the defence lab: the arithmetic of ${gmd.interceptors} interceptors in salvos of ${perObject} against ${total} objects, drawn. See the lab at #/lab/defence for the curve`,
+      'No decoys: the case the defence was sized for. With the balloons of the 2000 countermeasures report the interceptors would engage a tenth of the objects',
+      'Every missile flies and none fails, so the interceptors are the only attrition; the reliability of the missiles themselves is not modelled here',
+      'The targets are the most populous cells of the 2023 grid, one warhead each; there is no North Korean target list in any record',
+      ...COMMON_OMISSIONS,
+    ],
+    events,
+    entities,
+  }
+}
+
 const cache = new Map<string, Study>()
 
-export function seventyTwoMinutes(variant: 'film' | 'record' | 'claim' | 'book'): Study {
+export function seventyTwoMinutes(variant: 'film' | 'record' | 'claim' | 'salvo' | 'book'): Study {
   let s = cache.get(variant)
   if (!s) {
-    s = variant === 'book' ? bookStudy() : filmStudy(variant)
+    s = variant === 'book' ? bookStudy() : variant === 'salvo' ? salvoStudy() : filmStudy(variant)
     cache.set(variant, s)
   }
   return s

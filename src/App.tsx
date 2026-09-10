@@ -6,6 +6,7 @@ import { TerrainLab } from './lab/TerrainLab.tsx'
 import { FalloutLab } from './lab/FalloutLab.tsx'
 import { ReadinessLab } from './lab/ReadinessLab.tsx'
 import { DefenceLab } from './lab/DefenceLab.tsx'
+import { AccuracyLab } from './lab/AccuracyLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
 import { ALERT_FORCE, forceForOption } from './studies/siop62/alert-force.ts'
@@ -26,8 +27,8 @@ type Route =
   | { kind: 'study'; id: 'cuba-62'; general: boolean }
   | { kind: 'study'; id: 'able-archer-83' }
   | { kind: 'study'; id: 'britain-80'; strath: boolean }
-  | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'book' }
-  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' }
+  | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }
+  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' }
 
 function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources') return { kind: 'front' }
@@ -48,12 +49,14 @@ function parseRoute(hash: string): Route {
   if (hash === '#/study/72-minutes/record') return { kind: 'study', id: '72-minutes', variant: 'record' }
   if (hash === '#/study/72-minutes/claim') return { kind: 'study', id: '72-minutes', variant: 'claim' }
   if (hash === '#/study/72-minutes/jacobsen') return { kind: 'study', id: '72-minutes', variant: 'book' }
+  if (hash === '#/study/72-minutes/salvo') return { kind: 'study', id: '72-minutes', variant: 'salvo' }
   if (hash === '#/lab/evidence') return { kind: 'lab', id: 'evidence' }
   if (hash === '#/lab/population') return { kind: 'lab', id: 'population' }
   if (hash === '#/lab/terrain') return { kind: 'lab', id: 'terrain' }
   if (hash === '#/lab/fallout') return { kind: 'lab', id: 'fallout' }
   if (hash === '#/lab/readiness') return { kind: 'lab', id: 'readiness' }
   if (hash === '#/lab/defence') return { kind: 'lab', id: 'defence' }
+  if (hash === '#/lab/accuracy') return { kind: 'lab', id: 'accuracy' }
   return { kind: 'atlas' }
 }
 
@@ -112,7 +115,7 @@ function AbleArcherStudy() {
   return <StudyView key={study.id} study={study} />
 }
 
-function SeventyTwoStudy({ variant }: { variant: 'film' | 'record' | 'claim' | 'book' }) {
+function SeventyTwoStudy({ variant }: { variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }) {
   const study = useMemo(() => seventyTwoMinutes(variant), [variant])
   return <StudyView key={study.id} study={study} />
 }
@@ -140,6 +143,7 @@ export default function App() {
     { href: '#/lab/fallout', label: 'Lab · Fallout', active: route.kind === 'lab' && route.id === 'fallout' },
     { href: '#/lab/readiness', label: 'Lab · Readiness', active: route.kind === 'lab' && route.id === 'readiness' },
     { href: '#/lab/defence', label: 'Lab · Defence', active: route.kind === 'lab' && route.id === 'defence' },
+    { href: '#/lab/accuracy', label: 'Lab · Accuracy', active: route.kind === 'lab' && route.id === 'accuracy' },
   ]
   return (
     <>
@@ -165,6 +169,7 @@ export default function App() {
       {route.kind === 'lab' && route.id === 'fallout' && <FalloutLab key="lab-fallout" />}
       {route.kind === 'lab' && route.id === 'readiness' && <ReadinessLab key="lab-readiness" />}
       {route.kind === 'lab' && route.id === 'defence' && <DefenceLab key="lab-defence" />}
+      {route.kind === 'lab' && route.id === 'accuracy' && <AccuracyLab key="lab-accuracy" />}
     </>
   )
 }
