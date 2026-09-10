@@ -554,7 +554,13 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   }, [selectedId, study, missile, launch])
   const [ready, setReady] = useState(false)
 
+  /**
+   * A study names the tab. A lab built as a study does not — the evidence lab
+   * is a lab and its tab should read like the other labs' rather than
+   * shouting a study's title at the tab strip, so it declines the honour.
+   */
   useEffect(() => {
+    if (study.id.startsWith('lab-')) return
     document.title = `Grid/84 · ${study.title.replace(/\s+/g, ' ')}`
   }, [study])
   /** The longest deposition window any of this study's plumes has, hours; the fallout count stops rising there. */

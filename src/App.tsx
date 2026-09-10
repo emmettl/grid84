@@ -57,7 +57,9 @@ function useTitle(route: Route) {
   useEffect(() => {
     const part =
       route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'winter' ? 'The years after' : route.kind === 'intercept' ? 'Intercept' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
-    // A study names the tab itself, from its title.
+    // A study names the tab itself, from its title. A lab does not, even the
+    // one built as a study: its tab reads like the other labs' rather than
+    // shouting a study's title at the tab strip.
     if (route.kind === 'study') return
     document.title = part ? `Grid/84 · ${part}` : 'Grid/84'
   }, [route])

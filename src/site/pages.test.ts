@@ -9,7 +9,7 @@ import { parseRoute } from '../route.ts'
  */
 const site = JSON.parse(readFileSync('data/site/pages.json', 'utf8')) as {
   origin: string
-  pages: Array<{ path: string; hash: string; title: string; description: string; summary: string }>
+  pages: Array<{ path: string; hash: string; title: string; description: string; summary: string; reading?: string[] }>
   extras: Array<{ path: string; title: string; note: string }>
 }
 
@@ -98,6 +98,30 @@ describe('the background documents given to a crawler', () => {
  * edited by hand would be silently overwritten by the next build, so the
  * generated page is checked against the markdown it claims to come from.
  */
+/**
+ * A prerendered page is what a crawler and a reader arriving from a search
+ * actually see, so the documents behind each one are named on it. A reading
+ * link that pointed at nothing would be a dead end at the one place the site
+ * cannot afford one.
+ */
+describe('the reading behind each page', () => {
+  it('names at least one document for every page', () => {
+    for (const page of site.pages) {
+      expect(page.reading?.length, `${page.path} sends a reader nowhere`).toBeGreaterThan(0)
+    }
+  })
+
+  it('points every one of them at a document that is published', () => {
+    const published = new Set(site.extras.map((e) => e.path.replace(/\/$/, '')))
+    for (const page of site.pages) {
+      for (const path of page.reading ?? []) {
+        const clean = path.replace(/\/$/, '')
+        expect(published.has(clean) || published.has(path), `${page.path} reads on to ${path}, which is not published`).toBe(true)
+      }
+    }
+  })
+})
+
 describe('the working briefs', () => {
   it('every one in the sitemap is rendered, and says which markdown it came from', () => {
     for (const extra of site.extras.filter((e) => e.path.startsWith('brief/') && e.path !== 'brief/')) {

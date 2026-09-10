@@ -7,210 +7,313 @@
       "hash": "#/",
       "title": "Grid/84 — strategic nuclear weapons, modelled from the record",
       "description": "An evidence-tiered engine for the history and doctrine of strategic nuclear weapons. Blast, fire and fallout over real population grids; war plans replayed from declassified documents; a strike console for any place on Earth; and the winter and famine that follow.",
-      "summary": "Thirteen studies of the nuclear age, nine laboratories for the models behind them, and four modes: a strike console for anywhere on Earth, an optimiser over the 1983 posture, the years after a general war, and a chronicle of doctrine. Every figure on every page carries a source and an evidence tier."
+      "summary": "Thirteen studies of the nuclear age, nine laboratories for the models behind them, and four modes: a strike console for anywhere on Earth, an optimiser over the 1983 posture, the years after a general war, and a chronicle of doctrine. Every figure on every page carries a source and an evidence tier.",
+      "reading": [
+        "brief/",
+        "dossier/"
+      ]
     },
     {
       "path": "atlas",
       "hash": "#/atlas",
       "title": "Terminal Atlas — a strike on any place on Earth",
       "description": "Type a place. The console works out which nuclear power would strike it, with what, from where and on what flight profile, printing the rule behind every step, then hands the strike to the engine to fly and to count.",
-      "summary": "The console reads the ground from OpenStreetMap land use and the people from the 2025 population grid, picks an adversary by stated doctrine, sizes the weapon for the target, lays out the aim points, and flies the trajectory. A strike is a link you can send."
+      "summary": "The console reads the ground from OpenStreetMap land use and the people from the 2025 population grid, picks an adversary by stated doctrine, sizes the weapon for the target, lays out the aim points, and flies the trajectory. A strike is a link you can send.",
+      "reading": [
+        "brief/strike",
+        "brief/doctrine",
+        "dossier/weapons-effects-sources"
+      ]
     },
     {
       "path": "winter",
       "hash": "#/winter",
       "title": "The years after — nuclear winter, the harvest and the famine",
       "description": "The soot from burning cities, the sunlight it takes away, the harvest that fails under it and the famine that follows, over fifteen years. A zonal energy-balance model fitted to the published climate runs.",
-      "summary": "The chain from the fires to the famine in five coupled models, validated against Robock 2007, Coupe 2019, Toon 2019, Xia 2022 and Bardeen 2021. How much fuel a burning city holds is the argument the whole thing turns on, and it is a control."
+      "summary": "The chain from the fires to the famine in five coupled models, validated against Robock 2007, Coupe 2019, Toon 2019, Xia 2022 and Bardeen 2021. How much fuel a burning city holds is the argument the whole thing turns on, and it is a control.",
+      "reading": [
+        "dossier/where-the-smoke-goes",
+        "dossier/nuclear-winter-sources",
+        "brief/winter"
+      ]
     },
     {
       "path": "wopr",
       "hash": "#/wopr",
       "title": "WOPR — an optimiser over the 1983 nuclear posture",
       "description": "A constrained search for the plan that minimises a chosen loss under the planners' own constraints. It improves relentlessly, and the word beside the number is the work.",
-      "summary": "Given the documented force posture of 1983, a loss function and the constraints the planners lived under, the machine adjusts what they could adjust and keeps whatever lowers the loss. It now also prints what its best plan does to the sky, which its loss function does not carry."
+      "summary": "Given the documented force posture of 1983, a loss function and the constraints the planners lived under, the machine adjusts what they could adjust and keeps whatever lowers the loss. It now also prints what its best plan does to the sky, which its loss function does not carry.",
+      "reading": [
+        "brief/wopr",
+        "dossier/where-the-smoke-goes"
+      ]
     },
     {
       "path": "chronicle",
       "hash": "#/chronicle",
       "title": "Chronicle — nuclear doctrine, stockpiles and posture",
       "description": "Eight chapters: the stockpile curve, force posture by epoch, doctrine as arithmetic, geopolitics as basing, treaties as bounds, the theatre, missile defence, and the aftermath.",
-      "summary": "The documents behind each doctrine, the rule each implies, and the study that enacts it."
+      "summary": "The documents behind each doctrine, the rule each implies, and the study that enacts it.",
+      "reading": [
+        "dossier/where-the-smoke-goes",
+        "dossier/missile-defence-record"
+      ]
     },
     {
       "path": "studies/siop62",
       "hash": "#/study/siop62",
       "title": "SIOP-62 — the first single integrated operational plan",
       "description": "A bounded proof of the engine drawn from the first American single integrated operational plan, with one entity of every evidence tier.",
-      "summary": "The plan briefed to Kennedy in September 1961, as far as the declassified record gives it."
+      "summary": "The plan briefed to Kennedy in September 1961, as far as the declassified record gives it.",
+      "reading": [
+        "brief/siop-62"
+      ]
     },
     {
       "path": "studies/alert-force",
       "hash": "#/study/siop62-alert",
       "title": "The SIOP-62 alert force, and its fourteen execution options",
       "description": "The plan's alert force enacted against its own target list, with refuelling, reliability and penetration as the record gives them, and the Soviet answer from what was on alert.",
-      "summary": "Fourteen execution options drawn as a force-generation curve."
+      "summary": "Fourteen execution options drawn as a force-generation curve.",
+      "reading": [
+        "brief/siop-62"
+      ]
     },
     {
       "path": "studies/cuba-62",
       "hash": "#/study/cuba-62",
       "title": "Cuba, 1962 — the regional strike and the general war",
       "description": "What the missiles in Cuba could reach, and what the general war would have been.",
-      "summary": "The deployment as the reconnaissance found it, and the two plans that stood behind the quarantine."
+      "summary": "The deployment as the reconnaissance found it, and the two plans that stood behind the quarantine.",
+      "reading": [
+        "brief/cuba-62"
+      ]
     },
     {
       "path": "studies/defcon3-73",
       "hash": "#/study/defcon3-73",
       "title": "DEFCON 3, 1973 — the alert nobody remembers",
       "description": "The worldwide alert of the October war, the execution option behind it, and the 1969 precedent.",
-      "summary": "A nuclear alert used as a diplomatic signal, and what it would have meant if read as one."
+      "summary": "A nuclear alert used as a diplomatic signal, and what it would have meant if read as one.",
+      "reading": [
+        "brief/defcon3-73"
+      ]
     },
     {
       "path": "studies/able-archer-83",
       "hash": "#/study/able-archer-83",
       "title": "Able Archer 83 — the exercise that looked like the thing",
       "description": "The November 1983 command post exercise, the Soviet reading of it, and the forces that were watching.",
-      "summary": "The war scare as the released record and the later assessments give it."
+      "summary": "The war scare as the released record and the later assessments give it.",
+      "reading": [
+        "brief/able-archer-83"
+      ]
     },
     {
       "path": "studies/window-83",
       "hash": "#/study/window-83",
       "title": "The window of vulnerability, 1983",
       "description": "The silo-survival arithmetic that drove a decade of American strategic argument, enacted: ride out or launch under attack.",
-      "summary": "Both postures against the same Soviet first strike, over the population grid of 1985."
+      "summary": "Both postures against the same Soviet first strike, over the population grid of 1985.",
+      "reading": [
+        "brief/window-83"
+      ]
     },
     {
       "path": "studies/72-minutes",
       "hash": "#/study/72-minutes",
       "title": "Seventy-two minutes — a strike on the United States now",
       "description": "The present forces, the present warning time, and five readings of the same seventy-two minutes.",
-      "summary": "The film's version, the record's, the claim's, a salvo against the defences, and the book's."
+      "summary": "The film's version, the record's, the claim's, a salvo against the defences, and the book's.",
+      "reading": [
+        "brief/72-minutes",
+        "dossier/missile-defence-record"
+      ]
     },
     {
       "path": "studies/carte-blanche",
       "hash": "#/study/carte-blanche",
       "title": "Carte Blanche, 1955 — 335 weapons over Germany",
       "description": "NATO's own exercise simulated 335 nuclear weapons on German soil and estimated 1.7 million West German dead from the immediate effects alone.",
-      "summary": "The figures leaked that autumn and did more damage to massive retaliation in Germany than any argument."
+      "summary": "The figures leaked that autumn and did more damage to massive retaliation in Germany than any argument.",
+      "reading": [
+        "brief/theatre"
+      ]
     },
     {
       "path": "studies/v-force",
       "hash": "#/study/v-force",
       "title": "The V-force — the British deterrent, high and low",
       "description": "The RAF's Vulcans, Victors and Valiants against the Soviet target list, on the high profile they were built for and the low one they were driven to.",
-      "summary": "The war plan itself was never released; the profile and the force are reconstructed from testimony and from stated targeting policy."
+      "summary": "The war plan itself was never released; the profile and the force are reconstructed from testimony and from stated targeting policy.",
+      "reading": [
+        "brief/v-force"
+      ]
     },
     {
       "path": "studies/seven-days",
       "hash": "#/study/seven-days",
       "title": "Seven days to the River Rhine",
       "description": "The Warsaw Pact exercise plan released by Poland in 2005, which begins by assuming NATO has used nuclear weapons first and answers on twelve named western cities.",
-      "summary": "The other side's own document, enacted."
+      "summary": "The other side's own document, enacted.",
+      "reading": [
+        "brief/theatre"
+      ]
     },
     {
       "path": "studies/demolition-belt",
       "hash": "#/study/demolition-belt",
       "title": "The demolition belt — atomic demolition munitions",
       "description": "The buried weapons that were to be fired on NATO's own ground to stop an advance, and what they would have done to it.",
-      "summary": "A doctrine of nuclear demolition on the territory being defended."
+      "summary": "A doctrine of nuclear demolition on the territory being defended.",
+      "reading": [
+        "brief/theatre"
+      ]
     },
     {
       "path": "studies/raf-germany",
       "hash": "#/study/tornado",
       "title": "RAF Germany — the sub-strategic strike",
       "description": "Twenty-eight Tornados against fourteen airfields and crossings, on the terrain-following profile of 1985.",
-      "summary": "The last generation of the theatre strike force, and what a sub-strategic option meant in practice."
+      "summary": "The last generation of the theatre strike force, and what a sub-strategic option meant in practice.",
+      "reading": [
+        "brief/theatre"
+      ]
     },
     {
       "path": "studies/sino-soviet-1969",
       "hash": "#/study/sino-soviet-1969",
       "title": "The nuclear surgery — a Soviet strike on the Chinese nuclear complex, 1969",
       "description": "Eight operating facilities, the forces that could have reached them, and the arithmetic of the strike Moscow was understood to be threatening in 1969. No such plan is on the record, and the study says so.",
-      "summary": "What the surgery would have taken and whether it would have worked: the missiles were in the wrong places so the strike has to be flown, three of the eight facilities stand in or beside cities, and the milling that feeds the rest is beyond every bomber base on the list."
+      "summary": "What the surgery would have taken and whether it would have worked: the missiles were in the wrong places so the strike has to be flown, three of the eight facilities stand in or beside cities, and the milling that feeds the rest is beyond every bomber base on the list.",
+      "reading": [
+        "dossier/sino-soviet-1969",
+        "brief/sino-soviet-69"
+      ]
     },
     {
       "path": "studies/britain-80",
       "hash": "#/study/britain-80",
       "title": "Protect and Survive — Britain, 1980",
       "description": "The Home Office exercise Square Leg and the Scottish Office's Strath assumptions, drawn on the ground they covered.",
-      "summary": "What the British government told its people, and what its own planning assumed."
+      "summary": "What the British government told its people, and what its own planning assumed.",
+      "reading": [
+        "brief/britain-80"
+      ]
     },
     {
       "path": "labs/fallout",
       "hash": "#/lab/fallout",
       "title": "The fallout lab — plumes, dose and shelter",
       "description": "Glasstone and Dolan's contours, the decay law, wind shear, terrain and protection factors, over a population grid.",
-      "summary": "Every parameter of the fallout model, adjustable, with the published case to set it against."
+      "summary": "Every parameter of the fallout model, adjustable, with the published case to set it against.",
+      "reading": [
+        "dossier/weapons-effects-sources",
+        "brief/validation"
+      ]
     },
     {
       "path": "labs/accuracy",
       "hash": "#/lab/accuracy",
       "title": "The accuracy lab — CEP, yield and the kill probability",
       "description": "What accuracy does to a hard target, and why the counterforce argument of the 1970s turned on it.",
-      "summary": "Single-shot kill probability as circular error probable, yield and hardness vary."
+      "summary": "Single-shot kill probability as circular error probable, yield and hardness vary.",
+      "reading": [
+        "brief/validation"
+      ]
     },
     {
       "path": "labs/defence",
       "hash": "#/lab/defence",
       "title": "The defence lab — the arithmetic of missile defence",
       "description": "The defender must buy shots faster than the attacker buys warheads and decoys. The curve says the rest.",
-      "summary": "Interceptor counts, leakage and the cost exchange ratio."
+      "summary": "Interceptor counts, leakage and the cost exchange ratio.",
+      "reading": [
+        "dossier/missile-defence-record",
+        "brief/intercept"
+      ]
     },
     {
       "path": "labs/population",
       "hash": "#/lab/population",
       "title": "The population lab — the grids the casualties come from",
       "description": "The GHSL and HYDE population grids the studies count over, drawn as they are.",
-      "summary": "Where every casualty figure in this engine begins."
+      "summary": "Where every casualty figure in this engine begins.",
+      "reading": [
+        "brief/validation"
+      ]
     },
     {
       "path": "labs/neutron",
       "hash": "#/lab/neutron",
       "title": "The neutron bomb — enhanced radiation and the doctrine for it",
       "description": "The argument made for a weapon that kills crews and spares the town, tested against the standard scaling.",
-      "summary": "It does not spare the town. What it does is reach the crews with a sixth of the wrecked ground."
+      "summary": "It does not spare the town. What it does is reach the crews with a sixth of the wrecked ground.",
+      "reading": [
+        "brief/theatre"
+      ]
     },
     {
       "path": "labs/evidence",
       "hash": "#/lab/evidence",
       "title": "The evidence lab — how every figure is tiered",
       "description": "One entity of every evidence tier, side by side: documented, reconstructed, inferred, modelled and withheld, with the line grammar each is drawn in.",
-      "summary": "The contract the whole engine is built on, shown rather than described."
+      "summary": "The contract the whole engine is built on, shown rather than described.",
+      "reading": [
+        "brief/validation"
+      ]
     },
     {
       "path": "labs/terrain",
       "hash": "#/lab/terrain",
       "title": "The terrain lab — what the ground does to a blast",
       "description": "Elevation under a detonation, and what a hill or a valley does to the reach of the overpressure.",
-      "summary": "Terrain shielding over real elevation data."
+      "summary": "Terrain shielding over real elevation data.",
+      "reading": [
+        "brief/validation"
+      ]
     },
     {
       "path": "labs/readiness",
       "hash": "#/lab/readiness",
       "title": "The readiness lab — alert states and reaction times",
       "description": "What an alert state actually buys: how much of a force can fly, and how long it takes.",
-      "summary": "Generation curves for the bomber and missile forces of the record."
+      "summary": "Generation curves for the bomber and missile forces of the record.",
+      "reading": [
+        "brief/doctrine"
+      ]
     },
     {
       "path": "labs/guidance",
       "hash": "#/lab/guidance",
       "title": "The guidance lab — how a warhead finds its aim point",
       "description": "Inertial guidance, stellar fixes and satellite correction, and what each is worth in metres.",
-      "summary": "Where circular error probable comes from."
+      "summary": "Where circular error probable comes from.",
+      "reading": [
+        "brief/validation"
+      ]
     },
     {
       "path": "labs/intercept",
       "hash": "#/lab/intercept",
       "title": "The intercept lab — boost, midcourse, glide and terminal",
       "description": "Why intercepting a ballistic missile is hard, phase by phase: the boost window that detection and a decision consume, the absentee ratio that puts a space layer's cost in the thousands, the horizon a glide vehicle stays under, and the ground a terminal battery can actually defend.",
-      "summary": "Every figure is arithmetic rather than a claim about a named system, and the footprint formula is checked against the published radius of two deployed batteries."
+      "summary": "Every figure is arithmetic rather than a claim about a named system, and the footprint formula is checked against the published radius of two deployed batteries.",
+      "reading": [
+        "dossier/missile-defence-record",
+        "brief/intercept"
+      ]
     },
     {
       "path": "intercept",
       "hash": "#/intercept",
       "title": "Intercept — a launch, an attempt, and mostly a miss",
       "description": "One engagement at a time on the globe: a real launcher, a real city, a real interceptor site, and whether the shot connects. Most do not, and each attempt says which of the four reasons it failed for.",
-      "summary": "No probability of kill is taken from a test range. Each attempt is drawn from the same arithmetic the intercept lab draws: whether anything was in reach, which object it went for, and whether the kill vehicle could null the error in the time it had."
+      "summary": "No probability of kill is taken from a test range. Each attempt is drawn from the same arithmetic the intercept lab draws: whether anything was in reach, which object it went for, and whether the kill vehicle could null the error in the time it had.",
+      "reading": [
+        "dossier/missile-defence-record",
+        "brief/intercept"
+      ]
     }
   ],
   "extras": [

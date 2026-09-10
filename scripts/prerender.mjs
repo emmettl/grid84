@@ -36,6 +36,13 @@ const escapeAttr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').repla
 const escapeText = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 const written = []
+/** Each published document's own title, for the onward links on every page. */
+const documentTitles = Object.fromEntries(
+  (site.extras ?? []).map((e) => [e.path.replace(/\/$/, '') || e.path, e.title]),
+)
+documentTitles['brief'] = 'The working briefs'
+documentTitles['dossier'] = 'The background documents'
+
 for (const page of site.pages) {
   if (page.path === '') continue
   const depth = page.path.split('/').length
@@ -54,12 +61,26 @@ for (const page of site.pages) {
   html = setMeta(html, 'property', 'og:url', url)
   html = setMeta(html, 'name', 'twitter:title', page.title)
   html = setMeta(html, 'name', 'twitter:description', page.description)
-  // The readable page, and the way through to the app.
+  /*
+    The readable page, the way through to the app, and the way on to the
+    documents. The onward links are not decoration: they are how a crawler
+    finds the briefs and the dossiers from the pages that rank, and how a
+    reader who lands here from a search gets to something substantial rather
+    than to a redirect. Each page names its own reading in data/site/pages.json.
+  */
+  const reading = (page.reading ?? [])
+    .map((path) => {
+      const clean = path.replace(/\/$/, '')
+      const title = documentTitles[clean] ?? documentTitles[path] ?? clean
+      return `<li><a href="${up}${path}">${escapeText(title)}</a></li>`
+    })
+    .join('')
   const body = `<div id="root"><main class="prerender">
       <h1>${escapeText(page.title)}</h1>
       <p>${escapeText(page.description)}</p>
       <p>${escapeText(page.summary)}</p>
       <p><a href="${up}${page.hash}">Open it in Grid/84</a></p>
+      ${reading ? `<h2>Behind this page</h2><ul>${reading}</ul>` : ''}
     </main></div>
     <script>window.location.replace(${JSON.stringify(`${up}${page.hash}`)})</script>`
   html = html.replace('<div id="root"></div>', body)

@@ -205,7 +205,7 @@ export function InterceptLab() {
       <div className="study-hud lab-hud readiness-hud">
         <header className="hud-brand study-brand">
           <span>SurfaceStudies · Terminal Atlas</span>
-          <strong>Lab · Interception</strong>
+          <strong>LAB · INTERCEPTION</strong>
           <span>Four phases, four reasons it is hard, and the arithmetic of each</span>
         </header>
 
