@@ -72,6 +72,15 @@ const STUDIES: FrontStudy[] = [
     variants: [{ label: 'Strath 1955', href: '#/study/britain-80/strath' }],
   },
   {
+    id: 'window-83',
+    epoch: '1983',
+    title: 'The window of vulnerability',
+    line: 'A Soviet counterforce strike as the West feared it: two warheads on every American silo from the heavy fields, the boats off the coasts on the bombers with ten minutes\' warning, and the two answers the posture allowed. Ride it out and launch what survives, or launch under attack at H+22 so the warheads land on empty silos. The warning clock, minute by minute, is the point.',
+    href: '#/study/window-83',
+    brief: brief('WINDOW-83.md'),
+    variants: [{ label: 'Launch under attack', href: '#/study/window-83/launch' }],
+  },
+  {
     id: '72-minutes',
     epoch: 'The present',
     title: 'Seventy-two minutes',

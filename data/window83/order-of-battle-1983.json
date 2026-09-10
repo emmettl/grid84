@@ -1,0 +1,1389 @@
+{
+ "date": "1983",
+ "note": "The forces of the window of vulnerability, spread from the Databook and Notebook totals over the wings and divisions the unit histories name; loadings are the Databook estimates.",
+ "rules": {
+  "usIcbm": {
+   "launchers": 1045,
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982"
+  },
+  "usSsbn": {
+   "boats": 33,
+   "note": "33 boats in 1983: nineteen with Poseidon C-3 (ten W68 of 40 kt), twelve refitted with Trident I C-4 (eight W76 of 100 kt), two Ohios (Databook vol. 1); fourteen at sea and the areas inferred; the loading per boat at sea an average"
+  },
+  "usBombers": {
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "groundAlert": 0.3
+  },
+  "suIcbm": {
+   "SS-18": {
+    "launchers": 308,
+    "divisions": 6,
+    "warheads": 10,
+    "yieldKt": 500
+   },
+   "SS-19": {
+    "launchers": 360,
+    "divisions": 4,
+    "warheads": 6,
+    "yieldKt": 550
+   },
+   "SS-17": {
+    "launchers": 150,
+    "divisions": 2,
+    "warheads": 4,
+    "yieldKt": 750
+   },
+   "SS-11": {
+    "launchers": 520,
+    "divisions": 7,
+    "warheads": 1,
+    "yieldKt": 1000
+   },
+   "SS-13": {
+    "launchers": 60,
+    "divisions": 1,
+    "warheads": 1,
+    "yieldKt": 750
+   }
+  },
+  "suSsbn": {
+   "boats": 62,
+   "note": "About 62 boats and 940 tubes in 1983 (Databook vol. 4): Yankees with single-warhead R-27s forward off the American coasts, Deltas with R-29s in the bastions; fourteen at sea and the areas inferred"
+  },
+  "siloPsi": 2000,
+  "accuracy": {
+   "SS-18": {
+    "cepMetres": 250,
+    "yieldKt": 500
+   },
+   "SS-19": {
+    "cepMetres": 300,
+    "yieldKt": 550
+   },
+   "source": "The accuracy lab's published estimates: Databook vol. 4; MacKenzie, Inventing Accuracy (1990)"
+  }
+ },
+ "sites": [
+  {
+   "side": "us",
+   "name": "Malmstrom AFB · 341st SMW",
+   "kind": "icbm",
+   "missiles": 200,
+   "weapons": 300,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman II",
+     "warheads": 1,
+     "yieldKt": 1200
+    },
+    {
+     "missiles": 50,
+     "version": "Minuteman III",
+     "warheads": 3,
+     "yieldKt": 335
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "malmstrom-341",
+   "lon": -111.1785,
+   "lat": 47.5049,
+   "geocoded": "Malmstrom Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Ellsworth AFB · 44th SMW",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 150,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman II",
+     "warheads": 1,
+     "yieldKt": 1200
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "ellsworth-44",
+   "lon": -103.0868,
+   "lat": 44.1472,
+   "geocoded": "Ellsworth Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Whiteman AFB · 351st SMW",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 150,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman II",
+     "warheads": 1,
+     "yieldKt": 1200
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "whiteman-351",
+   "lon": -93.5545,
+   "lat": 38.7303,
+   "geocoded": "Whiteman Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Minot AFB · 91st SMW",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman III",
+     "warheads": 3,
+     "yieldKt": 335
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "minot-91",
+   "lon": -101.3372,
+   "lat": 48.42,
+   "geocoded": "Minot Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Grand Forks AFB · 321st SMW",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman III",
+     "warheads": 3,
+     "yieldKt": 335
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "grand-forks-321",
+   "lon": -97.4004,
+   "lat": 47.9636,
+   "geocoded": "Grand Forks Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "F. E. Warren AFB · 90th SMW",
+   "kind": "icbm",
+   "missiles": 200,
+   "weapons": 600,
+   "squadrons": [
+    {
+     "missiles": 200,
+     "version": "Minuteman III",
+     "warheads": 3,
+     "yieldKt": 170
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "warren-90",
+   "lon": -104.8633,
+   "lat": 41.1659,
+   "geocoded": "Francis E. Warren Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Davis-Monthan AFB · 390th SMW",
+   "kind": "icbm",
+   "missiles": 15,
+   "weapons": 15,
+   "squadrons": [
+    {
+     "missiles": 15,
+     "version": "Titan II",
+     "warheads": 1,
+     "yieldKt": 9000
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "davis-monthan-390",
+   "lon": -110.8833,
+   "lat": 32.1661,
+   "geocoded": "Davis-Monthan Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Little Rock AFB · 308th SMW",
+   "kind": "icbm",
+   "missiles": 15,
+   "weapons": 15,
+   "squadrons": [
+    {
+     "missiles": 15,
+     "version": "Titan II",
+     "warheads": 1,
+     "yieldKt": 9000
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "little-rock-308",
+   "lon": -92.1388,
+   "lat": 34.9059,
+   "geocoded": "Little Rock Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "McConnell AFB · 381st SMW",
+   "kind": "icbm",
+   "missiles": 15,
+   "weapons": 15,
+   "squadrons": [
+    {
+     "missiles": 15,
+     "version": "Titan II",
+     "warheads": 1,
+     "yieldKt": 9000
+    }
+   ],
+   "note": "1,000 Minuteman and 45 Titan II in 1983 (Databook vol. 1): 450 Minuteman II, 550 Minuteman III with the W78 on the refitted wings and the W62 at Warren; the Titans deactivating from 1982",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "mcconnell-381",
+   "lon": -97.2619,
+   "lat": 37.6259,
+   "geocoded": "McConnell Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Poseidon and Trident I patrol · North Atlantic",
+   "kind": "slbm",
+   "boats": 12,
+   "missiles": 192,
+   "weapons": 1728,
+   "weaponsPerVehicle": 9,
+   "yieldKt": 60,
+   "note": "Boats from Charleston, Kings Bay and Holy Loch. 33 boats in 1983: nineteen with Poseidon C-3 (ten W68 of 40 kt), twelve refitted with Trident I C-4 (eight W76 of 100 kt), two Ohios (Databook vol. 1); fourteen at sea and the areas inferred; the loading per boat at sea an average",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983",
+   "id": "ssbn-atlantic",
+   "lon": -45.0,
+   "lat": 45.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Trident I patrol · North Pacific",
+   "kind": "slbm",
+   "boats": 2,
+   "missiles": 48,
+   "weapons": 384,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 100,
+   "note": "The first Ohios from Bangor. 33 boats in 1983: nineteen with Poseidon C-3 (ten W68 of 40 kt), twelve refitted with Trident I C-4 (eight W76 of 100 kt), two Ohios (Databook vol. 1); fourteen at sea and the areas inferred; the loading per boat at sea an average",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983",
+   "id": "ssbn-pacific",
+   "lon": -160.0,
+   "lat": 45.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Naval Weapons Station Charleston · Poseidon",
+   "kind": "slbm-port",
+   "boats": 8,
+   "missiles": 128,
+   "weapons": 1280,
+   "weaponsPerVehicle": 10,
+   "yieldKt": 40,
+   "note": "33 boats in 1983: nineteen with Poseidon C-3 (ten W68 of 40 kt), twelve refitted with Trident I C-4 (eight W76 of 100 kt), two Ohios (Databook vol. 1); fourteen at sea and the areas inferred; the loading per boat at sea an average",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Databook vol. 1",
+   "id": "charleston",
+   "lon": -79.95,
+   "lat": 32.97,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Kings Bay · Trident I refit boats",
+   "kind": "slbm-port",
+   "boats": 4,
+   "missiles": 64,
+   "weapons": 512,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 100,
+   "note": "33 boats in 1983: nineteen with Poseidon C-3 (ten W68 of 40 kt), twelve refitted with Trident I C-4 (eight W76 of 100 kt), two Ohios (Databook vol. 1); fourteen at sea and the areas inferred; the loading per boat at sea an average",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Databook vol. 1",
+   "id": "kings-bay",
+   "lon": -81.5399,
+   "lat": 30.7926,
+   "geocoded": "Naval Submarine Base Kings Bay",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Holy Loch · Submarine Squadron 14",
+   "kind": "slbm-port",
+   "boats": 6,
+   "missiles": 96,
+   "weapons": 960,
+   "weaponsPerVehicle": 10,
+   "yieldKt": 40,
+   "note": "33 boats in 1983: nineteen with Poseidon C-3 (ten W68 of 40 kt), twelve refitted with Trident I C-4 (eight W76 of 100 kt), two Ohios (Databook vol. 1); fourteen at sea and the areas inferred; the loading per boat at sea an average",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Databook vol. 1",
+   "id": "holy-loch",
+   "lon": -4.93,
+   "lat": 55.98,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Bangor · Ohio-class",
+   "kind": "slbm-port",
+   "boats": 1,
+   "missiles": 24,
+   "weapons": 192,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 100,
+   "note": "33 boats in 1983: nineteen with Poseidon C-3 (ten W68 of 40 kt), twelve refitted with Trident I C-4 (eight W76 of 100 kt), two Ohios (Databook vol. 1); fourteen at sea and the areas inferred; the loading per boat at sea an average",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Databook vol. 1",
+   "id": "bangor",
+   "lon": -122.7192,
+   "lat": 47.7255,
+   "geocoded": "Naval Base Kitsap - Bangor",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Barksdale AFB · 2nd BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "barksdale-2",
+   "lon": -93.6108,
+   "lat": 32.4975,
+   "geocoded": "Barksdale Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Castle AFB · 93rd BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "castle-93",
+   "lon": -120.5706,
+   "lat": 37.3803,
+   "geocoded": "Castle Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Loring AFB · 42nd BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "loring-42",
+   "lon": -67.89,
+   "lat": 46.95,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Wurtsmith AFB · 379th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "wurtsmith-379",
+   "lon": -83.3751,
+   "lat": 44.457,
+   "geocoded": "Oscoda-Wurtsmith Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Griffiss AFB · 416th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "griffiss-416",
+   "lon": -75.4143,
+   "lat": 43.2322,
+   "geocoded": "Griffiss International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Blytheville AFB · 97th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "eaker-97",
+   "lon": -89.94,
+   "lat": 35.96,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Mather AFB · 320th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "mather-320",
+   "lon": -121.3039,
+   "lat": 38.5532,
+   "geocoded": "Mather Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Seymour Johnson AFB · 68th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "seymour-johnson-68",
+   "lon": -77.956,
+   "lat": 35.3451,
+   "geocoded": "Seymour Johnson Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Robins AFB · 19th BW",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "robins-19",
+   "lon": -83.5832,
+   "lat": 32.5991,
+   "geocoded": "Robins Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Andersen AFB · 43rd BW",
+   "kind": "bomber",
+   "model": "B-52D",
+   "aircraft": 15,
+   "weaponsPerAircraft": 4,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "andersen-43",
+   "lon": 144.9263,
+   "lat": 13.5596,
+   "geocoded": "Andersen Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Fairchild AFB · 92nd BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "fairchild-92",
+   "lon": -117.647,
+   "lat": 47.6161,
+   "geocoded": "Fairchild Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Minot AFB · 5th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "minot-5",
+   "lon": -101.3372,
+   "lat": 48.42,
+   "geocoded": "Minot Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Carswell AFB · 7th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "carswell-7",
+   "lon": -97.4312,
+   "lat": 32.7664,
+   "geocoded": "Naval Air Station Joint Reserve Base Fort Worth (Carswell Field)",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "K. I. Sawyer AFB · 410th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "ki-sawyer-410",
+   "lon": -87.39,
+   "lat": 46.35,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Grand Forks AFB · 319th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 19,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "grand-forks-319",
+   "lon": -97.4004,
+   "lat": 47.9636,
+   "geocoded": "Grand Forks Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Ellsworth AFB · 28th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "ellsworth-28",
+   "lon": -103.0868,
+   "lat": 44.1472,
+   "geocoded": "Ellsworth Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Dyess AFB · 96th BW",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 19,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 1100,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "dyess-96",
+   "lon": -99.8382,
+   "lat": 32.4206,
+   "geocoded": "Dyess Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Pease AFB · 509th BW",
+   "kind": "bomber",
+   "model": "FB-111A",
+   "aircraft": 30,
+   "weaponsPerAircraft": 6,
+   "yieldKt": 170,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "pease-509",
+   "lon": -70.8187,
+   "lat": 43.079,
+   "geocoded": "Portsmouth International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Plattsburgh AFB · 380th BW",
+   "kind": "bomber",
+   "model": "FB-111A",
+   "aircraft": 30,
+   "weaponsPerAircraft": 6,
+   "yieldKt": 170,
+   "alert": 0.0,
+   "note": "About 340 B-52 and 60 FB-111A in 1983 (Databook vol. 1), spread over the wings the unit lists name; eight gravity bombs and short-range missiles per B-52, twelve cruise missiles on the first two wings converted, six per FB-111A; about a third of the force on ground alert",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "plattsburgh-380",
+   "lon": -73.4644,
+   "lat": 44.6517,
+   "geocoded": "Plattsburgh International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Dombarovsky · 13th Rocket Division",
+   "kind": "icbm",
+   "missiles": 52,
+   "weapons": 520,
+   "squadrons": [
+    {
+     "missiles": 52,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 500
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 500 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "dombarovsky",
+   "lon": 59.53,
+   "lat": 50.76,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Kartaly · 59th Rocket Division",
+   "kind": "icbm",
+   "missiles": 52,
+   "weapons": 520,
+   "squadrons": [
+    {
+     "missiles": 52,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 500
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 500 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "kartaly",
+   "lon": 60.65,
+   "lat": 53.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Uzhur · 62nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 51,
+   "weapons": 510,
+   "squadrons": [
+    {
+     "missiles": 51,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 500
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 500 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "uzhur",
+   "lon": 89.83,
+   "lat": 55.3,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Aleysk · 41st Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 51,
+   "weapons": 510,
+   "squadrons": [
+    {
+     "missiles": 51,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 500
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 500 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "aleysk",
+   "lon": 82.78,
+   "lat": 52.49,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Zhangiz-Tobe · 57th Rocket Division",
+   "kind": "icbm",
+   "missiles": 51,
+   "weapons": 510,
+   "squadrons": [
+    {
+     "missiles": 51,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 500
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 500 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "zhangiz-tobe",
+   "lon": 81.2,
+   "lat": 49.2,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Derzhavinsk · 38th Rocket Division",
+   "kind": "icbm",
+   "missiles": 51,
+   "weapons": 510,
+   "squadrons": [
+    {
+     "missiles": 51,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 500
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 500 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "derzhavinsk",
+   "lon": 66.32,
+   "lat": 51.1,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Kozelsk · 28th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 90,
+   "weapons": 540,
+   "squadrons": [
+    {
+     "missiles": 90,
+     "version": "SS-19",
+     "warheads": 6,
+     "yieldKt": 550
+    }
+   ],
+   "note": "360 SS-19 launchers spread evenly over 4 divisions; 6 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "kozelsk",
+   "lon": 35.79,
+   "lat": 54.04,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Tatishchevo · 60th Rocket Division",
+   "kind": "icbm",
+   "missiles": 90,
+   "weapons": 540,
+   "squadrons": [
+    {
+     "missiles": 90,
+     "version": "SS-19",
+     "warheads": 6,
+     "yieldKt": 550
+    }
+   ],
+   "note": "360 SS-19 launchers spread evenly over 4 divisions; 6 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "tatishchevo",
+   "lon": 45.6,
+   "lat": 51.67,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Pervomaysk · 46th Rocket Division",
+   "kind": "icbm",
+   "missiles": 90,
+   "weapons": 540,
+   "squadrons": [
+    {
+     "missiles": 90,
+     "version": "SS-19",
+     "warheads": 6,
+     "yieldKt": 550
+    }
+   ],
+   "note": "360 SS-19 launchers spread evenly over 4 divisions; 6 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "pervomaysk",
+   "lon": 30.85,
+   "lat": 48.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Khmelnytskyi · 19th Rocket Division",
+   "kind": "icbm",
+   "missiles": 90,
+   "weapons": 540,
+   "squadrons": [
+    {
+     "missiles": 90,
+     "version": "SS-19",
+     "warheads": 6,
+     "yieldKt": 550
+    }
+   ],
+   "note": "360 SS-19 launchers spread evenly over 4 divisions; 6 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "khmelnytskyi",
+   "lon": 26.98,
+   "lat": 49.42,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Kostroma · 10th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 75,
+   "weapons": 300,
+   "squadrons": [
+    {
+     "missiles": 75,
+     "version": "SS-17",
+     "warheads": 4,
+     "yieldKt": 750
+    }
+   ],
+   "note": "150 SS-17 launchers spread evenly over 2 divisions; 4 warheads of about 750 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "kostroma",
+   "lon": 40.93,
+   "lat": 57.77,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yedrovo · 7th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 75,
+   "weapons": 300,
+   "squadrons": [
+    {
+     "missiles": 75,
+     "version": "SS-17",
+     "warheads": 4,
+     "yieldKt": 750
+    }
+   ],
+   "note": "150 SS-17 launchers spread evenly over 2 divisions; 4 warheads of about 750 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "yedrovo",
+   "lon": 33.8,
+   "lat": 57.85,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Teykovo · 54th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 75,
+   "weapons": 75,
+   "squadrons": [
+    {
+     "missiles": 75,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "520 SS-11 launchers spread evenly over 7 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "teykovo",
+   "lon": 40.54,
+   "lat": 56.86,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Bershet · 52nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 75,
+   "weapons": 75,
+   "squadrons": [
+    {
+     "missiles": 75,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "520 SS-11 launchers spread evenly over 7 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "bershet",
+   "lon": 57.77,
+   "lat": 57.73,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Gladkaya · 36th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 74,
+   "weapons": 74,
+   "squadrons": [
+    {
+     "missiles": 74,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "520 SS-11 launchers spread evenly over 7 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "gladkaya",
+   "lon": 91.75,
+   "lat": 56.17,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Svobodny · 27th Rocket Division",
+   "kind": "icbm",
+   "missiles": 74,
+   "weapons": 74,
+   "squadrons": [
+    {
+     "missiles": 74,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "520 SS-11 launchers spread evenly over 7 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "svobodny",
+   "lon": 128.32,
+   "lat": 51.45,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Olovyannaya · 47th Rocket Division",
+   "kind": "icbm",
+   "missiles": 74,
+   "weapons": 74,
+   "squadrons": [
+    {
+     "missiles": 74,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "520 SS-11 launchers spread evenly over 7 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "olovyannaya",
+   "lon": 115.58,
+   "lat": 50.95,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Drovyanaya · 4th Rocket Division",
+   "kind": "icbm",
+   "missiles": 74,
+   "weapons": 74,
+   "squadrons": [
+    {
+     "missiles": 74,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "520 SS-11 launchers spread evenly over 7 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "drovyanaya",
+   "lon": 113.05,
+   "lat": 51.6,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yasny · Orenburg fields",
+   "kind": "icbm",
+   "missiles": 74,
+   "weapons": 74,
+   "squadrons": [
+    {
+     "missiles": 74,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "520 SS-11 launchers spread evenly over 7 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "yasny",
+   "lon": 59.87,
+   "lat": 51.04,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yoshkar-Ola · 14th Rocket Division",
+   "kind": "icbm",
+   "missiles": 60,
+   "weapons": 60,
+   "squadrons": [
+    {
+     "missiles": 60,
+     "version": "SS-13",
+     "warheads": 1,
+     "yieldKt": 750
+    }
+   ],
+   "note": "60 SS-13 launchers spread evenly over 1 division; 1 warhead of about 750 kt each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "yoshkar-ola",
+   "lon": 47.89,
+   "lat": 56.63,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Delta patrol · Barents Sea bastion",
+   "kind": "slbm",
+   "boats": 6,
+   "missiles": 96,
+   "weapons": 192,
+   "weaponsPerVehicle": 2,
+   "yieldKt": 300,
+   "note": "Boats of the Northern Fleet. About 62 boats and 940 tubes in 1983 (Databook vol. 4): Yankees with single-warhead R-27s forward off the American coasts, Deltas with R-29s in the bastions; fourteen at sea and the areas inferred",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983",
+   "id": "su-ssbn-barents",
+   "lon": 38.0,
+   "lat": 73.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yankee patrol · western Atlantic",
+   "kind": "slbm",
+   "boats": 3,
+   "missiles": 48,
+   "weapons": 48,
+   "weaponsPerVehicle": 1,
+   "yieldKt": 1000,
+   "note": "The boats off the American coast, ten minutes from the bomber bases. About 62 boats and 940 tubes in 1983 (Databook vol. 4): Yankees with single-warhead R-27s forward off the American coasts, Deltas with R-29s in the bastions; fourteen at sea and the areas inferred",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983",
+   "id": "su-ssbn-atlantic",
+   "lon": -65.0,
+   "lat": 33.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yankee patrol · off the Pacific coast",
+   "kind": "slbm",
+   "boats": 2,
+   "missiles": 32,
+   "weapons": 32,
+   "weaponsPerVehicle": 1,
+   "yieldKt": 1000,
+   "note": "Off the Pacific coast. About 62 boats and 940 tubes in 1983 (Databook vol. 4): Yankees with single-warhead R-27s forward off the American coasts, Deltas with R-29s in the bastions; fourteen at sea and the areas inferred",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983",
+   "id": "su-ssbn-pacific-coast",
+   "lon": -135.0,
+   "lat": 40.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Delta patrol · Sea of Okhotsk bastion",
+   "kind": "slbm",
+   "boats": 3,
+   "missiles": 48,
+   "weapons": 96,
+   "weaponsPerVehicle": 2,
+   "yieldKt": 300,
+   "note": "Boats of the Pacific Fleet. About 62 boats and 940 tubes in 1983 (Databook vol. 4): Yankees with single-warhead R-27s forward off the American coasts, Deltas with R-29s in the bastions; fourteen at sea and the areas inferred",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983",
+   "id": "su-ssbn-okhotsk",
+   "lon": 150.0,
+   "lat": 54.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Gadzhiyevo · Northern Fleet",
+   "kind": "slbm-port",
+   "boats": 30,
+   "missiles": 480,
+   "weapons": 960,
+   "weaponsPerVehicle": 2,
+   "yieldKt": 300,
+   "note": "About 62 boats and 940 tubes in 1983 (Databook vol. 4): Yankees with single-warhead R-27s forward off the American coasts, Deltas with R-29s in the bastions; fourteen at sea and the areas inferred",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Databook vol. 4",
+   "id": "gadzhiyevo",
+   "lon": 33.33,
+   "lat": 69.25,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Rybachiy · Pacific Fleet",
+   "kind": "slbm-port",
+   "boats": 18,
+   "missiles": 288,
+   "weapons": 576,
+   "weaponsPerVehicle": 2,
+   "yieldKt": 300,
+   "note": "About 62 boats and 940 tubes in 1983 (Databook vol. 4): Yankees with single-warhead R-27s forward off the American coasts, Deltas with R-29s in the bastions; fourteen at sea and the areas inferred",
+   "evidence": "reconstructed",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Databook vol. 4",
+   "id": "rybachiy",
+   "lon": 158.4,
+   "lat": 52.93,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Ukrainka · 73rd Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95",
+   "aircraft": 40,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "alert": 0.0,
+   "note": "About 165 Long Range Aviation heavy bombers in 1983 (Databook vol. 4) spread over the fields the division histories name; two weapons each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Soviet Long Range Aviation",
+   "id": "ukrainka",
+   "lon": 124.24,
+   "lat": 51.17,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Mozdok · 182nd Guards Regiment",
+   "kind": "bomber",
+   "model": "Tu-95",
+   "aircraft": 25,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "alert": 0.0,
+   "note": "About 165 Long Range Aviation heavy bombers in 1983 (Databook vol. 4) spread over the fields the division histories name; two weapons each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Soviet Long Range Aviation",
+   "id": "mozdok",
+   "lon": 44.6,
+   "lat": 43.79,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Uzin · 106th Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95",
+   "aircraft": 30,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "alert": 0.0,
+   "note": "About 165 Long Range Aviation heavy bombers in 1983 (Databook vol. 4) spread over the fields the division histories name; two weapons each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Soviet Long Range Aviation",
+   "id": "uzin",
+   "lon": 30.42,
+   "lat": 49.83,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Semipalatinsk · 79th Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95",
+   "aircraft": 40,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "alert": 0.0,
+   "note": "About 165 Long Range Aviation heavy bombers in 1983 (Databook vol. 4) spread over the fields the division histories name; two weapons each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Soviet Long Range Aviation",
+   "id": "semipalatinsk",
+   "lon": 79.15,
+   "lat": 50.45,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Engels · 201st Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "M-4/3M",
+   "aircraft": 30,
+   "weaponsPerAircraft": 2,
+   "yieldKt": 1000,
+   "alert": 0.0,
+   "note": "About 165 Long Range Aviation heavy bombers in 1983 (Databook vol. 4) spread over the fields the division histories name; two weapons each",
+   "evidence": "inferred",
+   "source": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989); Norris and Kristensen, Nuclear Notebook series, for 1983; Wikipedia, Soviet Long Range Aviation",
+   "id": "engels",
+   "lon": 46.2,
+   "lat": 51.48,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  }
+ ]
+}
