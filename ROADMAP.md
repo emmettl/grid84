@@ -1,13 +1,39 @@
 # Roadmap
 
-[Manifesto](README.md#introductionmanifesto) · [Sources](README.md#sources) · [SIOP//62 brief](docs/SIOP-62.md)
+[Manifesto](README.md#manifesto) · [Sources](README.md#sources) · [SIOP//62 brief](docs/SIOP-62.md)
 
-Grid/84 is a world-state playback engine wearing a map. The Terminal Atlas is the engine idling with one entity, the camera; routing adds moving entities on real networks; the execution studies add thousands, each with provenance. It is an art-and-data instrument. Each stage should end in a coherent, viewable study rather than a long period of invisible infrastructure. Two rules govern every stage:
+Grid/84 is a world-state playback engine turned on the history and doctrine of strategic nuclear weapons. The Terminal Atlas is the engine idling with one entity, the camera; the studies add thousands, each with provenance. It is an art-and-data instrument. Each stage should end in a coherent, viewable study rather than a long period of invisible infrastructure. Two rules govern every stage:
 
 1. **Impractical, never fake.** Every readout is computed from real geometry or a documented model. Where a value is uncertain, say so on the readout; never decorate a guess as a fact.
 2. **Ordinary map labels are beneath it.** The atlas names things through its own designations. If a stage needs labels for legibility, they are the atlas's labels, in the atlas's register.
 
 No calendar dates are implied. Each stage names its exit criterion and the live services it depends on.
+
+## Taking stock, 10 September 2026
+
+The stages below were written for an atlas that would grow studies. What was built in the first day is the other way round: six studies and a modern scenario, an engine under them, labs beside them, and an atlas that idles in front. The stages are kept as the record of the work; this section is the order of what remains, from the centre out.
+
+**1. The studies are the centre.** Everything else serves them. Open work, in the order it matters:
+
+- The hand pass on the 1956 transcription: 351 airfield rows and 2,787 city-list lines unparsed, most from damaged scans. A person with the scans, not another regex.
+- The JIC target papers for Britain and the Square Leg plot, if the FOI route ever opens; until then the rule from the totals stands and says so.
+- Seventy-two minutes: the book's minute marks checked against the text, and the outcome sums recorded on the brief from a visible run.
+- The Soviet response of 1961 is wired to the attacker's summary in a way that breaks if the options change; it should read the enacted strike.
+- Candidate studies, each needing a brief first, chosen for what they say about the tension the manifesto names: the Strath Report's own reasoning (1955) as the first time a state did this arithmetic on itself; India and Pakistan after Toon and Robock (2019), the first study on a grid the engine has not yet drawn; the Korean peninsula as the conventional-to-nuclear ladder; and one study of the boosters, the civil-defence film and pamphlet as a document with a plan behind it.
+
+**2. The engine, where the studies need it.**
+
+- Population tiles shared across the exposure workers, so a study run fetches each tile once from the bucket.
+- The NUKEMAP comparison rerun at NUKEMAP's own burst height, to settle whether anything but the height convention differs.
+- The blast model checked against Glasstone and Dolan's reference values as a unit test, which stage 3 asked for and which the validation notes only partly cover.
+- Tile and terrain budgets on a phone, and the one-column layout tested on one.
+- The overlay contract of stage 3, if a study ever needs a ring set that is not a detonation.
+
+**3. The atlas and the spectacle, deferred but kept.** Corridors, contours and the polish of the descent are the original manifesto's strand. They are not on the critical path of any study and are held until a study wants them or the toy is worth finishing for its own sake. The decision the manifesto leaves open, whether the atlas stays beside the studies or is folded into them, is made when one of them needs the other.
+
+**4. Publication and care.** The Motion Studies catalogue entry; the HYDE licence confirmed by hand on the portal; a custom domain if the r2.dev and pages.dev addresses ever matter; the attribution notes kept current as services change.
+
+**Exit for this stock-taking:** a reader arriving at the front page understands in one screen what the instrument is and what it is not, and every study they open holds to the grammar.
 
 ## Services
 
@@ -20,7 +46,9 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 | Contours | `maplibre-contour` from the terrain tiles | Client side | Stage 2 |
 | Population | HYDE 3.3 grids (Utrecht), prepared by `scripts/prepare-hyde-grid.py`; the study years are committed, other years prepare locally in seconds. GHSL GHS-POP at 30 arc seconds for the present, cut into ten-degree tiles by `scripts/prepare-ghsl-tiles.py` and fetched on demand by the exposure worker | HYDE CC BY-NC-SA 4.0, behind a bot check, manual download; GHSL CC BY 4.0, manual download | In use: GHS-POP 1975, 1985 and 2025 prepared, 334 tiles and about 170 MB each, kept local; the studies from 1973 on read them |
 
-## 0 — Target acquisition (now)
+## Record of stages
+
+### 0 — Target acquisition
 
 - [x] Establish the Vite, React, TypeScript, oxlint and Vitest baseline from Motion Studies.
 - [x] Hash routes: `#/` atlas, `#/study/<id>` execution studies, `#/lab/<id>` labs.
@@ -36,7 +64,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 
 **Exit:** type an address anywhere on Earth, descend from orbit, and land over the correct buildings with an honest readout, in the first ten seconds.
 
-## 1 — Corridors
+### 1 — Corridors
 
 - [ ] Route request between the previous fix and the acquired target (OSRM demo first), rendered as an animated pulse along real roads.
 - [ ] `COMMENCE NAVIGATION? Y/N` becomes live: range and arrival window from the routed distance and duration.
@@ -45,7 +73,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 
 **Exit:** a route to Selgis follows the real roads and the arrival window is what the router said.
 
-## 2 — Contours and terrain
+### 2 — Contours and terrain
 
 - [ ] Contour lines generated client side from the terrain tiles at close zooms.
 - [ ] Orbital descent sweeps the Alps with relief exaggeration that returns to 1.0 before any elevation readout.
@@ -53,7 +81,7 @@ No calendar dates are implied. Each stage names its exit criterion and the live 
 
 **Exit:** the Jungfrau looks like a reactor complex and the elevation on the readout matches the official figure within the tile resolution.
 
-## 3 — Consequence overlays and labs
+### 3 — Consequence overlays and labs
 
 A generic overlay system: give it a coordinate and a set of geodesic zones and it renders them with maximum strategic ceremony. The first overlay set is the NukeMap sidequest.
 
@@ -74,7 +102,7 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 
 The labs live in `lab/` as self-contained specimens with a pure model module, a validation table and a declared fidelity ceiling. The [SIOP//62 brief](docs/SIOP-62.md#labs-programme) lists them: ballistic arc, bomber sortie, readiness clock, damage expectancy, prompt effects, terrain shock, fallout plume, fire spread, population exposure and the evidence grammar. Labs exist to establish the lines of the possible, not to ship.
 
-## 4 — SIOP//62 execution study
+### 4 — SIOP//62 execution study
 
 The first historical execution study. Brief and source audit: [docs/SIOP-62.md](docs/SIOP-62.md).
 
@@ -108,7 +136,7 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 
 Candidate studies after SIOP//62, each needing its own brief first: the Cuban missile crisis gone hot ([brief](docs/CUBA-62.md); **built** at `#/study/cuba-62`: the air strike, the R-12 regiments on Florida and the south-east, the FKRs on Guantánamo, the landings and the Lunas on one clock, and `#/study/cuba-62/general`, the option-14 force standing for the month at DEFCON 2), DEFCON 3 in October 1973 as a force-posture study of the seventies, with the 1969 readiness test as its second act ([brief](docs/DEFCON3-73.md); **built** at `#/study/defcon3-73`: the ladder of the night from the Foreign Relations volume's own documents, both orders of battle by script from unit histories, and `#/study/defcon3-73/execute`, SIOP-4 enacted with that force by the NUWEP-74 categories as a rule against a Soviet launch on warning; and `#/study/defcon3-73/1969`, the secret readiness test with Giant Lance's eighteen B-52s over Alaska), Able Archer 83 gone hot as the European theatre war ([brief](docs/ABLE-ARCHER-83.md); **built** at `#/study/able-archer-83`: the exercise week from the SHAPE report, the Soviet alert as the NID reports it, and on the last morning the strike on NATO's delivery means and the answer from what survives, which the first twenty minutes decide), Protect and Survive: Britain ([brief](docs/BRITAIN-80.md); **built** at `#/study/britain-80` with Strath at `/strath`: the withheld plot drawn by a stated rule from the documented totals, timing and wind, 57 plumes north over the island, the Home Office's and Openshaw's figures beside the engine's): Square Leg's 150 weapons and 280 Mt of September 1980, the Home Office's 8.5 million against Openshaw, Steadman and Greene's 29 million, Strath's twelve million of 1955, the regional bunkers, and the Warsaw Pact's Seven Days to the River Rhine with Britain left blank, Seventy-two minutes, a modern scenario after Jacobsen's *Nuclear War* and Bigelow's *A House of Dynamite* on the 2024 forces and the 2025 grid ([brief](docs/72-MINUTES.md); **built** at `#/study/72-minutes`: the film's missile with the interceptors as filmed, at the test record and at the agency's claim, and `/jacobsen`, the book's clock on the 2024 forces with 45 of 58 American arcs crossing the Russian Far East at H+39, the four misses at 3.4 per cent, and the three strikes allocated by rule on the 2025 grid; the book's minute marks still want checking against the text), India–Pakistan after Toon and Robock (2019), the Korean peninsula. See [Beyond SIOP//62](docs/SIOP-62.md#beyond-siop62).
 
-## 5 — Publication
+### 5 — Publication
 
 - [x] GHSL tiles on Cloudflare R2: bucket `grid84-grids`, public through its r2.dev URL with a CORS rule allowing GET from any origin, the 1,002 immutable tiles uploaded by `deploy/upload-ghsl-r2.sh` with a year's cache lifetime. The grids index names the bucket, `scripts/point-grids-at.py` switches it back to local, and the lab and the studies resolve their grids through the index. A custom domain in front of the bucket is a later nicety.
 - [x] Publication path: `pages.yml` checks, builds and deploys to GitHub Pages; `cloudflare.yml` publishes the same artifact to `motionstudies.app/grid84/` as an adjunct through the Motion Studies edition publisher (`grid84-hosting` Worker, entry in its `hosting/editions.json`). The build drops the local GHSL tiles (the site reads the bucket) and ships the HYDE study grids. HYDE's CC BY-NC-SA terms are stated in README; the site is non-commercial and every readout names the grid and its licence. Needs the repository on GitHub, Pages enabled, and the `cloudflare` environment's token to go live.

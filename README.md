@@ -6,7 +6,25 @@ TERMINAL ATLAS
 GRID/84 GLOBAL CARTOGRAPHIC SYSTEM
 ```
 
-## Introduction/Manifesto
+## Manifesto
+
+Grid/84 is a world-state playback engine turned on the history and doctrine of strategic nuclear weapons. It takes a plan, a crisis, an exercise or a scenario from the record, puts every element of it on real geography, and plays it out on its own clock: the launch sites and the targets, the arcs and the routes, the detonations, the fires and the plumes, and the people under them. Every mark carries its evidence. Every readout states its method. What the record withholds is drawn as withheld.
+
+It began as a joke about a navigation tool with an inappropriate emotional register, and the joke is preserved below because it still governs the style. What emerged in the first day of work is a different thing tonally, and this is its statement.
+
+**The tension in the material.** The documents this engine reads are calm. The 1956 target study lists cities by priority with a category code for population. The execution options of 1961 are a table of weapons per hour of preparation. The Home Office's estimate of 1980 rounds the dead to the nearest half million and moves on to the regional seats of government. The film and the book of the present decade give their timelines in minute marks. The people who wrote these documents were, by their own lights, careful, technically enthusiastic and doing their jobs, and their boosters, if the pun is forgiven, wrote in the same register. What the documents describe is the end of cities. The engine does not resolve that tension and does not editorialise it. It adopts the voice of its subject, does the arithmetic in the same calm the planners used, and lets the sum at the bottom of the readout speak. The horror is not stated anywhere on the page. It is in the number, and in the fact that the number was computed by the method the planners themselves would have recognised.
+
+**God-like distance, bureaucratic calm.** The camera sits in orbit. The type is the type of a terminal. The clock runs at sixty times life or six hundred. Nothing on the page raises its voice, and nothing is dramatised beyond what the geometry gives: an arc that leaves the surface because a minimum-energy trajectory does, a flash because a detonation is bright, a plume because the wind was from the south. The distance is the point. It is the distance the plans were written from, and the engine holds the reader there and does not let them look away from what the distance was for.
+
+**Impractical, never fake.** Nothing on the map is invented. Where the record gives a fact, it is drawn as documented and cited to the page. Where a fact follows from documented facts by a stated method, it is reconstructed. Where something is plausible but not evidenced for the plan in hand, it is inferred, and the mark says so. Where a model produces a number, the model is named with its inputs. Where the record exists and is redacted, or was never released, the mark says that too, and the engine draws a rule from the totals rather than a guess dressed as a fact. This grammar is the whole ethics of the work. A study never claims to know more than the record, and it never claims to know what would happen. It says: here is what the plan said, here is the arithmetic, here is where the sources disagree.
+
+**What it is not.** It is not a simulator that predicts. It is not an argument for or against anything, though the reader may draw one. It is not a game, and the clock's RUN button is not a launch. It is a way of reading documents that were written to be unreadable in the way that matters, by putting them on the ground they were written about, at the scale they were written at.
+
+**The spectacle, deferred.** The original manifesto wanted a globe that descends through wireframe canyons and designates the local supermarket a supply node. That strand is not dead, and the atlas at `#/atlas` still idles in that register. But the ceremony the studies needed turned out to be a different ceremony: the evidence grammar itself, the arcs, the fade of a trail, the flash, the plume on the wind, the silhouette of a bomber turned to its heading. Whether the corridors and the contours and the seven-second descent are folded into the studies or kept as a toy beside them is an open question the roadmap takes up. For now the rule stands: it need not be pleasant to use, but it must work, and it must never lie.
+
+### Where it started, 9 September 2026
+
+The original manifesto, kept as written.
 
 Grid/84 is an exploration of data as theatre. It is the expression of the primacy of the Rule Of Cool. 
 What makes it more than a toy is the fact that it has to *work*.  It may not be practical, but it is not *fake*. 
