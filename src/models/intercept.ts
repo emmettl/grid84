@@ -1,3 +1,4 @@
+import type { Evidenced } from '../evidence/evidence.ts'
 import { EARTH_RADIUS_METRES } from '../geo/geodesy.ts'
 
 /**
@@ -220,3 +221,66 @@ export function discriminationAltitudeMetres(input: {
   }
   return lastAltitude
 }
+
+
+/**
+ * Named systems, as presets for the controls above.
+ *
+ * A system is here only when a figure for it can be pointed at. Where the
+ * open record gives a proposal rather than hardware — and in boost phase it
+ * has never given anything else — the entry says so in its tier. What is
+ * deliberately absent from every entry is a probability of kill: test
+ * records are small, flown against targets whose trajectory is known in
+ * advance, and are not a defence against an attack that is trying not to be
+ * intercepted. The shot exchange belongs to the defence lab, which does use
+ * the test records and says what they are.
+ */
+export interface InterceptSystem extends Evidenced {
+  id: string
+  name: string
+  phase: Phase
+  status: 'deployed' | 'in development' | 'proposed' | 'prototyped' | 'cancelled'
+  years: string
+  /** Whichever of the lab's controls this system sets. */
+  preset: Partial<{
+    burnSeconds: number
+    interceptorMs: number
+    constellation: number
+    orbitAltitudeMetres: number
+    terminalSpeedMs: number
+    ceilingMetres: number
+    floorMetres: number
+  }>
+  note: string
+}
+
+export const INTERCEPT_SYSTEMS: InterceptSystem[] = [
+  {
+    id: 'pebbles',
+    name: 'Brilliant Pebbles',
+    phase: 'boost',
+    status: 'cancelled',
+    years: '1990 to 1993',
+    preset: { interceptorMs: 5_000, constellation: 4_600, orbitAltitudeMetres: 500_000, burnSeconds: 300 },
+    evidence: 'reconstructed',
+    provenance: {
+      source: "The Strategic Defense Initiative Organization's 1990 architecture of about 4,600 space-based interceptors for boost-phase intercept",
+      method: 'The closing speed and the orbit are the round figures the defence lab uses; the programme never tested an intercept, so nothing here is a measurement',
+    },
+    note: 'The boosters it was drawn against were liquid-fuelled and burned for about five minutes, which is the most generous window the problem has ever offered',
+  },
+  {
+    id: 'golden-dome',
+    name: 'A space layer of the present decade',
+    phase: 'boost',
+    status: 'proposed',
+    years: '2025',
+    preset: { interceptorMs: 5_000, constellation: 1_500, orbitAltitudeMetres: 500_000, burnSeconds: 180 },
+    evidence: 'inferred',
+    provenance: {
+      source: 'Congressional Budget Office, Costs of Expanding the Space-Based Interceptor Layer (May 2025), which put a constellation able to meet a small salvo at 1,000 to 2,000 interceptors, as reported',
+      method: 'Fifteen hundred is the middle of that range; the speed and the orbit are the same round figures. The boosters are modern and solid, which is the three-minute case',
+    },
+    note: 'The same arithmetic as 1990 against a booster that burns for three minutes rather than five',
+  },
+]

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { absentee, airDensity, footprint, horizonMetres, missDistanceMetres, reachMetres, window } from './intercept.ts'
+import { INTERCEPT_SYSTEMS, absentee, airDensity, footprint, horizonMetres, missDistanceMetres, reachMetres, window } from './intercept.ts'
 
 describe('the boost window', () => {
   it('leaves a solid-fuelled booster almost nothing, and a liquid one not much more', () => {
@@ -110,5 +110,33 @@ describe('the atmosphere, which is the only thing that sorts a decoy from a warh
     expect(airDensity(7_200)).toBeCloseTo(1.225 / Math.E, 3)
     // At the top of a terminal engagement there is almost nothing to slow anything down.
     expect(airDensity(100_000)).toBeLessThan(1e-5)
+  })
+})
+
+describe('the named systems', () => {
+  it('carries a source and a tier for every one, and sets only controls it has a figure for', () => {
+    for (const x of INTERCEPT_SYSTEMS) {
+      expect(x.provenance.source.length, `${x.id} has no source`).toBeGreaterThan(20)
+      expect(['documented', 'reconstructed', 'inferred', 'modelled', 'withheld']).toContain(x.evidence)
+      expect(Object.keys(x.preset).length, `${x.id} sets nothing`).toBeGreaterThan(0)
+      for (const [key, value] of Object.entries(x.preset)) expect(value, `${x.id}.${key}`).toBeGreaterThan(0)
+    }
+  })
+
+  it('gives no probability of kill for any of them, which is the point', () => {
+    for (const x of INTERCEPT_SYSTEMS) {
+      expect(Object.keys(x.preset)).not.toContain('pKill')
+      expect(JSON.stringify(x).toLowerCase()).not.toContain('"pkill"')
+    }
+  })
+
+  it('finds the space layers as far apart in outcome as they are in date, for the same arithmetic', () => {
+    const pebbles = INTERCEPT_SYSTEMS.find((x) => x.id === 'pebbles')!
+    const now = INTERCEPT_SYSTEMS.find((x) => x.id === 'golden-dome')!
+    const chance = (x: typeof pebbles) =>
+      absentee(reachMetres(window(x.preset.burnSeconds!), x.preset.interceptorMs!), x.preset.constellation!, x.preset.orbitAltitudeMetres!).chance
+    // Three thousand more interceptors against a booster that burns two minutes longer.
+    expect(chance(pebbles)).toBeGreaterThan(chance(now))
+    expect(chance(now)).toBeLessThan(0.9)
   })
 })

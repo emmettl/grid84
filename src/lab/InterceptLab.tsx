@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
-import { absentee, footprint, horizonMetres, missDistanceMetres, PHASES, reachMetres, window as boostWindow, DETECT_SECONDS, DECIDE_SECONDS } from '../models/intercept.ts'
+import { absentee, footprint, horizonMetres, INTERCEPT_SYSTEMS, missDistanceMetres, PHASES, reachMetres, window as boostWindow, DETECT_SECONDS, DECIDE_SECONDS, type InterceptSystem } from '../models/intercept.ts'
 
 /**
  * The intercept lab: why hitting a bullet with a bullet is the easy part.
@@ -171,6 +171,24 @@ export function InterceptLab() {
   const [apogeeKm, setApogeeKm] = useState(1_000)
   const [terminal, setTerminal] = useState({ speed: 2_800, ceiling: 150, floor: 40 })
   const [timingError, setTimingError] = useState(0.1)
+  const [systemId, setSystemId] = useState<string | null>(null)
+  const system = INTERCEPT_SYSTEMS.find((x) => x.id === systemId) ?? null
+
+  /** A preset sets whichever controls it has a figure for and leaves the rest alone. */
+  const apply = (x: InterceptSystem) => {
+    setSystemId(x.id)
+    if (x.preset.burnSeconds) setBurnSeconds(x.preset.burnSeconds)
+    if (x.preset.interceptorMs) setInterceptorMs(x.preset.interceptorMs)
+    if (x.preset.constellation) setConstellation(x.preset.constellation)
+    if (x.preset.orbitAltitudeMetres) setAltitudeKm(x.preset.orbitAltitudeMetres / 1_000)
+    if (x.preset.terminalSpeedMs || x.preset.ceilingMetres || x.preset.floorMetres) {
+      setTerminal((t) => ({
+        speed: x.preset.terminalSpeedMs ?? t.speed,
+        ceiling: x.preset.ceilingMetres ? x.preset.ceilingMetres / 1_000 : t.ceiling,
+        floor: x.preset.floorMetres ? x.preset.floorMetres / 1_000 : t.floor,
+      }))
+    }
+  }
 
   const w = boostWindow(burnSeconds)
   const reach = reachMetres(w, interceptorMs)
@@ -190,6 +208,22 @@ export function InterceptLab() {
         </header>
 
         <section className="clock" aria-label="The phases">
+          <h2>Named systems</h2>
+          <div className="clock-controls" role="group" aria-label="Systems">
+            {INTERCEPT_SYSTEMS.map((x) => (
+              <button key={x.id} type="button" className={x.id === systemId ? 'is-active' : ''} onClick={() => apply(x)} title={`${x.years} · ${x.status} · ${x.note}`}>
+                {x.name}
+              </button>
+            ))}
+          </div>
+          {system ? (
+            <p className="log-empty">
+              {system.years} · {system.status} · {system.phase} phase <span className={`badge badge--${system.evidence}`}>{system.evidence.toUpperCase()}</span> · {system.note}
+            </p>
+          ) : (
+            <p className="log-empty">A preset sets the controls it has a figure for. More go in as the record for each is checked; none of them carries a probability of kill, and the reading panel says why.</p>
+          )}
+
           <h2>The four phases</h2>
           <table className="bands">
             <tbody>
