@@ -487,6 +487,13 @@ function filmStudy(fate: Fate): Study {
     exposureWorkers: 2,
     sides: { attacker: { name: 'United States' }, defender: { name: 'The missile · American dead' } },
     variants: variants(fate),
+    links: [
+      { label: 'Intercept: the same engagement, looping, with a tally', href: '#/intercept' },
+      { label: 'The intercept lab: why it is hard, phase by phase', href: '#/lab/intercept' },
+      { label: 'The defence lab: the shot exchange, with the test record', href: '#/lab/defence' },
+      { label: 'The chronicle: missile defence, Nike to now', href: '#/chronicle' },
+      { label: 'Sources and attribution', href: '#/sources' },
+    ],
     omissions: [
       `${f.zeroNote} (${f.source})`,
       `Interceptor fate: ${note}`,
@@ -666,6 +673,13 @@ function bookStudy(): Study {
       defender: { name: 'Strikes on the United States · American dead' },
     },
     variants: variants('book'),
+    links: [
+      { label: 'Intercept: the same engagement, looping, with a tally', href: '#/intercept' },
+      { label: 'The intercept lab: why it is hard, phase by phase', href: '#/lab/intercept' },
+      { label: 'The defence lab: the shot exchange, with the test record', href: '#/lab/defence' },
+      { label: 'The chronicle: missile defence, Nike to now', href: '#/chronicle' },
+      { label: 'Sources and attribution', href: '#/sources' },
+    ],
     omissions: [
       `${b.zeroNote}. ${b.source}`,
       `The book's minute marks are taken from published summaries and must be checked against the text; the four interceptor misses, the submarine off California, the Russian misread and the unanswered hotline are scenario events`,
