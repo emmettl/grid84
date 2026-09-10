@@ -2053,9 +2053,24 @@ body,
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  text-shadow: 0 0 6px rgba(157, 255, 176, 0.4);
+  /* The phosphor bloom: a tight core, a soft skirt and a faint wide wash, each weak enough that the letterforms stay crisp. */
+  text-shadow:
+    0 0 1px rgba(157, 255, 176, 0.55),
+    0 0 6px rgba(157, 255, 176, 0.28),
+    0 0 18px rgba(157, 255, 176, 0.1);
   backdrop-filter: blur(8px);
   overflow: hidden;
+}
+
+/* A faint wash across the tube, brighter where the figure sits, and a slight darkening at the edges. */
+.wopr-terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 45% at 30% 22%, rgba(157, 255, 176, 0.07), transparent 70%),
+    radial-gradient(ellipse 120% 120% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.35) 100%);
 }
 
 .wopr-head {
@@ -2082,10 +2097,14 @@ body,
 
 .wopr-line--big {
   margin: 0.2rem 0 0.5rem;
-  color: var(--phosphor);
+  color: #d9ffe0;
   font-size: clamp(1.4rem, 2.6vw, 2.2rem);
   letter-spacing: 0.1em;
   font-variant-numeric: tabular-nums;
+  text-shadow:
+    0 0 2px rgba(157, 255, 176, 0.7),
+    0 0 12px rgba(157, 255, 176, 0.4),
+    0 0 36px rgba(157, 255, 176, 0.18);
 }
 
 .wopr-line--plan {
@@ -2131,6 +2150,7 @@ body,
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 0 0 5px rgba(157, 255, 176, 0.16);
 }
 
 .wopr-log-at {
@@ -2147,6 +2167,9 @@ body,
 
 .wopr-log-line--best {
   color: var(--phosphor);
+  text-shadow:
+    0 0 1px rgba(157, 255, 176, 0.5),
+    0 0 8px rgba(157, 255, 176, 0.3);
 }
 
 .wopr-log-line--mark,
@@ -2155,7 +2178,27 @@ body,
 }
 
 .wopr-log-line.is-new .wopr-log-text {
-  animation: wopr-type 0.5s steps(40, end);
+  animation:
+    wopr-type 0.5s steps(40, end),
+    wopr-settle 1.6s ease-out;
+}
+
+/* A fresh line lands bright and settles to its resting glow, the way a phosphor trace decays. */
+@keyframes wopr-settle {
+  from {
+    color: #e6fff0;
+    text-shadow:
+      0 0 2px rgba(157, 255, 176, 0.9),
+      0 0 12px rgba(157, 255, 176, 0.55),
+      0 0 30px rgba(157, 255, 176, 0.25);
+  }
+  40% {
+    color: #c9ffd6;
+  }
+  to {
+    color: inherit;
+    text-shadow: inherit;
+  }
 }
 
 @keyframes wopr-type {
