@@ -2144,8 +2144,11 @@ body,
 }
 
 .wopr-log-line {
+  /* Never shrunk to fit: the lines keep their height and the oldest clip off the top. */
+  flex: none;
   display: flex;
   gap: 0.8em;
+  line-height: 1.6;
   color: var(--phosphor-faint);
   white-space: nowrap;
   overflow: hidden;
