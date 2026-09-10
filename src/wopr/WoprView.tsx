@@ -4,6 +4,7 @@ import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { TrackLayer } from '../map/track-layer.ts'
 import { prepareTracks } from '../map/track-scene.ts'
 import { salvo } from './arcs.ts'
+import { useFold } from '../hud/collapse.ts'
 import { posture1983, type Posture1983 } from '../studies/window83/window.ts'
 import { assignmentsOf, describePlan, evaluateSeeds, loss, OBJECTIVES, perturb, randomPlan, rng, yieldClass, SU_CLASSES, US_CLASSES, type Averaged, type Constraints, type DeathTable, type Objective, type Plan } from './model.ts'
 import { aftermathOf, aftermathWorld, SOOT_PER_DEAD_KG } from './aftermath.ts'
@@ -323,6 +324,7 @@ export function WoprView() {
     return { su: su.filter((r) => r !== null), us: us.filter((r) => r !== null) }
   }, [table, posture])
   const ownBest = perObjective.own
+  const fold = useFold('wopr')
   // What the plan does to the sky, and what the sky then does. The loss function
   // does not carry it; the readout does, which is the point.
   const after = useMemo(() => (best && !idle ? aftermathOf(best.result.score) : null), [best, idle])
@@ -397,6 +399,7 @@ export function WoprView() {
       </section>
 
       <section className="wopr-controls" aria-label="Objective and constraints">
+        <div className={`panel-fold${fold.folded ? ' is-folded' : ''}`}>
         <div className="wopr-group">
           <span className="clock-label">Objective</span>
           {OBJECTIVES.map((o) => (
@@ -434,7 +437,11 @@ export function WoprView() {
             Retaliation
           </button>
         </div>
+        </div>
         <div className="wopr-group">
+          <button type="button" className={`panel-fold-toggle${fold.folded ? '' : ' is-active'}`} aria-expanded={!fold.folded} onClick={fold.toggle}>
+            {fold.label}
+          </button>
           <button
             type="button"
             onClick={() => {

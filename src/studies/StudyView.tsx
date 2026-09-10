@@ -6,6 +6,7 @@ import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
 import { ALARM_HATCH, ensureAlarmHatch } from '../map/hatch.ts'
+import { useFold } from '../hud/collapse.ts'
 import { TrackLayer, TRAIL_FADE_SECONDS, TRAIL_HOLD_SECONDS } from '../map/track-layer.ts'
 import { prepareTracks, type TrackSpec } from '../map/track-scene.ts'
 import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst, type Outcome } from '../models/casualties.ts'
@@ -355,6 +356,8 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   const falloutStage = useRef<Map<string, number>>(new Map())
   const [gridName, setGridName] = useState<string | null>(null)
   const effectCount = useMemo(() => study.entities.filter((e) => e.kind === 'effect').length, [study])
+  // The toggles and the variants fold away; the clock, the transport and the scrubber do not.
+  const fold = useFold('study')
   const sums = useMemo(() => {
     const sideOf: Record<string, 'attacker' | 'defender'> = {}
     const totals = { attacker: 0, defender: 0 }
@@ -909,7 +912,13 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             >
               RESET
             </button>
+            {(glTracks || hasSurfaceOption || study.variants) && (
+              <button type="button" className={`panel-fold-toggle${fold.folded ? '' : ' is-active'}`} aria-expanded={!fold.folded} onClick={fold.toggle}>
+                {fold.label}
+              </button>
+            )}
           </div>
+          <div className={`panel-fold${fold.folded ? ' is-folded' : ''}`}>
           {(glTracks || hasSurfaceOption) && (
             <div className="clock-controls clock-controls--toggles">
               {glTracks && (
@@ -954,6 +963,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               ))}
             </div>
           )}
+          </div>
           <input
             type="range"
             min={bounds.start}

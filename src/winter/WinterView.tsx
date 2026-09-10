@@ -7,6 +7,7 @@ import { ozoneColumn, ultraviolet, OZONE } from '../models/ozone.ts'
 import { burnedAreaKm2, FUEL_LOADS, referenceFuel, SOOT_CASES, sootForFuel, SOOT_CHAIN } from '../models/soot.ts'
 import { bandOf, injectionWeights, runWinter } from '../models/winter.ts'
 import { impactPoints, impactSummary } from './impacts.ts'
+import { useFold } from '../hud/collapse.ts'
 import { report } from './report.ts'
 import { bandPolygons, WORLD_POPULATION, ZONAL } from './zonal.ts'
 
@@ -43,7 +44,6 @@ export function WinterView() {
   const [month, setMonth] = useState(0)
   const [running, setRunning] = useState(true)
   const [sourcesOpen, setSourcesOpen] = useState(false)
-  const [settingsOpen, setSettingsOpen] = useState(false)
 
   const sootCase = useMemo(() => SOOT_CASES.find((c) => c.id === caseId) ?? SOOT_CASES[SOOT_CASES.length - 1], [caseId])
   const fuelLoad = fuel ?? referenceFuel(sootCase)
@@ -63,6 +63,7 @@ export function WinterView() {
   const worst = useMemo(() => hunger.reduce((a, b) => (b.withoutFood > a.withoutFood ? b : a), hunger[0]), [hunger])
   const tropics = bandOf(ZONAL, 5)
   const impacts = useMemo(() => impactSummary(caseId), [caseId])
+  const fold = useFold('winter')
 
   // The globe, turning, with a band per ten degrees of latitude.
   useEffect(() => {
@@ -258,7 +259,7 @@ export function WinterView() {
 
       <div className="wopr-controls winter-controls">
         {/* On a phone these four rows would cover the globe, so they fold away there. */}
-        <div className={`winter-more${settingsOpen ? ' is-open' : ''}`}>
+        <div className={`panel-fold${fold.folded ? ' is-folded' : ''}`}>
         <div className="wopr-group">
           <span className="wopr-dim">Exchange</span>
           {SOOT_CASES.map((c) => (
@@ -312,8 +313,8 @@ export function WinterView() {
         </div>
 
         <div className="wopr-group">
-          <button type="button" className="winter-settings" onClick={() => setSettingsOpen((o) => !o)}>
-            {settingsOpen ? 'Hide' : 'Set up'}
+          <button type="button" className={`panel-fold-toggle${fold.folded ? '' : ' is-active'}`} aria-expanded={!fold.folded} onClick={fold.toggle}>
+            {fold.label}
           </button>
           <button type="button" className={running ? 'is-active' : ''} onClick={() => setRunning((r) => !r)}>
             {running ? 'Hold' : month >= MONTHS ? 'Again' : 'Run'}

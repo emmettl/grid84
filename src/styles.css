@@ -818,6 +818,22 @@ body,
     min-width: 0;
     overflow-x: hidden;
   }
+  /* The desktop grid aligns some panels to an edge; in a column of flex items
+     that alignment is across the page, and it left the outcome panel narrow
+     and pushed to the right while every other panel ran full width. The
+     desktop rules come later in the file, so these have to out-specify them. */
+  .study-hud > .aggregate,
+  .study-hud > .log,
+  .study-hud > .clock,
+  .study-hud > .provenance {
+    align-self: stretch;
+    max-height: none;
+  }
+  /* The desktop panel is right-aligned against the edge of the screen; on a
+     phone it is a full-width card and reads down the page from the left. */
+  .study-hud > .aggregate {
+    text-align: left;
+  }
   .clock-controls {
     flex-wrap: wrap;
   }
@@ -845,7 +861,18 @@ body,
     font-size: 16px;
   }
 
-  /* The outcome compressed: one line per figure, label left and number right, the notes gone. */
+  /*
+   * The outcome on a phone: a stack of cards, each one a caption, a figure and
+   * a note, in that order down the page.
+   *
+   * It used to put the caption and the figure side by side, the caption taking
+   * a flexible column and the figure whatever was left. With a caption like
+   * "blast only · 1961 method" what was left was almost nothing, and the
+   * figure — which is allowed to break anywhere, because it must never push
+   * the panel wider than the phone — came out one digit per line, six lines
+   * tall. A number is a single object and is now treated as one: it takes its
+   * own line, it does not break, and it is sized to the width of the screen.
+   */
   .aggregate {
     padding: 0.45rem 0.6rem;
     text-align: left;
@@ -858,37 +885,31 @@ body,
   }
   .aggregate .two-numbers {
     grid-template-columns: 1fr;
-    gap: 0.25rem;
+    gap: 0.3rem;
     margin: 0.3rem 0 0;
   }
   .aggregate .two-numbers > div {
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    align-items: baseline;
-    gap: 0 0.6rem;
-    padding: 0.3rem 0.5rem;
+    display: block;
+    padding: 0.35rem 0.55rem;
   }
-  .aggregate .two-numbers > div > span {
-    grid-column: 1;
-    grid-row: 1;
+  .aggregate .two-numbers > div > span,
+  .aggregate .two-numbers > div > em {
+    display: block;
+    min-width: 0;
+    font-size: 0.5rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
   }
   .aggregate .two-numbers > div > strong {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    min-width: 0;
-    font-size: 1rem;
-    text-align: right;
-    overflow-wrap: anywhere;
-  }
-
-  .aggregate .two-numbers > div > span {
-    min-width: 0;
-    overflow-wrap: anywhere;
-  }
-  .aggregate .two-numbers > div > em {
-    grid-column: 1;
-    grid-row: 2;
-    font-size: 0.5rem;
+    display: block;
+    margin: 0.05rem 0;
+    /* Sized so that the widest figure the models produce, thirteen characters
+       for the billions, still fits one line on the narrowest phone. */
+    font-size: clamp(0.95rem, 5.8vw, 1.9rem);
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+    white-space: nowrap;
+    overflow-wrap: normal;
   }
   .study-brand {
     padding: 0.35rem 0.6rem;
@@ -2847,39 +2868,35 @@ body,
   cursor: pointer;
 }
 
-/* On a wide screen every control is out; the phone gets them behind one button. */
-.winter-more {
-  display: contents;
-}
-
-.winter-settings {
-  display: none;
-}
-
 @media (max-width: 700px) {
   .winter-controls {
     max-width: none;
     align-items: stretch;
   }
 
-  .winter-more {
-    display: none;
-  }
-
-  .winter-more.is-open {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    max-height: 46vh;
-    overflow-y: auto;
-  }
-
-  .winter-settings {
-    display: inline-block;
-  }
-
   .winter-argument {
     max-height: 40vh;
     font-size: 0.58rem;
+  }
+}
+
+/* A control panel that folds away: the wrapper is invisible to the layout when
+   open, so the grid it sits in is unchanged, and gone entirely when folded. */
+.panel-fold {
+  display: contents;
+}
+
+.panel-fold.is-folded {
+  display: none;
+}
+
+.panel-fold-toggle {
+  white-space: nowrap;
+}
+
+/* On a phone the folded panel is the default, so the toggle is the thing to find. */
+@media (max-width: 700px) {
+  .panel-fold-toggle {
+    order: -1;
   }
 }
