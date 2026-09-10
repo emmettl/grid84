@@ -8,9 +8,11 @@ import { useGeocoder } from './use-geocoder.ts'
 interface HudProps {
   phase: AtlasPhase
   onAcquire: (target: AtlasTarget) => void
+  /** The strike console is up; on a phone the readout and the credits give it the room. */
+  consoleOpen?: boolean
 }
 
-export function Hud({ phase, onAcquire }: HudProps) {
+export function Hud({ phase, onAcquire, consoleOpen = false }: HudProps) {
   const geocoder = useGeocoder()
   const [open, setOpen] = useState(false)
 
@@ -37,7 +39,7 @@ export function Hud({ phase, onAcquire }: HudProps) {
   const showResults = open && geocoder.query.trim() !== '' && geocoder.status !== 'idle'
 
   return (
-    <div className="hud">
+    <div className={`hud${consoleOpen ? ' hud--console' : ''}`}>
       <header className="hud-brand">
         <span>SurfaceStudies presents</span>
         <strong>Terminal Atlas</strong>

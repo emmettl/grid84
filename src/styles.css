@@ -2054,6 +2054,11 @@ body,
 .hud-search-row {
   position: relative;
   align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.hud-search input {
+  min-width: 0;
 }
 
 .hud-search input {
@@ -2135,8 +2140,26 @@ body,
   .strike-console {
     width: auto;
     right: max(1rem, env(safe-area-inset-right));
-    max-height: 62vh;
-    font-size: 0.56rem;
+    bottom: max(0.6rem, env(safe-area-inset-bottom));
+    max-height: 52vh;
+    padding: 0.6rem 0.7rem;
+    font-size: 0.54rem;
+  }
+
+  .strike-log {
+    min-height: 4rem;
+    max-height: 30vh;
+    font-size: 0.52rem;
+  }
+
+  .strike-controls button {
+    padding: 0.25rem 0.45rem;
+  }
+
+  /* The readout and the credits give the console the room while it is up. */
+  .hud--console .hud-readout,
+  .hud--console .hud-sources {
+    display: none;
   }
 }
 

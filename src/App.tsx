@@ -127,7 +127,7 @@ function AtlasGlobe({ onLaunch }: { onLaunch: (study: Study) => void }) {
     <>
       <div ref={container} className="atlas-map" aria-label="Grid/84 globe" />
       <div className="atlas-vignette" aria-hidden="true" />
-      <Hud phase={phase} onAcquire={(target) => atlas.current?.acquire(target)} />
+      <Hud phase={phase} onAcquire={(target) => atlas.current?.acquire(target)} consoleOpen={!!acquired && stoodDown !== acquired.id} />
       {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} onLaunch={onLaunch} onStandDown={() => setStoodDown(acquired.id)} />}
     </>
   )

@@ -33,6 +33,7 @@ export function StrikeConsole({ target, onLaunch, onStandDown }: { target: Atlas
   const [held, setHeld] = useState(false)
   const [count, setCount] = useState(COUNTDOWN)
   const [override, setOverride] = useState<Power | null>(null)
+  const [pickOpen, setPickOpen] = useState(false)
   const heldRef = useRef(false)
   const skipRef = useRef(false)
   const started = useRef(performance.now())
@@ -155,8 +156,10 @@ export function StrikeConsole({ target, onLaunch, onStandDown }: { target: Atlas
         </button>
       </div>
       <div className="wopr-group strike-controls">
-        <span className="clock-label">Adversary</span>
-        {POWER_IDS.map((p) => (
+        <button type="button" className="strike-pick" onClick={() => setPickOpen((o) => !o)} disabled={phase === 'launching'} aria-expanded={pickOpen}>
+          Adversary · {override ? POWERS[override].name : 'as the rule says'} · {pickOpen ? 'close' : 'change'}
+        </button>
+        {pickOpen && POWER_IDS.map((p) => (
           <button
             key={p}
             type="button"
@@ -167,6 +170,7 @@ export function StrikeConsole({ target, onLaunch, onStandDown }: { target: Atlas
               heldRef.current = false
               setHeld(false)
               setLines([])
+              setPickOpen(false)
               setOverride(p)
             }}
           >
