@@ -2669,3 +2669,31 @@ body,
 .erw-zero {
   fill: var(--ink);
 }
+
+/* ---------- The front page's chapters ---------- */
+
+.front-chapter {
+  margin: 1.4rem 0 0;
+}
+
+.front-chapter-title {
+  margin: 0;
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.front-chapter-line {
+  margin: 0.3rem 0 0;
+  max-width: 46rem;
+  color: var(--muted);
+}
+
+.front-studies h4 {
+  margin: 0.1rem 0 0.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}

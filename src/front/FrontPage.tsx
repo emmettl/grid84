@@ -4,9 +4,12 @@ import { TIER_LABEL, TIER_MEANING, TIER_ORDER } from '../evidence/evidence.ts'
 const REPO = 'https://github.com/emmettl/grid84'
 const brief = (name: string) => `${REPO}/blob/main/docs/${name}`
 
+type Chapter = 'strategic' | 'theatre' | 'modern'
+
 interface FrontStudy {
   id: string
   epoch: string
+  chapter: Chapter
   title: string
   line: string
   href: string
@@ -14,10 +17,30 @@ interface FrontStudy {
   variants?: Array<{ label: string; href: string }>
 }
 
+/** What each chapter is for, said once at its head. */
+const CHAPTERS: Array<{ id: Chapter; title: string; line: string }> = [
+  {
+    id: 'strategic',
+    title: 'The strategic plans',
+    line: 'The plans the great powers wrote for each other: what was on alert, what it was aimed at, and how little time the people deciding had.',
+  },
+  {
+    id: 'theatre',
+    title: 'The theatre',
+    line: 'Europe, where the weapons were not abstractions and the ground being defended was the ground being destroyed. NATO promised nuclear use early because it could not match the conventional force against it, and everything strategic follows from that promise: flexible response only deterred if theatre use led somewhere.',
+  },
+  {
+    id: 'modern',
+    title: 'Now',
+    line: 'The forces that exist today, and what a single strike does to a place you can name.',
+  },
+]
+
 /** The studies as the front page lists them; each links to its own brief, which carries the sources and the findings. */
 const STUDIES: FrontStudy[] = [
   {
     id: 'siop62',
+    chapter: 'strategic',
     epoch: 'December 1961',
     title: 'SIOP//62',
     line: 'A bounded proof of the engine: one of everything, across every evidence tier, from the first single integrated operational plan.',
@@ -26,6 +49,7 @@ const STUDIES: FrontStudy[] = [
   },
   {
     id: 'siop62-alert',
+    chapter: 'strategic',
     epoch: '1961',
     title: 'Alert force',
     line: 'The plan\'s alert force enacted against its own target list, with refuelling, reliability and penetration as the record gives them, and the Soviet answer from what was on alert. Fourteen execution options as a force-generation curve.',
@@ -35,6 +59,7 @@ const STUDIES: FrontStudy[] = [
   },
   {
     id: 'cuba-62',
+    chapter: 'strategic',
     epoch: 'October 1962',
     title: 'Cuba 62',
     line: 'The crisis gone hot: the air strike, the R-12 regiments on Florida and the south-east, the FKR cruise missiles on Guantánamo, the landings and the Lunas on the beaches, then the general war a month into DEFCON 2.',
@@ -44,6 +69,7 @@ const STUDIES: FrontStudy[] = [
   },
   {
     id: 'defcon3-73',
+    chapter: 'strategic',
     epoch: 'October 1973',
     title: 'DEFCON 3',
     line: 'The posture of the night of 24 to 25 October from the Foreign Relations volume\'s own messages, both orders of battle from unit histories, SIOP-4 enacted with that force, and the 1969 readiness test with Giant Lance over Alaska.',
@@ -56,6 +82,7 @@ const STUDIES: FrontStudy[] = [
   },
   {
     id: 'able-archer-83',
+    chapter: 'strategic',
     epoch: 'November 1983',
     title: 'Able Archer 83',
     line: 'The war scare gone hot as the European theatre war: the exercise week from the SHAPE report, the Soviet alert as the intelligence record reports it, and on the last morning the strike on NATO\'s delivery means and the answer from what survives. The first twenty minutes decide it.',
@@ -64,6 +91,7 @@ const STUDIES: FrontStudy[] = [
   },
   {
     id: 'britain-80',
+    chapter: 'theatre',
     epoch: 'September 1980',
     title: 'Protect and Survive: Britain',
     line: 'Square Leg\'s 150 weapons and 280 megatons, the bomb plot withheld and drawn by a stated rule from the documented totals, the plumes on the exercise\'s own wind, and the Home Office\'s figures beside Openshaw\'s and the engine\'s. Strath\'s ten bombs of 1955 on the 1950 grid.',
@@ -73,6 +101,7 @@ const STUDIES: FrontStudy[] = [
   },
   {
     id: 'window-83',
+    chapter: 'strategic',
     epoch: '1983',
     title: 'The window of vulnerability',
     line: 'A Soviet counterforce strike as the West feared it: two warheads on every American silo from the heavy fields, the boats off the coasts on the bombers with ten minutes\' warning, and the two answers the posture allowed. Ride it out and launch what survives, or launch under attack at H+22 so the warheads land on empty silos. The warning clock, minute by minute, is the point.',
@@ -82,6 +111,7 @@ const STUDIES: FrontStudy[] = [
   },
   {
     id: '72-minutes',
+    chapter: 'modern',
     epoch: 'The present',
     title: 'Seventy-two minutes',
     line: 'A modern scenario after Jacobsen\'s Nuclear War and Bigelow\'s A House of Dynamite, on the forces of 2024 and the 2025 grid: one unattributed missile at Chicago with the interceptors at the film\'s odds, the agency\'s and the test record; then the book\'s seventy-two minutes, with the Minuteman arcs crossing the Russian Far East drawn where the geometry puts them. Nothing here is in any record, and every mark says so.',
@@ -92,8 +122,53 @@ const STUDIES: FrontStudy[] = [
       { label: 'Jacobsen', href: '#/study/72-minutes/jacobsen' },
     ],
   },
+  {
+    id: 'carte-blanche',
+    chapter: 'theatre',
+    epoch: 'June 1955',
+    title: 'Carte Blanche',
+    line: 'NATO\'s own air exercise simulated 335 nuclear weapons over Germany and estimated 1.7 million West German dead from the immediate effects alone. The figures leaked that autumn. The defence of Germany, on the record, meant the destruction of Germany.',
+    href: '#/study/carte-blanche',
+    brief: brief('THEATRE.md'),
+  },
+  {
+    id: 'v-force',
+    chapter: 'theatre',
+    epoch: '1962 and 1964',
+    title: 'The V-force',
+    line: 'Britain\'s bombers were built to cross the Soviet Union at fifty thousand feet, and an SA-2 over Sverdlovsk ended the argument for it. The same force flies the same targets high and then on the deck, so the cost of 1963 can be read off. The British target list has never been released and the study says so on every target.',
+    href: '#/study/v-force',
+    brief: brief('V-FORCE.md'),
+    variants: [{ label: 'Low level', href: '#/study/v-force/low' }],
+  },
+  {
+    id: 'seven-days',
+    chapter: 'theatre',
+    epoch: '1979',
+    title: 'Seven days to the River Rhine',
+    line: 'The Warsaw Pact exercise plan Poland declassified in 2005, run in its own order: it opens by assuming NATO has used nuclear weapons first, answers westward on the twelve cities it names, Vienna among them, and has nothing to say about what the strategic forces do next.',
+    href: '#/study/seven-days',
+    brief: brief('THEATRE.md'),
+  },
+  {
+    id: 'demolition-belt',
+    chapter: 'theatre',
+    epoch: 'The 1980s',
+    title: 'The demolition belt',
+    line: 'Atomic demolition munitions buried on the defiles an advance has to use, by engineers who expected to be overrun. Every one fires on the defender\'s own ground, at the surface, and the plumes run over the country the barrier defends.',
+    href: '#/study/demolition-belt',
+    brief: brief('THEATRE.md'),
+  },
+  {
+    id: 'tornado',
+    chapter: 'theatre',
+    epoch: '1985',
+    title: 'RAF Germany',
+    line: 'The Tornado inherited the V-force\'s answer to air defence and was built for it: two hundred feet on terrain-following radar. The finding is the attrition. About two fifths of the weapons do not arrive, and the survivors turn for stations that have themselves been struck. That is what sub-strategic meant.',
+    href: '#/study/tornado',
+    brief: brief('THEATRE.md'),
+  },
 ]
-
 const LABS: Array<{ title: string; line: string; href: string }> = [
   { title: 'Evidence', line: 'The five tiers as line, point and ring; synthetic specimens on real ground.', href: '#/lab/evidence' },
   { title: 'Population', line: 'Click the ground, choose a yield and a year; exposure by the 1961 method against the mass-fire bound, with published NUKEMAP runs beside it.', href: '#/lab/population' },
@@ -134,6 +209,7 @@ export function FrontPage() {
   useEffect(() => {
     if (window.location.hash === '#/sources') document.getElementById('front-sources')?.scrollIntoView()
     if (window.location.hash === '#/labs') document.getElementById('front-labs')?.scrollIntoView()
+    if (window.location.hash === '#/studies') document.getElementById('front-studies')?.scrollIntoView()
   }, [])
   return (
     <main className="front" aria-label="Grid/84">
@@ -157,28 +233,56 @@ export function FrontPage() {
 
         <section className="front-section" aria-labelledby="front-studies">
           <h2 id="front-studies">Studies</h2>
-          <ol className="front-studies">
-            {STUDIES.map((s) => (
-              <li key={s.id}>
-                <span className="front-epoch">{s.epoch}</span>
-                <h3>
-                  <a href={s.href}>{s.title}</a>
-                </h3>
-                <p>{s.line}</p>
-                <span className="front-links">
-                  <a href={s.href}>Open</a>
-                  {s.variants?.map((v) => (
-                    <a key={v.href} href={v.href}>
-                      {v.label}
-                    </a>
-                  ))}
-                  <a href={s.brief} rel="noreferrer">
-                    Brief
-                  </a>
-                </span>
-              </li>
-            ))}
-          </ol>
+          {CHAPTERS.map((chapter) => (
+            <div key={chapter.id} className="front-chapter">
+              <h3 className="front-chapter-title">{chapter.title}</h3>
+              <p className="front-chapter-line">{chapter.line}</p>
+              <ol className="front-studies">
+                {STUDIES.filter((s) => s.chapter === chapter.id).map((s) => (
+                  <li key={s.id}>
+                    <span className="front-epoch">{s.epoch}</span>
+                    <h4>
+                      <a href={s.href}>{s.title}</a>
+                    </h4>
+                    <p>{s.line}</p>
+                    <span className="front-links">
+                      <a href={s.href}>Open</a>
+                      {s.variants?.map((v) => (
+                        <a key={v.href} href={v.href}>
+                          {v.label}
+                        </a>
+                      ))}
+                      <a href={s.brief} rel="noreferrer">
+                        Brief
+                      </a>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+        </section>
+
+        <section className="front-section" aria-labelledby="front-modes">
+          <h2 id="front-modes">Modes</h2>
+          <ul className="front-labs">
+            <li>
+              <a href="#/atlas">Terminal Atlas</a>
+              <span>Type a place and the strike console works out who would strike it, with what, from where and on what profile, printing the rule behind every step, then hands the strike to the engine. A strike is a link you can send.</span>
+            </li>
+            <li>
+              <a href="#/wopr">WOPR</a>
+              <span>A constrained optimiser over the 1983 posture, searching for the plan that minimises a chosen loss under the planners' constraints. It improves relentlessly, and the word beside the number is the work.</span>
+            </li>
+            <li>
+              <a href="#/loop">The loop</a>
+              <span>The studies played one after another, unattended.</span>
+            </li>
+            <li>
+              <a href="#/chronicle/posture">The posture atlas</a>
+              <span>Eight epochs of force posture from 1956 to now, with the radars and what they could see.</span>
+            </li>
+          </ul>
         </section>
 
         <section className="front-section" aria-labelledby="front-chronicle">

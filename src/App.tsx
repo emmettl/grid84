@@ -60,7 +60,7 @@ type Route =
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' | 'neutron' }
 
 function parseRoute(hash: string): Route {
-  if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources' || hash === '#/labs') return { kind: 'front' }
+  if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources' || hash === '#/labs' || hash === '#/studies') return { kind: 'front' }
   if (hash === '#/atlas') return { kind: 'atlas' }
   const shared = parseStrikeHash(hash)
   if (shared) return { kind: 'atlas', strike: shared }
@@ -282,26 +282,32 @@ export default function App() {
     { href: '#/lab/guidance', label: 'Guidance', active: inLab && route.id === 'guidance' },
     { href: '#/lab/neutron', label: 'Neutron bomb', active: inLab && route.id === 'neutron' },
   ]
-  // The bar carries the forms and the studies; the open lab appears beside a link to the labs on the front page.
+  /** Every study, so the bar can name the one that is open without listing them all. */
+  const studies: Array<{ id: string; label: string; href: string }> = [
+    { id: 'siop62', label: 'SIOP//62', href: '#/study/siop62' },
+    { id: 'siop62-alert', label: 'Alert force', href: '#/study/siop62-alert' },
+    { id: 'cuba-62', label: 'Cuba 62', href: '#/study/cuba-62' },
+    { id: 'defcon3-73', label: 'DEFCON 3', href: '#/study/defcon3-73' },
+    { id: 'able-archer-83', label: 'Able Archer', href: '#/study/able-archer-83' },
+    { id: 'window-83', label: 'The window', href: '#/study/window-83' },
+    { id: 'carte-blanche', label: 'Carte Blanche', href: '#/study/carte-blanche' },
+    { id: 'v-force', label: 'V-force', href: '#/study/v-force' },
+    { id: 'seven-days', label: 'Seven days', href: '#/study/seven-days' },
+    { id: 'demolition-belt', label: 'Demolition belt', href: '#/study/demolition-belt' },
+    { id: 'tornado', label: 'RAF Germany', href: '#/study/tornado' },
+    { id: 'britain-80', label: 'Britain', href: '#/study/britain-80' },
+    { id: '72-minutes', label: '72 minutes', href: '#/study/72-minutes' },
+  ]
+  const openStudy = route.kind === 'study' ? studies.find((x) => x.id === route.id) : undefined
+  // The bar carries the five ways in and names whatever is open; the studies and the labs are listed on the front page.
   const links: Array<{ href: string; label: string; active: boolean }> = [
     { href: '#/', label: 'Grid/84', active: route.kind === 'front' },
     { href: '#/chronicle', label: 'Chronicle', active: route.kind === 'chronicle' || route.kind === 'posture' },
     { href: '#/atlas', label: 'Atlas', active: route.kind === 'atlas' },
-    { href: '#/study/siop62', label: 'SIOP//62', active: route.kind === 'study' && route.id === 'siop62' },
-    { href: '#/study/siop62-alert', label: 'Alert force', active: route.kind === 'study' && route.id === 'siop62-alert' },
-    { href: '#/study/cuba-62', label: 'Cuba 62', active: route.kind === 'study' && route.id === 'cuba-62' },
-    { href: '#/study/defcon3-73', label: 'DEFCON 3', active: route.kind === 'study' && route.id === 'defcon3-73' },
-    { href: '#/study/able-archer-83', label: 'Able Archer', active: route.kind === 'study' && route.id === 'able-archer-83' },
-    { href: '#/study/britain-80', label: 'Britain', active: route.kind === 'study' && route.id === 'britain-80' },
-    { href: '#/study/v-force', label: 'V-force', active: route.kind === 'study' && route.id === 'v-force' },
-    { href: '#/study/carte-blanche', label: 'Carte Blanche', active: route.kind === 'study' && route.id === 'carte-blanche' },
-    { href: '#/study/demolition-belt', label: 'Demolition belt', active: route.kind === 'study' && route.id === 'demolition-belt' },
-    { href: '#/study/tornado', label: 'Tornado', active: route.kind === 'study' && route.id === 'tornado' },
-    { href: '#/study/seven-days', label: 'Seven days', active: route.kind === 'study' && route.id === 'seven-days' },
-    { href: '#/study/window-83', label: 'The window', active: route.kind === 'study' && route.id === 'window-83' },
-    { href: '#/study/72-minutes', label: '72 minutes', active: route.kind === 'study' && route.id === '72-minutes' },
+    { href: '#/studies', label: 'Studies', active: route.kind === 'study' },
+    { href: '#/labs', label: 'Labs', active: inLab },
+    ...(openStudy ? [{ href: openStudy.href, label: openStudy.label, active: true }] : []),
     ...labs.filter((l) => l.active).map((l) => ({ ...l, label: `Lab · ${l.label}` })),
-    { href: '#/labs', label: 'Labs', active: false },
   ]
   return (
     <>
