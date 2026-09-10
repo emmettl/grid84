@@ -34,7 +34,7 @@ The readout carries the two figures the posture turned on: silos surviving, and 
 | Forces of 1983 | Nuclear Notebook and Databook totals spread over the wings and divisions the unit histories name, as the 1991 order of battle was built | To build: `scripts/build-order-of-battle-1983-strategic.py` |
 | Silo fields | 150 silos in fifteen flights of ten around each wing, as points within about 60 km of the base, by rule | To build in the study |
 | Silo hardness and Soviet accuracy | 2,000 psi (Databook); SS-18 Mod 4 500 kt at 250 m, SS-19 550 kt at 300 m (the accuracy lab's estimates) | Have |
-| Soviet urban targets | HYDE 1983 by `scripts/derive-urban-targets.py` over the Soviet Union | To build |
+| Soviet urban targets | HYDE 1983 by `scripts/derive-urban-targets.py` over the Soviet Union, with the neighbours' cities inside the box excluded (Poland, Romania, Bulgaria, the Danube delta, Finland, Turkey, Iran, Hokkaido, and the southern land border as a polyline) | Built; cells named after the nearest city of `data/window83/cities-su-1983.json` (the 1983 names, geocoded by `scripts/name-cities-1983.py`) within thirty kilometres, the American cells after the modern list |
 | Population | GHSL 1985 on the bucket for both sides | Have |
 | The warning timeline | Bruce Blair, *Strategic Command and Control* (1985) and *The Logic of Accidental Nuclear War* (1993) | Cited |
 

@@ -150,6 +150,7 @@ export function FrontPage() {
           <nav className="front-actions" aria-label="Start">
             <a className="front-button" href="#/study/siop62-alert">Open the alert force</a>
             <a className="front-button front-button--quiet" href="#/loop">Run the loop</a>
+            <a className="front-button front-button--quiet" href="#/wopr">WOPR</a>
             <a className="front-button front-button--quiet" href="#/atlas">The atlas</a>
           </nav>
         </header>

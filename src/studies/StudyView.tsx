@@ -33,7 +33,7 @@ const BAND_FRACTIONS = OTA_BANDS.map((b) => ({ fatal: b.fatal, injured: b.injure
  * in the grids index, which is where `scripts/point-grids-at.py` records
  * whether the tiles are local or in the bucket.
  */
-async function resolveGridBase(grid: string): Promise<string> {
+export async function resolveGridBase(grid: string): Promise<string> {
   if (/^https?:/.test(grid)) return grid
   const local = (path: string) => new URL(`${import.meta.env.BASE_URL}data/${path}`, document.baseURI).href
   if (!grid.includes('/')) return local(`hyde/${grid}`)

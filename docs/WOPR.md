@@ -1,6 +1,6 @@
 # WOPR
 
-**A constrained optimiser over a 1980s force posture, searching the strategy space for a better apocalypse.** A planning brief, 10 September 2026, from the user's proposal. Not yet built. The loop at `#/loop` stays as it is; this is a second mode beside it.
+**A constrained optimiser over a 1980s force posture, searching the strategy space for a better apocalypse.** A planning brief, 10 September 2026, from the user's proposal; built the same day at `#/wopr`, and the section at the end says how. The loop at `#/loop` stays as it is; this is a second mode beside it.
 
 ## The idea
 
@@ -45,3 +45,22 @@ The megadeaths must not be predetermined. The solver runs the engine's own docum
 ## Where it sits
 
 Beside the loop as `#/wopr`, with the same exit. The first build should run on the window-of-vulnerability posture, because that study already carries the silo-survival arithmetic, the warning clock and both sides' forces of 1983.
+
+## Built
+
+`#/wopr` (`src/wopr/`). The globe turns; a phosphor panel in the corner reports the search; the controls sit at the bottom right with the exit.
+
+- **The matrix.** `table.ts` computes, once per browser, the dead from one detonation on every target the search can strike, at each yield class the force carries (100, 335 and 1,100 kt for the American weapons; 500 and 1,000 kt for the Soviet), by the studies' method: the DCPA bands for blast and Postol's bound for fire, through the exposure workers over the 1985 grid. Three silos per wing stand for the field. About two thousand jobs; kept in `localStorage` under `grid84-wopr-table-v1`; *Recalibrate* clears it.
+- **The assignment.** `assignments()` in `model.ts` pairs every target with the weapon a SAC planner of 1983 could have put on it, by the SIOP's categories: the Moscow command to the megaton class (Minuteman II W56), the ICBM fields to two W78 per silo, bomber and submarine bases to the SLBMs (W76), urban-industrial areas to the W76 by population with the W78 on those over a million and a half. The Soviet pairing is the window study's. The matrix panel shows the pairs with the dead from one detonation, so the reader sees the data input as data. The SIOP is withheld; the pairing is plausible inside the planners' rules, not leaked.
+- **The evaluator.** `evaluate()` runs the window study's arithmetic on the matrix in under a millisecond: the Soviet first strike by rule with the assigned weapons, interception at the defence lab's arithmetic when the plan has interceptors, silo survival as (1 − p)^n with p from the lethality model at the seed's CEP, bombers caught on coastal bases, the American answer by rule (a launch under attack if the decision falls before the first arrival), coverage, the fraction of the Soviet urban population inside the lethal bands, the fraction of force sites struck, the surviving retaliatory force, the Soviet reserve on the cities. A plan is scored as the sum over struck targets with the largest weapon counting once, without the union's once-only counting across targets. Seeds draw reliability, CEP and bomber penetration inside their published ranges.
+- **The search.** Annealing with random restarts every six hundred evaluations, ten evaluations a frame, three seeds each; a new best is re-scored over sixteen seeds and the range printed. Every objective keeps its own best from the same stream, and the table shows them pulling apart.
+- **The constraints.** General war (execution is not optional), coverage of the target list at ninety-five per cent, a retaliatory force above zero; each a toggle. With general war off, the plan space includes not launching, and the machine finds it: *OPTIMAL POLICY: DO NOT LAUNCH*.
+- **Turgidson.** One line prints the own-side dead of the best plan with its range over the seeds, beside the stated acceptable loss of 1964 (twenty million, tops, depending on the breaks) and the lowest own-side figure the run has found. The machine does not comment.
+
+### The lesson the first runs gave
+
+Two W78 on every Soviet silo is 2,648 weapons; what survives a ride-out and fires is about 2,900. The pure counterforce option therefore cannot cover the list, and the constraint rejects it; the mixed rule, one weapon on each force site and the rest on the cities, is what the machine settles on. That is a fair reading of what happened to the SIOP's counterforce ambitions once the Soviet silo count passed a thousand.
+
+### What it does not do
+
+No fallout, no fratricide, no C3 degradation, no bombers over the pole, no re-summing of the best plan by the full union (the brief asked for it; the surrogate's error is the overlap between neighbouring targets and is stated rather than corrected). The Soviet target list of the 1983 record is not public and is stood in for by the grid's most populous cells under their 1983 names.

@@ -1,0 +1,861 @@
+{
+ "source": "Photon (komoot) over OpenStreetMap, geocoded on the day of the build by the modern name; the names are those in use in 1983 and the list is the largest Soviet cities of the 1979 and 1989 censuses",
+ "cities": [
+  {
+   "name": "Moscow",
+   "modern": "Moscow",
+   "lon": 37.6064,
+   "lat": 55.6256,
+   "hit": "Moscow",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Leningrad",
+   "modern": "Saint Petersburg",
+   "lon": 30.1587,
+   "lat": 59.9607,
+   "hit": "Saint Petersburg",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Kiev",
+   "modern": "Kyiv",
+   "lon": 30.5241,
+   "lat": 50.45,
+   "hit": "Kyiv",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Tashkent",
+   "modern": "Tashkent",
+   "lon": 69.2787,
+   "lat": 41.3123,
+   "hit": "Tashkent",
+   "geocodedCountry": "UZ"
+  },
+  {
+   "name": "Baku",
+   "modern": "Baku",
+   "lon": 49.8328,
+   "lat": 40.3756,
+   "hit": "Baku",
+   "geocodedCountry": "AZ"
+  },
+  {
+   "name": "Kharkov",
+   "modern": "Kharkiv",
+   "lon": 36.231,
+   "lat": 49.9923,
+   "hit": "Kharkiv",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Minsk",
+   "modern": "Minsk",
+   "lon": 27.5618,
+   "lat": 53.9025,
+   "hit": "Minsk",
+   "geocodedCountry": "BY"
+  },
+  {
+   "name": "Gorky",
+   "modern": "Nizhny Novgorod",
+   "lon": 44.0051,
+   "lat": 56.3265,
+   "hit": "Nizhny Novgorod",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Novosibirsk",
+   "modern": "Novosibirsk",
+   "lon": 82.9227,
+   "lat": 55.0288,
+   "hit": "Novosibirsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Sverdlovsk",
+   "modern": "Yekaterinburg",
+   "lon": 60.6008,
+   "lat": 56.8382,
+   "hit": "Yekaterinburg",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Kuybyshev",
+   "modern": "Samara",
+   "lon": 50.1015,
+   "lat": 53.1956,
+   "hit": "Samara",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Tbilisi",
+   "modern": "Tbilisi",
+   "lon": 44.8014,
+   "lat": 41.6935,
+   "hit": "Tbilisi",
+   "geocodedCountry": "GE"
+  },
+  {
+   "name": "Dnepropetrovsk",
+   "modern": "Dnipro",
+   "lon": 35.0418,
+   "lat": 48.468,
+   "hit": "Dnipro",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Yerevan",
+   "modern": "Yerevan",
+   "lon": 44.5126,
+   "lat": 40.1777,
+   "hit": "Yerevan",
+   "geocodedCountry": "AM"
+  },
+  {
+   "name": "Odessa",
+   "modern": "Odesa",
+   "lon": 30.7323,
+   "lat": 46.4843,
+   "hit": "Odesa",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Omsk",
+   "modern": "Omsk",
+   "lon": 73.3745,
+   "lat": 54.983,
+   "hit": "Omsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Chelyabinsk",
+   "modern": "Chelyabinsk",
+   "lon": 61.3997,
+   "lat": 55.1559,
+   "hit": "Chelyabinsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Alma-Ata",
+   "modern": "Almaty",
+   "lon": 76.9457,
+   "lat": 43.2364,
+   "hit": "Almaty",
+   "geocodedCountry": "KZ"
+  },
+  {
+   "name": "Donetsk",
+   "modern": "Donetsk",
+   "lon": 37.8013,
+   "lat": 48.0159,
+   "hit": "Donetsk",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Kazan",
+   "modern": "Kazan",
+   "lon": 49.1115,
+   "lat": 55.7946,
+   "hit": "Kazan",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Perm",
+   "modern": "Perm",
+   "lon": 56.2319,
+   "lat": 58.0109,
+   "hit": "Perm",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Ufa",
+   "modern": "Ufa",
+   "lon": 55.9475,
+   "lat": 54.7261,
+   "hit": "Ufa",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Rostov-on-Don",
+   "modern": "Rostov-on-Don",
+   "lon": 39.7199,
+   "lat": 47.2223,
+   "hit": "Rostov-on-Don",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Volgograd",
+   "modern": "Volgograd",
+   "lon": 44.5153,
+   "lat": 48.7082,
+   "hit": "Volgograd",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Riga",
+   "modern": "Riga",
+   "lon": 24.1052,
+   "lat": 56.9494,
+   "hit": "Riga",
+   "geocodedCountry": "LV"
+  },
+  {
+   "name": "Saratov",
+   "modern": "Saratov",
+   "lon": 46.0347,
+   "lat": 51.53,
+   "hit": "Saratov",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Krasnoyarsk",
+   "modern": "Krasnoyarsk",
+   "lon": 92.8726,
+   "lat": 56.0091,
+   "hit": "Krasnoyarsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Zaporozhye",
+   "modern": "Zaporizhzhia",
+   "lon": 35.1183,
+   "lat": 47.8508,
+   "hit": "Zaporizhzhia",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Voronezh",
+   "modern": "Voronezh",
+   "lon": 39.2006,
+   "lat": 51.6606,
+   "hit": "Voronezh",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Lvov",
+   "modern": "Lviv",
+   "lon": 24.0316,
+   "lat": 49.842,
+   "hit": "Lviv",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Krivoy Rog",
+   "modern": "Kryvyi Rih",
+   "lon": 33.3918,
+   "lat": 47.9103,
+   "hit": "Kryvyi Rih",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Yaroslavl",
+   "modern": "Yaroslavl",
+   "lon": 39.8934,
+   "lat": 57.6264,
+   "hit": "Yaroslavl",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Karaganda",
+   "modern": "Karaganda",
+   "lon": 73.1027,
+   "lat": 49.8161,
+   "hit": "Karaganda",
+   "geocodedCountry": "KZ"
+  },
+  {
+   "name": "Krasnodar",
+   "modern": "Krasnodar",
+   "lon": 38.9772,
+   "lat": 45.0352,
+   "hit": "Krasnodar",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Novokuznetsk",
+   "modern": "Novokuznetsk",
+   "lon": 87.1465,
+   "lat": 53.7582,
+   "hit": "Novokuznetsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Izhevsk",
+   "modern": "Izhevsk",
+   "lon": 53.1977,
+   "lat": 56.8605,
+   "hit": "Izhevsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Vladivostok",
+   "modern": "Vladivostok",
+   "lon": 131.8856,
+   "lat": 43.1151,
+   "hit": "Vladivostok",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Irkutsk",
+   "modern": "Irkutsk",
+   "lon": 104.2798,
+   "lat": 52.2891,
+   "hit": "Irkutsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Barnaul",
+   "modern": "Barnaul",
+   "lon": 83.7788,
+   "lat": 53.3475,
+   "hit": "Barnaul",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Khabarovsk",
+   "modern": "Khabarovsk",
+   "lon": 135.0763,
+   "lat": 48.4813,
+   "hit": "Khabarovsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Tolyatti",
+   "modern": "Tolyatti",
+   "lon": 49.4189,
+   "lat": 53.5099,
+   "hit": "Tolyatti",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Frunze",
+   "modern": "Bishkek",
+   "lon": 74.6037,
+   "lat": 42.8761,
+   "hit": "Bishkek",
+   "geocodedCountry": "KG"
+  },
+  {
+   "name": "Vilnius",
+   "modern": "Vilnius",
+   "lon": 25.2829,
+   "lat": 54.687,
+   "hit": "Vilnius",
+   "geocodedCountry": "LT"
+  },
+  {
+   "name": "Kishinev",
+   "modern": "Chisinau",
+   "lon": 28.8323,
+   "lat": 47.0245,
+   "hit": "Chișinău",
+   "geocodedCountry": "MD"
+  },
+  {
+   "name": "Dushanbe",
+   "modern": "Dushanbe",
+   "lon": 68.7854,
+   "lat": 38.5767,
+   "hit": "Dushanbe",
+   "geocodedCountry": "TJ"
+  },
+  {
+   "name": "Ulyanovsk",
+   "modern": "Ulyanovsk",
+   "lon": 48.4034,
+   "lat": 54.315,
+   "hit": "Ulyanovsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Penza",
+   "modern": "Penza",
+   "lon": 45.0067,
+   "lat": 53.1938,
+   "hit": "Penza",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Zhdanov",
+   "modern": "Mariupol",
+   "lon": 37.55,
+   "lat": 47.0958,
+   "hit": "Mariupol",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Tula",
+   "modern": "Tula",
+   "lon": 37.6175,
+   "lat": 54.193,
+   "hit": "Tula",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Kemerovo",
+   "modern": "Kemerovo",
+   "lon": 86.0871,
+   "lat": 55.3551,
+   "hit": "Kemerovo",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Orenburg",
+   "modern": "Orenburg",
+   "lon": 55.0979,
+   "lat": 51.7671,
+   "hit": "Orenburg",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Ryazan",
+   "modern": "Ryazan",
+   "lon": 39.7425,
+   "lat": 54.6296,
+   "hit": "Ryazan",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Astrakhan",
+   "modern": "Astrakhan",
+   "lon": 48.0326,
+   "lat": 46.3498,
+   "hit": "Astrakhan",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Tallinn",
+   "modern": "Tallinn",
+   "lon": 24.7573,
+   "lat": 59.4372,
+   "hit": "Tallinn",
+   "geocodedCountry": "EE"
+  },
+  {
+   "name": "Nikolayev",
+   "modern": "Mykolaiv",
+   "lon": 31.994,
+   "lat": 46.9759,
+   "hit": "Mykolaiv",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Voroshilovgrad",
+   "modern": "Luhansk",
+   "lon": 39.2973,
+   "lat": 48.5717,
+   "hit": "Luhansk",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Tomsk",
+   "modern": "Tomsk",
+   "lon": 84.9523,
+   "lat": 56.4888,
+   "hit": "Tomsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Lipetsk",
+   "modern": "Lipetsk",
+   "lon": 39.5964,
+   "lat": 52.6051,
+   "hit": "Lipetsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Kirov",
+   "modern": "Kirov",
+   "lon": 50.1825,
+   "lat": 58.5631,
+   "hit": "Kirov Oblast",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Makhachkala",
+   "modern": "Makhachkala",
+   "lon": 47.5049,
+   "lat": 42.983,
+   "hit": "Makhachkala",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Kaliningrad",
+   "modern": "Kaliningrad",
+   "lon": 20.5106,
+   "lat": 54.7101,
+   "hit": "Kaliningrad",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Magnitogorsk",
+   "modern": "Magnitogorsk",
+   "lon": 59.0507,
+   "lat": 53.4257,
+   "hit": "Magnitogorsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Murmansk",
+   "modern": "Murmansk",
+   "lon": 33.075,
+   "lat": 68.9707,
+   "hit": "Murmansk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Arkhangelsk",
+   "modern": "Arkhangelsk",
+   "lon": 40.5287,
+   "lat": 64.541,
+   "hit": "Arkhangelsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Gomel",
+   "modern": "Gomel",
+   "lon": 30.9908,
+   "lat": 52.4307,
+   "hit": "Gomel",
+   "geocodedCountry": "BY"
+  },
+  {
+   "name": "Chimkent",
+   "modern": "Shymkent",
+   "lon": 69.5883,
+   "lat": 42.3147,
+   "hit": "Shymkent",
+   "geocodedCountry": "KZ"
+  },
+  {
+   "name": "Ashkhabad",
+   "modern": "Ashgabat",
+   "lon": 58.3823,
+   "lat": 37.9405,
+   "hit": "Ashgabat",
+   "geocodedCountry": "TM"
+  },
+  {
+   "name": "Tselinograd",
+   "modern": "Astana",
+   "lon": 71.4677,
+   "lat": 51.116,
+   "hit": "Astana",
+   "geocodedCountry": "KZ"
+  },
+  {
+   "name": "Kursk",
+   "modern": "Kursk",
+   "lon": 36.1923,
+   "lat": 51.7309,
+   "hit": "Kursk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Bryansk",
+   "modern": "Bryansk",
+   "lon": 34.3668,
+   "lat": 53.2424,
+   "hit": "Bryansk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Ivanovo",
+   "modern": "Ivanovo",
+   "lon": 40.9631,
+   "lat": 57.0088,
+   "hit": "Ivanovo",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Kalinin",
+   "modern": "Tver",
+   "lon": 35.8952,
+   "lat": 56.8597,
+   "hit": "Tver",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Nizhny Tagil",
+   "modern": "Nizhny Tagil",
+   "lon": 59.9708,
+   "lat": 57.9076,
+   "hit": "Nizhny Tagil",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Chita",
+   "modern": "Chita",
+   "lon": 113.5009,
+   "lat": 52.0334,
+   "hit": "Chita",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Ulan-Ude",
+   "modern": "Ulan-Ude",
+   "lon": 107.5839,
+   "lat": 51.8358,
+   "hit": "Ulan-Ude",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Sevastopol",
+   "modern": "Sevastopol",
+   "lon": 33.5221,
+   "lat": 44.6054,
+   "hit": "Sevastopol",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Severodvinsk",
+   "modern": "Severodvinsk",
+   "lon": 39.8238,
+   "lat": 64.5634,
+   "hit": "Severodvinsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Petropavlovsk-Kamchatsky",
+   "modern": "Petropavlovsk-Kamchatsky",
+   "lon": 158.6471,
+   "lat": 53.02,
+   "hit": "Petropavlovsk-Kamchatsky",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Komsomolsk-on-Amur",
+   "modern": "Komsomolsk-on-Amur",
+   "lon": 136.9995,
+   "lat": 50.5618,
+   "hit": "Komsomolsk-on-Amur",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Cherepovets",
+   "modern": "Cherepovets",
+   "lon": 37.9123,
+   "lat": 59.1242,
+   "hit": "Cherepovets",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Grozny",
+   "modern": "Grozny",
+   "lon": 45.6934,
+   "lat": 43.3197,
+   "hit": "Grozny",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Vitebsk",
+   "modern": "Vitebsk",
+   "lon": 30.1851,
+   "lat": 55.195,
+   "hit": "Vitebsk",
+   "geocodedCountry": "BY"
+  },
+  {
+   "name": "Mogilev",
+   "modern": "Mogilev",
+   "lon": 30.0519,
+   "lat": 53.8488,
+   "hit": "Mogilev District",
+   "geocodedCountry": "BY"
+  },
+  {
+   "name": "Kaunas",
+   "modern": "Kaunas",
+   "lon": 23.9045,
+   "lat": 54.8982,
+   "hit": "Kaunas",
+   "geocodedCountry": "LT"
+  },
+  {
+   "name": "Semipalatinsk",
+   "modern": "Semey",
+   "lon": 80.2497,
+   "lat": 50.4044,
+   "hit": "Semey",
+   "geocodedCountry": "KZ"
+  },
+  {
+   "name": "Pavlodar",
+   "modern": "Pavlodar",
+   "lon": 76.9455,
+   "lat": 52.2858,
+   "hit": "Pavlodar",
+   "geocodedCountry": "KZ"
+  },
+  {
+   "name": "Samarkand",
+   "modern": "Samarkand",
+   "lon": 66.9757,
+   "lat": 39.655,
+   "hit": "Samarkand",
+   "geocodedCountry": "UZ"
+  },
+  {
+   "name": "Kherson",
+   "modern": "Kherson",
+   "lon": 32.6144,
+   "lat": 46.6401,
+   "hit": "Kherson",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Poltava",
+   "modern": "Poltava",
+   "lon": 34.5508,
+   "lat": 49.5897,
+   "hit": "Poltava",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Vinnitsa",
+   "modern": "Vinnytsia",
+   "lon": 28.468,
+   "lat": 49.232,
+   "hit": "Vinnytsia",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Simferopol",
+   "modern": "Simferopol",
+   "lon": 34.1025,
+   "lat": 44.9521,
+   "hit": "Simferopol",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Kirovabad",
+   "modern": "Ganja",
+   "lon": 46.3573,
+   "lat": 40.6783,
+   "hit": "Ganja",
+   "geocodedCountry": "AZ"
+  },
+  {
+   "name": "Kutaisi",
+   "modern": "Kutaisi",
+   "lon": 42.6634,
+   "lat": 42.2597,
+   "hit": "Kutaisi",
+   "geocodedCountry": "GE"
+  },
+  {
+   "name": "Naberezhnye Chelny",
+   "modern": "Naberezhnye Chelny",
+   "lon": 52.3992,
+   "lat": 55.742,
+   "hit": "Naberezhnye Chelny",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Stavropol",
+   "modern": "Stavropol",
+   "lon": 41.9739,
+   "lat": 45.0345,
+   "hit": "Stavropol",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Vladimir",
+   "modern": "Vladimir",
+   "lon": 40.4075,
+   "lat": 56.1289,
+   "hit": "Vladimir",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Kaluga",
+   "modern": "Kaluga",
+   "lon": 36.2598,
+   "lat": 54.5101,
+   "hit": "Kaluga",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Smolensk",
+   "modern": "Smolensk",
+   "lon": 32.0472,
+   "lat": 54.779,
+   "hit": "Smolensk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Kurgan",
+   "modern": "Kurgan",
+   "lon": 65.3421,
+   "lat": 55.4409,
+   "hit": "Kurgan",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Tyumen",
+   "modern": "Tyumen",
+   "lon": 65.5423,
+   "lat": 57.1535,
+   "hit": "Tyumen",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Sochi",
+   "modern": "Sochi",
+   "lon": 39.7231,
+   "lat": 43.5855,
+   "hit": "Sochi",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Cheboksary",
+   "modern": "Cheboksary",
+   "lon": 47.2481,
+   "lat": 56.14,
+   "hit": "Cheboksary",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Belgorod",
+   "modern": "Belgorod",
+   "lon": 36.5873,
+   "lat": 50.5956,
+   "hit": "Belgorod",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Vologda",
+   "modern": "Vologda",
+   "lon": 39.8934,
+   "lat": 59.2189,
+   "hit": "Vologda",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Yakutsk",
+   "modern": "Yakutsk",
+   "lon": 129.732,
+   "lat": 62.0274,
+   "hit": "Yakutsk",
+   "geocodedCountry": "RU"
+  },
+  {
+   "name": "Chernigov",
+   "modern": "Chernihiv",
+   "lon": 31.2943,
+   "lat": 51.4941,
+   "hit": "Chernihiv",
+   "geocodedCountry": "UA"
+  },
+  {
+   "name": "Zhitomir",
+   "modern": "Zhytomyr",
+   "lon": 28.6696,
+   "lat": 50.2601,
+   "hit": "Zhytomyr",
+   "geocodedCountry": "UA"
+  }
+ ]
+}

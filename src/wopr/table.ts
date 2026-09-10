@@ -1,0 +1,84 @@
+import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi } from '../models/casualties.ts'
+import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
+import { ExposureService } from '../models/exposure-service.ts'
+import { resolveGridBase } from '../studies/StudyView.tsx'
+import type { LngLat } from '../geo/geodesy.ts'
+import type { Posture1983 } from '../studies/window83/window.ts'
+import { siloSamples, spreadSilos, tableTargets, type DeathTable } from './model.ts'
+
+/**
+ * The target-by-weapon matrix: for every target the search can strike, the
+ * dead from one detonation of each yield class the force carries, by the
+ * studies' method (the DCPA bands for blast, Postol's bound for fire) over
+ * the 1985 grid. Computed once through the exposure workers and kept in the
+ * browser, so the search scores a plan in milliseconds. This is the data
+ * input, and the panel shows it as such.
+ */
+
+const CACHE_KEY = 'grid84-wopr-table-v1'
+const GRID = 'ghsl/popc_1985'
+
+export interface TableProgress {
+  done: number
+  total: number
+}
+
+export async function buildTable(posture: Posture1983, onProgress: (p: TableProgress) => void): Promise<{ table: DeathTable; gridName: string; fromCache: boolean }> {
+  try {
+    const cached = localStorage.getItem(CACHE_KEY)
+    if (cached) {
+      const parsed = JSON.parse(cached) as { table: DeathTable; gridName: string }
+      onProgress({ done: 1, total: 1 })
+      return { ...parsed, fromCache: true }
+    }
+  } catch {
+    // no cache
+  }
+  const base = await resolveGridBase(GRID)
+  const service = new ExposureService(base, 4)
+  const summary = await service.load()
+  const gridName = `${summary.source.name} · ${summary.source.year}`
+  const targets = tableTargets(posture)
+  const samples = siloSamples(posture)
+  const jobs: Array<{ id: string; position: LngLat; kt: number }> = []
+  for (const t of targets) for (const kt of t.classes) jobs.push({ id: t.id, position: t.position, kt })
+  for (const s of samples) jobs.push({ id: s.id, position: s.position, kt: 500 })
+  const table: DeathTable = {}
+  let done = 0
+  onProgress({ done, total: jobs.length })
+  const run = async (job: { id: string; position: LngLat; kt: number }) => {
+    const rings = [...OTA_BANDS.map((b) => ({ key: b.key, radius: radiusForPsi(job.kt, b.minPsi, 'air') })), { key: 'fire', radius: thirdDegreeBurnRadiusMetres(job.kt) }]
+    const result = await service.exposure({ center: job.position, rings, subsamples: 2 })
+    const o = outcome(applyBands(bandPopulations(result.within)), result.within.fire ?? 0)
+    table[job.id] = { ...(table[job.id] ?? {}), [job.kt]: { blast: o.blast.fatal, fire: o.fire.fatal } }
+    done += 1
+    if (done % 25 === 0 || done === jobs.length) onProgress({ done, total: jobs.length })
+  }
+  const width = 8
+  let next = 0
+  await Promise.all(
+    Array.from({ length: width }, async () => {
+      while (next < jobs.length) {
+        const job = jobs[next]
+        next += 1
+        await run(job)
+      }
+    }),
+  )
+  spreadSilos(posture, table, samples)
+  service.destroy()
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ table, gridName }))
+  } catch {
+    // too big for this browser; the next visit recomputes
+  }
+  return { table, gridName, fromCache: false }
+}
+
+export function clearTable(): void {
+  try {
+    localStorage.removeItem(CACHE_KEY)
+  } catch {
+    // nothing to clear
+  }
+}

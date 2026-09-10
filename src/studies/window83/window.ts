@@ -10,6 +10,8 @@ import type { Entity, Study, StudyEvent } from '../study.ts'
 import orderOfBattle from '../../../data/window83/order-of-battle-1983.json'
 import suUrban from '../../../data/window83/su-urban-1983.json'
 import usUrban from '../../../data/window83/us-urban-1983.json'
+import suCities from '../../../data/window83/cities-su-1983.json'
+import modernCities from '../../../data/72-minutes/cities-2024.json'
 
 /**
  * The window of vulnerability, 1983. A Soviet counterforce strike as the
@@ -166,8 +168,30 @@ function usFixedTargets(): { silos: Target[]; bases: Target[]; command: Target[]
   return { silos: siloTargets, bases, command }
 }
 
+/** The cities a cell may be named after: the Soviet list under its 1983 names, the American list of the modern build, whose names have not changed. */
+const NAMES: Record<string, Array<{ name: string; lon: number; lat: number }>> = {
+  su: (suCities as { cities: Array<{ name: string; lon: number; lat: number }> }).cities,
+  us: (modernCities as { cities: Array<{ country: string; name: string; lon: number; lat: number }> }).cities.filter((c) => c.country === 'us'),
+}
+
+/** A cell takes the name of the nearest listed city within thirty kilometres, once; otherwise it is an urban area at a position. */
+function cellName(prefix: string, position: LngLat, taken: Set<string>): string {
+  let best: { name: string; d: number } | null = null
+  for (const c of NAMES[prefix] ?? []) {
+    if (taken.has(c.name)) continue
+    const d = haversineMetres(position, [c.lon, c.lat])
+    if (d < 30_000 && (!best || d < best.d)) best = { name: c.name, d }
+  }
+  if (best) {
+    taken.add(best.name)
+    return best.name
+  }
+  return `Urban area ${Math.abs(position[1]).toFixed(1)}°${position[1] >= 0 ? 'N' : 'S'} ${Math.abs(position[0]).toFixed(1)}°${position[0] >= 0 ? 'E' : 'W'}`
+}
+
 function urban(prefix: string, file: { targets: Array<{ lon: number; lat: number; population: number }> }): Target[] {
-  return file.targets.map((c, i) => ({ id: `${prefix}-city-${i}`, name: `Urban area ${Math.abs(c.lat).toFixed(1)}°${c.lat >= 0 ? 'N' : 'S'} ${Math.abs(c.lon).toFixed(1)}°${c.lon >= 0 ? 'E' : 'W'}`, priority: 5_000 + i, position: [c.lon, c.lat] as LngLat, maxWeapons: Math.max(2, Math.min(12, Math.ceil(c.population / 150_000))) }))
+  const taken = new Set<string>()
+  return file.targets.map((c, i) => ({ id: `${prefix}-city-${i}`, name: cellName(prefix, [c.lon, c.lat], taken), priority: 5_000 + i, position: [c.lon, c.lat] as LngLat, maxWeapons: Math.max(2, Math.min(12, Math.ceil(c.population / 150_000))) }))
 }
 
 function sovietTargets(): Target[] {
@@ -368,3 +392,44 @@ export function windowArithmetic() {
 }
 
 export type { Evidenced }
+
+/** The 1983 posture as WOPR needs it: the forces and the target lists, without any strike enacted. */
+export function posture1983() {
+  const { silos: siloTargets, bases, command } = usFixedTargets()
+  const field = silos()
+  const yankees = RAW.filter((r) => r.side === 'su' && r.kind === 'slbm' && /Yankee/.test(r.name))
+  const usBombers = RAW.filter((r) => r.side === 'us' && r.kind === 'bomber').map((l) => ({
+    id: l.id,
+    name: l.name,
+    position: [l.lon, l.lat] as LngLat,
+    weapons: weaponsOf(l),
+    yieldKt: l.yieldKt ?? 1_100,
+    // Reachable by a forward boat inside the bombers' fifteen minutes: within the R-27's range of a Yankee patrol.
+    coastal: yankees.some((y) => haversineMetres([y.lon, y.lat], [l.lon, l.lat]) < 2_400_000),
+  }))
+  const usSlbmAtSea = RAW.filter((r) => r.side === 'us' && r.kind === 'slbm').map((l) => ({ id: l.id, position: [l.lon, l.lat] as LngLat, weapons: weaponsOf(l), yieldKt: l.yieldKt ?? 100 }))
+  const soviet = RAW.filter((r) => r.side === 'su')
+  const heavy = soviet.flatMap((l) => (l.squadrons ?? []).filter((q) => q.version === 'SS-18' || q.version === 'SS-19').map((q) => ({ id: `${l.id}-${q.version}`, position: [l.lon, l.lat] as LngLat, warheads: q.missiles * q.warheads, yieldKt: q.yieldKt })))
+  const old = soviet.flatMap((l) => (l.squadrons ?? []).filter((q) => q.version !== 'SS-18' && q.version !== 'SS-19').map((q) => ({ id: `${l.id}-${q.version}`, position: [l.lon, l.lat] as LngLat, warheads: q.missiles * q.warheads, yieldKt: q.yieldKt })))
+  const sovietBoats = soviet.filter((l) => l.kind === 'slbm').map((l) => ({ id: l.id, position: [l.lon, l.lat] as LngLat, warheads: weaponsOf(l), yieldKt: l.yieldKt ?? 1_000, forward: /Yankee/.test(l.name) }))
+  return {
+    siloPsi: RULES.siloPsi,
+    accuracy: RULES.accuracy,
+    silos: field.map((s) => ({ id: s.id, wing: s.wing.id, position: s.position, warheads: s.warheads, yieldKt: s.yieldKt })),
+    siloTargets,
+    usBases: bases,
+    usCommand: command,
+    usCities: urban('us', usUrban).map((t, i) => ({ ...t, population: usUrban.targets[i].population })),
+    usBombers,
+    usSlbmAtSea,
+    sovietHeavy: heavy,
+    sovietOld: old,
+    sovietBoats,
+    sovietForces: sovietTargets().filter((t) => !t.id.includes('-city-')),
+    sovietCities: urban('su', suUrban).map((t, i) => ({ ...t, population: suUrban.targets[i].population })),
+    flightSeconds: minimumEnergyTrajectory([59.53, 50.76], [-101.34, 48.42]).flightSeconds,
+    clock: T,
+  }
+}
+export type Posture1983 = ReturnType<typeof posture1983>
+

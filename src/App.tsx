@@ -20,12 +20,14 @@ import { window83 } from './studies/window83/window.ts'
 import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
+import { WoprView } from './wopr/WoprView.tsx'
 import { Chronicle } from './chronicle/Chronicle.tsx'
 import { PostureAtlas } from './chronicle/PostureAtlas.tsx'
 
 type Route =
   | { kind: 'front' }
   | { kind: 'loop' }
+  | { kind: 'wopr' }
   | { kind: 'chronicle' }
   | { kind: 'posture' }
   | { kind: 'atlas' }
@@ -43,6 +45,7 @@ function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources' || hash === '#/labs') return { kind: 'front' }
   if (hash === '#/atlas') return { kind: 'atlas' }
   if (hash === '#/loop') return { kind: 'loop' }
+  if (hash === '#/wopr') return { kind: 'wopr' }
   if (hash === '#/chronicle') return { kind: 'chronicle' }
   if (hash === '#/chronicle/posture') return { kind: 'posture' }
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
@@ -176,7 +179,7 @@ export default function App() {
   ]
   return (
     <>
-      {route.kind !== 'loop' && (
+      {route.kind !== 'loop' && route.kind !== 'wopr' && (
       <nav className="grid-nav" aria-label="Views">
         {links.map((l) => (
           <a key={l.href} href={l.href} className={l.active ? 'is-active' : ''} aria-current={l.active ? 'page' : undefined}>
@@ -186,6 +189,7 @@ export default function App() {
       </nav>
       )}
       {route.kind === 'loop' && <LoopView />}
+      {route.kind === 'wopr' && <WoprView />}
       {route.kind === 'front' && <FrontPage />}
       {route.kind === 'chronicle' && <Chronicle />}
       {route.kind === 'posture' && <PostureAtlas key="posture" />}
