@@ -148,7 +148,10 @@ function AtlasGlobe({ onLaunch }: { onLaunch: (study: Study) => void }) {
       <div ref={container} className="atlas-map" aria-label="Grid/84 globe" />
       <div className="atlas-vignette" aria-hidden="true" />
       <Hud phase={phase} onAcquire={acquire} consoleOpen={!!acquired && stoodDown !== acquired.id} />
-      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} onLaunch={onLaunch} onStandDown={() => setStoodDown(acquired.id)} />}
+      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} onLaunch={onLaunch} onStandDown={() => {
+            atlas.current?.clearAimPoints()
+            setStoodDown(acquired.id)
+          }} onAimPoint={(p) => atlas.current?.addAimPoint(p)} onClearAimPoints={() => atlas.current?.clearAimPoints()} />}
     </>
   )
 }

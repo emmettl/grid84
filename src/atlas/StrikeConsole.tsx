@@ -3,7 +3,8 @@ import { formatGrid } from '../geo/geodesy.ts'
 import type { Study } from '../studies/study.ts'
 import { POWER_IDS, POWERS, type Power } from './forces.ts'
 import { readProfile } from './profile.ts'
-import { planStrike, PROFILE_RINGS, type DeliveryPreference, type StrikePlan } from './solver.ts'
+import { describeAimPoints, planStrike, PROFILE_RINGS, type DeliveryPreference, type StrikePlan } from './solver.ts'
+import type { AimPointMark } from '../map/atlas.ts'
 import { buildStrikeStudy } from './strike-study.ts'
 import type { AtlasTarget } from './target.ts'
 import { fetchWindAloft } from './wind.ts'
@@ -28,7 +29,7 @@ const CADENCE_MS = 550
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void }) {
+export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPoint, onClearAimPoints }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void }) {
   const boundaryRef = useRef(boundary)
   useEffect(() => {
     boundaryRef.current = boundary
@@ -86,10 +87,28 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { tar
       say(`POPULATION · ${PROFILE_RINGS.map((r) => `${r / 1000} KM ${Math.round(profile.within[r]).toLocaleString('en-GB')}`).join(' · ')} · ${profile.gridName.toUpperCase()}`, 'calib', true)
       await sleep(CADENCE_MS)
       const plan = planStrike(target, profile, override ?? undefined, true, prefer)
+      onClearAimPoints?.()
+      // The aim points land on the globe as their lines print.
+      const aims = 'failure' in plan ? [] : describeAimPoints(plan.sizing, target.position)
+      const cep = 'failure' in plan ? 0 : plan.delivery.site.cepMetres
+      const place = (i: number) => {
+        const a = aims[i]
+        if (a) onAimPoint?.({ index: a.index, position: a.position, cepMetres: cep, label: a.index === 0 ? `AIM POINT 1 · CENTRE · CEP ${cep} M` : `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}°` })
+      }
       for (const line of plan.lines) {
         if (cancelled) return
         await waitWhileHeld()
         say(line, /^SELECTED|^LAYDOWN|^APPROACH/.test(line) ? 'best' : 'plain')
+        const one = /^AIM POINT (\d+) /.exec(line)
+        const rest = /^AIM POINTS (\d+) TO (\d+)/.exec(line)
+        if (one) place(Number(one[1]) - 1)
+        if (rest) {
+          for (let i = Number(rest[1]) - 1; i < Number(rest[2]); i += 1) {
+            if (cancelled) return
+            place(i)
+            await sleep(120)
+          }
+        }
         await sleep(CADENCE_MS)
       }
       if ('failure' in plan) {

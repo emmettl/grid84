@@ -2,6 +2,7 @@ import { Marker, type GeoJSONSource } from 'maplibre-gl'
 import type { AtlasTarget } from '../atlas/target.ts'
 import type { Boundary } from '../atlas/boundary.ts'
 import { ALARM_HATCH, ensureAlarmHatch } from './hatch.ts'
+import { geodesicCircle } from '../geo/shapes.ts'
 import { designate, type Designation } from '../atlas/designation.ts'
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { ORBITAL_ZOOM, planDescent, TERRAIN_MIN_ZOOM } from './descent.ts'
@@ -32,7 +33,17 @@ export interface Atlas {
   acquire(target: AtlasTarget): void
   /** Draw the target's boundary and float its name above it; null clears the boundary but keeps the label. */
   showBoundary(target: AtlasTarget, boundary: Boundary | null): void
+  /** Put an aim point on the globe as the console works it out: a mark, its CEP ring and a label that comes into being. */
+  addAimPoint(point: AimPointMark): void
+  clearAimPoints(): void
   destroy(): void
+}
+
+export interface AimPointMark {
+  index: number
+  position: LngLat
+  cepMetres: number
+  label: string
 }
 
 /** Where the globe hangs before the first fix. */
@@ -74,6 +85,26 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
   }
 
   let label: Marker | null = null
+  const aims: AimPointMark[] = []
+  let aimLabels: Marker[] = []
+  const ensureAimLayers = () => {
+    if (map.getSource('atlas-aims')) return
+    map.addSource('atlas-aims', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+    map.addLayer({ id: 'atlas-aims-cep', type: 'line', source: 'atlas-aims', filter: ['==', ['geometry-type'], 'LineString'], paint: { 'line-color': 'rgba(255, 138, 31, 0.55)', 'line-width': 1, 'line-dasharray': [2, 2] } })
+    map.addLayer({ id: 'atlas-aims-point', type: 'circle', source: 'atlas-aims', filter: ['==', ['geometry-type'], 'Point'], paint: { 'circle-radius': 3.2, 'circle-color': '#ff8a1f', 'circle-stroke-color': '#0a0602', 'circle-stroke-width': 1.5 } })
+  }
+  const drawAims = () => {
+    if (destroyed) return
+    ensureAimLayers()
+    const source = map.getSource('atlas-aims') as GeoJSONSource | undefined
+    source?.setData({
+      type: 'FeatureCollection',
+      features: aims.flatMap((a) => [
+        { type: 'Feature' as const, geometry: { type: 'Point' as const, coordinates: [a.position[0], a.position[1]] }, properties: { index: a.index } },
+        { type: 'Feature' as const, geometry: { type: 'LineString' as const, coordinates: geodesicCircle(a.position, a.cepMetres).map((p) => [p[0], p[1]]) }, properties: { index: a.index } },
+      ]),
+    })
+  }
   const ensureBoundaryLayers = () => {
     if (map.getSource('atlas-boundary')) return
     ensureAlarmHatch(map)
@@ -96,6 +127,7 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
     if (destroyed) return
     const token = ++acquisition
     stopSpinning()
+    clearAimPoints()
     const designation = designate(target)
     const from = previous
     const report: AcquisitionReport = {
@@ -169,10 +201,30 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
     else map.once('load', draw)
   }
 
+  const addAimPoint = (point: AimPointMark) => {
+    if (destroyed) return
+    aims.push(point)
+    const el = document.createElement('div')
+    el.className = 'atlas-aim-label'
+    el.textContent = point.label
+    aimLabels.push(new Marker({ element: el, anchor: point.index % 2 === 0 ? 'left' : 'right', offset: [point.index % 2 === 0 ? 8 : -8, 0] }).setLngLat([point.position[0], point.position[1]]).addTo(map))
+    if (map.isStyleLoaded()) drawAims()
+    else map.once('load', drawAims)
+  }
+  const clearAimPoints = () => {
+    aims.length = 0
+    for (const m of aimLabels) m.remove()
+    aimLabels = []
+    if (map.isStyleLoaded()) drawAims()
+  }
+
   return {
     acquire,
     showBoundary,
+    addAimPoint,
+    clearAimPoints,
     destroy() {
+      for (const m of aimLabels) m.remove()
       label?.remove()
       destroyed = true
       spinning = false

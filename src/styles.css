@@ -2085,6 +2085,22 @@ body,
   font-size: 0.5rem;
 }
 
+/* Aim points on the globe, as the console works them out. */
+.atlas-aim-label {
+  padding: 0.1rem 0.35rem;
+  border-left: 2px solid #ff8a1f;
+  background: rgba(5, 4, 16, 0.72);
+  color: #ffb066;
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: ev-appear 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  transform-origin: left center;
+}
+
 /* ---------- The prompt and the strike console ---------- */
 
 /* The target prompt as an 80s console line: a phosphor prompt, the typed text, a blinking block when nothing has been typed. */
