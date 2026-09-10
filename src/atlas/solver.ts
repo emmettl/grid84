@@ -1,6 +1,7 @@
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { boostedTrajectory, boostProfileFor, type BoostProfile } from '../models/ballistic.ts'
 import { airReachMetres, boostWindow, SPACE_LAYERS, spaceChance } from '../models/boost-intercept.ts'
+import { describeLandUse, type LandUse } from './landuse.ts'
 import { radiusForPsi } from '../models/casualties.ts'
 import { lethalRadiusMetres, singleShotKill } from '../models/lethality.ts'
 import { laydown } from '../wopr/union.ts'
@@ -28,6 +29,8 @@ export type Category = 'URBAN-INDUSTRIAL' | 'MILITARY' | 'AIRFIELD' | 'PORT' | '
 
 export interface Classification {
   category: Category
+  /** Whether the ground itself was read, or only the geocoder's tag and the population grid. */
+  ground: 'land use' | 'tag and density'
   /** The radius the urban area extends to, metres, by density; zero for a point target. */
   urbanRadiusMetres: number
   population: number
@@ -46,7 +49,21 @@ function densityOfAnnulus(profile: Profile, inner: number, outer: number): numbe
   return areaKm2 > 0 ? people / areaKm2 : 0
 }
 
-export function classify(target: AtlasTarget, profile: Profile): Classification {
+/**
+ * What is this, and is it worth a weapon?
+ *
+ * Three things are asked in order. What does OpenStreetMap call the point
+ * itself — a barracks, an aerodrome, a refinery. What is the ground around
+ * it actually used for, which is the land-use answer and the only one of
+ * the three that can tell a works from a housing estate. And how many
+ * people are on it, which decides whether it is struck as an area at all.
+ *
+ * The tag is asked first, because a tag that says `military=naval_base` is
+ * a statement about this place and not an inference from its surroundings.
+ * Where the tag says nothing useful the ground decides, and where the
+ * ground is not known the density decides, as it did before.
+ */
+export function classify(target: AtlasTarget, profile: Profile, land?: LandUse | null): Classification {
   const key = target.osmKey
   const value = target.osmValue
   const population = profile.within[30_000] ?? 0
@@ -60,17 +77,37 @@ export function classify(target: AtlasTarget, profile: Profile): Classification 
     else break
     prev = r
   }
-  const role = (category: Category, countervalue: boolean, hard: boolean, reason: string): Classification => ({ category, urbanRadiusMetres: countervalue ? urban : 0, population, countervalue, hard, reason })
+  const ground: Classification['ground'] = land && land.mappedKm2 > 0 ? 'land use' : 'tag and density'
+  const role = (category: Category, countervalue: boolean, hard: boolean, reason: string): Classification => ({ category, ground, urbanRadiusMetres: countervalue ? urban : 0, population, countervalue, hard, reason })
   if (key === 'military' || value === 'military' || value === 'barracks' || value === 'naval_base') return role('MILITARY', false, true, `OPENSTREETMAP TAGS IT ${key}=${value} · COUNTERFORCE · SURFACE BURST ON A HARD POINT`)
   if (key === 'aeroway' || value === 'aerodrome' || value === 'airport') return role('AIRFIELD', false, false, `OPENSTREETMAP TAGS IT ${key}=${value} · THE RUNWAYS ARE THE AIM POINT`)
   if (value === 'port' || value === 'harbour' || value === 'harbor' || key === 'harbour') return role('PORT', false, false, `OPENSTREETMAP TAGS IT ${key}=${value} · THE QUAYS AND THE TOWN BEHIND THEM`)
   if (key === 'power' || value === 'plant' || value === 'nuclear' || value === 'refinery' || value === 'dam') return role('INFRASTRUCTURE', false, true, `OPENSTREETMAP TAGS IT ${key}=${value} · A SURFACE BURST TO BE SURE OF THE STRUCTURE`)
   if (value === 'industrial' || key === 'industrial' || value === 'factory' || value === 'works') return role('INDUSTRY', false, false, `OPENSTREETMAP TAGS IT ${key}=${value} · INDUSTRIAL FLOOR SPACE`)
   if (value === 'government' || value === 'parliament' || value === 'palace' || value === 'ministry' || value === 'embassy') return role('COMMAND', false, false, `OPENSTREETMAP TAGS IT ${key}=${value} · LEADERSHIP`)
+
+  // The ground itself, where the tag said nothing useful. A barracks or an
+  // airfield that the geocoder called a suburb is still a barracks or an
+  // airfield, and a works is not a housing estate however many people the
+  // grid puts around it.
+  if (land && land.mappedKm2 > 0) {
+    const built = land.shares.residential + land.shares.commercial + land.shares.industrial
+    if (land.militaryKm2 >= MILITARY_GROUND_KM2 || land.shares.military >= 0.2) return role('MILITARY', false, true, `${land.militaryKm2.toFixed(1)} KM² OF MILITARY LAND ON THE GROUND · COUNTERFORCE · SURFACE BURST ON A HARD POINT`)
+    if (land.aerodromeKm2 >= AERODROME_GROUND_KM2) return role('AIRFIELD', false, false, `${land.aerodromeKm2.toFixed(1)} KM² OF AERODROME ON THE GROUND · THE RUNWAYS ARE THE AIM POINT`)
+    if (land.shares.industrial >= 0.3 && land.industrialKm2 >= 1 && within10 < 150_000) return role('INDUSTRY', false, false, `${Math.round(land.shares.industrial * 100)}% OF THE MAPPED GROUND IS INDUSTRIAL · INDUSTRIAL FLOOR SPACE, NOT THE PEOPLE`)
+    if (built >= 0.4 && (urban >= 5_000 || within10 >= 150_000)) return role('URBAN-INDUSTRIAL', true, false, `${Math.round(built * 100)}% OF THE MAPPED GROUND IS BUILT ON · ${Math.round(within10).toLocaleString('en-GB')} WITHIN 10 KM · COUNTERVALUE`)
+    if (land.shares.farmland + land.shares.green >= 0.7 && within10 < 40_000) return role('RURAL', false, false, `${Math.round((land.shares.farmland + land.shares.green) * 100)}% OF THE MAPPED GROUND IS FIELD OR WOOD · ${Math.round(within10).toLocaleString('en-GB')} WITHIN 10 KM · STRUCK AS A POINT IF AT ALL`)
+  }
+
   if (urban >= 5_000 || within10 >= 300_000) return role('URBAN-INDUSTRIAL', true, false, `DENSITY ABOVE ${URBAN_DENSITY} PER KM² OUT TO ${Math.round(urban / 1000)} KM · ${Math.round(within10).toLocaleString('en-GB')} WITHIN 10 KM · COUNTERVALUE`)
   if (within10 >= 40_000) return role('TOWN', true, false, `${Math.round(within10).toLocaleString('en-GB')} WITHIN 10 KM · A TOWN, STRUCK AS AN AREA`)
   return role('RURAL', false, false, `${Math.round(within10).toLocaleString('en-GB')} WITHIN 10 KM · NO URBAN AREA · STRUCK AS A POINT`)
 }
+
+/** Military land on the ground that makes a place a military target whatever the geocoder called it, square kilometres. */
+export const MILITARY_GROUND_KM2 = 0.8
+/** The same for an aerodrome: a strip and its apron. */
+export const AERODROME_GROUND_KM2 = 0.5
 
 export interface DeliveryOption {
   site: ForceSite
@@ -317,10 +354,11 @@ export function seedOf(text: string, variant = 0): number {
   return (h >>> 0) / 4294967296
 }
 
-export function planStrike(target: AtlasTarget, profile: Profile, override?: Power, wantFallout = true, prefer: DeliveryPreference = 'best', loading: Loading = 'deployed', site?: string, variant = 0): StrikePlan | { failure: string; lines: string[] } {
+export function planStrike(target: AtlasTarget, profile: Profile, override?: Power, wantFallout = true, prefer: DeliveryPreference = 'best', loading: Loading = 'deployed', site?: string, variant = 0, land?: LandUse | null): StrikePlan | { failure: string; lines: string[] } {
   const lines: string[] = []
-  const classification = classify(target, profile)
+  const classification = classify(target, profile, land)
   lines.push(`TARGET IDENTIFIED · ${classification.category} · ${classification.reason}`)
+  lines.push(land && land.mappedKm2 > 0 ? `GROUND READ · ${describeLandUse(land)} · OPENSTREETMAP LAND USE` : 'GROUND NOT READ · OVERPASS DID NOT ANSWER IN TIME · THE TAG AND THE POPULATION GRID DECIDE')
   const heuristic = adversaryFor(target.countryCode, target.position)
   const adversary: Adversary = override && override !== heuristic.power ? { power: override, reason: `SET BY THE READER; THE RULE SAID ${POWERS[heuristic.power].name.toUpperCase()}`, basis: 'doctrine' } : heuristic
   lines.push(`ADVERSARY · ${POWERS[adversary.power].name.toUpperCase()} · ${adversary.reason}${adversary.basis === 'proximity' ? ' · A FALLBACK, NOT A DOCTRINE' : ''}`)

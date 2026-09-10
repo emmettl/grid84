@@ -3,6 +3,7 @@ import { formatGrid } from '../geo/geodesy.ts'
 import type { Study } from '../studies/study.ts'
 import { POWER_IDS, POWERS, type Power } from './forces.ts'
 import { readProfile } from './profile.ts'
+import { fetchLandUse } from './landuse.ts'
 import { describeAimPoints, planStrike, PROFILE_RINGS, type DeliveryPreference, type Loading, type StrikePlan } from './solver.ts'
 import type { AimPointMark } from '../map/atlas.ts'
 import { buildStrikeStudy } from './strike-study.ts'
@@ -83,12 +84,15 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       if (!opened.current) say(`TARGET ACQUIRED · ${target.name.toUpperCase()} · ${target.countryCode} · ${formatGrid(target.position)}`, 'mark')
       opened.current = true
       say('READING THE 2025 GRID', 'calib', true)
-      const [profile, wind] = await Promise.all([
+      say('READING THE GROUND · OPENSTREETMAP LAND USE WITHIN 2.5 KM', 'calib', true)
+      const [profile, wind, land] = await Promise.all([
         readProfile(target).catch((e: Error) => {
           say(`GRID UNREADABLE · ${e.message.toUpperCase()}`, 'mark')
           return null
         }),
         fetchWindAloft(target.position, controller.signal),
+        // The ground is worth asking for and nothing waits on it: Overpass is a live service and it fails.
+        fetchLandUse(target.position, 2_500, controller.signal),
       ])
       if (cancelled) return
       if (!profile) {
@@ -97,7 +101,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       }
       say(`POPULATION · ${PROFILE_RINGS.map((r) => `${r / 1000} KM ${Math.round(profile.within[r]).toLocaleString('en-GB')}`).join(' · ')} · ${profile.gridName.toUpperCase()}`, 'calib', true)
       await sleep(CADENCE_MS)
-      const plan = planStrike(target, profile, override ?? undefined, true, prefer, loading, site ?? undefined, variant)
+      const plan = planStrike(target, profile, override ?? undefined, true, prefer, loading, site ?? undefined, variant, land)
       chosen.current = 'failure' in plan ? null : plan.delivery.site.id
       onClearAimPoints?.()
       // The aim points land on the globe as their lines print.

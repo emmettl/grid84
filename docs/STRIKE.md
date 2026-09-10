@@ -33,6 +33,42 @@ The bombers and the submarine cruise systems in the forces file carry a standoff
 
 The engine flies the aircraft along the great circle to the release point, turns it for home, and sends each missile on from there to its own aim point at its own speed; a boat with a standoff at its range fires from where it sits, and an aircraft whose target is nearer than its missile's reach flies only a 150 km climb-out. Aircraft from one base fan three kilometres apart into a flight. The whole-missile focus treats a released load as it treats a bus, marking the release. Where it matters: places within a bomber's reach but outside a missile's; the theatre air legs; and, by choice, the classic air leg against any target.
 
+## Reading the ground
+
+Identification used to have two inputs: the tag OpenStreetMap puts on the
+point the geocoder returned, and the population density around it. Both are
+thin. A tag describes a point and not the square kilometre around it, and
+density cannot tell a refinery from a housing estate.
+
+So the console now asks Overpass for the land-use polygons within two and a
+half kilometres and measures their areas by the shoelace formula. The
+result is what a targeteer actually wants: how much of this ground is
+industrial, how much is housing, whether there is an aerodrome or a
+barracks on it, and what the largest named thing on it is called.
+
+The case that shows why it matters is Fairford, in Gloucestershire.
+OpenStreetMap calls it `place=village` and three thousand people live
+there, so the old classifier called it RURAL and struck it as a point for
+want of anything better. The ground says forty-eight per cent farmland,
+twenty-four per cent green, twenty per cent military, five square
+kilometres of it, and the largest polygon within two and a half kilometres
+is named RAF Fairford. It is now classified MILITARY, hard, surface burst.
+
+The order is: the tag first, because a tag that says `military=naval_base`
+is a statement about this place rather than an inference from its
+surroundings; then the ground; then the density, as before. The readout
+says which of the three decided.
+
+Overpass is a live service, it is slow and it fails. Nothing waits on it:
+the request runs alongside the population read and the wind, with a nine
+second timeout, and when it does not answer the console prints GROUND NOT
+READ and falls back to the tag and the grid.
+
+The HYDE land-use grids this engine already carries cannot do this job.
+They are agricultural — cropland, grazing, pasture, rangeland and rice —
+with no built-up class at all, which is right for a harvest and useless for
+a target. They are used for the harvest, in `#/winter`.
+
 ## Honesty
 
 The adversary and the weapon are a heuristic and are printed as one, line by line, with the rule that produced each. Nothing here is a plan on record. The forces file is one entry per system and place, not a count; the file says so. No attrition, no defence, no warning.
