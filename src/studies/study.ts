@@ -93,6 +93,12 @@ export interface CameraMove {
   pitch?: number
   bearing?: number
   durationMs?: number
+  /**
+   * Points that must be in shot. When given, the camera fits them with a
+   * margin instead of taking `zoom`, which is what a portrait phone needs:
+   * the same zoom shows far less across than it does on a wide screen.
+   */
+  fit?: LngLat[]
 }
 
 export interface StudyEvent {

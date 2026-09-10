@@ -125,7 +125,7 @@ export function tornadoStrike(): Study {
   const first = Math.min(...arrivals)
   const last = Math.max(...arrivals)
   const events: StudyEvent[] = [
-    { time: -15 * MIN, text: `RAF GERMANY AT READINESS · ${a.aircraft} TORNADO GR1 ON TWO STATIONS · WE.177 AT ${a.yieldKt} KT`, camera: { center: [10, 52], zoom: 5.4, durationMs: 2_500 } },
+    { time: -15 * MIN, text: `RAF GERMANY AT READINESS · ${a.aircraft} TORNADO GR1 ON TWO STATIONS · WE.177 AT ${a.yieldKt} KT`, camera: { center: [10, 52], zoom: 6.5, fit: [...F.bases.map((b) => [b.lon, b.lat] as LngLat), ...F.targets.map((t) => [t.lon, t.lat] as LngLat)], durationMs: 2_500 } },
     { time: 0, text: `THE PACKAGE GOES · ${a.sorties} AIRCRAFT AGAINST ${a.targets} AIRFIELDS AND CROSSINGS` },
     { time: Math.round(first * 0.55), text: 'DOWN TO TWO HUNDRED FEET · TERRAIN-FOLLOWING RADAR · THE V-FORCE PROFILE OF 1963, FLOWN BY AN AIRCRAFT BUILT FOR IT' },
     { time: first, text: 'FIRST WEAPONS DOWN' },

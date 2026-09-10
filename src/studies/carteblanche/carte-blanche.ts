@@ -99,7 +99,7 @@ export function carteBlanche(): Study {
     ],
   }))
   const events: StudyEvent[] = [
-    { time: -2 * MIN, text: `CARTE BLANCHE · ${E.documented.dates.toUpperCase()} · ALLIED AIR FORCES CENTRAL EUROPE · ABOUT ${E.documented.sorties.toLocaleString('en-GB')} SORTIES`, camera: { center: [10.5, 51], zoom: 5.2, durationMs: 2_500 } },
+    { time: -2 * MIN, text: `CARTE BLANCHE · ${E.documented.dates.toUpperCase()} · ALLIED AIR FORCES CENTRAL EUROPE · ABOUT ${E.documented.sorties.toLocaleString('en-GB')} SORTIES`, camera: { center: [10.5, 51], zoom: 6.5, fit: marks.map((m) => m.position), durationMs: 2_500 } },
     { time: 0, text: `${a.weapons} NUCLEAR WEAPONS ARE SIMULATED · MOST OF THEM ON GERMAN SOIL · TWO ON EACH OF ${a.airfields} AIRFIELDS, THE REST ON THE MOST POPULOUS CELLS` },
     { time: Math.round(20 * MIN), text: 'THE AIRFIELDS ARE GONE, ON BOTH SIDES OF THE LINE' },
     { time: Math.round(45 * MIN), text: 'THE EXERCISE DOES NOT DISTINGUISH BETWEEN THE COUNTRY BEING DEFENDED AND THE BATTLEFIELD' },

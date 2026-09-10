@@ -215,7 +215,7 @@ export function vForce(profile: VProfile = 'high'): Study {
   const events: StudyEvent[] = [
     { time: -15 * 60, text: `QUICK REACTION ALERT · ${a.strength} AIRCRAFT ON ${a.bases} STATIONS · ON WARNING THEY DISPERSE IN FOURS TO ${FORCE.dispersal.airfields} AIRFIELDS`, entityId: `base-${FORCE.bases[0].id}` },
     { time: -4 * 60, text: 'THE FOUR-MINUTE WARNING · SCRAMBLE', entityId: `base-${FORCE.bases[0].id}` },
-    { time: 0, text: `AIRBORNE · ${profile === 'high' ? `CLIMBING TO ${a.cruiseFeet.toLocaleString('en-GB')} FEET` : `TRANSIT AT ${a.cruiseFeet.toLocaleString('en-GB')} FEET, THEN DOWN TO THREE HUNDRED FOR THE RUN IN`}`, camera: { center: [15, 55], zoom: 3.2, durationMs: 2_500 } },
+    { time: 0, text: `AIRBORNE · ${profile === 'high' ? `CLIMBING TO ${a.cruiseFeet.toLocaleString('en-GB')} FEET` : `TRANSIT AT ${a.cruiseFeet.toLocaleString('en-GB')} FEET, THEN DOWN TO THREE HUNDRED FOR THE RUN IN`}`, camera: { center: [15, 55], zoom: 4.5, fit: [...FORCE.bases.map((b) => [b.lon, b.lat] as LngLat), ...targets.slice(0, 12).map((t) => t.position)], durationMs: 2_500 } },
     { time: Math.round(first * 0.55), text: profile === 'high' ? 'INTO THE MISSILE BELTS · THIS IS THE HEIGHT AT WHICH POWERS WAS SHOT DOWN ON 1 MAY 1960' : 'DESCENT · THREE HUNDRED FEET, UNDER THE RADAR HORIZON, ON TERRAIN THE CREWS HAD NEVER SEEN', entityId: `base-${FORCE.bases[0].id}` },
     { time: Math.round(first * 0.9), text: `BLUE STEEL AWAY · ${a.blueSteelMiles} NAUTICAL MILES · ${a.blueSteelAircraft} AIRCRAFT CARRY IT${profile === 'low' ? ' · AT LOW LEVEL THE MISSILE HAS LOST MOST OF ITS REACH' : ''}` },
     { time: first, text: 'FIRST WEAPONS DOWN' },

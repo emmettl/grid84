@@ -514,7 +514,21 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         for (const event of study.events) {
           if (event.camera && previous.time < event.time && next.time >= event.time) {
             const c = event.camera
-            map.flyTo({ center: [c.center[0], c.center[1]], zoom: c.zoom, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, essential: true })
+            if (c.fit && c.fit.length > 1) {
+              // Fit the points that matter, so a portrait screen does not cut the launch point out of shot.
+              const lons = c.fit.map((p) => p[0])
+              const lats = c.fit.map((p) => p[1])
+              const pad = Math.max(40, Math.min(120, Math.round(Math.min(map.getCanvas().clientWidth, map.getCanvas().clientHeight) * 0.12)))
+              map.fitBounds(
+                [
+                  [Math.min(...lons), Math.min(...lats)],
+                  [Math.max(...lons), Math.max(...lats)],
+                ],
+                { padding: pad, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, maxZoom: c.zoom, essential: true },
+              )
+            } else {
+              map.flyTo({ center: [c.center[0], c.center[1]], zoom: c.zoom, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, essential: true })
+            }
           }
         }
       }
@@ -792,7 +806,8 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             <button type="button" className={clock.playing ? 'is-active' : ''} onClick={() => setClockState({ playing: !clock.playing })}>
               {clock.playing ? 'HOLD' : 'RUN'}
             </button>
-            {RATES.map((rate) => (
+            {/* A study may open at a rate of its own, such as the atlas strike at twenty; it gets a button of its own so the running rate is always lit. */}
+            {(RATES.includes(clock.rate) ? RATES : [...RATES, clock.rate].sort((a, b) => a - b)).map((rate) => (
               <button key={rate} type="button" className={clock.rate === rate ? 'is-active' : ''} onClick={() => setClockState({ rate })}>
                 {rate}×
               </button>

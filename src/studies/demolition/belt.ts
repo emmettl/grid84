@@ -118,11 +118,11 @@ export function demolitionBelt(): Study {
 
   const last = Math.round((order.length - 1) * 12 * MIN)
   const events: StudyEvent[] = [
-    { time: emplacedAt, text: `THE BELT IS EMPLACED · ${a.emplacements} WEAPONS, ${a.totalKt} KT IN ALL · ${a.madm} MADM AND ${a.sadm} SADM · ALL OF THEM ON THE GROUND BEING DEFENDED`, camera: { center: [11, 50.5], zoom: 5.2, durationMs: 3_000 } },
+    { time: emplacedAt, text: `THE BELT IS EMPLACED · ${a.emplacements} WEAPONS, ${a.totalKt} KT IN ALL · ${a.madm} MADM AND ${a.sadm} SADM · ALL OF THEM ON THE GROUND BEING DEFENDED`, camera: { center: [11, 50.5], zoom: 6.5, fit: B.sites.map((x) => [x.lon, x.lat] as LngLat), durationMs: 3_000 } },
     { time: -30 * MIN, text: 'THE ENGINEERS WHO LAY THEM ARE EXPECTED TO BE OVERRUN. THE RELEASE IS POLITICAL AND HAS TO ARRIVE WHILE THE GROUND ABOVE THE WEAPON IS BEING FOUGHT OVER' },
     { time: 0, text: 'THE ADVANCE REACHES THE FIRST DEFILE. THE BELT FIRES FROM EAST TO WEST' },
     { time: Math.round(last * 0.4), text: 'EVERY BURST IS A SURFACE BURST, BECAUSE THE WEAPON IS FOR THROWING THE GROUND' },
-    { time: last, text: `THE LAST OF THE BELT · THE PLUMES RUN NORTH-EAST ON THE PREVAILING WIND, ACROSS THE COUNTRY THE BARRIER DEFENDS`, camera: { center: [11.5, 51.5], zoom: 5, durationMs: 3_000 } },
+    { time: last, text: `THE LAST OF THE BELT · THE PLUMES RUN NORTH-EAST ON THE PREVAILING WIND, ACROSS THE COUNTRY THE BARRIER DEFENDS`, camera: { center: [11.5, 51.5], zoom: 6, fit: B.sites.map((x) => [x.lon, x.lat] as LngLat), durationMs: 3_000 } },
     { time: last + 12 * 3_600, text: 'TWELVE HOURS LATER. THE OBSTACLE IS THE FALLOUT, AND IT DOES NOT DISTINGUISH BETWEEN THE ARMY IT STOPS AND THE COUNTRY IT IS IN' },
   ]
 

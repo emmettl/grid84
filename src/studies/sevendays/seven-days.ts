@@ -202,13 +202,13 @@ export function sevenDays(): Study {
   ]
 
   const events: StudyEvent[] = [
-    { time: -5 * MIN, text: 'THE EXERCISE OPENS WITH ITS OWN PREMISE: NATO HAS DECIDED TO USE NUCLEAR WEAPONS FIRST, ON THE VISTULA', camera: { center: [19, 52], zoom: 4.5, durationMs: 2_500 } },
+    { time: -5 * MIN, text: 'THE EXERCISE OPENS WITH ITS OWN PREMISE: NATO HAS DECIDED TO USE NUCLEAR WEAPONS FIRST, ON THE VISTULA', camera: { center: [19, 52], zoom: 6, fit: PLAN.poland.map((c) => [c.lon, c.lat] as LngLat), durationMs: 2_500 } },
     { time: T.natoStrike, text: `THE ASSUMED NATO STRIKE LEAVES · ${a.natoWarheads} WEAPONS OF ${NATO_YIELD_KT} KT FOR POLAND · THE PLAN PUTS THE POLISH DEAD AT ABOUT TWO MILLION` },
-    { time: premiseArrival, text: 'POLAND IS STRUCK · THIS IS THE HALF OF THE STUDY THAT IS AN ASSERTION, NOT A DOCUMENT', camera: { center: [19, 52], zoom: 5, durationMs: 2_500 } },
+    { time: premiseArrival, text: 'POLAND IS STRUCK · THIS IS THE HALF OF THE STUDY THAT IS AN ASSERTION, NOT A DOCUMENT', camera: { center: [19, 52], zoom: 6.5, fit: PLAN.poland.map((c) => [c.lon, c.lat] as LngLat), durationMs: 2_500 } },
     { time: Math.round(premiseLast + T.decisionAfterArrival / 2), text: 'THE ANSWER IS NOT A DECISION IN THIS PLAN. IT IS THE NEXT PARAGRAPH', camera: { center: [12, 51], zoom: 4, durationMs: 3_000 } },
     { time: releaseAt, text: `THE COUNTER-OFFENSIVE · ${answer.summary.weapons + airStrike.summary.weapons} WARHEADS RELEASED OF ${a.pactWarheads} IN THE THEATRE · MISSILES ON THE DEEP TARGETS, AVIATION ON THE NEAR ONES` },
     { time: answerFirst, text: 'FIRST WEAPONS DOWN IN THE WEST' },
-    { time: answerLast, text: `THE CITIES THE PLAN NAMES ARE STRUCK · INCLUDING ${a.neutral.join(', ').toUpperCase()}, IN A NEUTRAL COUNTRY`, camera: { center: [10, 50], zoom: 4.2, durationMs: 3_000 } },
+    { time: answerLast, text: `THE CITIES THE PLAN NAMES ARE STRUCK · INCLUDING ${a.neutral.join(', ').toUpperCase()}, IN A NEUTRAL COUNTRY`, camera: { center: [10, 50], zoom: 6, fit: PLAN.west.map((c) => [c.lon, c.lat] as LngLat), durationMs: 3_000 } },
     { time: answerLast + 20 * MIN, text: 'SEVEN DAYS TO THE RHINE BEGINS HERE. THE PLAN DOES NOT SAY WHAT THE STRATEGIC FORCES DO NEXT, AND THAT IS THE POINT OF IT' },
   ]
 
