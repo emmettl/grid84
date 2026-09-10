@@ -706,7 +706,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               // The union keeps the worst dose each person has taken, so re-adding a plume at a later hour raises it rather than counting it twice.
               if (first) unionPlumes.current[plumeSide] += 1
               service
-                .unionPlumes(plumeSide, contours.map((c) => ({ ring: c.ring, doseMidRads: c.doseMidRads })), BAND_FRACTIONS)
+                .unionPlumes(plumeSide, e.id, contours.map((c) => ({ ring: c.ring, doseMidRads: c.doseMidRads })), BAND_FRACTIONS)
                 .then((totals) => setUnions((prev) => ({ ...prev, [plumeSide]: { totals, detonations: unionCount.current[plumeSide], plumes: unionPlumes.current[plumeSide] } })))
                 .catch((error) => console.warn('plume union failed', error))
               service

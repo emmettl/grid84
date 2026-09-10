@@ -1,5 +1,5 @@
 /// <reference lib="webworker" />
-import { createUnion, exposure, exposurePolygons, totalPopulation, unionAdd, unionAddPlume, unionTotals, type BandFractions, type ExposurePolygon, type ExposureRequest, type GridOrigin, type PopulationGrid, type UnionDetonation, type UnionPlume, type UnionState, type UnionTotals } from './exposure.ts'
+import { applyGroupDose, createUnion, exposure, exposurePolygons, totalPopulation, unionAdd, unionAddPlume, unionTotals, type BandFractions, type ExposurePolygon, type ExposureRequest, type GridOrigin, type PopulationGrid, type UnionDetonation, type UnionPlume, type UnionState, type UnionTotals } from './exposure.ts'
 import { loadGridMeta, loadPopulationGrid, TiledPopulationGrid } from './population-grid.ts'
 
 /**
@@ -14,7 +14,7 @@ export type WorkerRequest =
   | { id: number; type: 'cells'; west: number; south: number; east: number; north: number }
   | { id: number; type: 'polygons'; polygons: ExposurePolygon[] }
   | { id: number; type: 'union-add'; key: string; detonations: UnionDetonation[]; bands: BandFractions[] }
-  | { id: number; type: 'union-plumes'; key: string; plumes: UnionPlume[]; bands: BandFractions[] }
+  | { id: number; type: 'union-plumes'; key: string; group: string; plumes: UnionPlume[]; bands: BandFractions[] }
   | { id: number; type: 'union-reset'; key: string }
 
 /** [west, south, east, north, count] per populated cell. */
@@ -131,10 +131,13 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
           unionAdd(g, state, d, o)
         }
       } else {
+        // One burst's contours are one group: within it the innermost contour wins, and groups add.
+        const contribution = new Map<number, number>()
         for (const p of message.plumes) {
           const g = await gridFor(boxOf([{ key: 'p', ring: p.ring }]))
-          unionAddPlume(g, state, p, o)
+          unionAddPlume(g, state, p, o, contribution)
         }
+        applyGroupDose(state, message.group, contribution)
       }
       const response: WorkerResponse = { id: message.id, type: 'union', totals: unionTotals(state, message.bands) }
       self.postMessage(response)

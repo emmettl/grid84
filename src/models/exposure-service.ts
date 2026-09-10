@@ -77,8 +77,8 @@ export class ExposureService {
   }
 
   /** Add plumes at their deposited dose to a side's union; fallout deaths count only among the blast and fire survivors. */
-  async unionPlumes(key: string, plumes: UnionPlume[], bands: BandFractions[]): Promise<UnionTotals> {
-    const response = await this.send<WorkerResponse & { type: 'union' }>({ type: 'union-plumes', key, plumes, bands }, this.slotFor(key))
+  async unionPlumes(key: string, group: string, plumes: UnionPlume[], bands: BandFractions[]): Promise<UnionTotals> {
+    const response = await this.send<WorkerResponse & { type: 'union' }>({ type: 'union-plumes', key, group, plumes, bands }, this.slotFor(key))
     return response.totals
   }
 

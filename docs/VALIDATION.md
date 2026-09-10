@@ -209,3 +209,21 @@ The engine draws a plume for a surface burst and none for an air burst, which fo
 Local fallout needs something to fall. In a surface burst the fireball touches the ground, vaporises and melts soil, and that soil is drawn up into the rising cloud; as the cloud cools the fission products condense onto particles tens to hundreds of microns across, which are heavy enough to fall out within minutes to hours and near enough to make a plume. In an air burst there is no soil in the cloud, so the fission products condense onto each other into sub-micron particles that are carried into the upper troposphere or the stratosphere and come down over weeks to years, worldwide, after much of the short-lived activity has decayed. The activity is the same; where and when it lands is not. What the engine omits is therefore delayed global fallout, which is real and is not anybody's local dose, and the readout says so on every air-burst study.
 
 Whether the fireball touches is a matter of burst height, and the coincidence the user asked about is real but not a definition. A burst is set at the height that maximises the area covered by the overpressure the planner wants, and for the overpressures used against soft targets that height is comfortably above the fireball. At 335 kt the fireball's maximum radius is about 620 m and the height that maximises the 5 psi area is about 2,100 m. The margin closes as the overpressure rises: the same weapon burst for 20 psi sits about 620 m up, which is one fireball radius, so a strike for very high overpressures is on the edge of scooping up its own crater. Below that, against a hard target, the weapon is burst on the surface deliberately, because cratering and ground shock are what is wanted, and the fallout is accepted. `fireballTouchesGround` and `optimumBurstHeightMetres` in the blast model make the comparison and are covered by tests.
+
+## Overlapping plumes, and the correction of 10 September 2026
+
+A metropolitan attack of ten or more surface bursts a few kilometres apart makes one contaminated area, not ten separate ones, and the dose at a point downwind is the sum of what every plume puts there. Until this date the union kept the **highest** dose any plume gave a sample rather than the total. Within a single plume that is right, because its contours nest and the innermost should win; across plumes it was wrong, and it understated the dose wherever plumes overlapped.
+
+How much it understated, for ten 335 kt surface bursts laid down over one city on the atlas's own sunflower spacing, wind 15 mph:
+
+| Downwind | Plumes covering the point | Worst single | Summed | Ratio |
+| --- | --- | --- | --- | --- |
+| 10 km | 8 | 4,309 rads | 4,519 | 1.0× |
+| 25 km | 9 | 1,167 | 1,814 | 1.6× |
+| 50 km | 8 | 251 | 663 | 2.6× |
+| 100 km | 8 | 63 | 404 | 6.4× |
+| 200 km | 8 | 14 | 112 | 8.0× |
+
+Near the aim points the correction changes nothing, because one plume already delivers a certainly fatal dose and the rest add nothing that matters. It changes the picture entirely in the middle distance, which is where the population is: at 50 km the dose goes from a quarter of the median lethal dose to well past it, and at 100 km from a dose that does nothing to one that causes radiation sickness across a whole region. The far field is where a metropolitan strike does its widest killing, and taking the maximum had hidden it.
+
+The union now keeps each burst's contribution separately and sums them, so a re-add at a later hour raises that burst's own contribution rather than repeating it. `applyGroupDose` in the exposure model does the bookkeeping and the union tests cover both properties: three plumes of 200 rads each kill most of those under them, while one of 200 rads alone kills nobody.

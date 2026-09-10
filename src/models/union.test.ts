@@ -55,7 +55,7 @@ describe('union of detonations', () => {
 
 describe('effects in sequence', () => {
   it('kills by blast, then fire, then fallout among the survivors, never more than the people present', async () => {
-    const { unionAddPlume, unionTotals } = await import('./exposure.ts')
+    const { applyGroupDose, unionAddPlume, unionTotals } = await import('./exposure.ts')
     const g = uniform()
     const bands = [
       { fatal: 0.98, injured: 0.02 },
@@ -72,14 +72,48 @@ describe('effects in sequence', () => {
     expect(before.combinedDead).toBeCloseTo(before.fireDead, 6)
     // A lethal plume over the whole area: everyone alive after blast and fire dies of it, and the combined figure is the people present.
     const ring: [number, number][] = [[0, 0], [10, 0], [10, 10], [0, 10], [0, 0]]
-    unionAddPlume(g, state, { ring, doseMidRads: 2_000 }, origin(g))
+    const one = new Map<number, number>()
+    unionAddPlume(g, state, { ring, doseMidRads: 2_000 }, origin(g), one)
+    applyGroupDose(state, 'a', one)
     const after = unionTotals(state, bands)
     expect(after.underPlume).toBeCloseTo(100 * 100, 3)
     expect(after.falloutDead).toBeCloseTo(100 * 100 - after.fireDead, 3)
     expect(after.combinedDead).toBeCloseTo(100 * 100, 3)
     expect(after.blastDead).toBeCloseTo(before.blastDead, 6)
-    // A milder plume does not lower a sample's dose.
-    unionAddPlume(g, state, { ring, doseMidRads: 100 }, origin(g))
+    // The same burst re-added at a later hour raises its own contribution rather than repeating it.
+    const again = new Map<number, number>()
+    unionAddPlume(g, state, { ring, doseMidRads: 3_000 }, origin(g), again)
+    applyGroupDose(state, 'a', again)
     expect(unionTotals(state, bands).combinedDead).toBeCloseTo(100 * 100, 3)
+  })
+
+  it('adds the dose from separate plumes, which is what ten aim points over one city do', async () => {
+    const { applyGroupDose, unionAddPlume, unionTotals } = await import('./exposure.ts')
+    const g = uniform()
+    const bands = [
+      { fatal: 0.9, injured: 0.1 },
+      { fatal: 0.5, injured: 0.4 },
+      { fatal: 0.05, injured: 0.45 },
+      { fatal: 0, injured: 0.25 },
+    ]
+    const state = createUnion(bands.length, 1)
+    const ring: [number, number][] = [[0, 0], [10, 0], [10, 10], [0, 10], [0, 0]]
+    // Three bursts, each on its own too weak to kill anybody.
+    const doses = [200, 200, 200]
+    doses.forEach((dose, i) => {
+      const c = new Map<number, number>()
+      unionAddPlume(g, state, { ring, doseMidRads: dose }, origin(g), c)
+      applyGroupDose(state, `burst-${i}`, c)
+    })
+    // Six hundred rads between them, which kills most of those who take it.
+    const t = unionTotals(state, bands)
+    expect(t.underPlume).toBeCloseTo(100 * 100, 3)
+    expect(t.falloutDead / t.underPlume).toBeGreaterThan(0.85)
+    // One burst alone at the same dose kills nobody.
+    const alone = createUnion(bands.length, 1)
+    const c = new Map<number, number>()
+    unionAddPlume(g, alone, { ring, doseMidRads: 200 }, origin(g), c)
+    applyGroupDose(alone, 'only', c)
+    expect(unionTotals(alone, bands).falloutDead).toBe(0)
   })
 })

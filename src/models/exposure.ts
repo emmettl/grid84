@@ -209,18 +209,47 @@ export interface UnionState {
   fireTotal: number
   /** People at each sample touched by any effect. */
   people: Map<number, number>
-  /** The highest mid-band dose any plume gives a sample, rads. */
+  /**
+   * Total prompt-decay dose at a sample, rads: the sum over plumes. Dose
+   * from separate bursts adds, which is the whole difference between one
+   * weapon on a city and ten.
+   */
   dose: Map<number, number>
+  /**
+   * What each plume group currently contributes at each sample. Within one
+   * group the contours nest, so the innermost wins; across groups the
+   * contributions add. Kept so a group can be re-added at a later hour, as
+   * its dose accumulates, without being counted twice.
+   */
+  groupDose: Map<string, Map<number, number>>
 }
 
 export function createUnion(bandCount: number, sub: number): UnionState {
-  return { sub, bands: new Map(), fire: new Set(), bandTotals: new Array<number>(bandCount).fill(0), fireTotal: 0, people: new Map(), dose: new Map() }
+  return { sub, bands: new Map(), fire: new Set(), bandTotals: new Array<number>(bandCount).fill(0), fireTotal: 0, people: new Map(), dose: new Map(), groupDose: new Map() }
 }
 
 export interface UnionPlume {
   /** Closed ring of [lon, lat]. */
   ring: LngLat[]
   doseMidRads: number
+}
+
+/** Apply a group's new contribution: the total gains the difference, so a re-add raises rather than repeats. */
+export function applyGroupDose(state: UnionState, group: string, contribution: Map<number, number>): void {
+  const previous = state.groupDose.get(group)
+  if (previous) {
+    for (const [key, was] of previous) {
+      const now = contribution.get(key) ?? 0
+      const total = (state.dose.get(key) ?? 0) - was + now
+      if (total > 0) state.dose.set(key, total)
+      else state.dose.delete(key)
+    }
+  }
+  for (const [key, now] of contribution) {
+    if (previous?.has(key)) continue
+    state.dose.set(key, (state.dose.get(key) ?? 0) + now)
+  }
+  state.groupDose.set(group, contribution)
 }
 
 export interface BandFractions {
@@ -263,8 +292,8 @@ export function unionTotals(state: UnionState, bands: BandFractions[]): UnionTot
   return t
 }
 
-/** Claim the samples inside a plume's contour at its dose, keeping the highest dose per sample. */
-export function unionAddPlume(grid: PopulationGrid, state: UnionState, plume: UnionPlume, origin: GridOrigin): void {
+/** Claim the samples inside a plume's contour at its dose, into `into`, keeping the highest dose per sample within this group. */
+export function unionAddPlume(grid: PopulationGrid, state: UnionState, plume: UnionPlume, origin: GridOrigin, into: Map<number, number>): void {
   const sub = state.sub
   let west = Infinity
   let east = -Infinity
@@ -302,8 +331,8 @@ export function unionAddPlume(grid: PopulationGrid, state: UnionState, plume: Un
           if (!pointInRing(lon, lat, plume.ring)) continue
           const key = cellKey + sy * 4 + sx
           if (!state.people.has(key)) state.people.set(key, count * share)
-          const have = state.dose.get(key)
-          if (have === undefined || plume.doseMidRads > have) state.dose.set(key, plume.doseMidRads)
+          const have = into.get(key)
+          if (have === undefined || plume.doseMidRads > have) into.set(key, plume.doseMidRads)
         }
       }
     }
