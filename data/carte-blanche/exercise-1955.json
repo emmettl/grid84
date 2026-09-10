@@ -1,0 +1,301 @@
+{
+ "year": 1955,
+ "source": "Exercise Carte Blanche, Allied Air Forces Central Europe, 20-28 June 1955; the weapon count and the casualty estimate as reported at the time and in the standard accounts of the German nuclear debate. The exercise's own target list is not published",
+ "documented": {
+  "weapons": 335,
+  "weaponsNote": "The number of nuclear weapons the exercise simulated, most of them on German territory",
+  "sorties": 3000,
+  "dead": 1700000,
+  "injured": 3500000,
+  "casualtyNote": "West German dead and injured from the immediate effects alone, in the exercise's own estimate. Fallout, fire and the destruction of everything that treats casualties were not counted, and nor was East Germany",
+  "dates": "20 to 28 June 1955"
+ },
+ "yields": {
+  "airfieldKt": 20,
+  "areaKt": 40,
+  "note": "Inferred. The exercise's yields are not published; the tactical stockpile of 1955 ran from a few kilotons to a few tens"
+ },
+ "rule": "335 weapons: two on each of the 40 airfields, and the rest on the most populous cells of the 1951 grid inside Germany, largest first. The exercise's own ground zeros are not published",
+ "airfields": [
+  {
+   "id": "af-0",
+   "name": "Wiesbaden",
+   "lon": 8.32,
+   "lat": 49.97,
+   "side": "nato"
+  },
+  {
+   "id": "af-1",
+   "name": "Ramstein",
+   "lon": 7.6,
+   "lat": 49.44,
+   "side": "nato"
+  },
+  {
+   "id": "af-2",
+   "name": "Bitburg",
+   "lon": 6.57,
+   "lat": 49.94,
+   "side": "nato"
+  },
+  {
+   "id": "af-3",
+   "name": "Spangdahlem",
+   "lon": 6.69,
+   "lat": 49.97,
+   "side": "nato"
+  },
+  {
+   "id": "af-4",
+   "name": "Hahn",
+   "lon": 7.27,
+   "lat": 49.95,
+   "side": "nato"
+  },
+  {
+   "id": "af-5",
+   "name": "Sembach",
+   "lon": 7.87,
+   "lat": 49.5,
+   "side": "nato"
+  },
+  {
+   "id": "af-6",
+   "name": "Fürstenfeldbruck",
+   "lon": 11.27,
+   "lat": 48.21,
+   "side": "nato"
+  },
+  {
+   "id": "af-7",
+   "name": "Landsberg",
+   "lon": 10.91,
+   "lat": 48.07,
+   "side": "nato"
+  },
+  {
+   "id": "af-8",
+   "name": "Neubiberg",
+   "lon": 11.63,
+   "lat": 48.08,
+   "side": "nato"
+  },
+  {
+   "id": "af-9",
+   "name": "Erding",
+   "lon": 11.95,
+   "lat": 48.32,
+   "side": "nato"
+  },
+  {
+   "id": "af-10",
+   "name": "Wunstorf",
+   "lon": 9.43,
+   "lat": 52.46,
+   "side": "nato"
+  },
+  {
+   "id": "af-11",
+   "name": "Celle",
+   "lon": 10.02,
+   "lat": 52.59,
+   "side": "nato"
+  },
+  {
+   "id": "af-12",
+   "name": "Gütersloh",
+   "lon": 8.31,
+   "lat": 51.92,
+   "side": "nato"
+  },
+  {
+   "id": "af-13",
+   "name": "Wildenrath",
+   "lon": 6.14,
+   "lat": 51.12,
+   "side": "nato"
+  },
+  {
+   "id": "af-14",
+   "name": "Brüggen",
+   "lon": 6.13,
+   "lat": 51.2,
+   "side": "nato"
+  },
+  {
+   "id": "af-15",
+   "name": "Laarbruch",
+   "lon": 6.14,
+   "lat": 51.75,
+   "side": "nato"
+  },
+  {
+   "id": "af-16",
+   "name": "Geilenkirchen",
+   "lon": 6.04,
+   "lat": 50.96,
+   "side": "nato"
+  },
+  {
+   "id": "af-17",
+   "name": "Jever",
+   "lon": 7.89,
+   "lat": 53.53,
+   "side": "nato"
+  },
+  {
+   "id": "af-18",
+   "name": "Oldenburg",
+   "lon": 8.24,
+   "lat": 53.2,
+   "side": "nato"
+  },
+  {
+   "id": "af-19",
+   "name": "Ahlhorn",
+   "lon": 8.23,
+   "lat": 52.89,
+   "side": "nato"
+  },
+  {
+   "id": "af-20",
+   "name": "Bückeburg",
+   "lon": 9.08,
+   "lat": 52.28,
+   "side": "nato"
+  },
+  {
+   "id": "af-21",
+   "name": "Fulda area forward strips",
+   "lon": 9.68,
+   "lat": 50.56,
+   "side": "nato"
+  },
+  {
+   "id": "af-22",
+   "name": "Frankfurt Rhein-Main",
+   "lon": 8.57,
+   "lat": 50.05,
+   "side": "nato"
+  },
+  {
+   "id": "af-23",
+   "name": "Herzogenaurach",
+   "lon": 10.94,
+   "lat": 49.5,
+   "side": "nato"
+  },
+  {
+   "id": "af-24",
+   "name": "Regensburg area",
+   "lon": 12.11,
+   "lat": 49.05,
+   "side": "nato"
+  },
+  {
+   "id": "af-25",
+   "name": "Werneuchen",
+   "lon": 13.74,
+   "lat": 52.63,
+   "side": "pact"
+  },
+  {
+   "id": "af-26",
+   "name": "Finow",
+   "lon": 13.68,
+   "lat": 52.83,
+   "side": "pact"
+  },
+  {
+   "id": "af-27",
+   "name": "Sperenberg",
+   "lon": 13.37,
+   "lat": 52.15,
+   "side": "pact"
+  },
+  {
+   "id": "af-28",
+   "name": "Cottbus",
+   "lon": 14.36,
+   "lat": 51.89,
+   "side": "pact"
+  },
+  {
+   "id": "af-29",
+   "name": "Grossenhain",
+   "lon": 13.55,
+   "lat": 51.29,
+   "side": "pact"
+  },
+  {
+   "id": "af-30",
+   "name": "Merseburg",
+   "lon": 12.06,
+   "lat": 51.36,
+   "side": "pact"
+  },
+  {
+   "id": "af-31",
+   "name": "Zerbst",
+   "lon": 12.15,
+   "lat": 51.97,
+   "side": "pact"
+  },
+  {
+   "id": "af-32",
+   "name": "Altes Lager",
+   "lon": 13.16,
+   "lat": 51.95,
+   "side": "pact"
+  },
+  {
+   "id": "af-33",
+   "name": "Wittstock",
+   "lon": 12.44,
+   "lat": 53.16,
+   "side": "pact"
+  },
+  {
+   "id": "af-34",
+   "name": "Parchim",
+   "lon": 11.78,
+   "lat": 53.43,
+   "side": "pact"
+  },
+  {
+   "id": "af-35",
+   "name": "Laage",
+   "lon": 12.28,
+   "lat": 53.92,
+   "side": "pact"
+  },
+  {
+   "id": "af-36",
+   "name": "Peenemünde",
+   "lon": 13.77,
+   "lat": 54.16,
+   "side": "pact"
+  },
+  {
+   "id": "af-37",
+   "name": "Stendal",
+   "lon": 11.44,
+   "lat": 52.1,
+   "side": "pact"
+  },
+  {
+   "id": "af-38",
+   "name": "Oschersleben",
+   "lon": 10.72,
+   "lat": 52.14,
+   "side": "pact"
+  },
+  {
+   "id": "af-39",
+   "name": "Frankfurt an der Oder",
+   "lon": 14.53,
+   "lat": 52.34,
+   "side": "pact"
+  }
+ ]
+}
