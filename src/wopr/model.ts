@@ -385,7 +385,8 @@ export function perturb(plan: Plan, rng: () => number, opts: SearchOptions = {})
       next.bomberAlert = clamp(next.bomberAlert + (rng() - 0.5) * 0.3, PLAN_BOUNDS.bomberAlert)
       break
     case 3:
-      next.usOption = clamp(next.usOption + (rng() - 0.5) * 0.3, option)
+      // With execution optional, a nudge may be to nothing at all.
+      next.usOption = opts.allowIdle && rng() < 0.3 ? 0 : clamp(next.usOption + (rng() - 0.5) * 0.3, option)
       break
     case 4:
       next.usRule = pick(RULES)

@@ -16,7 +16,7 @@ import { buildTable, clearTable, type TableProgress } from './table.ts'
 const SEEDS_FAST = 3
 const SEEDS_REPORT = 16
 const EVALS_PER_FRAME = 10
-const RESTART_EVERY = 600
+const RESTART_EVERY = 300
 /** General Turgidson's bound, Dr. Strangelove (1964): "no more than ten to twenty million killed, tops... depending on the breaks." The stated acceptable own-side loss, printed beside what the search finds. */
 const TURGIDSON_TOPS = 20_000_000
 
