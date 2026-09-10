@@ -196,7 +196,9 @@ body,
 
 .hud-results strong {
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .hud-results em {
@@ -268,18 +270,6 @@ body,
   overflow-wrap: anywhere;
 }
 
-.hud-prompt {
-  margin: 0.8rem 0 0;
-  padding-top: 0.6rem;
-  border-top: 1px solid rgba(141, 250, 255, 0.25);
-  color: var(--green);
-}
-
-.hud-prompt span {
-  display: block;
-  color: var(--muted);
-}
-
 .hud-sources {
   grid-column: 1 / -1;
   align-self: end;
@@ -311,7 +301,10 @@ body,
   .hud-sources {
     grid-row: 4;
     max-width: 100%;
-    padding-bottom: 1.6rem;
+    /* The map's own attribution wraps to two lines on a phone and sits under
+       this block; 1.6rem was written for the one line it takes on a wide
+       screen, and the two overlapped. */
+    padding-bottom: 4.2rem;
   }
 }
 

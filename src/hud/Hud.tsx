@@ -185,9 +185,6 @@ function Readout({ phase }: { phase: AtlasPhase }) {
           </>
         )}
       </dl>
-      <p className="hud-prompt">
-        Commence navigation? <span>Routing offline · stage 1</span>
-      </p>
     </>
   )
 }
