@@ -1,0 +1,149 @@
+{
+ "year": 1980,
+ "source": "The atomic demolition munitions of NATO: the W54 SADM (0.01 to 1 kt) and the W45 MADM (1 to 15 kt), deployed in Europe from the early 1960s and withdrawn by 1989; the barrier plans themselves are not published",
+ "bluePeacock": "Blue Peacock, the British ten-kiloton buried mine for the North German Plain, two prototypes built and the project cancelled in July 1958; the file was released to the National Archives in 2004 and the chicken heating proposal in it was confirmed by the Atomic Weapons Establishment to be genuine",
+ "note": "Every weapon here stands on NATO ground. The barrier had to be emplaced before the war, by engineers who expected to be overrun, and fired on a political release that would arrive, if it arrived, while the ground above it was being fought over.",
+ "rule": "The emplacement sites are not published; these are the defiles an armoured advance has to use, chosen by hand from the map",
+ "wind": {
+  "fromDeg": 250,
+  "mph": 16,
+  "note": "A south-westerly of sixteen miles an hour, the prevailing wind over Germany, assumed. The plumes therefore run north-east, over the country being defended and then over the country being invaded"
+ },
+ "sites": [
+  {
+   "id": "adm-0",
+   "name": "Fulda Gap · the Kinzig defile",
+   "lon": 9.68,
+   "lat": 50.55,
+   "system": "MADM",
+   "yieldKt": 10,
+   "purpose": "The corridor from Thuringia to Frankfurt, the shortest road to the Rhine"
+  },
+  {
+   "id": "adm-1",
+   "name": "Fulda Gap · Rasdorf ridge",
+   "lon": 9.89,
+   "lat": 50.72,
+   "system": "MADM",
+   "yieldKt": 10,
+   "purpose": "The northern shoulder of the gap"
+  },
+  {
+   "id": "adm-2",
+   "name": "Fulda Gap · Bad Hersfeld road junction",
+   "lon": 9.71,
+   "lat": 50.87,
+   "system": "SADM",
+   "yieldKt": 1,
+   "purpose": "The junction the advance has to pass"
+  },
+  {
+   "id": "adm-3",
+   "name": "Hof Corridor · Bavarian gate",
+   "lon": 11.92,
+   "lat": 50.31,
+   "system": "MADM",
+   "yieldKt": 10,
+   "purpose": "The southern route into Bavaria"
+  },
+  {
+   "id": "adm-4",
+   "name": "Hof Corridor · Naila defile",
+   "lon": 11.7,
+   "lat": 50.33,
+   "system": "SADM",
+   "yieldKt": 1,
+   "purpose": ""
+  },
+  {
+   "id": "adm-5",
+   "name": "North German Plain · Weser crossing at Hameln",
+   "lon": 9.36,
+   "lat": 52.1,
+   "system": "MADM",
+   "yieldKt": 10,
+   "purpose": "The plain is where armour moves fastest and the rivers are the only obstacles"
+  },
+  {
+   "id": "adm-6",
+   "name": "North German Plain · Weser crossing at Nienburg",
+   "lon": 9.21,
+   "lat": 52.64,
+   "system": "MADM",
+   "yieldKt": 10,
+   "purpose": ""
+  },
+  {
+   "id": "adm-7",
+   "name": "North German Plain · Aller crossing at Celle",
+   "lon": 10.08,
+   "lat": 52.62,
+   "system": "SADM",
+   "yieldKt": 1,
+   "purpose": ""
+  },
+  {
+   "id": "adm-8",
+   "name": "North German Plain · Elbe-Seiten canal",
+   "lon": 10.6,
+   "lat": 52.9,
+   "system": "SADM",
+   "yieldKt": 1,
+   "purpose": "A canal makes a tank ditch if the banks are dropped"
+  },
+  {
+   "id": "adm-9",
+   "name": "Harz · Bad Harzburg pass",
+   "lon": 10.56,
+   "lat": 51.88,
+   "system": "SADM",
+   "yieldKt": 1,
+   "purpose": ""
+  },
+  {
+   "id": "adm-10",
+   "name": "Thuringian forest · Meiningen approach",
+   "lon": 10.42,
+   "lat": 50.57,
+   "system": "SADM",
+   "yieldKt": 1,
+   "purpose": ""
+  },
+  {
+   "id": "adm-11",
+   "name": "Danube · Regensburg crossing",
+   "lon": 12.1,
+   "lat": 49.02,
+   "system": "MADM",
+   "yieldKt": 10,
+   "purpose": "The southern axis, and the road to Austria"
+  },
+  {
+   "id": "adm-12",
+   "name": "Gorizia gap · Isonzo crossing",
+   "lon": 13.62,
+   "lat": 45.94,
+   "system": "MADM",
+   "yieldKt": 10,
+   "purpose": "The Italian corner: the route from Slovenia onto the Friulian plain"
+  },
+  {
+   "id": "adm-13",
+   "name": "Gorizia gap · Tarvisio pass",
+   "lon": 13.58,
+   "lat": 46.5,
+   "system": "SADM",
+   "yieldKt": 1,
+   "purpose": "The Alpine pass into Carinthia"
+  },
+  {
+   "id": "adm-14",
+   "name": "Ljubljana gap · Postojna defile",
+   "lon": 14.2,
+   "lat": 45.77,
+   "system": "MADM",
+   "yieldKt": 10,
+   "purpose": ""
+  }
+ ]
+}
