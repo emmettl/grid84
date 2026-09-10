@@ -62,6 +62,8 @@ export interface FirstArrival {
   yieldKt: number
   weapons: number
   kinds: Set<SystemKind>
+  /** Ids of the tracks whose weapons arrive here. */
+  tracks: string[]
 }
 
 export interface StrikeSummary {
@@ -155,14 +157,15 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
   let delivered = 0
   let lostReliability = 0
   let lostPenetration = 0
-  const arrive = (targetId: string, time: number, yieldKt: number, kind: SystemKind) => {
+  const arrive = (targetId: string, time: number, yieldKt: number, kind: SystemKind, trackId: string) => {
     const fa = firstArrival[targetId]
-    if (!fa) firstArrival[targetId] = { time, yieldKt, weapons: 1, kinds: new Set([kind]) }
+    if (!fa) firstArrival[targetId] = { time, yieldKt, weapons: 1, kinds: new Set([kind]), tracks: [trackId] }
     else {
       fa.time = Math.min(fa.time, time)
       fa.yieldKt = Math.max(fa.yieldKt, yieldKt)
       fa.weapons += 1
       fa.kinds.add(kind)
+      if (!fa.tracks.includes(trackId)) fa.tracks.push(trackId)
     }
   }
   const provenance = { ...o.vehicle.provenance, method: `${o.vehicle.provenance.method ? `${o.vehicle.provenance.method}. ` : ''}Assignment: ${o.allocationRule.method ?? o.allocationRule.source}` }
@@ -222,7 +225,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       for (const a of arrivals) {
         if (f.delivered || a.time <= endTime) {
           delivered += 1
-          arrive(a.sortie.targetId, a.time, a.sortie.yieldKt, l.kind)
+          arrive(a.sortie.targetId, a.time, a.sortie.yieldKt, l.kind, id)
         } else if (f.cause === 'reliability') lostReliability += 1
         else lostPenetration += 1
       }
@@ -242,7 +245,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
     if (v.sorties.length === 1) {
       entities.push(track(id, `${l.name} → ${seed.name}`, `${l.kind.toUpperCase()} · ${fmtYield(v.sorties[0].yieldKt)}`, boost, 'ballistic', o.route.ballistic))
       delivered += 1
-      arrive(seed.id, seedArrival, v.sorties[0].yieldKt, l.kind)
+      arrive(seed.id, seedArrival, v.sorties[0].yieldKt, l.kind, id)
       continue
     }
     const splitTime = launch + (seedArrival - launch) * splitFraction
@@ -268,7 +271,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       waypoints.unshift({ position: start, time: splitTime, altitude: boostTrack.altitudeAt(splitTime) })
       entities.push(track(`${id}-rv${k + 1}`, `${l.name} → ${t.name}`, `RV ${k + 1} OF ${v.sorties.length} · ${fmtYield(s.yieldKt)}`, waypoints, 'ballistic', o.route.ballistic))
       delivered += 1
-      arrive(t.id, ownTrack.end, s.yieldKt, l.kind)
+      arrive(t.id, ownTrack.end, s.yieldKt, l.kind, `${id}-rv${k + 1}`)
     })
   }
   for (const [targetId, fa] of Object.entries(firstArrival)) {
@@ -288,6 +291,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       effects: promptEffects(fa.yieldKt),
       burst: burst.burst,
       fallout: burst.fallout,
+      deliveredBy: fa.tracks,
       evidence: 'modelled',
       provenance: { source: BLAST_MODEL },
       facts: [

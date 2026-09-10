@@ -34,6 +34,7 @@ interface Variant {
   point: Program
   flash: Program
   lineVao: WebGLVertexArrayObject
+  highlightVao: WebGLVertexArrayObject
   headVao: WebGLVertexArrayObject
   pointVao: WebGLVertexArrayObject
   flashVao: WebGLVertexArrayObject
@@ -285,6 +286,8 @@ export class TrackLayer implements CustomLayerInterface {
   private variants = new Map<string, Variant>()
   private staticBuffer: WebGLBuffer | null = null
   private indexBuffer: WebGLBuffer | null = null
+  private highlightBuffer: WebGLBuffer | null = null
+  private highlight = new Set<string>()
   private headBuffer: WebGLBuffer | null = null
   private pointBuffer: WebGLBuffer | null = null
   private scene: TrackScene | null = null
@@ -292,6 +295,16 @@ export class TrackLayer implements CustomLayerInterface {
   private flashes: Flash[] = []
   /** Trail fading in study seconds: hold, then fade over a span to a floor of the line's alpha. */
   private fade = { enabled: false, holdSeconds: 5 * 60, spanSeconds: 25 * 60, floor: 0 }
+
+  /** Tracks drawn again without the fade: the selected vehicle, or the vehicles that delivered a selected detonation. */
+  setHighlight(ids: Iterable<string>): void {
+    this.highlight = new Set(ids)
+    if (this.scene && this.frame) {
+      buildFrame(this.scene, this.time, this.frame, this.highlight)
+      this.frameDirty = true
+    }
+    this.map?.triggerRepaint()
+  }
 
   setFade(fade: Partial<typeof this.fade>): void {
     this.fade = { ...this.fade, ...fade }
@@ -323,7 +336,7 @@ export class TrackLayer implements CustomLayerInterface {
   setTime(time: number): void {
     this.time = time
     if (this.scene && this.frame) {
-      buildFrame(this.scene, time, this.frame)
+      buildFrame(this.scene, time, this.frame, this.highlight)
       this.frameDirty = true
     }
     this.map?.triggerRepaint()
@@ -334,6 +347,7 @@ export class TrackLayer implements CustomLayerInterface {
     this.gl = gl
     this.staticBuffer = gl.createBuffer()
     this.indexBuffer = gl.createBuffer()
+    this.highlightBuffer = gl.createBuffer()
     this.headBuffer = gl.createBuffer()
     this.pointBuffer = gl.createBuffer()
     this.flashBuffer = gl.createBuffer()
@@ -344,8 +358,8 @@ export class TrackLayer implements CustomLayerInterface {
   onRemove(_map: MapLibreMap, gl: WebGL2RenderingContext): void {
     this.variants.forEach((v) => this.deleteVariant(v))
     this.variants.clear()
-    for (const b of [this.staticBuffer, this.indexBuffer, this.headBuffer, this.pointBuffer, this.flashBuffer]) if (b) gl.deleteBuffer(b)
-    this.staticBuffer = this.indexBuffer = this.headBuffer = this.pointBuffer = this.flashBuffer = null
+    for (const b of [this.staticBuffer, this.indexBuffer, this.highlightBuffer, this.headBuffer, this.pointBuffer, this.flashBuffer]) if (b) gl.deleteBuffer(b)
+    this.staticBuffer = this.indexBuffer = this.highlightBuffer = this.headBuffer = this.pointBuffer = this.flashBuffer = null
     this.map = null
     this.gl = null
   }
@@ -441,6 +455,7 @@ export class TrackLayer implements CustomLayerInterface {
       point,
       flash,
       lineVao: this.lineVao(gl, line.program, this.staticBuffer!, this.indexBuffer),
+      highlightVao: this.lineVao(gl, line.program, this.staticBuffer!, this.highlightBuffer),
       headVao: this.lineVao(gl, line.program, this.headBuffer!, null),
       pointVao: this.pointVao(gl, point.program, this.pointBuffer!),
       flashVao: this.flashVao(gl, flash.program, this.flashBuffer!),
@@ -547,8 +562,12 @@ export class TrackLayer implements CustomLayerInterface {
       this.sceneDirty = false
     }
     if (this.frameDirty) {
+      // No vertex array may be bound while the element buffers are uploaded, or its element binding would follow the upload.
+      gl.bindVertexArray(null)
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer)
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, frame.indices.subarray(0, frame.indexCount), gl.DYNAMIC_DRAW)
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.highlightBuffer)
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, frame.highlight.subarray(0, frame.highlightCount), gl.DYNAMIC_DRAW)
       gl.bindBuffer(gl.ARRAY_BUFFER, this.headBuffer)
       gl.bufferData(gl.ARRAY_BUFFER, frame.heads.subarray(0, frame.headVertexCount * LINE_STRIDE), gl.DYNAMIC_DRAW)
       gl.bindBuffer(gl.ARRAY_BUFFER, this.pointBuffer)
@@ -599,6 +618,25 @@ export class TrackLayer implements CustomLayerInterface {
         draw()
         gl.uniform2f(p.uniforms.u_dir, 0, 1)
         draw()
+      }
+      // The selected tracks again, with the fade off, so a chosen detonation's route reads at its full colour.
+      if (frame.highlightCount > 0) {
+        gl.uniform4f(p.uniforms.u_fade, 0, 0, 1, 0)
+        const lit = () => {
+          gl.bindVertexArray(v.highlightVao)
+          gl.drawElements(gl.LINES, frame.highlightCount, gl.UNSIGNED_INT, 0)
+        }
+        gl.uniform2f(p.uniforms.u_dir, 0, 0)
+        gl.uniform1f(p.uniforms.u_frac, 0)
+        lit()
+        for (let k = 1; k <= passes; k += 1) {
+          const frac = k / passes
+          gl.uniform1f(p.uniforms.u_frac, frac)
+          gl.uniform2f(p.uniforms.u_dir, 1, 0)
+          lit()
+          gl.uniform2f(p.uniforms.u_dir, 0, 1)
+          lit()
+        }
       }
     }
 

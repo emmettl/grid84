@@ -206,6 +206,7 @@ function missile(m: Missile): { entities: Entity[]; arrival: number; track: Trac
       effects: promptEffects(m.yieldKt),
       burst: m.surface ? 'surface' : 'air',
       fallout: m.surface,
+      deliveredBy: [m.id],
       evidence: 'modelled',
       provenance: { source: BLAST_MODEL },
       facts: m.targetFacts ?? [],

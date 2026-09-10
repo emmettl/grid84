@@ -70,6 +70,8 @@ export interface EffectEntity extends Evidenced {
   burst?: 'air' | 'surface'
   /** Plume assumptions, used when the burst is on the surface. */
   fallout?: FalloutAssumption
+  /** Ids of the track entities whose weapons arrive here; selecting the detonation lights them. */
+  deliveredBy?: string[]
   facts: Array<Evidenced & { label: string; value: string }>
 }
 

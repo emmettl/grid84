@@ -1975,3 +1975,32 @@ body,
   stroke: rgba(232, 251, 255, 0.35);
   stroke-width: 1;
 }
+
+/* A detonation's vehicles, listed on its panel; each selects the track. */
+.delivered {
+  margin: 0.4rem 0;
+}
+
+.delivered ul {
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.delivered button {
+  padding: 0.2rem 0;
+  border: 0;
+  background: none;
+  color: var(--cyan);
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.delivered button:hover,
+.delivered button:focus-visible {
+  color: var(--ink);
+  outline: none;
+}

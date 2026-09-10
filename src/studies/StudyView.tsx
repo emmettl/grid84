@@ -324,7 +324,11 @@ export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions })
   useEffect(() => {
     selectedRef.current = selectedId
     primed.current = false
-  }, [selectedId])
+    // The selected vehicle, or the vehicles that delivered the selected detonation, come back out of the fade.
+    const e = study.entities.find((x) => x.id === selectedId)
+    const lit = e?.kind === 'track' ? [e.id] : e?.kind === 'effect' ? (e.deliveredBy ?? []) : []
+    trackLayer.current?.setHighlight(lit)
+  }, [selectedId, study])
   const [ready, setReady] = useState(false)
 
   const statics = useMemo(() => staticFeatures(study), [study])
@@ -792,6 +796,24 @@ export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions })
                   Route <Badge evidence={selected.route.evidence} /> {formatProvenance(selected.route.provenance)}
                   {selected.route.provenance.method && <> · {selected.route.provenance.method}</>}
                 </p>
+              )}
+              {selected.kind === 'effect' && selected.deliveredBy && selected.deliveredBy.length > 0 && (
+                <div className="delivered">
+                  <span className="clock-label">Delivered by</span>
+                  <ul>
+                    {selected.deliveredBy.map((id) => {
+                      const t = study.entities.find((x) => x.id === id)
+                      if (!t || t.kind !== 'track') return null
+                      return (
+                        <li key={id}>
+                          <button type="button" onClick={() => setSelectedId(id)}>
+                            {t.name} · {t.designation}
+                          </button>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
               )}
               {selected.kind === 'effect' && burst === 'surface' && (
                 <p className="provenance-method">Surface burst: overpressure radii by {SURFACE_BLAST_MODEL}. {selected.fallout?.provenance.method}</p>

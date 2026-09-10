@@ -61,6 +61,9 @@ export interface TrackScene {
 export interface TrackFrame {
   indices: Uint32Array
   indexCount: number
+  /** Flown segments of the highlighted tracks, drawn again without the fade. */
+  highlight: Uint32Array
+  highlightCount: number
   heads: Float32Array
   headVertexCount: number
   points: Float32Array
@@ -137,6 +140,8 @@ export function allocateFrame(scene: TrackScene): TrackFrame {
   return {
     indices: new Uint32Array(scene.segmentCapacity * 2),
     indexCount: 0,
+    highlight: new Uint32Array(scene.segmentCapacity * 2),
+    highlightCount: 0,
     heads: new Float32Array(scene.tracks.length * 2 * LINE_STRIDE),
     headVertexCount: 0,
     points: new Float32Array(scene.tracks.length * POINT_STRIDE),
@@ -172,18 +177,25 @@ function writeLineVertex(out: Float32Array, o: number, x: number, y: number, alt
 }
 
 /** Fill `frame` for study time `time`. Buffers are reused; only the counts change. */
-export function buildFrame(scene: TrackScene, time: number, frame: TrackFrame): TrackFrame {
+export function buildFrame(scene: TrackScene, time: number, frame: TrackFrame, highlight?: Set<string>): TrackFrame {
   let ic = 0
   let hv = 0
   let pc = 0
+  let hc = 0
   const { indices, heads, points } = frame
   for (const t of scene.tracks) {
     const progressive = t.spec.reveal === 'progressive'
     const k = progressive ? reached(t.times, time) : t.count
+    const lit = highlight?.has(t.spec.id) ?? false
     for (let i = 0; i + 1 < k; i += 1) {
       indices[ic] = t.first + i
       indices[ic + 1] = t.first + i + 1
       ic += 2
+      if (lit) {
+        frame.highlight[hc] = t.first + i
+        frame.highlight[hc + 1] = t.first + i + 1
+        hc += 2
+      }
     }
     const p = t.spec.track.positionAt(time)
     if (!p) continue
@@ -214,6 +226,7 @@ export function buildFrame(scene: TrackScene, time: number, frame: TrackFrame): 
     pc += 1
   }
   frame.indexCount = ic
+  frame.highlightCount = hc
   frame.headVertexCount = hv
   frame.pointCount = pc
   return frame
