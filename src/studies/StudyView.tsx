@@ -14,7 +14,7 @@ import { acuteMortality, plume } from '../models/fallout.ts'
 import { ExposureService } from '../models/exposure-service.ts'
 import type { UnionDetonation, UnionTotals } from '../models/exposure.ts'
 import { EvidenceLegend } from './EvidenceLegend.tsx'
-import { launchedFrom, missileOf } from './missile.ts'
+import { busIdOf, launchedFrom, missileOf } from './missile.ts'
 import type { Entity, LabelAnchor, Study } from './study.ts'
 
 const RATES = [1, 10, 60, 600, 3_600]
@@ -373,6 +373,15 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   const [ready, setReady] = useState(false)
 
   const statics = useMemo(() => staticFeatures(study), [study])
+  // Buses and carrier aircraft: the tracks that release other tracks; their ends are the separation and release points.
+  const buses = useMemo(() => {
+    const parents = new Set(study.entities.filter((e) => e.kind === 'track' && busIdOf(e.id) !== e.id).map((e) => busIdOf(e.id)))
+    return study.entities.filter((e): e is Extract<Entity, { kind: 'track' }> => e.kind === 'track' && parents.has(e.id)).map((e) => {
+      const child = study.entities.find((c): c is Extract<Entity, { kind: 'track' }> => c.kind === 'track' && busIdOf(c.id) === e.id && c.id !== e.id)
+      const at = child ? child.track.waypoints[0] : e.track.waypoints[e.track.waypoints.length - 1]
+      return { id: e.id, time: at.time, position: at.position, kind: child && /-cm\d+$/.test(child.id) ? 'release' : 'separation' }
+    })
+  }, [study])
   // The WebGL layer draws large studies and any study whose tracks leave the surface, which GeoJSON cannot.
   const glTracks = useMemo(() => study.entities.filter((e) => e.kind === 'track').length > GL_TRACK_THRESHOLD || study.entities.some((e) => e.kind === 'track' && e.track.elevated), [study])
   const selected = study.entities.find((e) => e.id === selectedId) ?? null
@@ -405,6 +414,9 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
       }
       // The focus of a selection: the other targets of the same missile or launch point, ringed, and the bus separation point.
       map.addSource('ev-focus', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+      // Separation and release points on the trails, small and permanent once passed.
+      map.addSource('ev-separations', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+      map.addLayer({ id: 'ev-separations', type: 'circle', source: 'ev-separations', paint: { 'circle-radius': 2.4, 'circle-color': 'rgba(232, 251, 255, 0.95)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.55)', 'circle-stroke-width': 1.5 } })
       map.addLayer({ id: 'ev-focus-targets', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'target'], paint: { 'circle-radius': 9, 'circle-color': 'rgba(0, 0, 0, 0)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.55)', 'circle-stroke-width': 1 } })
       map.addLayer({ id: 'ev-focus-separation', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'separation'], paint: { 'circle-radius': 4, 'circle-color': 'rgba(141, 250, 255, 0.9)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.4)', 'circle-stroke-width': 4 } })
       setSourceData(map, SOURCES.sites, statics.sites)
@@ -480,6 +492,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     let lastUnion = 0
     let flashesKey = ''
     let appearedKey = ''
+    let separationsKey = ''
     let appearedRings: EvidenceFeature[] = []
     let ringsKey = ''
     const perf = { ticks: 0, updateMs: 0, maxUpdateMs: 0, renderer: glTracks ? 'webgl' : 'geojson' }
@@ -545,6 +558,15 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           flashesKey = nextFlashesKey
           lastFlashes = now
           setSourceData(map, SOURCES.flashes, timed.flashes)
+        }
+        // Separation and release points appear on the trails as the clock passes them.
+        if (buses.length > 0) {
+          const due = buses.filter((b) => next.time >= b.time)
+          const key = String(due.length)
+          if (key !== separationsKey) {
+            separationsKey = key
+            setSourceData(map, 'ev-separations', due.map((b) => ({ type: 'Feature' as const, geometry: { type: 'Point' as const, coordinates: [b.position[0], b.position[1]] }, properties: { evidence: 'modelled' as const, id: `${b.id}-${b.kind}`, kind: b.kind } })))
+          }
         }
         // Sites that come into existence during the study: the source and the label follow the clock, and a flash marks the moment.
         const appearing = study.entities.filter((e): e is Extract<Entity, { kind: 'site' }> => e.kind === 'site' && e.appearsAt !== undefined)
@@ -680,7 +702,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     }
     frame = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(frame)
-  }, [ready, study, statics, glTracks])
+  }, [ready, study, statics, glTracks, buses])
 
   const setClockState = (patch: Partial<ClockState>) => {
     clockRef.current = { ...clockRef.current, ...patch }
