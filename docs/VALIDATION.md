@@ -267,6 +267,40 @@ to 6 cal/cm² at nine to ten miles for a megatonne, which is the same place.
 The check is in `blast.test.ts`, with the table as data, so the fit cannot
 drift away from the source it was fitted to.
 
+## The prompt radiation radius, and the hole
+
+Two more numbers checked against the 1977 edition rather than against a fit
+of it.
+
+**The initial radiation.** §8.32 has the dose falling as the inverse square
+of the distance and then again by absorption in the air, which over the
+range that matters is what a fixed distance per factor of ten amounts to.
+The doses themselves are curves in Figure 8.33, not a table, but §8.34
+works one case in the text: a 50 kt fission air burst gives "somewhat less
+than 300 rads" at 2,000 yards, which the book interpolates at about 250.
+This model puts 250 rads at 1,922 yards, four per cent inside the book's
+own figure. The book's curves carry a stated reliability factor of one half
+to two, so four per cent is well inside the source's own uncertainty.
+
+**The crater**, which was not modelled at all until now. §6.09 gives a
+one-kilotonne surface burst on dry soil an apparent radius of 60 feet and a
+depth of 30, every dimension scaling as the yield to the power 0.3, and
+works its own example: a hundred kilotonnes gives 240 feet and 120 feet.
+§6.71 puts the lip crest at 1.25 times the radius, and §6.09 separately
+says the crest stands 15 feet beyond a 60-foot crater — the same lip, stated
+twice, and the model reproduces both from one constant. §6.74 puts
+continuous ejecta at 2.15 times the radius.
+
+For the 335 kt surface burst the strike console fires most often, that is a
+hole 108 metres across and 54 deep, ejecta to 232 metres, and about three
+million tonnes of soil lifted. Which is the point of computing it: that
+soil is what the fission products condense onto, and the plume the fallout
+model draws is this material coming down again. The console now says so on
+every surface burst.
+
+Water-saturated soil gives a wider and shallower crater and hard rock a
+smaller one. The book gives neither a number, so neither is given one here.
+
 ## Reading the ground: land use in target identification
 
 The classifier's inputs were the geocoder's tag and the population density.

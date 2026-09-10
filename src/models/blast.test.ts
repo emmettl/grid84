@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { fireballTouchesGround, optimumBurstHeightMetres, brodeFreeAirBars, brodeScaledDistance, fireballRadiusMetres, kinneyGrahamScaledDistance, overpressureRadiusMetres, surfaceOverpressureRadiusMetres, promptEffects, radiationRadiusMetres, thirdDegreeBurnRadiusMetres } from './blast.ts'
+import { brodeFreeAirBars, brodeScaledDistance, fireballRadiusMetres, fireballTouchesGround, kinneyGrahamScaledDistance, optimumBurstHeightMetres, overpressureRadiusMetres, promptEffects, radiationRadiusMetres, surfaceOverpressureRadiusMetres, tenthRangeMetres, thirdDegreeBurnRadiusMetres } from './blast.ts'
 
 describe('overpressure', () => {
   it('reproduces the FAQ constants at 1 kt', () => {
@@ -133,5 +133,25 @@ describe('the thermal radius against the book itself', () => {
     expect(book).toBeLessThan(0.46)
     const ours = Math.log10(thirdDegreeBurnRadiusMetres(10_000) / thirdDegreeBurnRadiusMetres(1)) / 4
     expect(Math.abs(ours - book)).toBeLessThan(0.05)
+  })
+})
+
+describe('the initial radiation against the book', () => {
+  it('puts the worked case of §8.34 where the book puts it', () => {
+    // "the absorbed dose received at a distance of 2,000 yards from a
+    // 50-kiloton low air burst of a fission weapon... somewhat less than 300
+    // rads. A reasonable interpolated value would appear to be about 250 rads."
+    const YARD = 0.9144
+    const ours = radiationRadiusMetres(50, 250) / YARD
+    expect(Math.abs(ours - 2_000) / 2_000).toBeLessThan(0.08)
+    // And the dose at the book's own distance is inside the band it gives.
+    const atTwoThousand = 250 * 10 ** ((radiationRadiusMetres(50, 250) - 2_000 * YARD) / tenthRangeMetres(50))
+    expect(atTwoThousand).toBeGreaterThan(150)
+    expect(atTwoThousand).toBeLessThan(300)
+  })
+
+  it('falls tenfold over a tenth range, which lengthens with yield', () => {
+    expect(radiationRadiusMetres(100, 100) - radiationRadiusMetres(100, 1_000)).toBeCloseTo(tenthRangeMetres(100), 6)
+    expect(tenthRangeMetres(10_000)).toBeGreaterThan(tenthRangeMetres(1))
   })
 })

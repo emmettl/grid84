@@ -87,7 +87,26 @@ export function thirdDegreeBurnRadiusMetres(yieldKt: number): number {
   return 0.67 * yieldKt ** 0.41 * 1_000
 }
 
-/** Initial nuclear radiation. 1000 rad radius is 0.70 · Y^0.19 km; dose falls tenfold per "tenth range". */
+/**
+ * Initial nuclear radiation. The 1,000 rad radius is 0.70 · Y^0.19 km and
+ * the dose falls tenfold for each "tenth range" beyond it.
+ *
+ * The form is the FAQ's and the numbers behind it are the book's. Glasstone
+ * & Dolan 1977 §8.32 has the dose falling as the inverse square of the
+ * distance and then again by absorption in the air, which is what a fixed
+ * distance per factor of ten amounts to over the range that matters; the
+ * doses themselves are drawn as curves in Figure 8.33a and b rather than
+ * tabulated. §8.34 works one case in the text, and it is the anchor this is
+ * checked against: a 50 kt fission air burst gives "somewhat less than 300
+ * rads" at 2,000 yards, interpolated in the book as about 250. This model
+ * puts 250 rads at 1,922 yards, four per cent inside it. The comparison is
+ * in blast.test.ts.
+ *
+ * The book's curves are for a fission weapon at nine tenths of sea-level
+ * density and carry a stated reliability factor of one half to two; a
+ * thermonuclear weapon of the same yield gives less, because less of its
+ * energy is fission. None of that is modelled here.
+ */
 export function radiationRadiusMetres(yieldKt: number, rad: number): number {
   const r1000 = 0.7 * yieldKt ** 0.19 * 1_000
   const tenth = tenthRangeMetres(yieldKt)

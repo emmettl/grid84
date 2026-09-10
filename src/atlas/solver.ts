@@ -1,6 +1,7 @@
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { boostedTrajectory, boostProfileFor, type BoostProfile } from '../models/ballistic.ts'
 import { airReachMetres, boostWindow, SPACE_LAYERS, spaceChance } from '../models/boost-intercept.ts'
+import { crater } from '../models/crater.ts'
 import { describeLandUse, type LandUse } from './landuse.ts'
 import { radiusForPsi } from '../models/casualties.ts'
 import { lethalRadiusMetres, singleShotKill } from '../models/lethality.ts'
@@ -412,6 +413,12 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   if (salvos.length > 1) {
     const arrival = Math.max(...salvos.map((x) => x.option.flightSeconds))
     lines.push(`SALVOS · ${salvos.map((x) => `${x.option.site.name.split(' · ')[0].toUpperCase()} ${x.missiles} ${delivery.route === 'cruise' ? 'AIRCRAFT' : `MISSILE${x.missiles > 1 ? 'S' : ''}`} (${x.warheads})`).join(' · ')} · LAUNCHES HELD ${salvos.map((x) => `${x.launchDelaySeconds} S`).join(' / ')} SO EVERY WARHEAD ARRIVES AT H+${Math.round(arrival / 60)} MIN`)
+  }
+  if (sizing.burst === 'surface') {
+    const hole = crater(sizing.yieldKt)
+    lines.push(
+      `CRATER · ${Math.round(hole.radiusMetres)} M RADIUS, ${Math.round(hole.depthMetres)} M DEEP · LIP AT ${Math.round(hole.lipCrestRadiusMetres)} M · EJECTA TO ${Math.round(hole.ejectaRadiusMetres)} M · ${(hole.massTonnes / 1e6).toFixed(1)} MILLION TONNES OF SOIL LIFTED, WHICH IS WHAT THE PLUME IS MADE OF · DRY SOIL, GLASSTONE & DOLAN §6.09`,
+    )
   }
   const kill = killProbability(classification, delivery.site, sizing)
   lines.push(kill.line)
