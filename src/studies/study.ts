@@ -49,6 +49,10 @@ export interface FalloutAssumption {
   windMph: number
   downwindBearingDeg: number
   untilHours: number
+  /** Directional shear of the carrying winds, degrees; the model's contours assume 15. */
+  shearDeg?: number
+  /** Fraction of the idealized dose rate a real surface gives; Glasstone's 0.7 in the open. */
+  terrainFactor?: number
   provenance: Evidenced['provenance']
 }
 

@@ -30,7 +30,8 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     id: 'ev-areas-fill',
     type: 'fill',
     source: SOURCES.areas,
-    paint: { 'fill-color': MODELLED_FILL },
+    // A plume's contours fade outward with their H+1 dose rate, so the far tail reads as the faint thing it is; other areas keep the full tint.
+    paint: { 'fill-color': MODELLED_FILL, 'fill-opacity': ['case', ['has', 'dose'], ['interpolate', ['linear'], ['log10', ['max', 0.1, ['get', 'dose']]], -1, 0.25, 0, 0.35, 1, 0.6, 2, 0.85, 3, 1], 1] },
   })
   for (const tier of TIER_ORDER) {
     const g = LINE[tier]

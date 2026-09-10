@@ -134,8 +134,8 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
         flashes.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [e.center[0], e.center[1]] }, properties: { evidence: 'modelled', id: e.id, radiusMetres: r5, age: time - e.time, side: e.side ?? 'attacker' } })
         if (burst === 'surface' && e.fallout) {
           animated = true
-          const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, reachedHours: (time - e.time) / 3_600 })
-          for (const c of [...contours].reverse()) areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [c.ring.map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}` } })
+          const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, shearDeg: e.fallout.shearDeg, terrainFactor: e.fallout.terrainFactor, reachedHours: (time - e.time) / 3_600 })
+          for (const c of [...contours].reverse()) areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [c.ring.map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}`, dose: c.radsPerHour } })
         }
         continue
       }
@@ -149,7 +149,7 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
       if (burst === 'surface' && e.fallout) {
         animated = true
         const hoursSince = (time - e.time) / 3_600
-        const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, reachedHours: hoursSince })
+        const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, shearDeg: e.fallout.shearDeg, terrainFactor: e.fallout.terrainFactor, reachedHours: hoursSince })
         for (const c of [...contours].reverse()) {
           areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [c.ring.map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}` } })
           rings.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: c.ring.map((p) => [p[0], p[1]]) }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}-line` } })
@@ -585,7 +585,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             if (burstRef.current === 'surface' && e.fallout && service && service.grid && next.time >= e.time + e.fallout.untilHours * 3_600 && !falloutComputed.current.has(e.id)) {
               falloutComputed.current.add(e.id)
               const f = e.fallout
-              const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: f.fissionFraction, windMph: f.windMph, downwindBearingDeg: f.downwindBearingDeg, untilHours: f.untilHours })
+              const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: f.fissionFraction, windMph: f.windMph, downwindBearingDeg: f.downwindBearingDeg, untilHours: f.untilHours, shearDeg: f.shearDeg, terrainFactor: f.terrainFactor })
               const gridName = `${service.grid.source.name} · ${service.grid.source.year}`
               const plumeSide = e.side ?? 'attacker'
               unionPlumes.current[plumeSide] += 1

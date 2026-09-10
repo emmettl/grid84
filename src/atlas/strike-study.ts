@@ -46,7 +46,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     vehicle: { evidence: site.evidence, provenance: { source: FORCES_SOURCE, method: site.note || 'The system, its load and its yield as the open literature gives them' } },
     route: { cruise: { source: 'Great circle at 240 m/s' }, ballistic: { source: 'Minimum-energy trajectory over a spherical Earth', method: 'The bus splits after twelve per cent of the flight and each reentry vehicle takes its own arc' } },
     targetCategory: () => classification.category,
-    burstFor: () => ({ burst: sizing.burst, fallout: sizing.burst === 'surface' ? { fissionFraction: 0.5, windMph: wind.mph, downwindBearingDeg: (wind.fromDeg + 180) % 360, untilHours: 48, provenance: { source: wind.source, method: `Wind from ${Math.round(wind.fromDeg)}° at ${Math.round(wind.mph)} mph at ${wind.level}; fission fraction 0.5 assumed` } } : undefined }),
+    burstFor: () => ({ burst: sizing.burst, fallout: sizing.burst === 'surface' ? { fissionFraction: 0.5, windMph: wind.mph, downwindBearingDeg: (wind.fromDeg + 180) % 360, untilHours: 48, shearDeg: wind.shearDeg, terrainFactor: 0.7, provenance: { source: wind.source, method: `Effective wind from ${Math.round(wind.fromDeg)}° at ${Math.round(wind.mph)} mph (${wind.level}), shear ${Math.round(wind.shearDeg)}°; fission fraction 0.5 assumed; dose rates at 0.7 of the idealized plane for a real surface (Glasstone §9.95)` } } : undefined }),
     targetFacts: () => [
       { label: 'Why this target', value: classification.reason, evidence: 'modelled', provenance: { source: 'The atlas solver: the geocoder\'s tags and the density profile of the 2025 grid' } },
       { label: 'Why this adversary', value: adversary.reason, evidence: 'inferred', provenance: { source: 'A stated rule by country, with a nearest-arsenal fallback; the reader can override it' } },
@@ -65,7 +65,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 3 ? 8 : 9, pitch: 40, durationMs: 3_000 } },
     { time: arrival, text: `DETONATION · ${target.name.toUpperCase()} · ${sizing.burst.toUpperCase()} BURST · ${fmtYield(sizing.yieldKt)}`, entityId: 'atlas-e-target' },
     ...(last > arrival + 1 ? [{ time: last, text: `LAST OF ${sizing.warheads} WARHEADS DOWN`, entityId: 'atlas-e-target' }] : []),
-    ...(sizing.burst === 'surface' ? [{ time: arrival + 3_600, text: `FALLOUT · WIND FROM ${Math.round(wind.fromDeg)}° AT ${Math.round(wind.mph)} MPH · ${wind.live ? 'THE FORECAST OF THE HOUR' : 'ASSUMED'}`, entityId: 'atlas-e-target', camera: { center: target.position, zoom: 6.5, pitch: 0, durationMs: 3_000 } }] : []),
+    ...(sizing.burst === 'surface' ? [{ time: arrival + 3_600, text: `FALLOUT · EFFECTIVE WIND FROM ${Math.round(wind.fromDeg)}° AT ${Math.round(wind.mph)} MPH · SHEAR ${Math.round(wind.shearDeg)}° · ${wind.live ? `THE FORECAST, ${wind.level.toUpperCase()}` : 'ASSUMED'}`, entityId: 'atlas-e-target', camera: { center: target.position, zoom: 6.5, pitch: 0, durationMs: 3_000 } }] : []),
   ]
   return {
     id: `atlas-strike-${target.id}`,

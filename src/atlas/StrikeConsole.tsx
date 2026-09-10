@@ -97,7 +97,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { tar
         setPhase('failed')
         return
       }
-      say(`WIND · ${wind.level.toUpperCase()} FROM ${Math.round(wind.fromDeg)}° AT ${Math.round(wind.mph)} MPH · PLUME BEARS ${Math.round((wind.fromDeg + 180) % 360)}° · ${wind.live ? 'OPEN-METEO, THE FORECAST OF THE HOUR' : 'ASSUMED; THE WEATHER SERVICE WAS NOT REACHED'}`)
+      say(`WIND · EFFECTIVE, ${wind.level.toUpperCase()} · FROM ${Math.round(wind.fromDeg)}° AT ${Math.round(wind.mph)} MPH · SHEAR ${Math.round(wind.shearDeg)}° · PLUME BEARS ${Math.round((wind.fromDeg + 180) % 360)}°${wind.surfaceMph !== null ? ` · SURFACE FROM ${Math.round(wind.surfaceFromDeg ?? 0)}° AT ${Math.round(wind.surfaceMph)} MPH` : ''} · ${wind.live ? `OPEN-METEO, ${wind.samples} SAMPLES` : 'ASSUMED; THE WEATHER SERVICE WAS NOT REACHED'}`)
       await sleep(CADENCE_MS)
       say(`BEARING ${Math.round(plan.bearingDeg)}° · ${Math.round(plan.delivery.distanceMetres / 1000).toLocaleString('en-GB')} KM · FLIGHT ${Math.round(plan.delivery.flightSeconds / 60)} MIN · COUNTDOWN`, 'best')
       setPhase('countdown')

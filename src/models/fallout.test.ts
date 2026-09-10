@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { accumulatedDose, acuteMortality, contourDimensions, contourRing, decayRatio, plume, TABLE_9_93, windFactor } from './fallout.ts'
+import { accumulatedDose, acuteMortality, contourDimensions, contourRing, decayRatio, plume, shearAdjust, TABLE_9_93, windFactor } from './fallout.ts'
 
 const MILE = 1_609.344
 
@@ -94,5 +94,17 @@ describe('plume growth', () => {
     expect(eastOf(early[7].ring) / reach).toBeGreaterThan(0.98)
     expect(eastOf(early[7].ring) / reach).toBeLessThan(1.02)
     expect(early[7].ring[0]).toEqual(early[7].ring[early[7].ring.length - 1])
+  })
+})
+
+describe('shear and terrain', () => {
+  it('widens and shortens the pattern for more shear, and scales dose for a real surface', () => {
+    const base = plume({ center: [0, 50], yieldKt: 800, fissionFraction: 0.5, windMph: 15, downwindBearingDeg: 90, untilHours: 48 })
+    const sheared = plume({ center: [0, 50], yieldKt: 800, fissionFraction: 0.5, windMph: 15, downwindBearingDeg: 90, untilHours: 48, shearDeg: 60 })
+    expect(sheared[0].maxWidthMetres).toBeGreaterThan(base[0].maxWidthMetres)
+    expect(sheared[0].downwindMetres).toBeLessThan(base[0].downwindMetres)
+    const rough = plume({ center: [0, 50], yieldKt: 800, fissionFraction: 0.5, windMph: 15, downwindBearingDeg: 90, untilHours: 48, terrainFactor: 0.7 })
+    expect(rough[0].radsPerHour).toBeCloseTo(base[0].radsPerHour * 0.7, 6)
+    expect(shearAdjust(base[0], 15).maxWidthMetres).toBeCloseTo(base[0].maxWidthMetres, 6)
   })
 })

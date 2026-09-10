@@ -165,13 +165,31 @@ export interface PlumeOptions {
   untilHours: number
   /** Draw only the part of each contour the cloud has reached by this many hours after the burst. */
   reachedHours?: number
+  /**
+   * Directional shear of the winds carrying the cloud, degrees; the table's
+   * contours assume 15°. More shear spreads the pattern wider and shorter,
+   * as §9.93 describes; here by the square root of the ratio, a stated rule.
+   */
+  shearDeg?: number
+  /** §9.95: real surfaces give about 0.7 of the idealized dose rates in the open, 0.5 to 0.6 in rough terrain. Default 1, the idealized plane. */
+  terrainFactor?: number
+}
+
+/** The table's contours widened and shortened for a shear other than the 15° they assume. */
+export function shearAdjust(dims: ContourDimensions, shearDeg: number): ContourDimensions {
+  const ratio = Math.max(0.5, Math.min(4, shearDeg / 15))
+  const wider = Math.sqrt(ratio)
+  return { ...dims, maxWidthMetres: dims.maxWidthMetres * wider, groundZeroWidthMetres: dims.groundZeroWidthMetres * Math.sqrt(wider), downwindMetres: dims.downwindMetres / Math.sqrt(wider) }
 }
 
 export function plume(options: PlumeOptions): PlumeContour[] {
   const metresPerHour = options.windMph * MILE
   const clip = options.reachedHours === undefined ? Infinity : Math.max(0, options.reachedHours) * metresPerHour
+  const terrain = options.terrainFactor ?? 1
   return TABLE_9_93.map((row) => {
-    const dims = contourDimensions(row, options.yieldKt, options.fissionFraction, options.windMph)
+    const ideal = contourDimensions(row, options.yieldKt, options.fissionFraction, options.windMph)
+    const sheared = options.shearDeg !== undefined && options.shearDeg !== 15 ? shearAdjust(ideal, options.shearDeg) : ideal
+    const dims = { ...sheared, radsPerHour: sheared.radsPerHour * terrain }
     const arrivalTip = dims.downwindMetres / metresPerHour
     const arrivalMid = (dims.downwindMetres / 3) / metresPerHour
     const dose = accumulatedDose(dims.radsPerHour, arrivalMid, options.untilHours)
