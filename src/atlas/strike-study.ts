@@ -18,7 +18,7 @@ import type { Boundary } from './boundary.ts'
 const fmtYield = (kt: number) => (kt >= 1_000 ? `${(kt / 1_000).toFixed(1)} MT` : `${kt} KT`)
 
 /** Study seconds before the launch, spent on the target with its aim points marked; at the autoplay rate a few real seconds. */
-export const PRELUDE_SECONDS = 90
+export const PRELUDE_SECONDS = 120
 
 export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSeconds = PRELUDE_SECONDS, boundary: Boundary | null = null): Study {
   const { target, delivery, sizing, adversary, classification, salvos } = plan
@@ -71,7 +71,8 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
       kind: 'site' as const,
       id: `aim-${a.index + 1}`,
       // The aim points materialise one by one through the prelude.
-      appearsAt: -countdownSeconds + Math.round(countdownSeconds * (0.25 + (0.5 * i) / Math.max(1, all.length))),
+      // The aim points come up in the first moments of the hold, so they sit on the opening view before the launch pulls the camera out.
+      appearsAt: -countdownSeconds + Math.round(countdownSeconds * (0.06 + (0.24 * i) / Math.max(1, all.length))),
       name: `Aim point ${a.index + 1}`,
       designation: `${a.index === 0 ? 'AIM POINT 1 · CENTRE' : `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}°`} · CEP ${site.cepMetres} M`,
       label: a.index < 8,
@@ -91,11 +92,11 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
   const aims = describeAimPoints(sizing, target.position)
   const approachLine = plan.lines.find((l) => /^APPROACH/.test(l)) ?? ''
   const events: StudyEvent[] = [
-    { time: -countdownSeconds, text: `STRIKE ORDER · ${power.name.toUpperCase()} · ${site.system.toUpperCase()} FROM ${site.name.toUpperCase()}${salvos.length > 1 ? ` AND ${salvos.length - 1} MORE SITE${salvos.length > 2 ? 'S' : ''}` : ''} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt)} ON ${target.name.toUpperCase()}`, entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 4 ? 9.5 : 10.5, pitch: 30, durationMs: 1_500 } },
-    { time: -countdownSeconds + Math.round(countdownSeconds * 0.25), text: `AIM POINTS · ${sizing.aimPoints.length} · ${sizing.aimPoints.length > 1 ? `A SUNFLOWER WITH NEIGHBOURS ABOUT ${((sizing.r5 * 1.6) / 1000).toFixed(1)} KM APART SO THE 5 PSI DISCS OF ${fmtYield(sizing.yieldKt)} MEET` : sizing.warheads > 1 ? `ONE, AT THE CENTRE, WITH ${sizing.warheads} WARHEADS ON IT` : 'ONE, AT THE CENTRE'} · ${classification.category} · ${classification.countervalue && classification.urbanRadiusMetres > 0 ? `TILING THE ${Math.round(classification.urbanRadiusMetres / 1000)} KM URBAN AREA` : 'A POINT TARGET'}`, entityId: 'aim-1' },
-    ...aims.slice(1, 4).map((a, k) => ({ time: -countdownSeconds + Math.round(countdownSeconds * (0.35 + k * 0.1)), text: `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}° · ${a.reason.split(' · ').slice(-1)[0]}`, entityId: `aim-${a.index + 1}` })),
-    { time: -Math.round(countdownSeconds * 0.22), text: plan.kill.line, entityId: 'aim-1' },
-    { time: -Math.round(countdownSeconds * 0.12), text: approachLine || `APPROACH · FROM ${Math.round((plan.bearingDeg + 180) % 360)}°`, entityId: launcher.id },
+    { time: -countdownSeconds, text: `STRIKE ORDER · ${power.name.toUpperCase()} · ${site.system.toUpperCase()} FROM ${site.name.toUpperCase()}${salvos.length > 1 ? ` AND ${salvos.length - 1} MORE SITE${salvos.length > 2 ? 'S' : ''}` : ''} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt)} ON ${target.name.toUpperCase()}`, entityId: 'target-site' },
+    { time: -countdownSeconds + Math.round(countdownSeconds * 0.06), text: `AIM POINTS · ${sizing.aimPoints.length} · ${sizing.aimPoints.length > 1 ? `A SUNFLOWER WITH NEIGHBOURS ABOUT ${((sizing.r5 * 1.6) / 1000).toFixed(1)} KM APART SO THE 5 PSI DISCS OF ${fmtYield(sizing.yieldKt)} MEET` : sizing.warheads > 1 ? `ONE, AT THE CENTRE, WITH ${sizing.warheads} WARHEADS ON IT` : 'ONE, AT THE CENTRE'} · ${classification.category} · ${classification.countervalue && classification.urbanRadiusMetres > 0 ? `TILING THE ${Math.round(classification.urbanRadiusMetres / 1000)} KM URBAN AREA` : 'A POINT TARGET'}`, entityId: 'aim-1' },
+    ...aims.slice(1, 4).map((a, k) => ({ time: -countdownSeconds + Math.round(countdownSeconds * (0.12 + k * 0.08)), text: `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}° · ${a.reason.split(' · ').slice(-1)[0]}`, entityId: `aim-${a.index + 1}` })),
+    { time: -Math.round(countdownSeconds * 0.45), text: plan.kill.line, entityId: 'aim-1' },
+    { time: -Math.round(countdownSeconds * 0.2), text: approachLine || `APPROACH · FROM ${Math.round((plan.bearingDeg + 180) % 360)}°`, entityId: launcher.id },
     ...salvos.filter((s) => s.launchDelaySeconds > 0).map((s) => ({ time: s.launchDelaySeconds, text: `LAUNCH · ${s.option.site.name.toUpperCase()} · ${s.missiles} MISSILE${s.missiles > 1 ? 'S' : ''} · HELD ${s.launchDelaySeconds} S FOR A COMMON ARRIVAL`, entityId: `atlas-${s.option.site.id}` })),
     { time: 0, text: `LAUNCH · ${salvos[0].option.site.name.toUpperCase()} · ${salvos[0].missiles} MISSILE${salvos[0].missiles > 1 ? 'S' : ''}${salvos.length > 1 ? ` · ${salvos.length - 1} MORE SITE${salvos.length > 2 ? 'S' : ''} TO FOLLOW` : ''} · ${Math.round(delivery.distanceMetres / 1000).toLocaleString('en-GB')} KM · FLIGHT ${Math.round(delivery.flightSeconds / 60)} MIN`, entityId: launcher.id, camera: { center: [(site.position[0] + target.position[0]) / 2, (site.position[1] + target.position[1]) / 2], zoom: delivery.distanceMetres > 8_000_000 ? 2.3 : delivery.distanceMetres > 5_000_000 ? 2.8 : delivery.distanceMetres > 2_500_000 ? 3.6 : delivery.distanceMetres > 1_000_000 ? 4.6 : 5.8, durationMs: 2_500 } },
     { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 3 ? 8 : 9, pitch: 40, durationMs: 3_000 } },
@@ -110,7 +111,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     bounds: { start: -countdownSeconds, end: last + 1_800 },
     startTime: -countdownSeconds,
     // Open on the target close enough to read its bounds; the launch pulls the camera out to the whole flight.
-    view: { center: target.position, zoom: 7.5 },
+    view: { center: target.position, zoom: sizing.warheads > 4 ? 9.5 : 10.5 },
     entities,
     events,
     omissions: [

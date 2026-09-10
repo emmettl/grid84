@@ -27,6 +27,8 @@ describe('the generated strike study', () => {
     expect(study.events.some((e) => /^APPROACH/.test(e.text))).toBe(true)
     expect(study.entities.filter((e) => e.kind === 'site' && e.id.startsWith('aim-'))).toHaveLength(plan.sizing.warheads)
     expect(study.startTime).toBeLessThan(-60)
+    const aims = study.entities.filter((e) => e.kind === 'site' && e.id.startsWith('aim-'))
+    for (const a of aims) if (a.kind === 'site') expect(a.appearsAt as number).toBeLessThan((study.startTime as number) * 0.65)
     expect(study.events.some((e) => /DETONATION/.test(e.text))).toBe(true)
     expect(study.bounds.end).toBeGreaterThan(plan.delivery.flightSeconds)
     expect(study.links?.length).toBeGreaterThan(2)
