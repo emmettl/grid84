@@ -21,6 +21,8 @@ The stages below were written for an atlas that would grow studies. What was bui
 - The Soviet response of 1961 is wired to the attacker's summary in a way that breaks if the options change; it should read the enacted strike.
 - Candidate studies, each needing a brief first, chosen for what they say about the tension the manifesto names: the Strath Report's own reasoning (1955) as the first time a state did this arithmetic on itself; India and Pakistan after Toon and Robock (2019), the first study on a grid the engine has not yet drawn; the Korean peninsula as the conventional-to-nuclear ladder; and one study of the boosters, the civil-defence film and pamphlet as a document with a plan behind it.
 
+**1a. The chronicle.** A third form beside the studies and the labs, proposed in [DOCTRINE.md](docs/DOCTRINE.md): doctrine, stockpiles, posture and geopolitics as chapters with the map as their spine, map states scrubbed across the epochs the orders of battle already cover, a stockpile chart, and a shot-exchange lab for missile defence from Safeguard through SDI to the present decade's programme. The lab first, then the chart and the posture atlas, then the chapters.
+
 **2. The engine, where the studies need it.**
 
 - Population tiles shared across the exposure workers, so a study run fetches each tile once from the bucket.
