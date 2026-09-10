@@ -8,17 +8,74 @@
     />
     <meta name="theme-color" content="#050410" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+
+    <!--
+      Two hosts serve this: grid84.app through a Cloudflare Worker and
+      emmettl.github.io/grid84 through Pages. The canonical link points at the
+      domain so the two copies do not compete with each other for the same
+      words.
+    -->
+    <link rel="canonical" href="https://grid84.app/" />
+
     <meta
       name="description"
-      content="Grid/84 Terminal Atlas. Anywhere on Earth. Real geography. Indefensibly dramatic presentation."
+      content="An evidence-tiered engine for the history and doctrine of strategic nuclear weapons. Blast, fire and fallout computed over real population grids; Cold War war plans replayed from the declassified record; a strike console for any place on Earth; and the nuclear winter and famine that follow. Every figure carries its source and its tier."
     />
+    <!--
+      Keywords are ignored by every search engine that matters and have been for
+      twenty years. They are here because they cost nothing and a few small
+      engines still read them; the work of being found is done by the title, the
+      description, the headings and the prerendered pages under /studies.
+    -->
+    <meta
+      name="keywords"
+      content="nuclear weapons effects, nuclear war simulation, blast radius calculator, fallout model, nuclear winter, Glasstone and Dolan, The Effects of Nuclear Weapons, SIOP, single integrated operational plan, counterforce, countervalue, deterrence, Cold War, Able Archer 83, Cuban missile crisis, V-force, Iskander, Minuteman, Trident, overpressure, thermal radiation, fission products, nuclear famine, Robock, Toon, Xia, declassified"
+    />
+    <meta name="author" content="Louis Emmett" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Terminal Atlas" />
-    <meta property="og:title" content="Terminal Atlas — Grid/84" />
+    <meta property="og:site_name" content="Grid/84" />
+    <meta property="og:url" content="https://grid84.app/" />
+    <meta property="og:title" content="Grid/84 — strategic nuclear weapons, modelled from the record" />
     <meta
       property="og:description"
-      content="Anywhere on Earth. Real geography. Indefensibly dramatic presentation."
+      content="Blast, fire and fallout over real population grids. Cold War war plans replayed from declassified documents. A strike console for anywhere on Earth, and the winter and famine that follow. Every figure carries its source."
     />
+    <meta property="og:image" content="https://grid84.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Grid/84: the history and doctrine of strategic nuclear weapons, modelled" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Grid/84 — strategic nuclear weapons, modelled from the record" />
+    <meta
+      name="twitter:description"
+      content="Blast, fire and fallout over real population grids. Cold War war plans from the declassified record. A strike console for anywhere on Earth, and the winter that follows."
+    />
+    <meta name="twitter:image" content="https://grid84.app/og.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Grid/84",
+        "alternateName": "Terminal Atlas",
+        "url": "https://grid84.app/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+        "author": { "@type": "Person", "name": "Louis Emmett" },
+        "description": "An evidence-tiered engine for the history and doctrine of strategic nuclear weapons: blast, fire and fallout over real population grids, Cold War war plans replayed from the declassified record, a strike console for any place on Earth, and the climate and famine that follow a general war.",
+        "keywords": "nuclear weapons effects, nuclear winter, fallout, deterrence, Cold War, SIOP, counterforce",
+        "isAccessibleForFree": true,
+        "citation": [
+          "Glasstone and Dolan, The Effects of Nuclear Weapons, 3rd edition, 1977",
+          "Office of Technology Assessment, The Effects of Nuclear War, 1979",
+          "Robock, Oman and Stenchikov, Nuclear winter revisited with a modern climate model, J. Geophys. Res. 112, 2007",
+          "Xia et al., Global food insecurity and famine from reduced crop, marine fishery and livestock production, Nature Food 3, 2022"
+        ]
+      }
+    </script>
     <title>Grid/84</title>
   </head>
   <body>

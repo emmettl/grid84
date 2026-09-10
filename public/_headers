@@ -13,6 +13,36 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# The pages written for search engines: HTML, so they revalidate like the app's
+# own index does. Each is a directory with an index.html inside it.
+/atlas/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/winter/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/wopr/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/chronicle/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/studies/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/labs/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# The sitemap and the card change rarely and are fetched by machines.
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Cache-Control: public, max-age=3600
+
+/og.png
+  Cache-Control: public, max-age=86400
+
 /data/hyde/index.json
   Cache-Control: public, max-age=0, must-revalidate
 

@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "description": "Terminal Atlas — the Grid/84 global cartographic system. Anywhere on Earth. Real geography. Indefensibly dramatic presentation.",
+  "description": "Terminal Atlas \u2014 the Grid/84 global cartographic system. Anywhere on Earth. Real geography. Indefensibly dramatic presentation.",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 4184",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "lint": "oxlint",
     "typecheck": "tsc -b",
