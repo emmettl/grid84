@@ -14,6 +14,8 @@ import outlineFile from '../../../data/72-minutes/russia-outline.json'
 import usUrban from '../../../data/72-minutes/us-urban-2023.json'
 import ruUrban from '../../../data/72-minutes/ru-urban-2023.json'
 import nkUrban from '../../../data/72-minutes/nk-urban-2023.json'
+import citiesFile from '../../../data/72-minutes/cities-2024.json'
+import { haversineMetres } from '../../geo/geodesy.ts'
 
 /**
  * Seventy-two minutes. A modern scenario on the forces of 2024 and the
@@ -310,10 +312,30 @@ function shotsFor(fate: Fate, count: number, firstLaunch: number, seed: string, 
 const MISSILE_ATTRITION: StrikeAttrition = { reliability: { icbm: 0.9, irbm: 0.9, slbm: 0.9, bomber: 0.85 }, penetration: 1, note: 'Missiles at 0.9 reliability, inferred; no defence is credited against a salvo, since 44 interceptors do not bear on a thousand warheads' }
 const TARGET_CATEGORY = (t: Target) => (t.id.includes('-city-') ? 'URBAN' : t.id.includes('-icbm-') ? 'MISSILE FIELD' : 'FORCES AND COMMAND')
 
+const CITIES = (citiesFile as { cities: Array<{ country: string; name: string; lon: number; lat: number }> }).cities
+
+/** A grid cell named after the nearest listed city within thirty kilometres, else by its coordinates. */
+function cellName(country: string, position: LngLat): string {
+  let best: { name: string; d: number } | null = null
+  for (const c of CITIES) {
+    if (c.country !== country) continue
+    const d = haversineMetres(position, [c.lon, c.lat])
+    if (!best || d < best.d) best = { name: c.name, d }
+  }
+  if (best && best.d < 30_000) return best.name
+  return `Urban area ${Math.abs(position[1]).toFixed(1)}°${position[1] >= 0 ? 'N' : 'S'} ${Math.abs(position[0]).toFixed(1)}°${position[0] >= 0 ? 'E' : 'W'}`
+}
+
 function urbanTargets(prefix: string, file: { targets: Array<{ lon: number; lat: number; population: number }> }, maxByPopulation: boolean): Target[] {
+  const seen = new Map<string, number>()
   return file.targets.map((c, i) => ({
     id: `${prefix}-city-${i}`,
-    name: `Urban area ${Math.abs(c.lat).toFixed(1)}°${c.lat >= 0 ? 'N' : 'S'} ${Math.abs(c.lon).toFixed(1)}°${c.lon >= 0 ? 'E' : 'W'}`,
+    name: (() => {
+      const base = cellName(prefix, [c.lon, c.lat])
+      const k = (seen.get(base) ?? 0) + 1
+      seen.set(base, k)
+      return k === 1 ? base : `${base} · cell ${k}`
+    })(),
     priority: 500 + i,
     position: [c.lon, c.lat] as LngLat,
     maxWeapons: maxByPopulation ? Math.max(2, Math.min(12, Math.ceil(c.population / 150_000))) : 3,

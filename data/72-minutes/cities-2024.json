@@ -1,0 +1,1139 @@
+{
+ "source": "Photon (komoot) over OpenStreetMap, geocoded on the day of the build; the lists are the largest cities of each country",
+ "cities": [
+  {
+   "country": "US",
+   "name": "New York",
+   "lon": -74.006,
+   "lat": 40.7127,
+   "hit": "New York"
+  },
+  {
+   "country": "US",
+   "name": "Los Angeles",
+   "lon": -118.2428,
+   "lat": 34.0537,
+   "hit": "Los Angeles"
+  },
+  {
+   "country": "US",
+   "name": "Chicago",
+   "lon": -87.6244,
+   "lat": 41.8756,
+   "hit": "Chicago"
+  },
+  {
+   "country": "US",
+   "name": "Houston",
+   "lon": -95.3677,
+   "lat": 29.7589,
+   "hit": "Houston"
+  },
+  {
+   "country": "US",
+   "name": "Phoenix",
+   "lon": -112.0741,
+   "lat": 33.4484,
+   "hit": "Phoenix"
+  },
+  {
+   "country": "US",
+   "name": "Philadelphia",
+   "lon": -75.1635,
+   "lat": 39.9527,
+   "hit": "Philadelphia"
+  },
+  {
+   "country": "US",
+   "name": "San Antonio",
+   "lon": -98.4951,
+   "lat": 29.4246,
+   "hit": "San Antonio"
+  },
+  {
+   "country": "US",
+   "name": "San Diego",
+   "lon": -117.1628,
+   "lat": 32.7174,
+   "hit": "San Diego"
+  },
+  {
+   "country": "US",
+   "name": "Dallas",
+   "lon": -96.7969,
+   "lat": 32.7763,
+   "hit": "Dallas"
+  },
+  {
+   "country": "US",
+   "name": "San Jose",
+   "lon": -121.8906,
+   "lat": 37.3362,
+   "hit": "San Jose"
+  },
+  {
+   "country": "US",
+   "name": "Austin",
+   "lon": -97.7437,
+   "lat": 30.2711,
+   "hit": "Austin"
+  },
+  {
+   "country": "US",
+   "name": "Jacksonville",
+   "lon": -81.6579,
+   "lat": 30.3262,
+   "hit": "Jacksonville"
+  },
+  {
+   "country": "US",
+   "name": "Fort Worth",
+   "lon": -97.3327,
+   "lat": 32.7532,
+   "hit": "Fort Worth"
+  },
+  {
+   "country": "US",
+   "name": "Columbus",
+   "lon": -83.0007,
+   "lat": 39.9623,
+   "hit": "Columbus"
+  },
+  {
+   "country": "US",
+   "name": "Charlotte",
+   "lon": -80.8431,
+   "lat": 35.2272,
+   "hit": "Charlotte"
+  },
+  {
+   "country": "US",
+   "name": "Indianapolis",
+   "lon": -86.1584,
+   "lat": 39.7683,
+   "hit": "Indianapolis"
+  },
+  {
+   "country": "US",
+   "name": "San Francisco",
+   "lon": -122.4075,
+   "lat": 37.7879,
+   "hit": "San Francisco"
+  },
+  {
+   "country": "US",
+   "name": "Seattle",
+   "lon": -122.3301,
+   "lat": 47.6038,
+   "hit": "Seattle"
+  },
+  {
+   "country": "US",
+   "name": "Denver",
+   "lon": -104.9849,
+   "lat": 39.7392,
+   "hit": "Denver"
+  },
+  {
+   "country": "US",
+   "name": "Washington",
+   "lon": -77.0364,
+   "lat": 38.8951,
+   "hit": "Washington"
+  },
+  {
+   "country": "US",
+   "name": "Boston",
+   "lon": -71.0578,
+   "lat": 42.3588,
+   "hit": "Boston"
+  },
+  {
+   "country": "US",
+   "name": "Nashville",
+   "lon": -86.7743,
+   "lat": 36.1623,
+   "hit": "Nashville"
+  },
+  {
+   "country": "US",
+   "name": "Detroit",
+   "lon": -83.0466,
+   "lat": 42.3316,
+   "hit": "Detroit"
+  },
+  {
+   "country": "US",
+   "name": "Oklahoma City",
+   "lon": -97.5171,
+   "lat": 35.473,
+   "hit": "Oklahoma City"
+  },
+  {
+   "country": "US",
+   "name": "Portland",
+   "lon": -122.6742,
+   "lat": 45.5202,
+   "hit": "Portland"
+  },
+  {
+   "country": "US",
+   "name": "Las Vegas",
+   "lon": -115.1484,
+   "lat": 36.1674,
+   "hit": "Las Vegas"
+  },
+  {
+   "country": "US",
+   "name": "Memphis",
+   "lon": -90.0518,
+   "lat": 35.146,
+   "hit": "Memphis"
+  },
+  {
+   "country": "US",
+   "name": "Louisville",
+   "lon": -85.7594,
+   "lat": 38.2542,
+   "hit": "Louisville"
+  },
+  {
+   "country": "US",
+   "name": "Baltimore",
+   "lon": -76.6108,
+   "lat": 39.2909,
+   "hit": "Baltimore"
+  },
+  {
+   "country": "US",
+   "name": "Milwaukee",
+   "lon": -87.9091,
+   "lat": 43.0386,
+   "hit": "Milwaukee"
+  },
+  {
+   "country": "US",
+   "name": "Albuquerque",
+   "lon": -106.651,
+   "lat": 35.0841,
+   "hit": "Albuquerque"
+  },
+  {
+   "country": "US",
+   "name": "Tucson",
+   "lon": -110.9748,
+   "lat": 32.2229,
+   "hit": "Tucson"
+  },
+  {
+   "country": "US",
+   "name": "Fresno",
+   "lon": -119.7848,
+   "lat": 36.7394,
+   "hit": "Fresno"
+  },
+  {
+   "country": "US",
+   "name": "Sacramento",
+   "lon": -121.4939,
+   "lat": 38.5811,
+   "hit": "Sacramento"
+  },
+  {
+   "country": "US",
+   "name": "Kansas City",
+   "lon": -94.5781,
+   "lat": 39.1001,
+   "hit": "Kansas City"
+  },
+  {
+   "country": "US",
+   "name": "Atlanta",
+   "lon": -84.3898,
+   "lat": 33.7545,
+   "hit": "Atlanta"
+  },
+  {
+   "country": "US",
+   "name": "Miami",
+   "lon": -80.1936,
+   "lat": 25.7742,
+   "hit": "Miami"
+  },
+  {
+   "country": "US",
+   "name": "Omaha",
+   "lon": -95.9384,
+   "lat": 41.2587,
+   "hit": "Omaha"
+  },
+  {
+   "country": "US",
+   "name": "Raleigh",
+   "lon": -78.6391,
+   "lat": 35.7804,
+   "hit": "Raleigh"
+  },
+  {
+   "country": "US",
+   "name": "Minneapolis",
+   "lon": -93.2655,
+   "lat": 44.9773,
+   "hit": "Minneapolis"
+  },
+  {
+   "country": "US",
+   "name": "Tampa",
+   "lon": -82.4583,
+   "lat": 27.945,
+   "hit": "Tampa"
+  },
+  {
+   "country": "US",
+   "name": "New Orleans",
+   "lon": -90.0734,
+   "lat": 29.9561,
+   "hit": "New Orleans"
+  },
+  {
+   "country": "US",
+   "name": "Cleveland",
+   "lon": -81.6937,
+   "lat": 41.4997,
+   "hit": "Cleveland"
+  },
+  {
+   "country": "US",
+   "name": "Pittsburgh",
+   "lon": -80.0026,
+   "lat": 40.4407,
+   "hit": "Pittsburgh"
+  },
+  {
+   "country": "US",
+   "name": "St. Louis",
+   "lon": -90.19,
+   "lat": 38.6254,
+   "hit": "Saint Louis"
+  },
+  {
+   "country": "US",
+   "name": "Cincinnati",
+   "lon": -84.5127,
+   "lat": 39.1013,
+   "hit": "Cincinnati"
+  },
+  {
+   "country": "US",
+   "name": "Orlando",
+   "lon": -81.379,
+   "lat": 28.5421,
+   "hit": "Orlando"
+  },
+  {
+   "country": "US",
+   "name": "Salt Lake City",
+   "lon": -111.8868,
+   "lat": 40.7596,
+   "hit": "Salt Lake City"
+  },
+  {
+   "country": "US",
+   "name": "Buffalo",
+   "lon": -78.8781,
+   "lat": 42.8864,
+   "hit": "Buffalo"
+  },
+  {
+   "country": "US",
+   "name": "Richmond",
+   "lon": -77.4343,
+   "lat": 37.5385,
+   "hit": "Richmond"
+  },
+  {
+   "country": "US",
+   "name": "Anaheim",
+   "lon": -117.9117,
+   "lat": 33.8348,
+   "hit": "Anaheim"
+  },
+  {
+   "country": "US",
+   "name": "Riverside",
+   "lon": -117.3742,
+   "lat": 33.9825,
+   "hit": "Riverside"
+  },
+  {
+   "country": "US",
+   "name": "Norfolk",
+   "lon": -76.29,
+   "lat": 36.8494,
+   "hit": "Norfolk"
+  },
+  {
+   "country": "US",
+   "name": "Honolulu",
+   "lon": -157.8557,
+   "lat": 21.3045,
+   "hit": "Honolulu"
+  },
+  {
+   "country": "US",
+   "name": "Anchorage",
+   "lon": -149.8949,
+   "lat": 61.2163,
+   "hit": "Anchorage"
+  },
+  {
+   "country": "US",
+   "name": "Providence",
+   "lon": -71.4128,
+   "lat": 41.824,
+   "hit": "Providence"
+  },
+  {
+   "country": "US",
+   "name": "Hartford",
+   "lon": -72.6909,
+   "lat": 41.7646,
+   "hit": "Hartford"
+  },
+  {
+   "country": "US",
+   "name": "Birmingham",
+   "lon": -86.8024,
+   "lat": 33.5207,
+   "hit": "Birmingham"
+  },
+  {
+   "country": "US",
+   "name": "Rochester",
+   "lon": -77.6152,
+   "lat": 43.1573,
+   "hit": "Rochester"
+  },
+  {
+   "country": "US",
+   "name": "El Paso",
+   "lon": -106.487,
+   "lat": 31.7601,
+   "hit": "El Paso"
+  },
+  {
+   "country": "US",
+   "name": "Oakland",
+   "lon": -122.2714,
+   "lat": 37.8045,
+   "hit": "Oakland"
+  },
+  {
+   "country": "US",
+   "name": "Long Beach",
+   "lon": -118.1916,
+   "lat": 33.769,
+   "hit": "Long Beach"
+  },
+  {
+   "country": "US",
+   "name": "Tulsa",
+   "lon": -95.9928,
+   "lat": 36.1563,
+   "hit": "Tulsa"
+  },
+  {
+   "country": "US",
+   "name": "Colorado Springs",
+   "lon": -104.8253,
+   "lat": 38.834,
+   "hit": "Colorado Springs"
+  },
+  {
+   "country": "US",
+   "name": "Newark",
+   "lon": -74.1724,
+   "lat": 40.7357,
+   "hit": "Newark"
+  },
+  {
+   "country": "US",
+   "name": "Bridgeport",
+   "lon": -73.1888,
+   "lat": 41.1793,
+   "hit": "Bridgeport"
+  },
+  {
+   "country": "US",
+   "name": "Des Moines",
+   "lon": -93.6249,
+   "lat": 41.5869,
+   "hit": "Des Moines"
+  },
+  {
+   "country": "US",
+   "name": "Little Rock",
+   "lon": -92.2896,
+   "lat": 34.7465,
+   "hit": "Little Rock"
+  },
+  {
+   "country": "US",
+   "name": "Boise",
+   "lon": -116.2009,
+   "lat": 43.6166,
+   "hit": "Boise"
+  },
+  {
+   "country": "US",
+   "name": "Spokane",
+   "lon": -117.4235,
+   "lat": 47.6572,
+   "hit": "Spokane"
+  },
+  {
+   "country": "US",
+   "name": "Grand Rapids",
+   "lon": -85.6679,
+   "lat": 42.9632,
+   "hit": "Grand Rapids"
+  },
+  {
+   "country": "US",
+   "name": "Dayton",
+   "lon": -84.1916,
+   "lat": 39.7589,
+   "hit": "Dayton"
+  },
+  {
+   "country": "US",
+   "name": "Toledo",
+   "lon": -83.5378,
+   "lat": 41.6529,
+   "hit": "Toledo"
+  },
+  {
+   "country": "US",
+   "name": "Akron",
+   "lon": -81.5185,
+   "lat": 41.0831,
+   "hit": "Akron"
+  },
+  {
+   "country": "US",
+   "name": "Knoxville",
+   "lon": -83.921,
+   "lat": 35.9604,
+   "hit": "Knoxville"
+  },
+  {
+   "country": "US",
+   "name": "Chattanooga",
+   "lon": -85.3095,
+   "lat": 35.0457,
+   "hit": "Chattanooga"
+  },
+  {
+   "country": "US",
+   "name": "Baton Rouge",
+   "lon": -91.187,
+   "lat": 30.4494,
+   "hit": "Baton Rouge"
+  },
+  {
+   "country": "US",
+   "name": "Shreveport",
+   "lon": -93.7478,
+   "lat": 32.5135,
+   "hit": "Shreveport"
+  },
+  {
+   "country": "US",
+   "name": "Wichita",
+   "lon": -97.3375,
+   "lat": 37.6922,
+   "hit": "Wichita"
+  },
+  {
+   "country": "US",
+   "name": "Madison",
+   "lon": -89.3842,
+   "lat": 43.0747,
+   "hit": "Madison"
+  },
+  {
+   "country": "RU",
+   "name": "Moscow",
+   "lon": 37.6064,
+   "lat": 55.6256,
+   "hit": "Moscow"
+  },
+  {
+   "country": "RU",
+   "name": "Saint Petersburg",
+   "lon": 30.1587,
+   "lat": 59.9607,
+   "hit": "Saint Petersburg"
+  },
+  {
+   "country": "RU",
+   "name": "Novosibirsk",
+   "lon": 82.9227,
+   "lat": 55.0288,
+   "hit": "Novosibirsk"
+  },
+  {
+   "country": "RU",
+   "name": "Yekaterinburg",
+   "lon": 60.6008,
+   "lat": 56.8382,
+   "hit": "Yekaterinburg"
+  },
+  {
+   "country": "RU",
+   "name": "Kazan",
+   "lon": 49.1115,
+   "lat": 55.7946,
+   "hit": "Kazan"
+  },
+  {
+   "country": "RU",
+   "name": "Nizhny Novgorod",
+   "lon": 44.0051,
+   "lat": 56.3265,
+   "hit": "Nizhny Novgorod"
+  },
+  {
+   "country": "RU",
+   "name": "Chelyabinsk",
+   "lon": 61.3997,
+   "lat": 55.1559,
+   "hit": "Chelyabinsk"
+  },
+  {
+   "country": "RU",
+   "name": "Samara",
+   "lon": 50.1015,
+   "lat": 53.1956,
+   "hit": "Samara"
+  },
+  {
+   "country": "RU",
+   "name": "Omsk",
+   "lon": 73.3745,
+   "lat": 54.983,
+   "hit": "Omsk"
+  },
+  {
+   "country": "RU",
+   "name": "Rostov-on-Don",
+   "lon": 39.7199,
+   "lat": 47.2223,
+   "hit": "Rostov-on-Don"
+  },
+  {
+   "country": "RU",
+   "name": "Ufa",
+   "lon": 55.9475,
+   "lat": 54.7261,
+   "hit": "Ufa"
+  },
+  {
+   "country": "RU",
+   "name": "Krasnoyarsk",
+   "lon": 92.8726,
+   "lat": 56.0091,
+   "hit": "Krasnoyarsk"
+  },
+  {
+   "country": "RU",
+   "name": "Voronezh",
+   "lon": 39.2006,
+   "lat": 51.6606,
+   "hit": "Voronezh"
+  },
+  {
+   "country": "RU",
+   "name": "Perm",
+   "lon": 56.2319,
+   "lat": 58.0109,
+   "hit": "Perm"
+  },
+  {
+   "country": "RU",
+   "name": "Volgograd",
+   "lon": 44.5153,
+   "lat": 48.7082,
+   "hit": "Volgograd"
+  },
+  {
+   "country": "RU",
+   "name": "Krasnodar",
+   "lon": 38.9772,
+   "lat": 45.0352,
+   "hit": "Krasnodar"
+  },
+  {
+   "country": "RU",
+   "name": "Saratov",
+   "lon": 46.0347,
+   "lat": 51.53,
+   "hit": "Saratov"
+  },
+  {
+   "country": "RU",
+   "name": "Tyumen",
+   "lon": 65.5423,
+   "lat": 57.1535,
+   "hit": "Tyumen"
+  },
+  {
+   "country": "RU",
+   "name": "Tolyatti",
+   "lon": 49.4189,
+   "lat": 53.5099,
+   "hit": "Tolyatti"
+  },
+  {
+   "country": "RU",
+   "name": "Izhevsk",
+   "lon": 53.1977,
+   "lat": 56.8605,
+   "hit": "Izhevsk"
+  },
+  {
+   "country": "RU",
+   "name": "Barnaul",
+   "lon": 83.7788,
+   "lat": 53.3475,
+   "hit": "Barnaul"
+  },
+  {
+   "country": "RU",
+   "name": "Ulyanovsk",
+   "lon": 48.4034,
+   "lat": 54.315,
+   "hit": "Ulyanovsk"
+  },
+  {
+   "country": "RU",
+   "name": "Irkutsk",
+   "lon": 104.2798,
+   "lat": 52.2891,
+   "hit": "Irkutsk"
+  },
+  {
+   "country": "RU",
+   "name": "Khabarovsk",
+   "lon": 135.0763,
+   "lat": 48.4813,
+   "hit": "Khabarovsk"
+  },
+  {
+   "country": "RU",
+   "name": "Yaroslavl",
+   "lon": 39.8934,
+   "lat": 57.6264,
+   "hit": "Yaroslavl"
+  },
+  {
+   "country": "RU",
+   "name": "Vladivostok",
+   "lon": 131.8856,
+   "lat": 43.1151,
+   "hit": "Vladivostok"
+  },
+  {
+   "country": "RU",
+   "name": "Makhachkala",
+   "lon": 47.5049,
+   "lat": 42.983,
+   "hit": "Makhachkala"
+  },
+  {
+   "country": "RU",
+   "name": "Tomsk",
+   "lon": 84.9523,
+   "lat": 56.4888,
+   "hit": "Tomsk"
+  },
+  {
+   "country": "RU",
+   "name": "Orenburg",
+   "lon": 55.0979,
+   "lat": 51.7671,
+   "hit": "Orenburg"
+  },
+  {
+   "country": "RU",
+   "name": "Kemerovo",
+   "lon": 86.0871,
+   "lat": 55.3551,
+   "hit": "Kemerovo"
+  },
+  {
+   "country": "RU",
+   "name": "Novokuznetsk",
+   "lon": 87.1465,
+   "lat": 53.7582,
+   "hit": "Novokuznetsk"
+  },
+  {
+   "country": "RU",
+   "name": "Ryazan",
+   "lon": 39.7425,
+   "lat": 54.6296,
+   "hit": "Ryazan"
+  },
+  {
+   "country": "RU",
+   "name": "Astrakhan",
+   "lon": 48.0326,
+   "lat": 46.3498,
+   "hit": "Astrakhan"
+  },
+  {
+   "country": "RU",
+   "name": "Naberezhnye Chelny",
+   "lon": 52.3992,
+   "lat": 55.742,
+   "hit": "Naberezhnye Chelny"
+  },
+  {
+   "country": "RU",
+   "name": "Penza",
+   "lon": 45.0067,
+   "lat": 53.1938,
+   "hit": "Penza"
+  },
+  {
+   "country": "RU",
+   "name": "Lipetsk",
+   "lon": 39.5964,
+   "lat": 52.6051,
+   "hit": "Lipetsk"
+  },
+  {
+   "country": "RU",
+   "name": "Kirov",
+   "lon": 49.6666,
+   "lat": 58.6036,
+   "hit": "Kirov"
+  },
+  {
+   "country": "RU",
+   "name": "Cheboksary",
+   "lon": 47.2481,
+   "lat": 56.14,
+   "hit": "Cheboksary"
+  },
+  {
+   "country": "RU",
+   "name": "Tula",
+   "lon": 37.6175,
+   "lat": 54.193,
+   "hit": "Tula"
+  },
+  {
+   "country": "RU",
+   "name": "Kaliningrad",
+   "lon": 20.5106,
+   "lat": 54.7101,
+   "hit": "Kaliningrad"
+  },
+  {
+   "country": "RU",
+   "name": "Kursk",
+   "lon": 36.1923,
+   "lat": 51.7309,
+   "hit": "Kursk"
+  },
+  {
+   "country": "RU",
+   "name": "Sochi",
+   "lon": 39.7231,
+   "lat": 43.5855,
+   "hit": "Sochi"
+  },
+  {
+   "country": "RU",
+   "name": "Stavropol",
+   "lon": 41.9739,
+   "lat": 45.0345,
+   "hit": "Stavropol"
+  },
+  {
+   "country": "RU",
+   "name": "Ulan-Ude",
+   "lon": 107.5839,
+   "lat": 51.8358,
+   "hit": "Ulan-Ude"
+  },
+  {
+   "country": "RU",
+   "name": "Tver",
+   "lon": 35.8952,
+   "lat": 56.8597,
+   "hit": "Tver"
+  },
+  {
+   "country": "RU",
+   "name": "Magnitogorsk",
+   "lon": 59.0507,
+   "lat": 53.4257,
+   "hit": "Magnitogorsk"
+  },
+  {
+   "country": "RU",
+   "name": "Bryansk",
+   "lon": 34.3668,
+   "lat": 53.2424,
+   "hit": "Bryansk"
+  },
+  {
+   "country": "RU",
+   "name": "Ivanovo",
+   "lon": 40.9631,
+   "lat": 57.0088,
+   "hit": "Ivanovo"
+  },
+  {
+   "country": "RU",
+   "name": "Belgorod",
+   "lon": 36.5873,
+   "lat": 50.5956,
+   "hit": "Belgorod"
+  },
+  {
+   "country": "RU",
+   "name": "Surgut",
+   "lon": 73.3953,
+   "lat": 61.2419,
+   "hit": "Surgut"
+  },
+  {
+   "country": "RU",
+   "name": "Vladimir",
+   "lon": 40.4075,
+   "lat": 56.1289,
+   "hit": "Vladimir"
+  },
+  {
+   "country": "RU",
+   "name": "Nizhny Tagil",
+   "lon": 59.9708,
+   "lat": 57.9076,
+   "hit": "Nizhny Tagil"
+  },
+  {
+   "country": "RU",
+   "name": "Arkhangelsk",
+   "lon": 40.5287,
+   "lat": 64.541,
+   "hit": "Arkhangelsk"
+  },
+  {
+   "country": "RU",
+   "name": "Chita",
+   "lon": 113.5009,
+   "lat": 52.0334,
+   "hit": "Chita"
+  },
+  {
+   "country": "RU",
+   "name": "Kaluga",
+   "lon": 36.2598,
+   "lat": 54.5101,
+   "hit": "Kaluga"
+  },
+  {
+   "country": "RU",
+   "name": "Smolensk",
+   "lon": 32.0472,
+   "lat": 54.779,
+   "hit": "Smolensk"
+  },
+  {
+   "country": "RU",
+   "name": "Volzhsky",
+   "lon": 50.4352,
+   "lat": 53.1233,
+   "hit": "Volzhsky District"
+  },
+  {
+   "country": "RU",
+   "name": "Kurgan",
+   "lon": 65.3421,
+   "lat": 55.4409,
+   "hit": "Kurgan"
+  },
+  {
+   "country": "RU",
+   "name": "Cherepovets",
+   "lon": 37.9123,
+   "lat": 59.1242,
+   "hit": "Cherepovets"
+  },
+  {
+   "country": "RU",
+   "name": "Vologda",
+   "lon": 39.8934,
+   "lat": 59.2189,
+   "hit": "Vologda"
+  },
+  {
+   "country": "RU",
+   "name": "Murmansk",
+   "lon": 33.075,
+   "lat": 68.9707,
+   "hit": "Murmansk"
+  },
+  {
+   "country": "RU",
+   "name": "Yakutsk",
+   "lon": 129.732,
+   "lat": 62.0274,
+   "hit": "Yakutsk"
+  },
+  {
+   "country": "RU",
+   "name": "Petropavlovsk-Kamchatsky",
+   "lon": 158.6471,
+   "lat": 53.02,
+   "hit": "Petropavlovsk-Kamchatsky"
+  },
+  {
+   "country": "RU",
+   "name": "Komsomolsk-on-Amur",
+   "lon": 136.9995,
+   "lat": 50.5618,
+   "hit": "Komsomolsk-on-Amur"
+  },
+  {
+   "country": "RU",
+   "name": "Severodvinsk",
+   "lon": 39.8238,
+   "lat": 64.5634,
+   "hit": "Severodvinsk"
+  },
+  {
+   "country": "RU",
+   "name": "Engels",
+   "lon": 46.1233,
+   "lat": 51.5014,
+   "hit": "Engels"
+  },
+  {
+   "country": "RU",
+   "name": "Severomorsk",
+   "lon": 33.419,
+   "lat": 69.0759,
+   "hit": "Severomorsk"
+  },
+  {
+   "country": "KP",
+   "name": "Pyongyang",
+   "lon": 125.7526,
+   "lat": 39.0197,
+   "hit": "Pyongyang"
+  },
+  {
+   "country": "KP",
+   "name": "Hamhung",
+   "lon": 127.5384,
+   "lat": 39.9165,
+   "hit": "Hamhung"
+  },
+  {
+   "country": "KP",
+   "name": "Chongjin",
+   "lon": 129.6456,
+   "lat": 41.4292,
+   "hit": "Chongjin Airport"
+  },
+  {
+   "country": "KP",
+   "name": "Nampo",
+   "lon": 125.4115,
+   "lat": 38.7367,
+   "hit": "Nampo"
+  },
+  {
+   "country": "KP",
+   "name": "Wonsan",
+   "lon": 127.4284,
+   "lat": 39.1726,
+   "hit": "Wonsan"
+  },
+  {
+   "country": "KP",
+   "name": "Sinuiju",
+   "lon": 124.3978,
+   "lat": 40.0941,
+   "hit": "Sinuiju"
+  },
+  {
+   "country": "KP",
+   "name": "Tanchon",
+   "lon": 128.9039,
+   "lat": 40.4591,
+   "hit": "Tanchon"
+  },
+  {
+   "country": "KP",
+   "name": "Kaechon",
+   "lon": 125.8888,
+   "lat": 39.7035,
+   "hit": "Kaechon"
+  },
+  {
+   "country": "KP",
+   "name": "Kaesong",
+   "lon": 126.5427,
+   "lat": 37.969,
+   "hit": "Kaesong"
+  },
+  {
+   "country": "KP",
+   "name": "Sariwon",
+   "lon": 125.7555,
+   "lat": 38.5093,
+   "hit": "Sariwon"
+  },
+  {
+   "country": "KP",
+   "name": "Sinpo",
+   "lon": 128.1915,
+   "lat": 40.0316,
+   "hit": "Shinpo"
+  },
+  {
+   "country": "KP",
+   "name": "Haeju",
+   "lon": 125.7084,
+   "lat": 38.0421,
+   "hit": "Haeju"
+  },
+  {
+   "country": "KP",
+   "name": "Kanggye",
+   "lon": 126.5937,
+   "lat": 40.971,
+   "hit": "Kanggye"
+  },
+  {
+   "country": "KP",
+   "name": "Hyesan",
+   "lon": 128.1778,
+   "lat": 41.4029,
+   "hit": "Hyesan"
+  },
+  {
+   "country": "KP",
+   "name": "Sunchon",
+   "lon": 125.9477,
+   "lat": 39.4196,
+   "hit": "Sunchon"
+  }
+ ]
+}
