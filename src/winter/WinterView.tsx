@@ -43,6 +43,7 @@ export function WinterView() {
   const [month, setMonth] = useState(0)
   const [running, setRunning] = useState(true)
   const [sourcesOpen, setSourcesOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
 
   const sootCase = useMemo(() => SOOT_CASES.find((c) => c.id === caseId) ?? SOOT_CASES[SOOT_CASES.length - 1], [caseId])
   const fuelLoad = fuel ?? referenceFuel(sootCase)
@@ -256,6 +257,8 @@ export function WinterView() {
       </section>
 
       <div className="wopr-controls winter-controls">
+        {/* On a phone these four rows would cover the globe, so they fold away there. */}
+        <div className={`winter-more${settingsOpen ? ' is-open' : ''}`}>
         <div className="wopr-group">
           <span className="wopr-dim">Exchange</span>
           {SOOT_CASES.map((c) => (
@@ -306,7 +309,12 @@ export function WinterView() {
           </button>
         </div>
 
+        </div>
+
         <div className="wopr-group">
+          <button type="button" className="winter-settings" onClick={() => setSettingsOpen((o) => !o)}>
+            {settingsOpen ? 'Hide' : 'Set up'}
+          </button>
           <button type="button" className={running ? 'is-active' : ''} onClick={() => setRunning((r) => !r)}>
             {running ? 'Hold' : month >= MONTHS ? 'Again' : 'Run'}
           </button>

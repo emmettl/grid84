@@ -2840,10 +2840,35 @@ body,
   cursor: pointer;
 }
 
+/* On a wide screen every control is out; the phone gets them behind one button. */
+.winter-more {
+  display: contents;
+}
+
+.winter-settings {
+  display: none;
+}
+
 @media (max-width: 700px) {
   .winter-controls {
     max-width: none;
     align-items: stretch;
+  }
+
+  .winter-more {
+    display: none;
+  }
+
+  .winter-more.is-open {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-height: 46vh;
+    overflow-y: auto;
+  }
+
+  .winter-settings {
+    display: inline-block;
   }
 
   .winter-argument {
