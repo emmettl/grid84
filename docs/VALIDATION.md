@@ -308,6 +308,30 @@ every surface burst.
 Water-saturated soil gives a wider and shallower crater and hard rock a
 smaller one. The book gives neither a number, so neither is given one here.
 
+The whole of this work is now written up as a background document,
+[Sixty Feet at One Kilotonne](/dossier/weapons-effects-sources.html): every
+prompt-effect formula traced to its section, with the computed values beside
+the handbook's own worked examples, and the gaps stated as gaps. Two results
+in it come from putting the book's sections beside each other rather than
+from any one of them, and both are now assertions in `blast.test.ts`:
+
+- **The prompt radiation ring falls inside the 5 psi ring above about 2.2 kt**
+  (and the 1,000-rad ring above 0.91). Blast goes as W^(1/3) and thermal as
+  W^0.41, but initial radiation as W^0.19, because the air absorbs the extra
+  gammas before they arrive. Below the crossing, radiation reaches people the
+  blast does not; above it, everyone who would have taken a fatal dose was
+  already inside a radius where the buildings came down.
+- **At the height that maximises the 20 psi area, the fireball reaches the
+  ground above about 323 kt.** The fireball grows as W^0.4 and the height as
+  W^(1/3). At 300 kt the fireball reaches 597 m and the burst sits at 600; at
+  335 kt it reaches 624 and the burst sits at 622. So a burst placed against a
+  hard target is, above that yield, a fallout-producing burst whether it was
+  meant to be or not — and the 335 kt W78 the console fires two to a silo is
+  just over the line. At the 5 psi height it never happens at any yield. The
+  heights are the engine's own fraction rule rather than the handbook's
+  figure 3.73 curves, so this is a modelled crossing; the direction of the
+  result does not depend on the rule.
+
 ## Reading the ground: land use in target identification
 
 The classifier's inputs were the geocoder's tag and the population density.

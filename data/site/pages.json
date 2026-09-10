@@ -223,6 +223,11 @@
       "note": "A static supporting document, not an app route. The Worker serves it without the .html the file carries, which is the form the sitemap advertises."
     },
     {
+      "path": "dossier/weapons-effects-sources",
+      "title": "Sixty Feet at One Kilotonne — the weapons-effects formulae, traced",
+      "note": "A static supporting document, not an app route. The Worker serves it without the .html the file carries, which is the form the sitemap advertises."
+    },
+    {
       "path": "dossier/sino-soviet-1969",
       "title": "The 1969 Strike Question — a research dossier",
       "note": "A static supporting document, not an app route. The Worker serves it without the .html the file carries, which is the form the sitemap advertises; the front page links the file itself so the GitHub Pages copy works too."

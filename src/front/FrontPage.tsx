@@ -324,6 +324,10 @@ export function FrontPage() {
               <span>The published record on missile defence, figure by figure: which interceptor speeds are official and which are analysts' estimates wearing an official coat, how the test records are counted and by whom, what the Gulf War Patriot figures were before they were revised twice, and where the phrase itself comes from. The record behind the interception and defence labs.</span>
             </li>
             <li>
+              <a href="./dossier/weapons-effects-sources.html">Sixty feet at one kilotonne</a>
+              <span>Every prompt-effect formula in the engine traced to its section of Glasstone and Dolan, with the computed values set beside the handbook's own worked examples: blast, thermal, initial radiation, the fireball, the crater and the fallout pattern. Including the places where the book names an effect and declines to quantify it, and two results that fall out of putting its sections beside each other &mdash; that the radiation ring stops mattering above about two kilotonnes, and that above about three hundred a burst aimed at a silo makes fallout whether it was meant to or not.</span>
+            </li>
+            <li>
               <a href="./dossier/sino-soviet-1969.html">The 1969 strike question</a>
               <span>The Sino-Soviet crisis and the Soviet consideration of a strike on China's nuclear programme, with the Chinese complex as it then stood and the forces on both sides. The groundwork for a study.</span>
             </li>

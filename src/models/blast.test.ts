@@ -155,3 +155,45 @@ describe('the initial radiation against the book', () => {
     expect(tenthRangeMetres(10_000)).toBeGreaterThan(tenthRangeMetres(1))
   })
 })
+
+/**
+ * Two results that fall out of putting the handbook's sections beside each
+ * other rather than from any one of them. Both are stated in the dossier
+ * behind this engine, so both are held here: a claim published as a finding
+ * should not be free to drift.
+ */
+describe('where the rings change places', () => {
+  const crossing = (test: (y: number) => boolean): number => {
+    for (let y = 0.1; y < 30_000; y *= 1.001) if (test(y)) return y
+    return Number.NaN
+  }
+
+  it('puts the prompt radiation ring inside the blast ring above about two kilotonnes', () => {
+    // Blast goes as W^(1/3) and thermal as W^0.41, but initial radiation as
+    // W^0.19, because the air absorbs the extra gammas before they arrive.
+    // Below the crossing, radiation reaches people the blast does not.
+    const at500 = crossing((y) => radiationRadiusMetres(y, 500) < overpressureRadiusMetres(y, 5))
+    const at1000 = crossing((y) => radiationRadiusMetres(y, 1_000) < overpressureRadiusMetres(y, 5))
+    expect(at500).toBeGreaterThan(2.0)
+    expect(at500).toBeLessThan(2.5)
+    expect(at1000).toBeGreaterThan(0.85)
+    expect(at1000).toBeLessThan(1.0)
+    // Either side of it, the ordering is what those numbers say.
+    expect(radiationRadiusMetres(1, 500)).toBeGreaterThan(overpressureRadiusMetres(1, 5))
+    expect(radiationRadiusMetres(1_000, 500)).toBeLessThan(overpressureRadiusMetres(1_000, 5))
+  })
+
+  it('touches the fireball to the ground at the hard-target height above about three hundred kilotonnes', () => {
+    // The fireball grows as W^0.4 and the burst height as W^(1/3), so a
+    // weapon placed to maximise the 20 psi area eventually digs whether the
+    // plan wanted fallout or not. At the 5 psi height it never does.
+    const at20 = crossing((y) => fireballTouchesGround(y, optimumBurstHeightMetres(y, 20)))
+    expect(at20).toBeGreaterThan(280)
+    expect(at20).toBeLessThan(360)
+    expect(fireballTouchesGround(200, optimumBurstHeightMetres(200, 20))).toBe(false)
+    expect(fireballTouchesGround(335, optimumBurstHeightMetres(335, 20))).toBe(true)
+    for (const y of [1, 100, 1_000, 20_000]) {
+      expect(fireballTouchesGround(y, optimumBurstHeightMetres(y, 5)), `${y} kt at the 5 psi height`).toBe(false)
+    }
+  })
+})
