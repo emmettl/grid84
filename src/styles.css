@@ -2745,3 +2745,109 @@ body,
 .two-numbers > div.is-rising strong {
   color: var(--amber);
 }
+
+/* The years after: the same phosphor tube as WOPR, in the blue of a sky that has stopped working. */
+.winter {
+  --phosphor: #b9d8ff;
+  --phosphor-dim: rgba(185, 216, 255, 0.62);
+  --phosphor-faint: rgba(185, 216, 255, 0.34);
+}
+
+.winter .wopr-terminal {
+  border-color: rgba(185, 216, 255, 0.3);
+  background:
+    repeating-linear-gradient(rgba(185, 216, 255, 0.03) 0 1px, transparent 1px 3px),
+    rgba(4, 7, 14, 0.84);
+  text-shadow:
+    0 0 1px rgba(185, 216, 255, 0.5),
+    0 0 6px rgba(185, 216, 255, 0.24),
+    0 0 18px rgba(185, 216, 255, 0.09);
+}
+
+.winter .wopr-terminal::after {
+  background:
+    radial-gradient(ellipse 80% 45% at 30% 22%, rgba(185, 216, 255, 0.06), transparent 70%),
+    radial-gradient(ellipse 120% 120% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.38) 100%);
+}
+
+.winter .wopr-head,
+.winter .wopr-figure {
+  border-bottom-color: rgba(185, 216, 255, 0.25);
+}
+
+.winter .wopr-group button {
+  border-color: rgba(185, 216, 255, 0.3);
+}
+
+.winter .wopr-group button.is-active {
+  border-color: rgba(185, 216, 255, 0.9);
+  background: rgba(185, 216, 255, 0.16);
+}
+
+.winter-ledger th {
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.winter-ledger td:first-of-type {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.winter-controls {
+  max-width: min(34rem, 92vw);
+  align-items: flex-end;
+}
+
+.winter-fuel {
+  flex-wrap: nowrap;
+}
+
+.winter-controls input[type='range'] {
+  flex: 1 1 8rem;
+  min-width: 6rem;
+  accent-color: #b9d8ff;
+  background: transparent;
+}
+
+.winter-argument {
+  max-height: 46vh;
+  overflow-y: auto;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(185, 216, 255, 0.3);
+  background: rgba(4, 7, 14, 0.92);
+  color: var(--phosphor);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.winter-argument .wopr-objectives td:last-of-type {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.winter-fuel-pick {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  text-decoration: underline dotted;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .winter-controls {
+    max-width: none;
+    align-items: stretch;
+  }
+
+  .winter-argument {
+    max-height: 40vh;
+    font-size: 0.58rem;
+  }
+}

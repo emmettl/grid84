@@ -228,6 +228,7 @@ export function FrontPage() {
             <a className="front-button front-button--quiet" href="#/loop">Run the loop</a>
             <a className="front-button front-button--quiet" href="#/wopr">WOPR</a>
             <a className="front-button front-button--quiet" href="#/atlas">The atlas</a>
+            <a className="front-button front-button--quiet" href="#/winter">The years after</a>
           </nav>
         </header>
 
@@ -273,6 +274,10 @@ export function FrontPage() {
             <li>
               <a href="#/wopr">WOPR</a>
               <span>A constrained optimiser over the 1983 posture, searching for the plan that minimises a chosen loss under the planners' constraints. It improves relentlessly, and the word beside the number is the work.</span>
+            </li>
+            <li>
+              <a href="#/winter">The years after</a>
+              <span>What the weapons start and the sky finishes. Soot from the burning cities, the sunlight it takes away, the harvest that fails under it and the famine that follows, over fifteen years. The buffers that decide who eats are controls, and so is the fuel loading the whole argument turns on.</span>
             </li>
             <li>
               <a href="#/loop">The loop</a>

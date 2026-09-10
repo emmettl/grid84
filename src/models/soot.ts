@@ -118,20 +118,21 @@ export const FUEL_LOADS: FuelReference[] = [
  * everything else fixed and varied only this: at one gramme per square
  * centimetre the soot is rained out and there is no global forcing at all;
  * at five it reaches the upper troposphere and then lofts itself; at
- * sixteen about forty per cent goes straight to the stratosphere. Toon's
- * own assumption, at the loadings he uses, is that 68 per cent survives
- * both rainouts. The curve between those points is an interpolation and
- * nothing more.
+ * sixteen about forty per cent goes straight to the stratosphere and the
+ * rest reaches the upper troposphere and lofts itself, giving a cooling
+ * that matches the published five-teragram case. So sixteen is where this
+ * curve reaches Toon's own assumption, that 68 per cent survives both
+ * rainouts. The curve between those points is an interpolation and nothing
+ * more, and it is the most consequential interpolation on the page.
  */
 export function loftedFraction(fuelGPerCm2: number): number {
   const points: Array<[number, number]> = [
     [0, 0],
     [1, 0.02],
-    [4, 0.16],
-    [5, 0.22],
-    [10, 0.33],
-    [16, 0.4],
-    [35, (1 - SOOT_CHAIN.promptRainout) * (1 - SOOT_CHAIN.furtherRainout)],
+    [4, 0.15],
+    [5, 0.25],
+    [10, 0.5],
+    [16, (1 - SOOT_CHAIN.promptRainout) * (1 - SOOT_CHAIN.furtherRainout)],
     [95, (1 - SOOT_CHAIN.promptRainout) * (1 - SOOT_CHAIN.furtherRainout)],
   ]
   if (fuelGPerCm2 <= 0) return 0
@@ -204,6 +205,8 @@ export interface SootCase {
   weapons: number
   yieldKt: number
   sootTg: number
+  /** Deaths from the weapons themselves, before any of what follows. Xia et al. 2022, Table 1. */
+  directFatalities: number
   /** Where the fires are, as latitudes with weights. */
   sources: Array<{ lat: number; weight: number }>
   source: string
@@ -211,6 +214,46 @@ export interface SootCase {
 }
 
 /** The published cases, as the papers state them, with the caveats they are usually quoted without. */
+/**
+ * The area a case sets alight: what its weapons can ignite. Toon's own
+ * calculation caps each weapon at the city under it, which this cannot do
+ * without a target list, so for a case with more weapons than cities this
+ * is an overestimate and the fuel loading read back from it is
+ * correspondingly low.
+ */
+export function burnedAreaKm2(c: SootCase): number {
+  return c.weapons * fireAreaKm2(c.yieldKt)
+}
+
+/** Soot above the weather, in teragrams, from an area of city at a fuel loading. */
+export function sootFromArea(areaKm2: number, fuelGPerCm2: number): number {
+  return (areaKm2 * 1e6 * fuelGPerCm2 * 10 * SOOT_CHAIN.emissionFactor * loftedFraction(fuelGPerCm2)) / 1e9
+}
+
+/**
+ * The fuel loading a published case implies, given the area its weapons
+ * ignite. This is a check as much as a control: the hundred-weapon regional
+ * case comes back at about 28 g/cm², which is exactly Toon's fifty-target
+ * average for Pakistan, so the chain and the published figure agree without
+ * being made to.
+ */
+export function referenceFuel(c: SootCase): number {
+  const area = burnedAreaKm2(c)
+  let lo = 0.01
+  let hi = 200
+  for (let i = 0; i < 60; i += 1) {
+    const mid = (lo + hi) / 2
+    if (sootFromArea(area, mid) < c.sootTg) lo = mid
+    else hi = mid
+  }
+  return (lo + hi) / 2
+}
+
+/** The soot that case would give if the cities held a different amount of fuel. This is the argument, as a dial. */
+export function sootForFuel(c: SootCase, fuelGPerCm2: number): number {
+  return sootFromArea(burnedAreaKm2(c), fuelGPerCm2)
+}
+
 export const SOOT_CASES: SootCase[] = [
   {
     id: 'regional-5',
@@ -218,20 +261,26 @@ export const SOOT_CASES: SootCase[] = [
     weapons: 100,
     yieldKt: 15,
     sootTg: 5,
+    directFatalities: 27_000_000,
     sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }],
     source: 'Robock, Oman, Stenchikov, Toon, Bardeen & Turco, Atmos. Chem. Phys. 7 (2007), 2003-2012',
     note: 'The canonical five teragrams is the top of a stated range of one to five, not a computed total: Toon 2007 Table 13 sums India and Pakistan to 6.6, and with 2016 populations the same hundred weapons give 8.7',
   },
-  { id: 'regional-16', label: 'India and Pakistan, 2025 arsenals', weapons: 250, yieldKt: 15, sootTg: 16, sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }], source: 'Toon et al., Science Advances 5 (2019), table S1', note: 'India 100 weapons on Pakistani cities, Pakistan 150 on Indian cities' },
-  { id: 'regional-27', label: 'The same war with fifty-kilotonne weapons', weapons: 250, yieldKt: 50, sootTg: 27, sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }], source: 'Toon et al., Science Advances 5 (2019)', note: 'Both arsenals are moving to higher yields, which is what this case is for' },
-  { id: 'regional-37', label: 'The same war with hundred-kilotonne weapons', weapons: 250, yieldKt: 100, sootTg: 37, sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }], source: 'Toon et al., Science Advances 5 (2019)', note: '' },
-  { id: 'regional-47', label: 'The upper limit for the subcontinent', weapons: 500, yieldKt: 100, sootTg: 47, sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }], source: 'Toon et al. 2019 as read by Xia et al. 2022, Table 1', note: 'Toon 2019 says 250 weapons for this case and 250 for the 37 Tg case, which cannot both be right; Xia reads it as 250 against each country' },
+  { id: 'regional-16', label: 'India and Pakistan, 2025 arsenals', weapons: 250, yieldKt: 15, sootTg: 16,
+    directFatalities: 52_000_000, sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }], source: 'Toon et al., Science Advances 5 (2019), table S1', note: 'India 100 weapons on Pakistani cities, Pakistan 150 on Indian cities' },
+  { id: 'regional-27', label: 'The same war with fifty-kilotonne weapons', weapons: 250, yieldKt: 50, sootTg: 27,
+    directFatalities: 97_000_000, sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }], source: 'Toon et al., Science Advances 5 (2019)', note: 'Both arsenals are moving to higher yields, which is what this case is for' },
+  { id: 'regional-37', label: 'The same war with hundred-kilotonne weapons', weapons: 250, yieldKt: 100, sootTg: 37,
+    directFatalities: 127_000_000, sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }], source: 'Toon et al., Science Advances 5 (2019)', note: '' },
+  { id: 'regional-47', label: 'The upper limit for the subcontinent', weapons: 500, yieldKt: 100, sootTg: 47,
+    directFatalities: 164_000_000, sources: [{ lat: 25, weight: 0.7 }, { lat: 32, weight: 0.3 }], source: 'Toon et al. 2019 as read by Xia et al. 2022, Table 1', note: 'Toon 2019 says 250 weapons for this case and 250 for the 37 Tg case, which cannot both be right; Xia reads it as 250 against each country' },
   {
     id: 'global-150',
     label: 'The northern hemisphere',
     weapons: 4_400,
     yieldKt: 100,
     sootTg: 150,
+    directFatalities: 360_000_000,
     sources: [{ lat: 35, weight: 0.35 }, { lat: 45, weight: 0.4 }, { lat: 55, weight: 0.25 }],
     source: 'Toon, Robock & Turco, Physics Today 61 (2008), 180 Tg; rounded to 150 by Coupe et al., JGR Atmos. 124 (2019)',
     note: 'Four hundred and forty megatonnes, about half the arsenals of Russia, China, Britain, France and the United States. The 180 became 150 by doubling the assumed rainout, not by striking fewer cities',

@@ -34,6 +34,7 @@ import type { DeliveryPreference, Loading } from './atlas/solver.ts'
 import type { AtlasTarget } from './atlas/target.ts'
 import type { Study } from './studies/study.ts'
 import { WoprView } from './wopr/WoprView.tsx'
+import { WinterView } from './winter/WinterView.tsx'
 import { Chronicle } from './chronicle/Chronicle.tsx'
 import { PostureAtlas } from './chronicle/PostureAtlas.tsx'
 
@@ -41,6 +42,7 @@ type Route =
   | { kind: 'front' }
   | { kind: 'loop' }
   | { kind: 'wopr' }
+  | { kind: 'winter' }
   | { kind: 'chronicle' }
   | { kind: 'posture' }
   | { kind: 'atlas'; strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null } }
@@ -66,6 +68,7 @@ function parseRoute(hash: string): Route {
   if (shared) return { kind: 'atlas', strike: shared }
   if (hash === '#/loop') return { kind: 'loop' }
   if (hash === '#/wopr') return { kind: 'wopr' }
+  if (hash === '#/winter') return { kind: 'winter' }
   if (hash === '#/chronicle') return { kind: 'chronicle' }
   if (hash === '#/chronicle/posture') return { kind: 'posture' }
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
@@ -119,7 +122,7 @@ function useRoute(): Route {
 function useTitle(route: Route) {
   useEffect(() => {
     const part =
-      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
+      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'winter' ? 'The years after' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
     // A study names the tab itself, from its title.
     if (route.kind === 'study') return
     document.title = part ? `Grid/84 · ${part}` : 'Grid/84'
@@ -311,7 +314,7 @@ export default function App() {
   ]
   return (
     <>
-      {route.kind !== 'loop' && route.kind !== 'wopr' && (
+      {route.kind !== 'loop' && route.kind !== 'wopr' && route.kind !== 'winter' && (
       <nav className="grid-nav" aria-label="Views">
         {links.map((l) => (
           <a key={l.href} href={l.href} className={l.active ? 'is-active' : ''} aria-current={l.active ? 'page' : undefined}>
@@ -322,6 +325,7 @@ export default function App() {
       )}
       {route.kind === 'loop' && <LoopView />}
       {route.kind === 'wopr' && <WoprView />}
+      {route.kind === 'winter' && <WinterView />}
       {route.kind === 'front' && <FrontPage />}
       {route.kind === 'chronicle' && <Chronicle />}
       {route.kind === 'posture' && <PostureAtlas key="posture" />}

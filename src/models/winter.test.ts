@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { famine } from './famine.ts'
 import { baselineDegreeDays, harvest } from './harvest.ts'
-import { fireAreaKm2, loftedFraction, SOOT_CASES, SOOT_CHAIN, SOOT_PER_PERSON_KG, sootFromDetonation } from './soot.ts'
+import { burnedAreaKm2, fireAreaKm2, loftedFraction, referenceFuel, SOOT_CASES, SOOT_CHAIN, SOOT_PER_PERSON_KG, sootForFuel, sootFromDetonation } from './soot.ts'
 import { OZONE, ozoneColumn, ultraviolet } from './ozone.ts'
 import { injectionWeights, insolation, peakOf, runWinter, type Zonal } from './winter.ts'
 
@@ -181,5 +181,24 @@ describe('the ozone and the ultraviolet', () => {
     // A regional war has no such reprieve; the rise starts at once.
     const small = run('regional-5', 120)
     expect(ultraviolet(5, 24, small[24].opticalDepth[tropics])).toBeGreaterThan(OZONE.baselineIndex)
+  })
+})
+
+describe('the fuel loading, which is the argument', () => {
+  it('reads back a burned area consistent with the case, and swings the soot by two orders of magnitude across the dispute', () => {
+    const regional = caseOf('regional-5')
+    const global = caseOf('global-150')
+    // A hundred Hiroshimas is about thirteen hundred square kilometres of city.
+    expect(burnedAreaKm2(regional)).toBeCloseTo(1_300, 0)
+    // And the loading that gives the published soot over that area comes back
+    // at Toon's own fifty-target average for Pakistan, which nothing here made it do.
+    expect(referenceFuel(regional)).toBeGreaterThan(24)
+    expect(referenceFuel(regional)).toBeLessThan(34)
+    // The global case ignites more ground than there is city on, so the loading it implies is lower.
+    expect(referenceFuel(global)).toBeLessThan(referenceFuel(regional))
+    // Reisner's loading against Toon's: no winter against a winter.
+    expect(sootForFuel(global, 1)).toBeLessThan(10)
+    expect(sootForFuel(global, referenceFuel(global))).toBeCloseTo(150, 0)
+    expect(sootForFuel(global, 30) / sootForFuel(global, 1)).toBeGreaterThan(20)
   })
 })

@@ -237,3 +237,103 @@ A forty-eight hour window is not where the dying stops; it is where the model us
 **The collective dose, and the cancers in it.** The union now carries person-rads among those the blast and fire left alive, and the readout gives latent fatal cancers at the nominal coefficient of about five and a half per cent per sievert. On the demolition belt that is 910,000 person-sieverts and about 50,000 latent deaths, against 27,000 acute: the tail is larger than the head. The coefficient is contested for exactly this use, and the commission that publishes it advises against multiplying a population's collective dose by it; it is given because leaving the long tail at zero is further from the truth than giving it with the caveat attached.
 
 **What is still missing is larger than either.** Between the acute deaths and the cancers lie the injured who die because there is no hospital, the people who die of a winter without heat or water, the crops that fail and the famine that the atmospheric work of the last decade puts above every prompt effect combined. The studies of consequence, from the Office of Technology Assessment in 1979 to the crop-model work of the 2020s, are mostly about that gap. This engine does not model it and now says so on every surface-burst readout.
+
+## The years after: soot, cold, the harvest and the famine
+
+The winter chain (`src/models/soot.ts`, `winter.ts`, `harvest.ts`,
+`famine.ts`, `ozone.ts`) is a fit and is stated as one. Its structure is
+physical; the coefficients inside that structure were chosen so that the
+whole chain reproduces the published results of the three-dimensional
+models at both ends of the range. What follows is what it gives, against
+what they give.
+
+### The chain, case by case
+
+| Case | Soot | Implied fuel | Peak ΔT | Rain, y2 | Crops, y2 | Without food, y2 | Ozone, worst |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| India and Pakistan, 2007 arsenals | 5 Tg | 27.5 g/cm² | −0.9 K | 95% | 93% | 247 M | −25% |
+| India and Pakistan, 2025 arsenals | 16 Tg | 35.2 g/cm² | −2.5 K | 86% | 71% | 1,101 M | −36% |
+| The same with 50 kt weapons | 27 Tg | 17.8 g/cm² | −3.6 K | 78% | 60% | 1,500 M | −43% |
+| The same with 100 kt weapons | 37 Tg | 13.7 g/cm² | −4.4 K | 73% | 56% | 1,993 M | −48% |
+| The upper limit for the subcontinent | 47 Tg | 10.5 g/cm² | −5.2 K | 68% | 50% | 2,724 M | −52% |
+| The northern hemisphere | 150 Tg | 6.3 g/cm² | −8.6 K | 48% | 26% | 5,536 M | −75% |
+
+Against the published figures, at the same population Xia used, 6.70
+billion:
+
+| Figure | Published | Here |
+| --- | --- | --- |
+| Peak global cooling, 5 Tg | −1.25 K (ModelE), −1.1 to −1.5 K (WACCM) | −0.9 K |
+| Peak global cooling, 150 Tg | −7 to −8 K (ModelE), −9.5 K at 1 yr (WACCM4) | −8.6 K |
+| Still cold at 10 years, 150 Tg | −4 K | −4.0 K |
+| Precipitation, 150 Tg | −45% (ModelE), −58% (WACCM4) | −52% |
+| Precipitation, 5 Tg | −10% (ModelE), −6% (WACCM) | −5% |
+| Land against ocean, 150 Tg, year 2 | land ≈ −18 K, ocean ≈ −6 K (Toon 2019) | −12.4 K, −5.4 K |
+| Soot e-folding | 6.0 yr at 5 Tg, 5.5 at 50, 4.6 at 150 | the published relation, fitted |
+| Crop calories lost, year 2 | −6.9 / −22.7 / −32.8 / −41.1 / −48.0 / −81.6% | −7 / −29 / −40 / −44 / −50 / −74% |
+| Without food, year 2, no trade | 255 / 926 / 1,426 / 2,081 / 2,512 / 5,341 M | 247 / 1,101 / 1,500 / 1,993 / 2,724 / 5,536 M |
+| Without food, year 2, trade | 4 / 626 / 1,162 / 1,861 / 2,353 / 5,321 M | 129 / 474 / 1,042 / 1,503 / 2,462 / 5,752 M |
+| Ozone column, worst | −25% at 5 Tg, −75% at 150 | −25%, −75% |
+
+Eighteen published numbers, most within a tenth. Three places where it is
+not, and they are stated rather than tuned away: it runs cool at five
+teragrams, about a third under the ModelE figure; it is heavy in the
+middle of the famine range, where its ten-degree bands cannot see that a
+band is a dozen countries which would not share a harvest; and its
+land-against-ocean contrast is milder than the published one at the same
+global mean, −12 against −18 over land, because a zonal band averages a
+continental interior with the coast beside it and the published maps do
+not.
+
+### What the fit had to be told twice
+
+Two structural errors were found by the fit refusing to work, and both are
+worth recording because the corrected version is the physics.
+
+**The land stops evaporating and the sea does not.** The first version
+assumed the sunlight deficit was more strongly compensated over the ocean,
+on the reasoning that a warm ocean holds its air up. The fit inverted it,
+and the fit was right: a field that loses its sunlight also stops lifting
+water, and the heat it is no longer losing offsets about half the deficit,
+while a sea surface goes on evaporating into the cold air above it and
+takes the whole of it. What keeps the sea warm is not the surface budget
+but the two hundred and fifty metres of water under it.
+
+**A tropical continent cannot decouple from the sea beside it.** The
+first version froze the Congo and the Amazon, which no published run does.
+Deep convection over warm water sets the temperature of the whole tropical
+troposphere and the free troposphere will not hold a horizontal gradient
+against it, so tropical land is tied to tropical sea in a way that
+northern land is not. With that coupling in, the tropics cool by five
+degrees where the northern continents cool by twenty, which is what the
+maps show.
+
+A third error was arithmetic rather than physical: the monthly step went
+unstable once the coupling was strong enough to be right, and the month is
+now walked in twelfths.
+
+### The number the whole thing hangs on
+
+The fuel loading is not a parameter, it is the argument, and this is what
+it does to the northern-hemisphere case with everything else held fixed:
+
+| Fuel loading | Where it comes from | Soot | Peak ΔT |
+| --- | --- | --- | --- |
+| 0.14 g/cm² | Reisner's target area, as measured by his critics | 0.03 Tg | none |
+| 1 g/cm² | Reisner's whole domain; Wagman's null case | 2 Tg | −0.3 K |
+| 1.75 g/cm² | Bush's survey of American cities, quoted by the National Academies in 2025 | 7 Tg | −1.2 K |
+| 4 g/cm² | Glasstone & Dolan's firestorm threshold | 46 Tg | −5.1 K |
+| 6.3 g/cm² | what this case implies at the published 150 Tg | 150 Tg | −8.6 K |
+| 16 g/cm² | Toon's Hiroshima; Wagman's stratospheric case | 854 Tg | −10.3 K |
+| 35 g/cm² | Toon's fifty-target average for India | 1,869 Tg | −10.4 K |
+
+Above about ten grammes per square centimetre the cooling saturates near
+ten and a half degrees, because the sunlight is already gone and more soot
+has nothing left to take. The interesting part of the range is all below
+the firestorm threshold, where the answer swings by a factor of a hundred.
+
+Which is to say: the difference between the two positions in the
+literature is the difference between a bad year and the end of
+agriculture, and it rests on a quantity that has been measured for exactly
+one city, where the published values differ by a factor of four.
+

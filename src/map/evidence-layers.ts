@@ -30,8 +30,12 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     id: 'ev-areas-fill',
     type: 'fill',
     source: SOURCES.areas,
-    // A plume's contours fade outward with their H+1 dose rate, so the far tail reads as the faint thing it is; other areas keep the full tint.
-    paint: { 'fill-color': MODELLED_FILL, 'fill-opacity': ['case', ['has', 'dose'], ['interpolate', ['linear'], ['log10', ['max', 0.1, ['get', 'dose']]], -1, 0.25, 0, 0.35, 1, 0.6, 2, 0.85, 3, 1], 1] },
+    // A plume's contours fade outward with their H+1 dose rate, so the far tail
+    // reads as the faint thing it is; the blast rings keep the full tint, which
+    // is stronger than it was because at the old value they barely showed. The
+    // plume stops are scaled by the same factor the tint went up by, so the
+    // plumes look exactly as they did.
+    paint: { 'fill-color': MODELLED_FILL, 'fill-opacity': ['case', ['has', 'dose'], ['interpolate', ['linear'], ['log10', ['max', 0.1, ['get', 'dose']]], -1, 0.143, 0, 0.2, 1, 0.343, 2, 0.486, 3, 0.571], 1] },
   })
   for (const tier of TIER_ORDER) {
     const g = LINE[tier]

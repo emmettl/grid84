@@ -59,5 +59,5 @@ export const POINT: Record<EvidenceTier, PointGrammar> = {
 export const WITHHELD_BORDER = rgba(HUE.cyan, 0.7)
 /** Fill for withheld areas: a hatch is approximated with a dense dash on the outline plus a near-black fill. */
 export const WITHHELD_FILL = rgba(HUE.ink, 0.92)
-export const MODELLED_FILL = rgba(HUE.effect, 0.08)
+export const MODELLED_FILL = rgba(HUE.effect, 0.14)
 export const INFERRED_RING = rgba(HUE.cyan, 0.35)
