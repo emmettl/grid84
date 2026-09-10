@@ -32,6 +32,15 @@ def site(s, side, kind, weapons, vehicles=None, unit=None):
     }
 
 
+def epoch_1956():
+    d = load('data/chronicle/order-of-battle-1956.json')
+    sites = []
+    for s in d['sites']:
+        w = s.get('weapons', s['aircraft'] * s.get('weaponsPerAircraft', 1))
+        sites.append(site(s, s['side'], 'bomber', w, s['aircraft'], 'aircraft'))
+    return {'year': 1956, 'label': '1956', 'scope': 'strategic', 'study': '#/study/siop62', 'studyName': 'SIOP//62, whose target study is of this year', 'sides': {'us': 'United States', 'su': 'Soviet Union'}, 'sites': sites, 'rules': d['rules'], 'source': d.get('note', ''), 'caveat': 'A force of bombers on both sides, spread from the fleet totals over the wings the unit lists name; the Soviet fields are inferred and the stockpile of the year caps their weapons'}
+
+
 def epoch_1961():
     d = load('data/siop62/order-of-battle-1961.json')
     r = d['rules']
@@ -132,7 +141,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', required=True, type=Path)
     args = ap.parse_args()
-    epochs = [epoch_1961(), epoch_1962(), epoch_1973(), epoch_1983(), epoch_1991(), epoch_2024()]
+    epochs = [epoch_1956(), epoch_1961(), epoch_1962(), epoch_1973(), epoch_1983(), epoch_1991(), epoch_2024()]
     for e in epochs:
         totals = {}
         for s in e['sites']:
