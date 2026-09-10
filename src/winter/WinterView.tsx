@@ -6,6 +6,7 @@ import { harvest } from '../models/harvest.ts'
 import { ozoneColumn, ultraviolet, OZONE } from '../models/ozone.ts'
 import { burnedAreaKm2, FUEL_LOADS, referenceFuel, SOOT_CASES, sootForFuel, SOOT_CHAIN } from '../models/soot.ts'
 import { bandOf, injectionWeights, runWinter } from '../models/winter.ts'
+import { impactPoints, impactSummary } from './impacts.ts'
 import { report } from './report.ts'
 import { bandPolygons, WORLD_POPULATION, ZONAL } from './zonal.ts'
 
@@ -60,6 +61,7 @@ export function WinterView() {
   const harvested = years[year - 1]
   const worst = useMemo(() => hunger.reduce((a, b) => (b.withoutFood > a.withoutFood ? b : a), hunger[0]), [hunger])
   const tropics = bandOf(ZONAL, 5)
+  const impacts = useMemo(() => impactSummary(caseId), [caseId])
 
   // The globe, turning, with a band per ten degrees of latitude.
   useEffect(() => {
@@ -99,6 +101,20 @@ export function WinterView() {
           'fill-opacity': ['interpolate', ['linear'], ['get', 'tau'], 0, 0, 0.3, 0.18, 1.5, 0.5, 4, 0.72],
         },
       })
+      // Where the weapons landed: white while the cities burn, an ember afterwards.
+      map.addSource('winter-impacts', { type: 'geojson', data: impactPoints('global-150') })
+      map.addLayer({
+        id: 'winter-impacts-glow',
+        type: 'circle',
+        source: 'winter-impacts',
+        paint: { 'circle-radius': ['interpolate', ['exponential', 2], ['zoom'], 1, 3, 5, 9], 'circle-color': 'rgba(255, 214, 170, 0.5)', 'circle-blur': 1, 'circle-opacity': 0 },
+      })
+      map.addLayer({
+        id: 'winter-impacts',
+        type: 'circle',
+        source: 'winter-impacts',
+        paint: { 'circle-radius': ['interpolate', ['exponential', 2], ['zoom'], 1, 1.1, 5, 3.4], 'circle-color': '#ffffff', 'circle-opacity': 0 },
+      })
       pad()
       const turn = () => {
         if (!map.isMoving()) {
@@ -132,6 +148,23 @@ export function WinterView() {
     })
     source.setData(data)
   }, [frame])
+
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    const source = map.getSource('winter-impacts') as GeoJSONSource | undefined
+    if (source) source.setData(impactPoints(caseId))
+  }, [caseId])
+
+  // The marks are white while the cities are burning and a dull ember after.
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !map.getLayer('winter-impacts')) return
+    const burning = Math.max(0, 1 - month / 3)
+    map.setPaintProperty('winter-impacts', 'circle-opacity', 0.35 + 0.65 * burning)
+    map.setPaintProperty('winter-impacts', 'circle-color', burning > 0.15 ? '#ffffff' : 'rgb(255, 206, 168)')
+    map.setPaintProperty('winter-impacts-glow', 'circle-opacity', 0.15 + 0.85 * burning)
+  }, [month])
 
   // The clock: about a month a second, and it stops at the end.
   useEffect(() => {
@@ -172,6 +205,9 @@ export function WinterView() {
           <p className="wopr-line wopr-line--title">THE YEARS AFTER · WHAT FOLLOWS THE WEAPONS</p>
           <p className="wopr-line">
             {sootCase.label.toUpperCase()} · {sootCase.weapons.toLocaleString('en-GB')} × {sootCase.yieldKt} KT · {sootTg < 1 ? sootTg.toFixed(2) : sootTg.toFixed(0)} TG OF SOOT
+          </p>
+          <p className="wopr-line wopr-dim">
+            {impacts.cities.toLocaleString('en-GB')} CITIES MARKED · {people(impacts.population)} IN THE CELLS THEMSELVES · {impacts.regions.join(', ').toUpperCase()}
           </p>
           <p className="wopr-line">
             MONTH {String(month).padStart(3, '0')} · YEAR {Math.floor(month / 12) + 1}

@@ -1,7 +1,7 @@
 import type { FamineYear } from '../models/famine.ts'
 import type { HarvestYear } from '../models/harvest.ts'
 import { ozoneColumn, ultraviolet, OZONE } from '../models/ozone.ts'
-import { burnedAreaKm2, firestorm, loftedFraction, SOOT_CHAIN, type SootCase } from '../models/soot.ts'
+import { burnedAreaKm2, firestorm, loftedFraction, SOOT_CHAIN, SOOT_PER_PERSON_KG, type SootCase } from '../models/soot.ts'
 import { bandOf, type WinterFrame } from '../models/winter.ts'
 import { ZONAL } from './zonal.ts'
 
@@ -47,6 +47,7 @@ export function report(input: ReportInput): WinterLine[] {
   say(0, `FIRES · ${km2(area)} ALIGHT · FUEL LOADING ${fuel.toFixed(1)} G/CM² · ${fuel >= SOOT_CHAIN.firestormFuelGPerCm2 ? 'A CITY' : 'NOT A CITY: SUBURBS, OR CITY WITH THE RUBBLE SMOTHERING MOST OF THE FUEL'}`)
   say(0, firestorm(fuel, area) ? `FIRESTORM · FUEL ABOVE THE ${SOOT_CHAIN.firestormFuelGPerCm2} G/CM² THRESHOLD · THE FIRE MAKES ITS OWN WIND AND ITS OWN COLUMN` : `NO FIRESTORM · FUEL BELOW ${SOOT_CHAIN.firestormFuelGPerCm2} G/CM² · THE FIRE SPREADS BUT DOES NOT ORGANISE, AND THE SMOKE STAYS LOW`, 'calib')
   say(0, `SOOT PRODUCED ${tg(produced)} TG · ${pc(loftedFraction(fuel))} ABOVE THE WEATHER · ${tg(sootTg)} TG INTO THE STRATOSPHERE`, 'best')
+  say(0, `AT ${Math.round(SOOT_PER_PERSON_KG)} KG OF SOOT A PERSON, THAT IS ${people((sootTg * 1e9) / SOOT_PER_PERSON_KG)} PEOPLE INSIDE THE FIRES. THE MARKS ON THE GLOBE ARE THE CITY CENTRES; THE FIRES ARE THE METROPOLITAN AREAS AROUND THEM`)
   if (sootTg < 1) {
     say(1, 'THE SMOKE RAINS OUT WITHIN WEEKS. NO GLOBAL FORCING. THIS IS THE OUTCOME REISNER FOUND, AND IT FOLLOWS FROM THE FUEL LOADING ALONE', 'calib')
   }
