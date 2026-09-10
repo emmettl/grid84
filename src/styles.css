@@ -796,6 +796,12 @@ body,
     font-size: 0.5rem;
     letter-spacing: 0.14em;
   }
+  /* iOS zooms the page when a focused field is under 16px, and never zooms back. */
+  .hud-search input,
+  .hud-caret-mirror {
+    font-size: 16px;
+  }
+
   /* The outcome compressed: one line per figure, label left and number right, the notes gone. */
   .aggregate {
     padding: 0.45rem 0.6rem;
@@ -826,8 +832,15 @@ body,
   .aggregate .two-numbers > div > strong {
     grid-column: 2;
     grid-row: 1 / span 2;
-    font-size: 1.15rem;
+    min-width: 0;
+    font-size: 1rem;
     text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .aggregate .two-numbers > div > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
   .aggregate .two-numbers > div > em {
     grid-column: 1;

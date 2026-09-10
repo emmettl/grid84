@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type KeyboardEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { designate } from '../atlas/designation.ts'
 import type { AtlasTarget } from '../atlas/target.ts'
 import { formatBearing, formatElevation, formatGrid, formatRange } from '../geo/geodesy.ts'
@@ -17,6 +17,7 @@ interface HudProps {
 export function Hud({ phase, onAcquire, consoleOpen = false, presetName = null }: HudProps) {
   const geocoder = useGeocoder()
   const [open, setOpen] = useState(false)
+  const focused = useRef(false)
   useEffect(() => {
     if (presetName) geocoder.settle(presetName)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,7 +61,13 @@ export function Hud({ phase, onAcquire, consoleOpen = false, presetName = null }
         <input
           id="target-query"
           type="search"
-          autoFocus
+          ref={(el) => {
+            // The prompt takes focus on a pointer device. On a phone that would raise the keyboard over the globe.
+            if (el && !focused.current && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+              focused.current = true
+              el.focus()
+            }
+          }}
           autoComplete="off"
           spellCheck={false}
           placeholder=""

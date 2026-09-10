@@ -755,7 +755,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   const falloutEvents = study.entities.flatMap((e) => {
     if (e.kind !== 'effect' || !e.fallout || burst !== 'surface') return []
     const f = e.fallout
-    const lines = [{ time: e.time + 4, text: `FALLOUT · CONTACT SURFACE BURST · PLUME UNDER ${f.windMph} MPH WIND TOWARDS ${String(f.downwindBearingDeg).padStart(3, '0')}° · FISSION ${Math.round(f.fissionFraction * 100)}% (ASSUMED)`, entityId: e.id }]
+    const lines = [{ time: e.time + 4, text: `FALLOUT · CONTACT SURFACE BURST · PLUME UNDER ${Math.round(f.windMph)} MPH WIND TOWARDS ${String(Math.round(f.downwindBearingDeg) % 360).padStart(3, '0')}° · FISSION ${Math.round(f.fissionFraction * 100)}% (ASSUMED)`, entityId: e.id }]
     const o = falloutOutcomes[e.id]
     if (o) lines.push({ time: e.time + f.untilHours * 3_600, text: `OUTCOME · FALLOUT TO H+${f.untilHours} H · ${fmt(o.under1)} UNDER 1 RAD/HR · ${fmt(o.dead)} ACUTE DEATHS, NO SHELTER (INFERRED)`, entityId: e.id })
     return lines
