@@ -384,6 +384,22 @@ body,
   min-width: 0;
 }
 
+/*
+ * The reading panels — the log, the provenance, the outcome, the omissions —
+ * are wrapped so that a phone can make them one thing. On a wide screen the
+ * wrapper generates no box at all, so the grid places each panel exactly as
+ * it did before.
+ */
+.study-sheet {
+  display: contents;
+}
+
+/* The sheet's handle belongs to the phone layout only; on a wide screen the
+   wrapper is not a box and the handle would become a stray grid item. */
+.study-sheet-handle {
+  display: none;
+}
+
 .study-brand {
   grid-column: 1;
   grid-row: 1;
@@ -822,17 +838,101 @@ body,
      that alignment is across the page, and it left the outcome panel narrow
      and pushed to the right while every other panel ran full width. The
      desktop rules come later in the file, so these have to out-specify them. */
-  .study-hud > .aggregate,
-  .study-hud > .log,
-  .study-hud > .clock,
-  .study-hud > .provenance {
+  .study-sheet > * {
+    pointer-events: auto;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+  /*
+   * Named one by one: the desktop rules for these panels sit later in the file
+   * at the same specificity, and a class plus a universal selector does not
+   * beat a class. Inside the sheet each panel gives up the height and the
+   * alignment it was given for the wide grid; the sheet's own height governs,
+   * and it scrolls.
+   */
+  .study-sheet > .log,
+  .study-sheet > .provenance,
+  .study-sheet > .aggregate,
+  .study-sheet > .omissions {
+    align-self: stretch;
+    flex: none;
+    max-height: none;
+    margin-top: 0;
+  }
+  /* The outcome is the answer, so it is what the sheet opens on; then the
+     narration, then whatever is selected. The omissions are a wide-screen
+     reading and are not worth a phone's room. */
+  .study-sheet > .aggregate {
+    order: 1;
+  }
+  .study-sheet > .log {
+    order: 2;
+    min-height: 0;
+  }
+  .study-sheet > .provenance {
+    order: 3;
+  }
+  .study-sheet > .omissions {
+    display: none;
+  }
+  .study-sheet-handle {
+    display: block;
+    order: 0;
+    flex: none;
+    align-self: stretch;
+    padding: 0.35rem 0.6rem;
+    border: 0;
+    border-left: 2px solid rgba(141, 250, 255, 0.4);
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    color: var(--muted);
+    font: inherit;
+    letter-spacing: 0.14em;
+    text-align: left;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  /* Folded, the sheet is the handle and nothing else, and the map has the screen. */
+  .study-sheet.is-folded {
+    max-height: none;
+    overflow: visible;
+  }
+  .study-sheet.is-folded > *:not(.study-sheet-handle) {
+    display: none;
+  }
+  .study-hud > .clock {
     align-self: stretch;
     max-height: none;
   }
   /* The desktop panel is right-aligned against the edge of the screen; on a
      phone it is a full-width card and reads down the page from the left. */
-  .study-hud > .aggregate {
+  .study-sheet > .aggregate {
     text-align: left;
+  }
+
+  /*
+   * The map is the study. The panels used to stack down the whole phone and
+   * leave it nothing: a clock, an outcome and a log, and the strike happening
+   * behind all three. The reading panels are now one sheet along the bottom,
+   * holding two fifths of the screen and scrolling inside itself, and the
+   * middle of the screen belongs to the map.
+   */
+  .study-sheet {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: auto;
+    /* vh first for anything that does not know dvh; dvh so the sheet does not
+       jump when Safari's own chrome comes and goes. */
+    max-height: 42vh;
+    max-height: 42dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    min-width: 0;
+  }
+  /* Inside the sheet the sheet's own height governs; the log gives up its floor. */
+  .study-sheet > .log {
+    min-height: 0;
   }
   .clock-controls {
     flex-wrap: wrap;
@@ -928,24 +1028,9 @@ body,
   .clock-time {
     font-size: 1.1rem;
   }
-  .aggregate {
-    order: 2;
-    margin-top: auto;
-    max-height: 24vh;
-  }
-  .log {
-    order: 3;
-    min-height: 0;
-    max-height: 18vh;
-  }
-  .provenance {
-    order: 4;
-    max-height: 26vh;
-  }
   .provenance:has(> .log-empty) {
     display: none;
   }
-  .omissions,
   .legend {
     display: none;
   }

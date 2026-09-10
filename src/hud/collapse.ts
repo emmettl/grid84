@@ -20,7 +20,12 @@ export function foldedByDefault(): boolean {
   return window.innerWidth <= PHONE
 }
 
-export function useFold(key: string): { folded: boolean; toggle: () => void; label: string } {
+/**
+ * `startFolded` overrides the screen's own default. The secondary controls
+ * open folded on a phone because they are set once; the readout does not,
+ * because it is what the study is for, and it has a handle instead.
+ */
+export function useFold(key: string, startFolded?: boolean): { folded: boolean; toggle: () => void; label: string } {
   const [folded, setFolded] = useState(() => {
     try {
       const saved = localStorage.getItem(`grid84-fold:${key}`)
@@ -29,7 +34,7 @@ export function useFold(key: string): { folded: boolean; toggle: () => void; lab
     } catch {
       // no storage; the screen decides
     }
-    return foldedByDefault()
+    return startFolded ?? foldedByDefault()
   })
   const toggle = useCallback(() => {
     setFolded((f) => {
