@@ -372,6 +372,9 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   }, [selectedId, study, missile, launch])
   const [ready, setReady] = useState(false)
 
+  useEffect(() => {
+    document.title = `Grid/84 · ${study.title.replace(/\s+/g, ' ')}`
+  }, [study])
   const statics = useMemo(() => staticFeatures(study), [study])
   // Buses and carrier aircraft: the tracks that release other tracks; their ends are the separation and release points.
   const buses = useMemo(() => {
@@ -571,7 +574,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         // Sites that come into existence during the study: the source and the label follow the clock, and a flash marks the moment.
         const appearing = study.entities.filter((e): e is Extract<Entity, { kind: 'site' }> => e.kind === 'site' && e.appearsAt !== undefined)
         if (appearing.length > 0) {
-          const due = appearing.filter((e) => next.time >= (e.appearsAt as number))
+          const due = appearing.filter((e) => next.time >= (e.appearsAt as number) && (e.vanishesAt === undefined || next.time < e.vanishesAt))
           const key = due.map((e) => e.id).join(',')
           if (key !== appearedKey) {
             appearedKey = key
@@ -581,7 +584,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           }
           for (const e of appearing) {
             const at = e.appearsAt as number
-            const isDue = next.time >= at
+            const isDue = next.time >= at && (e.vanishesAt === undefined || next.time < e.vanishesAt)
             const marker = markers.current.get(e.id)
             if (marker) {
               if (isDue && !marker.getElement().isConnected) marker.addTo(map)

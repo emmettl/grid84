@@ -47,6 +47,17 @@ describe('standoff air delivery', () => {
     expect(m!.vehicles).toHaveLength(3)
     expect(m!.effects).toHaveLength(3)
   })
+  it('fans several aircraft from one base into a flight', () => {
+    const rafale: Launcher = { id: 'sd', name: 'Saint-Dizier', kind: 'bomber', position: [4.9, 48.64], weapons: 3, weaponsPerVehicle: 1, rangeMetres: 2_500_000, yieldKt: 300, reactionSeconds: 0, speedMs: 290, standoffMetres: 500_000, missileSpeedMs: 260 }
+    const flight = enactStrike({ ...common, prefix: 'fl', launchers: [rafale], targets })
+    const aircraft = flight.entities.filter((e) => e.kind === 'track' && e.vehicle === 'aircraft')
+    expect(aircraft).toHaveLength(3)
+    const releases = aircraft.map((a) => (a.kind === 'track' ? a.track.waypoints[1].position : ([0, 0] as [number, number])))
+    expect(haversineMetres(releases[0], releases[1])).toBeGreaterThan(2_000)
+    expect(haversineMetres(releases[0], releases[2])).toBeGreaterThan(2_000)
+    expect(haversineMetres(releases[1], releases[2])).toBeGreaterThan(4_000)
+    expect(aircraft.some((a) => a.kind === 'track' && /2 OF THE FLIGHT/.test(a.designation))).toBe(true)
+  })
   it('flies at least a third of the way when the standoff exceeds the distance', () => {
     const near = enactStrike({ ...common, prefix: 'near', launchers: [{ ...bomber, position: [46.21, 51.48] }], targets: [{ id: 'w', name: 'Warsaw', priority: 0, position: [21.01, 52.23], maxWeapons: 1 }] })
     const aircraft = near.entities.find((e) => e.kind === 'track' && e.vehicle === 'aircraft')

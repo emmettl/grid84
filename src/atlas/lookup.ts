@@ -59,19 +59,20 @@ export async function lookupTarget(ref: string, signal?: AbortSignal): Promise<A
 }
 
 /** The shareable hash for a strike: the target's OSM id and the console's choices. */
-export function strikeHash(target: AtlasTarget, choices: { adversary?: string | null; delivery?: string | null }): string | null {
+export function strikeHash(target: AtlasTarget, choices: { adversary?: string | null; delivery?: string | null; loading?: string | null }): string | null {
   const ref = osmRefOf(target)
   if (!ref) return null
   const q = new URLSearchParams()
   if (choices.adversary) q.set('adversary', choices.adversary)
   if (choices.delivery && choices.delivery !== 'best') q.set('delivery', choices.delivery)
+  if (choices.loading && choices.loading !== 'deployed') q.set('loading', choices.loading)
   const query = q.toString()
   return `#/atlas/strike/${ref}${query ? `?${query}` : ''}`
 }
 
-export function parseStrikeHash(hash: string): { ref: string; adversary: string | null; delivery: string | null } | null {
+export function parseStrikeHash(hash: string): { ref: string; adversary: string | null; delivery: string | null; loading: string | null } | null {
   const m = /^#\/atlas\/strike\/([NWRnwr]\d+)(?:\?(.*))?$/.exec(hash)
   if (!m) return null
   const q = new URLSearchParams(m[2] ?? '')
-  return { ref: m[1].toUpperCase(), adversary: q.get('adversary'), delivery: q.get('delivery') }
+  return { ref: m[1].toUpperCase(), adversary: q.get('adversary'), delivery: q.get('delivery'), loading: q.get('loading') }
 }

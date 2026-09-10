@@ -1,4 +1,5 @@
 import type { Map as MapLibreMap } from 'maplibre-gl'
+import { fetchWindAloft } from '../atlas/wind.ts'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { formatGrid, type LngLat } from '../geo/geodesy.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
@@ -44,13 +45,17 @@ export function FalloutLab() {
   const [fission, setFission] = useState(PRESETS[0].fission)
   const [windMph, setWindMph] = useState(15)
   const [bearing, setBearing] = useState(90)
+  const [shear, setShear] = useState(15)
+  const [terrain, setTerrain] = useState(1)
+  const [windNote, setWindNote] = useState<string | null>(null)
+  const [fetching, setFetching] = useState(false)
   const [hours, setHours] = useState(96)
   const [year, setYear] = useState(PRESETS[0].year)
   const [grid, setGrid] = useState<{ status: 'loading' | 'ready' | 'missing'; summary?: GridSummary }>({ status: 'loading' })
   const [exposure, setExposure] = useState<Record<string, number> | null>(null)
   const [ready, setReady] = useState(false)
 
-  const contours = useMemo(() => plume({ center, yieldKt, fissionFraction: fission, windMph, downwindBearingDeg: bearing, untilHours: hours }), [center, yieldKt, fission, windMph, bearing, hours])
+  const contours = useMemo(() => plume({ center, yieldKt, fissionFraction: fission, windMph, downwindBearingDeg: bearing, untilHours: hours, shearDeg: shear, terrainFactor: terrain }), [center, yieldKt, fission, windMph, bearing, hours, shear, terrain])
 
   useEffect(() => {
     if (!container.current) return
@@ -180,6 +185,35 @@ export function FalloutLab() {
           </h2>
           <input type="range" min={5} max={45} step={1} value={windMph} aria-label="Effective wind speed" onChange={(e) => setWindMph(Number(e.target.value))} />
           <input type="range" min={0} max={359} step={1} value={bearing} aria-label="Downwind bearing" onChange={(e) => setBearing(Number(e.target.value))} />
+          <div className="clock-controls">
+            <button
+              type="button"
+              disabled={fetching}
+              title="Open-Meteo's forecast at 850, 700 and 500 hPa over the next twelve hours, vector-averaged, its spread as shear"
+              onClick={() => {
+                setFetching(true)
+                fetchWindAloft(center)
+                  .then((w) => {
+                    setWindMph(Math.max(5, Math.min(45, Math.round(w.mph))))
+                    setBearing(Math.round((w.fromDeg + 180) % 360))
+                    setShear(Math.round(w.shearDeg))
+                    setWindNote(w.live ? `${w.source}: from ${Math.round(w.fromDeg)}° at ${Math.round(w.mph)} mph, shear ${Math.round(w.shearDeg)}°` : w.source)
+                  })
+                  .finally(() => setFetching(false))
+              }}
+            >
+              {fetching ? 'Fetching the wind aloft…' : 'The wind aloft now'}
+            </button>
+          </div>
+          {windNote && <p className="log-empty">{windNote}</p>}
+          <h2>
+            Shear {shear}° <span className="badge badge--modelled">MODELLED</span>
+          </h2>
+          <input type="range" min={15} max={90} step={1} value={shear} aria-label="Directional shear of the carrying winds" onChange={(e) => setShear(Number(e.target.value))} />
+          <h2>
+            Surface factor {terrain.toFixed(2)} <span className="badge badge--documented">§9.95</span>
+          </h2>
+          <input type="range" min={0.5} max={1} step={0.05} value={terrain} aria-label="Fraction of the idealized dose rate a real surface gives" onChange={(e) => setTerrain(Number(e.target.value))} />
           <h2>Dose accumulated to H+{hours} h</h2>
           <input type="range" min={1} max={336} step={1} value={hours} aria-label="Hours after burst" onChange={(e) => setHours(Number(e.target.value))} />
         </section>

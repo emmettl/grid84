@@ -24,7 +24,7 @@ import { StrikeConsole } from './atlas/StrikeConsole.tsx'
 import { fetchBoundary, type Boundary } from './atlas/boundary.ts'
 import { lookupTarget, parseStrikeHash, strikeHash } from './atlas/lookup.ts'
 import type { Power } from './atlas/forces.ts'
-import type { DeliveryPreference } from './atlas/solver.ts'
+import type { DeliveryPreference, Loading } from './atlas/solver.ts'
 import type { AtlasTarget } from './atlas/target.ts'
 import type { Study } from './studies/study.ts'
 import { WoprView } from './wopr/WoprView.tsx'
@@ -37,7 +37,7 @@ type Route =
   | { kind: 'wopr' }
   | { kind: 'chronicle' }
   | { kind: 'posture' }
-  | { kind: 'atlas'; strike?: { ref: string; adversary: string | null; delivery: string | null } }
+  | { kind: 'atlas'; strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null } }
   | { kind: 'study'; id: 'siop62' }
   | { kind: 'study'; id: 'siop62-alert'; option: number }
   | { kind: 'study'; id: 'defcon3-73'; variant: 'posture' | 'execute' | 'giant' }
@@ -101,12 +101,14 @@ function useRoute(): Route {
 function useTitle(route: Route) {
   useEffect(() => {
     const part =
-      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'study' ? route.id : route.kind === 'lab' ? `${route.id} lab` : ''
+      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
+    // A study names the tab itself, from its title.
+    if (route.kind === 'study') return
     document.title = part ? `Grid/84 · ${part}` : 'Grid/84'
   }, [route])
 }
 
-function AtlasView({ strike }: { strike?: { ref: string; adversary: string | null; delivery: string | null } }) {
+function AtlasView({ strike }: { strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null } }) {
   const [study, setStudy] = useState<Study | null>(null)
   if (study) {
     return (
@@ -121,7 +123,7 @@ function AtlasView({ strike }: { strike?: { ref: string; adversary: string | nul
   return <AtlasGlobe onLaunch={setStudy} preset={strike} />
 }
 
-function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; preset?: { ref: string; adversary: string | null; delivery: string | null } }) {
+function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; preset?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null } }) {
   const container = useRef<HTMLDivElement>(null)
   const atlas = useRef<Atlas | null>(null)
   const [phase, setPhase] = useState<AtlasPhase>({ kind: 'standby' })
@@ -166,7 +168,7 @@ function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; pr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presetRef])
   const acquired = phase.kind === 'acquired' ? phase.report.target : null
-  const share = (choices: { adversary: Power | null; delivery: DeliveryPreference }): string | null => {
+  const share = (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading }): string | null => {
     if (!acquired) return null
     const hash = strikeHash(acquired, choices)
     if (!hash) return null
@@ -179,7 +181,7 @@ function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; pr
       <div ref={container} className="atlas-map" aria-label="Grid/84 globe" />
       <div className="atlas-vignette" aria-hidden="true" />
       <Hud phase={phase} onAcquire={acquire} consoleOpen={!!acquired && stoodDown !== acquired.id} presetName={presetName} />
-      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} initialAdversary={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? (preset.adversary as Power | null) : null} initialDelivery={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? ((preset.delivery as DeliveryPreference | null) ?? 'best') : 'best'} onShare={share} onLaunch={onLaunch} onStandDown={() => {
+      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} initialAdversary={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? (preset.adversary as Power | null) : null} initialDelivery={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? ((preset.delivery as DeliveryPreference | null) ?? 'best') : 'best'} initialLoading={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) && preset.loading === 'full' ? 'full' : 'deployed'} onShare={share} onLaunch={onLaunch} onStandDown={() => {
             atlas.current?.clearAimPoints()
             setStoodDown(acquired.id)
           }} onAimPoint={(p) => atlas.current?.addAimPoint(p)} onClearAimPoints={() => atlas.current?.clearAimPoints()} />}

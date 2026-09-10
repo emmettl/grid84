@@ -12,6 +12,8 @@ export interface ForceSite {
   kind: 'icbm' | 'slbm' | 'irbm' | 'bomber'
   system: string
   warheadsPerMissile: number
+  /** The missile's capacity where it exceeds the deployed load; the full-loading posture. */
+  warheadsPerMissileFull?: number
   yieldKt: number
   rangeKm: number
   /** Air-delivered and submarine cruise systems: release this far short of the target; the carrier's and the missile's speeds. */
@@ -32,7 +34,7 @@ export interface ForceSite {
 
 interface Raw {
   powers: Record<string, { name: string; adjective: string }>
-  sites: Array<Omit<ForceSite, 'position' | 'side' | 'kind' | 'positionEvidence' | 'evidence'> & { lon: number; lat: number; side: string; kind: string; positionEvidence: string; evidence: string; standoffKm?: number; carrierSpeedMs?: number; missileSpeedMs?: number; cepMetres: number; reliability: number; propellant: string }>
+  sites: Array<Omit<ForceSite, 'position' | 'side' | 'kind' | 'positionEvidence' | 'evidence'> & { lon: number; lat: number; side: string; kind: string; positionEvidence: string; evidence: string; standoffKm?: number; carrierSpeedMs?: number; missileSpeedMs?: number; cepMetres: number; reliability: number; propellant: string; warheadsPerMissileFull?: number }>
 }
 
 const raw = forces as Raw
@@ -47,6 +49,7 @@ export const FORCES: ForceSite[] = raw.sites.map((s) => ({
   kind: s.kind as ForceSite['kind'],
   system: s.system,
   warheadsPerMissile: s.warheadsPerMissile,
+  warheadsPerMissileFull: s.warheadsPerMissileFull,
   yieldKt: s.yieldKt,
   rangeKm: s.rangeKm,
   standoffKm: s.standoffKm,

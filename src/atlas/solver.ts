@@ -1,5 +1,6 @@
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { boostedTrajectory, boostProfileFor, type BoostProfile } from '../models/ballistic.ts'
+import { airReachMetres, boostWindow, SPACE_LAYERS, spaceChance } from '../models/boost-intercept.ts'
 import { radiusForPsi } from '../models/casualties.ts'
 import { lethalRadiusMetres, singleShotKill } from '../models/lethality.ts'
 import { laydown } from '../wopr/union.ts'
@@ -98,10 +99,18 @@ export function minimumRangeMetres(site: ForceSite): number {
   return site.rangeKm * 1_000 * 0.12
 }
 
-export function deliveryOptions(power: Power, position: LngLat): DeliveryOption[] {
+export type Loading = 'deployed' | 'full'
+
+/** The site as the loading posture has it: the deployed load the Notebook gives, or the missile's capacity. */
+export function loaded(site: ForceSite, loading: Loading): ForceSite {
+  return loading === 'full' && site.warheadsPerMissileFull && site.warheadsPerMissileFull > site.warheadsPerMissile ? { ...site, warheadsPerMissile: site.warheadsPerMissileFull } : site
+}
+
+export function deliveryOptions(power: Power, position: LngLat, loading: Loading = 'deployed'): DeliveryOption[] {
   const out: DeliveryOption[] = []
-  for (const site of FORCES) {
-    if (site.side !== power) continue
+  for (const raw of FORCES) {
+    if (raw.side !== power) continue
+    const site = loaded(raw, loading)
     const distanceMetres = haversineMetres(site.position, position)
     // A ballistic missile has a minimum range as well as a maximum: an ICBM cannot be flown across a border.
     const inRange = distanceMetres <= site.rangeKm * 1_000 && distanceMetres >= minimumRangeMetres(site)
@@ -287,14 +296,15 @@ const fmtMin = (s: number) => (s >= 3600 ? `${(s / 3600).toFixed(1)} H` : `${Mat
 
 export type DeliveryPreference = 'best' | 'missile' | 'aircraft'
 
-export function planStrike(target: AtlasTarget, profile: Profile, override?: Power, wantFallout = true, prefer: DeliveryPreference = 'best'): StrikePlan | { failure: string; lines: string[] } {
+export function planStrike(target: AtlasTarget, profile: Profile, override?: Power, wantFallout = true, prefer: DeliveryPreference = 'best', loading: Loading = 'deployed'): StrikePlan | { failure: string; lines: string[] } {
   const lines: string[] = []
   const classification = classify(target, profile)
   lines.push(`TARGET IDENTIFIED · ${classification.category} · ${classification.reason}`)
   const heuristic = adversaryFor(target.countryCode, target.position)
   const adversary: Adversary = override && override !== heuristic.power ? { power: override, reason: `SET BY THE READER; THE RULE SAID ${POWERS[heuristic.power].name.toUpperCase()}`, basis: 'doctrine' } : heuristic
   lines.push(`ADVERSARY · ${POWERS[adversary.power].name.toUpperCase()} · ${adversary.reason}${adversary.basis === 'proximity' ? ' · A FALLBACK, NOT A DOCTRINE' : ''}`)
-  const options = deliveryOptions(adversary.power, target.position)
+  const options = deliveryOptions(adversary.power, target.position, loading)
+  if (loading === 'full') lines.push('FULL LOADING · EVERY MISSILE AT ITS CAPACITY, NOT THE DEPLOYED LOAD THE NOTEBOOK GIVES')
   const reachable = options.filter((o) => o.inRange)
   if (reachable.length === 0) {
     const nearest = options[0]
@@ -332,10 +342,10 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
     sizing.missiles = salvos.reduce((a, x) => a + x.missiles, 0)
     if (sizing.aimPoints.length > 1) sizing.aimPoints = sizing.aimPoints.slice(0, carried)
   }
-  lines.push(`LAYDOWN · ${sizing.warheads} WARHEAD${sizing.warheads > 1 ? 'S' : ''} OF ${sizing.yieldKt} KT ON ${sizing.missiles} MISSILE${sizing.missiles > 1 ? 'S' : ''} · ${sizing.aimPoints.length > 1 ? `AIM POINTS IN A SUNFLOWER SPACED SO THE 5 PSI DISCS MEET` : sizing.warheads > 1 ? 'ALL ON THE ONE AIM POINT' : 'ONE AIM POINT AT THE CENTRE'} · ${sizing.burst.toUpperCase()} BURST${sizing.burst === 'surface' && classification.countervalue ? ' SO THE FALLOUT IS DRAWN; DOCTRINE WOULD AIRBURST A CITY, WHICH THE READOUT CAN SHOW' : ''}`)
+  lines.push(`LAYDOWN · ${sizing.warheads} WARHEAD${sizing.warheads > 1 ? 'S' : ''} OF ${sizing.yieldKt} KT ON ${sizing.missiles} ${delivery.route === 'cruise' ? (sizing.missiles > 1 ? 'AIRCRAFT, A FLIGHT' : 'AIRCRAFT') : `MISSILE${sizing.missiles > 1 ? 'S' : ''}`} · ${sizing.aimPoints.length > 1 ? `AIM POINTS IN A SUNFLOWER SPACED SO THE 5 PSI DISCS MEET` : sizing.warheads > 1 ? 'ALL ON THE ONE AIM POINT' : 'ONE AIM POINT AT THE CENTRE'} · ${sizing.burst.toUpperCase()} BURST${sizing.burst === 'surface' && classification.countervalue ? ' SO THE FALLOUT IS DRAWN; DOCTRINE WOULD AIRBURST A CITY, WHICH THE READOUT CAN SHOW' : ''}`)
   if (salvos.length > 1) {
     const arrival = Math.max(...salvos.map((x) => x.option.flightSeconds))
-    lines.push(`SALVOS · ${salvos.map((x) => `${x.option.site.name.split(' · ')[0].toUpperCase()} ${x.missiles} MISSILE${x.missiles > 1 ? 'S' : ''} (${x.warheads})`).join(' · ')} · LAUNCHES HELD ${salvos.map((x) => `${x.launchDelaySeconds} S`).join(' / ')} SO EVERY WARHEAD ARRIVES AT H+${Math.round(arrival / 60)} MIN`)
+    lines.push(`SALVOS · ${salvos.map((x) => `${x.option.site.name.split(' · ')[0].toUpperCase()} ${x.missiles} ${delivery.route === 'cruise' ? 'AIRCRAFT' : `MISSILE${x.missiles > 1 ? 'S' : ''}`} (${x.warheads})`).join(' · ')} · LAUNCHES HELD ${salvos.map((x) => `${x.launchDelaySeconds} S`).join(' / ')} SO EVERY WARHEAD ARRIVES AT H+${Math.round(arrival / 60)} MIN`)
   }
   const kill = killProbability(classification, delivery.site, sizing)
   lines.push(kill.line)
@@ -348,6 +358,9 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   if (delivery.boost) {
     const b = delivery.boost
     lines.push(`BOOST · ${b.label.toUpperCase()} · BURNOUT AT +${b.burnoutSeconds} S, ${Math.round(b.burnoutAltitudeMetres / 1000)} KM UP, ${Math.round(b.burnoutDownrangeMetres / 1000)} KM DOWNRANGE · THE SATELLITES SEE THE PLUME WITHIN A MINUTE · A BOOST-PHASE INTERCEPTOR HAS ${Math.max(0, b.burnoutSeconds - 60)} S TO CLOSE ON A BOOSTER OVER ${POWERS[adversary.power].name.toUpperCase()}; AFTER BURNOUT THERE IS ONLY THE BUS AND ITS ${sizing.warheads > 1 ? 'WARHEADS' : 'WARHEAD'}`)
+    const w = boostWindow(b.burnoutSeconds)
+    const chances = SPACE_LAYERS.map((l) => spaceChance(w, l))
+    lines.push(`BOOST-PHASE DEFENCE · ${w.availableSeconds} S AFTER DETECTION AND DECISION · A SPACE INTERCEPTOR MUST ALREADY BE WITHIN ${Math.round(chances[0].reachMetres / 1000).toLocaleString('en-GB')} KM OF ${delivery.site.name.split(' · ')[0].toUpperCase()} · ${chances.map((c) => `${c.layer.name.toUpperCase()}: ${c.expected.toFixed(1)} EXPECTED, ${Math.round(c.chance * 100)}% CHANCE OF ONE`).join(' · ')} · AN AIRCRAFT WOULD HAVE TO LOITER WITHIN ${Math.round(airReachMetres(w) / 1000)} KM, OVER ${POWERS[adversary.power].name.toUpperCase()}`)
   }
   return { target, adversary, classification, options, delivery, sizing, salvos, kill, bearingDeg, lines }
 }

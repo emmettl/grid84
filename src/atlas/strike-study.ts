@@ -5,6 +5,7 @@ import { designate } from './designation.ts'
 import { FORCES_SOURCE, POWERS } from './forces.ts'
 import { STRIKE_GRID } from './profile.ts'
 import { describeAimPoints, type StrikePlan } from './solver.ts'
+import { airReachMetres, boostWindow, SPACE_LAYERS, spaceChance } from '../models/boost-intercept.ts'
 import type { WindAloft } from './wind.ts'
 import type { Boundary } from './boundary.ts'
 
@@ -68,6 +69,32 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
       return launcherSite(l, { side: 'attacker', designation: `${s.kind.toUpperCase()} · ${s.system.toUpperCase()} · ${salvos[i].missiles} MISSILE${salvos[i].missiles > 1 ? 'S' : ''}${salvos[i].launchDelaySeconds > 0 ? ` · HELD ${salvos[i].launchDelaySeconds} S` : ''}`, evidence: s.evidence, provenance: { source: s.source, method: s.note }, positionEvidence: s.positionEvidence, label: true, facts: [{ label: 'Load', value: `${s.warheadsPerMissile} × ${fmtYield(s.yieldKt)} per missile · range ${s.rangeKm.toLocaleString('en-GB')} km · CEP ${s.cepMetres} m · reliability ${Math.round(s.reliability * 100)}%`, evidence: s.evidence, provenance: { source: s.source } }, ...(salvos[i].launchDelaySeconds > 0 ? [{ label: 'Launch held', value: `${salvos[i].launchDelaySeconds} s after the first salvo, so its warheads arrive with the others': time on target`, evidence: 'modelled' as const, provenance: { source: 'The atlas solver' } }] : [])] })
     }),
     { kind: 'site', id: 'target-site', name: target.name, designation: `${[designation.role.toUpperCase(), designation.code].filter(Boolean).join(' ')} · ${classification.category}`, label: true, position: target.position, evidence: 'documented', provenance: { source: 'OpenStreetMap via Photon' }, facts: [{ label: 'Population', value: classification.population > 0 ? `${Math.round(plan.classification.population).toLocaleString('en-GB')} within 30 km on the 2025 grid` : 'None on the grid', evidence: 'modelled', provenance: { source: 'GHSL GHS-POP R2023A, 2025 epoch' } }, { label: 'Kill probability', value: `${Math.round(plan.kill.perWarhead * 100)}% per warhead as fired: ${classification.category.toLowerCase()} taken at ${plan.kill.psi} psi, lethal radius ${(plan.kill.lethalRadiusMetres / 1000).toFixed(1)} km against a CEP of ${plan.kill.cepMetres} m, reliability ${Math.round(plan.kill.reliability * 100)}%`, evidence: site.evidence, provenance: { source: 'SSPK = 1 − 0.5^((r/CEP)²), the accuracy lab; CEP and reliability from the forces file' } }] },
+    // The boost-phase reach at each launch point: a ring a space interceptor must already be inside when the missile lifts, gone at burnout.
+    ...(delivery.boost
+      ? salvos.map((sv, i) => {
+          const w = boostWindow(delivery.boost!.burnoutSeconds)
+          const best = spaceChance(w, SPACE_LAYERS[0])
+          const thousand = spaceChance(w, SPACE_LAYERS[1])
+          return {
+            kind: 'site' as const,
+            id: `reach-${i + 1}`,
+            name: 'Boost-phase reach',
+            designation: `A SPACE INTERCEPTOR MUST BE INSIDE THIS RING AT LAUNCH · ${Math.round(best.reachMetres / 1000).toLocaleString('en-GB')} KM · ${w.availableSeconds} S · ${SPACE_LAYERS[0].interceptors.toLocaleString('en-GB')} PEBBLES: ${Math.round(best.chance * 100)}% · A THOUSAND: ${Math.round(thousand.chance * 100)}%`,
+            label: i === 0,
+            labelAnchor: 'right' as const,
+            position: sv.option.site.position,
+            appearsAt: sv.launchDelaySeconds,
+            vanishesAt: sv.launchDelaySeconds + delivery.boost!.burnoutSeconds,
+            uncertaintyMetres: best.reachMetres,
+            evidence: 'modelled' as const,
+            provenance: { source: 'The boost-phase arithmetic: detection at 60 s, decision at 30 s, a closing speed of 5 km/s; the constellation spread over its shell; one minus the Poisson zero', method: `An aircraft with a hypersonic interceptor would have to loiter within ${Math.round(airReachMetres(w) / 1000)} km of the launch point` },
+            facts: [
+              { label: 'The window', value: `Burnout at ${delivery.boost!.burnoutSeconds} s; ${w.availableSeconds} s after detection and decision`, evidence: 'reconstructed' as const, provenance: { source: 'Boost profiles by class from the open literature' } },
+              { label: 'A space layer', value: SPACE_LAYERS.map((l) => `${l.name}: ${spaceChance(w, l).expected.toFixed(1)} expected within reach, ${Math.round(spaceChance(w, l).chance * 100)}%`).join('; '), evidence: 'modelled' as const, provenance: { source: 'The defence lab\'s Brilliant Pebbles and space-layer cases' } },
+            ],
+          }
+        })
+      : []),
     ...describeAimPoints(sizing, target.position).map((a, i, all) => ({
       kind: 'site' as const,
       id: `aim-${a.index + 1}`,
@@ -100,6 +127,9 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     { time: -Math.round(countdownSeconds * 0.2), text: approachLine || `APPROACH · FROM ${Math.round((plan.bearingDeg + 180) % 360)}°`, entityId: launcher.id },
     ...salvos.filter((s) => s.launchDelaySeconds > 0).map((s) => ({ time: s.launchDelaySeconds, text: `LAUNCH · ${s.option.site.name.toUpperCase()} · ${s.missiles} MISSILE${s.missiles > 1 ? 'S' : ''} · HELD ${s.launchDelaySeconds} S FOR A COMMON ARRIVAL`, entityId: `atlas-${s.option.site.id}` })),
     { time: 0, text: `LAUNCH · ${salvos[0].option.site.name.toUpperCase()} · ${salvos[0].missiles} MISSILE${salvos[0].missiles > 1 ? 'S' : ''}${salvos.length > 1 ? ` · ${salvos.length - 1} MORE SITE${salvos.length > 2 ? 'S' : ''} TO FOLLOW` : ''} · ${Math.round(delivery.distanceMetres / 1000).toLocaleString('en-GB')} KM · FLIGHT ${Math.round(delivery.flightSeconds / 60)} MIN`, entityId: launcher.id, camera: { center: [(site.position[0] + target.position[0]) / 2, (site.position[1] + target.position[1]) / 2], zoom: delivery.distanceMetres > 8_000_000 ? 2.3 : delivery.distanceMetres > 5_000_000 ? 2.8 : delivery.distanceMetres > 2_500_000 ? 3.6 : delivery.distanceMetres > 1_000_000 ? 4.6 : 5.8, durationMs: 2_500 } },
+    ...(delivery.boost
+      ? [{ time: 1, text: `BOOST-PHASE DEFENCE · ${boostWindow(delivery.boost.burnoutSeconds).availableSeconds} S · A SPACE INTERCEPTOR MUST ALREADY BE INSIDE THE RING AT ${delivery.site.name.split(' · ')[0].toUpperCase()} · ${SPACE_LAYERS.map((l) => `${l.interceptors.toLocaleString('en-GB')}: ${Math.round(spaceChance(boostWindow(delivery.boost!.burnoutSeconds), l).chance * 100)}%`).join(' · ')} · AN AIRCRAFT WITHIN ${Math.round(airReachMetres(boostWindow(delivery.boost.burnoutSeconds)) / 1000)} KM`, entityId: 'reach-1' }]
+      : []),
     ...(delivery.boost ? [{ time: delivery.boost.burnoutSeconds, text: `BURNOUT · +${delivery.boost.burnoutSeconds} S · ${Math.round(delivery.boost.burnoutAltitudeMetres / 1000)} KM UP · THE BOOST-PHASE INTERCEPT WINDOW CLOSES · ${sizing.warheads > 1 && site.warheadsPerMissile > 1 ? 'THE BUS RELEASES ITS WARHEADS OVER THE NEXT MINUTE AND A HALF' : 'THE WARHEAD COASTS FROM HERE'}`, entityId: launcher.id }] : []),
     { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 3 ? 8 : 9, pitch: 40, durationMs: 3_000 } },
     { time: arrival, text: `DETONATION · ${target.name.toUpperCase()} · ${sizing.burst.toUpperCase()} BURST · ${fmtYield(sizing.yieldKt)}`, entityId: 'atlas-e-target' },

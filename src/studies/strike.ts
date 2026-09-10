@@ -224,6 +224,8 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
   const splitFraction = o.mirv?.splitFraction ?? 0.12
   const vehicles = groupVehicles(result.sorties, launcherById, targetById, footprint, bomberLeg)
   let index = 0
+  // Aircraft from one base fly as a flight: each is fanned a few kilometres to a side of the lead.
+  const flightCount = new Map<string, number>()
   for (const v of vehicles) {
     const l = v.launcher
     index += 1
@@ -237,14 +239,19 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       const first = targetById[v.sorties[0].targetId]
       const distance = haversineMetres(l.position, first.position)
       const leg = standoffLeg(l, distance)
-      const release: LngLat = leg > 0 ? destinationPoint(l.position, initialBearing(l.position, first.position), leg) : l.position
+      const wingman = flightCount.get(l.id) ?? 0
+      flightCount.set(l.id, wingman + 1)
+      const heading = initialBearing(l.position, first.position)
+      const fan = wingman === 0 ? 0 : Math.ceil(wingman / 2) * 3_000 * (wingman % 2 === 0 ? 1 : -1)
+      const straight: LngLat = leg > 0 ? destinationPoint(l.position, heading, leg) : l.position
+      const release: LngLat = fan !== 0 && leg > 0 ? destinationPoint(straight, heading + 90, fan) : straight
       const releaseTime = launch + leg / speed
       const weapons = v.sorties.length
       if (leg > 0) {
         const outbound: Waypoint[] = [{ position: l.position, time: launch }, { position: release, time: releaseTime }]
         const home: Waypoint[] = [...outbound, { position: l.position, time: releaseTime + leg / speed }]
         const lostAt = launch + (releaseTime - launch) * Math.max(f.lostAtFraction ?? 0, 0.001)
-        entities.push(track(id, `${l.name} → release ${Math.round(l.standoffMetres / 1000)} km short of ${first.name}`, `AIRCRAFT · ${weapons} MISSILE${weapons > 1 ? 'S' : ''} OF ${fmtYield(v.sorties[0].yieldKt)} · RELEASE AT H+${Math.round(releaseTime / 60)} MIN${f.delivered ? ' · THEN HOME' : ` · LOST (${f.cause?.toUpperCase()})`}`, f.delivered ? home : cut(outbound, lostAt), 'cruise', o.route.cruise, 'aircraft'))
+        entities.push(track(id, `${l.name} → release ${Math.round(l.standoffMetres / 1000)} km short of ${first.name}`, `AIRCRAFT${wingman > 0 ? ` ${wingman + 1} OF THE FLIGHT` : ''} · ${weapons} MISSILE${weapons > 1 ? 'S' : ''} OF ${fmtYield(v.sorties[0].yieldKt)} · RELEASE AT H+${Math.round(releaseTime / 60)} MIN${f.delivered ? ' · THEN HOME' : ` · LOST (${f.cause?.toUpperCase()})`}`, f.delivered ? home : cut(outbound, lostAt), 'cruise', o.route.cruise, 'aircraft'))
       }
       if (!f.delivered) {
         if (f.cause === 'reliability') lostReliability += weapons

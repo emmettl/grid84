@@ -20,6 +20,8 @@ export interface SiteEntity extends Evidenced {
   labelAnchor?: LabelAnchor
   /** Study seconds at which the site comes into existence; before that it is not drawn. Default: always there. */
   appearsAt?: number
+  /** Study seconds at which an appearing site goes again, such as a reach ring that means nothing after burnout. */
+  vanishesAt?: number
   facts: Array<Evidenced & { label: string; value: string }>
 }
 

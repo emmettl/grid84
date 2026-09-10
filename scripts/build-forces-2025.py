@@ -110,6 +110,9 @@ ACCURACY = {
     'Hwasong-18': (1_000, 0.7), 'Hwasong-17': (1_500, 0.6), 'Hwasong-12': (800, 0.7), 'KN-23': (100, 0.8), 'Pukguksong-3': (1_000, 0.6),
 }
 
+# Capacity per missile where it exceeds the deployed load: a full-loading posture. The open literature's figures; the treaties and the downloads are why they differ.
+FULL_LOAD = {'Trident II D5': 8, 'Minuteman III': 3, 'M51.3 (Triomphant)': 6, 'DF-41': 10, 'DF-5B': 5, 'DF-31AG': 3, 'RS-24 Yars (silo)': 6, 'RS-24 Yars (mobile)': 6, 'R-30 Bulava (Borei)': 10}
+
 LIQUID = {'R-36M2 Voevoda', 'R-36M2 Voevoda / Avangard', 'DF-5B', 'Hwasong-17', 'Hwasong-12'}
 
 POWERS = {
@@ -137,6 +140,7 @@ def main() -> int:
             **({'standoffKm': STANDOFF[system][0], 'carrierSpeedMs': STANDOFF[system][1], 'missileSpeedMs': STANDOFF[system][2]} if system in STANDOFF else {}),
             'cepMetres': ACCURACY[system][0], 'reliability': ACCURACY[system][1],
             'propellant': 'liquid' if system in LIQUID else 'solid',
+            **({'warheadsPerMissileFull': FULL_LOAD[system]} if system in FULL_LOAD else {}),
         })
     out = {'date': '2025', 'note': 'Launch points for the atlas: one entry per system and place, not a count of the force. Bases are public; patrol areas are guesses; the loads and yields of the opaque arsenals are inferred, and Israel\'s is withheld. Warheads per missile are the deployed loads the Notebook gives (Trident at about four, Minuteman de-MIRVed to one, Yars four, Bulava six, Voevoda ten), not the missiles\' capacities; a full-loading posture would roughly double the American and British figures.', 'powers': POWERS, 'sites': sites}
     args.out.parent.mkdir(parents=True, exist_ok=True)

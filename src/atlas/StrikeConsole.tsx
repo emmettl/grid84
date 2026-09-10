@@ -3,7 +3,7 @@ import { formatGrid } from '../geo/geodesy.ts'
 import type { Study } from '../studies/study.ts'
 import { POWER_IDS, POWERS, type Power } from './forces.ts'
 import { readProfile } from './profile.ts'
-import { describeAimPoints, planStrike, PROFILE_RINGS, type DeliveryPreference, type StrikePlan } from './solver.ts'
+import { describeAimPoints, planStrike, PROFILE_RINGS, type DeliveryPreference, type Loading, type StrikePlan } from './solver.ts'
 import type { AimPointMark } from '../map/atlas.ts'
 import { buildStrikeStudy } from './strike-study.ts'
 import type { AtlasTarget } from './target.ts'
@@ -29,7 +29,7 @@ const CADENCE_MS = 550
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPoint, onClearAimPoints, onShare, initialAdversary = null, initialDelivery = 'best' }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void; onShare?: (choices: { adversary: Power | null; delivery: DeliveryPreference }) => string | null; initialAdversary?: Power | null; initialDelivery?: DeliveryPreference }) {
+export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPoint, onClearAimPoints, onShare, initialAdversary = null, initialDelivery = 'best', initialLoading = 'deployed' }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void; onShare?: (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading }) => string | null; initialAdversary?: Power | null; initialDelivery?: DeliveryPreference; initialLoading?: Loading }) {
   const boundaryRef = useRef(boundary)
   useEffect(() => {
     boundaryRef.current = boundary
@@ -41,6 +41,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
   const [override, setOverride] = useState<Power | null>(initialAdversary)
   const [pickOpen, setPickOpen] = useState(false)
   const [prefer, setPrefer] = useState<DeliveryPreference>(initialDelivery)
+  const [loading, setLoading] = useState<Loading>(initialLoading)
   const heldRef = useRef(false)
   const skipRef = useRef(false)
   const started = useRef(performance.now())
@@ -60,9 +61,9 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
   }
 
   useEffect(() => {
-    onShare?.({ adversary: override, delivery: prefer })
+    onShare?.({ adversary: override, delivery: prefer, loading })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [override, prefer])
+  }, [override, prefer, loading])
 
   useEffect(() => {
     let cancelled = false
@@ -91,7 +92,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       }
       say(`POPULATION · ${PROFILE_RINGS.map((r) => `${r / 1000} KM ${Math.round(profile.within[r]).toLocaleString('en-GB')}`).join(' · ')} · ${profile.gridName.toUpperCase()}`, 'calib', true)
       await sleep(CADENCE_MS)
-      const plan = planStrike(target, profile, override ?? undefined, true, prefer)
+      const plan = planStrike(target, profile, override ?? undefined, true, prefer, loading)
       onClearAimPoints?.()
       // The aim points land on the globe as their lines print.
       const aims = 'failure' in plan ? [] : describeAimPoints(plan.sizing, target.position)
@@ -146,7 +147,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       controller.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, override, prefer])
+  }, [target, override, prefer, loading])
 
   const toggleHold = () => {
     heldRef.current = !heldRef.current
@@ -188,7 +189,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
           type="button"
           title="Copy a link that re-runs this strike: the target by its OpenStreetMap id and the choices made here"
           onClick={() => {
-            const link = onShare?.({ adversary: override, delivery: prefer })
+            const link = onShare?.({ adversary: override, delivery: prefer, loading })
             if (!link) {
               say('NO LINK · THE TARGET HAS NO OPENSTREETMAP ID TO NAME IT BY', 'mark')
               return
@@ -220,6 +221,28 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
             }}
           >
             {d === 'best' ? 'As the rule says' : d === 'missile' ? 'Missile' : 'Aircraft standoff'}
+          </button>
+        ))}
+      </div>
+      <div className="wopr-group strike-controls">
+        <span className="clock-label">Loading</span>
+        {(['deployed', 'full'] as const).map((l) => (
+          <button
+            key={l}
+            type="button"
+            className={loading === l ? 'is-active' : ''}
+            disabled={phase === 'launching'}
+            title={l === 'deployed' ? 'Warheads per missile as the Nuclear Notebook gives the deployed loads' : 'Every missile at its capacity: Trident at eight, Minuteman at three, the DF-41 at ten'}
+            onClick={() => {
+              if (l === loading) return
+              skipRef.current = false
+              heldRef.current = false
+              setHeld(false)
+              setLines([])
+              setLoading(l)
+            }}
+          >
+            {l === 'deployed' ? 'Deployed loads' : 'Full loading'}
           </button>
         ))}
       </div>
