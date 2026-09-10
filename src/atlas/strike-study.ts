@@ -4,7 +4,10 @@ import type { Entity, Study, StudyEvent } from '../studies/study.ts'
 import { designate } from './designation.ts'
 import { FORCES_SOURCE, POWERS } from './forces.ts'
 import { STRIKE_GRID } from './profile.ts'
-import { describeAimPoints, type StrikePlan } from './solver.ts'
+import { describeAimPoints, targetSpanMetres, type StrikePlan } from './solver.ts'
+import { radiusForPsi } from '../models/casualties.ts'
+import { contourDimensions, TABLE_9_93 } from '../models/fallout.ts'
+import type { LngLat } from '../geo/geodesy.ts'
 import { airReachMetres, boostWindow, SPACE_LAYERS, spaceChance } from '../models/boost-intercept.ts'
 import type { WindAloft } from './wind.ts'
 import type { Boundary } from './boundary.ts'
@@ -17,6 +20,33 @@ import type { Boundary } from './boundary.ts'
  */
 
 const fmtYield = (kt: number) => (kt >= 1_000 ? `${(kt / 1_000).toFixed(1)} MT` : `${kt} KT`)
+
+/**
+ * A camera that fits what is about to happen rather than taking a fixed zoom.
+ *
+ * One weapon of a hundred kilotonnes on a single aim point puts its outermost
+ * ring ten kilometres out; forty-eight of eight hundred laid down over a
+ * thirty-kilometre urban area reach nearly sixty. A zoom that frames the
+ * second shows the first as a dot, and a zoom that frames the first loses the
+ * second off every edge — so neither is a number, and both are a box.
+ */
+function boxAround(centre: LngLat, metres: number): LngLat[] {
+  const dLat = metres / 110_540
+  // Guard the cosine so a target near the poles does not ask for a box wider than the world.
+  const dLon = metres / (111_320 * Math.max(0.05, Math.cos((centre[1] * Math.PI) / 180)))
+  return [
+    [centre[0] - dLon, centre[1] - dLat],
+    [centre[0] + dLon, centre[1] + dLat],
+  ]
+}
+
+/** A point `metres` away on `bearingDeg`, near enough for framing a camera. */
+function offset(from: LngLat, metres: number, bearingDeg: number): LngLat {
+  const rad = (bearingDeg * Math.PI) / 180
+  const dLat = (metres * Math.cos(rad)) / 110_540
+  const dLon = (metres * Math.sin(rad)) / (111_320 * Math.max(0.05, Math.cos((from[1] * Math.PI) / 180)))
+  return [from[0] + dLon, from[1] + dLat]
+}
 
 /** Study seconds before the launch, spent on the target with its aim points marked; at the autoplay rate a few real seconds. */
 export const PRELUDE_SECONDS = 120
@@ -122,6 +152,33 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     ...strike.entities,
   ]
   const aims = describeAimPoints(sizing, target.position, classification)
+  // How far the effects reach: the furthest aim point plus the outermost ring
+  // the weapon draws, with a quarter again for air. This is what the impact
+  // camera frames, so a single hundred-kilotonne weapon on a building is
+  // watched from ten kilometres up and a laydown over a city from sixty.
+  const effectsReachMetres = (Math.max(0, ...aims.map((a) => a.distanceMetres)) + radiusForPsi(sizing.yieldKt, 1, sizing.burst)) * 1.25
+  // The plume, framed by the contour that actually matters rather than the
+  // faintest one: a hundred rads an hour at H+1 is where a day in the open
+  // kills, and its downwind end plus its width is the shape worth seeing.
+  const heavy = TABLE_9_93.find((r) => r.radsPerHour === 100) ?? TABLE_9_93[0]
+  const plume = contourDimensions(heavy, sizing.yieldKt, 0.5, wind.mph)
+  const plumeFit: LngLat[] = [
+    ...boxAround(target.position, Math.max(effectsReachMetres, plume.maxWidthMetres * 0.75)),
+    offset(target.position, plume.downwindMetres * 1.05, (wind.fromDeg + 180) % 360),
+  ]
+  // The opening view: what has to be legible is the target's own footprint and
+  // the aim-point rings around it, which for a building is a hundred metres and
+  // for a city thirty kilometres. Half the span, the CEP and a fifth of the
+  // 5 psi ring, whichever is largest, is the radius worth showing.
+  const openingReachMetres = Math.max((targetSpanMetres(target) ?? 0) / 2, site.cepMetres, sizing.r5 / 5, Math.max(0, ...aims.map((a) => a.distanceMetres))) * 3
+  // Zoom from metres: at zoom z a 512-pixel tile spans the world, so the scale
+  // is 40,075 km · cos φ / (512 · 2^z) metres a pixel. Solve it for a diameter
+  // of twice the reach across an assumed clear width, and cap it either side.
+  const ASSUMED_CLEAR_PX = 800
+  const openingZoom = Math.max(
+    6,
+    Math.min(14, Math.log2((40_075_017 * Math.cos((target.position[1] * Math.PI) / 180) * ASSUMED_CLEAR_PX) / (512 * 2 * openingReachMetres))),
+  )
   const approachLine = plan.lines.find((l) => /^APPROACH/.test(l)) ?? ''
   const events: StudyEvent[] = [
     { time: -countdownSeconds, text: `STRIKE ORDER · ${power.name.toUpperCase()} · ${site.system.toUpperCase()} FROM ${site.name.toUpperCase()}${salvos.length > 1 ? ` AND ${salvos.length - 1} MORE SITE${salvos.length > 2 ? 'S' : ''}` : ''} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt)} ON ${target.name.toUpperCase()}`, entityId: 'target-site' },
@@ -135,10 +192,10 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
       ? [{ time: 1, text: `BOOST-PHASE DEFENCE · ${boostWindow(delivery.boost.burnoutSeconds).availableSeconds} S · A SPACE INTERCEPTOR MUST ALREADY BE INSIDE THE RING AT ${delivery.site.name.split(' · ')[0].toUpperCase()} · ${SPACE_LAYERS.map((l) => `${l.interceptors.toLocaleString('en-GB')}: ${Math.round(spaceChance(boostWindow(delivery.boost!.burnoutSeconds), l).chance * 100)}%`).join(' · ')} · AN AIRCRAFT WITHIN ${Math.round(airReachMetres(boostWindow(delivery.boost.burnoutSeconds)) / 1000)} KM`, entityId: 'reach-1' }]
       : []),
     ...(delivery.boost ? [{ time: delivery.boost.burnoutSeconds, text: `BURNOUT · +${delivery.boost.burnoutSeconds} S · ${Math.round(delivery.boost.burnoutAltitudeMetres / 1000)} KM UP · THE BOOST-PHASE INTERCEPT WINDOW CLOSES · ${sizing.warheads > 1 && site.warheadsPerMissile > 1 ? 'THE BUS RELEASES ITS WARHEADS OVER THE NEXT MINUTE AND A HALF' : 'THE WARHEAD COASTS FROM HERE'}`, entityId: launcher.id }] : []),
-    { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 3 ? 8 : 9, pitch: 40, durationMs: 3_000 } },
+    { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: 13, fit: boxAround(target.position, effectsReachMetres), pitch: 40, durationMs: 3_000 } },
     { time: arrival, text: `DETONATION · ${target.name.toUpperCase()} · ${sizing.burst.toUpperCase()} BURST · ${fmtYield(sizing.yieldKt)}`, entityId: 'atlas-e-target' },
     ...(last > arrival + 1 ? [{ time: last, text: `LAST OF ${sizing.warheads} WARHEADS DOWN`, entityId: 'atlas-e-target' }] : []),
-    ...(sizing.burst === 'surface' ? [{ time: arrival + 3_600, text: `FALLOUT · EFFECTIVE WIND FROM ${Math.round(wind.fromDeg)}° AT ${Math.round(wind.mph)} MPH · SHEAR ${Math.round(wind.shearDeg)}° · ${wind.live ? `THE FORECAST, ${wind.level.toUpperCase()}` : 'ASSUMED'}`, entityId: 'atlas-e-target', camera: { center: target.position, zoom: 6.5, pitch: 0, durationMs: 3_000 } }] : []),
+    ...(sizing.burst === 'surface' ? [{ time: arrival + 3_600, text: `FALLOUT · EFFECTIVE WIND FROM ${Math.round(wind.fromDeg)}° AT ${Math.round(wind.mph)} MPH · SHEAR ${Math.round(wind.shearDeg)}° · ${wind.live ? `THE FORECAST, ${wind.level.toUpperCase()}` : 'ASSUMED'}`, entityId: 'atlas-e-target', camera: { center: target.position, zoom: 11, fit: plumeFit, pitch: 0, durationMs: 3_000 } }] : []),
   ]
   return {
     id: `atlas-strike-${target.id}`,
@@ -146,8 +203,11 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     subtitle: `${power.adjective} ${site.system} from ${site.name.split(' · ')[0]}${salvos.length > 1 ? ` and ${salvos.length - 1} more` : ''} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt).toLowerCase()} · ${classification.category.toLowerCase()} · 2025 grid`,
     bounds: { start: -countdownSeconds, end: last + 1_800 },
     startTime: -countdownSeconds,
-    // Open on the target close enough to read its bounds; the launch pulls the camera out to the whole flight.
-    view: { center: target.position, zoom: sizing.warheads > 4 ? 9.5 : 10.5 },
+    // Open on the target close enough to read its bounds: framed by the
+    // feature's own footprint and the aim-point rings, not by a fixed zoom, so
+    // a building is opened on as a building and a city as a city. Capped at
+    // fifteen, which is close enough to see a roof and no closer.
+    view: { center: target.position, zoom: openingZoom },
     entities,
     events,
     omissions: [

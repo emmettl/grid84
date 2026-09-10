@@ -461,8 +461,10 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     return study.entities.filter((e): e is Extract<Entity, { kind: 'track' }> => e.kind === 'track' && parents.has(e.id)).map((e) => {
       const child = study.entities.find((c): c is Extract<Entity, { kind: 'track' }> => c.kind === 'track' && busIdOf(c.id) === e.id && c.id !== e.id)
       const at = child ? child.track.waypoints[0] : e.track.waypoints[e.track.waypoints.length - 1]
-      return { id: e.id, time: at.time, position: at.position, kind: child && /-cm\d+$/.test(child.id) ? 'release' : 'separation' }
-    }).concat(study.entities.flatMap((e) => (e.kind === 'track' && e.marks ? e.marks.map((m) => ({ id: `${e.id}-${m.kind}`, time: m.time, position: m.position, kind: m.kind as string })) : [])))
+      // The altitude matters: burnout is 200 km up and separation not much
+      // lower, and a mark drawn at the ground beneath them is not on the trail.
+      return { id: e.id, time: at.time, position: at.position, altitude: at.altitude ?? 0, kind: child && /-cm\d+$/.test(child.id) ? 'release' : 'separation' }
+    }).concat(study.entities.flatMap((e) => (e.kind === 'track' && e.marks ? e.marks.map((m) => ({ id: `${e.id}-${m.kind}`, time: m.time, position: m.position, altitude: m.altitude, kind: m.kind as string })) : [])))
   }, [study])
   // The WebGL layer draws large studies and any study whose tracks leave the surface, which GeoJSON cannot.
   const glTracks = useMemo(() => study.entities.filter((e) => e.kind === 'track').length > GL_TRACK_THRESHOLD || study.entities.some((e) => e.kind === 'track' && e.track.elevated), [study])
@@ -579,6 +581,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     let flashesKey = ''
     let appearedKey = ''
     let separationsKey = ''
+    let lastSeparations = 0
     let appearedRings: EvidenceFeature[] = []
     let ringsKey = ''
     const perf = { ticks: 0, updateMs: 0, maxUpdateMs: 0, renderer: glTracks ? 'webgl' : 'geojson' }
@@ -630,6 +633,39 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           marker.setOffset(lift ? [base[0] + lift[0], base[1] + lift[1]] : base)
         }
       }
+      // Separation and release points appear on the trails as the clock passes them.
+      // Rewritten at the same fifteen times a second as the other sources: a
+      // lifted mark follows the camera, and a large study has thousands.
+      if (map && buses.length > 0 && now - lastSeparations > 66) {
+        lastSeparations = now
+        const due = buses.filter((b) => next.time >= b.time)
+        const fading = trailsRef.current === 'fade'
+        // A circle layer is anchored to the surface, so a mark on an
+        // elevated trail would sit on the ground below the point it marks —
+        // burnout is two hundred kilometres up. The fix is to draw it at
+        // the surface position that *projects to the same pixel* as the
+        // elevated one: lift by the layer's own screen offset, then
+        // unproject. That has to be redone whenever the camera moves, so
+        // while any trail is elevated the source is rewritten every pass
+        // and the key carries the view.
+        const lifted = layer !== null && study.entities.some((e) => e.kind === 'track' && e.track.elevated)
+        const at = (b: (typeof due)[number]): [number, number] => {
+          if (!lifted || !layer || !b.altitude) return [b.position[0], b.position[1]]
+          const off = layer.screenOffset(b.position[0], b.position[1], b.altitude)
+          if (!off) return [b.position[0], b.position[1]]
+          const ground = map.project([b.position[0], b.position[1]])
+          const p = map.unproject([ground.x + off[0], ground.y + off[1]])
+          return [p.lng, p.lat]
+        }
+        const c = map.getCenter()
+        const view = lifted ? `${c.lng.toFixed(3)}:${c.lat.toFixed(3)}:${map.getZoom().toFixed(2)}:${map.getPitch().toFixed(1)}:${map.getBearing().toFixed(1)}` : ''
+        // While the trails fade, the marks have to be rewritten as they age; while they do not, only their number changes.
+        const key = `${fading ? `${due.length}:${Math.round(next.time / 20)}` : String(due.length)}:${view}`
+        if (key !== separationsKey) {
+          separationsKey = key
+          setSourceData(map, 'ev-separations', due.map((b) => ({ type: 'Feature' as const, geometry: { type: 'Point' as const, coordinates: at(b) }, properties: { evidence: 'modelled' as const, id: `${b.id}-${b.kind}`, kind: b.kind, age: fading ? Math.max(0, next.time - b.time) : 0 } })))
+        }
+      }
       // Map sources are rewritten at most about fifteen times a second; the readout about ten.
       const refreshSources = !primed.current || now - lastSources > 66
       let updated = false
@@ -657,17 +693,6 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           flashesKey = nextFlashesKey
           lastFlashes = now
           setSourceData(map, SOURCES.flashes, timed.flashes)
-        }
-        // Separation and release points appear on the trails as the clock passes them.
-        if (buses.length > 0) {
-          const due = buses.filter((b) => next.time >= b.time)
-          const fading = trailsRef.current === 'fade'
-          // While the trails fade, the marks have to be rewritten as they age; while they do not, only their number changes.
-          const key = fading ? `${due.length}:${Math.round(next.time / 20)}` : String(due.length)
-          if (key !== separationsKey) {
-            separationsKey = key
-            setSourceData(map, 'ev-separations', due.map((b) => ({ type: 'Feature' as const, geometry: { type: 'Point' as const, coordinates: [b.position[0], b.position[1]] }, properties: { evidence: 'modelled' as const, id: `${b.id}-${b.kind}`, kind: b.kind, age: fading ? Math.max(0, next.time - b.time) : 0 } })))
-          }
         }
         // Sites that come into existence during the study: the source and the label follow the clock, and a flash marks the moment.
         const appearing = study.entities.filter((e): e is Extract<Entity, { kind: 'site' }> => e.kind === 'site' && e.appearsAt !== undefined)
