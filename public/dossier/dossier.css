@@ -14,12 +14,14 @@
   --rule-soft:#D8DBD3;
 
   --doc:#28595E;      /* documented */
-  --inf:#7E6415;      /* inferred */
+  --inf:#7E6415;      /* inferred, or an analyst's estimate */
+  --cla:#5B4A8F;      /* a state or a maker's own claim, unverified */
   --con:#9C3222;      /* contested */
   --unt:#5B5F63;      /* untraceable */
 
   --doc-bg:#DCE7E6;
   --inf-bg:#EDE6D0;
+  --cla-bg:#E5E0F2;
   --con-bg:#F0DCD6;
   --unt-bg:#E0E2E1;
 
@@ -48,11 +50,13 @@
 
     --doc:#7FC3C6;
     --inf:#D6B558;
+    --cla:#A99ADE;
     --con:#E68A73;
     --unt:#A0A6A8;
 
     --doc-bg:#1D3234;
     --inf-bg:#332C13;
+    --cla-bg:#241F3B;
     --con-bg:#3A211B;
     --unt-bg:#262A2B;
 
@@ -72,11 +76,13 @@
 
   --doc:#7FC3C6;
   --inf:#D6B558;
+  --cla:#A99ADE;
   --con:#E68A73;
   --unt:#A0A6A8;
 
   --doc-bg:#1D3234;
   --inf-bg:#332C13;
+  --cla-bg:#241F3B;
   --con-bg:#3A211B;
   --unt-bg:#262A2B;
 
@@ -143,7 +149,7 @@ h1{
   display:block;font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.7rem;font-weight:600;
   letter-spacing:0.13em;text-transform:uppercase;color:var(--ink);margin-bottom:0.15rem;
 }
-.sw-doc{background:var(--doc)} .sw-inf{background:var(--inf)}
+.sw-doc{background:var(--doc)} .sw-inf{background:var(--inf)} .sw-cla{background:var(--cla)}
 .sw-con{background:var(--con)} .sw-unt{background:var(--unt)}
 
 .filters{
@@ -204,6 +210,7 @@ em{font-style:italic}
 }
 .claim.doc{border-left-color:var(--doc)}
 .claim.inf{border-left-color:var(--inf)}
+.claim.cla{border-left-color:var(--cla)}
 .claim.con{border-left-color:var(--con)}
 .claim.unt{border-left-color:var(--unt)}
 .claim > :last-child{margin-bottom:0}
@@ -214,6 +221,7 @@ em{font-style:italic}
 }
 .doc .pill{background:var(--doc-bg);color:var(--doc)}
 .inf .pill{background:var(--inf-bg);color:var(--inf)}
+.cla .pill{background:var(--cla-bg);color:var(--cla)}
 .con .pill{background:var(--con-bg);color:var(--con)}
 .unt .pill{background:var(--unt-bg);color:var(--unt)}
 body.filtering .claim{display:none}
