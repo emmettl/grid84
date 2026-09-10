@@ -36,6 +36,7 @@ interface Epoch {
   sides: Record<string, string>
   sites: PostureSite[]
   totals: Record<string, { sites: number; weapons: number; byKind: Record<string, number> }>
+  caveat?: string
 }
 
 const POSTURE = postureFile as unknown as { note: string; epochs: Epoch[] }
@@ -144,6 +145,7 @@ export function PostureAtlas() {
           <p className="log-empty">
             Disc area is the weapons counted at the site, by the rules of the study or the table that built the epoch.{' '}
             {epoch.study ? <a href={epoch.study}>Open {epoch.studyName}</a> : 'No study stands on this epoch: it is the start of the drawdown, drawn from the Notebook\'s end-of-year tables.'}
+            {epoch.caveat ? ` ${epoch.caveat}.` : ''}
           </p>
         </section>
 

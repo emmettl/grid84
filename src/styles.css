@@ -1928,3 +1928,11 @@ body,
 .chronicle-bars {
   aspect-ratio: 960 / 200;
 }
+
+.chronicle-table-wrap {
+  overflow-x: auto;
+}
+
+.chronicle-table {
+  min-width: 36rem;
+}

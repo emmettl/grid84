@@ -317,6 +317,7 @@ export function Chronicle() {
             Single-shot kill against a hardened silo by year of service. Counterforce became a doctrine when it became a number.{' '}
             <a href="#/lab/accuracy">Open the accuracy lab</a>.
           </p>
+          <div className="chronicle-table-wrap">
           <table className="front-sources chronicle-table">
             <tbody>
               {DOCTRINES.map((d) => (
@@ -333,10 +334,12 @@ export function Chronicle() {
               ))}
             </tbody>
           </table>
+          </div>
         </section>
 
         <section className="front-section chronicle-section" aria-labelledby="ch-basing">
           <h2 id="ch-basing">Chapter 4 · Geopolitics as basing</h2>
+          <div className="chronicle-table-wrap">
           <table className="front-sources chronicle-table">
             <tbody>
               {BASING.map((b) => (
@@ -357,6 +360,7 @@ export function Chronicle() {
               ))}
             </tbody>
           </table>
+          </div>
           <p className="front-caption">The crises are where the weapons were. Each row that has a study opens it.</p>
         </section>
 
@@ -367,6 +371,7 @@ export function Chronicle() {
 
         <section className="front-section chronicle-section" aria-labelledby="ch-defence">
           <h2 id="ch-defence">Chapter 6 · Missile defence</h2>
+          <div className="chronicle-table-wrap">
           <table className="front-sources chronicle-table">
             <tbody>
               {DEFENCES.map((d) => (
@@ -381,6 +386,7 @@ export function Chronicle() {
               ))}
             </tbody>
           </table>
+          </div>
           <p className="front-caption">
             Every one of these faced the same arithmetic: the defender must buy shots faster than the attacker buys warheads and decoys. <a href="#/lab/defence">The defence lab</a> draws the curve; <a href="#/study/72-minutes/salvo">the salvo act</a> draws it on the map.
           </p>

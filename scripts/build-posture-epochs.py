@@ -54,7 +54,7 @@ def epoch_1961():
         sites.append({**site(b, 'su', 'bomber', each * per, round(each), 'aircraft'), 'note': f'{bombers} Long Range Aviation bombers and tankers (Sagan) spread evenly over six inferred fields; {per} weapons each'})
     icbm = doc['icbms']
     sites.append({'id': 'plesetsk-r7', 'name': 'Plesetsk · R-7 launch sites', 'side': 'su', 'kind': 'icbm', 'lon': 40.5, 'lat': 62.9, 'weapons': int(icbm['low']), 'vehicles': int(icbm['low']), 'unit': 'launchers', 'evidence': 'inferred', 'positionEvidence': 'reconstructed', 'source': icbm['source'], 'note': f"Four R-7 launchers at Plesetsk stood for the Soviet ICBM force of 1961; the documented estimate is {icbm['low']} to {icbm['high']}"})
-    return {'year': 1961, 'label': 'December 1961', 'scope': 'strategic', 'study': '#/study/siop62-alert', 'studyName': 'SIOP//62 alert force', 'sides': {'us': 'United States', 'su': 'Soviet Union'}, 'sites': sites, 'rules': r, 'source': d.get('date', '')}
+    return {'year': 1961, 'label': 'December 1961', 'scope': 'strategic', 'study': '#/study/siop62-alert', 'studyName': 'SIOP//62 alert force', 'sides': {'us': 'United States', 'su': 'Soviet Union'}, 'sites': sites, 'rules': r, 'source': d.get('date', ''), 'caveat': 'The Soviet side is the intercontinental force only, four ICBMs and the heavy bombers as Sagan counts them; the medium bombers and the R-12s facing Europe, most of the stockpile, are not drawn'}
 
 
 def epoch_1962():
