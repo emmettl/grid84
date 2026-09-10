@@ -26,7 +26,7 @@ The stages below were written for an atlas that would grow studies. What was bui
 **2. The engine, where the studies need it.**
 
 - Population tiles shared across the exposure workers, so a study run fetches each tile once from the bucket.
-- The NUKEMAP comparison rerun at NUKEMAP's own burst height, to settle whether anything but the height convention differs.
+- ~~The NUKEMAP comparison rerun at NUKEMAP's own burst height~~ Settled from the FAQ: NUKEMAP's "maximize airburst radii for all effects" is the lab's convention and its other modes use one height; the like-for-like check is one setting away and is written up in the validation notes.
 - The blast model checked against Glasstone and Dolan's reference values as a unit test, which stage 3 asked for and which the validation notes only partly cover.
 - Tile and terrain budgets on a phone, and the one-column layout tested on one.
 - The overlay contract of stage 3, if a study ever needs a ring set that is not a detonation.
