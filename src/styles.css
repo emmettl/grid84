@@ -1863,3 +1863,34 @@ body,
   color: var(--lilac);
   font-weight: 500;
 }
+
+.chronicle-bars .bar--us {
+  fill: rgba(141, 250, 255, 0.55);
+}
+
+.chronicle-bars .bar--ru {
+  fill: rgba(255, 96, 96, 0.55);
+}
+
+.chronicle-bars .bar--other {
+  fill: rgba(232, 251, 255, 0.35);
+}
+
+.front-caption {
+  font-size: 0.72rem;
+}
+
+.chronicle-table strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.chronicle-muted {
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+
+.chronicle-table th {
+  white-space: nowrap;
+  vertical-align: top;
+}

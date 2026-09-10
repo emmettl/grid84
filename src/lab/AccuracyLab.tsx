@@ -17,7 +17,7 @@ const x = (year: number) => PAD.l + ((year - Y0) / (Y1 - Y0)) * (W - PAD.l - PAD
 const y = (p: number) => H - PAD.b - p * (H - PAD.t - PAD.b)
 
 /** Single-shot kill against the benchmark silo by year of service, one mark per system. */
-function CrossingChart({ psi, selected, onPick }: { psi: number; selected: string; onPick: (id: string) => void }) {
+export function CrossingChart({ psi, selected, onPick }: { psi: number; selected: string; onPick: (id: string) => void }) {
   return (
     <svg className="gen-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Single-shot kill probability against a ${psi} psi target by year of service`}>
       {[0, 0.25, 0.5, 0.75, 1].map((p) => (

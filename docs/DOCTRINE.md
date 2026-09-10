@@ -52,6 +52,10 @@ The map states already exist for five epochs, because the studies built their or
 | Treaties | Texts and the data exchanges (New START aggregate numbers, twice yearly until 2023) | Public |
 | Missile defence | Safeguard and Sentinel histories; APS, *Science and Technology of Directed Energy Weapons* (1987); UCS, *Countermeasures* (2000); NAS, *Making Sense of Ballistic Missile Defense* (2012); MDA test record; CBO, *Costs of Space-Based Interceptors* (2025); the January 2025 executive order | Published; the recent programme's figures are announcements, marked as such |
 
+## Built, 10 September 2026
+
+`#/chronicle` carries the six chapters on one page in the agreed form: chapter 1 the stockpile curve with the studies and the treaties as lines; chapter 2 the weapons by side at the strategic epochs as bars, opening the posture atlas at `#/chronicle/posture`; chapter 3 the counterforce crossing chart from the accuracy lab and a table of doctrines as the target rules they imply, each linked to the study that enacts it; chapter 4 the forward deployments as a table linked to the crisis studies; chapter 5 the treaties; chapter 6 missile defence from Nike-Zeus to the space layer, linked to the defence lab and the salvo act. One caption per chapter; sources collapsed beneath. The nav bar was cut to the forms and the studies, with the labs shown as a group only while one is open and otherwise reached from the front page.
+
 ## Where to start
 
 The shot-exchange lab first: self-contained, a week of scholarship already in the record, tied to the seventy-two-minute act, and the clearest demonstration the chronicle has of the manifesto's tension. Then the stockpile chart and the posture atlas over the existing epochs, which together are the chronicle's spine and need no new data. The chapters follow as the map states and charts exist to hang them on.

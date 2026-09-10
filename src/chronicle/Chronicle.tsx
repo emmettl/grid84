@@ -1,5 +1,8 @@
 import { useMemo, useState } from 'react'
 import stockpilesFile from '../../data/chronicle/stockpiles.json'
+import postureFile from '../../data/chronicle/posture.json'
+import { CrossingChart } from '../lab/AccuracyLab.tsx'
+import { COUNTERFORCE_PSI } from '../models/lethality.ts'
 
 /**
  * The chronicle: doctrine, stockpiles and posture as charts and map states,
@@ -30,6 +33,42 @@ const TREATIES: Array<{ year: number; label: string; note: string }> = [
   { year: 2002, label: 'SORT', note: 'Operationally deployed warheads to 1,700 to 2,200' },
   { year: 2011, label: 'New START', note: 'Deployed strategic warheads to 1,550 each, in force to February 2026' },
   { year: 2026, label: 'New START ends', note: 'The last bound expires' },
+]
+
+const POSTURE = postureFile as unknown as { epochs: Array<{ year: number; label: string; scope: string; study: string; studyName: string; sides: Record<string, string>; totals: Record<string, { sites: number; weapons: number }> }> }
+
+/** Doctrine as the target rule it implies, and the study that enacts the rule. */
+const DOCTRINES: Array<{ year: number; name: string; document: string; rule: string; study?: { label: string; href: string } }> = [
+  { year: 1953, name: 'Massive retaliation', document: 'NSC 162/2, October 1953', rule: 'The whole force at once against the whole of the enemy: cities, industry and forces together, the optimum mix' },
+  { year: 1961, name: 'The single plan', document: 'SIOP-62, briefed to Kennedy 13 September 1961', rule: 'One plan, executed whole: 3,400 ground zeros in the unrestricted allocation; airfields first by the task order, then the complexes', study: { label: 'Alert force', href: '#/study/siop62-alert' } },
+  { year: 1965, name: 'Assured destruction', document: 'McNamara, draft presidential memorandum, December 1965', rule: 'Enough to destroy a fifth to a quarter of the population and half the industry after absorbing a first strike; about 400 equivalent megatons, and no more' },
+  { year: 1974, name: 'Limited options', document: 'NSDM-242 and NUWEP-74', rule: 'Categories the weapons are assigned by: nuclear forces, other military, leadership, economic; options from a few weapons to the whole plan', study: { label: 'DEFCON 3 · execute', href: '#/study/defcon3-73/execute' } },
+  { year: 1980, name: 'Countervailing', document: 'PD-59, July 1980', rule: 'Hold at risk what the adversary values most, leadership and forces above all, with the accuracy the new systems give', study: { label: 'Accuracy', href: '#/lab/accuracy' } },
+  { year: 1983, name: 'The theatre', document: 'NATO general political guidelines; Soviet front doctrine', rule: 'Nuclear use inside a conventional war in Europe: the delivery means first, on both sides, in the first minutes', study: { label: 'Able Archer', href: '#/study/able-archer-83' } },
+  { year: 2018, name: 'The present plan', document: 'Nuclear Posture Reviews of 2018 and 2022; OPLAN 8010', rule: 'Withheld. The studies draw a rule from the counts: forces and command first, then the most populous cells', study: { label: 'Seventy-two minutes', href: '#/study/72-minutes/jacobsen' } },
+]
+
+/** The forward deployments that put the weapons where the crises were. */
+const BASING: Array<{ years: string; system: string; where: string; count: string; note: string; href?: string }> = [
+  { years: '1959–1963', system: 'Thor', where: 'Britain, twenty sites in four groups', count: '60 missiles', note: 'The first American missiles in range of Moscow, under dual key' },
+  { years: '1961–1963', system: 'Jupiter', where: 'Gioia del Colle, Italy; Çiğli, Turkey', count: '30 and 15', note: 'The Turkish missiles were the trade of the crisis, removed by April 1963', href: '#/study/cuba-62' },
+  { years: '1962', system: 'R-12 and R-14', where: 'Cuba, six regiments', count: '36 R-12 missiles landed; the R-14 never arrived', note: 'Operation Anadyr as Norris and Kristensen count it', href: '#/study/cuba-62' },
+  { years: '1976–1987', system: 'SS-20', where: 'Western military districts and beyond the Urals', count: '405 launchers at the treaty', note: 'Three warheads each; the Euromissile crisis begins here', href: '#/study/able-archer-83' },
+  { years: '1983–1991', system: 'Pershing II and GLCM', where: 'West Germany; Britain, Italy, Belgium, the Netherlands', count: '108 and 464 planned', note: 'Arriving the week of Able Archer; gone under INF', href: '#/study/able-archer-83' },
+  { years: '1960–', system: 'Boats at sea', where: 'Holy Loch, Rota and Guam, then the bastions and the open ocean', count: 'Half the force by the 1990s', note: 'The basing that needs no host: the posture atlas draws the patrol areas as the studies inferred them', href: '#/chronicle/posture' },
+]
+
+/** Missile defence, from the first programme to the present decade's. */
+const DEFENCES: Array<{ year: number; name: string; what: string; href?: string }> = [
+  { year: 1963, name: 'Nike-Zeus', what: 'Cancelled before deployment: it could not tell warheads from decoys' },
+  { year: 1967, name: 'Sentinel', what: 'A thin national defence against China, announced and then withdrawn from the cities' },
+  { year: 1972, name: 'ABM treaty · A-35', what: 'Two sites each, then one; the Moscow system the only one that stayed' },
+  { year: 1975, name: 'Safeguard', what: 'One site at Grand Forks, a hundred interceptors, operational in October and ordered closed by Congress within the month', href: '#/lab/defence' },
+  { year: 1983, name: 'Strategic Defense Initiative', what: 'The speech of 23 March; the American Physical Society study of 1987 on the decade or more the technologies needed' },
+  { year: 1990, name: 'Brilliant Pebbles', what: 'About 4,600 space-based interceptors proposed for boost phase; never built', href: '#/lab/defence' },
+  { year: 2002, name: 'Withdrawal', what: 'The United States leaves the ABM treaty' },
+  { year: 2004, name: 'Ground-based midcourse defence', what: 'Interceptors at Fort Greely and Vandenberg, forty-four by 2017, twelve hits in twenty-one tests', href: '#/study/72-minutes/salvo' },
+  { year: 2025, name: 'The space layer', what: 'An executive order in January and a programme in May; the Congressional Budget Office estimate of 1,000 to 2,000 interceptors for a small salvo', href: '#/lab/defence' },
 ]
 
 /** Draw order and colour role: the two arsenals that made the curve, then the rest. */
@@ -142,6 +181,48 @@ function StockpileChart({ scale, onHover, hover, treaties }: { scale: 'linear' |
   )
 }
 
+/** Weapons by side at the strategic epochs, as bars. */
+function PostureBars() {
+  const epochs = POSTURE.epochs.filter((e) => e.scope === 'strategic')
+  const max = Math.max(...epochs.flatMap((e) => Object.values(e.totals).map((t) => t.weapons)))
+  const W = 960
+  const H = 200
+  const PADL = 60
+  const band = (W - PADL - 20) / epochs.length
+  const h = (v: number) => (v / max) * (H - 60)
+  return (
+    <svg className="gen-chart chronicle-chart chronicle-bars" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Weapons by side at each strategic epoch">
+      {epochs.map((e, i) => {
+        const x0 = PADL + i * band
+        const sides = Object.entries(e.sides).filter(([id]) => e.totals[id])
+        const bw = Math.min(70, (band - 40) / sides.length)
+        return (
+          <g key={e.year}>
+            {sides.map(([id, name], k) => {
+              const v = e.totals[id].weapons
+              const x = x0 + 20 + k * (bw + 8)
+              return (
+                <g key={id}>
+                  <rect x={x} y={H - 30 - h(v)} width={bw} height={h(v)} className={`bar bar--${id === 'us' ? 'us' : id === 'nk' ? 'other' : 'ru'}`} />
+                  <text x={x + bw / 2} y={H - 34 - h(v)} className="label" textAnchor="middle">
+                    {fmt(v)}
+                  </text>
+                  <text x={x + bw / 2} y={H - 16} className="tick" textAnchor="middle">
+                    {name.split(' ')[0]}
+                  </text>
+                </g>
+              )
+            })}
+            <text x={x0 + band / 2} y={H - 4} className="tick tick--moment" textAnchor="middle">
+              {e.label}
+            </text>
+          </g>
+        )
+      })}
+    </svg>
+  )
+}
+
 export function Chronicle() {
   const [scale, setScale] = useState<'linear' | 'log'>('linear')
   const [treaties, setTreaties] = useState(false)
@@ -211,22 +292,93 @@ export function Chronicle() {
           </details>
         </section>
 
-        <section className="front-section" aria-labelledby="ch-next">
-          <h2 id="ch-next">Chapters</h2>
-          <ul className="front-labs">
-            <li>
-              <a href="#/chronicle/posture">Chapter 2 · Posture</a>
-              <span>The forces where they stood, scrubbed across the epochs the studies built: 1961, 1962, 1973, 1983, 2024. Disc area is the weapons each study counted at the site.</span>
-            </li>
-            <li>
-              <a href="#/lab/accuracy">Doctrine as arithmetic</a>
-              <span>Each named policy as the target rule it implies; the accuracy lab shows why the choice was technical first.</span>
-            </li>
-            <li>
-              <a href="#/lab/defence">Missile defence</a>
-              <span>The shot exchange from Safeguard to the present decade, in the defence lab and on the map.</span>
-            </li>
-          </ul>
+        <section className="front-section chronicle-section" aria-labelledby="ch-posture">
+          <h2 id="ch-posture">Chapter 2 · Posture</h2>
+          <PostureBars />
+          <p className="front-caption">
+            Weapons the studies counted at their sites, by side, at the strategic epochs; the theatre pictures of 1962 and 1983 are drawn on the atlas but not here.{' '}
+            <a href="#/chronicle/posture">Open the posture atlas</a>, where each epoch is a map.
+          </p>
+        </section>
+
+        <section className="front-section chronicle-section" aria-labelledby="ch-doctrine">
+          <h2 id="ch-doctrine">Chapter 3 · Doctrine as arithmetic</h2>
+          <CrossingChart psi={COUNTERFORCE_PSI} selected="" onPick={() => (window.location.hash = '#/lab/accuracy')} />
+          <p className="front-caption">
+            Single-shot kill against a hardened silo by year of service. Counterforce became a doctrine when it became a number.{' '}
+            <a href="#/lab/accuracy">Open the accuracy lab</a>.
+          </p>
+          <table className="front-sources chronicle-table">
+            <tbody>
+              {DOCTRINES.map((d) => (
+                <tr key={d.year}>
+                  <th scope="row">{d.year}</th>
+                  <td>
+                    <strong>{d.name}</strong>
+                    <br />
+                    <span className="chronicle-muted">{d.document}</span>
+                  </td>
+                  <td>{d.rule}</td>
+                  <td>{d.study ? <a href={d.study.href}>{d.study.label}</a> : ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section className="front-section chronicle-section" aria-labelledby="ch-basing">
+          <h2 id="ch-basing">Chapter 4 · Geopolitics as basing</h2>
+          <table className="front-sources chronicle-table">
+            <tbody>
+              {BASING.map((b) => (
+                <tr key={b.system}>
+                  <th scope="row">{b.years}</th>
+                  <td>
+                    <strong>{b.system}</strong>
+                    <br />
+                    <span className="chronicle-muted">{b.where}</span>
+                  </td>
+                  <td>
+                    {b.count}
+                    <br />
+                    <span className="chronicle-muted">{b.note}</span>
+                  </td>
+                  <td>{b.href ? <a href={b.href}>Open</a> : ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="front-caption">The crises are where the weapons were. Each row that has a study opens it.</p>
+        </section>
+
+        <section className="front-section chronicle-section" aria-labelledby="ch-treaties">
+          <h2 id="ch-treaties">Chapter 5 · Treaties as bounds</h2>
+          <p className="front-caption">The treaties are lines on the curve above: switch them on with the Treaties button. The INF line takes the Euromissiles off the map; the START I line is where the drawdown begins; the last line is the last bound's end.</p>
+        </section>
+
+        <section className="front-section chronicle-section" aria-labelledby="ch-defence">
+          <h2 id="ch-defence">Chapter 6 · Missile defence</h2>
+          <table className="front-sources chronicle-table">
+            <tbody>
+              {DEFENCES.map((d) => (
+                <tr key={d.year}>
+                  <th scope="row">{d.year}</th>
+                  <td>
+                    <strong>{d.name}</strong>
+                  </td>
+                  <td>{d.what}</td>
+                  <td>{d.href ? <a href={d.href}>Open</a> : ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="front-caption">
+            Every one of these faced the same arithmetic: the defender must buy shots faster than the attacker buys warheads and decoys. <a href="#/lab/defence">The defence lab</a> draws the curve; <a href="#/study/72-minutes/salvo">the salvo act</a> draws it on the map.
+          </p>
+          <details className="sources">
+            <summary>Sources and methods for chapters 3 to 6</summary>
+            <p className="provenance-method">Doctrine: NSC 162/2 and the SIOP-62 briefing through the National Security Archive; McNamara's 1965 draft presidential memorandum; NSDM-242 and NUWEP-74; PD-59; the 2018 and 2022 Nuclear Posture Reviews. Each rule is the study's reading of the document, stated on the study's own omissions panel. Basing: Norris and Kristensen on Cuba; the Nuclear Weapons Databook; the INF treaty's memorandum of understanding for the SS-20, Pershing II and GLCM counts. Defence: the Missile Defense Agency's test record; the American Physical Society (1987); the Union of Concerned Scientists (2000); the National Academies (2012); the Congressional Budget Office (2025), as reported. The counts in these tables are the open literature's and are quoted as such.</p>
+          </details>
         </section>
       </div>
     </main>

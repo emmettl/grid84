@@ -37,7 +37,7 @@ type Route =
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' }
 
 function parseRoute(hash: string): Route {
-  if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources') return { kind: 'front' }
+  if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources' || hash === '#/labs') return { kind: 'front' }
   if (hash === '#/atlas') return { kind: 'atlas' }
   if (hash === '#/loop') return { kind: 'loop' }
   if (hash === '#/chronicle') return { kind: 'chronicle' }
@@ -136,6 +136,17 @@ function BritainStudy({ strath }: { strath: boolean }) {
 
 export default function App() {
   const route = useRoute()
+  const inLab = route.kind === 'lab'
+  const labs: Array<{ href: string; label: string; active: boolean }> = [
+    { href: '#/lab/evidence', label: 'Evidence', active: inLab && route.id === 'evidence' },
+    { href: '#/lab/population', label: 'Population', active: inLab && route.id === 'population' },
+    { href: '#/lab/terrain', label: 'Terrain', active: inLab && route.id === 'terrain' },
+    { href: '#/lab/fallout', label: 'Fallout', active: inLab && route.id === 'fallout' },
+    { href: '#/lab/readiness', label: 'Readiness', active: inLab && route.id === 'readiness' },
+    { href: '#/lab/defence', label: 'Defence', active: inLab && route.id === 'defence' },
+    { href: '#/lab/accuracy', label: 'Accuracy', active: inLab && route.id === 'accuracy' },
+  ]
+  // The bar carries the forms and the studies; the open lab appears beside a link to the labs on the front page.
   const links: Array<{ href: string; label: string; active: boolean }> = [
     { href: '#/', label: 'Grid/84', active: route.kind === 'front' },
     { href: '#/chronicle', label: 'Chronicle', active: route.kind === 'chronicle' || route.kind === 'posture' },
@@ -147,13 +158,8 @@ export default function App() {
     { href: '#/study/able-archer-83', label: 'Able Archer', active: route.kind === 'study' && route.id === 'able-archer-83' },
     { href: '#/study/britain-80', label: 'Britain', active: route.kind === 'study' && route.id === 'britain-80' },
     { href: '#/study/72-minutes', label: '72 minutes', active: route.kind === 'study' && route.id === '72-minutes' },
-    { href: '#/lab/evidence', label: 'Lab · Evidence', active: route.kind === 'lab' && route.id === 'evidence' },
-    { href: '#/lab/population', label: 'Lab · Population', active: route.kind === 'lab' && route.id === 'population' },
-    { href: '#/lab/terrain', label: 'Lab · Terrain', active: route.kind === 'lab' && route.id === 'terrain' },
-    { href: '#/lab/fallout', label: 'Lab · Fallout', active: route.kind === 'lab' && route.id === 'fallout' },
-    { href: '#/lab/readiness', label: 'Lab · Readiness', active: route.kind === 'lab' && route.id === 'readiness' },
-    { href: '#/lab/defence', label: 'Lab · Defence', active: route.kind === 'lab' && route.id === 'defence' },
-    { href: '#/lab/accuracy', label: 'Lab · Accuracy', active: route.kind === 'lab' && route.id === 'accuracy' },
+    ...labs.filter((l) => l.active).map((l) => ({ ...l, label: `Lab · ${l.label}` })),
+    { href: '#/labs', label: 'Labs', active: false },
   ]
   return (
     <>

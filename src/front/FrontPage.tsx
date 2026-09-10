@@ -123,6 +123,7 @@ const TERRAIN_SOURCES: string[] = [
 export function FrontPage() {
   useEffect(() => {
     if (window.location.hash === '#/sources') document.getElementById('front-sources')?.scrollIntoView()
+    if (window.location.hash === '#/labs') document.getElementById('front-labs')?.scrollIntoView()
   }, [])
   return (
     <main className="front" aria-label="Grid/84">
