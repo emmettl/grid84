@@ -17,6 +17,7 @@ import { ableArcher } from './studies/able-archer/war-scare.ts'
 import { britainSquareLeg, britainStrath } from './studies/britain/protect.ts'
 import { seventyTwoMinutes } from './studies/minutes72/scenario.ts'
 import { window83 } from './studies/window83/window.ts'
+import { vForce } from './studies/vforce/vforce.ts'
 import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
@@ -44,6 +45,7 @@ type Route =
   | { kind: 'study'; id: 'cuba-62'; general: boolean }
   | { kind: 'study'; id: 'able-archer-83' }
   | { kind: 'study'; id: 'britain-80'; strath: boolean }
+  | { kind: 'study'; id: 'v-force'; profile: 'high' | 'low' }
   | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }
   | { kind: 'study'; id: 'window-83'; posture: 'ride' | 'launch' }
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' }
@@ -67,6 +69,8 @@ function parseRoute(hash: string): Route {
   if (hash === '#/study/cuba-62') return { kind: 'study', id: 'cuba-62', general: false }
   if (hash === '#/study/cuba-62/general') return { kind: 'study', id: 'cuba-62', general: true }
   if (hash === '#/study/able-archer-83') return { kind: 'study', id: 'able-archer-83' }
+  if (hash === '#/study/v-force') return { kind: 'study', id: 'v-force', profile: 'high' }
+  if (hash === '#/study/v-force/low') return { kind: 'study', id: 'v-force', profile: 'low' }
   if (hash === '#/study/britain-80') return { kind: 'study', id: 'britain-80', strath: false }
   if (hash === '#/study/britain-80/strath') return { kind: 'study', id: 'britain-80', strath: true }
   if (hash === '#/study/72-minutes') return { kind: 'study', id: '72-minutes', variant: 'film' }
@@ -209,6 +213,11 @@ function AbleArcherStudy() {
   return <StudyView key={study.id} study={study} />
 }
 
+function VForceStudy({ profile }: { profile: 'high' | 'low' }) {
+  const study = useMemo(() => vForce(profile), [profile])
+  return <StudyView key={study.id} study={study} />
+}
+
 function WindowStudy({ posture }: { posture: 'ride' | 'launch' }) {
   const study = useMemo(() => window83(posture), [posture])
   return <StudyView key={study.id} study={study} />
@@ -249,6 +258,7 @@ export default function App() {
     { href: '#/study/defcon3-73', label: 'DEFCON 3', active: route.kind === 'study' && route.id === 'defcon3-73' },
     { href: '#/study/able-archer-83', label: 'Able Archer', active: route.kind === 'study' && route.id === 'able-archer-83' },
     { href: '#/study/britain-80', label: 'Britain', active: route.kind === 'study' && route.id === 'britain-80' },
+    { href: '#/study/v-force', label: 'V-force', active: route.kind === 'study' && route.id === 'v-force' },
     { href: '#/study/window-83', label: 'The window', active: route.kind === 'study' && route.id === 'window-83' },
     { href: '#/study/72-minutes', label: '72 minutes', active: route.kind === 'study' && route.id === '72-minutes' },
     ...labs.filter((l) => l.active).map((l) => ({ ...l, label: `Lab · ${l.label}` })),
@@ -276,6 +286,7 @@ export default function App() {
       {route.kind === 'study' && route.id === 'defcon3-73' && <Defcon3Study variant={route.variant} />}
       {route.kind === 'study' && route.id === 'cuba-62' && <CubaStudy general={route.general} />}
       {route.kind === 'study' && route.id === 'able-archer-83' && <AbleArcherStudy />}
+      {route.kind === 'study' && route.id === 'v-force' && <VForceStudy profile={route.profile} />}
       {route.kind === 'study' && route.id === 'britain-80' && <BritainStudy strath={route.strath} />}
       {route.kind === 'study' && route.id === '72-minutes' && <SeventyTwoStudy variant={route.variant} />}
       {route.kind === 'study' && route.id === 'window-83' && <WindowStudy posture={route.posture} />}

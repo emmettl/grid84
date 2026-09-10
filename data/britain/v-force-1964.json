@@ -1,0 +1,153 @@
+{
+ "year": 1964,
+ "note": "The V-force at its peak: 159 aircraft on eight main bases, about the 159 the official history gives for June 1964. Squadron numbers are as they stood in 1964; the strength at each base is reconstructed from the squadron establishments, not read from a return.",
+ "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories",
+ "strength": 159,
+ "dispersal": {
+  "airfields": 36,
+  "perAirfield": 4,
+  "note": "On alert the force dispersed in fours to dozens of civil and military airfields, so that no counterforce strike could catch it on eight stations. Quick reaction alert from 1962 held aircraft at fifteen minutes and later at cockpit readiness."
+ },
+ "profiles": {
+  "high": {
+   "name": "High level, as built",
+   "year": 1962,
+   "cruiseAltitudeMetres": 15240,
+   "descendAtMetres": null,
+   "blueSteelRangeMetres": 185000,
+   "speedMs": 250,
+   "note": "The profile the force was designed for: cruise at fifty thousand feet, above the guns, Blue Steel away a hundred nautical miles out. On 1 May 1960 an SA-2 brought down a U-2 at seventy thousand feet over Sverdlovsk and the argument for it ended."
+  },
+  "low": {
+   "name": "Low level, as flown",
+   "year": 1964,
+   "cruiseAltitudeMetres": 13700,
+   "descendAtMetres": 700000,
+   "blueSteelRangeMetres": 74000,
+   "speedMs": 235,
+   "note": "The profile adopted from 1963: transit high, then down to about three hundred feet for the run in, under the radar horizon of the missile belts. Blue Steel lost most of its range on a low-level launch, the aircraft lost fuel and endurance, and the Valiant lost its wings."
+  }
+ },
+ "bases": [
+  {
+   "id": "scampton",
+   "name": "RAF Scampton",
+   "lon": -0.5508,
+   "lat": 53.3078,
+   "aircraft": "Vulcan B.2",
+   "squadrons": "27, 83, 617 Squadrons",
+   "strength": 24,
+   "weapon": "Blue Steel",
+   "weaponsPerAircraft": 1,
+   "note": "The Blue Steel wing: one missile per aircraft, released short of the target while the bomber turned away",
+   "evidence": "reconstructed",
+   "positionEvidence": "documented",
+   "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories"
+  },
+  {
+   "id": "wittering",
+   "name": "RAF Wittering",
+   "lon": -0.4761,
+   "lat": 52.6125,
+   "aircraft": "Victor B.2",
+   "squadrons": "100, 139 Squadrons",
+   "strength": 16,
+   "weapon": "Blue Steel",
+   "weaponsPerAircraft": 1,
+   "note": "The second Blue Steel wing, worked up through 1964",
+   "evidence": "reconstructed",
+   "positionEvidence": "documented",
+   "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories"
+  },
+  {
+   "id": "waddington",
+   "name": "RAF Waddington",
+   "lon": -0.5236,
+   "lat": 53.1662,
+   "aircraft": "Vulcan B.2",
+   "squadrons": "44, 50, 101 Squadrons",
+   "strength": 24,
+   "weapon": "Yellow Sun Mk 2",
+   "weaponsPerAircraft": 1,
+   "note": "Free-fall megaton weapons",
+   "evidence": "reconstructed",
+   "positionEvidence": "documented",
+   "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories"
+  },
+  {
+   "id": "coningsby",
+   "name": "RAF Coningsby",
+   "lon": -0.1661,
+   "lat": 53.093,
+   "aircraft": "Vulcan B.2",
+   "squadrons": "9, 12, 35 Squadrons",
+   "strength": 24,
+   "weapon": "Yellow Sun Mk 2",
+   "weaponsPerAircraft": 1,
+   "note": "",
+   "evidence": "reconstructed",
+   "positionEvidence": "documented",
+   "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories"
+  },
+  {
+   "id": "cottesmore",
+   "name": "RAF Cottesmore",
+   "lon": -0.6486,
+   "lat": 52.7358,
+   "aircraft": "Victor B.1A",
+   "squadrons": "10, 15 Squadrons",
+   "strength": 16,
+   "weapon": "Yellow Sun Mk 2",
+   "weaponsPerAircraft": 1,
+   "note": "",
+   "evidence": "reconstructed",
+   "positionEvidence": "documented",
+   "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories"
+  },
+  {
+   "id": "honington",
+   "name": "RAF Honington",
+   "lon": 0.7728,
+   "lat": 52.3428,
+   "aircraft": "Victor B.1A",
+   "squadrons": "55, 57 Squadrons",
+   "strength": 16,
+   "weapon": "Yellow Sun Mk 2",
+   "weaponsPerAircraft": 1,
+   "note": "",
+   "evidence": "reconstructed",
+   "positionEvidence": "documented",
+   "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories"
+  },
+  {
+   "id": "finningley",
+   "name": "RAF Finningley",
+   "lon": -1.0047,
+   "lat": 53.4747,
+   "aircraft": "Vulcan B.1A",
+   "squadrons": "230 OCU and the Vulcan B.1A wing",
+   "strength": 16,
+   "weapon": "Yellow Sun Mk 1",
+   "weaponsPerAircraft": 1,
+   "note": "",
+   "evidence": "reconstructed",
+   "positionEvidence": "documented",
+   "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories"
+  },
+  {
+   "id": "marham",
+   "name": "RAF Marham",
+   "lon": 0.5506,
+   "lat": 52.6483,
+   "aircraft": "Valiant B.1",
+   "squadrons": "49, 148, 207, 214 Squadrons",
+   "strength": 23,
+   "weapon": "Red Beard and Yellow Sun Mk 1",
+   "weaponsPerAircraft": 1,
+   "note": "The Valiants were withdrawn in 1965 when fatigue cracks were found in the wing spars, a consequence of the low-level role",
+   "evidence": "reconstructed",
+   "positionEvidence": "documented",
+   "source": "Humphrey Wynn, RAF Nuclear Deterrent Forces (HMSO, 1994); the Statements on the Defence Estimates; standard type histories"
+  }
+ ]
+}

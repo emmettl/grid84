@@ -1,6 +1,16 @@
 # The V-force
 
-**A planning brief, 10 September 2026.** Proposed by the user: the RAF's V-bomber war plan as a study, and the question of how much of it was ever declassified. Not built. This note records what is on the record, what is not, and what the engine would need.
+**Built 10 September 2026** at `#/study/v-force` and `/low`, from the user's proposal: the RAF's V-bomber plan as a study, and the question of how much of it was ever declassified. This note records what is on the record, what is not, and what the study does with the difference.
+
+## What was built
+
+Two runs of the same force against the same targets, switched on the clock panel.
+
+- **The force.** 159 aircraft on eight stations in the middle of 1964, the peak the official history gives: Vulcan B.2 at Scampton, Waddington and Coningsby, Victor B.2 at Wittering, Victor B.1A at Cottesmore and Honington, Vulcan B.1A at Finningley, and the Valiants at Marham that lost their wings to the low-level role and were withdrawn in 1965. Forty aircraft carry Blue Steel. The strength at each base is reconstructed from the squadron establishments and says so; the dispersal scheme, four aircraft to each of thirty-six airfields, and quick reaction alert at fifteen minutes are on every base's readout.
+- **The targets.** Sixty documented Soviet complexes from the American study of 1956, filtered to those within a 3,000 km radius of action, in the study's own priority order, Moscow first. They are not a British list, and every target's readout says so in the withheld tier.
+- **The profiles.** *High level, as built*: fifty thousand feet, Blue Steel away a hundred nautical miles out, and a third of the force through the defences. *Low level, as flown*: transit at forty-five thousand, down to three hundred feet seven hundred kilometres from the target, Blue Steel down to forty nautical miles, and three fifths through. The loss figures are inferred and stated as such; the altitudes and the Blue Steel ranges are the open literature's.
+
+
 
 ## Why it is the right case for flight profiles
 
@@ -19,13 +29,12 @@ Enough for an honest study, and less than one would like.
 
 The target lists. British nuclear targeting has never been released in the way the SIOP-62 briefing was: individual desired ground zeros, the assignment of aircraft to cities, and the retaliation plan's contents remain withheld or heavily weeded, and secondary accounts of "the 48 cities" or similar figures differ from each other. **A study must not invent them.** The honest form is the same one the SIOP//62 study takes where the record stops: name the category, state the rule, mark the tier as withheld, and let the reader see the shape of the plan without a fabricated list. If the archive yields a released list, it can replace the rule.
 
-## What it would need
+## What it still needs
 
-- **An order of battle**, 1962 or 1964: Waddington, Scampton, Coningsby, Cottesmore, Finningley, Honington, Marham, Wittering and the rest, with squadron strengths from Wynn, and the dispersal airfields as a second layer.
-- **Flight profiles**, which the engine now has: the high-level approach at 45,000 to 50,000 feet, then the same route flown at 250 feet, so the two can be run against each other and the difference in warning time and exposure read off.
-- **Blue Steel**, which the standoff machinery already supports: about 100 nautical miles at high level, much less at low, released short of the target while the bomber turns away.
-- **The warning clock**: the four minutes, the fifteen-minute readiness, the scramble, and the fact that the force's survival depended on being airborne before the first weapon arrived.
-- **A restraint**: the readouts must say that the target list is withheld and that the geography of the strike is a stated rule, not a plan on record.
+- **The dispersal as geometry.** The thirty-six airfields are named in the readout but not drawn; putting the force on them would show what the scheme was for.
+- **The defences as entities.** The penetration fraction is a number where it should be a belt of SA-2 sites the routes have to be planned around, which is what the crews actually did and what the great circles here certainly do not.
+- **Refuelling and route planning**, both absent.
+- **The archive.** If a released British operation order turns up at Kew, the inferred assignment can be replaced by the real one, and the withheld tier on each target with a documented one.
 
 ## The finding it would carry
 
