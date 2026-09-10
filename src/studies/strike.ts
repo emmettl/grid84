@@ -91,16 +91,22 @@ export interface StrikeResult {
   summary: StrikeSummary
 }
 
+/** The climb-out: an aircraft is at altitude and speed about this far from its base before it can release. */
+export const CLIMB_OUT_METRES = 150_000
+
 /**
- * How far the carrier flies before release: to the standoff, but at least a
- * third of the way, since a bomber launches from the air and not from its
- * apron; a launcher without a carrier speed, a boat, fires from where it is.
+ * How far the carrier flies before release. Doctrine is to release as far
+ * from the target as the missile's range allows, outside the defences, so
+ * the leg is the distance less the standoff, but never less than the
+ * climb-out; a target closer than that gets a release a third of the way.
+ * A launcher without a carrier speed, a boat, fires from where it is.
  */
 export function standoffLeg(launcher: Launcher, distanceMetres: number): number {
   if (launcher.standoffMetres === undefined) return distanceMetres
   const carrier = launcher.speedMs !== undefined && launcher.speedMs > 0
   if (!carrier) return 0
-  return Math.max(distanceMetres - launcher.standoffMetres, distanceMetres / 3)
+  const climbOut = Math.min(CLIMB_OUT_METRES, distanceMetres / 3)
+  return Math.max(distanceMetres - launcher.standoffMetres, climbOut)
 }
 
 export function sortieTiming(launcher: Launcher, sortie: Sortie, target: Target): { launch: number; arrival: number; route: 'ballistic' | 'cruise' } {

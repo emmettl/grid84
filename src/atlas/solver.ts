@@ -88,8 +88,8 @@ const CRUISE_SPEED_MS = 240
 export function cruiseFlightSeconds(site: ForceSite, distanceMetres: number): number {
   const standoff = (site.standoffKm ?? 0) * 1_000
   const carrier = site.carrierSpeedMs !== undefined && site.carrierSpeedMs > 0
-  // The carrier flies at least a third of the way before release; a boat fires from where it sits.
-  const leg = carrier ? Math.max(distanceMetres - standoff, distanceMetres / 3) : 0
+  // Release as far out as the missile allows, after the climb-out; a boat fires from where it sits.
+  const leg = carrier ? Math.max(distanceMetres - standoff, Math.min(150_000, distanceMetres / 3)) : 0
   return leg / (carrier ? (site.carrierSpeedMs as number) : CRUISE_SPEED_MS) + (distanceMetres - leg) / (site.missileSpeedMs ?? CRUISE_SPEED_MS)
 }
 

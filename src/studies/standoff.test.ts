@@ -58,13 +58,16 @@ describe('standoff air delivery', () => {
     expect(haversineMetres(releases[1], releases[2])).toBeGreaterThan(4_000)
     expect(aircraft.some((a) => a.kind === 'track' && /2 OF THE FLIGHT/.test(a.designation))).toBe(true)
   })
-  it('flies at least a third of the way when the standoff exceeds the distance', () => {
+  it('releases after the climb-out when the missile can fly the rest, as doctrine has it', () => {
     const near = enactStrike({ ...common, prefix: 'near', launchers: [{ ...bomber, position: [46.21, 51.48] }], targets: [{ id: 'w', name: 'Warsaw', priority: 0, position: [21.01, 52.23], maxWeapons: 1 }] })
     const aircraft = near.entities.find((e) => e.kind === 'track' && e.vehicle === 'aircraft')
     expect(aircraft).toBeDefined()
     if (!aircraft || aircraft.kind !== 'track') return
-    const d = haversineMetres([46.21, 51.48], [21.01, 52.23])
-    expect(haversineMetres(aircraft.track.waypoints[0].position, aircraft.track.waypoints[1].position)).toBeCloseTo(d / 3, -4)
+    expect(haversineMetres(aircraft.track.waypoints[0].position, aircraft.track.waypoints[1].position)).toBeCloseTo(150_000, -4)
+    // A target closer than the climb-out gets a release a third of the way.
+    const close = enactStrike({ ...common, prefix: 'close', launchers: [{ ...bomber, position: [21.5, 52.0] }], targets: [{ id: 'w', name: 'Warsaw', priority: 0, position: [21.01, 52.23], maxWeapons: 1 }] })
+    const a2 = close.entities.find((e) => e.kind === 'track' && e.vehicle === 'aircraft')
+    if (a2 && a2.kind === 'track') expect(haversineMetres(a2.track.waypoints[0].position, a2.track.waypoints[1].position)).toBeLessThan(20_000)
   })
   it('lets a submarine fire its cruise missile from where it sits, with no carrier leg', () => {
     const s = enactStrike({ ...common, prefix: 'sub', launchers: [sub], targets: [{ id: 't', name: 'Damascus', priority: 0, position: [36.3, 33.5], maxWeapons: 1 }] })
