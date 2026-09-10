@@ -1970,3 +1970,8 @@ body,
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.gen-chart .leader {
+  stroke: rgba(232, 251, 255, 0.35);
+  stroke-width: 1;
+}

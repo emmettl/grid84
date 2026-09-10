@@ -3,6 +3,7 @@ import stockpilesFile from '../../data/chronicle/stockpiles.json'
 import postureFile from '../../data/chronicle/posture.json'
 import { CrossingChart } from '../lab/AccuracyLab.tsx'
 import { COUNTERFORCE_PSI } from '../models/lethality.ts'
+import { placeLabels } from '../chart/labels.ts'
 
 /**
  * The chronicle: doctrine, stockpiles and posture as charts and map states,
@@ -163,15 +164,20 @@ function StockpileChart({ scale, onHover, hover, treaties }: { scale: 'linear' |
       {[...ORDER].reverse().map((name) =>
         paths[name] ? <path key={name} d={paths[name]} className={`series series--state series--${ROLE[name] ?? 'other'}`} /> : null,
       )}
-      {ORDER.map((name) => {
-        const [yr, v] = last(name)
-        if (v <= 0) return null
-        return (
-          <text key={name} x={x(yr) + 6} y={y(v) + 3} className={`label label--${ROLE[name] ?? 'other'}`}>
-            {name === 'United States' ? 'United States' : name === 'United Kingdom' ? 'Britain' : name} {fmt(v)}
+      {placeLabels(
+        ORDER.filter((name) => last(name)[1] > 0).map((name) => {
+          const [yr, v] = last(name)
+          return { id: name, x: x(yr) + 6, y: y(v) + 3, text: `${name === 'United Kingdom' ? 'Britain' : name} ${fmt(v)}`, anchor: 'start' as const, markX: x(yr), markY: y(v) }
+        }),
+        { top: PAD.t, bottom: H - PAD.b },
+      ).map((l) => (
+        <g key={l.id}>
+          {l.leader && <line x1={l.markX} y1={l.markY} x2={l.x} y2={l.py - 3} className="leader" />}
+          <text x={l.x} y={l.py} className={`label label--${ROLE[l.id] ?? 'other'}`}>
+            {l.text}
           </text>
-        )
-      })}
+        </g>
+      ))}
       <g className="peak">
         <text x={x(peak[0])} y={PAD.t + 10} className="label" textAnchor="middle">
           {fmt(peak[1])} in {peak[0]}, the world's peak
@@ -188,6 +194,8 @@ function StockpileChart({ scale, onHover, hover, treaties }: { scale: 'linear' |
     </svg>
   )
 }
+
+const SHORT: Record<string, string> = { 'United States': 'US', 'Soviet Union': 'USSR', Russia: 'Russia', 'North Korea': 'DPRK', NATO: 'NATO', 'Warsaw Pact': 'Pact' }
 
 /** Weapons by side at the strategic epochs, as bars. */
 function PostureBars() {
@@ -216,7 +224,7 @@ function PostureBars() {
                     {fmt(v)}
                   </text>
                   <text x={x + bw / 2} y={H - 16} className="tick" textAnchor="middle">
-                    {name.split(' ')[0]}
+                    {SHORT[name] ?? name}
                   </text>
                 </g>
               )

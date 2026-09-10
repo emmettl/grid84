@@ -3,6 +3,7 @@ import { formatProvenance } from '../evidence/evidence.ts'
 import { COUNTERFORCE_PSI, killProbability, lethalRadiusMetres, singleShotKill, SYSTEMS, TARGETS, type WeaponSystem } from '../models/lethality.ts'
 import { BLAST_MODEL, SURFACE_BLAST_MODEL } from '../models/blast.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
+import { placeLabels, type LabelWish } from '../chart/labels.ts'
 
 const pct = (v: number) => `${Math.round(v * 100)}%`
 const km = (m: number) => (m >= 1_000 ? `${(m / 1_000).toFixed(m >= 10_000 ? 0 : 1)} km` : `${Math.round(m)} m`)
@@ -18,6 +19,12 @@ const y = (p: number) => H - PAD.b - p * (H - PAD.t - PAD.b)
 
 /** Single-shot kill against the benchmark silo by year of service, one mark per system. */
 export function CrossingChart({ psi, selected, onPick }: { psi: number; selected: string; onPick: (id: string) => void }) {
+  const wishes: LabelWish[] = SYSTEMS.filter((s) => s.id === selected || singleShotKill(s.yieldKt, s.cepMetres, psi) >= 0.5 || s.year <= 1960).map((s) => {
+    const p = singleShotKill(s.yieldKt, s.cepMetres, psi)
+    const right = s.year > 1985
+    return { id: s.id, x: x(s.year) + (right ? -8 : 8), y: y(p) - 8, text: s.name.split(' · ')[0], anchor: right ? 'end' : 'start', markX: x(s.year), markY: y(p) }
+  })
+  const labels = new Map(placeLabels(wishes, { top: PAD.t, bottom: H - PAD.b }).map((l) => [l.id, l]))
   return (
     <svg className="gen-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Single-shot kill probability against a ${psi} psi target by year of service`}>
       {[0, 0.25, 0.5, 0.75, 1].map((p) => (
@@ -45,10 +52,13 @@ export function CrossingChart({ psi, selected, onPick }: { psi: number; selected
         return (
           <g key={s.id} className={`sys sys--${s.side}${active ? ' is-active' : ''}`} onClick={() => onPick(s.id)} style={{ cursor: 'pointer' }}>
             <circle cx={x(s.year)} cy={y(p)} r={active ? 6 : 4.5} className={`mark ${s.side === 'us' ? 'mark--systems' : 'mark--weapons'}`} />
-            {(active || p >= 0.5 || s.year <= 1960) && (
-              <text x={x(s.year) + (s.year > 1985 ? -8 : 8)} y={y(p) - 8} className="label" textAnchor={s.year > 1985 ? 'end' : 'start'}>
-                {s.name.split(' · ')[0]}
-              </text>
+            {labels.has(s.id) && (
+              <>
+                {labels.get(s.id)!.leader && <line x1={x(s.year)} y1={y(p)} x2={labels.get(s.id)!.x} y2={labels.get(s.id)!.py - 3} className="leader" />}
+                <text x={labels.get(s.id)!.x} y={labels.get(s.id)!.py} className="label" textAnchor={labels.get(s.id)!.anchor}>
+                  {labels.get(s.id)!.text}
+                </text>
+              </>
             )}
           </g>
         )

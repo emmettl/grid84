@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { formatProvenance } from '../evidence/evidence.ts'
 import { budget, PRESETS, type ErrorTerms } from '../models/guidance.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
+import { placeLabels } from '../chart/labels.ts'
 
 const m = (v: number) => (v >= 1_000 ? `${(v / 1_000).toFixed(2)} km` : `${Math.round(v)} m`)
 const pct = (v: number) => `${Math.round(v * 100)}%`
@@ -48,12 +49,17 @@ function DriftChart({ terms, at }: { terms: ErrorTerms; at: number }) {
       </text>
       <path d={path(series.plain)} className="series series--weapons" />
       <path d={path(series.sighted)} className="series series--systems" />
-      <text x={x(HOURS) - 4} y={y(series.plain[HOURS]) - 6} className="label" textAnchor="end">
-        inertial only
-      </text>
-      <text x={x(HOURS) - 4} y={y(series.sighted[HOURS]) + 14} className="label" textAnchor="end">
-        with a star sight
-      </text>
+      {placeLabels(
+        [
+          { id: 'plain', x: x(HOURS) - 4, y: y(series.plain[HOURS]) - 6, text: 'inertial only', anchor: 'end', markX: x(HOURS), markY: y(series.plain[HOURS]) },
+          { id: 'sighted', x: x(HOURS) - 4, y: y(series.sighted[HOURS]) + 14, text: 'with a star sight', anchor: 'end', markX: x(HOURS), markY: y(series.sighted[HOURS]) },
+        ],
+        { top: PAD.t, bottom: H - PAD.b },
+      ).map((l) => (
+        <text key={l.id} x={l.x} y={l.py} className="label" textAnchor={l.anchor}>
+          {l.text}
+        </text>
+      ))}
       <line x1={x(at)} x2={x(at)} y1={PAD.t} y2={H - PAD.b} className="grid grid--needed" />
       <circle cx={x(at)} cy={y(now.cep)} r={5} className={`mark ${terms.starSight ? 'mark--systems' : 'mark--weapons'}`} />
     </svg>

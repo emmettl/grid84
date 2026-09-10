@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { formatProvenance } from '../evidence/evidence.ts'
 import { commandsAt, COMMAND_TOTALS, DEFCON, DEFCON_PROVENANCE, generationAt, GENERATION_POINTS, MEGATONS, POSTURE_1961, REACTION, RIGIDITY, SEQUENCE, SYSTEMS } from '../models/readiness.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
+import { placeLabels } from '../chart/labels.ts'
 
 const n = (v: number) => Math.round(v).toLocaleString('en-GB')
 
@@ -26,6 +27,16 @@ function GenerationChart({ hours, onHover }: { hours: number; onHover: (h: numbe
     return `M${pts.join(' L')}`
   }, [])
   const g = generationAt(hours)
+  const optionLabels = useMemo(
+    () =>
+      new Map(
+        placeLabels(
+          GENERATION_POINTS.map((p) => ({ id: String(p.option), x: p.hours >= 12 ? x(p.hours) - 8 : x(p.hours) + 8, y: y(p.systems) - 8, text: `${n(p.systems)} · option ${p.option}`, anchor: p.hours >= 12 ? ('end' as const) : ('start' as const), markX: x(p.hours), markY: y(p.systems) })),
+          { top: PAD.t, bottom: H - PAD.b },
+        ).map((l) => [Number(l.id), l]),
+      ),
+    [],
+  )
   const move = (event: React.MouseEvent<SVGSVGElement>) => {
     const rect = event.currentTarget.getBoundingClientRect()
     const px = ((event.clientX - rect.left) / rect.width) * W
@@ -55,9 +66,17 @@ function GenerationChart({ hours, onHover }: { hours: number; onHover: (h: numbe
       {GENERATION_POINTS.map((p) => (
         <g key={p.option}>
           <circle cx={x(p.hours)} cy={y(p.systems)} r={4.5} className="mark mark--systems" />
-          <text x={p.hours >= 12 ? x(p.hours) - 8 : x(p.hours) + 8} y={y(p.systems) - 8} className="label" textAnchor={p.hours >= 12 ? 'end' : 'start'}>
-            {n(p.systems)} · option {p.option}
-          </text>
+          {(() => {
+            const l = optionLabels.get(p.option)
+            return l ? (
+              <>
+                {l.leader && <line x1={x(p.hours)} y1={y(p.systems)} x2={l.x} y2={l.py - 3} className="leader" />}
+                <text x={l.x} y={l.py} className="label" textAnchor={l.anchor}>
+                  {l.text}
+                </text>
+              </>
+            ) : null
+          })()}
           {p.weapons !== undefined && (
             <>
               <circle cx={x(p.hours)} cy={y(p.weapons)} r={4.5} className="mark mark--weapons" />
