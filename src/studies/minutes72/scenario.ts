@@ -667,7 +667,8 @@ function salvoStudy(): Study {
     targetFacts: () => [{ label: 'Why this target', value: 'One of the most populous cells of the 2023 grid; there is no North Korean target list in any record', evidence: 'modelled', provenance: { source: (usUrban as { source: string }).source } }],
   })
   // The defence: four shots per object while the stock lasts, in the order the missiles were launched.
-  const tracks = strike.entities.filter((e): e is Extract<Entity, { kind: 'track' }> => e.kind === 'track').sort((a, b) => a.track.start - b.track.start)
+  // The defence cannot tell which object is bound where, so the order of engagement is the order of detection, which the engine draws.
+  const tracks = strike.entities.filter((e): e is Extract<Entity, { kind: 'track' }> => e.kind === 'track').sort((a, b) => hash01(`salvo:order:${a.id}`) - hash01(`salvo:order:${b.id}`))
   const perObject = gmd.salvo
   const engaged = Math.min(tracks.length, Math.floor(gmd.interceptors / perObject))
   const p = gmd.testHits / gmd.tests
@@ -716,6 +717,7 @@ function salvoStudy(): Study {
       `The map form of the defence lab: the arithmetic of ${gmd.interceptors} interceptors in salvos of ${perObject} against ${total} objects, drawn. See the lab at #/lab/defence for the curve`,
       'No decoys: the case the defence was sized for. With the balloons of the 2000 countermeasures report the interceptors would engage a tenth of the objects',
       'Every missile flies and none fails, so the interceptors are the only attrition; the reliability of the missiles themselves is not modelled here',
+      'The interceptors engage objects in the order they are detected, which the engine draws, because the defence cannot tell which object is bound for which city',
       'The targets are the most populous cells of the 2023 grid, one warhead each; there is no North Korean target list in any record',
       ...COMMON_OMISSIONS,
     ],
