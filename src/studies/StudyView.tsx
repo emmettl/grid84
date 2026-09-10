@@ -18,6 +18,13 @@ import { busIdOf, launchedFrom, missileOf } from './missile.ts'
 import type { Entity, LabelAnchor, Study } from './study.ts'
 
 const RATES = [1, 10, 60, 600, 3_600]
+/**
+ * Hours after a burst at which the fallout count is brought up to date. The
+ * dose accumulates from arrival, so the figure grows through the study
+ * instead of arriving whole at the end; these are the steps it is recomputed
+ * at, since each one costs a pass over the grid.
+ */
+const FALLOUT_STAGES = [1, 2, 4, 8, 16, 24, 36, 48, 72, 96]
 
 /** Headline figures rounded to two significant figures, as the readout states. */
 function fmt(v: number) {
@@ -202,7 +209,7 @@ function drawnRadius(e: Entity & { kind: 'effect' }, burst: Burst, key: string):
  * the last cell is all three in sequence. Before the union answers, the
  * per-target sums stand in.
  */
-function OutcomeCells({ union, blastDead, blastInjured, fireDead, falloutDead, under1, plumes }: { union: UnionTotals | undefined; blastDead: number; blastInjured: number; fireDead: number; falloutDead: number | null; under1: number; plumes: number }) {
+function OutcomeCells({ union, blastDead, blastInjured, fireDead, falloutDead, under1, plumes, falloutHours = 0, rising = false }: { union: UnionTotals | undefined; blastDead: number; blastInjured: number; fireDead: number; falloutDead: number | null; under1: number; plumes: number; falloutHours?: number; rising?: boolean }) {
   const showFallout = union ? union.underPlume > 0 : falloutDead !== null
   return (
     <div className="two-numbers">
@@ -217,10 +224,16 @@ function OutcomeCells({ union, blastDead, blastInjured, fireDead, falloutDead, u
         <em>dead</em>
       </div>
       {showFallout && (
-        <div>
-          <span>Fallout · no shelter{union ? ' · among the survivors' : ''}</span>
+        <div className={rising ? 'is-rising' : undefined}>
+          <span>
+            Fallout · no shelter{union ? ' · among the survivors' : ''}
+            {falloutHours > 0 ? ` · to H+${falloutHours} h` : ''}
+          </span>
           <strong>{fmt(union ? union.falloutDead : (falloutDead ?? 0))}</strong>
-          <em>acute deaths · {fmt(union ? union.underPlume : under1)} under the plumes{union ? '' : ` · ${plumes} plumes summed`}</em>
+          <em>
+            acute deaths · {fmt(union ? union.underPlume : under1)} under the plumes{union ? '' : ` · ${plumes} plumes summed`}
+            {rising ? ' · still rising' : ''}
+          </em>
         </div>
       )}
       {union && showFallout && (
@@ -321,7 +334,9 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     const service = exposureService.current
     if (service) for (const side of ['attacker', 'defender'] as const) service.unionReset(side).catch(() => undefined)
   }
-  const [falloutOutcomes, setFalloutOutcomes] = useState<Record<string, { under1: number; dead: number; grid: string }>>({})
+  const [falloutOutcomes, setFalloutOutcomes] = useState<Record<string, { under1: number; dead: number; grid: string; hours: number }>>({})
+  /** The stage each plume's count has been carried to, hours after its burst. */
+  const falloutStage = useRef<Map<string, number>>(new Map())
   const [gridName, setGridName] = useState<string | null>(null)
   const effectCount = useMemo(() => study.entities.filter((e) => e.kind === 'effect').length, [study])
   const sums = useMemo(() => {
@@ -349,6 +364,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         falloutComputed: fallout.length,
         falloutDead: fallout.reduce((s, o) => s + o.dead, 0),
         under1: fallout.reduce((s, o) => s + o.under1, 0),
+        falloutHours: fallout.length > 0 ? Math.max(...fallout.map((o) => o.hours)) : 0,
       }
     }
     return { all: Object.keys(outcomes).length, attacker: forSide('attacker'), defender: forSide('defender') }
@@ -405,6 +421,8 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   useEffect(() => {
     document.title = `Grid/84 · ${study.title.replace(/\s+/g, ' ')}`
   }, [study])
+  /** The longest deposition window any of this study's plumes has, hours; the fallout count stops rising there. */
+  const falloutHorizon = useMemo(() => Math.max(0, ...study.entities.map((e) => (e.kind === 'effect' && e.fallout ? e.fallout.untilHours : 0))), [study])
   const statics = useMemo(() => staticFeatures(study), [study])
   // Buses and carrier aircraft: the tracks that release other tracks; their ends are the separation and release points.
   const buses = useMemo(() => {
@@ -674,14 +692,19 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
                   computed.current.delete(e.id)
                 })
             }
-            // Fallout outcome once the plume has had its full time to fall.
-            if (burstRef.current === 'surface' && e.fallout && service && service.grid && next.time >= e.time + e.fallout.untilHours * 3_600 && !falloutComputed.current.has(e.id)) {
+            // The fallout count is carried forward as the dose accumulates: the plume reaches further and the people
+            // under the near contours have taken more, so the figure grows through the study rather than arriving whole.
+            const stageHours = e.fallout ? FALLOUT_STAGES.filter((hrs) => hrs <= Math.min((next.time - e.time) / 3_600, e.fallout!.untilHours)).pop() : undefined
+            if (burstRef.current === 'surface' && e.fallout && service && service.grid && stageHours !== undefined && stageHours > (falloutStage.current.get(e.id) ?? 0)) {
+              const first = !falloutStage.current.has(e.id)
+              falloutStage.current.set(e.id, stageHours)
               falloutComputed.current.add(e.id)
               const f = e.fallout
-              const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: f.fissionFraction, windMph: f.windMph, downwindBearingDeg: f.downwindBearingDeg, untilHours: f.untilHours, shearDeg: f.shearDeg, terrainFactor: f.terrainFactor })
+              const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: f.fissionFraction, windMph: f.windMph, downwindBearingDeg: f.downwindBearingDeg, untilHours: stageHours, shearDeg: f.shearDeg, terrainFactor: f.terrainFactor, reachedHours: stageHours })
               const gridName = `${service.grid.source.name} · ${service.grid.source.year}`
               const plumeSide = e.side ?? 'attacker'
-              unionPlumes.current[plumeSide] += 1
+              // The union keeps the worst dose each person has taken, so re-adding a plume at a later hour raises it rather than counting it twice.
+              if (first) unionPlumes.current[plumeSide] += 1
               service
                 .unionPlumes(plumeSide, contours.map((c) => ({ ring: c.ring, doseMidRads: c.doseMidRads })), BAND_FRACTIONS)
                 .then((totals) => setUnions((prev) => ({ ...prev, [plumeSide]: { totals, detonations: unionCount.current[plumeSide], plumes: unionPlumes.current[plumeSide] } })))
@@ -695,11 +718,12 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
                     const band = Math.max(0, (r.within[contours[i].key] ?? 0) - inner)
                     dead += band * acuteMortality(contours[i].doseMidRads)
                   }
-                  setFalloutOutcomes((prev) => ({ ...prev, [e.id]: { under1: r.within[contours[contours.length - 1].key] ?? 0, dead, grid: gridName } }))
+                  setFalloutOutcomes((prev) => ({ ...prev, [e.id]: { under1: r.within[contours[contours.length - 1].key] ?? 0, dead, grid: gridName, hours: stageHours } }))
                 })
                 .catch((error) => {
                   console.warn('fallout exposure failed', error)
                   falloutComputed.current.delete(e.id)
+                  falloutStage.current.delete(e.id)
                 })
             }
           }
@@ -811,6 +835,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     setClockState({ time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: false })
     computed.current.clear()
     falloutComputed.current.clear()
+    falloutStage.current.clear()
     setOutcomes({})
     setFalloutOutcomes({})
     resetUnions()
@@ -847,6 +872,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
                 setClockState({ time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: false })
                 computed.current.clear()
                 falloutComputed.current.clear()
+                falloutStage.current.clear()
                 setOutcomes({})
                 setFalloutOutcomes({})
                 resetUnions()
@@ -1027,7 +1053,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
                     <em>people · {falloutOutcomes[selected.id].grid}</em>
                   </div>
                   <div>
-                    <span>Acute fallout deaths, no shelter</span>
+                    <span>Acute fallout deaths, no shelter · to H+{falloutOutcomes[selected.id].hours} h</span>
                     <strong>{fmt(falloutOutcomes[selected.id].dead)}</strong>
                     <em>to H+{selected.fallout?.untilHours} h · Table 12.108</em>
                   </div>
@@ -1078,7 +1104,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               {aggregate.computed} of {effectCount} detonations summed over {gridName ?? 'the population grid'}
               {unions.attacker ? ` · ${unions.attacker.detonations} in the union, each person counted once` : ''}
             </p>
-            <OutcomeCells union={unions.attacker?.totals} blastDead={aggregate.blastDead} blastInjured={aggregate.blastInjured} fireDead={aggregate.fireDead} falloutDead={aggregate.falloutComputed > 0 ? aggregate.falloutDead : null} under1={aggregate.under1} plumes={aggregate.falloutComputed} />
+            <OutcomeCells union={unions.attacker?.totals} blastDead={aggregate.blastDead} blastInjured={aggregate.blastInjured} fireDead={aggregate.fireDead} falloutDead={aggregate.falloutComputed > 0 ? aggregate.falloutDead : null} under1={aggregate.under1} plumes={aggregate.falloutComputed} falloutHours={aggregate.falloutHours} rising={aggregate.falloutHours > 0 && aggregate.falloutHours < falloutHorizon} />
             {unions.attacker && aggregate.computed > 1 && (
               <p className="log-empty">
                 Summed per target instead, as the log lines are, with people under several detonations counted each time: {fmt(aggregate.blastDead)} dead by blast, {fmt(aggregate.fireDead)} with fire
@@ -1098,7 +1124,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
                   {defence.computed} of {defence.total} detonations
                   {unions.defender ? ` · ${unions.defender.detonations} in the union, each person counted once` : ''}
                 </p>
-                <OutcomeCells union={unions.defender?.totals} blastDead={defence.blastDead} blastInjured={defence.blastInjured} fireDead={defence.fireDead} falloutDead={defence.falloutComputed > 0 ? defence.falloutDead : null} under1={defence.under1} plumes={defence.falloutComputed} />
+                <OutcomeCells union={unions.defender?.totals} blastDead={defence.blastDead} blastInjured={defence.blastInjured} fireDead={defence.fireDead} falloutDead={defence.falloutComputed > 0 ? defence.falloutDead : null} under1={defence.under1} plumes={defence.falloutComputed} falloutHours={defence.falloutHours} rising={defence.falloutHours > 0 && defence.falloutHours < falloutHorizon} />
                 {unions.defender && defence.computed > 1 && (
                   <p className="log-empty">
                     Summed per target instead: {fmt(defence.blastDead)} dead by blast, {fmt(defence.fireDead)} with fire
@@ -1120,6 +1146,11 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             {study.omissions.map((o) => (
               <li key={o}>{o}</li>
             ))}
+            {burst === 'surface' && (
+              <li>
+                Nobody moves. The fallout count grows as the dose accumulates from arrival, over the population where it was when the weapons fell, with no sheltering and no evacuation. That is a simplifying assumption and, in an attack of this size, close to the case: the roads are in the blast areas, the plume outruns a car on most axes, and the people under the heaviest contours take a lethal dose in the first hours, before any movement could matter
+              </li>
+            )}
           </ul>
           {study.links && study.links.length > 0 && (
             <>

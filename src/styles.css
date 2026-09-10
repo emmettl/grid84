@@ -2710,3 +2710,12 @@ body,
   font-weight: 500;
   letter-spacing: 0.02em;
 }
+
+/* A count still climbing: the fallout figure while the dose is still accumulating. */
+.two-numbers > div.is-rising {
+  border-left-color: var(--amber);
+}
+
+.two-numbers > div.is-rising strong {
+  color: var(--amber);
+}
