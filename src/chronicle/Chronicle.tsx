@@ -486,7 +486,7 @@ export function Chronicle() {
             </table>
           </div>
           <p className="front-caption">
-            The chain is modelled in <a href="#/winter">the years after</a>, and the optimiser at <a href="#/wopr">WOPR</a> now prints what its own best plan does to the sky, which its loss function does not carry. The brief is <a href="./brief/winter.html">the winter brief</a>.
+            The chain is modelled in <a href="#/winter">the years after</a>, and the optimiser at <a href="#/wopr">WOPR</a> now prints what its own best plan does to the sky, which its loss function does not carry. What the chain actually is, step by step, is <a href="./dossier/the-years-after.html">set out here</a>; the model's own record is <a href="./brief/winter.html">the winter brief</a>, and the published record it is set against is <a href="./dossier/nuclear-winter-sources.html">the soot question</a>.
           </p>
           <details className="sources">
             <summary>Sources for chapter 8</summary>

@@ -73,3 +73,50 @@ export function impactSummary(caseId: string): { cities: number; population: num
     regions,
   }
 }
+
+/**
+ * Where the fires are, taken together: the population-weighted centre of the
+ * marks, and how far the furthest of them lies from it.
+ *
+ * A regional war is a place — the subcontinent is about two thousand
+ * kilometres across, and the globe can be turned to face it. A war between
+ * the large arsenals is not a place: its marks run from Los Angeles to
+ * Vladivostok and no camera can face them all, so the reach says so and the
+ * view stays where it was.
+ */
+export function impactCentre(caseId: string): { centre: [number, number]; reachKm: number } {
+  const fc = impactPoints(caseId)
+  let x = 0
+  let y = 0
+  let z = 0
+  let weight = 0
+  for (const f of fc.features) {
+    const [lon, lat] = (f.geometry as GeoJSON.Point).coordinates
+    // Averaged on the sphere, or a set straddling the meridian averages to the
+    // wrong side of the world.
+    const w = Math.max(1, Number(f.properties?.population ?? 1))
+    const la = (lat * Math.PI) / 180
+    const lo = (lon * Math.PI) / 180
+    x += w * Math.cos(la) * Math.cos(lo)
+    y += w * Math.cos(la) * Math.sin(lo)
+    z += w * Math.sin(la)
+    weight += w
+  }
+  if (weight === 0) return { centre: [0, 20], reachKm: Number.POSITIVE_INFINITY }
+  x /= weight
+  y /= weight
+  z /= weight
+  const centre: [number, number] = [(Math.atan2(y, x) * 180) / Math.PI, (Math.atan2(z, Math.hypot(x, y)) * 180) / Math.PI]
+  let reachKm = 0
+  for (const f of fc.features) {
+    const [lon, lat] = (f.geometry as GeoJSON.Point).coordinates
+    const dLat = ((lat - centre[1]) * Math.PI) / 180
+    const dLon = (((lon - centre[0] + 540) % 360) - 180) * (Math.PI / 180)
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos((lat * Math.PI) / 180) * Math.cos((centre[1] * Math.PI) / 180) * Math.sin(dLon / 2) ** 2
+    reachKm = Math.max(reachKm, 6_371 * 2 * Math.asin(Math.min(1, Math.sqrt(a))))
+  }
+  return { centre, reachKm }
+}
+
+/** Beyond this reach the fires are not one place and the globe does not turn to face them. */
+export const REGIONAL_REACH_KM = 4_000

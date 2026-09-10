@@ -2854,6 +2854,68 @@ body,
   color: var(--muted);
 }
 
+.wopr-note a {
+  color: var(--cyan);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(141, 250, 255, 0.35);
+}
+
+.wopr-note a:hover,
+.wopr-note a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+  outline: none;
+}
+
+/*
+  The reading list under a mode's own note: each document on its own line with
+  its gloss beside it, so what to read next is a list rather than a sentence
+  to be picked apart. The label heads it in the panel's own small caps.
+*/
+.wopr-reading {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.18rem 0.5rem;
+  align-items: baseline;
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(141, 250, 255, 0.16);
+}
+
+.wopr-reading-label {
+  grid-column: 1 / -1;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  opacity: 0.8;
+  margin-bottom: 0.15rem;
+}
+
+.wopr-reading a {
+  grid-column: 1;
+  white-space: nowrap;
+}
+
+.wopr-reading > .wopr-dim {
+  grid-column: 2;
+}
+
+/* On a phone the gloss goes under its link rather than beside it. */
+@media (max-width: 700px) {
+  .wopr-reading {
+    grid-template-columns: 1fr;
+  }
+
+  .wopr-reading a,
+  .wopr-reading > .wopr-dim {
+    grid-column: 1;
+  }
+
+  .wopr-reading > .wopr-dim {
+    margin-bottom: 0.3rem;
+  }
+}
+
 @media (max-width: 700px) {
   .wopr-terminal {
     width: auto;

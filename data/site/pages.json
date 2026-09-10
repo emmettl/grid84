@@ -303,6 +303,11 @@
       "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
     },
     {
+      "path": "dossier/where-the-smoke-goes",
+      "title": "Where the Smoke Goes — how a nuclear war kills most of the people it kills",
+      "note": "The explainer that accompanies the years after: a static supporting document, not an app route."
+    },
+    {
       "path": "dossier/nuclear-winter-sources",
       "title": "The Soot Question — the published record on nuclear winter",
       "note": "A static supporting document, not an app route. The Worker serves it without the .html the file carries, which is the form the sitemap advertises."

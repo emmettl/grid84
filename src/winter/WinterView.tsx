@@ -6,7 +6,7 @@ import { harvest } from '../models/harvest.ts'
 import { ozoneColumn, ultraviolet, OZONE } from '../models/ozone.ts'
 import { burnedAreaKm2, FUEL_LOADS, referenceFuel, SOOT_CASES, sootForFuel, SOOT_CHAIN } from '../models/soot.ts'
 import { bandOf, injectionWeights, runWinter } from '../models/winter.ts'
-import { impactPoints, impactSummary } from './impacts.ts'
+import { impactCentre, impactPoints, impactSummary, REGIONAL_REACH_KM } from './impacts.ts'
 import { useFold } from '../hud/collapse.ts'
 import { report } from './report.ts'
 import { bandPolygons, WORLD_POPULATION, ZONAL } from './zonal.ts'
@@ -70,6 +70,7 @@ export function WinterView() {
     if (!container.current) return
     const map = createBaseMap(container.current, { center: [20, 35], zoom: 1.5 })
     mapRef.current = map
+    if (import.meta.env.DEV) Object.assign(window, { __grid84Map: map })
     let sync: ((force?: boolean) => void) | null = null
     let spin = 0
     const pad = () => {
@@ -156,6 +157,13 @@ export function WinterView() {
     if (!map) return
     const source = map.getSource('winter-impacts') as GeoJSONSource | undefined
     if (source) source.setData(impactPoints(caseId))
+    // Turn the globe to face the war, when the war has a face to turn to. A
+    // regional exchange is one place and the marks mean nothing on the far
+    // side of the world; a war between the large arsenals runs from Los
+    // Angeles to Vladivostok, so the globe is left as it is and goes on
+    // turning. The spin resumes on its own once the camera stops moving.
+    const { centre, reachKm } = impactCentre(caseId)
+    if (reachKm <= REGIONAL_REACH_KM) map.easeTo({ center: centre, duration: 2_200, essential: true })
   }, [caseId])
 
   // The marks are white while the cities are burning and a dull ember after.
@@ -253,7 +261,26 @@ export function WinterView() {
         </ol>
 
         <p className="wopr-note">
-          A zonal energy-balance model over the HYDE grids, fitted to Robock 2007, Coupe 2019, Toon 2019, Xia 2022 and Bardeen 2021. It does not model the injured who die without hospitals, the water, the disease, the killing over what is left, or anything at all about how a society behaves when it is starving. Those are larger than what is counted here.
+          A zonal energy-balance model over the HYDE grids. Its structure is physical and its coefficients are a fit &mdash; chosen to reproduce the published runs of Robock 2007, Coupe 2019, Toon 2019, Xia 2022 and Bardeen 2021, and stated as a fit wherever it is used. It does not model the injured who die without hospitals, the water, the disease, the killing over what is left, or anything at all about how a society behaves when it is starving. Those are larger than what is counted here.
+        </p>
+
+        {/*
+          Three documents stand behind this page and none of them is on it, so
+          the page says where they are rather than leaving a reader to find
+          out that they exist. The order is the order to read them in: the
+          history first, then what this model does, then what the field
+          actually says.
+        */}
+        <p className="wopr-note wopr-reading">
+          <span className="wopr-reading-label">Behind this page</span>
+          <a href="./dossier/where-the-smoke-goes.html">Where the smoke goes</a>
+          <span className="wopr-dim">&mdash; what this page is showing and why, one link of the chain at a time. Start here</span>
+          <a href="#/chronicle">The chronicle, chapter eight</a>
+          <span className="wopr-dim">&mdash; how the finding was made in 1982, disputed, forgotten and confirmed</span>
+          <a href="./brief/winter.html">The winter brief</a>
+          <span className="wopr-dim">&mdash; the five coupled models, what each was fitted to and what it leaves out</span>
+          <a href="./dossier/nuclear-winter-sources.html">The soot question</a>
+          <span className="wopr-dim">&mdash; the published record, the disputes left open, and the figures in circulation that do not survive checking</span>
         </p>
       </section>
 

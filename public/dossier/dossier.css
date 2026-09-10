@@ -309,6 +309,17 @@ footer{
   line-height:1.8;
 }
 
+/* A two-row head: the upper row groups the columns beneath it. */
+.tw thead tr:first-child:not(:only-child) th {
+  border-bottom: 1px solid var(--rule-soft);
+  color: var(--ink);
+  padding-bottom: 0.5rem;
+}
+
+.tw thead tr:first-child:not(:only-child) th:empty {
+  border-bottom: 0;
+}
+
 /* ---------- the series index ---------- */
 .series{list-style:none;margin:2.2rem 0 0;padding:0;max-width:none;display:grid;gap:1.1rem}
 .series li{margin:0}
