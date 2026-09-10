@@ -593,6 +593,14 @@ body,
 }
 
 /*
+  An aim point of a large laydown carries only its number, so the label shrinks
+  to the numeral rather than keeping the width of a line it no longer has.
+*/
+.ev-label .ev-label-designation:empty {
+  display: none;
+}
+
+/*
   The handover veil. Between the strike console and the study engine one globe
   is destroyed and another built, and there is a moment with nothing on the
   page. The veil closes over the atlas while the console counts its last

@@ -23,6 +23,33 @@ const DOCS = 'docs'
 const OUT = 'public/brief'
 /** Where a link to a file that is code rather than a page resolves to. */
 const REPO = 'https://github.com/emmettl/grid84/blob/main'
+const ORIGIN = 'https://grid84.app'
+
+/**
+ * The card a link to one of these renders as when it is shared. These pages
+ * are the ones most likely to be sent to somebody — a brief is what a reader
+ * is pointed at when they ask what the engine actually does — and without
+ * this they arrive as a bare URL.
+ */
+const socialCard = (title, description, url, kind = 'article') => {
+  const t = escape(title).replace(/"/g, '&quot;')
+  const d = escape(description).replace(/"/g, '&quot;')
+  return `<meta property="og:type" content="${kind}">
+<meta property="og:site_name" content="Grid/84">
+<meta property="og:url" content="${url}">
+<meta property="og:title" content="${t}">
+<meta property="og:description" content="${d}">
+<meta property="og:image" content="${ORIGIN}/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Grid/84: the history and doctrine of strategic nuclear weapons">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${t}">
+<meta name="twitter:description" content="${d}">
+<meta name="twitter:image" content="${ORIGIN}/og.png">
+<meta name="theme-color" content="#141715">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">`
+}
 
 /** Where each brief belongs on the index, and the one line that says what it is. A brief with no entry still renders, and is listed last. */
 const ABOUT = {
@@ -241,6 +268,7 @@ const page = ({ title, dek, body, slug, about }) => `<!-- Generated from docs/${
 <title>${escape(title)}</title>
 <meta name="description" content="${escape(about?.lede ?? `A working brief of Grid/84: ${title}.`)}">
 <link rel="canonical" href="https://grid84.app/brief/${slug}">
+${socialCard(title, about?.lede ?? `A working brief of Grid/84: ${title}.`, `${ORIGIN}/brief/${slug}`)}
 <link rel="stylesheet" href="../dossier/dossier.css">
 <link rel="stylesheet" href="./brief.css">
 </head><body>
@@ -300,6 +328,7 @@ writeFileSync(
 <title>The working briefs &mdash; Grid/84</title>
 <meta name="description" content="The working record of Grid/84: what each model does, what it takes from which source, what it does not model, and where it has been checked against a published figure.">
 <link rel="canonical" href="https://grid84.app/brief/">
+${socialCard('The working briefs — Grid/84', 'The working record of Grid/84: what each model does, what it takes from which source, what it does not model, and where it has been checked against a published figure.', `${ORIGIN}/brief/`, 'website')}
 <link rel="stylesheet" href="../dossier/dossier.css">
 <link rel="stylesheet" href="./brief.css">
 </head><body>

@@ -92,17 +92,24 @@ export function installEvidenceLayers(map: MapLibreMap): void {
   // their own rather than borrowing the modelled-track grammar: a soft glow
   // underneath to lift them off a lit basemap, and the ring itself over it.
   map.addLayer({
+    id: 'ev-rings-aggregate',
+    type: 'line',
+    source: SOURCES.rings,
+    filter: ['==', ['get', 'aggregate'], true],
+    paint: { 'line-color': EFFECT_RING.color, 'line-width': 1.1, 'line-opacity': 0.75 },
+  })
+  map.addLayer({
     id: 'ev-rings-modelled-glow',
     type: 'line',
     source: SOURCES.rings,
-    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']]],
+    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']], ['!', ['has', 'aggregate']]],
     paint: { 'line-color': EFFECT_RING.glow, 'line-width': EFFECT_RING.width * 3, 'line-blur': 3 },
   })
   map.addLayer({
     id: 'ev-rings-modelled',
     type: 'line',
     source: SOURCES.rings,
-    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']]],
+    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']], ['!', ['has', 'aggregate']]],
     paint: { 'line-color': EFFECT_RING.color, 'line-width': EFFECT_RING.width },
   })
   map.addLayer({

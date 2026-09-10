@@ -274,9 +274,21 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
       }
     } else if (e.kind === 'effect' && time >= e.time) {
       if (e.compact && e.id !== selectedId) {
-        // One mark per detonation, radius from the 5 psi ring so it scales with yield; rings only when selected, plumes always.
+        // One mark per detonation, radius from the 5 psi ring so it scales with yield; the full ring set only when selected, plumes always.
         const r5 = drawnRadius(e, burst, 'psi5')
         flashes.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [e.center[0], e.center[1]] }, properties: { evidence: 'modelled', id: e.id, radiusMetres: r5, age: time - e.time, side: e.side ?? 'attacker' } })
+        // And the one ring that carries the aggregate: five pounds a square
+        // inch, where ordinary buildings come down. A laydown of forty-eight
+        // drawn as forty-eight marks says where the weapons went and nothing
+        // about what they did between them; the overlapping discs are the
+        // ground destroyed, and that is the thing a laydown is for. The other
+        // five rings stay behind the selection, because six times forty-eight
+        // is not a picture of anything.
+        rings.push({
+          type: 'Feature',
+          geometry: { type: 'LineString', coordinates: geodesicCircle(e.center, r5).map((p) => [p[0], p[1]]) },
+          properties: { evidence: 'modelled', id: `${e.id}-psi5`, aggregate: true },
+        })
         if (burst === 'surface' && e.fallout) {
           animated = true
           const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, shearDeg: e.fallout.shearDeg, terrainFactor: e.fallout.terrainFactor, reachedHours: (time - e.time) / 3_600 })

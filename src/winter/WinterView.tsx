@@ -119,14 +119,20 @@ export function WinterView() {
         paint: { 'circle-radius': ['interpolate', ['exponential', 2], ['zoom'], 1, 1.1, 5, 3.4], 'circle-color': '#ffffff', 'circle-opacity': 0 },
       })
       pad()
-      const turn = () => {
-        if (!map.isMoving()) {
-          const c = map.getCenter()
-          map.jumpTo({ center: [c.lng + 0.018, c.lat] })
+      // The globe turns because a globe that does not is a picture of one,
+      // but it turns for someone who has not asked it to stop. A continuous
+      // rotation is the kind of motion that makes people ill, and the atlas
+      // has respected the preference since it was built; these two had not.
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const turn = () => {
+          if (!map.isMoving()) {
+            const c = map.getCenter()
+            map.jumpTo({ center: [c.lng + 0.018, c.lat] })
+          }
+          spin = requestAnimationFrame(turn)
         }
         spin = requestAnimationFrame(turn)
       }
-      spin = requestAnimationFrame(turn)
     })
     window.addEventListener('resize', pad)
     return () => {

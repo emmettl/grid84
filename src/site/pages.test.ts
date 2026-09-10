@@ -68,6 +68,20 @@ describe('the background documents given to a crawler', () => {
     }
   })
 
+  /**
+   * These are the pages most likely to be sent to somebody, so a link to one
+   * has to render as something. Without a card it arrives as a bare URL.
+   */
+  it('gives every published document a card to be shared as', () => {
+    for (const extra of site.extras) {
+      const file = extra.path.endsWith('/') ? `public/${extra.path}index.html` : `public/${extra.path}.html`
+      const html = readFileSync(file, 'utf8')
+      for (const tag of ['og:title', 'og:description', 'og:image', 'twitter:card', 'rel="icon"']) {
+        expect(html, `${extra.path} has no ${tag}`).toContain(tag)
+      }
+    }
+  })
+
   it('holds them all to the one house style, so the series reads as a series', () => {
     for (const extra of site.extras) {
       const file = extra.path.endsWith('/') ? `public/${extra.path}index.html` : `public/${extra.path}.html`
