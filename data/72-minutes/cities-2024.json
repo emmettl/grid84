@@ -2,1138 +2,1300 @@
  "source": "Photon (komoot) over OpenStreetMap, geocoded on the day of the build; the lists are the largest cities of each country",
  "cities": [
   {
-   "country": "US",
+   "country": "us",
    "name": "New York",
    "lon": -74.006,
    "lat": 40.7127,
-   "hit": "New York"
+   "hit": "New York",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Los Angeles",
    "lon": -118.2428,
    "lat": 34.0537,
-   "hit": "Los Angeles"
+   "hit": "Los Angeles",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Chicago",
    "lon": -87.6244,
    "lat": 41.8756,
-   "hit": "Chicago"
+   "hit": "Chicago",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Houston",
    "lon": -95.3677,
    "lat": 29.7589,
-   "hit": "Houston"
+   "hit": "Houston",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Phoenix",
    "lon": -112.0741,
    "lat": 33.4484,
-   "hit": "Phoenix"
+   "hit": "Phoenix",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Philadelphia",
    "lon": -75.1635,
    "lat": 39.9527,
-   "hit": "Philadelphia"
+   "hit": "Philadelphia",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "San Antonio",
    "lon": -98.4951,
    "lat": 29.4246,
-   "hit": "San Antonio"
+   "hit": "San Antonio",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "San Diego",
    "lon": -117.1628,
    "lat": 32.7174,
-   "hit": "San Diego"
+   "hit": "San Diego",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Dallas",
    "lon": -96.7969,
    "lat": 32.7763,
-   "hit": "Dallas"
+   "hit": "Dallas",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "San Jose",
    "lon": -121.8906,
    "lat": 37.3362,
-   "hit": "San Jose"
+   "hit": "San Jose",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Austin",
    "lon": -97.7437,
    "lat": 30.2711,
-   "hit": "Austin"
+   "hit": "Austin",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Jacksonville",
    "lon": -81.6579,
    "lat": 30.3262,
-   "hit": "Jacksonville"
+   "hit": "Jacksonville",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Fort Worth",
    "lon": -97.3327,
    "lat": 32.7532,
-   "hit": "Fort Worth"
+   "hit": "Fort Worth",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Columbus",
    "lon": -83.0007,
    "lat": 39.9623,
-   "hit": "Columbus"
+   "hit": "Columbus",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Charlotte",
    "lon": -80.8431,
    "lat": 35.2272,
-   "hit": "Charlotte"
+   "hit": "Charlotte",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Indianapolis",
    "lon": -86.1584,
    "lat": 39.7683,
-   "hit": "Indianapolis"
+   "hit": "Indianapolis",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "San Francisco",
    "lon": -122.4075,
    "lat": 37.7879,
-   "hit": "San Francisco"
+   "hit": "San Francisco",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Seattle",
    "lon": -122.3301,
    "lat": 47.6038,
-   "hit": "Seattle"
+   "hit": "Seattle",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Denver",
    "lon": -104.9849,
    "lat": 39.7392,
-   "hit": "Denver"
+   "hit": "Denver",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Washington",
    "lon": -77.0364,
    "lat": 38.8951,
-   "hit": "Washington"
+   "hit": "Washington",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Boston",
    "lon": -71.0578,
    "lat": 42.3588,
-   "hit": "Boston"
+   "hit": "Boston",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Nashville",
    "lon": -86.7743,
    "lat": 36.1623,
-   "hit": "Nashville"
+   "hit": "Nashville",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Detroit",
    "lon": -83.0466,
    "lat": 42.3316,
-   "hit": "Detroit"
+   "hit": "Detroit",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Oklahoma City",
    "lon": -97.5171,
    "lat": 35.473,
-   "hit": "Oklahoma City"
+   "hit": "Oklahoma City",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Portland",
    "lon": -122.6742,
    "lat": 45.5202,
-   "hit": "Portland"
+   "hit": "Portland",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Las Vegas",
    "lon": -115.1484,
    "lat": 36.1674,
-   "hit": "Las Vegas"
+   "hit": "Las Vegas",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Memphis",
    "lon": -90.0518,
    "lat": 35.146,
-   "hit": "Memphis"
+   "hit": "Memphis",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Louisville",
    "lon": -85.7594,
    "lat": 38.2542,
-   "hit": "Louisville"
+   "hit": "Louisville",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Baltimore",
    "lon": -76.6108,
    "lat": 39.2909,
-   "hit": "Baltimore"
+   "hit": "Baltimore",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Milwaukee",
    "lon": -87.9091,
    "lat": 43.0386,
-   "hit": "Milwaukee"
+   "hit": "Milwaukee",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Albuquerque",
    "lon": -106.651,
    "lat": 35.0841,
-   "hit": "Albuquerque"
+   "hit": "Albuquerque",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Tucson",
    "lon": -110.9748,
    "lat": 32.2229,
-   "hit": "Tucson"
+   "hit": "Tucson",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Fresno",
    "lon": -119.7848,
    "lat": 36.7394,
-   "hit": "Fresno"
+   "hit": "Fresno",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Sacramento",
    "lon": -121.4939,
    "lat": 38.5811,
-   "hit": "Sacramento"
+   "hit": "Sacramento",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Kansas City",
    "lon": -94.5781,
    "lat": 39.1001,
-   "hit": "Kansas City"
+   "hit": "Kansas City",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Atlanta",
    "lon": -84.3898,
    "lat": 33.7545,
-   "hit": "Atlanta"
+   "hit": "Atlanta",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Miami",
    "lon": -80.1936,
    "lat": 25.7742,
-   "hit": "Miami"
+   "hit": "Miami",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Omaha",
    "lon": -95.9384,
    "lat": 41.2587,
-   "hit": "Omaha"
+   "hit": "Omaha",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Raleigh",
    "lon": -78.6391,
    "lat": 35.7804,
-   "hit": "Raleigh"
+   "hit": "Raleigh",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Minneapolis",
    "lon": -93.2655,
    "lat": 44.9773,
-   "hit": "Minneapolis"
+   "hit": "Minneapolis",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Tampa",
    "lon": -82.4583,
    "lat": 27.945,
-   "hit": "Tampa"
+   "hit": "Tampa",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "New Orleans",
    "lon": -90.0734,
    "lat": 29.9561,
-   "hit": "New Orleans"
+   "hit": "New Orleans",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Cleveland",
    "lon": -81.6937,
    "lat": 41.4997,
-   "hit": "Cleveland"
+   "hit": "Cleveland",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Pittsburgh",
    "lon": -80.0026,
    "lat": 40.4407,
-   "hit": "Pittsburgh"
+   "hit": "Pittsburgh",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "St. Louis",
    "lon": -90.19,
    "lat": 38.6254,
-   "hit": "Saint Louis"
+   "hit": "Saint Louis",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Cincinnati",
    "lon": -84.5127,
    "lat": 39.1013,
-   "hit": "Cincinnati"
+   "hit": "Cincinnati",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Orlando",
    "lon": -81.379,
    "lat": 28.5421,
-   "hit": "Orlando"
+   "hit": "Orlando",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Salt Lake City",
    "lon": -111.8868,
    "lat": 40.7596,
-   "hit": "Salt Lake City"
+   "hit": "Salt Lake City",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Buffalo",
    "lon": -78.8781,
    "lat": 42.8864,
-   "hit": "Buffalo"
+   "hit": "Buffalo",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Richmond",
    "lon": -77.4343,
    "lat": 37.5385,
-   "hit": "Richmond"
+   "hit": "Richmond",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Anaheim",
    "lon": -117.9117,
    "lat": 33.8348,
-   "hit": "Anaheim"
+   "hit": "Anaheim",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Riverside",
    "lon": -117.3742,
    "lat": 33.9825,
-   "hit": "Riverside"
+   "hit": "Riverside",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Norfolk",
    "lon": -76.29,
    "lat": 36.8494,
-   "hit": "Norfolk"
+   "hit": "Norfolk",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Honolulu",
    "lon": -157.8557,
    "lat": 21.3045,
-   "hit": "Honolulu"
+   "hit": "Honolulu",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Anchorage",
    "lon": -149.8949,
    "lat": 61.2163,
-   "hit": "Anchorage"
+   "hit": "Anchorage",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Providence",
    "lon": -71.4128,
    "lat": 41.824,
-   "hit": "Providence"
+   "hit": "Providence",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Hartford",
    "lon": -72.6909,
    "lat": 41.7646,
-   "hit": "Hartford"
+   "hit": "Hartford",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Birmingham",
    "lon": -86.8024,
    "lat": 33.5207,
-   "hit": "Birmingham"
+   "hit": "Birmingham",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Rochester",
    "lon": -77.6152,
    "lat": 43.1573,
-   "hit": "Rochester"
+   "hit": "Rochester",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "El Paso",
    "lon": -106.487,
    "lat": 31.7601,
-   "hit": "El Paso"
+   "hit": "El Paso",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Oakland",
    "lon": -122.2714,
    "lat": 37.8045,
-   "hit": "Oakland"
+   "hit": "Oakland",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Long Beach",
    "lon": -118.1916,
    "lat": 33.769,
-   "hit": "Long Beach"
+   "hit": "Long Beach",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Tulsa",
    "lon": -95.9928,
    "lat": 36.1563,
-   "hit": "Tulsa"
+   "hit": "Tulsa",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Colorado Springs",
    "lon": -104.8253,
    "lat": 38.834,
-   "hit": "Colorado Springs"
+   "hit": "Colorado Springs",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Newark",
    "lon": -74.1724,
    "lat": 40.7357,
-   "hit": "Newark"
+   "hit": "Newark",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Bridgeport",
    "lon": -73.1888,
    "lat": 41.1793,
-   "hit": "Bridgeport"
+   "hit": "Bridgeport",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Des Moines",
    "lon": -93.6249,
    "lat": 41.5869,
-   "hit": "Des Moines"
+   "hit": "Des Moines",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Little Rock",
    "lon": -92.2896,
    "lat": 34.7465,
-   "hit": "Little Rock"
+   "hit": "Little Rock",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Boise",
    "lon": -116.2009,
    "lat": 43.6166,
-   "hit": "Boise"
+   "hit": "Boise",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Spokane",
    "lon": -117.4235,
    "lat": 47.6572,
-   "hit": "Spokane"
+   "hit": "Spokane",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Grand Rapids",
    "lon": -85.6679,
    "lat": 42.9632,
-   "hit": "Grand Rapids"
+   "hit": "Grand Rapids",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Dayton",
    "lon": -84.1916,
    "lat": 39.7589,
-   "hit": "Dayton"
+   "hit": "Dayton",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Toledo",
    "lon": -83.5378,
    "lat": 41.6529,
-   "hit": "Toledo"
+   "hit": "Toledo",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Akron",
    "lon": -81.5185,
    "lat": 41.0831,
-   "hit": "Akron"
+   "hit": "Akron",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Knoxville",
    "lon": -83.921,
    "lat": 35.9604,
-   "hit": "Knoxville"
+   "hit": "Knoxville",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Chattanooga",
    "lon": -85.3095,
    "lat": 35.0457,
-   "hit": "Chattanooga"
+   "hit": "Chattanooga",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Baton Rouge",
    "lon": -91.187,
    "lat": 30.4494,
-   "hit": "Baton Rouge"
+   "hit": "Baton Rouge",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Shreveport",
    "lon": -93.7478,
    "lat": 32.5135,
-   "hit": "Shreveport"
+   "hit": "Shreveport",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Wichita",
    "lon": -97.3375,
    "lat": 37.6922,
-   "hit": "Wichita"
+   "hit": "Wichita",
+   "geocodedCountry": "US"
   },
   {
-   "country": "US",
+   "country": "us",
    "name": "Madison",
    "lon": -89.3842,
    "lat": 43.0747,
-   "hit": "Madison"
+   "hit": "Madison",
+   "geocodedCountry": "US"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Moscow",
    "lon": 37.6064,
    "lat": 55.6256,
-   "hit": "Moscow"
+   "hit": "Moscow",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Saint Petersburg",
    "lon": 30.1587,
    "lat": 59.9607,
-   "hit": "Saint Petersburg"
+   "hit": "Saint Petersburg",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Novosibirsk",
    "lon": 82.9227,
    "lat": 55.0288,
-   "hit": "Novosibirsk"
+   "hit": "Novosibirsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Yekaterinburg",
    "lon": 60.6008,
    "lat": 56.8382,
-   "hit": "Yekaterinburg"
+   "hit": "Yekaterinburg",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Kazan",
    "lon": 49.1115,
    "lat": 55.7946,
-   "hit": "Kazan"
+   "hit": "Kazan",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Nizhny Novgorod",
    "lon": 44.0051,
    "lat": 56.3265,
-   "hit": "Nizhny Novgorod"
+   "hit": "Nizhny Novgorod",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Chelyabinsk",
    "lon": 61.3997,
    "lat": 55.1559,
-   "hit": "Chelyabinsk"
+   "hit": "Chelyabinsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Samara",
    "lon": 50.1015,
    "lat": 53.1956,
-   "hit": "Samara"
+   "hit": "Samara",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Omsk",
    "lon": 73.3745,
    "lat": 54.983,
-   "hit": "Omsk"
+   "hit": "Omsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Rostov-on-Don",
    "lon": 39.7199,
    "lat": 47.2223,
-   "hit": "Rostov-on-Don"
+   "hit": "Rostov-on-Don",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Ufa",
    "lon": 55.9475,
    "lat": 54.7261,
-   "hit": "Ufa"
+   "hit": "Ufa",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Krasnoyarsk",
    "lon": 92.8726,
    "lat": 56.0091,
-   "hit": "Krasnoyarsk"
+   "hit": "Krasnoyarsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Voronezh",
    "lon": 39.2006,
    "lat": 51.6606,
-   "hit": "Voronezh"
+   "hit": "Voronezh",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Perm",
    "lon": 56.2319,
    "lat": 58.0109,
-   "hit": "Perm"
+   "hit": "Perm",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Volgograd",
    "lon": 44.5153,
    "lat": 48.7082,
-   "hit": "Volgograd"
+   "hit": "Volgograd",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Krasnodar",
    "lon": 38.9772,
    "lat": 45.0352,
-   "hit": "Krasnodar"
+   "hit": "Krasnodar",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Saratov",
    "lon": 46.0347,
    "lat": 51.53,
-   "hit": "Saratov"
+   "hit": "Saratov",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Tyumen",
    "lon": 65.5423,
    "lat": 57.1535,
-   "hit": "Tyumen"
+   "hit": "Tyumen",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Tolyatti",
    "lon": 49.4189,
    "lat": 53.5099,
-   "hit": "Tolyatti"
+   "hit": "Tolyatti",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Izhevsk",
    "lon": 53.1977,
    "lat": 56.8605,
-   "hit": "Izhevsk"
+   "hit": "Izhevsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Barnaul",
    "lon": 83.7788,
    "lat": 53.3475,
-   "hit": "Barnaul"
+   "hit": "Barnaul",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Ulyanovsk",
    "lon": 48.4034,
    "lat": 54.315,
-   "hit": "Ulyanovsk"
+   "hit": "Ulyanovsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Irkutsk",
    "lon": 104.2798,
    "lat": 52.2891,
-   "hit": "Irkutsk"
+   "hit": "Irkutsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Khabarovsk",
    "lon": 135.0763,
    "lat": 48.4813,
-   "hit": "Khabarovsk"
+   "hit": "Khabarovsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Yaroslavl",
    "lon": 39.8934,
    "lat": 57.6264,
-   "hit": "Yaroslavl"
+   "hit": "Yaroslavl",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Vladivostok",
    "lon": 131.8856,
    "lat": 43.1151,
-   "hit": "Vladivostok"
+   "hit": "Vladivostok",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Makhachkala",
    "lon": 47.5049,
    "lat": 42.983,
-   "hit": "Makhachkala"
+   "hit": "Makhachkala",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Tomsk",
    "lon": 84.9523,
    "lat": 56.4888,
-   "hit": "Tomsk"
+   "hit": "Tomsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Orenburg",
    "lon": 55.0979,
    "lat": 51.7671,
-   "hit": "Orenburg"
+   "hit": "Orenburg",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Kemerovo",
    "lon": 86.0871,
    "lat": 55.3551,
-   "hit": "Kemerovo"
+   "hit": "Kemerovo",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Novokuznetsk",
    "lon": 87.1465,
    "lat": 53.7582,
-   "hit": "Novokuznetsk"
+   "hit": "Novokuznetsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Ryazan",
    "lon": 39.7425,
    "lat": 54.6296,
-   "hit": "Ryazan"
+   "hit": "Ryazan",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Astrakhan",
    "lon": 48.0326,
    "lat": 46.3498,
-   "hit": "Astrakhan"
+   "hit": "Astrakhan",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Naberezhnye Chelny",
    "lon": 52.3992,
    "lat": 55.742,
-   "hit": "Naberezhnye Chelny"
+   "hit": "Naberezhnye Chelny",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Penza",
    "lon": 45.0067,
    "lat": 53.1938,
-   "hit": "Penza"
+   "hit": "Penza",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Lipetsk",
    "lon": 39.5964,
    "lat": 52.6051,
-   "hit": "Lipetsk"
+   "hit": "Lipetsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Kirov",
    "lon": 49.6666,
    "lat": 58.6036,
-   "hit": "Kirov"
+   "hit": "Kirov",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Cheboksary",
    "lon": 47.2481,
    "lat": 56.14,
-   "hit": "Cheboksary"
+   "hit": "Cheboksary",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Tula",
    "lon": 37.6175,
    "lat": 54.193,
-   "hit": "Tula"
+   "hit": "Tula",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Kaliningrad",
    "lon": 20.5106,
    "lat": 54.7101,
-   "hit": "Kaliningrad"
+   "hit": "Kaliningrad",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Kursk",
    "lon": 36.1923,
    "lat": 51.7309,
-   "hit": "Kursk"
+   "hit": "Kursk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Sochi",
    "lon": 39.7231,
    "lat": 43.5855,
-   "hit": "Sochi"
+   "hit": "Sochi",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Stavropol",
    "lon": 41.9739,
    "lat": 45.0345,
-   "hit": "Stavropol"
+   "hit": "Stavropol",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Ulan-Ude",
    "lon": 107.5839,
    "lat": 51.8358,
-   "hit": "Ulan-Ude"
+   "hit": "Ulan-Ude",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Tver",
    "lon": 35.8952,
    "lat": 56.8597,
-   "hit": "Tver"
+   "hit": "Tver",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Magnitogorsk",
    "lon": 59.0507,
    "lat": 53.4257,
-   "hit": "Magnitogorsk"
+   "hit": "Magnitogorsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Bryansk",
    "lon": 34.3668,
    "lat": 53.2424,
-   "hit": "Bryansk"
+   "hit": "Bryansk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Ivanovo",
    "lon": 40.9631,
    "lat": 57.0088,
-   "hit": "Ivanovo"
+   "hit": "Ivanovo",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Belgorod",
    "lon": 36.5873,
    "lat": 50.5956,
-   "hit": "Belgorod"
+   "hit": "Belgorod",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Surgut",
    "lon": 73.3953,
    "lat": 61.2419,
-   "hit": "Surgut"
+   "hit": "Surgut",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Vladimir",
    "lon": 40.4075,
    "lat": 56.1289,
-   "hit": "Vladimir"
+   "hit": "Vladimir",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Nizhny Tagil",
    "lon": 59.9708,
    "lat": 57.9076,
-   "hit": "Nizhny Tagil"
+   "hit": "Nizhny Tagil",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Arkhangelsk",
    "lon": 40.5287,
    "lat": 64.541,
-   "hit": "Arkhangelsk"
+   "hit": "Arkhangelsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Chita",
    "lon": 113.5009,
    "lat": 52.0334,
-   "hit": "Chita"
+   "hit": "Chita",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Kaluga",
    "lon": 36.2598,
    "lat": 54.5101,
-   "hit": "Kaluga"
+   "hit": "Kaluga",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Smolensk",
    "lon": 32.0472,
    "lat": 54.779,
-   "hit": "Smolensk"
+   "hit": "Smolensk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Volzhsky",
    "lon": 50.4352,
    "lat": 53.1233,
-   "hit": "Volzhsky District"
+   "hit": "Volzhsky District",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Kurgan",
    "lon": 65.3421,
    "lat": 55.4409,
-   "hit": "Kurgan"
+   "hit": "Kurgan",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Cherepovets",
    "lon": 37.9123,
    "lat": 59.1242,
-   "hit": "Cherepovets"
+   "hit": "Cherepovets",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Vologda",
    "lon": 39.8934,
    "lat": 59.2189,
-   "hit": "Vologda"
+   "hit": "Vologda",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Murmansk",
    "lon": 33.075,
    "lat": 68.9707,
-   "hit": "Murmansk"
+   "hit": "Murmansk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Yakutsk",
    "lon": 129.732,
    "lat": 62.0274,
-   "hit": "Yakutsk"
+   "hit": "Yakutsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Petropavlovsk-Kamchatsky",
    "lon": 158.6471,
    "lat": 53.02,
-   "hit": "Petropavlovsk-Kamchatsky"
+   "hit": "Petropavlovsk-Kamchatsky",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Komsomolsk-on-Amur",
    "lon": 136.9995,
    "lat": 50.5618,
-   "hit": "Komsomolsk-on-Amur"
+   "hit": "Komsomolsk-on-Amur",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Severodvinsk",
    "lon": 39.8238,
    "lat": 64.5634,
-   "hit": "Severodvinsk"
+   "hit": "Severodvinsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Engels",
    "lon": 46.1233,
    "lat": 51.5014,
-   "hit": "Engels"
+   "hit": "Engels",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "RU",
+   "country": "ru",
    "name": "Severomorsk",
    "lon": 33.419,
    "lat": 69.0759,
-   "hit": "Severomorsk"
+   "hit": "Severomorsk",
+   "geocodedCountry": "RU"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Pyongyang",
    "lon": 125.7526,
    "lat": 39.0197,
-   "hit": "Pyongyang"
+   "hit": "Pyongyang",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Hamhung",
    "lon": 127.5384,
    "lat": 39.9165,
-   "hit": "Hamhung"
+   "hit": "Hamhung",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Chongjin",
    "lon": 129.6456,
    "lat": 41.4292,
-   "hit": "Chongjin Airport"
+   "hit": "Chongjin Airport",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Nampo",
    "lon": 125.4115,
    "lat": 38.7367,
-   "hit": "Nampo"
+   "hit": "Nampo",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Wonsan",
    "lon": 127.4284,
    "lat": 39.1726,
-   "hit": "Wonsan"
+   "hit": "Wonsan",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Sinuiju",
    "lon": 124.3978,
    "lat": 40.0941,
-   "hit": "Sinuiju"
+   "hit": "Sinuiju",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Tanchon",
    "lon": 128.9039,
    "lat": 40.4591,
-   "hit": "Tanchon"
+   "hit": "Tanchon",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Kaechon",
    "lon": 125.8888,
    "lat": 39.7035,
-   "hit": "Kaechon"
+   "hit": "Kaechon",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Kaesong",
    "lon": 126.5427,
    "lat": 37.969,
-   "hit": "Kaesong"
+   "hit": "Kaesong",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Sariwon",
    "lon": 125.7555,
    "lat": 38.5093,
-   "hit": "Sariwon"
+   "hit": "Sariwon",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Sinpo",
    "lon": 128.1915,
    "lat": 40.0316,
-   "hit": "Shinpo"
+   "hit": "Shinpo",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Haeju",
    "lon": 125.7084,
    "lat": 38.0421,
-   "hit": "Haeju"
+   "hit": "Haeju",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Kanggye",
    "lon": 126.5937,
    "lat": 40.971,
-   "hit": "Kanggye"
+   "hit": "Kanggye",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Hyesan",
    "lon": 128.1778,
    "lat": 41.4029,
-   "hit": "Hyesan"
+   "hit": "Hyesan",
+   "geocodedCountry": "KP"
   },
   {
-   "country": "KP",
+   "country": "nk",
    "name": "Sunchon",
    "lon": 125.9477,
    "lat": 39.4196,
-   "hit": "Sunchon"
+   "hit": "Sunchon",
+   "geocodedCountry": "KP"
   }
  ]
 }

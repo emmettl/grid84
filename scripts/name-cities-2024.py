@@ -35,7 +35,7 @@ def geocode(query: str):
         return None
     lon, lat = f[0]['geometry']['coordinates']
     p = f[0]['properties']
-    return {'lon': round(lon, 4), 'lat': round(lat, 4), 'hit': p.get('name'), 'country': p.get('countrycode')}
+    return {'lon': round(lon, 4), 'lat': round(lat, 4), 'hit': p.get('name'), 'geocodedCountry': p.get('countrycode')}
 
 
 def main() -> int:
@@ -52,7 +52,7 @@ def main() -> int:
                 query = f'{name}, North Korea'
             g = geocode(query)
             time.sleep(1.0)
-            if not g or (g['country'] and g['country'] != code):
+            if not g or (g['geocodedCountry'] and g['geocodedCountry'] != code):
                 print('NO MATCH', name, g)
                 continue
             out['cities'].append({'country': country, 'name': name.split(',')[0], **g})
