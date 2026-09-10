@@ -1,7 +1,7 @@
 import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 import { TIER_ORDER, type EvidenceTier } from '../evidence/evidence.ts'
-import { HUE, INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
+import { FALLOUT_FILL, FALLOUT_LINE, HUE, INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
 import { ensureReachHatch, REACH_HATCH } from './hatch.ts'
 import { planeImage } from './plane-icon.ts'
 
@@ -36,7 +36,23 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     // is stronger than it was because at the old value they barely showed. The
     // plume stops are scaled by the same factor the tint went up by, so the
     // plumes look exactly as they did.
-    paint: { 'fill-color': MODELLED_FILL, 'fill-opacity': ['case', ['has', 'dose'], ['interpolate', ['linear'], ['log10', ['max', 0.1, ['get', 'dose']]], -1, 0.143, 0, 0.2, 1, 0.343, 2, 0.486, 3, 0.571], 1] },
+    paint: {
+      // The plume is a different kind of thing from a blast ring — the days
+      // after rather than the moment — and until it had a hue of its own the
+      // two were the same red at different opacities and could not be told
+      // apart at a glance. A contour carries a dose; a ring does not.
+      'fill-color': ['case', ['has', 'dose'], FALLOUT_FILL, MODELLED_FILL],
+      'fill-opacity': ['case', ['has', 'dose'], ['interpolate', ['linear'], ['log10', ['max', 0.1, ['get', 'dose']]], -1, 0.143, 0, 0.2, 1, 0.343, 2, 0.486, 3, 0.571], 1],
+    },
+  })
+  // A thin edge on each contour, so the steps between dose rates are legible
+  // where the fills overlap into one wash.
+  map.addLayer({
+    id: 'ev-areas-plume-edge',
+    type: 'line',
+    source: SOURCES.areas,
+    filter: ['has', 'dose'],
+    paint: { 'line-color': FALLOUT_LINE, 'line-width': 0.8, 'line-opacity': 0.65 },
   })
   for (const tier of TIER_ORDER) {
     const g = LINE[tier]

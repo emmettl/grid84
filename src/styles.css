@@ -582,6 +582,44 @@ body,
 }
 
 /*
+  The handover veil. Between the strike console and the study engine one globe
+  is destroyed and another built, and there is a moment with nothing on the
+  page. The veil closes over the atlas while the console counts its last
+  second, holds through the swap, and opens on the study — so the moment reads
+  as a cut, which is what it is, rather than as a fault.
+
+  It is the page's own ground rather than black, so what shows through is the
+  colour everything else is drawn on.
+*/
+.handover-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.handover-veil--open {
+  opacity: 0;
+  visibility: hidden;
+  /* Opening is quicker than closing: the study is already there to be seen. */
+  transition: opacity 0.45s ease-out, visibility 0s linear 0.45s;
+}
+
+.handover-veil--closing,
+.handover-veil--closed {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handover-veil {
+    transition: none !important;
+  }
+}
+
+/*
   The targeting mark. Four brackets converge on the aim point and a ring
   collapses into it, once, as the point is placed: the classic reticle, which
   is theatre and is meant to be. It is drawn entirely by this rule set — the

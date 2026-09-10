@@ -14,6 +14,15 @@ export const HUE = {
   cyan: [141, 250, 255] as const,
   amber: [255, 179, 71] as const,
   effect: [255, 96, 96] as const,
+  /**
+   * Fallout: a hue of its own, because a plume and a blast ring were both
+   * drawn in the effect red at different opacities and could not be told
+   * apart. They are not the same kind of thing — one is the moment and the
+   * other is the days after it — and the map should say so before the legend
+   * has to. Yellow-green sits far enough from the red to read at a glance and
+   * is the colour the subject has carried since the fifties.
+   */
+  fallout: [190, 232, 92] as const,
   /** Reconstructed: derived from the record by a stated method; a hue of its own rather than a dash, which read as noise across a thousand tracks. */
   lilac: [196, 168, 255] as const,
   ink: [5, 4, 16] as const,
@@ -60,4 +69,7 @@ export const WITHHELD_BORDER = rgba(HUE.cyan, 0.7)
 /** Fill for withheld areas: a hatch is approximated with a dense dash on the outline plus a near-black fill. */
 export const WITHHELD_FILL = rgba(HUE.ink, 0.92)
 export const MODELLED_FILL = rgba(HUE.effect, 0.14)
+/** The plume's own fill and edge, so it is never mistaken for a prompt effect. */
+export const FALLOUT_FILL = rgba(HUE.fallout, 0.16)
+export const FALLOUT_LINE = rgba(HUE.fallout, 0.5)
 export const INFERRED_RING = rgba(HUE.cyan, 0.35)

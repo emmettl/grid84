@@ -204,6 +204,19 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
   const addAimPoint = (point: AimPointMark) => {
     if (destroyed) return
     aims.push(point)
+    // The mark that says a place has been chosen rather than merely found:
+    // four brackets closing on it and a ring collapsing into it, once, as the
+    // console prints the line that puts it there. The study draws the same
+    // mark for the same reason, and this is the half of it the reader sees
+    // first — before anything flies, while the plan is still being written.
+    if (!reducedMotion) {
+      const r = document.createElement('div')
+      r.className = 'aim-reticle'
+      r.setAttribute('aria-hidden', 'true')
+      r.innerHTML = '<span class="aim-reticle-ring"></span><i></i><i></i><i></i><i></i>'
+      const mark = new Marker({ element: r, anchor: 'center' }).setLngLat([point.position[0], point.position[1]]).addTo(map)
+      window.setTimeout(() => mark.remove(), 1_300)
+    }
     const el = document.createElement('div')
     el.className = 'atlas-aim-label'
     el.textContent = point.label

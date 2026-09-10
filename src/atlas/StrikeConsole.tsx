@@ -26,12 +26,14 @@ interface Line {
   kind: 'plain' | 'best' | 'mark' | 'calib'
 }
 
+/** How long the veil has to close before the study engine takes over. */
+export const HANDOVER_MS = 700
 const COUNTDOWN = 10
 const CADENCE_MS = 550
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPoint, onClearAimPoints, onShare, initialAdversary = null, initialDelivery = 'best', initialLoading = 'deployed', initialSite = null }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void; onShare?: (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading; site?: string | null }) => string | null; initialAdversary?: Power | null; initialDelivery?: DeliveryPreference; initialLoading?: Loading; initialSite?: string | null }) {
+export function StrikeConsole({ target, boundary, onLaunch, onLaunching, onStandDown, onAimPoint, onClearAimPoints, onShare, initialAdversary = null, initialDelivery = 'best', initialLoading = 'deployed', initialSite = null }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onLaunching?: () => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void; onShare?: (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading; site?: string | null }) => string | null; initialAdversary?: Power | null; initialDelivery?: DeliveryPreference; initialLoading?: Loading; initialSite?: string | null }) {
   const boundaryRef = useRef(boundary)
   useEffect(() => {
     boundaryRef.current = boundary
@@ -151,7 +153,12 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       if (cancelled) return
       say('LAUNCH · THE STUDY ENGINE TAKES THE STRIKE FROM HERE', 'mark')
       setPhase('launching')
-      await sleep(600)
+      // The engine is about to be handed the strike, which means one globe is
+      // torn down and another built. Saying so here gives the app the moment
+      // it needs to draw the veil over that, so the reader sees a cut rather
+      // than a flash of nothing.
+      onLaunching?.()
+      await sleep(HANDOVER_MS)
       if (!cancelled) onLaunch(buildStrikeStudy(plan as StrikePlan, wind, undefined, boundaryRef.current))
     }
     void run()

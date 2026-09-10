@@ -65,6 +65,14 @@ function useTitle(route: Route) {
 
 function AtlasView({ strike }: { strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null; site: string | null } }) {
   const [study, setStudy] = useState<Study | null>(null)
+  /**
+   * The handover from the console to the study engine tears down one globe and
+   * builds another, and between the two there is nothing to look at. A veil
+   * closes over the atlas while the console counts the last second, holds
+   * through the swap, and opens on the study: the reader sees a cut, which is
+   * what the moment is, rather than a flash of empty page.
+   */
+  const [veil, setVeil] = useState<'open' | 'closing' | 'closed'>('open')
   // Coming back from a strike returns to a clean atlas: the search box empty,
   // the target released, the globe back on standby. The counter remounts it,
   // and the shared-strike preset is dropped so it is not acquired again.
@@ -77,11 +85,13 @@ function AtlasView({ strike }: { strike?: { ref: string; adversary: string | nul
     return (
       <>
         <StudyView key={study.id} study={study} autoplay={{ rate: 20 }} />
+        <Veil state={veil} onShown={() => setVeil('open')} />
         <button
           type="button"
           className="loop-exit"
           onClick={() => {
             setStudy(null)
+            setVeil('open')
             setDropped(strike)
             setRuns((r) => r + 1)
             window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#/atlas`)
@@ -92,10 +102,30 @@ function AtlasView({ strike }: { strike?: { ref: string; adversary: string | nul
       </>
     )
   }
-  return <AtlasGlobe key={runs} onLaunch={setStudy} preset={preset} />
+  return (
+    <>
+      <AtlasGlobe key={runs} onLaunch={setStudy} onLaunching={() => setVeil('closing')} preset={preset} />
+      <Veil state={veil} />
+    </>
+  )
 }
 
-function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; preset?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null; site: string | null } }) {
+/**
+ * The veil. Closed it is the page's own ground, so what shows through the
+ * moment is the colour everything else is drawn on rather than black.
+ */
+function Veil({ state, onShown }: { state: 'open' | 'closing' | 'closed'; onShown?: () => void }) {
+  useEffect(() => {
+    if (!onShown) return
+    // On the far side of the swap the study is mounted; give it a frame to
+    // paint its first view before the veil opens on it.
+    const t = window.setTimeout(onShown, 260)
+    return () => window.clearTimeout(t)
+  }, [onShown])
+  return <div className={`handover-veil handover-veil--${state}`} aria-hidden="true" />
+}
+
+function AtlasGlobe({ onLaunch, onLaunching, preset }: { onLaunch: (study: Study) => void; onLaunching?: () => void; preset?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null; site: string | null } }) {
   const container = useRef<HTMLDivElement>(null)
   const atlas = useRef<Atlas | null>(null)
   const [phase, setPhase] = useState<AtlasPhase>({ kind: 'standby' })
@@ -153,7 +183,7 @@ function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; pr
       <div ref={container} className="atlas-map" aria-label="Grid/84 globe" />
       <div className="atlas-vignette" aria-hidden="true" />
       <Hud phase={phase} onAcquire={acquire} consoleOpen={!!acquired && stoodDown !== acquired.id} presetName={presetName} />
-      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} initialAdversary={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? (preset.adversary as Power | null) : null} initialDelivery={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? ((preset.delivery as DeliveryPreference | null) ?? 'best') : 'best'} initialLoading={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) && preset.loading === 'full' ? 'full' : 'deployed'} initialSite={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? preset.site : null} onShare={share} onLaunch={onLaunch} onStandDown={() => {
+      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} initialAdversary={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? (preset.adversary as Power | null) : null} initialDelivery={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? ((preset.delivery as DeliveryPreference | null) ?? 'best') : 'best'} initialLoading={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) && preset.loading === 'full' ? 'full' : 'deployed'} initialSite={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? preset.site : null} onShare={share} onLaunch={onLaunch} onLaunching={onLaunching} onStandDown={() => {
             atlas.current?.clearAimPoints()
             setStoodDown(acquired.id)
           }} onAimPoint={(p) => atlas.current?.addAimPoint(p)} onClearAimPoints={() => atlas.current?.clearAimPoints()} />}
