@@ -292,11 +292,18 @@ twice, and the model reproduces both from one constant. §6.74 puts
 continuous ejecta at 2.15 times the radius.
 
 For the 335 kt surface burst the strike console fires most often, that is a
-hole 108 metres across and 54 deep, ejecta to 232 metres, and about three
+hole 105 metres in radius and 52 deep, ejecta to 225 metres, and 1.4
 million tonnes of soil lifted. Which is the point of computing it: that
 soil is what the fission products condense onto, and the plume the fallout
 model draws is this material coming down again. The console now says so on
 every surface burst.
+
+| Yield | Crater radius | Depth | Ejecta | Soil lifted |
+| --- | --- | --- | --- | --- |
+| 15 kt | 41 m | 21 m | 89 m | 0.1 Mt |
+| 100 kt | 73 m | 36 m | 157 m | 0.5 Mt |
+| 335 kt | 105 m | 52 m | 225 m | 1.4 Mt |
+| 800 kt | 136 m | 68 m | 292 m | 3.2 Mt |
 
 Water-saturated soil gives a wider and shallower crater and hard rock a
 smaller one. The book gives neither a number, so neither is given one here.
