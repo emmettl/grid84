@@ -165,6 +165,15 @@ const STUDIES: FrontStudy[] = [
     brief: brief('THEATRE.md'),
   },
   {
+    id: 'sino-soviet-1969',
+    chapter: 'strategic',
+    epoch: '1969',
+    title: 'The nuclear surgery',
+    line: 'Moscow let it be understood that it was considering a strike on the Chinese nuclear programme, and Beijing believed it. No such plan is on the record and this study does not assert one; it asks what the surgery would have taken. Eight facilities, and the missiles are in the wrong places to reach the two that matter. Three of the eight stand in cities.',
+    href: '#/study/sino-soviet-1969',
+    brief: brief('SINO-SOVIET-69.md'),
+  },
+  {
     id: 'tornado',
     chapter: 'theatre',
     epoch: '1985',

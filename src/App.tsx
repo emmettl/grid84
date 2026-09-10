@@ -24,6 +24,7 @@ import { sevenDays } from './studies/sevendays/seven-days.ts'
 import { carteBlanche } from './studies/carteblanche/carte-blanche.ts'
 import { demolitionBelt } from './studies/demolition/belt.ts'
 import { tornadoStrike } from './studies/tornado/tornado.ts'
+import { sinoSoviet69 } from './studies/sinosoviet69/sino-soviet-69.ts'
 import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
@@ -185,6 +186,11 @@ function TornadoStudy() {
   return <StudyView key={study.id} study={study} />
 }
 
+function SinoSoviet69Study() {
+  const study = useMemo(() => sinoSoviet69(), [])
+  return <StudyView key={study.id} study={study} />
+}
+
 function DemolitionBeltStudy() {
   const study = useMemo(() => demolitionBelt(), [])
   return <StudyView key={study.id} study={study} />
@@ -249,6 +255,7 @@ export default function App() {
     { id: 'seven-days', label: 'Seven days', href: '#/study/seven-days' },
     { id: 'demolition-belt', label: 'Demolition belt', href: '#/study/demolition-belt' },
     { id: 'tornado', label: 'RAF Germany', href: '#/study/tornado' },
+    { id: 'sino-soviet-1969', label: 'The nuclear surgery', href: '#/study/sino-soviet-1969' },
     { id: 'britain-80', label: 'Britain', href: '#/study/britain-80' },
     { id: '72-minutes', label: '72 minutes', href: '#/study/72-minutes' },
   ]
@@ -288,6 +295,7 @@ export default function App() {
       {route.kind === 'study' && route.id === 'cuba-62' && <CubaStudy general={route.general} />}
       {route.kind === 'study' && route.id === 'able-archer-83' && <AbleArcherStudy />}
       {route.kind === 'study' && route.id === 'tornado' && <TornadoStudy />}
+      {route.kind === 'study' && route.id === 'sino-soviet-1969' && <SinoSoviet69Study />}
       {route.kind === 'study' && route.id === 'demolition-belt' && <DemolitionBeltStudy />}
       {route.kind === 'study' && route.id === 'carte-blanche' && <CarteBlancheStudy />}
       {route.kind === 'study' && route.id === 'seven-days' && <SevenDaysStudy />}

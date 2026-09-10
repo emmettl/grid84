@@ -32,6 +32,7 @@ const ABOUT = {
   WINTER: { group: 'The engine', lede: 'The chain from the fires to the famine in five coupled models, and what each was fitted to.' },
   INTERCEPT: { group: 'The engine', lede: 'The four phases of interception, the arithmetic of each, and why the endgame is the easy part.' },
   WOPR: { group: 'The engine', lede: 'The optimiser: what it is asked to maximise, what it may spend, and what it cannot trade away.' },
+  'SINO-SOVIET-69': { group: 'The studies', lede: 'A Soviet strike on the Chinese nuclear complex in 1969 — the surgery nobody has evidence was planned.' },
   'SIOP-62': { group: 'The studies', lede: 'The Single Integrated Operational Plan of 1962, from the declassified record.' },
   'CUBA-62': { group: 'The studies', lede: 'October 1962, and the forces actually in place on each day of it.' },
   'DEFCON3-73': { group: 'The studies', lede: 'The alert of October 1973: what moved, when, and on whose order.' },

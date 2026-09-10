@@ -26,6 +26,7 @@ export type Route =
   | { kind: 'study'; id: 'carte-blanche' }
   | { kind: 'study'; id: 'demolition-belt' }
   | { kind: 'study'; id: 'tornado' }
+  | { kind: 'study'; id: 'sino-soviet-1969' }
   | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }
   | { kind: 'study'; id: 'window-83'; posture: 'ride' | 'launch' }
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' | 'neutron' | 'intercept' }
@@ -52,6 +53,7 @@ export function parseRoute(hash: string): Route {
   if (hash === '#/study/cuba-62/general') return { kind: 'study', id: 'cuba-62', general: true }
   if (hash === '#/study/able-archer-83') return { kind: 'study', id: 'able-archer-83' }
   if (hash === '#/study/tornado') return { kind: 'study', id: 'tornado' }
+  if (hash === '#/study/sino-soviet-1969') return { kind: 'study', id: 'sino-soviet-1969' }
   if (hash === '#/study/demolition-belt') return { kind: 'study', id: 'demolition-belt' }
   if (hash === '#/study/carte-blanche') return { kind: 'study', id: 'carte-blanche' }
   if (hash === '#/study/seven-days') return { kind: 'study', id: 'seven-days' }

@@ -24,7 +24,7 @@ jobs:
       - run: npm run build
       - name: Release marker
         run: printf '{"repository":"%s","commit":"%s","run_id":"%s","workflow_url":"%s/%s/actions/runs/%s"}\n' "$GITHUB_REPOSITORY" "$GITHUB_SHA" "$GITHUB_RUN_ID" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > dist/_release.json
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: grid84-site
           path: dist
@@ -64,10 +64,19 @@ jobs:
         with:
           name: grid84-site
           path: dist
-      - uses: cloudflare/wrangler-action@v3
+      - uses: actions/setup-node@v7
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        with:
+          node-version-file: .nvmrc
+      # v4 or later: a Worker whose only content is static assets has no
+      # entry point, and wrangler 3 rejects it for not having one.
+      - uses: cloudflare/wrangler-action@v4
         if: env.CLOUDFLARE_API_TOKEN != ''
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # The repository's own wrangler, so the version is a decision
+          # recorded in package.json rather than whatever the action defaults to.
+          wranglerVersion: '4'
           command: deploy
       - run: echo "No CLOUDFLARE_API_TOKEN secret; grid84.app keeps its last deployment."
         if: env.CLOUDFLARE_API_TOKEN == ''

@@ -122,6 +122,13 @@
       "summary": "The last generation of the theatre strike force, and what a sub-strategic option meant in practice."
     },
     {
+      "path": "studies/sino-soviet-1969",
+      "hash": "#/study/sino-soviet-1969",
+      "title": "The nuclear surgery — a Soviet strike on the Chinese nuclear complex, 1969",
+      "description": "Eight operating facilities, the forces that could have reached them, and the arithmetic of the strike Moscow was understood to be threatening in 1969. No such plan is on the record, and the study says so.",
+      "summary": "What the surgery would have taken and whether it would have worked: the missiles were in the wrong places so the strike has to be flown, three of the eight facilities stand in or beside cities, and the milling that feeds the rest is beyond every bomber base on the list."
+    },
+    {
       "path": "studies/britain-80",
       "hash": "#/study/britain-80",
       "title": "Protect and Survive — Britain, 1980",
@@ -280,6 +287,11 @@
     {
       "path": "brief/britain-80",
       "title": "Protect and Survive: Britain — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/sino-soviet-69",
+      "title": "The nuclear surgery — a working brief",
       "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
     },
     {

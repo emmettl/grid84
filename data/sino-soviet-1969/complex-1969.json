@@ -1,0 +1,233 @@
+{
+  "note": "The Chinese nuclear complex as it operated in 1969, and the Soviet forces that could have reached it. Every facility and every base is documented; the strike is not. No Soviet plan against these targets is on the record, and the study says so on every readout. Compiled from the research dossier at /dossier/sino-soviet-1969.html, where each figure carries its source and its tier.",
+  "year": 1969,
+  "source": "The 1969 strike question, a research dossier of Grid/84: facility locations from Zhang Hui's imagery work and the Federation of American Scientists; Soviet order of battle from the CIA Board of National Estimates SM 4-69 (6 May 1969), FRUS XII and the Long Range Aviation unit histories",
+  "rule": "Every operating facility of the Chinese nuclear programme is an aim point, largest weapon that reaches. Facilities under construction in 1969 are drawn and not struck. This is the strike a disarming intent implies; it is not a plan anybody has published.",
+
+  "weapon": {
+    "name": "Free-fall thermonuclear bomb",
+    "yieldKt": 500,
+    "note": "Soviet Long Range Aviation of 1969 carried free-fall weapons of a few hundred kilotonnes to the megatonne class. Five hundred is a round middle figure and is inferred: no yield for a strike that was never planned can be documented, and the readout says so."
+  },
+
+  "profile": {
+    "cruiseAltitudeMetres": 11000,
+    "runInMetres": 11000,
+    "descendAtMetres": 0,
+    "speedMs": 220,
+    "note": "High-level transit and release at altitude: China had no strategic air defence in 1969 worth flying under, which is itself the finding. Speed is a Tu-16 cruise of about 800 km/h."
+  },
+
+  "attrition": {
+    "reliability": 0.9,
+    "penetration": 0.95,
+    "note": "China's air defence in 1969 was a small MiG force and a handful of HQ-2 batteries around Beijing, none of it over the northwest. Penetration is set high and is inferred; the losses that matter to this strike are mechanical, not defensive."
+  },
+
+  "targets": [
+    {
+      "id": "plant-221",
+      "name": "Plant 221 · the Ninth Academy",
+      "lon": 100.9167,
+      "lat": 36.95,
+      "kind": "weapons",
+      "operating": true,
+      "why": "Weapon physics, high-explosive development, component fabrication and final device assembly: Los Alamos and Pantex in one place, on the Jinyintan grassland in Haiyan County, Qinghai, at 3,200 m. Eleven hundred and seventy square kilometres in twelve factory areas. On any disarming logic the highest-value single aim point in China.",
+      "source": "Federation of American Scientists; US intelligence called it the Koko Nor complex"
+    },
+    {
+      "id": "plant-504",
+      "name": "Plant 504 · Lanzhou gaseous diffusion",
+      "lon": 103.5233,
+      "lat": 36.1481,
+      "kind": "enrichment",
+      "operating": true,
+      "why": "China's only operating enrichment plant in 1969 and therefore its sole source of highly enriched uranium, producing 90 per cent material from 14 January 1964. It stands beside the Yellow River in the Xigu district of Lanzhou, inside a city.",
+      "source": "Zhang Hui, from imagery: 36°08′53″N 103°31′24″E"
+    },
+    {
+      "id": "plant-404",
+      "name": "Plant 404 · Jiuquan Atomic Energy Complex",
+      "lon": 97.3636,
+      "lat": 40.2306,
+      "kind": "plutonium",
+      "operating": true,
+      "why": "Reactor 801 for plutonium production, uranium hexafluoride conversion feeding Lanzhou, and both pilot and full reprocessing. The first weapon core was machined here in May 1964. On the Gobi thirty kilometres east of Yumenzhen, not at Jiuquan city.",
+      "source": "Zhang Hui, from imagery: 40°13′50″N 97°21′49″E. US intelligence called it the Yumen Plutonium Production Facility"
+    },
+    {
+      "id": "lop-nur",
+      "name": "Lop Nur · Area D",
+      "lon": 89.65,
+      "lat": 40.77,
+      "kind": "test",
+      "operating": true,
+      "why": "China's only nuclear test site, run by the 21st Test Training Base at Malan. Ten tests by the end of 1969. Area D is the atmospheric ground-zero area, which is the part of a 100,000 km² zone that a strike would actually aim at. It is also the one target named in the strongest affirmative claim in the literature.",
+      "source": "Federation of American Scientists; the site centroid is about 41°30′N 88°30′E, Area D about 40.72–40.82°N and 89.5–89.8°E"
+    },
+    {
+      "id": "plant-202",
+      "name": "Plant 202 · Baotou fuel component plant",
+      "lon": 109.9833,
+      "lat": 40.6333,
+      "kind": "fuel",
+      "operating": true,
+      "why": "Uranium purification and conversion, and the fuel elements for the Plant 404 reactor. A lithium deuteride line designated Plant 212 is identified at the same place. It is in Baotou, a city of some seven hundred thousand in 1969.",
+      "source": "Federation of American Scientists; no better figure than about 40°38′N 109°59′E was found"
+    },
+    {
+      "id": "base-20",
+      "name": "Base 20 · Jiuquan missile test range",
+      "lon": 100.2911,
+      "lat": 40.9581,
+      "kind": "missile",
+      "operating": true,
+      "why": "China's only operational ballistic-missile flight-test range. The live-warhead DF-2 shot of 27 October 1966 — the only time any state has flown a nuclear warhead on a ballistic missile over its own territory — was fired from here. Named for Jiuquan and physically in Ejin Banner, Inner Mongolia.",
+      "source": "40°57′29″N 100°17′28″E. US name: the Shuang-cheng-tzu Missile Test Range"
+    },
+    {
+      "id": "institute-401",
+      "name": "Institute 401 · Tuoli",
+      "lon": 116.05,
+      "lat": 39.8,
+      "kind": "research",
+      "operating": true,
+      "why": "The Beijing Institute of Atomic Energy: a Soviet-supplied heavy-water research reactor and cyclotron of 1958, and the pilot conversion line that made the first feed for Lanzhou. It is forty kilometres south-west of the centre of Beijing.",
+      "source": "Federation of American Scientists: about 39°48′N 116°03′E, Tuoli, Fangshan District"
+    },
+    {
+      "id": "plant-272",
+      "name": "Plant 272 · Hengyang uranium mill",
+      "lon": 112.6,
+      "lat": 26.9,
+      "kind": "mining",
+      "operating": true,
+      "why": "The front end: uranium milling, producing qualified uranium dioxide from October 1962, fed by the 711 mine at Chenzhou and the Shangrao mine in Jiangxi. Two thousand kilometres further into China than anything else on this list.",
+      "source": "Federation of American Scientists: about 26°54′N 112°36′E"
+    },
+    {
+      "id": "plant-814",
+      "name": "Plant 814 · Heping",
+      "lon": 103.0639,
+      "lat": 29.2328,
+      "kind": "enrichment",
+      "operating": false,
+      "why": "The second gaseous diffusion plant, in the Third Front interior on the Dadu river in Sichuan. Under construction from 1966 and not operating until June 1970 — nine months after the crisis. It is drawn and not struck, because a strike in 1969 could not have known to hit it and could not have destroyed anything by doing so.",
+      "source": "Zhang Hui: 29°13′58″N 103°03′50″E"
+    },
+    {
+      "id": "plant-821",
+      "name": "Plant 821 · Guangyuan",
+      "lon": 105.8667,
+      "lat": 32.4333,
+      "kind": "plutonium",
+      "operating": false,
+      "why": "The second plutonium complex. Construction began in October 1969 — during the crisis, and plausibly because of it. The reactor went critical in December 1973. Drawn and not struck.",
+      "source": "Federation of American Scientists: about 32°26′N 105°52′E"
+    }
+  ],
+
+  "bases": [
+    {
+      "id": "dolon",
+      "name": "Dolon · Chagan, Semipalatinsk",
+      "lon": 79.2,
+      "lat": 50.55,
+      "unit": "1023 and 1226 TBAP, 79th Heavy Bomber Air Division",
+      "type": "Tu-95K",
+      "aircraft": 12,
+      "rangeKm": 6500
+    },
+    {
+      "id": "belaya",
+      "name": "Belaya, Irkutsk",
+      "lon": 103.55,
+      "lat": 52.91,
+      "unit": "1225 and 1229 TBAP",
+      "type": "Tu-16K",
+      "aircraft": 20,
+      "rangeKm": 2300
+    },
+    {
+      "id": "zavitinsk",
+      "name": "Zavitinsk, Amur",
+      "lon": 129.44,
+      "lat": 50.1,
+      "unit": "303 TBAP, 55th Heavy Bomber Air Division",
+      "type": "Tu-16",
+      "aircraft": 20,
+      "rangeKm": 2300
+    },
+    {
+      "id": "vozdvizhenka",
+      "name": "Vozdvizhenka, Primorsky",
+      "lon": 131.92,
+      "lat": 43.9,
+      "unit": "444 TBAP, 55th Heavy Bomber Air Division",
+      "type": "Tu-16",
+      "aircraft": 20,
+      "rangeKm": 2300
+    },
+    {
+      "id": "ukrainka",
+      "name": "Ukrainka, Seryshevo",
+      "lon": 128.44,
+      "lat": 51.17,
+      "unit": "40 and 79 TBAP, 73rd Heavy Bomber Air Division",
+      "type": "M-4 / 3M Bison",
+      "aircraft": 12,
+      "rangeKm": 5600
+    }
+  ],
+
+  "missiles": [
+    {
+      "id": "sary-ozek",
+      "name": "Sary-Ozek, Kazakhstan",
+      "lon": 77.9,
+      "lat": 44.35,
+      "unit": "About ten launchers",
+      "type": "R-12 (SS-4)",
+      "launchers": 10,
+      "rangeKm": 2080
+    },
+    {
+      "id": "ussuriysk",
+      "name": "Ussuriysk · Manzovka, Primorye",
+      "lon": 131.95,
+      "lat": 43.8,
+      "unit": "45th Rocket Division, about 32 to 35 launchers — disbanded September 1970",
+      "type": "R-12 / R-14",
+      "launchers": 33,
+      "rangeKm": 2080
+    },
+    {
+      "id": "kattakurgan",
+      "name": "Kattakurgan, Uzbekistan",
+      "lon": 66.26,
+      "lat": 39.9,
+      "unit": "Twelve R-12",
+      "type": "R-12 (SS-4)",
+      "launchers": 12,
+      "rangeKm": 2080
+    },
+    {
+      "id": "aktyubinsk",
+      "name": "Aktyubinsk, Kazakhstan",
+      "lon": 57.21,
+      "lat": 50.28,
+      "unit": "Three R-14U silos",
+      "type": "R-14U (SS-5)",
+      "launchers": 3,
+      "rangeKm": 4500
+    }
+  ],
+
+  "chinese": {
+    "note": "What China could have fired back with, from the DIA assessment of March 1972 with modern corrections. The asymmetry is the second finding of this study.",
+    "bombers": "Two Tu-16, the pair delivered from the USSR in January 1959, in the 4th Independent Regiment at Wukung. The first Chinese-built H-6 flew on 24 December 1968 and the fleet did not exist yet. Combat radius about 1,770 km, no refuelling.",
+    "missiles": "A handful of DF-2A at most, range about 1,250 km, on soft above-ground sites. Cryogenic propellant — liquid oxygen and alcohol — so they could not sit fuelled: launch preparation was 150 to 180 minutes.",
+    "reach": "Soviet Central Asia and the Far East. Not Moscow, not by any system China had or was near having. The DF-3 at 2,780 km was not operational — Lin Biao included it in his alert order of 18 October 1969 and none existed to alert.",
+    "warheads": "About fifty, on a smooth back-projection rather than a count."
+  }
+}

@@ -622,18 +622,33 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         for (const event of study.events) {
           if (event.camera && previous.time < event.time && next.time >= event.time) {
             const c = event.camera
-            if (c.fit && c.fit.length > 1) {
-              // Fit the points that matter into the part of the map the panels leave clear.
-              const lons = c.fit.map((p) => p[0])
-              const lats = c.fit.map((p) => p[1])
-              map.fitBounds(
-                [
-                  [Math.min(...lons), Math.min(...lats)],
-                  [Math.max(...lons), Math.max(...lats)],
-                ],
-                { padding: clearPadding(map), pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, maxZoom: c.zoom, essential: true },
-              )
-            } else {
+            // Fit the points that matter into the part of the map the panels
+            // leave clear — and fall back to the stated centre if the box
+            // cannot be framed. Under the globe projection MapLibre gives up
+            // on a box spanning much of a hemisphere and throws from inside
+            // fitBounds, which would otherwise take the whole clock with it:
+            // the study's camera is data, and data must not be able to stop
+            // the engine.
+            const flown =
+              c.fit && c.fit.length > 1
+                ? (() => {
+                    const lons = c.fit.map((p) => p[0])
+                    const lats = c.fit.map((p) => p[1])
+                    try {
+                      map.fitBounds(
+                        [
+                          [Math.min(...lons), Math.min(...lats)],
+                          [Math.max(...lons), Math.max(...lats)],
+                        ],
+                        { padding: clearPadding(map), pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, maxZoom: c.zoom, essential: true },
+                      )
+                      return true
+                    } catch {
+                      return false
+                    }
+                  })()
+                : false
+            if (!flown) {
               map.flyTo({ center: [c.center[0], c.center[1]], zoom: c.zoom, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, essential: true })
             }
           }
