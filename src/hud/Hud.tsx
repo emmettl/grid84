@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type KeyboardEvent } from 'react'
+import { useEffect, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { designate } from '../atlas/designation.ts'
 import type { AtlasTarget } from '../atlas/target.ts'
 import { formatBearing, formatElevation, formatGrid, formatRange } from '../geo/geodesy.ts'
@@ -10,11 +10,17 @@ interface HudProps {
   onAcquire: (target: AtlasTarget) => void
   /** The strike console is up; on a phone the readout and the credits give it the room. */
   consoleOpen?: boolean
+  /** A target acquired from a shared link: its name goes in the prompt as if typed. */
+  presetName?: string | null
 }
 
-export function Hud({ phase, onAcquire, consoleOpen = false }: HudProps) {
+export function Hud({ phase, onAcquire, consoleOpen = false, presetName = null }: HudProps) {
   const geocoder = useGeocoder()
   const [open, setOpen] = useState(false)
+  useEffect(() => {
+    if (presetName) geocoder.settle(presetName)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presetName])
 
   const acquire = (target: AtlasTarget) => {
     setOpen(false)

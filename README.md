@@ -66,7 +66,7 @@ Architecturally, it could begin innocently as a generic consequence-overlay syst
 
 ## Development
 
-Use Node 24 or later and npm 11.19.0. Run `npm ci`, then `npm run dev` for the site at `http://127.0.0.1:4184/`: the front page at `#/`, the chronicle at `#/chronicle` with the posture atlas at `#/chronicle/posture`, the loop at `#/loop`, WOPR at `#/wopr`, the atlas at `#/atlas` (type a place and the strike console vectors a strike onto it; see [docs/STRIKE.md](docs/STRIKE.md)), the studies under `#/study/` and the labs under `#/lab/`.
+Use Node 24 or later and npm 11.19.0. Run `npm ci`, then `npm run dev` for the site at `http://127.0.0.1:4184/`: the front page at `#/`, the chronicle at `#/chronicle` with the posture atlas at `#/chronicle/posture`, the loop at `#/loop`, WOPR at `#/wopr`, the atlas at `#/atlas` (type a place and the strike console vectors a strike onto it, and `#/atlas/strike/<osm id>` re-runs one from a link; see [docs/STRIKE.md](docs/STRIKE.md)), the studies under `#/study/` and the labs under `#/lab/`.
 
 - `npm run typecheck`, `npm run lint` and `npm test` verify the workspace.
 - `npm run build` writes the static site to `dist/`.

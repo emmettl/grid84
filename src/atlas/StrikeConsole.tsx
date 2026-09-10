@@ -29,7 +29,7 @@ const CADENCE_MS = 550
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPoint, onClearAimPoints }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void }) {
+export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPoint, onClearAimPoints, onShare, initialAdversary = null, initialDelivery = 'best' }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void; onShare?: (choices: { adversary: Power | null; delivery: DeliveryPreference }) => string | null; initialAdversary?: Power | null; initialDelivery?: DeliveryPreference }) {
   const boundaryRef = useRef(boundary)
   useEffect(() => {
     boundaryRef.current = boundary
@@ -38,9 +38,9 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
   const [phase, setPhase] = useState<'reasoning' | 'countdown' | 'failed' | 'launching'>('reasoning')
   const [held, setHeld] = useState(false)
   const [count, setCount] = useState(COUNTDOWN)
-  const [override, setOverride] = useState<Power | null>(null)
+  const [override, setOverride] = useState<Power | null>(initialAdversary)
   const [pickOpen, setPickOpen] = useState(false)
-  const [prefer, setPrefer] = useState<DeliveryPreference>('best')
+  const [prefer, setPrefer] = useState<DeliveryPreference>(initialDelivery)
   const heldRef = useRef(false)
   const skipRef = useRef(false)
   const started = useRef(performance.now())
@@ -58,6 +58,11 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       return [...prev.slice(-60), { id, at, text, kind }]
     })
   }
+
+  useEffect(() => {
+    onShare?.({ adversary: override, delivery: prefer })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [override, prefer])
 
   useEffect(() => {
     let cancelled = false
@@ -178,6 +183,23 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
         </button>
         <button type="button" onClick={onStandDown}>
           Stand down
+        </button>
+        <button
+          type="button"
+          title="Copy a link that re-runs this strike: the target by its OpenStreetMap id and the choices made here"
+          onClick={() => {
+            const link = onShare?.({ adversary: override, delivery: prefer })
+            if (!link) {
+              say('NO LINK · THE TARGET HAS NO OPENSTREETMAP ID TO NAME IT BY', 'mark')
+              return
+            }
+            navigator.clipboard?.writeText(link).then(
+              () => say(`LINK COPIED · ${link} · RE-RUNS THIS STRIKE WITH THE WIND OF ITS OWN HOUR`, 'mark'),
+              () => say(`LINK · ${link}`, 'mark'),
+            )
+          }}
+        >
+          Share
         </button>
       </div>
       <div className="wopr-group strike-controls">

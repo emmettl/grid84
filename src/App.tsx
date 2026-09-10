@@ -22,6 +22,9 @@ import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
 import { StrikeConsole } from './atlas/StrikeConsole.tsx'
 import { fetchBoundary, type Boundary } from './atlas/boundary.ts'
+import { lookupTarget, parseStrikeHash, strikeHash } from './atlas/lookup.ts'
+import type { Power } from './atlas/forces.ts'
+import type { DeliveryPreference } from './atlas/solver.ts'
 import type { AtlasTarget } from './atlas/target.ts'
 import type { Study } from './studies/study.ts'
 import { WoprView } from './wopr/WoprView.tsx'
@@ -34,7 +37,7 @@ type Route =
   | { kind: 'wopr' }
   | { kind: 'chronicle' }
   | { kind: 'posture' }
-  | { kind: 'atlas' }
+  | { kind: 'atlas'; strike?: { ref: string; adversary: string | null; delivery: string | null } }
   | { kind: 'study'; id: 'siop62' }
   | { kind: 'study'; id: 'siop62-alert'; option: number }
   | { kind: 'study'; id: 'defcon3-73'; variant: 'posture' | 'execute' | 'giant' }
@@ -48,6 +51,8 @@ type Route =
 function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources' || hash === '#/labs') return { kind: 'front' }
   if (hash === '#/atlas') return { kind: 'atlas' }
+  const shared = parseStrikeHash(hash)
+  if (shared) return { kind: 'atlas', strike: shared }
   if (hash === '#/loop') return { kind: 'loop' }
   if (hash === '#/wopr') return { kind: 'wopr' }
   if (hash === '#/chronicle') return { kind: 'chronicle' }
@@ -101,7 +106,7 @@ function useTitle(route: Route) {
   }, [route])
 }
 
-function AtlasView() {
+function AtlasView({ strike }: { strike?: { ref: string; adversary: string | null; delivery: string | null } }) {
   const [study, setStudy] = useState<Study | null>(null)
   if (study) {
     return (
@@ -113,14 +118,15 @@ function AtlasView() {
       </>
     )
   }
-  return <AtlasGlobe onLaunch={setStudy} />
+  return <AtlasGlobe onLaunch={setStudy} preset={strike} />
 }
 
-function AtlasGlobe({ onLaunch }: { onLaunch: (study: Study) => void }) {
+function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; preset?: { ref: string; adversary: string | null; delivery: string | null } }) {
   const container = useRef<HTMLDivElement>(null)
   const atlas = useRef<Atlas | null>(null)
   const [phase, setPhase] = useState<AtlasPhase>({ kind: 'standby' })
   const [stoodDown, setStoodDown] = useState<string | null>(null)
+  const [presetName, setPresetName] = useState<string | null>(null)
 
   useEffect(() => {
     if (!container.current) return
@@ -142,13 +148,38 @@ function AtlasGlobe({ onLaunch }: { onLaunch: (study: Study) => void }) {
       atlas.current?.showBoundary(target, b)
     })
   }
+  // A shared link names the target by its OpenStreetMap id: look it up once and acquire it.
+  const presetRef = preset?.ref ?? null
+  useEffect(() => {
+    if (!presetRef) return
+    let cancelled = false
+    lookupTarget(presetRef)
+      .then((t) => {
+        if (cancelled || !t) return
+        setPresetName(t.name)
+        acquire(t)
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presetRef])
   const acquired = phase.kind === 'acquired' ? phase.report.target : null
+  const share = (choices: { adversary: Power | null; delivery: DeliveryPreference }): string | null => {
+    if (!acquired) return null
+    const hash = strikeHash(acquired, choices)
+    if (!hash) return null
+    // The address bar carries the strike without a navigation; the link is what gets shared.
+    window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}${hash}`)
+    return `${window.location.origin}${window.location.pathname}${hash}`
+  }
   return (
     <>
       <div ref={container} className="atlas-map" aria-label="Grid/84 globe" />
       <div className="atlas-vignette" aria-hidden="true" />
-      <Hud phase={phase} onAcquire={acquire} consoleOpen={!!acquired && stoodDown !== acquired.id} />
-      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} onLaunch={onLaunch} onStandDown={() => {
+      <Hud phase={phase} onAcquire={acquire} consoleOpen={!!acquired && stoodDown !== acquired.id} presetName={presetName} />
+      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} initialAdversary={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? (preset.adversary as Power | null) : null} initialDelivery={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? ((preset.delivery as DeliveryPreference | null) ?? 'best') : 'best'} onShare={share} onLaunch={onLaunch} onStandDown={() => {
             atlas.current?.clearAimPoints()
             setStoodDown(acquired.id)
           }} onAimPoint={(p) => atlas.current?.addAimPoint(p)} onClearAimPoints={() => atlas.current?.clearAimPoints()} />}
@@ -237,7 +268,7 @@ export default function App() {
       {route.kind === 'front' && <FrontPage />}
       {route.kind === 'chronicle' && <Chronicle />}
       {route.kind === 'posture' && <PostureAtlas key="posture" />}
-      {route.kind === 'atlas' && <AtlasView />}
+      {route.kind === 'atlas' && <AtlasView strike={route.strike} />}
       {route.kind === 'study' && route.id === 'siop62' && <StudyView key="siop62" study={SIOP62_PROOF} />}
       {route.kind === 'study' && route.id === 'siop62-alert' && <OptionStudy option={route.option} />}
       {route.kind === 'study' && route.id === 'defcon3-73' && <Defcon3Study variant={route.variant} />}
