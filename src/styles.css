@@ -782,6 +782,10 @@ body,
   .clock-controls {
     flex-wrap: wrap;
   }
+  /* Trails and burst are two small toggles; they share a row rather than taking two. */
+  .clock-controls--toggles {
+    column-gap: 0.6rem;
+  }
   .clock-controls button {
     padding: 0.3rem 0.5rem;
   }

@@ -828,24 +828,38 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               RESET
             </button>
           </div>
-          {glTracks && (
-            <div className="clock-controls">
-              <span className="clock-label">Trails</span>
-              {(['fade', 'keep'] as const).map((mode) => (
-                <button
-                  key={mode}
-                  type="button"
-                  className={trails === mode ? 'is-active' : ''}
-                  title={mode === 'fade' ? 'Flown paths hold for five minutes of study time, then fade over twenty-five to a trace' : 'Flown paths stay at full strength'}
-                  onClick={() => {
-                    setTrails(mode)
-                    trailsRef.current = mode
-                    trackLayer.current?.setFade({ enabled: mode === 'fade' })
-                  }}
-                >
-                  {mode}
-                </button>
-              ))}
+          {(glTracks || hasSurfaceOption) && (
+            <div className="clock-controls clock-controls--toggles">
+              {glTracks && (
+                <>
+                  <span className="clock-label">Trails</span>
+                  {(['fade', 'keep'] as const).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      className={trails === mode ? 'is-active' : ''}
+                      title={mode === 'fade' ? 'Flown paths hold for five minutes of study time, then fade over twenty-five to a trace' : 'Flown paths stay at full strength'}
+                      onClick={() => {
+                        setTrails(mode)
+                        trailsRef.current = mode
+                        trackLayer.current?.setFade({ enabled: mode === 'fade' })
+                      }}
+                    >
+                      {mode}
+                    </button>
+                  ))}
+                </>
+              )}
+              {hasSurfaceOption && (
+                <>
+                  <span className="clock-label">Burst</span>
+                  {(['air', 'surface'] as Burst[]).map((mode) => (
+                    <button key={mode} type="button" className={burst === mode ? 'is-active' : ''} onClick={() => switchBurst(mode)}>
+                      {mode}
+                    </button>
+                  ))}
+                </>
+              )}
             </div>
           )}
           {study.variants && (
@@ -855,16 +869,6 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
                 <a key={item.id} href={item.href} className={item.id === study.variants!.current ? 'is-active' : ''} aria-current={item.id === study.variants!.current ? 'page' : undefined}>
                   {item.label}
                 </a>
-              ))}
-            </div>
-          )}
-          {hasSurfaceOption && (
-            <div className="clock-controls">
-              <span className="clock-label">Burst</span>
-              {(['air', 'surface'] as Burst[]).map((mode) => (
-                <button key={mode} type="button" className={burst === mode ? 'is-active' : ''} onClick={() => switchBurst(mode)}>
-                  {mode}
-                </button>
               ))}
             </div>
           )}
