@@ -2,6 +2,7 @@ import { Marker, type ExpressionSpecification, type Map as MapLibreMap } from 'm
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { advance, formatStudyTime, type ClockState } from '../engine/clock.ts'
 import { formatProvenance, TIER_LABEL, type Evidenced } from '../evidence/evidence.ts'
+import type { LngLat } from '../geo/geodesy.ts'
 import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
@@ -82,6 +83,25 @@ export async function resolveGridBase(grid: string): Promise<string> {
  * bottom. A camera that fits its points to the whole canvas puts them
  * under a panel, so the padding is measured from the panels themselves.
  */
+/** How long the converging mark takes; matched by the keyframes in the stylesheet. */
+const RETICLE_MS = 1_100
+
+/**
+ * The targeting mark: four corner brackets that converge on a point and a ring
+ * that collapses into it, once, when the aim point is placed. It is a piece of
+ * theatre and is meant to be — the point of the prelude is to show that a
+ * place has been *chosen* — but it draws nothing that outlives it and carries
+ * no figure, so nothing on the readout depends on it.
+ */
+function reticle(map: MapLibreMap, position: LngLat): void {
+  const el = document.createElement('div')
+  el.className = 'aim-reticle'
+  el.setAttribute('aria-hidden', 'true')
+  el.innerHTML = '<span class="aim-reticle-ring"></span><i></i><i></i><i></i><i></i>'
+  const marker = new Marker({ element: el, anchor: 'center' }).setLngLat([position[0], position[1]]).addTo(map)
+  window.setTimeout(() => marker.remove(), RETICLE_MS + 120)
+}
+
 function clearPadding(map: MapLibreMap): { top: number; bottom: number; left: number; right: number } {
   const canvas = map.getCanvas()
   const w = canvas.clientWidth
@@ -582,6 +602,8 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     let appearedKey = ''
     let separationsKey = ''
     let lastSeparations = 0
+    let padKey = ''
+    let lastPad = 0
     let appearedRings: EvidenceFeature[] = []
     let ringsKey = ''
     const perf = { ticks: 0, updateMs: 0, maxUpdateMs: 0, renderer: glTracks ? 'webgl' : 'geojson' }
@@ -619,6 +641,20 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
       }
       // Cheap when unchanged; keeps terrain honest even if MapLibre never reports the fly-to ending.
       if (map) terrainSync.current?.()
+      // The map's own padding is the space the panels leave clear, so that a
+      // camera asked to centre on the target centres it where the target can
+      // actually be seen. Without this the target sits in the middle of the
+      // canvas and the log, which grows as the study runs, stands over it.
+      // Recomputed a couple of times a second, and only written when it moves.
+      if (map && now - lastPad > 400) {
+        lastPad = now
+        const pad = clearPadding(map)
+        const k = `${pad.top}:${pad.bottom}:${pad.left}:${pad.right}`
+        if (k !== padKey) {
+          padKey = k
+          map.setPadding(pad)
+        }
+      }
       // Labels on tracks that leave the surface are lifted to the vehicle's height every frame, since the camera may move without the clock.
       const layer = trackLayer.current
       if (map && layer) {
@@ -715,7 +751,14 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               if (isDue && !marker.getElement().isConnected) marker.addTo(map)
               else if (!isDue && marker.getElement().isConnected) marker.remove()
             }
-            if (changed && previous.time < at && next.time >= at && previous.playing) flashLayer.current?.flash(e.position[0], e.position[1], 22)
+            if (changed && previous.time < at && next.time >= at && previous.playing) {
+              flashLayer.current?.flash(e.position[0], e.position[1], 22)
+              // An aim point is chosen, not merely present, so it gets the
+              // mark that says so: four brackets closing on the spot and a
+              // ring collapsing into it. It removes itself when the animation
+              // ends, and leaves nothing behind but the label and the CEP ring.
+              if (/^aim-/.test(e.id)) reticle(map, e.position)
+            }
           }
         }
         for (const e of study.entities) {
