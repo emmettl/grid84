@@ -1,4 +1,5 @@
 import data from '../../data/atlas/zonal.json'
+import data1983 from '../../data/atlas/zonal-1983.json'
 import type { Zonal } from '../models/winter.ts'
 
 /**
@@ -8,6 +9,9 @@ import type { Zonal } from '../models/winter.ts'
  * fetched.
  */
 export const ZONAL = data as Zonal
+
+/** The same, in 1983, for the studies and the optimiser that live in that year. */
+export const ZONAL_1983 = data1983 as Zonal
 
 export const WORLD_POPULATION = ZONAL.bands.reduce((a, b) => a + b.population, 0)
 export const WORLD_CROPLAND_KM2 = ZONAL.bands.reduce((a, b) => a + b.croplandKm2, 0)

@@ -6,6 +6,7 @@ import { prepareTracks } from '../map/track-scene.ts'
 import { salvo } from './arcs.ts'
 import { posture1983, type Posture1983 } from '../studies/window83/window.ts'
 import { assignmentsOf, describePlan, evaluateSeeds, loss, OBJECTIVES, perturb, randomPlan, rng, yieldClass, SU_CLASSES, US_CLASSES, type Averaged, type Constraints, type DeathTable, type Objective, type Plan } from './model.ts'
+import { aftermathOf, aftermathWorld, SOOT_PER_DEAD_KG } from './aftermath.ts'
 import { buildTable, clearTable } from './table.ts'
 import { resumByUnion, type UnionResum } from './union.ts'
 
@@ -45,7 +46,7 @@ interface LogLine {
   kind: 'plain' | 'best' | 'calib' | 'resum' | 'mark'
 }
 
-const fmtM = (v: number) => (v >= 1e6 ? `${(v / 1e6).toFixed(1)} M` : Math.round(v).toLocaleString('en-GB'))
+const fmtM = (v: number) => (v >= 1e9 ? `${(v / 1e9).toFixed(2)} BN` : v >= 1e6 ? `${(v / 1e6).toFixed(1)} M` : Math.round(v).toLocaleString('en-GB'))
 const fmtFull = (v: number) => Math.round(v / 10_000) * 10_000 > 0 ? (Math.round(v / 10_000) * 10_000).toLocaleString('en-GB') : Math.round(v).toLocaleString('en-GB')
 const pad6 = (n: number) => String(n).padStart(6, '0')
 const scenarioLabel = (r: Plan['sovietRule']) => (r === 'counterforce' ? 'ON THE FORCES' : r === 'countervalue' ? 'ON THE CITIES' : 'MIXED')
@@ -234,7 +235,11 @@ export function WoprView() {
               st.bestDirty = true
               const s = reported.score
               if (s.usWeaponsFired < 1 && s.sovietWeaponsFired < 1) say(`BEST · ITER ${pad6(st.iteration)} · OPTIMAL POLICY: DO NOT LAUNCH · 0 DEAD`, 'best')
-              else say(`BEST · ITER ${pad6(st.iteration)} · ${fmtFull(s.total)} DEAD · AMERICAN ${fmtM(s.usDead)} · SOVIET ${fmtM(s.suDead)} · RANGE ${fmtM(reported.low)} TO ${fmtM(reported.high)} · ${describePlan(candidate)}`, 'best')
+              else {
+                say(`BEST · ITER ${pad6(st.iteration)} · ${fmtFull(s.total)} DEAD · AMERICAN ${fmtM(s.usDead)} · SOVIET ${fmtM(s.suDead)} · RANGE ${fmtM(reported.low)} TO ${fmtM(reported.high)} · ${describePlan(candidate)}`, 'best')
+                const a = aftermathOf(s)
+                say(`AFTERMATH · ${a.sootTg < 10 ? a.sootTg.toFixed(1) : Math.round(a.sootTg)} TG OF SOOT · ${a.peakAnomaly.toFixed(1)} K · HARVEST ${Math.round(a.harvestYear2 * 100)}% · ${fmtM(a.withoutFood)} WITHOUT FOOD · NOT IN THE LOSS FUNCTION`, 'mark')
+              }
             }
           }
         } else if (st.iteration % STATUS_EVERY === 0) {
@@ -318,6 +323,10 @@ export function WoprView() {
     return { su: su.filter((r) => r !== null), us: us.filter((r) => r !== null) }
   }, [table, posture])
   const ownBest = perObjective.own
+  // What the plan does to the sky, and what the sky then does. The loss function
+  // does not carry it; the readout does, which is the point.
+  const after = useMemo(() => (best && !idle ? aftermathOf(best.result.score) : null), [best, idle])
+  const world = useMemo(() => aftermathWorld(), [])
 
   return (
     <div className="wopr">
@@ -354,6 +363,16 @@ export function WoprView() {
                 <p className="wopr-line">
                   OWN-SIDE DEAD {fmtM(best.result.score.usDead)} · DEPENDING ON THE BREAKS {fmtM(best.result.ownLow)} TO {fmtM(best.result.ownHigh)} · STATED ACCEPTABLE (TURGIDSON, 1964) {fmtM(TURGIDSON_TOPS)} · LOWEST FOUND {ownBest ? fmtM(ownBest.result.score.usDead) : '—'}
                 </p>
+                {after && (
+                  <>
+                    <p className="wopr-line wopr-line--after">
+                      SOOT {after.sootTg < 10 ? after.sootTg.toFixed(1) : Math.round(after.sootTg)} TG ABOVE THE WEATHER · {Math.round(after.fromSoviet)} FROM THE SOVIET STRIKE, WHICH NO AMERICAN PLAN CHANGES · {Math.round(after.fromAmerican)} FROM THE ANSWER · {SOOT_PER_DEAD_KG.toFixed(0)} KG FOR EVERY PERSON THE FIRES KILL
+                    </p>
+                    <p className="wopr-line wopr-line--after">
+                      GLOBAL SURFACE {after.peakAnomaly.toFixed(1)} K AT THE WORST · HARVEST {Math.round(after.harvestYear2 * 100)}% IN THE SECOND YEAR · {fmtM(after.withoutFood)} WITHOUT FOOD BY YEAR {after.worstYear} ON THE WORLD OF {world.year} · {(after.withoutFood / Math.max(1, best.result.score.total)).toFixed(1)}× WHAT THE WEAPONS KILL
+                    </p>
+                  </>
+                )}
                 <p className="wopr-line wopr-line--plan">{describePlan(best.plan)}</p>
                 {resum && 'result' in resum && (
                   <p className="wopr-line wopr-line--plan">
@@ -484,17 +503,22 @@ export function WoprView() {
                 <th>Dead</th>
                 <th>American</th>
                 <th>Soviet</th>
+                <th>Soot</th>
+                <th>Without food</th>
               </tr>
             </thead>
             <tbody>
               {OBJECTIVES.map((o) => {
                 const b = perObjective[o.id]
+                const a = b ? aftermathOf(b.result.score) : null
                 return (
                   <tr key={o.id} className={o.id === objective ? 'is-fire' : ''}>
                     <td>{o.label}</td>
                     <td>{b ? fmtM(b.result.score.total) : '—'}</td>
                     <td>{b ? fmtM(b.result.score.usDead) : '—'}</td>
                     <td>{b ? fmtM(b.result.score.suDead) : '—'}</td>
+                    <td>{a ? `${a.sootTg < 10 ? a.sootTg.toFixed(1) : Math.round(a.sootTg)} Tg` : '—'}</td>
+                    <td>{a ? fmtM(a.withoutFood) : '—'}</td>
                   </tr>
                 )
               })}

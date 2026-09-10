@@ -14,7 +14,7 @@ five-arc-minute grid: popc (people per cell), uopp (built-up area, km² per
 cell), cropland and grazing (km² per cell), and the no-data mask is the sea.
 This script sums them into ten-degree bands and writes data/atlas/zonal.json.
 
-Usage: python3 scripts/build-zonal-2023.py ~/Downloads/2023AD_pop ~/Downloads/2023AD_lu
+Usage: python3 scripts/build-zonal-2023.py ~/Downloads/2023AD_pop ~/Downloads/2023AD_lu data/atlas/zonal.json
 """
 import json
 import math
@@ -51,17 +51,19 @@ def band_index(lat, width):
 def main():
     pop_dir = Path(sys.argv[1]).expanduser()
     lu_dir = Path(sys.argv[2]).expanduser()
+    out_path = Path(sys.argv[3]) if len(sys.argv) > 3 else Path('data/atlas/zonal.json')
+    year = ''.join(c for c in pop_dir.name if c.isdigit())
     width = 10
     count = 180 // width
     fields = ['landKm2', 'population', 'urbanPopulation', 'builtUpKm2', 'croplandKm2', 'grazingKm2']
     bands = [{f: 0.0 for f in fields} for _ in range(count)]
 
     layers = [
-        ('population', pop_dir / 'popc_2023AD.asc', True),
-        ('urbanPopulation', pop_dir / 'urbc_2023AD.asc', False),
-        ('builtUpKm2', pop_dir / 'uopp_2023AD.asc', False),
-        ('croplandKm2', lu_dir / 'cropland2023AD.asc', False),
-        ('grazingKm2', lu_dir / 'grazing2023AD.asc', False),
+        ('population', pop_dir / f'popc_{year}AD.asc', True),
+        ('urbanPopulation', pop_dir / f'urbc_{year}AD.asc', False),
+        ('builtUpKm2', pop_dir / f'uopp_{year}AD.asc', False),
+        ('croplandKm2', lu_dir / f'cropland{year}AD.asc', False),
+        ('grazingKm2', lu_dir / f'grazing{year}AD.asc', False),
     ]
 
     for field, path, take_land in layers:
@@ -107,10 +109,11 @@ def main():
 
     out = {
         'source': {
-            'grids': 'HYDE 3.3 (2023 AD): popc, urbc, uopp, cropland, grazing, five arc-minute',
+            'grids': f'HYDE 3.3 ({year} AD): popc, urbc, uopp, cropland, grazing, five arc-minute',
             'antarctica': 'HYDE gives Antarctica no data; the land fractions of the three southern polar bands are set from the continent\'s geography (1.00, 0.72, 0.09)',
             'method': 'Cells summed into ten-degree latitude bands; land area from the cells the grid gives a value to, weighted by the true area of each row on a sphere of radius 6371.0088 km',
         },
+        'year': int(year),
         'bandWidthDeg': width,
         'bands': [
             {
@@ -122,7 +125,7 @@ def main():
             for i, b in enumerate(bands)
         ],
     }
-    dest = Path('data/atlas/zonal.json')
+    dest = out_path
     dest.write_text(json.dumps(out, indent=1) + '\n')
     total_pop = sum(b['population'] for b in bands)
     total_crop = sum(b['croplandKm2'] for b in bands)

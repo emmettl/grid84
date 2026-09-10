@@ -65,6 +65,42 @@ Two W78 on every Soviet silo is 2,648 weapons; what survives a ride-out and fire
 
 Under general war against a full first strike on the forces the best found in the first runs was about 212 million dead by the surrogate and 205 million by the union, 111 to 115 million of them American, and the range over the seeds was a point: every listed American target is struck in every draw, whatever the reliability, the accuracy or the interceptors, because seven thousand Soviet warheads against three hundred cells and a few dozen bases leave nothing to chance. The own-side objective cannot move the American figure at all. The lowest own-side figure the machine finds sits beside the twenty million of 1964 without comment.
 
+### The aftermath, which the loss function does not carry
+
+The objective stops at the blast and the fire. That is a decision, and it
+is the decision this instrument exists to make visible, so the consequence
+of it is computed and printed beside every plan the machine calls optimal.
+
+The arithmetic is short, because the matrix has already done the work.
+Toon's chain puts eleven tonnes of combustible material behind every person
+in a burning city and turns two per cent of what burns into soot, of which
+about two thirds gets above the weather: **a hundred and fifty-four
+kilogrammes of stratospheric soot for every person inside the fire**. And
+the figure the matrix carries for every target is Postol's bound, which is
+the population inside the fire. So under Toon's own assumptions the soot of
+a plan is proportional to the people its fires kill, and the constant is
+the same for every plan. That proportionality is worth stating rather than
+hiding: a planner cannot buy the winter back by killing the same people
+differently. The only thing that changes the soot is striking somewhere
+that does not burn, and the coverage constraint is what stops that.
+
+Half of it is not the American planner's to decide at all. The Soviet
+strike is the scenario here, not a choice, and the cities it burns are
+American. Whatever objective the machine is set, that half stands.
+
+The result, in the first runs: the best plan by every objective puts about
+33 teragrams above the weather, 18 of them from the Soviet strike, cools
+the surface by four degrees, halves the world's second harvest and leaves
+**1.8 billion people outside the food system on the world of 1983 — eight
+times what the weapons themselves kill.** Every objective's own best gives
+the same figure to within one per cent. The search cannot move it.
+
+The chain is the one in `#/winter`, run over the HYDE grids of 1983 rather
+than of today, and reported at the published rate for a no-trade world
+with half the animal feed diverted to people. It is a ladder of
+twenty-four soot masses computed once and interpolated, because the
+climate model is too slow to run inside the search.
+
 ### What it does not do
 
 No fallout, no fratricide, no C3 degradation, no bombers over the pole. The Soviet target list of the 1983 record is not public and is stood in for by the grid's most populous cells under their 1983 names.

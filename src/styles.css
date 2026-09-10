@@ -2444,6 +2444,13 @@ body,
     0 0 36px rgba(157, 255, 176, 0.18);
 }
 
+/* The consequence the loss function does not carry: dimmer than the figure, and it does not blink. */
+.wopr-line--after {
+  color: rgba(157, 255, 176, 0.78);
+  border-left: 2px solid rgba(157, 255, 176, 0.35);
+  padding-left: 0.5rem;
+}
+
 .wopr-line--plan {
   color: var(--phosphor);
   font-size: 0.6rem;

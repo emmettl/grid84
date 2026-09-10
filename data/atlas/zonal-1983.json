@@ -1,10 +1,10 @@
 {
  "source": {
-  "grids": "HYDE 3.3 (2023 AD): popc, urbc, uopp, cropland, grazing, five arc-minute",
+  "grids": "HYDE 3.3 (1983 AD): popc, urbc, uopp, cropland, grazing, five arc-minute",
   "antarctica": "HYDE gives Antarctica no data; the land fractions of the three southern polar bands are set from the continent's geography (1.00, 0.72, 0.09)",
   "method": "Cells summed into ten-degree latitude bands; land area from the cells the grid gives a value to, weighted by the true area of each row on a sphere of radius 6371.0088 km"
  },
- "year": 2023,
+ "year": 1983,
  "bandWidthDeg": 10,
  "bands": [
   {
@@ -45,154 +45,154 @@
    "north": -50,
    "areaKm2": 25498438,
    "landKm2": 221782,
-   "population": 461019,
-   "urbanPopulation": 435056,
-   "builtUpKm2": 74,
-   "croplandKm2": 974,
-   "grazingKm2": 48316
+   "population": 238866,
+   "urbanPopulation": 202172,
+   "builtUpKm2": 27,
+   "croplandKm2": 2711,
+   "grazingKm2": 40999
   },
   {
    "south": -50,
    "north": -40,
    "areaKm2": 31434553,
    "landKm2": 1020615,
-   "population": 4882287,
-   "urbanPopulation": 4424829,
-   "builtUpKm2": 1852,
-   "croplandKm2": 15148,
-   "grazingKm2": 327192
+   "population": 3242949,
+   "urbanPopulation": 2681453,
+   "builtUpKm2": 1063,
+   "croplandKm2": 28927,
+   "grazingKm2": 311429
   },
   {
    "south": -40,
    "north": -30,
    "areaKm2": 36415544,
    "landKm2": 4201754,
-   "population": 97021960,
-   "urbanPopulation": 85932045,
-   "builtUpKm2": 27492,
-   "croplandKm2": 659895,
-   "grazingKm2": 1691744
+   "population": 61357315,
+   "urbanPopulation": 48050580,
+   "builtUpKm2": 12589,
+   "croplandKm2": 486610,
+   "grazingKm2": 2063541
   },
   {
    "south": -30,
    "north": -20,
    "areaKm2": 40290067,
    "landKm2": 9384518,
-   "population": 201896514,
-   "urbanPopulation": 156227644,
-   "builtUpKm2": 33656,
-   "croplandKm2": 596714,
-   "grazingKm2": 3758076
+   "population": 116262754,
+   "urbanPopulation": 69716442,
+   "builtUpKm2": 11814,
+   "croplandKm2": 365014,
+   "grazingKm2": 4363672
   },
   {
    "south": -20,
    "north": -10,
    "areaKm2": 42940397,
    "landKm2": 9511495,
-   "population": 197730605,
-   "urbanPopulation": 118538365,
-   "builtUpKm2": 18744,
-   "croplandKm2": 582882,
-   "grazingKm2": 3739587
+   "population": 91223131,
+   "urbanPopulation": 40735897,
+   "builtUpKm2": 5772,
+   "croplandKm2": 235832,
+   "grazingKm2": 3533787
   },
   {
    "south": -10,
    "north": 0,
    "areaKm2": 44286005,
    "landKm2": 10633834,
-   "population": 550747604,
-   "urbanPopulation": 276005552,
-   "builtUpKm2": 38580,
-   "croplandKm2": 986463,
-   "grazingKm2": 1448571
+   "population": 264154420,
+   "urbanPopulation": 79025115,
+   "builtUpKm2": 14237,
+   "croplandKm2": 556249,
+   "grazingKm2": 1171478
   },
   {
    "south": 0,
    "north": 10,
    "areaKm2": 44286005,
    "landKm2": 10233837,
-   "population": 704822127,
-   "urbanPopulation": 357491769,
-   "builtUpKm2": 44318,
-   "croplandKm2": 1238524,
-   "grazingKm2": 2292763
+   "population": 294148264,
+   "urbanPopulation": 93884338,
+   "builtUpKm2": 11852,
+   "croplandKm2": 816294,
+   "grazingKm2": 2115706
   },
   {
    "south": 10,
    "north": 20,
    "areaKm2": 42940397,
    "landKm2": 11479264,
-   "population": 1146317550,
-   "urbanPopulation": 542894176,
-   "builtUpKm2": 65476,
-   "croplandKm2": 2269831,
-   "grazingKm2": 3044259
+   "population": 556820786,
+   "urbanPopulation": 171815491,
+   "builtUpKm2": 19287,
+   "croplandKm2": 1618392,
+   "grazingKm2": 2902031
   },
   {
    "south": 20,
    "north": 30,
    "areaKm2": 40290067,
    "landKm2": 15298208,
-   "population": 2010796267,
-   "urbanPopulation": 931759888,
-   "builtUpKm2": 109424,
-   "croplandKm2": 2204814,
-   "grazingKm2": 2760844
+   "population": 1146214903,
+   "urbanPopulation": 303451006,
+   "builtUpKm2": 35672,
+   "croplandKm2": 1956829,
+   "grazingKm2": 2791802
   },
   {
    "south": 30,
    "north": 40,
    "areaKm2": 36415544,
    "landKm2": 15646938,
-   "population": 1788270817,
-   "urbanPopulation": 1115133158,
-   "builtUpKm2": 226526,
-   "croplandKm2": 2837059,
-   "grazingKm2": 5574279
+   "population": 1160927216,
+   "urbanPopulation": 456086656,
+   "builtUpKm2": 96954,
+   "croplandKm2": 2738437,
+   "grazingKm2": 5282918
   },
   {
    "south": 40,
    "north": 50,
    "areaKm2": 31434553,
    "landKm2": 16029763,
-   "population": 761068340,
-   "urbanPopulation": 543075411,
-   "builtUpKm2": 181337,
-   "croplandKm2": 2842361,
-   "grazingKm2": 5757830
+   "population": 625605771,
+   "urbanPopulation": 353664429,
+   "builtUpKm2": 105789,
+   "croplandKm2": 3019076,
+   "grazingKm2": 5789212
   },
   {
    "south": 50,
    "north": 60,
    "areaKm2": 25498438,
    "landKm2": 14574627,
-   "population": 377408145,
-   "urbanPopulation": 302777016,
-   "builtUpKm2": 79103,
-   "croplandKm2": 1997453,
-   "grazingKm2": 1363996
+   "population": 346253001,
+   "urbanPopulation": 252261317,
+   "builtUpKm2": 61028,
+   "croplandKm2": 2244768,
+   "grazingKm2": 1334722
   },
   {
    "south": 60,
    "north": 70,
    "areaKm2": 18787567,
    "landKm2": 13240853,
-   "population": 17021970,
-   "urbanPopulation": 13936004,
-   "builtUpKm2": 4954,
-   "croplandKm2": 34402,
-   "grazingKm2": 181896
+   "population": 16498894,
+   "urbanPopulation": 11135971,
+   "builtUpKm2": 3174,
+   "croplandKm2": 36352,
+   "grazingKm2": 210089
   },
   {
    "south": 70,
    "north": 80,
    "areaKm2": 11505845,
    "landKm2": 3368499,
-   "population": 88921,
-   "urbanPopulation": 63101,
-   "builtUpKm2": 36,
-   "croplandKm2": 114,
-   "grazingKm2": 31
+   "population": 74533,
+   "urbanPopulation": 37001,
+   "builtUpKm2": 15,
+   "croplandKm2": 128,
+   "grazingKm2": 30
   },
   {
    "south": 80,

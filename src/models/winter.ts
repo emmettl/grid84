@@ -54,6 +54,8 @@ export interface ZonalBand {
 }
 
 export interface Zonal {
+  /** The HYDE epoch the bands were measured in. */
+  year?: number
   bandWidthDeg: number
   bands: ZonalBand[]
   source: { grids: string; method: string; antarctica?: string }
