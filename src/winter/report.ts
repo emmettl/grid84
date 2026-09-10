@@ -63,7 +63,10 @@ export function report(input: ReportInput): WinterLine[] {
   if (f6) say(6, `SUNLIGHT ${pc(f6.sunlightMean)} · RAIN ${pc(f6.precipitation)} · THE RAIN GOES WITH THE SUN THAT LIFTED THE WATER`)
 
   for (let y = 1; y <= Math.min(harvest.length, 12); y += 1) {
-    const m = y * 12
+    // A year's account is written in the last months of that year, not the
+    // first of the next, so the stamp on the line and the year it talks about
+    // are the same year.
+    const m = y * 12 - 5
     const frame = frames[m]
     const h = harvest[y - 1]
     const fam = famine[y - 1]
