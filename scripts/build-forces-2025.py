@@ -29,7 +29,7 @@ SITES = [
     ('us', 'Ohio-class patrol · North Atlantic', 'slbm', 'Trident II D5', 4, 90, 12_000, -45.0, 42.0, 'inferred', 'reconstructed', 'W76-1 at about four per missile on patrol loads; W88 455 kt on some; the patrol box is a guess'),
     ('us', 'Ohio-class patrol · North Pacific', 'slbm', 'Trident II D5', 4, 90, 12_000, -155.0, 35.0, 'inferred', 'reconstructed', 'As the Atlantic'),
     ('us', 'Barksdale AFB · 2nd Bomb Wing', 'bomber', 'B-52H with AGM-86B', 8, 150, 12_000, -93.66, 32.50, 'documented', 'reconstructed', 'W80-1 on the air-launched cruise missile'),
-    ('us', 'Whiteman AFB · 509th Bomb Wing', 'bomber', 'B-2A with B61-12', 8, 50, 11_000, -93.55, 38.73, 'documented', 'reconstructed', 'B61-12 at its highest option; B83-1 1.2 Mt retiring'),
+    ('us', 'Whiteman AFB · 509th Bomb Wing', 'bomber', 'B-2A with B61-12', 8, 50, 11_000, -93.55, 38.73, 'documented', 'reconstructed', 'B61-12 at its highest option, a guided gravity bomb: the B-2 has no standoff and must reach the target; B83-1 1.2 Mt retiring'),
     # Russia
     ('ru', 'Kozelsk · 28th Guards Rocket Division', 'icbm', 'RS-24 Yars (silo)', 4, 100, 11_000, 35.78, 54.03, 'documented', 'reconstructed', 'Up to four warheads of about 100 kt'),
     ('ru', 'Teykovo · 54th Guards Rocket Division', 'icbm', 'RS-24 Yars (mobile)', 4, 100, 11_000, 40.55, 56.86, 'documented', 'reconstructed', ''),
@@ -44,6 +44,7 @@ SITES = [
     ('ru', 'Sea of Okhotsk bastion · Pacific Fleet patrol', 'slbm', 'R-30 Bulava (Borei)', 6, 100, 9_300, 150.0, 55.0, 'inferred', 'reconstructed', ''),
     ('ru', 'Engels · 22nd Heavy Bomber Division', 'bomber', 'Tu-160 with Kh-102', 12, 250, 9_000, 46.21, 51.48, 'documented', 'inferred', 'Kh-102 yield inferred at 250 kt'),
     ('ru', 'Ukrainka · 326th Heavy Bomber Division', 'bomber', 'Tu-95MS with Kh-102', 8, 250, 9_000, 128.45, 51.17, 'documented', 'inferred', ''),
+    ('ru', 'Savasleyka · 764th Fighter Regiment', 'bomber', 'MiG-31K with Kh-47M2 Kinzhal', 1, 100, 3_000, 42.34, 55.46, 'documented', 'inferred', 'The MiG-31K carriers of the Kinzhal; a nuclear option for the missile is asserted by Russia and unverified, and its yield is inferred'),
     ('ru', 'Kaliningrad · 152nd Guards Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 20.55, 54.70, 'documented', 'inferred', 'Non-strategic; a nuclear option of some tens of kilotons is inferred'),
     ('ru', 'Luga · 26th Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 29.85, 58.74, 'documented', 'inferred', ''),
     ('ru', 'Mozdok · 12th Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 44.60, 43.79, 'documented', 'inferred', ''),
@@ -86,15 +87,25 @@ SITES = [
 ]
 
 # Standoff by system: release distance km, carrier speed m/s, missile speed m/s. A standoff at the range means the launcher itself fires.
+# Standoff by system: the missile's own range in km, the carrier's speed and the missile's speed in m/s, an evidence
+# tier for the range and its note. The range is the weapon's, not the aircraft's radius: doctrine is to release at the
+# edge of it, outside the defences. A system absent from this table has no standoff and must overfly its target.
 STANDOFF = {
-    'B-52H with AGM-86B': (2_400, 250, 240),
-    'B-2A with B61-12': (60, 250, 200),
-    'Tu-160 with Kh-102': (3_000, 260, 230),
-    'Tu-95MS with Kh-102': (3_000, 200, 230),
-    'Rafale with ASMPA-R': (500, 290, 260),
-    'Popeye Turbo cruise missile': (1_500, 0, 240),
-    'H-6N with CJ-20A': (1_500, 220, 240),
+    # AGM-86B: about 2,500 km is the figure the Air Force and the reference works give for the ALCM.
+    'B-52H with AGM-86B': (2_500, 250, 240, 'documented', 'AGM-86B air-launched cruise missile, about 2,500 km; the B-52 has not been expected to penetrate since the 1980s'),
+    # Kh-101/Kh-102: reported between 2,500 and 4,500 km; the longer figure is the one Russia states and the war in Ukraine has shown at the low end.
+    'Tu-160 with Kh-102': (4_000, 260, 230, 'inferred', 'Kh-102, the nuclear Kh-101: reported from 2,500 to 4,500 km, 4,000 taken here'),
+    'Tu-95MS with Kh-102': (4_000, 200, 230, 'inferred', 'As the Tu-160'),
+    # ASMPA-R: about 500 km, the figure France gives for the improved missile in service since 2023.
+    'Rafale with ASMPA-R': (500, 290, 300, 'documented', 'ASMPA-R, about 500 km at Mach 3; the missile is the reason the Rafale need not reach the target'),
+    # CJ-20A: reported 1,500 to 2,000 km for the air-launched CJ-20 family.
+    'H-6N with CJ-20A': (2_000, 220, 240, 'inferred', 'CJ-20A, reported 1,500 to 2,000 km; the H-6N is the air leg of the Chinese triad'),
+    # Kh-47M2 Kinzhal: the claimed 2,000 km is the aircraft's radius plus the missile; the missile itself is an air-launched Iskander, about 500 km.
+    'MiG-31K with Kh-47M2 Kinzhal': (500, 350, 1_000, 'inferred', 'The claimed 2,000 km includes the MiG-31 radius; the missile is an air-launched Iskander of about 500 km at Mach 4 and its nuclear option is asserted, not shown'),
+    # Popeye Turbo: reported about 1,500 km, never confirmed.
+    'Popeye Turbo cruise missile': (1_500, 0, 240, 'withheld', 'Reported at about 1,500 km and never confirmed; Israel neither confirms nor denies the system'),
 }
+# The B-2 carries the B61-12, a guided gravity bomb: no standoff at all. It penetrates or it does not deliver.
 
 # Accuracy and reliability by system: CEP metres and the planning reliability. Documented for the American and Russian
 # strategic systems in the Notebook and the open literature; inferred for the rest, and said so on the readout.
@@ -104,6 +115,7 @@ ACCURACY = {
     'R-30 Bulava (Borei)': (250, 0.85), 'Tu-160 with Kh-102': (20, 0.9), 'Tu-95MS with Kh-102': (20, 0.9), 'Iskander-M': (30, 0.9),
     'DF-41': (100, 0.85), 'DF-5B': (500, 0.8), 'DF-31AG': (150, 0.85), 'DF-26': (100, 0.85), 'DF-21A': (150, 0.85), 'JL-3': (300, 0.8), 'H-6N with CJ-20A': (20, 0.9),
     'M51.3 (Triomphant)': (150, 0.85), 'Rafale with ASMPA-R': (10, 0.9),
+    'MiG-31K with Kh-47M2 Kinzhal': (30, 0.85),
     'Agni-V': (200, 0.8), 'Agni-III': (300, 0.8), 'K-4': (400, 0.75),
     'Shaheen-III': (300, 0.8), 'Shaheen-II': (350, 0.8), 'Babur cruise missile': (20, 0.85),
     'Jericho III': (300, 0.8), 'Popeye Turbo cruise missile': (20, 0.85),
@@ -137,7 +149,7 @@ def main() -> int:
         sites.append({
             'id': f'{side}-{i + 1}', 'side': side, 'name': name, 'kind': kind, 'system': system, 'warheadsPerMissile': per, 'yieldKt': kt, 'rangeKm': rng,
             'lon': lon, 'lat': lat, 'positionEvidence': pos_ev, 'evidence': load_ev, 'note': note, 'source': NOTEBOOK,
-            **({'standoffKm': STANDOFF[system][0], 'carrierSpeedMs': STANDOFF[system][1], 'missileSpeedMs': STANDOFF[system][2]} if system in STANDOFF else {}),
+            **({'standoffKm': STANDOFF[system][0], 'carrierSpeedMs': STANDOFF[system][1], 'missileSpeedMs': STANDOFF[system][2], 'standoffEvidence': STANDOFF[system][3], 'standoffNote': STANDOFF[system][4]} if system in STANDOFF else {}),
             'cepMetres': ACCURACY[system][0], 'reliability': ACCURACY[system][1],
             'propellant': 'liquid' if system in LIQUID else 'solid',
             **({'warheadsPerMissileFull': FULL_LOAD[system]} if system in FULL_LOAD else {}),

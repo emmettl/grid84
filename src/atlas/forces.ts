@@ -20,6 +20,9 @@ export interface ForceSite {
   standoffKm?: number
   carrierSpeedMs?: number
   missileSpeedMs?: number
+  /** The tier of the standoff range and the note that gives it; a system without a standoff must overfly its target. */
+  standoffEvidence?: EvidenceTier
+  standoffNote?: string
   /** Circular error probable, metres, and the planning reliability; inferred for the opaque arsenals. */
   cepMetres: number
   reliability: number
@@ -34,7 +37,7 @@ export interface ForceSite {
 
 interface Raw {
   powers: Record<string, { name: string; adjective: string }>
-  sites: Array<Omit<ForceSite, 'position' | 'side' | 'kind' | 'positionEvidence' | 'evidence'> & { lon: number; lat: number; side: string; kind: string; positionEvidence: string; evidence: string; standoffKm?: number; carrierSpeedMs?: number; missileSpeedMs?: number; cepMetres: number; reliability: number; propellant: string; warheadsPerMissileFull?: number }>
+  sites: Array<Omit<ForceSite, 'position' | 'side' | 'kind' | 'positionEvidence' | 'evidence'> & { lon: number; lat: number; side: string; kind: string; positionEvidence: string; evidence: string; standoffKm?: number; carrierSpeedMs?: number; missileSpeedMs?: number; standoffEvidence?: string; standoffNote?: string; cepMetres: number; reliability: number; propellant: string; warheadsPerMissileFull?: number }>
 }
 
 const raw = forces as Raw
@@ -55,6 +58,8 @@ export const FORCES: ForceSite[] = raw.sites.map((s) => ({
   standoffKm: s.standoffKm,
   carrierSpeedMs: s.carrierSpeedMs,
   missileSpeedMs: s.missileSpeedMs,
+  standoffEvidence: s.standoffEvidence as EvidenceTier | undefined,
+  standoffNote: s.standoffNote,
   cepMetres: s.cepMetres,
   reliability: s.reliability,
   propellant: s.propellant as 'solid' | 'liquid',

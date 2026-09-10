@@ -19,19 +19,19 @@
 
 ## Standoff air delivery
 
-The bombers and the submarine cruise systems in the forces file carry a standoff: how far short of the target their missiles are released, with the carrier's and the missile's speeds (B-52 with AGM-86B 2,400 km; Tu-160 and Tu-95 with Kh-102 3,000 km; Rafale with ASMPA-R 500 km; H-6N with CJ-20A 1,500 km; B-2 with B61-12 sixty; the Dolphin's Popeye at its full range, so the boat fires from where it sits). The engine flies the aircraft to the release point on the great circle, turns it for home, and sends each missile on from there to its own aim point; the console's flight time is the carrier leg plus the missile leg. The release point is doctrinal: as far from the target as the missile's range allows, outside the defences, so the aircraft flies only a 150 km climb-out when the missile can cover the rest, and a Tu-160 against Warsaw releases over Russia. Aircraft are set aside while a missile reaches unless the reader asks for the air leg with the *Delivery* control, and selecting one of the missiles or their detonations lights the whole load and marks the release point. Where it matters: places within a bomber's reach but outside a missile's, such as much of the southern hemisphere for Russia's Tu-160s; the theatre air legs, the Rafale over Europe; and, by choice, the classic Cold War air leg against any target.
+The bombers and the submarine cruise systems in the forces file carry a standoff: the **missile's own range**, not the aircraft's radius, since doctrine is to release at the edge of it and outside the defences. Each is the published figure with its tier and its note, printed on the console as a STANDOFF line and on the launch point's readout:
 
-## Boost-phase defence on the strike
+| System | Standoff | Tier | Note |
+| --- | --- | --- | --- |
+| B-52H with AGM-86B | 2,500 km | documented | The ALCM's range; the B-52 has not been expected to penetrate since the 1980s |
+| Tu-160 and Tu-95MS with Kh-102 | 4,000 km | inferred | The nuclear Kh-101 is reported from 2,500 to 4,500 km |
+| H-6N with CJ-20A | 2,000 km | inferred | Reported 1,500 to 2,000 km |
+| Rafale with ASMPA-R | 500 km | documented | About 500 km at Mach 3 |
+| MiG-31K with Kh-47M2 Kinzhal | 500 km | inferred | The claimed 2,000 km includes the aircraft's radius; the missile is an air-launched Iskander, and its nuclear option is asserted rather than shown |
+| Dolphin with Popeye Turbo | 1,500 km | withheld | Reported and never confirmed |
+| **B-2A with B61-12** | **none** | | A guided gravity bomb: the aircraft must reach the target through whatever defends it, and the console says so |
 
-With the boost model in place the console states the intercept problem and the study draws it. After the BOOST line comes BOOST-PHASE DEFENCE: the seconds left after a minute's detection and thirty of decision, the radius a space interceptor closing at 5 km/s must already be inside when the missile lifts, and for three constellations, Brilliant Pebbles as proposed at 4,600, a thousand and two hundred, the expected number inside that radius and the chance of at least one (the constellation over its shell at 500 km, one minus the Poisson zero), then the ring an aircraft with a hypersonic interceptor would have to loiter in, over the adversary's territory. In the study a dashed ring of that radius sits on each launch point from its launch to its burnout and then vanishes, labelled with the chances; the log states them at launch. The arithmetic is `src/models/boost-intercept.ts`, round figures stated as modelled. Against a liquid heavy's five-minute burn the proposed Pebbles do well on this arithmetic; against a solid's three minutes a thousand interceptors give even odds and two hundred almost none, and a sixty-second fast burn defeats all of them, which is the finding the American Physical Society reached in 1987 and the reason the argument recurs.
-
-## Loads, flights and full loading
-
-Each aircraft carries at most its load (one ASMPA-R on a Rafale, eight AGM-86Bs on a B-52, twelve Kh-102s on a Tu-160), so more weapons mean more aircraft, fanned three kilometres apart into a flight and labelled as such. The console's *Loading* control switches between the deployed loads the Nuclear Notebook gives and full loading, every missile at its capacity where that is larger (Trident eight, Minuteman three, the DF-41 ten, Yars six, Bulava ten); the choice rides in the share link as `loading=full`.
-
-## Shareable strikes
-
-A strike is a link: `#/atlas/strike/R1682248?adversary=fr&delivery=aircraft` names the target by its OpenStreetMap id (Nominatim's lookup resolves it on load, one request) and carries the console's choices; the address bar follows the choices as they are made, and *Share* copies the link. A re-run takes the wind of its own hour, which the console says.
+The engine flies the aircraft along the great circle to the release point, turns it for home, and sends each missile on from there to its own aim point at its own speed; a boat with a standoff at its range fires from where it sits, and an aircraft whose target is nearer than its missile's reach flies only a 150 km climb-out. Aircraft from one base fan three kilometres apart into a flight. The whole-missile focus treats a released load as it treats a bus, marking the release. Where it matters: places within a bomber's reach but outside a missile's; the theatre air legs; and, by choice, the classic air leg against any target.
 
 ## Honesty
 
