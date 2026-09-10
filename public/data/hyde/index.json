@@ -59,7 +59,7 @@
     {
       "year": 1975,
       "name": "popc_1975",
-      "path": "https://pub-8ae60735c07742acbf47742189430f91.r2.dev/ghsl/popc_1975",
+      "path": "https://tiles.grid84.app/ghsl/popc_1975",
       "totalPopulation": 4069437259,
       "dataset": "GHSL GHS-POP R2023A",
       "licence": "CC BY 4.0",
@@ -83,7 +83,7 @@
     {
       "year": 1985,
       "name": "popc_1985",
-      "path": "https://pub-8ae60735c07742acbf47742189430f91.r2.dev/ghsl/popc_1985",
+      "path": "https://tiles.grid84.app/ghsl/popc_1985",
       "totalPopulation": 4861730652,
       "dataset": "GHSL GHS-POP R2023A",
       "licence": "CC BY 4.0",
@@ -114,7 +114,7 @@
     {
       "year": 2025,
       "name": "popc_2025",
-      "path": "https://pub-8ae60735c07742acbf47742189430f91.r2.dev/ghsl/popc_2025",
+      "path": "https://tiles.grid84.app/ghsl/popc_2025",
       "totalPopulation": 8191988536,
       "dataset": "GHSL GHS-POP R2023A",
       "licence": "CC BY 4.0",

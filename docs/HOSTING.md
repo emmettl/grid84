@@ -27,4 +27,6 @@ curl -s https://grid84.app/_release.json
 curl -sI https://emmettl.github.io/grid84/ | grep -i -E "server|cache-control"
 ```
 
-Both hosts read the GHSL grids from the R2 bucket named in the grids index, so the studies and WOPR calibrate the same way on either.
+## The grids
+
+Both hosts read the GHSL grids from the R2 bucket `grid84-grids`, named in `public/data/hyde/index.json` as **https://tiles.grid84.app/ghsl/…**: a custom domain on the bucket (`wrangler r2 bucket domain add grid84-grids --domain tiles.grid84.app --zone-id …`), for which Cloudflare keeps the DNS record. The bucket's r2.dev URL still answers and the CORS rule (GET and HEAD from any origin, Range allowed) applies to both. The grid files are immutable by name (`popc_1985.json` and its tiles), so a Cache Rule on the zone for `tiles.grid84.app/*` with a long edge TTL is worth adding in the dashboard; the bucket domain itself sets none.
