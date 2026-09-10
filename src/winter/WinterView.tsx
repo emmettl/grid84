@@ -355,6 +355,9 @@ export function WinterView() {
             <p className="wopr-line wopr-dim">
               The National Academies reviewed all of it in 2025 and declined to say who was right, finding the fire models and the urban fuel surveys both inadequate. Hiroshima's own fuel loading is published at 3.9, at 10 and at 16 by three different authorities.
             </p>
+            <p className="wopr-line wopr-dim">
+              The whole record this model is set against &mdash; every figure traced to its paper, the disputes left open, and the numbers in circulation that do not survive checking &mdash; is written up in <a href="./dossier/nuclear-winter-sources.html">the soot question</a>.
+            </p>
           </div>
         )}
       </div>

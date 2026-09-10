@@ -302,9 +302,26 @@ export function FrontPage() {
               <a href="#/chronicle">The stockpiles</a>
               <span>Every warhead the nine states are estimated to have held, 1945 to the present, with the studies marked on the curve. The first chapter of the history between the studies; the labs on accuracy and defence carry the next two.</span>
             </li>
+          </ul>
+        </section>
+
+        <section className="front-section" aria-labelledby="front-dossiers">
+          <h2 id="front-dossiers">Background documents</h2>
+          <p>
+            The research the models are built on, published as it was written. Every figure is traced to the paper or the file it comes from and graded on the same tiers the map uses, including the ones that say a thing could not be established.
+          </p>
+          <ul className="front-labs">
+            <li>
+              <a href="./dossier/">The working papers</a>
+              <span>The series index, with what is published and what is still in preparation.</span>
+            </li>
+            <li>
+              <a href="./dossier/nuclear-winter-sources.html">The soot question</a>
+              <span>What is established about the climatic effects of nuclear war and what rests on one modelling group: the source term, the dispute over whether the smoke rises at all, the climate response by injection mass, the famine figures and the four conditions usually dropped from them. The record behind the years after.</span>
+            </li>
             <li>
               <a href="./dossier/sino-soviet-1969.html">The 1969 strike question</a>
-              <span>A research dossier on the Sino-Soviet crisis and the Soviet consideration of a strike on China's nuclear programme, with every claim tiered as documented, inferred, contested or untraceable. The groundwork for a study, published as it was written, including the parts that say a thing could not be established.</span>
+              <span>The Sino-Soviet crisis and the Soviet consideration of a strike on China's nuclear programme, with the Chinese complex as it then stood and the forces on both sides. The groundwork for a study.</span>
             </li>
           </ul>
         </section>

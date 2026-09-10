@@ -1,0 +1,334 @@
+/*
+  The house style of the background documents: a research paper rather than
+  an instrument panel. Shared by every dossier so they read as one series.
+  System faces only; this site sends no visitor to a font server.
+*/
+:root{
+  --paper:#EDEEE9;
+  --paper-2:#E3E5DE;
+  --card:#F6F7F3;
+  --ink:#191C1A;
+  --ink-2:#4A504C;
+  --ink-3:#6E756F;
+  --rule:#C8CCC4;
+  --rule-soft:#D8DBD3;
+
+  --doc:#28595E;      /* documented */
+  --inf:#7E6415;      /* inferred */
+  --con:#9C3222;      /* contested */
+  --unt:#5B5F63;      /* untraceable */
+
+  --doc-bg:#DCE7E6;
+  --inf-bg:#EDE6D0;
+  --con-bg:#F0DCD6;
+  --unt-bg:#E0E2E1;
+
+  --accent:#9C3222;
+  --focus:#28595E;
+
+  --measure:70ch;
+  --step--1:0.815rem;
+  --step-0:1.0rem;
+  --step-1:1.16rem;
+  --step-2:1.42rem;
+  --step-3:1.78rem;
+  --step-4:2.3rem;
+  --step-5:3.1rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141715;
+    --paper-2:#1B1F1C;
+    --card:#1E2220;
+    --ink:#E6E8E2;
+    --ink-2:#AFB5AF;
+    --ink-3:#878E88;
+    --rule:#333937;
+    --rule-soft:#282D2B;
+
+    --doc:#7FC3C6;
+    --inf:#D6B558;
+    --con:#E68A73;
+    --unt:#A0A6A8;
+
+    --doc-bg:#1D3234;
+    --inf-bg:#332C13;
+    --con-bg:#3A211B;
+    --unt-bg:#262A2B;
+
+    --accent:#E68A73;
+    --focus:#7FC3C6;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141715;
+  --paper-2:#1B1F1C;
+  --card:#1E2220;
+  --ink:#E6E8E2;
+  --ink-2:#AFB5AF;
+  --ink-3:#878E88;
+  --rule:#333937;
+  --rule-soft:#282D2B;
+
+  --doc:#7FC3C6;
+  --inf:#D6B558;
+  --con:#E68A73;
+  --unt:#A0A6A8;
+
+  --doc-bg:#1D3234;
+  --inf-bg:#332C13;
+  --con-bg:#3A211B;
+  --unt-bg:#262A2B;
+
+  --accent:#E68A73;
+  --focus:#7FC3C6;
+}
+
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+img{max-width:100%;height:auto}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  font-size:var(--step-0);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(1rem,4vw,2.75rem) 6rem}
+
+/* ---------- masthead ---------- */
+.mast{
+  border-bottom:2px solid var(--ink);
+  padding:clamp(2rem,5vw,3.4rem) 0 1.3rem;
+  display:grid;gap:1.1rem;
+}
+.stamp{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:0.66rem;letter-spacing:0.19em;text-transform:uppercase;
+  color:var(--accent);
+  display:flex;flex-wrap:wrap;gap:0.5rem 1.4rem;align-items:center;
+}
+.stamp b{font-weight:500;color:var(--ink-3)}
+h1{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-weight:700;font-size:clamp(2.2rem,6.2vw,var(--step-5));
+  line-height:1.02;letter-spacing:-0.022em;margin:0;text-wrap:balance;
+}
+.dek{
+  font-size:var(--step-1);color:var(--ink-2);max-width:62ch;margin:0;
+  line-height:1.55;
+}
+.mast-meta{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:0.7rem;color:var(--ink-3);line-height:1.8;
+  display:flex;flex-wrap:wrap;gap:0.2rem 1.6rem;
+}
+
+/* ---------- evidence tiers ---------- */
+.legend{
+  margin:2.2rem 0 0;padding:1.35rem 1.4rem;
+  background:var(--card);border:1px solid var(--rule);
+}
+.legend h2{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.72rem;font-weight:600;
+  letter-spacing:0.17em;text-transform:uppercase;color:var(--ink-3);margin:0 0 0.9rem;
+}
+.tiers{display:grid;gap:0.85rem;grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.tier{display:grid;grid-template-columns:auto 1fr;gap:0.65rem;align-items:start}
+.tier .swatch{width:0.42rem;height:100%;min-height:2.4rem;border-radius:1px}
+.tier p{margin:0;font-size:var(--step--1);line-height:1.45;color:var(--ink-2)}
+.tier strong{
+  display:block;font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.7rem;font-weight:600;
+  letter-spacing:0.13em;text-transform:uppercase;color:var(--ink);margin-bottom:0.15rem;
+}
+.sw-doc{background:var(--doc)} .sw-inf{background:var(--inf)}
+.sw-con{background:var(--con)} .sw-unt{background:var(--unt)}
+
+.filters{
+  display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;
+  margin-top:1.25rem;padding-top:1.1rem;border-top:1px solid var(--rule-soft);
+}
+.filters .lab{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.66rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--ink-3);margin-right:0.3rem;
+}
+.fbtn{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.09em;
+  text-transform:uppercase;padding:0.36rem 0.7rem;cursor:pointer;
+  background:transparent;color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:2px;
+  transition:background .12s,color .12s,border-color .12s;
+}
+.fbtn:hover{border-color:var(--ink-3);color:var(--ink)}
+.fbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.fbtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* ---------- sections ---------- */
+section{margin-top:clamp(3rem,7vw,4.6rem);scroll-margin-top:1.5rem}
+.sec-head{border-top:1px solid var(--ink);padding-top:1rem;margin-bottom:1.8rem}
+.sec-num{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.68rem;letter-spacing:0.2em;
+  color:var(--accent);display:block;margin-bottom:0.5rem;
+}
+h2.sec-title{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:700;
+  font-size:clamp(1.6rem,3.6vw,var(--step-4));line-height:1.08;letter-spacing:-0.017em;
+  margin:0 0 0.5rem;text-wrap:balance;
+}
+.sec-sub{margin:0;color:var(--ink-2);max-width:var(--measure);font-size:var(--step-1)}
+
+h3{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:600;font-size:var(--step-2);
+  letter-spacing:-0.011em;line-height:1.2;margin:2.6rem 0 0.75rem;text-wrap:balance;
+}
+h4{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:600;font-size:0.78rem;
+  letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-3);
+  margin:1.9rem 0 0.65rem;
+}
+p,ul,ol{max-width:var(--measure)}
+p{margin:0 0 1rem}
+ul,ol{margin:0 0 1.15rem;padding-left:1.15rem}
+li{margin-bottom:0.42rem}
+li::marker{color:var(--ink-3)}
+strong{font-weight:600}
+em{font-style:italic}
+
+/* ---------- claim blocks ---------- */
+.claim{
+  border-left:3px solid var(--rule);
+  padding:0.15rem 0 0.15rem 1.05rem;
+  margin:0 0 1.5rem;max-width:var(--measure);
+}
+.claim.doc{border-left-color:var(--doc)}
+.claim.inf{border-left-color:var(--inf)}
+.claim.con{border-left-color:var(--con)}
+.claim.unt{border-left-color:var(--unt)}
+.claim > :last-child{margin-bottom:0}
+.pill{
+  display:inline-block;font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.6rem;font-weight:600;
+  letter-spacing:0.14em;text-transform:uppercase;padding:0.16rem 0.44rem;border-radius:2px;
+  vertical-align:0.14em;margin-right:0.5rem;
+}
+.doc .pill{background:var(--doc-bg);color:var(--doc)}
+.inf .pill{background:var(--inf-bg);color:var(--inf)}
+.con .pill{background:var(--con-bg);color:var(--con)}
+.unt .pill{background:var(--unt-bg);color:var(--unt)}
+body.filtering .claim{display:none}
+body.filtering .claim.on{display:block}
+
+/* ---------- document facsimile ---------- */
+.doccard{
+  background:var(--card);border:1px solid var(--rule);
+  margin:1.6rem 0;max-width:var(--measure);
+}
+.dochead{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.68rem;line-height:1.75;
+  padding:0.8rem 1.1rem;border-bottom:1px solid var(--rule);
+  color:var(--ink-2);background:var(--paper-2);
+}
+.dochead .cls{color:var(--accent);letter-spacing:0.16em;display:block;margin-bottom:0.25rem}
+.dochead .ttl{color:var(--ink);font-weight:500}
+.docbody{padding:1.05rem 1.15rem}
+.docbody p{margin:0 0 0.75rem;font-size:0.97rem}
+.docbody p:last-child{margin:0}
+blockquote{
+  margin:0 0 0.85rem;padding:0;font-size:1.02rem;line-height:1.55;
+}
+blockquote p{margin:0 0 0.7rem}
+blockquote p:last-child{margin:0}
+.attrib{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.66rem;color:var(--ink-3);
+  line-height:1.65;margin-top:0.65rem;
+}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:1.4rem 0 1.7rem;border:1px solid var(--rule);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:0.86rem;min-width:540px}
+caption{
+  text-align:left;font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.68rem;font-weight:600;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);
+  padding:0.75rem 0.95rem;border-bottom:1px solid var(--rule);background:var(--paper-2);
+}
+th,td{
+  text-align:left;padding:0.52rem 0.95rem;border-bottom:1px solid var(--rule-soft);
+  vertical-align:top;line-height:1.45;
+}
+thead th{
+  font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.09em;
+  text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--rule);
+}
+tbody tr:last-child td{border-bottom:none}
+td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.76rem;white-space:nowrap}
+.yes{color:var(--doc);font-weight:600}
+.no{color:var(--con);font-weight:600}
+
+/* ---------- callout: claims that cannot be used ---------- */
+.reject{
+  border:1px solid var(--con);background:var(--con-bg);
+  padding:1.3rem 1.4rem;margin:1.6rem 0;
+}
+.reject h4{color:var(--con);margin-top:0}
+.reject ul{margin-bottom:0;max-width:none}
+.reject li{margin-bottom:0.6rem}
+
+.note{
+  font-size:var(--step--1);color:var(--ink-3);max-width:var(--measure);
+  border-top:1px solid var(--rule-soft);padding-top:0.75rem;margin-top:1.3rem;
+}
+
+/* ---------- verdict ---------- */
+.verdict{
+  border:1px solid var(--ink);padding:clamp(1.3rem,3.4vw,2rem);
+  margin:2rem 0;max-width:var(--measure);background:var(--card);
+}
+.verdict h3{margin-top:0;font-size:var(--step-2)}
+.verdict p:last-child{margin-bottom:0}
+
+/* ---------- refs ---------- */
+.refs{font-size:var(--step--1);line-height:1.55;max-width:none}
+.refs li{margin-bottom:0.55rem;max-width:88ch}
+a{color:var(--ink);text-decoration-color:var(--ink-3);text-underline-offset:2px}
+a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+footer{
+  margin-top:4rem;padding-top:1.2rem;border-top:2px solid var(--ink);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.68rem;color:var(--ink-3);
+  line-height:1.8;
+}
+
+/* ---------- the series index ---------- */
+.series{list-style:none;margin:2.2rem 0 0;padding:0;max-width:none;display:grid;gap:1.1rem}
+.series li{margin:0}
+.series a.card{
+  display:block;text-decoration:none;color:inherit;
+  background:var(--card);border:1px solid var(--rule);
+  padding:clamp(1.1rem,3vw,1.65rem);
+  transition:border-color .12s,background .12s;
+}
+.series a.card:hover{border-color:var(--ink);background:var(--paper-2);color:inherit}
+.series a.card:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.series .idx{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.66rem;letter-spacing:0.19em;
+  text-transform:uppercase;color:var(--accent);display:block;margin-bottom:0.5rem;
+}
+.series h3{
+  margin:0 0 0.4rem;font-size:var(--step-2);
+}
+.series a.card:hover h3{color:var(--accent)}
+.series p{margin:0 0 0.7rem;color:var(--ink-2);max-width:74ch}
+.series .foot{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.68rem;color:var(--ink-3);
+  display:flex;flex-wrap:wrap;gap:0.2rem 1.4rem;margin:0;
+}
+.forth{border-left:3px solid var(--rule);padding:0.1rem 0 0.1rem 1.05rem;color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:640px){
+  table{min-width:460px}
+  .claim{padding-left:0.85rem}
+}

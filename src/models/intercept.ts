@@ -208,14 +208,18 @@ export function discriminationAltitudeMetres(input: {
   reentryAngleDeg: number
 }): number {
   const sin = Math.sin((input.reentryAngleDeg * Math.PI) / 180)
+  // How much slower the decoy is going than the warhead, and how far behind it has fallen.
+  let deficitMs = 0
   let lag = 0
   let lastAltitude = 0
-  // Walk down from a hundred kilometres in hundred-metre steps, accumulating the difference in the distance each has flown.
+  // Walk down from a hundred kilometres in hundred-metre steps. The decoy's extra
+  // deceleration is what opens the speed gap; the gap, integrated, is the distance.
   for (let h = 100_000; h > 0; h -= 100) {
     const rho = airDensity(h)
     const dt = 100 / (input.speedMs * sin)
-    const dv = (decelerationMs2(input.decoyBeta, rho, input.speedMs) - decelerationMs2(input.warheadBeta, rho, input.speedMs)) * dt
-    lag += dv * dt * 0.5 + lag * 0
+    const extra = decelerationMs2(input.decoyBeta, rho, input.speedMs) - decelerationMs2(input.warheadBeta, rho, input.speedMs)
+    lag += deficitMs * dt + 0.5 * extra * dt * dt
+    deficitMs += extra * dt
     lastAltitude = h
     if (lag >= input.separationMetres) return h
   }
