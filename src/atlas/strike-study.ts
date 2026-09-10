@@ -6,6 +6,7 @@ import { FORCES_SOURCE, POWERS } from './forces.ts'
 import { STRIKE_GRID } from './profile.ts'
 import type { StrikePlan } from './solver.ts'
 import type { WindAloft } from './wind.ts'
+import type { Boundary } from './boundary.ts'
 
 /**
  * The generated study: one strike, as the solver planned it, on the 2025
@@ -16,7 +17,7 @@ import type { WindAloft } from './wind.ts'
 
 const fmtYield = (kt: number) => (kt >= 1_000 ? `${(kt / 1_000).toFixed(1)} MT` : `${kt} KT`)
 
-export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSeconds = 5): Study {
+export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSeconds = 5, boundary: Boundary | null = null): Study {
   const { target, delivery, sizing, adversary, classification } = plan
   const site = delivery.site
   const power = POWERS[adversary.power]
@@ -85,6 +86,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     surfaceBounds: { start: -countdownSeconds, end: last + 48 * 3_600 },
     exposureWorkers: 2,
     sides: { attacker: { name: power.name }, defender: { name: target.countryCode } },
+    overlays: boundary ? [{ id: 'target-boundary', name: target.name, rings: boundary.rings, source: boundary.source }] : undefined,
     links: [
       { label: 'The 72 minutes: the modern single-strike studies this leans on', href: '#/study/72-minutes' },
       { label: 'The fallout lab: the plume model and its assumptions', href: '#/lab/fallout' },

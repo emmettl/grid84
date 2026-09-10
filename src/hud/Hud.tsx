@@ -18,7 +18,7 @@ export function Hud({ phase, onAcquire, consoleOpen = false }: HudProps) {
 
   const acquire = (target: AtlasTarget) => {
     setOpen(false)
-    geocoder.clear()
+    geocoder.settle(target.name)
     onAcquire(target)
   }
 
@@ -102,7 +102,7 @@ export function Hud({ phase, onAcquire, consoleOpen = false }: HudProps) {
 
       <footer className="hud-sources">
         Geometry: OpenStreetMap contributors · Tiles: OpenFreeMap · Terrain: Mapzen / AWS Terrain Tiles ·
-        Geocoding: Photon (komoot) · Weather: Open-Meteo · Population: GHSL 2025 · Forces: Nuclear Notebook, SIPRI
+        Geocoding: Photon (komoot) · Boundaries: Nominatim · Weather: Open-Meteo · Population: GHSL 2025 · Forces: Nuclear Notebook, SIPRI
       </footer>
     </div>
   )

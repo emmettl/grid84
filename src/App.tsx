@@ -21,6 +21,8 @@ import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
 import { StrikeConsole } from './atlas/StrikeConsole.tsx'
+import { fetchBoundary, type Boundary } from './atlas/boundary.ts'
+import type { AtlasTarget } from './atlas/target.ts'
 import type { Study } from './studies/study.ts'
 import { WoprView } from './wopr/WoprView.tsx'
 import { Chronicle } from './chronicle/Chronicle.tsx'
@@ -122,13 +124,22 @@ function AtlasGlobe({ onLaunch }: { onLaunch: (study: Study) => void }) {
     }
   }, [])
 
+  const [boundary, setBoundary] = useState<{ id: string; boundary: Boundary | null }>({ id: '', boundary: null })
+  const acquire = (target: AtlasTarget) => {
+    atlas.current?.acquire(target)
+    atlas.current?.showBoundary(target, null)
+    void fetchBoundary(target).then((b) => {
+      setBoundary({ id: target.id, boundary: b })
+      atlas.current?.showBoundary(target, b)
+    })
+  }
   const acquired = phase.kind === 'acquired' ? phase.report.target : null
   return (
     <>
       <div ref={container} className="atlas-map" aria-label="Grid/84 globe" />
       <div className="atlas-vignette" aria-hidden="true" />
-      <Hud phase={phase} onAcquire={(target) => atlas.current?.acquire(target)} consoleOpen={!!acquired && stoodDown !== acquired.id} />
-      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} onLaunch={onLaunch} onStandDown={() => setStoodDown(acquired.id)} />}
+      <Hud phase={phase} onAcquire={acquire} consoleOpen={!!acquired && stoodDown !== acquired.id} />
+      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} onLaunch={onLaunch} onStandDown={() => setStoodDown(acquired.id)} />}
     </>
   )
 }

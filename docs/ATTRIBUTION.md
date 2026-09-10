@@ -43,3 +43,7 @@ Every service and dataset the published site touches, what its terms ask, where 
 ## Weather
 
 - **Open-Meteo** (https://open-meteo.com/), the forecast wind aloft at the target for the strike console's plume, CC BY 4.0. Fetched live, keyless, on the reader's request only.
+
+## Boundaries
+
+- **Nominatim** (https://nominatim.openstreetmap.org/), one lookup per acquired target for the feature's polygon, © OpenStreetMap contributors, ODbL. Used within its usage policy: one request per acquisition, cached, with the browser's referer.

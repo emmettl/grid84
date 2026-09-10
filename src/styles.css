@@ -2034,6 +2034,32 @@ body,
   pointer-events: none;
 }
 
+/* ---------- The target label on the globe ---------- */
+
+.atlas-target-label {
+  display: grid;
+  gap: 0.05rem;
+  padding: 0.2rem 0.5rem;
+  border-left: 2px solid var(--cyan);
+  background: rgba(5, 4, 16, 0.72);
+  font-family: var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+}
+
+.atlas-target-name {
+  color: var(--ink);
+  font-size: 0.7rem;
+}
+
+.atlas-target-kind {
+  color: var(--cyan);
+  font-size: 0.5rem;
+}
+
 /* ---------- The prompt and the strike console ---------- */
 
 /* The target prompt as an 80s console line: a phosphor prompt, the typed text, a blinking block when nothing has been typed. */

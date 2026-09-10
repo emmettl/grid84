@@ -40,9 +40,21 @@ export async function resolveGridBase(grid: string): Promise<string> {
   if (!grid.includes('/')) return local(`hyde/${grid}`)
   const name = grid.split('/').pop() ?? grid
   try {
-    const index = (await fetch(local('hyde/index.json')).then((r) => (r.ok ? r.json() : null))) as { grids: Array<{ name: string; path?: string }> } | null
+    const index = (await fetch(local('hyde/index.json')).then((r) => (r.ok ? r.json() : null))) as { grids: Array<{ name: string; path?: string; fallback?: string }> } | null
     const entry = index?.grids.find((g) => g.name === name)
-    if (entry?.path) return /^https?:/.test(entry.path) ? entry.path : local(entry.path)
+    if (entry?.path) {
+      const primary = /^https?:/.test(entry.path) ? entry.path : local(entry.path)
+      if (!entry.fallback) return primary
+      // A bucket behind a young domain may not resolve everywhere yet; if its summary does not answer, the bucket's own URL does.
+      try {
+        const head = await fetch(`${primary}.json`, { method: 'HEAD' })
+        if (head.ok) return primary
+      } catch {
+        // fall through to the fallback
+      }
+      console.warn(`grid ${name}: ${primary} did not answer; using ${entry.fallback}`)
+      return entry.fallback
+    }
   } catch {
     // fall through to the local path
   }
@@ -381,6 +393,12 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
       const flashes = new TrackLayer('ev-flash-gl')
       map.addLayer(flashes, 'ev-vehicles-glow')
       flashLayer.current = flashes
+      // Outlines the study carries, such as a target's boundary, under the effects.
+      if (study.overlays && study.overlays.length > 0) {
+        map.addSource('ev-overlays', { type: 'geojson', data: { type: 'FeatureCollection', features: study.overlays.flatMap((o) => o.rings.map((ring) => ({ type: 'Feature' as const, geometry: { type: 'Polygon' as const, coordinates: [ring.map((p) => [p[0], p[1]])] }, properties: { id: o.id, name: o.name } }))) } })
+        map.addLayer({ id: 'ev-overlays-fill', type: 'fill', source: 'ev-overlays', paint: { 'fill-color': 'rgba(141, 250, 255, 0.05)' } }, 'ev-areas-fill')
+        map.addLayer({ id: 'ev-overlays-line', type: 'line', source: 'ev-overlays', paint: { 'line-color': 'rgba(141, 250, 255, 0.7)', 'line-width': 1.2, 'line-dasharray': [3, 2] } }, 'ev-areas-fill')
+      }
       // The focus of a selection: the other targets of the same missile or launch point, ringed, and the bus separation point.
       map.addSource('ev-focus', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
       map.addLayer({ id: 'ev-focus-targets', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'target'], paint: { 'circle-radius': 9, 'circle-color': 'rgba(0, 0, 0, 0)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.55)', 'circle-stroke-width': 1 } })

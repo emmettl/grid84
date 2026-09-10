@@ -122,4 +122,6 @@ export interface Study {
   variants?: { label: string; current: string; items: Array<{ id: string; label: string; href: string }> }
   /** Further reading: the studies and labs this one leans on, and outside sources. */
   links?: Array<{ label: string; href: string }>
+  /** Outlines drawn under everything: a target's boundary from the map. */
+  overlays?: Array<{ id: string; name: string; rings: LngLat[][]; source: string }>
 }

@@ -12,6 +12,8 @@ export interface Geocoder {
   /** Resolve the current query immediately, returning the results (or an empty list). */
   resolve: () => Promise<AtlasTarget[]>
   clear: () => void
+  /** Leave a name in the box without searching for it: the acquired target's, as a command line keeps the command. */
+  settle: (text: string) => void
 }
 
 const DEBOUNCE_MS = 350
@@ -71,5 +73,13 @@ export function useGeocoder(): Geocoder {
     setStatus('idle')
   }, [])
 
-  return { query, setQuery, results, status, resolve, clear }
+  const settle = useCallback((text: string) => {
+    controller.current?.abort()
+    latest.current = text.trim()
+    setQuery(text)
+    setResults([])
+    setStatus('idle')
+  }, [])
+
+  return { query, setQuery, results, status, resolve, clear, settle }
 }

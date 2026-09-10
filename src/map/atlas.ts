@@ -1,4 +1,6 @@
+import { Marker, type GeoJSONSource } from 'maplibre-gl'
 import type { AtlasTarget } from '../atlas/target.ts'
+import type { Boundary } from '../atlas/boundary.ts'
 import { designate, type Designation } from '../atlas/designation.ts'
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { ORBITAL_ZOOM, planDescent, TERRAIN_MIN_ZOOM } from './descent.ts'
@@ -27,6 +29,8 @@ export interface AtlasOptions {
 
 export interface Atlas {
   acquire(target: AtlasTarget): void
+  /** Draw the target's boundary and float its name above it; null clears the boundary but keeps the label. */
+  showBoundary(target: AtlasTarget, boundary: Boundary | null): void
   destroy(): void
 }
 
@@ -68,7 +72,15 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
     map.setTerrain(wanted ? { source: 'terrain', exaggeration: 1 } : null)
   }
 
+  let label: Marker | null = null
+  const ensureBoundaryLayers = () => {
+    if (map.getSource('atlas-boundary')) return
+    map.addSource('atlas-boundary', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+    map.addLayer({ id: 'atlas-boundary-fill', type: 'fill', source: 'atlas-boundary', paint: { 'fill-color': 'rgba(141, 250, 255, 0.06)' } })
+    map.addLayer({ id: 'atlas-boundary-line', type: 'line', source: 'atlas-boundary', paint: { 'line-color': 'rgba(141, 250, 255, 0.85)', 'line-width': 1.5, 'line-dasharray': [3, 2] } })
+  }
   map.on('load', () => {
+    ensureBoundaryLayers()
     spin()
     map.on('moveend', () => {
       if (spinning) spin()
@@ -134,9 +146,31 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
     })
   }
 
+  const showBoundary = (target: AtlasTarget, boundary: Boundary | null) => {
+    if (destroyed) return
+    // The label floats above the target at once; the outline waits for the style if it is not yet up.
+    label?.remove()
+    const el = document.createElement('div')
+    el.className = 'atlas-target-label'
+    el.innerHTML = '<span class="atlas-target-name"></span><span class="atlas-target-kind"></span>'
+    ;(el.firstChild as HTMLElement).textContent = target.name
+    ;(el.lastChild as HTMLElement).textContent = boundary ? (boundary.kind === 'polygon' ? 'BOUNDARY · OPENSTREETMAP' : 'EXTENT · GEOCODER') : 'TARGET'
+    label = new Marker({ element: el, anchor: 'bottom', offset: [0, -14] }).setLngLat([target.position[0], target.position[1]]).addTo(map)
+    const draw = () => {
+      if (destroyed) return
+      ensureBoundaryLayers()
+      const source = map.getSource('atlas-boundary') as GeoJSONSource | undefined
+      source?.setData({ type: 'FeatureCollection', features: boundary ? boundary.rings.map((ring) => ({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [ring.map((p) => [p[0], p[1]])] }, properties: { kind: boundary.kind } })) : [] })
+    }
+    if (map.isStyleLoaded()) draw()
+    else map.once('load', draw)
+  }
+
   return {
     acquire,
+    showBoundary,
     destroy() {
+      label?.remove()
       destroyed = true
       spinning = false
       map.remove()

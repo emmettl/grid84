@@ -7,6 +7,7 @@ import { planStrike, PROFILE_RINGS, type StrikePlan } from './solver.ts'
 import { buildStrikeStudy } from './strike-study.ts'
 import type { AtlasTarget } from './target.ts'
 import { fetchWindAloft } from './wind.ts'
+import type { Boundary } from './boundary.ts'
 
 /**
  * The strike console: once the atlas has a target, the solver reasons aloud
@@ -27,7 +28,11 @@ const CADENCE_MS = 550
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export function StrikeConsole({ target, onLaunch, onStandDown }: { target: AtlasTarget; onLaunch: (study: Study) => void; onStandDown: () => void }) {
+export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void }) {
+  const boundaryRef = useRef(boundary)
+  useEffect(() => {
+    boundaryRef.current = boundary
+  }, [boundary])
   const [lines, setLines] = useState<Line[]>([])
   const [phase, setPhase] = useState<'reasoning' | 'countdown' | 'failed' | 'launching'>('reasoning')
   const [held, setHeld] = useState(false)
@@ -108,7 +113,7 @@ export function StrikeConsole({ target, onLaunch, onStandDown }: { target: Atlas
       say('LAUNCH · THE STUDY ENGINE TAKES THE STRIKE FROM HERE', 'mark')
       setPhase('launching')
       await sleep(600)
-      if (!cancelled) onLaunch(buildStrikeStudy(plan as StrikePlan, wind))
+      if (!cancelled) onLaunch(buildStrikeStudy(plan as StrikePlan, wind, 5, boundaryRef.current))
     }
     void run()
     return () => {

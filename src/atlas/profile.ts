@@ -10,7 +10,9 @@ export async function readProfile(target: AtlasTarget): Promise<Profile> {
   const base = await resolveGridBase(STRIKE_GRID)
   const service = new ExposureService(base, 1)
   try {
-    const summary = await service.load()
+    const summary = await service.load().catch((e: Error) => {
+      throw new Error(`${e.message} · ${base}`)
+    })
     const result = await service.exposure({ center: target.position, rings: PROFILE_RINGS.map((r) => ({ key: String(r), radius: r })), subsamples: 2 })
     const within: Record<number, number> = {}
     for (const r of PROFILE_RINGS) within[r] = result.within[String(r)] ?? 0
