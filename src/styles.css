@@ -2011,45 +2011,61 @@ body,
   position: fixed;
   inset: 0;
   --phosphor: #9dffb0;
-  --phosphor-dim: rgba(157, 255, 176, 0.6);
+  --phosphor-dim: rgba(157, 255, 176, 0.62);
+  --phosphor-faint: rgba(157, 255, 176, 0.38);
 }
 
+/* The terminal column: the whole left edge, header and figure at the top, the teletype filling the rest. */
 .wopr-terminal {
   position: fixed;
   left: max(1rem, env(safe-area-inset-left));
   top: max(1rem, env(safe-area-inset-top));
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 1.4rem);
   z-index: 25;
-  max-width: min(46rem, calc(100% - 6rem));
-  max-height: 60vh;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  width: min(48rem, 54vw);
   padding: 0.9rem 1.1rem;
-  border: 1px solid rgba(157, 255, 176, 0.35);
+  border: 1px solid rgba(157, 255, 176, 0.3);
   background:
     repeating-linear-gradient(rgba(157, 255, 176, 0.035) 0 1px, transparent 1px 3px),
-    rgba(3, 8, 6, 0.8);
+    rgba(3, 8, 6, 0.82);
   color: var(--phosphor);
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  text-shadow: 0 0 6px rgba(157, 255, 176, 0.45);
+  text-shadow: 0 0 6px rgba(157, 255, 176, 0.4);
   backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.wopr-head {
+  flex: none;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed rgba(157, 255, 176, 0.25);
+}
+
+.wopr-figure {
+  flex: none;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed rgba(157, 255, 176, 0.25);
 }
 
 .wopr-line {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.3rem;
   color: var(--phosphor-dim);
 }
 
 .wopr-line--title {
   color: var(--phosphor);
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.6rem;
 }
 
 .wopr-line--big {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0 0.5rem;
   color: var(--phosphor);
-  font-size: clamp(1.4rem, 3.4vw, 2.4rem);
+  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
   letter-spacing: 0.1em;
   font-variant-numeric: tabular-nums;
 }
@@ -2075,15 +2091,73 @@ body,
   }
 }
 
+/* The teletype: newest line at the bottom, older lines pushed up and off the top. */
+.wopr-log {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  font-size: 0.6rem;
+  line-height: 1.5;
+}
+
+.wopr-log-line {
+  display: flex;
+  gap: 0.8em;
+  color: var(--phosphor-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wopr-log-at {
+  flex: none;
+  color: var(--phosphor-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.wopr-log-text {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wopr-log-line--best {
+  color: var(--phosphor);
+}
+
+.wopr-log-line--mark,
+.wopr-log-line--resum {
+  color: var(--phosphor-dim);
+}
+
+.wopr-log-line.is-new .wopr-log-text {
+  animation: wopr-type 0.5s steps(40, end);
+}
+
+@keyframes wopr-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 .wopr-controls {
   position: fixed;
   right: max(1rem, env(safe-area-inset-right));
-  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 1.6rem);
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 1.4rem);
   z-index: 25;
   display: grid;
   gap: 0.5rem;
-  max-width: min(30rem, calc(100% - 2rem));
-  max-height: 34vh;
+  max-width: min(30rem, calc(46vw - 2rem));
+  max-height: 46vh;
   overflow: auto;
   padding: 0.7rem 0.9rem;
   border-right: 2px solid rgba(157, 255, 176, 0.5);
@@ -2167,19 +2241,25 @@ body,
 
 @media (max-width: 700px) {
   .wopr-terminal {
-    max-width: calc(100% - 2rem);
-    max-height: 46vh;
+    width: auto;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: auto;
+    height: 52vh;
     margin-top: 2.2rem;
-    font-size: 0.58rem;
+    font-size: 0.56rem;
   }
 
   .wopr-line--big {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+
+  .wopr-log {
+    font-size: 0.52rem;
   }
 
   .wopr-controls {
     left: max(1rem, env(safe-area-inset-left));
     max-width: none;
-    max-height: 36vh;
+    max-height: 30vh;
   }
 }

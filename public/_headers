@@ -16,7 +16,7 @@
 /data/hyde/index.json
   Cache-Control: public, max-age=0, must-revalidate
 
-/data/hyde/*
+/data/hyde/popc_*
   Cache-Control: public, max-age=86400, must-revalidate
 
 /_release.json
