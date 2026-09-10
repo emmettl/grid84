@@ -40,5 +40,5 @@ export default defineConfig({
   optimizeDeps: { exclude: ['maplibre-gl'] },
   base: './',
   // MapLibre alone is most of the bundle; the warning threshold sits above it.
-  build: { manifest: true, target: 'es2022', chunkSizeWarningLimit: 2200 },
+  build: { manifest: true, target: 'es2022', chunkSizeWarningLimit: 2600 },
 })

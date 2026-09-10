@@ -1954,3 +1954,19 @@ body,
 .guidance .bands td:nth-child(3) {
   white-space: nowrap;
 }
+
+/* Lab panels never widen the page: a chart or a table wider than a phone scrolls inside its panel. */
+.readiness-chart {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 700px) {
+  .guidance .bands td:nth-child(3) {
+    white-space: normal;
+  }
+  .guidance .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
