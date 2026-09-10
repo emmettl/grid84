@@ -39,6 +39,9 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     standoffMetres: s.option.site.kind === 'bomber' && s.option.site.standoffKm !== undefined ? s.option.site.standoffKm * 1_000 : undefined,
     missileSpeedMs: s.option.site.missileSpeedMs,
     propellant: s.option.site.propellant,
+    cruiseAltitudeMetres: s.option.site.cruiseAltitudeMetres,
+    weaponAltitudeMetres: s.option.site.weaponAltitudeMetres,
+    descendAtMetres: s.option.site.descendAtMetres,
   }))
   const launcher = launchers[0]
   const designation = designate(target)

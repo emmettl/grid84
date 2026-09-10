@@ -24,14 +24,16 @@ describe('standoff air delivery', () => {
     expect(missiles).toHaveLength(3)
     if (!aircraft || aircraft.kind !== 'track') return
     const wps = aircraft.track.waypoints
-    expect(wps).toHaveLength(3)
-    expect(wps[2].position).toEqual(bomber.position)
-    const release = wps[1].position
+    // Out at the cruising altitude, release, and home the way it came.
+    expect(wps.length).toBeGreaterThan(3)
+    expect(wps[wps.length - 1].position).toEqual(bomber.position)
+    expect(Math.max(...wps.map((w) => w.altitude ?? 0))).toBeGreaterThan(5_000)
+    expect(wps[0].altitude).toBe(0)
+    const release = missiles[0].kind === 'track' ? missiles[0].track.waypoints[0].position : ([0, 0] as [number, number])
     expect(haversineMetres(release, targets[0].position)).toBeCloseTo(2_400_000, -4)
     for (const m of missiles) {
       if (m.kind !== 'track') continue
       expect(m.track.waypoints[0].position).toEqual(release)
-      expect(m.track.start).toBeCloseTo(wps[1].time, 3)
       expect(m.track.end).toBeGreaterThan(m.track.start + 2_400_000 / 260)
     }
     const arrival = Object.values(strike.firstArrival)
@@ -52,7 +54,7 @@ describe('standoff air delivery', () => {
     const flight = enactStrike({ ...common, prefix: 'fl', launchers: [rafale], targets })
     const aircraft = flight.entities.filter((e) => e.kind === 'track' && e.vehicle === 'aircraft')
     expect(aircraft).toHaveLength(3)
-    const releases = aircraft.map((a) => (a.kind === 'track' ? a.track.waypoints[1].position : ([0, 0] as [number, number])))
+    const releases = flight.entities.filter((e) => e.kind === 'track' && e.vehicle === 'missile').map((m) => (m.kind === 'track' ? m.track.waypoints[0].position : ([0, 0] as [number, number])))
     expect(haversineMetres(releases[0], releases[1])).toBeGreaterThan(2_000)
     expect(haversineMetres(releases[0], releases[2])).toBeGreaterThan(2_000)
     expect(haversineMetres(releases[1], releases[2])).toBeGreaterThan(4_000)
@@ -63,11 +65,12 @@ describe('standoff air delivery', () => {
     const aircraft = near.entities.find((e) => e.kind === 'track' && e.vehicle === 'aircraft')
     expect(aircraft).toBeDefined()
     if (!aircraft || aircraft.kind !== 'track') return
-    expect(haversineMetres(aircraft.track.waypoints[0].position, aircraft.track.waypoints[1].position)).toBeCloseTo(150_000, -4)
+    const release1 = near.entities.find((e) => e.kind === 'track' && e.vehicle === 'missile')
+    expect(release1?.kind === 'track' ? haversineMetres(aircraft.track.waypoints[0].position, release1.track.waypoints[0].position) : 0).toBeCloseTo(150_000, -4)
     // A target closer than the climb-out gets a release a third of the way.
     const close = enactStrike({ ...common, prefix: 'close', launchers: [{ ...bomber, position: [21.5, 52.0] }], targets: [{ id: 'w', name: 'Warsaw', priority: 0, position: [21.01, 52.23], maxWeapons: 1 }] })
-    const a2 = close.entities.find((e) => e.kind === 'track' && e.vehicle === 'aircraft')
-    if (a2 && a2.kind === 'track') expect(haversineMetres(a2.track.waypoints[0].position, a2.track.waypoints[1].position)).toBeLessThan(20_000)
+    const m2 = close.entities.find((e) => e.kind === 'track' && e.vehicle === 'missile')
+    if (m2 && m2.kind === 'track') expect(haversineMetres([21.5, 52.0], m2.track.waypoints[0].position)).toBeLessThan(20_000)
   })
   it('lets a submarine fire its cruise missile from where it sits, with no carrier leg', () => {
     const s = enactStrike({ ...common, prefix: 'sub', launchers: [sub], targets: [{ id: 't', name: 'Damascus', priority: 0, position: [36.3, 33.5], maxWeapons: 1 }] })
@@ -95,5 +98,27 @@ describe('the boost phase in the engine', () => {
     const t = impulsive.entities.find((e) => e.kind === 'track')
     expect(t && t.kind === 'track' ? t.marks : 'x').toBeUndefined()
     expect(Object.values(impulsive.firstArrival)[0].time).toBeLessThan(arrival)
+  })
+})
+
+describe('flight profiles', () => {
+  it('climbs to the cruising altitude, and goes to the deck before the target when the profile says so', () => {
+    const high: Launcher = { ...bomber, cruiseAltitudeMetres: 12_000, weaponAltitudeMetres: 100 }
+    const low: Launcher = { ...bomber, standoffMetres: undefined, cruiseAltitudeMetres: 13_700, weaponAltitudeMetres: 90, descendAtMetres: 700_000, weapons: 1, weaponsPerVehicle: 1 }
+    const one = [{ id: 'a', name: 'Moscow', priority: 0, position: [37.62, 55.75] as [number, number], maxWeapons: 1 }]
+    const s1 = enactStrike({ ...common, prefix: 'hi', launchers: [high], targets: one })
+    const a1 = s1.entities.find((e) => e.kind === 'track' && e.vehicle === 'aircraft')
+    expect(a1?.kind === 'track' ? Math.max(...a1.track.waypoints.map((w) => w.altitude ?? 0)) : 0).toBeCloseTo(12_000, -2)
+    const s2 = enactStrike({ ...common, prefix: 'lo', launchers: [low], targets: one })
+    const a2 = s2.entities.find((e) => e.kind === 'track')
+    expect(a2).toBeDefined()
+    if (!a2 || a2.kind !== 'track') return
+    const wps = a2.track.waypoints
+    expect(Math.max(...wps.map((w) => w.altitude ?? 0))).toBeCloseTo(13_700, -2)
+    // It is on the deck when it arrives.
+    expect(wps[wps.length - 1].altitude).toBeCloseTo(90, 0)
+    // And still high two thousand kilometres out.
+    const early = wps.find((w) => haversineMetres(w.position, one[0].position) < 2_000_000)!
+    expect(early.altitude).toBeGreaterThan(10_000)
   })
 })

@@ -361,6 +361,10 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   } else if (delivery.route === 'cruise') {
     lines.push('STANDOFF · NONE · THIS AIRCRAFT CARRIES A GRAVITY BOMB AND MUST REACH THE TARGET THROUGH WHATEVER DEFENDS IT')
   }
+  if (delivery.route === 'cruise' && delivery.site.cruiseAltitudeMetres !== undefined) {
+    const c = delivery.site
+    lines.push(`PROFILE · CARRIER AT ${Math.round((c.cruiseAltitudeMetres ?? 0) / 1000)} KM${c.descendAtMetres ? `, TO THE DECK ${Math.round(c.descendAtMetres / 1000)} KM OUT` : ''} · ${c.standoffKm ? `WEAPON AT ${c.weaponAltitudeMetres !== undefined && c.weaponAltitudeMetres < 1_000 ? `${c.weaponAltitudeMetres} M, TERRAIN-FOLLOWING UNDER THE RADAR HORIZON: THE ARGUMENT MADE FOR THE CRUISE MISSILE IN THE 1980S IS THAT A DEFENCE BUILT AGAINST BOMBERS AT HEIGHT CANNOT SEE IT COMING` : `${Math.round((c.weaponAltitudeMetres ?? 0) / 1000)} KM, HIGH AND FAST INSTEAD`}` : 'THE BOMB FALLS FROM THE AIRCRAFT'}`)
+  }
   if (delivery.boost) {
     const b = delivery.boost
     lines.push(`BOOST · ${b.label.toUpperCase()} · BURNOUT AT +${b.burnoutSeconds} S, ${Math.round(b.burnoutAltitudeMetres / 1000)} KM UP, ${Math.round(b.burnoutDownrangeMetres / 1000)} KM DOWNRANGE · THE SATELLITES SEE THE PLUME WITHIN A MINUTE · A BOOST-PHASE INTERCEPTOR HAS ${Math.max(0, b.burnoutSeconds - 60)} S TO CLOSE ON A BOOSTER OVER ${POWERS[adversary.power].name.toUpperCase()}; AFTER BURNOUT THERE IS ONLY THE BUS AND ITS ${sizing.warheads > 1 ? 'WARHEADS' : 'WARHEAD'}`)

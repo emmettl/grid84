@@ -73,7 +73,12 @@ describe('enactStrike with MIRVs', () => {
     const r = enactStrike({ ...common, prefix: 'b', side: 'attacker', launchers: [l], targets, allocation: { maxWeaponsPerTarget: 1 }, attrition })
     const tracks = r.entities.filter((e) => e.kind === 'track')
     expect(tracks).toHaveLength(1)
-    expect(tracks[0].kind === 'track' && tracks[0].track.waypoints.length).toBe(3)
+    // The legs are drawn with a climb and a cruising altitude, so a leg is several waypoints; the aircraft still visits both targets in turn.
+    const wps = tracks[0].kind === 'track' ? tracks[0].track.waypoints : []
+    expect(wps.length).toBeGreaterThan(3)
+    expect(wps[0].position).toEqual(l.position)
+    expect(wps[wps.length - 1].position).toEqual(targets[1].position)
+    expect(Math.max(...wps.map((w) => w.altitude ?? 0))).toBeGreaterThan(5_000)
     expect(r.summary.vehicles).toBe(1)
     expect(r.summary.delivered).toBe(2)
     expect(r.firstArrival.b.time).toBeGreaterThan(r.firstArrival.a.time)

@@ -33,6 +33,15 @@ export interface Launcher {
    */
   standoffMetres?: number
   missileSpeedMs?: number
+  /** Air-breathing systems: the carrier's cruising altitude and the altitude its weapon flies at, metres. */
+  cruiseAltitudeMetres?: number
+  weaponAltitudeMetres?: number
+  /**
+   * Where the carrier leaves its cruising altitude for the deck, metres from
+   * the target: the low-level penetration the V-force adopted in 1964 and the
+   * Soviet defences forced on everyone. Undefined means it stays high.
+   */
+  descendAtMetres?: number
   /** Ballistic systems: the propellant sets the boost profile; a profile given here overrides it, null means an impulsive burn as the old model had. */
   propellant?: 'solid' | 'liquid'
   boost?: import('./ballistic.ts').BoostProfile | null

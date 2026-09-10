@@ -93,6 +93,46 @@ export interface StrikeResult {
 
 /** The climb-out: an aircraft is at altitude and speed about this far from its base before it can release. */
 export const CLIMB_OUT_METRES = 150_000
+/** Default profiles when a launcher states none: a jet bomber's cruising altitude and a cruise missile's run. */
+export const DEFAULT_CRUISE_ALTITUDE = 11_000
+export const DEFAULT_WEAPON_ALTITUDE = 100
+
+/**
+ * Height along an air-breathing leg: a climb over the first tenth, the
+ * cruising altitude, and where the profile calls for it a descent to the
+ * deck before the target. `low` is the altitude the leg ends at.
+ */
+export function airAltitudeAt(fraction: number, distanceMetres: number, cruiseMetres: number, low: number | null, descendAtMetres?: number): number {
+  const climbed = Math.min(1, fraction / 0.1)
+  const high = cruiseMetres * climbed
+  if (low === null || descendAtMetres === undefined || descendAtMetres <= 0) return high
+  const remaining = distanceMetres * (1 - fraction)
+  if (remaining >= descendAtMetres) return high
+  // The dive: from the cruising altitude to the deck over the last stretch.
+  const f = Math.max(0, Math.min(1, remaining / descendAtMetres))
+  return low + (high - low) * f
+}
+
+/** Waypoints along a great-circle air leg with a flight profile. */
+export function airWaypoints(from: LngLat, to: LngLat, startTime: number, endTime: number, o: { cruiseMetres: number; endMetres: number | null; descendAtMetres?: number; segments?: number }): Waypoint[] {
+  const distance = haversineMetres(from, to)
+  const segments = o.segments ?? 12
+  const out: Waypoint[] = []
+  for (let i = 0; i <= segments; i += 1) {
+    const f = i / segments
+    out.push({ position: greatCirclePoint(from, to, f), time: startTime + f * (endTime - startTime), altitude: airAltitudeAt(f, distance, o.cruiseMetres, o.endMetres, o.descendAtMetres) })
+  }
+  return out
+}
+
+function greatCirclePoint(from: LngLat, to: LngLat, f: number): LngLat {
+  // The ends are the ends exactly: a track's first and last points must equal the launcher's and the target's.
+  if (f <= 0) return from
+  if (f >= 1) return to
+  const d = haversineMetres(from, to)
+  if (d < 1) return from
+  return destinationPoint(from, initialBearing(from, to), d * f)
+}
 
 /**
  * How far the carrier flies before release. Doctrine is to release as far
@@ -253,9 +293,13 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       const release: LngLat = fan !== 0 && leg > 0 ? destinationPoint(straight, heading + 90, fan) : straight
       const releaseTime = launch + leg / speed
       const weapons = v.sorties.length
+      const cruiseAlt = l.cruiseAltitudeMetres ?? DEFAULT_CRUISE_ALTITUDE
+      const weaponAlt = l.weaponAltitudeMetres ?? DEFAULT_WEAPON_ALTITUDE
       if (leg > 0) {
-        const outbound: Waypoint[] = [{ position: l.position, time: launch }, { position: release, time: releaseTime }]
-        const home: Waypoint[] = [...outbound, { position: l.position, time: releaseTime + leg / speed }]
+        // Out at the cruising altitude, descending to the deck before release when the profile calls for it, then home the way it came.
+        const outbound = airWaypoints(l.position, release, launch, releaseTime, { cruiseMetres: cruiseAlt, endMetres: l.descendAtMetres !== undefined ? weaponAlt : null, descendAtMetres: l.descendAtMetres })
+        const back = airWaypoints(release, l.position, releaseTime, releaseTime + leg / speed, { cruiseMetres: cruiseAlt, endMetres: null }).slice(1)
+        const home: Waypoint[] = [...outbound, ...back]
         const lostAt = launch + (releaseTime - launch) * Math.max(f.lostAtFraction ?? 0, 0.001)
         entities.push(track(id, `${l.name} → release ${Math.round(l.standoffMetres / 1000)} km short of ${first.name}`, `AIRCRAFT${wingman > 0 ? ` ${wingman + 1} OF THE FLIGHT` : ''} · ${weapons} MISSILE${weapons > 1 ? 'S' : ''} OF ${fmtYield(v.sorties[0].yieldKt)} · RELEASE AT H+${Math.round(releaseTime / 60)} MIN${f.delivered ? ' · THEN HOME' : ` · LOST (${f.cause?.toUpperCase()})`}`, f.delivered ? home : cut(outbound, lostAt), 'cruise', o.route.cruise, 'aircraft'))
       }
@@ -268,7 +312,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
         const t = targetById[s.targetId]
         const arrival = releaseTime + haversineMetres(release, t.position) / missileSpeed
         const cmId = leg > 0 ? `${id}-cm${k + 1}` : `${id}${weapons > 1 ? `-cm${k + 1}` : ''}`
-        entities.push(track(cmId, `${l.name} → ${t.name}`, `CRUISE MISSILE ${k + 1} OF ${weapons} · ${fmtYield(s.yieldKt)}${leg > 0 ? '' : ' · FROM THE LAUNCHER'}`, [{ position: release, time: releaseTime }, { position: t.position, time: arrival }], 'cruise', o.route.cruise, 'missile'))
+        entities.push(track(cmId, `${l.name} → ${t.name}`, `CRUISE MISSILE ${k + 1} OF ${weapons} · ${fmtYield(s.yieldKt)}${leg > 0 ? '' : ' · FROM THE LAUNCHER'}`, airWaypoints(release, t.position, releaseTime, arrival, { cruiseMetres: weaponAlt, endMetres: 0, descendAtMetres: Math.min(20_000, haversineMetres(release, t.position) / 4) }), 'cruise', o.route.cruise, 'missile'))
         delivered += 1
         arrive(t.id, arrival, s.yieldKt, l.kind, cmId)
       })
@@ -280,13 +324,17 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       const first = targetById[v.sorties[0].targetId]
       const directArrival = launch + haversineMetres(l.position, first.position) / speed
       const custom = o.cruiseRoute?.(l, first, launch, directArrival) ?? null
-      const waypoints: Waypoint[] = custom ? [...custom.waypoints] : [{ position: l.position, time: launch }, { position: first.position, time: directArrival }]
+      const cruiseHigh = l.cruiseAltitudeMetres ?? DEFAULT_CRUISE_ALTITUDE
+      const deck = l.weaponAltitudeMetres ?? DEFAULT_WEAPON_ALTITUDE
+      const waypoints: Waypoint[] = custom ? [...custom.waypoints] : airWaypoints(l.position, first.position, launch, directArrival, { cruiseMetres: cruiseHigh, endMetres: l.descendAtMetres !== undefined ? deck : 0, descendAtMetres: l.descendAtMetres })
       const arrivals: Array<{ sortie: Sortie; time: number }> = [{ sortie: v.sorties[0], time: waypoints[waypoints.length - 1].time }]
       for (let i = 1; i < v.sorties.length; i += 1) {
         const prev = targetById[v.sorties[i - 1].targetId]
         const next = targetById[v.sorties[i].targetId]
         const time = waypoints[waypoints.length - 1].time + haversineMetres(prev.position, next.position) / speed
-        waypoints.push({ position: next.position, time })
+        // Between targets the aircraft stays at whatever height its profile has it at.
+        const between = airWaypoints(prev.position, next.position, waypoints[waypoints.length - 1].time, time, { cruiseMetres: l.descendAtMetres !== undefined ? deck : cruiseHigh, endMetres: null, segments: 4 }).slice(1)
+        waypoints.push(...between)
         arrivals.push({ sortie: v.sorties[i], time })
       }
       const end = waypoints[waypoints.length - 1].time

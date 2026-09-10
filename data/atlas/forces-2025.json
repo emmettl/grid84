@@ -162,7 +162,9 @@
    "standoffNote": "AGM-86B air-launched cruise missile, about 2,500 km; the B-52 has not been expected to penetrate since the 1980s",
    "cepMetres": 30,
    "reliability": 0.9,
-   "propellant": "solid"
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 12000,
+   "weaponAltitudeMetres": 100
   },
   {
    "id": "us-7",
@@ -181,7 +183,9 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
    "cepMetres": 30,
    "reliability": 0.9,
-   "propellant": "solid"
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 12000,
+   "weaponAltitudeMetres": 12000
   },
   {
    "id": "ru-8",
@@ -422,7 +426,9 @@
    "standoffNote": "Kh-102, the nuclear Kh-101: reported from 2,500 to 4,500 km, 4,000 taken here",
    "cepMetres": 20,
    "reliability": 0.9,
-   "propellant": "solid"
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 13000,
+   "weaponAltitudeMetres": 60
   },
   {
    "id": "ru-20",
@@ -446,7 +452,9 @@
    "standoffNote": "As the Tu-160",
    "cepMetres": 20,
    "reliability": 0.9,
-   "propellant": "solid"
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 10000,
+   "weaponAltitudeMetres": 60
   },
   {
    "id": "ru-21",
@@ -470,7 +478,9 @@
    "standoffNote": "The claimed 2,000 km includes the MiG-31 radius; the missile is an air-launched Iskander of about 500 km at Mach 4 and its nuclear option is asserted, not shown",
    "cepMetres": 30,
    "reliability": 0.85,
-   "propellant": "solid"
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 15000,
+   "weaponAltitudeMetres": 25000
   },
   {
    "id": "ru-22",
@@ -786,7 +796,9 @@
    "standoffNote": "CJ-20A, reported 1,500 to 2,000 km; the H-6N is the air leg of the Chinese triad",
    "cepMetres": 20,
    "reliability": 0.9,
-   "propellant": "solid"
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 11000,
+   "weaponAltitudeMetres": 100
   },
   {
    "id": "fr-38",
@@ -830,7 +842,9 @@
    "standoffNote": "ASMPA-R, about 500 km at Mach 3; the missile is the reason the Rafale need not reach the target",
    "cepMetres": 10,
    "reliability": 0.9,
-   "propellant": "solid"
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 12000,
+   "weaponAltitudeMetres": 20000
   },
   {
    "id": "uk-40",
@@ -1007,7 +1021,9 @@
    "standoffNote": "Reported at about 1,500 km and never confirmed; Israel neither confirms nor denies the system",
    "cepMetres": 20,
    "reliability": 0.85,
-   "propellant": "solid"
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 0,
+   "weaponAltitudeMetres": 100
   },
   {
    "id": "nk-49",

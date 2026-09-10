@@ -107,6 +107,19 @@ STANDOFF = {
 }
 # The B-2 carries the B61-12, a guided gravity bomb: no standoff at all. It penetrates or it does not deliver.
 
+# Flight profile by system: the carrier's cruising altitude, the weapon's run, and the distance from the target at which
+# the carrier goes to the deck (None: it stays high). Round figures from the open literature, reconstructed.
+PROFILE = {
+    'B-52H with AGM-86B': (12_000, 100, None),
+    'B-2A with B61-12': (12_000, 12_000, None),
+    'Tu-160 with Kh-102': (13_000, 60, None),
+    'Tu-95MS with Kh-102': (10_000, 60, None),
+    'H-6N with CJ-20A': (11_000, 100, None),
+    'Rafale with ASMPA-R': (12_000, 20_000, None),
+    'MiG-31K with Kh-47M2 Kinzhal': (15_000, 25_000, None),
+    'Popeye Turbo cruise missile': (0, 100, None),
+}
+
 # Accuracy and reliability by system: CEP metres and the planning reliability. Documented for the American and Russian
 # strategic systems in the Notebook and the open literature; inferred for the rest, and said so on the readout.
 ACCURACY = {
@@ -152,6 +165,7 @@ def main() -> int:
             **({'standoffKm': STANDOFF[system][0], 'carrierSpeedMs': STANDOFF[system][1], 'missileSpeedMs': STANDOFF[system][2], 'standoffEvidence': STANDOFF[system][3], 'standoffNote': STANDOFF[system][4]} if system in STANDOFF else {}),
             'cepMetres': ACCURACY[system][0], 'reliability': ACCURACY[system][1],
             'propellant': 'liquid' if system in LIQUID else 'solid',
+            **({'cruiseAltitudeMetres': PROFILE[system][0], 'weaponAltitudeMetres': PROFILE[system][1], **({'descendAtMetres': PROFILE[system][2] * 1_000} if PROFILE[system][2] else {})} if system in PROFILE else {}),
             **({'warheadsPerMissileFull': FULL_LOAD[system]} if system in FULL_LOAD else {}),
         })
     out = {'date': '2025', 'note': 'Launch points for the atlas: one entry per system and place, not a count of the force. Bases are public; patrol areas are guesses; the loads and yields of the opaque arsenals are inferred, and Israel\'s is withheld. Warheads per missile are the deployed loads the Notebook gives (Trident at about four, Minuteman de-MIRVed to one, Yars four, Bulava six, Voevoda ten), not the missiles\' capacities; a full-loading posture would roughly double the American and British figures.', 'powers': POWERS, 'sites': sites}
