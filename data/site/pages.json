@@ -188,6 +188,7 @@
       "summary": "What the surgery would have taken and whether it would have worked: the missiles were in the wrong places so the strike has to be flown, three of the eight facilities stand in or beside cities, and the milling that feeds the rest is beyond every bomber base on the list.",
       "reading": [
         "dossier/sino-soviet-1969",
+        "dossier/third-front",
         "brief/sino-soviet-69"
       ]
     },
@@ -436,6 +437,11 @@
       "path": "dossier/weapons-effects-sources",
       "title": "Sixty Feet at One Kilotonne — the weapons-effects formulae, traced",
       "note": "A static supporting document, not an app route. The Worker serves it without the .html the file carries, which is the form the sitemap advertises."
+    },
+    {
+      "path": "dossier/third-front",
+      "title": "The Third Front — why a target list drawn by population misreads China",
+      "note": "A static supporting document, not an app route. The distances in it are computed from this project's own target list."
     },
     {
       "path": "dossier/sino-soviet-1969",

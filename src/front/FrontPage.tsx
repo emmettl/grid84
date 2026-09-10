@@ -346,6 +346,10 @@ export function FrontPage() {
               <span>Every prompt-effect formula in the engine traced to its section of Glasstone and Dolan, with the computed values set beside the handbook's own worked examples: blast, thermal, initial radiation, the fireball, the crater and the fallout pattern. Including the places where the book names an effect and declines to quantify it, and two results that fall out of putting its sections beside each other &mdash; that the radiation ring stops mattering above about two kilotonnes, and that above about three hundred a burst aimed at a silo makes fallout whether it was meant to or not.</span>
             </li>
             <li>
+              <a href="./dossier/third-front.html">The Third Front</a>
+              <span>China moved its war industry into the mountains from 1964 because of the atomic bomb, at two fifths of national construction investment for sixteen years. It is the largest thing any state has done in response to nuclear targeting, and it is where this engine's own method fails: a target list drawn by population misses the interior plants by between seventy and two hundred and fifty kilometres, and the paper measures it against the engine's own list.</span>
+            </li>
+            <li>
               <a href="./dossier/sino-soviet-1969.html">The 1969 strike question</a>
               <span>The Sino-Soviet crisis and the Soviet consideration of a strike on China's nuclear programme, with the Chinese complex as it then stood and the forces on both sides. The groundwork for a study.</span>
             </li>

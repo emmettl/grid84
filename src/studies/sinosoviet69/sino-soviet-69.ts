@@ -319,6 +319,7 @@ export function sinoSoviet69(): Study {
     sides: { attacker: { name: 'The Soviet Union' }, defender: { name: 'China' } },
     links: [
       { label: 'The dossier: what is documented, contested and unestablished about 1969', href: './dossier/sino-soviet-1969.html' },
+      { label: 'The Third Front: what China was already doing about being targeted', href: './dossier/third-front.html' },
       { label: 'The chronicle: the stockpiles either side held', href: '#/chronicle' },
       { label: 'The 72 minutes: a single strike, decided in modern time', href: '#/study/72-minutes' },
       { label: 'The accuracy lab: what a surface burst on a works actually does', href: '#/lab/accuracy' },
