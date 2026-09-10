@@ -61,6 +61,36 @@ export async function resolveGridBase(grid: string): Promise<string> {
   }
   return local(grid)
 }
+/**
+ * The part of the map the panels leave clear. On a wide screen the study's
+ * panels take a column each side; on a phone they take the top and the
+ * bottom. A camera that fits its points to the whole canvas puts them
+ * under a panel, so the padding is measured from the panels themselves.
+ */
+function clearPadding(map: MapLibreMap): { top: number; bottom: number; left: number; right: number } {
+  const canvas = map.getCanvas()
+  const w = canvas.clientWidth
+  const h = canvas.clientHeight
+  const margin = Math.max(24, Math.round(Math.min(w, h) * 0.06))
+  const hud = document.querySelector('.study-hud')
+  const fallback = { top: margin, bottom: margin, left: margin, right: margin }
+  if (!hud) return fallback
+  const wide = w > 700
+  const panels = [...hud.children].filter((el): el is HTMLElement => el instanceof HTMLElement && el.offsetWidth > 0 && el.offsetHeight > 0)
+  if (panels.length === 0) return fallback
+  const box = hud.getBoundingClientRect()
+  if (wide) {
+    // Columns: the widest panel on each side, and only panels that leave the middle clear.
+    const left = Math.max(0, ...panels.filter((el) => el.getBoundingClientRect().right < box.left + w * 0.45).map((el) => el.getBoundingClientRect().right - box.left))
+    const right = Math.max(0, ...panels.filter((el) => el.getBoundingClientRect().left > box.left + w * 0.55).map((el) => box.right - el.getBoundingClientRect().left))
+    return { top: margin, bottom: margin, left: Math.min(Math.round(left) + margin, Math.round(w * 0.42)), right: Math.min(Math.round(right) + margin, Math.round(w * 0.42)) }
+  }
+  // Stacked: the panels above and below whatever middle band is left.
+  const top = Math.max(0, ...panels.filter((el) => el.getBoundingClientRect().bottom < box.top + h * 0.5).map((el) => el.getBoundingClientRect().bottom - box.top))
+  const bottom = Math.max(0, ...panels.filter((el) => el.getBoundingClientRect().top > box.top + h * 0.5).map((el) => box.bottom - el.getBoundingClientRect().top))
+  return { top: Math.min(Math.round(top) + margin, Math.round(h * 0.4)), bottom: Math.min(Math.round(bottom) + margin, Math.round(h * 0.4)), left: margin, right: margin }
+}
+
 /** Studies with more tracks than this draw them through the WebGL layer instead of GeoJSON sources. */
 export const GL_TRACK_THRESHOLD = 100
 
@@ -515,16 +545,15 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           if (event.camera && previous.time < event.time && next.time >= event.time) {
             const c = event.camera
             if (c.fit && c.fit.length > 1) {
-              // Fit the points that matter, so a portrait screen does not cut the launch point out of shot.
+              // Fit the points that matter into the part of the map the panels leave clear.
               const lons = c.fit.map((p) => p[0])
               const lats = c.fit.map((p) => p[1])
-              const pad = Math.max(40, Math.min(120, Math.round(Math.min(map.getCanvas().clientWidth, map.getCanvas().clientHeight) * 0.12)))
               map.fitBounds(
                 [
                   [Math.min(...lons), Math.min(...lats)],
                   [Math.max(...lons), Math.max(...lats)],
                 ],
-                { padding: pad, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, maxZoom: c.zoom, essential: true },
+                { padding: clearPadding(map), pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, maxZoom: c.zoom, essential: true },
               )
             } else {
               map.flyTo({ center: [c.center[0], c.center[1]], zoom: c.zoom, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, essential: true })
@@ -831,7 +860,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           {(glTracks || hasSurfaceOption) && (
             <div className="clock-controls clock-controls--toggles">
               {glTracks && (
-                <>
+                <span className="clock-group">
                   <span className="clock-label">Trails</span>
                   {(['fade', 'keep'] as const).map((mode) => (
                     <button
@@ -848,17 +877,17 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
                       {mode}
                     </button>
                   ))}
-                </>
+                </span>
               )}
               {hasSurfaceOption && (
-                <>
+                <span className="clock-group">
                   <span className="clock-label">Burst</span>
                   {(['air', 'surface'] as Burst[]).map((mode) => (
                     <button key={mode} type="button" className={burst === mode ? 'is-active' : ''} onClick={() => switchBurst(mode)}>
                       {mode}
                     </button>
                   ))}
-                </>
+                </span>
               )}
             </div>
           )}

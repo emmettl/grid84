@@ -422,6 +422,19 @@ body,
   gap: 0.3rem;
 }
 
+/* A label and its buttons stay together: a row of toggles breaks between groups, never inside one. */
+.clock-group {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.clock-controls--toggles {
+  column-gap: 0.7rem;
+}
+
 .clock-controls button,
 .clock-controls--variants a,
 .log button {
