@@ -1,6 +1,6 @@
 # THE CHRONICLE
 
-**Doctrine, stockpiles, posture and geopolitics as a visual spine through the studies.** A planning brief, 10 September 2026. Nothing here is built; this is the shape proposed for an evolving strand of the work.
+**Doctrine, stockpiles, posture and geopolitics as a visual spine through the studies.** A planning brief, 10 September 2026. The shape proposed for an evolving strand of the work; the labs and the first chapter are built, as noted below.
 
 ## What the studies cannot say on their own
 
@@ -37,7 +37,7 @@ The map states already exist for five epochs, because the studies built their or
 
 **The guidance error-budget lab** (proposed). The companion to the lethality lab: where the CEP comes from. A missile's miss distance is the root sum of squares of independent error sources, and for a submarine missile the largest of them in 1960 was not the missile's at all but the boat's: its own position and velocity as its inertial navigator carried them since the last fix, and the gravity it had not measured. A lab that composes a CEP from its terms (initial position and heading, velocity at launch, gyro drift over the flight, accelerometer bias, the gravity model, reentry dispersion), lets the reader scrub the time since the last fix and watch the boat's contribution grow, and then adds the star sight of Trident to collapse the initial-condition terms, would show the problem of unknowns and cumulative error the way the Polaris guidance history tells it. The figures need a source: MacKenzie's *Inventing Accuracy* gives the structure and some magnitudes, and the text the user has in mind should be named before the lab is built so its numbers, not illustrations, drive it.
 
-**The stockpile chart** as a chart component the chronicle and the front page can reuse, with the series cited on the chart and every value a published estimate.
+**The stockpile chart** (built 10 September 2026 at `#/chronicle`, chapter 1). The Federation of American Scientists' inventory series as republished by Our World in Data under CC BY, all nine states, linear and log, the studies marked on their years, the world's peak labelled (64,452 in 1986), a hover readout by year, and the sources collapsed beneath. The first chapter of the chronicle and the pattern for the rest.
 
 **The posture atlas** as a date scrubber over the orders of battle, which is engine work rather than a lab: a launcher entity gains a `from` and `until`, and the study view learns to show a date rather than a clock.
 

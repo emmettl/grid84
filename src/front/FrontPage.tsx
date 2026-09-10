@@ -169,6 +169,16 @@ export function FrontPage() {
           </ol>
         </section>
 
+        <section className="front-section" aria-labelledby="front-chronicle">
+          <h2 id="front-chronicle">Chronicle</h2>
+          <ul className="front-labs">
+            <li>
+              <a href="#/chronicle">The stockpiles</a>
+              <span>Every warhead the nine states are estimated to have held, 1945 to the present, with the studies marked on the curve. The first chapter of the history between the studies; the labs on accuracy and defence carry the next two.</span>
+            </li>
+          </ul>
+        </section>
+
         <section className="front-section" aria-labelledby="front-evidence">
           <h2 id="front-evidence">Evidence</h2>
           <p>

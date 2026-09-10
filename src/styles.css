@@ -1698,3 +1698,118 @@ body,
   color: var(--ink);
   outline: none;
 }
+
+/* ---------- Chronicle ---------- */
+
+.front-inner--wide {
+  max-width: 64rem;
+}
+
+.chronicle-chart {
+  width: 100%;
+  height: auto;
+  background: var(--panel);
+  border-left: 2px solid var(--cyan);
+}
+
+.chronicle-toolbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.chronicle-toolbar h2 {
+  flex: 1;
+}
+
+.chronicle-toolbar .clock-controls {
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.chronicle-chart .series--state {
+  stroke-width: 1.4;
+  stroke: rgba(232, 251, 255, 0.35);
+  stroke-dasharray: none;
+}
+
+.chronicle-chart .series--us {
+  stroke: var(--cyan);
+  stroke-width: 2.2;
+}
+
+.chronicle-chart .series--ru {
+  stroke: rgb(255, 96, 96);
+  stroke-width: 2.2;
+}
+
+.chronicle-chart .label--us {
+  fill: var(--cyan);
+}
+
+.chronicle-chart .label--ru {
+  fill: rgb(255, 120, 120);
+}
+
+.chronicle-chart .label--other {
+  fill: var(--muted);
+  font-size: 10px;
+}
+
+.chronicle-chart .grid--moment {
+  stroke: rgba(255, 179, 71, 0.45);
+  stroke-dasharray: 3 4;
+}
+
+.chronicle-chart .tick--moment {
+  fill: var(--amber);
+}
+
+.chronicle-chart .cursor {
+  stroke: var(--ink);
+  stroke-width: 1;
+  opacity: 0.6;
+}
+
+.chronicle-readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.chronicle-year {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.chronicle-value strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.chronicle-value--us strong {
+  color: var(--cyan);
+}
+
+.chronicle-value--ru strong {
+  color: rgb(255, 120, 120);
+}
+
+.chronicle .sources summary {
+  cursor: pointer;
+  color: var(--cyan);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.chronicle .sources p {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+}

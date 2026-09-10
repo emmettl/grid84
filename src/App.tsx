@@ -18,10 +18,12 @@ import { seventyTwoMinutes } from './studies/minutes72/scenario.ts'
 import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
+import { Chronicle } from './chronicle/Chronicle.tsx'
 
 type Route =
   | { kind: 'front' }
   | { kind: 'loop' }
+  | { kind: 'chronicle' }
   | { kind: 'atlas' }
   | { kind: 'study'; id: 'siop62' }
   | { kind: 'study'; id: 'siop62-alert'; option: number }
@@ -36,6 +38,7 @@ function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources') return { kind: 'front' }
   if (hash === '#/atlas') return { kind: 'atlas' }
   if (hash === '#/loop') return { kind: 'loop' }
+  if (hash === '#/chronicle') return { kind: 'chronicle' }
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
   if (hash === '#/study/siop62-alert') return { kind: 'study', id: 'siop62-alert', option: 1 }
   const option = /^#\/study\/siop62-alert\/(\d{1,2})$/.exec(hash)
@@ -132,6 +135,7 @@ export default function App() {
   const route = useRoute()
   const links: Array<{ href: string; label: string; active: boolean }> = [
     { href: '#/', label: 'Grid/84', active: route.kind === 'front' },
+    { href: '#/chronicle', label: 'Chronicle', active: route.kind === 'chronicle' },
     { href: '#/atlas', label: 'Atlas', active: route.kind === 'atlas' },
     { href: '#/study/siop62', label: 'SIOP//62', active: route.kind === 'study' && route.id === 'siop62' },
     { href: '#/study/siop62-alert', label: 'Alert force', active: route.kind === 'study' && route.id === 'siop62-alert' },
@@ -161,6 +165,7 @@ export default function App() {
       )}
       {route.kind === 'loop' && <LoopView />}
       {route.kind === 'front' && <FrontPage />}
+      {route.kind === 'chronicle' && <Chronicle />}
       {route.kind === 'atlas' && <AtlasView />}
       {route.kind === 'study' && route.id === 'siop62' && <StudyView key="siop62" study={SIOP62_PROOF} />}
       {route.kind === 'study' && route.id === 'siop62-alert' && <OptionStudy option={route.option} />}
