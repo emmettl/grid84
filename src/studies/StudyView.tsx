@@ -85,6 +85,35 @@ export async function resolveGridBase(grid: string): Promise<string> {
  */
 /** How long the converging mark takes; matched by the keyframes in the stylesheet. */
 const RETICLE_MS = 1_900
+/** How long the detonation burst takes; matched by the keyframes in the stylesheet. */
+const BURST_MS = 1_500
+
+/**
+ * The moment of arrival.
+ *
+ * The engine's own radial flash is drawn in the track layer and was the only
+ * thing marking a detonation; once the rings were drawn at full strength it
+ * was lost under them, and the instant a warhead arrived stopped reading as
+ * an instant at all. This is the punctuation: a white core that blows out
+ * and two shock rings running out behind it, over in a second and a half,
+ * leaving the rings it announced.
+ *
+ * It is a drawn moment and not a measurement — the rings beneath it are the
+ * measurement — so it carries no figure and nothing on the readout depends
+ * on it. Only studies that draw their rings get one, which is the same
+ * bound that keeps a two-thousand-detonation study from trying.
+ */
+function detonationBurst(map: MapLibreMap, position: LngLat, yieldKt: number): void {
+  const el = document.createElement('div')
+  el.className = 'detonation-burst'
+  el.setAttribute('aria-hidden', 'true')
+  // A megatonne blows out wider than a kilotonne, by the cube root the blast
+  // radius itself goes as, so the mark is in proportion without being to scale.
+  el.style.setProperty('--burst-scale', String(Math.max(0.6, Math.min(2.2, Math.cbrt(Math.max(1, yieldKt)) / 6))))
+  el.innerHTML = '<span class="detonation-core"></span><span class="detonation-shock"></span><span class="detonation-shock detonation-shock--late"></span>'
+  const marker = new Marker({ element: el, anchor: 'center' }).setLngLat([position[0], position[1]]).addTo(map)
+  window.setTimeout(() => marker.remove(), BURST_MS + 120)
+}
 
 /**
  * The targeting mark: four corner brackets that converge on a point and a ring
@@ -842,6 +871,10 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             // A radial flash when the running clock crosses the detonation; scrubbing does not flash.
             if (changed && previous.time < e.time && next.time >= e.time && previous.playing) {
               flashLayer.current?.flash(e.center[0], e.center[1], 40 + 24 * Math.log10(Math.max(1, e.effects.yieldKt)))
+              // A study drawing its rings gets the moment drawn too. A study
+              // laying down thousands does not, because it would be a
+              // thousand elements and the marks are its language there.
+              if (!e.compact && map) detonationBurst(map, e.center, e.effects.yieldKt)
             }
             if (marker) {
               if (due && !marker.getElement().isConnected) marker.addTo(map)

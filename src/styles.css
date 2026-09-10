@@ -631,6 +631,75 @@ body,
 }
 
 /*
+  The detonation. A white core that blows out and two shock rings running out
+  behind it, over in a second and a half. It is punctuation and not geometry —
+  the rings it leaves behind are the geometry — so it is sized in viewport
+  units and scaled only loosely by yield.
+*/
+.detonation-burst {
+  position: relative;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  --burst: calc(clamp(70px, 13vmin, 170px) * var(--burst-scale, 1));
+}
+
+.detonation-burst span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--burst);
+  height: var(--burst);
+  margin-left: calc(var(--burst) / -2);
+  margin-top: calc(var(--burst) / -2);
+  border-radius: 50%;
+}
+
+.detonation-core {
+  background: radial-gradient(circle, rgba(255, 255, 245, 0.98) 0%, rgba(255, 226, 170, 0.85) 32%, rgba(255, 140, 90, 0.5) 58%, rgba(255, 96, 96, 0) 74%);
+  animation: detonation-core 1.5s cubic-bezier(0.1, 0.75, 0.25, 1) forwards;
+}
+
+.detonation-shock {
+  border: 2px solid rgba(255, 214, 170, 0.85);
+  box-shadow: 0 0 14px rgba(255, 150, 100, 0.5);
+  animation: detonation-shock 1.5s cubic-bezier(0.08, 0.7, 0.2, 1) forwards;
+}
+
+/* The second ring leaves a beat later, which is what makes it read as a wave. */
+.detonation-shock--late {
+  border-color: rgba(255, 160, 120, 0.55);
+  animation-delay: 0.16s;
+}
+
+@keyframes detonation-core {
+  0% { transform: scale(0.05); opacity: 1; }
+  14% { transform: scale(1.15); opacity: 1; }
+  40% { transform: scale(0.8); opacity: 0.85; }
+  100% { transform: scale(0.5); opacity: 0; }
+}
+
+@keyframes detonation-shock {
+  0% { transform: scale(0.05); opacity: 0; }
+  10% { opacity: 0.95; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* Someone who has asked for less motion gets the moment without the expansion. */
+@media (prefers-reduced-motion: reduce) {
+  .detonation-core,
+  .detonation-shock {
+    animation: detonation-hold 1.2s steps(1, end) forwards;
+    transform: none;
+  }
+
+  @keyframes detonation-hold {
+    0%, 70% { opacity: 0.9; }
+    100% { opacity: 0; }
+  }
+}
+
+/*
   The targeting mark. Four brackets converge on the aim point and a ring
   collapses into it, once, as the point is placed: the classic reticle, which
   is theatre and is meant to be. It is drawn entirely by this rule set — the
