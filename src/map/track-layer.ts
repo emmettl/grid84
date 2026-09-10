@@ -23,6 +23,8 @@ export const TRACK_LAYER_ID = 'ev-tracks-gl'
 const MARK = { fill: 3, ring: 5, halo: 10 }
 /** At most this many offset passes thicken the one-pixel GL lines. */
 const MAX_PASSES = 5
+/** The strength of a faintly highlighted track: the bus and the siblings of a selected warhead. */
+const FAINT_FLOOR = 0.45
 
 interface Program {
   program: WebGLProgram
@@ -35,6 +37,7 @@ interface Variant {
   flash: Program
   lineVao: WebGLVertexArrayObject
   highlightVao: WebGLVertexArrayObject
+  faintVao: WebGLVertexArrayObject
   headVao: WebGLVertexArrayObject
   pointVao: WebGLVertexArrayObject
   flashVao: WebGLVertexArrayObject
@@ -288,6 +291,8 @@ export class TrackLayer implements CustomLayerInterface {
   private indexBuffer: WebGLBuffer | null = null
   private highlightBuffer: WebGLBuffer | null = null
   private highlight = new Set<string>()
+  private faintBuffer: WebGLBuffer | null = null
+  private faint = new Set<string>()
   private headBuffer: WebGLBuffer | null = null
   private pointBuffer: WebGLBuffer | null = null
   private scene: TrackScene | null = null
@@ -296,11 +301,12 @@ export class TrackLayer implements CustomLayerInterface {
   /** Trail fading in study seconds: hold, then fade over a span to a floor of the line's alpha. */
   private fade = { enabled: false, holdSeconds: 5 * 60, spanSeconds: 25 * 60, floor: 0 }
 
-  /** Tracks drawn again without the fade: the selected vehicle, or the vehicles that delivered a selected detonation. */
-  setHighlight(ids: Iterable<string>): void {
+  /** Tracks drawn again without the fade: the selected vehicle, or the vehicles that delivered a selected detonation; `faint` draws the bus and the sibling vehicles at part strength. */
+  setHighlight(ids: Iterable<string>, faint: Iterable<string> = []): void {
     this.highlight = new Set(ids)
+    this.faint = new Set(faint)
     if (this.scene && this.frame) {
-      buildFrame(this.scene, this.time, this.frame, this.highlight)
+      buildFrame(this.scene, this.time, this.frame, this.highlight, this.faint)
       this.frameDirty = true
     }
     this.map?.triggerRepaint()
@@ -336,7 +342,7 @@ export class TrackLayer implements CustomLayerInterface {
   setTime(time: number): void {
     this.time = time
     if (this.scene && this.frame) {
-      buildFrame(this.scene, time, this.frame, this.highlight)
+      buildFrame(this.scene, time, this.frame, this.highlight, this.faint)
       this.frameDirty = true
     }
     this.map?.triggerRepaint()
@@ -348,6 +354,7 @@ export class TrackLayer implements CustomLayerInterface {
     this.staticBuffer = gl.createBuffer()
     this.indexBuffer = gl.createBuffer()
     this.highlightBuffer = gl.createBuffer()
+    this.faintBuffer = gl.createBuffer()
     this.headBuffer = gl.createBuffer()
     this.pointBuffer = gl.createBuffer()
     this.flashBuffer = gl.createBuffer()
@@ -358,8 +365,8 @@ export class TrackLayer implements CustomLayerInterface {
   onRemove(_map: MapLibreMap, gl: WebGL2RenderingContext): void {
     this.variants.forEach((v) => this.deleteVariant(v))
     this.variants.clear()
-    for (const b of [this.staticBuffer, this.indexBuffer, this.highlightBuffer, this.headBuffer, this.pointBuffer, this.flashBuffer]) if (b) gl.deleteBuffer(b)
-    this.staticBuffer = this.indexBuffer = this.highlightBuffer = this.headBuffer = this.pointBuffer = this.flashBuffer = null
+    for (const b of [this.staticBuffer, this.indexBuffer, this.highlightBuffer, this.faintBuffer, this.headBuffer, this.pointBuffer, this.flashBuffer]) if (b) gl.deleteBuffer(b)
+    this.staticBuffer = this.indexBuffer = this.highlightBuffer = this.faintBuffer = this.headBuffer = this.pointBuffer = this.flashBuffer = null
     this.map = null
     this.gl = null
   }
@@ -456,6 +463,7 @@ export class TrackLayer implements CustomLayerInterface {
       flash,
       lineVao: this.lineVao(gl, line.program, this.staticBuffer!, this.indexBuffer),
       highlightVao: this.lineVao(gl, line.program, this.staticBuffer!, this.highlightBuffer),
+      faintVao: this.lineVao(gl, line.program, this.staticBuffer!, this.faintBuffer),
       headVao: this.lineVao(gl, line.program, this.headBuffer!, null),
       pointVao: this.pointVao(gl, point.program, this.pointBuffer!),
       flashVao: this.flashVao(gl, flash.program, this.flashBuffer!),
@@ -568,6 +576,8 @@ export class TrackLayer implements CustomLayerInterface {
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, frame.indices.subarray(0, frame.indexCount), gl.DYNAMIC_DRAW)
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.highlightBuffer)
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, frame.highlight.subarray(0, frame.highlightCount), gl.DYNAMIC_DRAW)
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.faintBuffer)
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, frame.faint.subarray(0, frame.faintCount), gl.DYNAMIC_DRAW)
       gl.bindBuffer(gl.ARRAY_BUFFER, this.headBuffer)
       gl.bufferData(gl.ARRAY_BUFFER, frame.heads.subarray(0, frame.headVertexCount * LINE_STRIDE), gl.DYNAMIC_DRAW)
       gl.bindBuffer(gl.ARRAY_BUFFER, this.pointBuffer)
@@ -618,6 +628,25 @@ export class TrackLayer implements CustomLayerInterface {
         draw()
         gl.uniform2f(p.uniforms.u_dir, 0, 1)
         draw()
+      }
+      // The bus and the sibling vehicles of a chosen detonation, again at part strength, so the whole missile reads beside its one warhead.
+      if (frame.faintCount > 0) {
+        gl.uniform4f(p.uniforms.u_fade, 0, 1, FAINT_FLOOR, 1)
+        const dim = () => {
+          gl.bindVertexArray(v.faintVao)
+          gl.drawElements(gl.LINES, frame.faintCount, gl.UNSIGNED_INT, 0)
+        }
+        gl.uniform2f(p.uniforms.u_dir, 0, 0)
+        gl.uniform1f(p.uniforms.u_frac, 0)
+        dim()
+        for (let k = 1; k <= passes; k += 1) {
+          const frac = k / passes
+          gl.uniform1f(p.uniforms.u_frac, frac)
+          gl.uniform2f(p.uniforms.u_dir, 1, 0)
+          dim()
+          gl.uniform2f(p.uniforms.u_dir, 0, 1)
+          dim()
+        }
       }
       // The selected tracks again, with the fade off, so a chosen detonation's route reads at its full colour.
       if (frame.highlightCount > 0) {

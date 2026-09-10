@@ -13,6 +13,7 @@ import { acuteMortality, plume } from '../models/fallout.ts'
 import { ExposureService } from '../models/exposure-service.ts'
 import type { UnionDetonation, UnionTotals } from '../models/exposure.ts'
 import { EvidenceLegend } from './EvidenceLegend.tsx'
+import { launchedFrom, missileOf } from './missile.ts'
 import type { Entity, LabelAnchor, Study } from './study.ts'
 
 const RATES = [1, 10, 60, 600, 3_600]
@@ -321,14 +322,40 @@ export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions })
   const [clock, setClock] = useState<ClockState>(initialClock)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const selectedRef = useRef<string | null>(null)
+  const focusMarker = useRef<Marker | null>(null)
+  useEffect(() => {
+    // Development handles for driving a selection from the console.
+    if (!import.meta.env.DEV) return
+    const w = window as unknown as { __grid84Study?: Study; __grid84Select?: (id: string | null) => void }
+    w.__grid84Study = study
+    w.__grid84Select = setSelectedId
+  }, [study])
+  const missile = useMemo(() => missileOf(study, selectedId), [study, selectedId])
+  const launch = useMemo(() => launchedFrom(study, selectedId), [study, selectedId])
   useEffect(() => {
     selectedRef.current = selectedId
     primed.current = false
-    // The selected vehicle, or the vehicles that delivered the selected detonation, come back out of the fade.
+    // The selected vehicle, or the vehicles that delivered the selected detonation, come back out of the fade; the rest of the
+    // missile, the bus and its other warheads, comes half way, as do the vehicles a selected launch point sent.
     const e = study.entities.find((x) => x.id === selectedId)
-    const lit = e?.kind === 'track' ? [e.id] : e?.kind === 'effect' ? (e.deliveredBy ?? []) : []
-    trackLayer.current?.setHighlight(lit)
-  }, [selectedId, study])
+    const lit = e?.kind === 'track' ? [e.id] : e?.kind === 'effect' ? (e.deliveredBy ?? []) : launch ? launch.tracks.map((t) => t.id) : []
+    const faint = missile ? [missile.bus.id, ...missile.vehicles.map((v) => v.id)].filter((id) => !lit.includes(id)) : launch ? launch.vehicles.map((v) => v.id) : []
+    trackLayer.current?.setHighlight(lit, faint)
+    // The other detonations of the missile, or everything the launch point hit, ringed; the bus separation marked.
+    const map = mapRef.current
+    const targets = (missile?.effects ?? launch?.effects ?? []).filter((x) => x.id !== selectedId)
+    const features: EvidenceFeature[] = targets.map((x) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [x.center[0], x.center[1]] }, properties: { evidence: 'modelled', id: x.id, role: 'target' } }))
+    if (missile) features.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [missile.separation.position[0], missile.separation.position[1]] }, properties: { evidence: 'modelled', id: `${missile.bus.id}-separation`, role: 'separation' } })
+    if (map?.getSource('ev-focus')) setSourceData(map, 'ev-focus', features)
+    focusMarker.current?.remove()
+    focusMarker.current = null
+    if (missile && map) {
+      const el = document.createElement('div')
+      el.className = 'ev-focus-label'
+      el.textContent = `BUS SEPARATION · ${formatStudyTime(missile.separation.time)} · ${Math.round(missile.separation.altitude / 1000)} KM · ${missile.vehicles.length} RV`
+      focusMarker.current = new Marker({ element: el, anchor: 'left', offset: [10, 0] }).setLngLat([missile.separation.position[0], missile.separation.position[1]]).addTo(map)
+    }
+  }, [selectedId, study, missile, launch])
   const [ready, setReady] = useState(false)
 
   const statics = useMemo(() => staticFeatures(study), [study])
@@ -354,6 +381,10 @@ export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions })
       const flashes = new TrackLayer('ev-flash-gl')
       map.addLayer(flashes, 'ev-vehicles-glow')
       flashLayer.current = flashes
+      // The focus of a selection: the other targets of the same missile or launch point, ringed, and the bus separation point.
+      map.addSource('ev-focus', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+      map.addLayer({ id: 'ev-focus-targets', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'target'], paint: { 'circle-radius': 9, 'circle-color': 'rgba(0, 0, 0, 0)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.55)', 'circle-stroke-width': 1 } })
+      map.addLayer({ id: 'ev-focus-separation', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'separation'], paint: { 'circle-radius': 4, 'circle-color': 'rgba(141, 250, 255, 0.9)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.4)', 'circle-stroke-width': 4 } })
       setSourceData(map, SOURCES.sites, statics.sites)
       for (const e of study.entities) {
         if (e.label === false) continue
@@ -812,6 +843,57 @@ export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions })
                         </li>
                       )
                     })}
+                  </ul>
+                </div>
+              )}
+              {missile && (
+                <div className="delivered">
+                  <span className="clock-label">The whole missile</span>
+                  <p className="provenance-method">
+                    {missile.bus.name.split(' → ')[0]} · {missile.vehicles.length} reentry vehicles · bus separation at {formatStudyTime(missile.separation.time)}, {Math.round(missile.separation.altitude / 1000)} km up
+                    {(() => {
+                      const known = missile.effects.filter((x) => outcomes[x.id])
+                      if (known.length === 0) return null
+                      const dead = known.reduce((a, x) => a + outcomes[x.id].fire.fatal, 0)
+                      return ` · ${fmt(dead)} dead across ${known.length} of its ${missile.effects.length} detonations, each counted at its own target`
+                    })()}
+                  </p>
+                  <ul>
+                    {missile.vehicles.map((v, k) => {
+                      const hit = missile.effects.find((x) => (x.deliveredBy ?? []).includes(v.id))
+                      const own = v.id === selectedId || (selected.kind === 'effect' && (selected.deliveredBy ?? []).includes(v.id))
+                      return (
+                        <li key={v.id} className={own ? 'is-own' : ''}>
+                          <button type="button" onClick={() => setSelectedId(hit ? hit.id : v.id)}>
+                            RV {k + 1} → {v.name.split(' → ')[1] ?? v.name}
+                            {hit ? ` · ${formatStudyTime(hit.time)}${outcomes[hit.id] ? ` · ${fmt(outcomes[hit.id].fire.fatal)} dead` : ''}` : ' · no detonation recorded'}
+                          </button>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
+              {launch && !missile && (
+                <div className="delivered">
+                  <span className="clock-label">Launched from here</span>
+                  <p className="provenance-method">
+                    {launch.tracks.length} vehicle{launch.tracks.length > 1 ? 's' : ''}{launch.vehicles.length > 0 ? `, ${launch.vehicles.length} reentry vehicles` : ''} · {launch.effects.length} detonation{launch.effects.length === 1 ? '' : 's'}
+                    {(() => {
+                      const known = launch.effects.filter((x) => outcomes[x.id])
+                      if (known.length === 0) return null
+                      return ` · ${fmt(known.reduce((a, x) => a + outcomes[x.id].fire.fatal, 0))} dead across ${known.length} of them, each counted at its own target`
+                    })()}
+                  </p>
+                  <ul>
+                    {launch.tracks.slice(0, 24).map((t) => (
+                      <li key={t.id}>
+                        <button type="button" onClick={() => setSelectedId(t.id)}>
+                          {t.name.split(' → ').slice(1).join(' → ') || t.name} · {t.designation}
+                        </button>
+                      </li>
+                    ))}
+                    {launch.tracks.length > 24 && <li className="provenance-method">and {launch.tracks.length - 24} more</li>}
                   </ul>
                 </div>
               )}

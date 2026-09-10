@@ -50,3 +50,7 @@ The 1983 strategic forces are built by `scripts/build-order-of-battle-1983-strat
 - Kosta Tsipis, *Arsenal* (1983), ch. 6, and Bunn and Tsipis, "The Uncertainties of a Preemptive Nuclear Attack," *Scientific American* (November 1983), which put the arithmetic of this study before the public in the year it is set.
 - Office of Technology Assessment, *MX Missile Basing* (1981), on the silo problem.
 - Cochran, Arkin and Hoenig, *Nuclear Weapons Databook* vol. 1 (1984); Norris and Kristensen, Nuclear Notebook series.
+
+## Selection: the whole missile, and what a site sent
+
+Selecting a detonation lights the vehicle that delivered it at full strength and, at part strength, the rest of its missile: the bus track to the separation point, which is marked with its time, altitude and warhead count, and the sibling reentry vehicles, with their targets ringed. The panel lists the missile's warheads with their targets, arrival times and, once the grid has been read, the dead at each, summed across the missile with each detonation counted at its own target. Selecting a launch point, a division, a silo, a base or a patrol area, lights everything it sent and rings everything it hit, with the same sum. The resolver is `src/studies/missile.ts`; vehicles belong to the site they start at or whose name they carry, since a division's missiles are spread over its field by rule. This applies to every study, not only this one.

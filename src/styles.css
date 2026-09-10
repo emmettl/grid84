@@ -2005,6 +2005,24 @@ body,
   outline: none;
 }
 
+/* ---------- The whole missile and the launch point ---------- */
+
+.delivered li.is-own button {
+  color: var(--ink);
+}
+
+.ev-focus-label {
+  padding: 0.15rem 0.4rem;
+  border: 1px solid rgba(141, 250, 255, 0.4);
+  background: var(--panel);
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 /* ---------- WOPR ---------- */
 
 .wopr {
