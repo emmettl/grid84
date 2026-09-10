@@ -26,7 +26,7 @@ export interface PlacedLabel extends LabelWish {
   leader: boolean
 }
 
-const CHAR_W = 6.2
+const CHAR_W = 7
 const LINE_H = 12
 
 function box(l: { x: number; y: number; text: string; anchor: 'start' | 'middle' | 'end' }) {
