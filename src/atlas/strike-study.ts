@@ -61,7 +61,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
   ]
   const events: StudyEvent[] = [
     { time: -countdownSeconds, text: `STRIKE ORDER · ${power.name.toUpperCase()} · ${site.system.toUpperCase()} FROM ${site.name.toUpperCase()} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt)} ON ${target.name.toUpperCase()}`, entityId: launcher.id },
-    { time: 0, text: `LAUNCH · ${sizing.missiles} MISSILE${sizing.missiles > 1 ? 'S' : ''} · ${Math.round(delivery.distanceMetres / 1000).toLocaleString('en-GB')} KM · FLIGHT ${Math.round(delivery.flightSeconds / 60)} MIN`, entityId: launcher.id, camera: { center: [(site.position[0] + target.position[0]) / 2, (site.position[1] + target.position[1]) / 2], zoom: delivery.distanceMetres > 5_000_000 ? 1.8 : delivery.distanceMetres > 1_500_000 ? 3 : 4.5, durationMs: 2_000 } },
+    { time: 0, text: `LAUNCH · ${sizing.missiles} MISSILE${sizing.missiles > 1 ? 'S' : ''} · ${Math.round(delivery.distanceMetres / 1000).toLocaleString('en-GB')} KM · FLIGHT ${Math.round(delivery.flightSeconds / 60)} MIN`, entityId: launcher.id, camera: { center: [(site.position[0] + target.position[0]) / 2, (site.position[1] + target.position[1]) / 2], zoom: delivery.distanceMetres > 8_000_000 ? 2.3 : delivery.distanceMetres > 5_000_000 ? 2.8 : delivery.distanceMetres > 2_500_000 ? 3.6 : delivery.distanceMetres > 1_000_000 ? 4.6 : 5.8, durationMs: 2_500 } },
     { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 3 ? 8 : 9, pitch: 40, durationMs: 3_000 } },
     { time: arrival, text: `DETONATION · ${target.name.toUpperCase()} · ${sizing.burst.toUpperCase()} BURST · ${fmtYield(sizing.yieldKt)}`, entityId: 'atlas-e-target' },
     ...(last > arrival + 1 ? [{ time: last, text: `LAST OF ${sizing.warheads} WARHEADS DOWN`, entityId: 'atlas-e-target' }] : []),
@@ -73,7 +73,8 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     subtitle: `${power.adjective} ${site.system} from ${site.name.split(' · ')[0]} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt).toLowerCase()} · ${classification.category.toLowerCase()} · 2025 grid`,
     bounds: { start: -countdownSeconds, end: last + 1_800 },
     startTime: -countdownSeconds,
-    view: { center: target.position, zoom: delivery.distanceMetres > 5_000_000 ? 2.2 : delivery.distanceMetres > 1_500_000 ? 3.5 : 5 },
+    // Open on the target close enough to read its bounds; the launch pulls the camera out to the whole flight.
+    view: { center: target.position, zoom: 7.5 },
     entities,
     events,
     omissions: [
