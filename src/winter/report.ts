@@ -71,6 +71,8 @@ export function report(input: ReportInput): WinterLine[] {
     say(m, `YEAR ${y} · SURFACE ${frame.globalAnomaly.toFixed(1)} K · LAND ${frame.landAnomalyMean.toFixed(1)} K · SUN ${pc(frame.sunlightMean)} · RAIN ${pc(frame.precipitation)} · SOOT ${tg(frame.sootTg)} TG`, 'mark')
     const lost = h.frostMonths[north]
     if (lost > 0) say(m + 1, `${lost} MONTH${lost === 1 ? '' : 'S'} OF KILLING FROST ADDED AT 40 TO 50 NORTH, WHERE THE FROST FELL ON A STANDING CROP`)
+    const season = Math.round(h.seasonDays[north])
+    say(m + 1, season <= 0 ? 'NO GROWING SEASON AT ALL AT 40 TO 50 NORTH: NOT ONE DAY OF THE YEAR IS WARM ENOUGH' : `GROWING SEASON AT 40 TO 50 NORTH · ${season} DAYS · ${Math.round(h.seasonLost[north])} FEWER THAN NORMAL`)
     say(m + 2, `HARVEST ${pc(h.fraction)} OF NORMAL · ${pc(h.yieldFactor[north])} AT 40 TO 50 NORTH · ${pc(h.yieldFactor[tropics])} IN THE TROPICS`, 'best')
     if (fam) {
       say(m + 3, fam.withoutFood > 1e6 ? `WITHOUT FOOD · ${people(fam.withoutFood)} · ${pc(fam.withoutFood / input.population)} OF THE WORLD · AT ${Math.round(fam.perPersonDay).toLocaleString('en-GB')} KCAL A DAY THE AVERAGE IS ${fam.perPersonDay < 1_911 ? 'BELOW' : 'ABOVE'} WHAT A BODY CAN LIVE ON` : 'THE BUFFERS HOLD. THE LOSS IS ABSORBED BY THE ANIMALS NOT EATING IT AND BY WHAT WOULD HAVE BEEN THROWN AWAY', 'best')
