@@ -1,40 +1,30 @@
 # Hosting
 
-Grid/84 is served by GitHub Pages at **https://grid84.app/**. The Pages workflow (`.github/workflows/pages.yml`) builds `dist/` on every push to `main` and deploys it; `public/CNAME` carries the domain into the artifact, and the repository's Pages settings name the same domain, so `https://emmettl.github.io/grid84/` redirects there. The build uses a relative base (`base: './'` in `vite.config.ts`) and hash routes, so the same artifact serves at the root of a domain or under a path.
+Grid/84 is dual-hosted from one artifact. Every push to `main` runs the checks, builds `dist/` and deploys it to GitHub Pages at **https://emmettl.github.io/grid84/** (`.github/workflows/pages.yml`). The same artifact is deployed to **https://grid84.app/** as a Cloudflare Worker with static assets (`wrangler.jsonc`): the Worker has no script, only the files, and the domain and `www` are its custom domains, so Cloudflare keeps the DNS records itself. The build uses a relative base (`base: './'` in `vite.config.ts`) and hash routes, so the artifact serves at the root of a domain or under a path without change.
 
-The Motion Studies sub-path edition (`motionstudies.app/grid84`) was retired on 10 September 2026: the atlas has too much of its own identity to be a sub-path of another site. The edition publisher workflow and its wrangler config were removed from this repository; the `grid84` entry in Motion Studies' `hosting/editions.json` can go when convenient.
+The Motion Studies sub-path edition (`motionstudies.app/grid84`) was retired on 10 September 2026: the atlas has too much of its own identity to be a sub-path of another site. Its `grid84` entry in Motion Studies' `hosting/editions.json` can go when convenient.
 
-## DNS at Cloudflare
+## Deploying the Worker
 
-The domain is registered at Cloudflare. GitHub Pages needs these records, **DNS only** (grey cloud) at least until GitHub has issued the certificate; the zone can be proxied afterwards with SSL/TLS set to *Full (strict)*.
+From a machine logged in to wrangler (`npx wrangler login`):
 
-| Type | Name | Content |
-| --- | --- | --- |
-| A | `grid84.app` | `185.199.108.153` |
-| A | `grid84.app` | `185.199.109.153` |
-| A | `grid84.app` | `185.199.110.153` |
-| A | `grid84.app` | `185.199.111.153` |
-| AAAA | `grid84.app` | `2606:50c0:8000::153` |
-| AAAA | `grid84.app` | `2606:50c0:8001::153` |
-| AAAA | `grid84.app` | `2606:50c0:8002::153` |
-| AAAA | `grid84.app` | `2606:50c0:8003::153` |
-| CNAME | `www` | `emmettl.github.io` |
+```bash
+npm run build && npx wrangler deploy
+```
 
-Cloudflare's registrar may have created placeholder records on purchase; remove any A, AAAA or CNAME on the apex that is not in the table. The `www` name redirects to the apex on GitHub's side once both resolve.
+The Pages workflow does the same in its `worker` job when the repository secret `CLOUDFLARE_API_TOKEN` exists; without it the job prints a note and grid84.app keeps its last deployment. The token comes from the Cloudflare dashboard, My Profile → API Tokens → Create Token → the **Edit Cloudflare Workers** template, with Account Resources set to this account and Zone Resources to grid84.app. A wrangler login's OAuth session cannot mint tokens (it lacks the API-tokens scope), so this is a dashboard step. The account id is in `wrangler.jsonc`; it is not a secret.
 
-## After the records resolve
+## Caching
 
-1. Repository → Settings → Pages shows the domain with a DNS check; once it passes, GitHub requests a Let's Encrypt certificate, usually within the hour.
-2. Tick **Enforce HTTPS** when the certificate is issued (the API call `gh api -X PUT repos/emmettl/grid84/pages -F https_enforced=true` does the same).
-3. Optional, recommended: verify the domain for the account at GitHub → Settings → Pages → *Add a domain*, which asks for a `TXT` record at `_github-pages-challenge-emmettl.grid84.app`; a verified domain cannot be claimed by another repository.
+`public/_headers` is honoured by the Worker and ignored by GitHub Pages, and follows the editions' policy: hashed files under `/assets/` are `public, max-age=31536000, immutable`; the HTML and the grids index are `public, max-age=0, must-revalidate`; the study grids under `/data/hyde/` revalidate daily; `/_release.json`, which the workflow writes with the commit and run, is `no-cache`. GitHub Pages applies its own ten-minute policy to everything.
 
 ## Checks
 
 ```bash
-dig +short grid84.app A
-dig +short grid84.app AAAA
-dig +short www.grid84.app CNAME
-curl -sI https://grid84.app/ | head -5
+curl -sI https://grid84.app/ | grep -i -E "server|cache-control|x-grid84"
+curl -sI https://grid84.app/assets/$(curl -s https://grid84.app/ | grep -o 'assets/index-[^"]*\.js' | head -1 | cut -d/ -f2) | grep -i cache-control
+curl -s https://grid84.app/_release.json
+curl -sI https://emmettl.github.io/grid84/ | grep -i -E "server|cache-control"
 ```
 
-The response should come from GitHub (`server: GitHub.com`) with the `index.html` of the last deployment; `https://grid84.app/#/wopr` should open WOPR.
+Both hosts read the GHSL grids from the R2 bucket named in the grids index, so the studies and WOPR calibrate the same way on either.

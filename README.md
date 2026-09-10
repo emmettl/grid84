@@ -70,7 +70,7 @@ Use Node 24 or later and npm 11.19.0. Run `npm ci`, then `npm run dev` for the s
 
 - `npm run typecheck`, `npm run lint` and `npm test` verify the workspace.
 - `npm run build` writes the static site to `dist/`.
-- Pushes to `main` run the checks and deploy `dist/` to GitHub Pages (`.github/workflows/pages.yml`), which serves the site at [grid84.app](https://grid84.app/) through the `CNAME` in `public/`; `emmettl.github.io/grid84` redirects there. The build ships the HYDE study grids and drops the local GHSL tiles, which the site reads from the R2 bucket named in the grids index. The domain is registered at Cloudflare and its DNS points at GitHub Pages; the records are in [docs/HOSTING.md](docs/HOSTING.md).
+- Pushes to `main` run the checks and deploy `dist/` to GitHub Pages at [emmettl.github.io/grid84](https://emmettl.github.io/grid84/) and, as a Cloudflare Worker with static assets, to [grid84.app](https://grid84.app/) (`.github/workflows/pages.yml`, `wrangler.jsonc`; see [docs/HOSTING.md](docs/HOSTING.md)). The build ships the HYDE study grids and drops the local GHSL tiles, which the site reads from the R2 bucket named in the grids index.
 
 Grid/84 is a standalone repository with its own domain. It borrows the [Motion Studies](https://github.com/emmettl/motionstudies) toolchain and ethos but not its timetable packages, and it is not one of its editions: every edition there is a bounded, pre-compiled study, whereas this atlas answers for anywhere on Earth through live open services. See the [roadmap](ROADMAP.md) for stages and the services each one depends on, and the [SIOP//62 brief](docs/SIOP-62.md) for the first execution study.
 

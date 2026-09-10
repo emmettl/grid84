@@ -24,3 +24,6 @@ public/data/hyde/popc_*
 
 # GHSL tiles are prepared locally from the GeoTIFF by scripts/prepare-ghsl-tiles.py; the specimen is synthetic.
 public/data/ghsl/
+
+# Wrangler state
+.wrangler/

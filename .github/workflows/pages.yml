@@ -22,6 +22,8 @@ jobs:
       - run: npm run typecheck && npm run lint && npm test
       # The build ships the HYDE study grids and drops the local GHSL tiles; the site reads those from the R2 bucket named in the grids index.
       - run: npm run build
+      - name: Release marker
+        run: printf '{"repository":"%s","commit":"%s","run_id":"%s","workflow_url":"%s/%s/actions/runs/%s"}\n' "$GITHUB_REPOSITORY" "$GITHUB_SHA" "$GITHUB_RUN_ID" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > dist/_release.json
       - uses: actions/upload-artifact@v6
         with:
           name: grid84-site
@@ -47,3 +49,25 @@ jobs:
           path: dist
       - uses: actions/deploy-pages@v5
         id: deployment
+  # The same artifact to grid84.app as a Cloudflare Worker with static assets, when the token is present
+  # (repository secret CLOUDFLARE_API_TOKEN from the "Edit Cloudflare Workers" template; see docs/HOSTING.md).
+  worker:
+    needs: check
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - uses: actions/download-artifact@v8
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        with:
+          name: grid84-site
+          path: dist
+      - uses: cloudflare/wrangler-action@v3
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy
+      - run: echo "No CLOUDFLARE_API_TOKEN secret; grid84.app keeps its last deployment."
+        if: env.CLOUDFLARE_API_TOKEN == ''

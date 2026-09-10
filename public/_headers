@@ -1,0 +1,23 @@
+# Cloudflare Worker static-asset headers (GitHub Pages ignores this file).
+# Hashed assets are immutable for a year; the HTML and the grids index
+# revalidate; the release marker is never cached.
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Grid84-Hosting: cloudflare-worker
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Grid84-Hosting: cloudflare-worker
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/data/hyde/index.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/data/hyde/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/_release.json
+  Cache-Control: no-cache

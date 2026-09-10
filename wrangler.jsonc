@@ -1,0 +1,20 @@
+// The grid84.app Worker: the same dist/ that GitHub Pages serves, as static
+// assets on Cloudflare, with the domain as a custom domain so Cloudflare
+// keeps the DNS record itself. Deploy with `npm run build && npx wrangler
+// deploy`; the Pages workflow does the same when the token is present.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "grid84",
+  "account_id": "8cac82a07417990e553f88793670f361",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "routes": [
+    { "pattern": "grid84.app", "custom_domain": true },
+    { "pattern": "www.grid84.app", "custom_domain": true }
+  ],
+  "observability": { "enabled": true }
+}
