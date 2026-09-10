@@ -1894,3 +1894,37 @@ body,
   white-space: nowrap;
   vertical-align: top;
 }
+
+/* The readout keeps one shape as the hovered year changes, so the chart above it never moves. */
+.chronicle-readout {
+  display: grid;
+  grid-template-columns: 4rem repeat(auto-fill, minmax(9.5rem, 1fr));
+  align-items: baseline;
+  min-height: 2.6rem;
+}
+
+.chronicle-value {
+  white-space: nowrap;
+}
+
+.chronicle-value strong {
+  display: inline-block;
+  min-width: 3.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chronicle-value.is-none {
+  opacity: 0.45;
+}
+
+.chronicle-chart text {
+  pointer-events: none;
+}
+
+.chronicle-chart {
+  aspect-ratio: 960 / 420;
+}
+
+.chronicle-bars {
+  aspect-ratio: 960 / 200;
+}

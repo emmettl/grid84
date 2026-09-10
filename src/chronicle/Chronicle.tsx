@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import stockpilesFile from '../../data/chronicle/stockpiles.json'
 import postureFile from '../../data/chronicle/posture.json'
 import { CrossingChart } from '../lab/AccuracyLab.tsx'
@@ -100,11 +100,19 @@ function StockpileChart({ scale, onHover, hover, treaties }: { scale: 'linear' |
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scale])
   const ticks = scale === 'linear' ? [0, 10_000, 20_000, 30_000, 40_000].filter((t) => t <= yMax) : [1, 10, 100, 1_000, 10_000, 100_000]
+  // One state update per hovered year, not per mouse event: the readout only changes when the year does.
+  const lastYear = useRef<number | null>(null)
   const move = (event: React.MouseEvent<SVGSVGElement>) => {
     const rect = event.currentTarget.getBoundingClientRect()
     const px = ((event.clientX - rect.left) / rect.width) * W
-    const yr = Math.round(y0 + ((px - PAD.l) / (W - PAD.l - PAD.r)) * (y1 - y0))
-    onHover(Math.max(y0, Math.min(y1, yr)))
+    const yr = Math.max(y0, Math.min(y1, Math.round(y0 + ((px - PAD.l) / (W - PAD.l - PAD.r)) * (y1 - y0))))
+    if (yr === lastYear.current) return
+    lastYear.current = yr
+    onHover(yr)
+  }
+  const leave = () => {
+    lastYear.current = null
+    onHover(null)
   }
   const last = (name: string) => STOCKPILES.series[name][STOCKPILES.series[name].length - 1]
   const world = (yr: number) => Object.values(STOCKPILES.series).reduce((s, pts) => s + (pts.find(([yy]) => yy === yr)?.[1] ?? 0), 0)
@@ -118,7 +126,7 @@ function StockpileChart({ scale, onHover, hover, treaties }: { scale: 'linear' |
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <svg className="gen-chart chronicle-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={STOCKPILES.title} onMouseMove={move} onMouseLeave={() => onHover(null)}>
+    <svg className="gen-chart chronicle-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={STOCKPILES.title} onMouseMove={move} onMouseLeave={leave}>
       {ticks.map((t) => (
         <g key={t}>
           <line x1={PAD.l} x2={W - PAD.r} y1={y(t)} y2={y(t)} className="grid" />
@@ -228,7 +236,8 @@ export function Chronicle() {
   const [treaties, setTreaties] = useState(false)
   const [hover, setHover] = useState<number | null>(null)
   const at = hover ?? STOCKPILES.years[1]
-  const values = ORDER.map((name) => ({ name, v: STOCKPILES.series[name].find(([yy]) => yy === at)?.[1] ?? 0 })).filter((r) => r.v > 0)
+  // Every state, every time, so the row keeps its height as the year changes.
+  const values = ORDER.map((name) => ({ name, v: STOCKPILES.series[name].find(([yy]) => yy === at)?.[1] ?? 0 }))
   return (
     <main className="front chronicle" aria-label="Chronicle">
       <div className="front-inner front-inner--wide">
@@ -257,8 +266,8 @@ export function Chronicle() {
           <div className="chronicle-readout">
             <span className="chronicle-year">{at}</span>
             {values.map((r) => (
-              <span key={r.name} className={`chronicle-value chronicle-value--${ROLE[r.name] ?? 'other'}`}>
-                {r.name === 'United Kingdom' ? 'Britain' : r.name} <strong>{fmt(r.v)}</strong>
+              <span key={r.name} className={`chronicle-value chronicle-value--${ROLE[r.name] ?? 'other'}${r.v > 0 ? '' : ' is-none'}`}>
+                {r.name === 'United Kingdom' ? 'Britain' : r.name} <strong>{r.v > 0 ? fmt(r.v) : '—'}</strong>
               </span>
             ))}
           </div>
