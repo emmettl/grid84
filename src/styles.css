@@ -3050,3 +3050,71 @@ body,
   font-size: 11px;
   letter-spacing: 0.08em;
 }
+
+/* ---------- The intercept lab ---------- */
+
+.iv-detect {
+  fill: rgba(255, 96, 96, 0.55);
+}
+
+.iv-decide {
+  fill: rgba(255, 179, 71, 0.55);
+}
+
+.iv-fly {
+  fill: rgba(125, 255, 154, 0.45);
+}
+
+.iv-burnout {
+  stroke: rgba(232, 251, 255, 0.85);
+  stroke-width: 2;
+}
+
+.iv-line {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.6;
+}
+
+.iv-dot {
+  fill: var(--amber);
+}
+
+/* The level at which one interceptor is, on average, in the right place. */
+.iv-one {
+  stroke: rgba(255, 96, 96, 0.7);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+
+.iv-glide {
+  stroke: rgba(255, 179, 71, 0.8);
+  stroke-width: 1.2;
+}
+
+.iv-ballistic {
+  stroke: rgba(141, 250, 255, 0.6);
+  stroke-width: 1.2;
+}
+
+.iv-plan {
+  max-width: 17rem;
+  margin: 0 auto;
+  display: block;
+}
+
+.iv-footprint {
+  fill: rgba(125, 255, 154, 0.1);
+  stroke: rgba(125, 255, 154, 0.8);
+  stroke-width: 1.5;
+}
+
+.iv-city {
+  fill: rgba(255, 96, 96, 0.25);
+  stroke: rgba(255, 96, 96, 0.8);
+  stroke-width: 1;
+}
+
+.iv-battery {
+  fill: var(--amber);
+}

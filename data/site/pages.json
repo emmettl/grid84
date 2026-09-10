@@ -190,6 +190,13 @@
    "title": "The guidance lab — how a warhead finds its aim point",
    "description": "Inertial guidance, stellar fixes and satellite correction, and what each is worth in metres.",
    "summary": "Where circular error probable comes from."
+  },
+  {
+   "path": "labs/intercept",
+   "hash": "#/lab/intercept",
+   "title": "The intercept lab — boost, midcourse, glide and terminal",
+   "description": "Why intercepting a ballistic missile is hard, phase by phase: the boost window that detection and a decision consume, the absentee ratio that puts a space layer's cost in the thousands, the horizon a glide vehicle stays under, and the ground a terminal battery can actually defend.",
+   "summary": "Every figure is arithmetic rather than a claim about a named system, and the footprint formula is checked against the published radius of two deployed batteries."
   }
  ]
 }

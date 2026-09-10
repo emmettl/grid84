@@ -6,6 +6,7 @@ import { TerrainLab } from './lab/TerrainLab.tsx'
 import { FalloutLab } from './lab/FalloutLab.tsx'
 import { ReadinessLab } from './lab/ReadinessLab.tsx'
 import { DefenceLab } from './lab/DefenceLab.tsx'
+import { InterceptLab } from './lab/InterceptLab.tsx'
 import { AccuracyLab } from './lab/AccuracyLab.tsx'
 import { GuidanceLab } from './lab/GuidanceLab.tsx'
 import { ErwLab } from './lab/ErwLab.tsx'
@@ -229,6 +230,7 @@ export default function App() {
     { href: '#/lab/fallout', label: 'Fallout', active: inLab && route.id === 'fallout' },
     { href: '#/lab/readiness', label: 'Readiness', active: inLab && route.id === 'readiness' },
     { href: '#/lab/defence', label: 'Defence', active: inLab && route.id === 'defence' },
+    { href: '#/lab/intercept', label: 'Interception', active: inLab && route.id === 'intercept' },
     { href: '#/lab/accuracy', label: 'Accuracy', active: inLab && route.id === 'accuracy' },
     { href: '#/lab/guidance', label: 'Guidance', active: inLab && route.id === 'guidance' },
     { href: '#/lab/neutron', label: 'Neutron bomb', active: inLab && route.id === 'neutron' },
@@ -297,6 +299,7 @@ export default function App() {
       {route.kind === 'lab' && route.id === 'fallout' && <FalloutLab key="lab-fallout" />}
       {route.kind === 'lab' && route.id === 'readiness' && <ReadinessLab key="lab-readiness" />}
       {route.kind === 'lab' && route.id === 'defence' && <DefenceLab key="lab-defence" />}
+      {route.kind === 'lab' && route.id === 'intercept' && <InterceptLab key="lab-intercept" />}
       {route.kind === 'lab' && route.id === 'accuracy' && <AccuracyLab key="lab-accuracy" />}
       {route.kind === 'lab' && route.id === 'guidance' && <GuidanceLab key="lab-guidance" />}
       {route.kind === 'lab' && route.id === 'neutron' && <ErwLab key="lab-neutron" />}

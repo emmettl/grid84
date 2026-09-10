@@ -27,7 +27,7 @@ export type Route =
   | { kind: 'study'; id: 'tornado' }
   | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }
   | { kind: 'study'; id: 'window-83'; posture: 'ride' | 'launch' }
-  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' | 'neutron' }
+  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' | 'neutron' | 'intercept' }
 
 export function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources' || hash === '#/labs' || hash === '#/studies') return { kind: 'front' }
@@ -71,6 +71,7 @@ export function parseRoute(hash: string): Route {
   if (hash === '#/lab/neutron') return { kind: 'lab', id: 'neutron' }
   if (hash === '#/lab/readiness') return { kind: 'lab', id: 'readiness' }
   if (hash === '#/lab/defence') return { kind: 'lab', id: 'defence' }
+  if (hash === '#/lab/intercept') return { kind: 'lab', id: 'intercept' }
   if (hash === '#/lab/accuracy') return { kind: 'lab', id: 'accuracy' }
   if (hash === '#/lab/guidance') return { kind: 'lab', id: 'guidance' }
   return { kind: 'atlas' }

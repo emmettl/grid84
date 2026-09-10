@@ -178,6 +178,7 @@ const LABS: Array<{ title: string; line: string; href: string }> = [
   { title: 'Accuracy', line: 'Counterforce as a technical choice: what a warhead of a given yield and CEP can destroy, from Atlas to Trident II, and the year the even-chance line against a hardened silo was crossed.', href: '#/lab/accuracy' },
   { title: 'Guidance', line: 'Where a CEP comes from: the error budget of a submarine missile, the boat\'s own drift since its last fix, and the star sight that took the boat out of the sum.', href: '#/lab/guidance' },
   { title: 'Defence', line: 'The shot exchange: warheads and decoys against interceptors, from Safeguard through SDI to the present decade\'s space layer, with the Nitze criterion in numbers.', href: '#/lab/defence' },
+  { title: 'Interception', line: 'Four phases and four reasons hitting a bullet with a bullet is the easy part: the boost window that seeing and deciding eat, the absentee ratio that puts a space layer in the thousands, the horizon a glide vehicle stays under, and the ground a terminal battery can actually defend.', href: '#/lab/intercept' },
 ]
 
 const SOURCES: Array<{ what: string; who: string; href: string; terms: string }> = [
