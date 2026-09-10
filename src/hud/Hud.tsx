@@ -54,6 +54,7 @@ export function Hud({ phase, onAcquire, consoleOpen = false }: HudProps) {
         <input
           id="target-query"
           type="search"
+          autoFocus
           autoComplete="off"
           spellCheck={false}
           placeholder=""
@@ -66,7 +67,11 @@ export function Hud({ phase, onAcquire, consoleOpen = false }: HudProps) {
           onKeyDown={onKeyDown}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
         />
-        {geocoder.query === '' && <span className="wopr-cursor hud-cursor" aria-hidden="true" />}
+        {/* The block cursor: the native caret is hidden and a blinking block rides on an invisible mirror of the typed text. */}
+        <span className="hud-caret" aria-hidden="true">
+          <span className="hud-caret-mirror">{geocoder.query}</span>
+          <span className="wopr-cursor hud-cursor" />
+        </span>
         <button type="submit" disabled={geocoder.query.trim() === ''}>
           Acquire
         </button>

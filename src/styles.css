@@ -2121,7 +2121,7 @@ body,
   font-family: var(--mono) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.14em !important;
-  caret-color: var(--phosphor);
+  caret-color: transparent;
   text-shadow: 0 0 6px rgba(157, 255, 176, 0.3);
 }
 
@@ -2130,18 +2130,34 @@ body,
   box-shadow: 0 0 0 1px rgba(157, 255, 176, 0.5), 0 0 24px rgba(157, 255, 176, 0.18) !important;
 }
 
-.hud-cursor {
+/* The mirror wears the input's font and spacing exactly, so the block lands after the last typed character. */
+.hud-caret {
   position: absolute;
-  left: 0.85rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0.55rem;
-  height: 1rem;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 0.8rem;
   pointer-events: none;
+  overflow: hidden;
+  max-width: calc(100% - 7rem);
+  white-space: pre;
 }
 
-.hud-search input:focus + .hud-cursor {
-  display: none;
+.hud-caret-mirror {
+  visibility: hidden;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hud-caret .wopr-cursor {
+  width: 0.55rem;
+  height: 1.05rem;
+  margin-left: 0;
+  vertical-align: middle;
 }
 
 .strike-console {
