@@ -1936,3 +1936,21 @@ body,
 .chronicle-table {
   min-width: 36rem;
 }
+
+/* ---------- Guidance lab ---------- */
+
+.guidance .fields {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.guidance-bar {
+  display: inline-block;
+  height: 0.5rem;
+  max-width: 6rem;
+  vertical-align: middle;
+  background: rgba(141, 250, 255, 0.45);
+}
+
+.guidance .bands td:nth-child(3) {
+  white-space: nowrap;
+}

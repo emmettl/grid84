@@ -7,6 +7,7 @@ import { FalloutLab } from './lab/FalloutLab.tsx'
 import { ReadinessLab } from './lab/ReadinessLab.tsx'
 import { DefenceLab } from './lab/DefenceLab.tsx'
 import { AccuracyLab } from './lab/AccuracyLab.tsx'
+import { GuidanceLab } from './lab/GuidanceLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
 import { ALERT_FORCE, forceForOption } from './studies/siop62/alert-force.ts'
@@ -34,7 +35,7 @@ type Route =
   | { kind: 'study'; id: 'able-archer-83' }
   | { kind: 'study'; id: 'britain-80'; strath: boolean }
   | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }
-  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' }
+  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' }
 
 function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources' || hash === '#/labs') return { kind: 'front' }
@@ -66,6 +67,7 @@ function parseRoute(hash: string): Route {
   if (hash === '#/lab/readiness') return { kind: 'lab', id: 'readiness' }
   if (hash === '#/lab/defence') return { kind: 'lab', id: 'defence' }
   if (hash === '#/lab/accuracy') return { kind: 'lab', id: 'accuracy' }
+  if (hash === '#/lab/guidance') return { kind: 'lab', id: 'guidance' }
   return { kind: 'atlas' }
 }
 
@@ -145,6 +147,7 @@ export default function App() {
     { href: '#/lab/readiness', label: 'Readiness', active: inLab && route.id === 'readiness' },
     { href: '#/lab/defence', label: 'Defence', active: inLab && route.id === 'defence' },
     { href: '#/lab/accuracy', label: 'Accuracy', active: inLab && route.id === 'accuracy' },
+    { href: '#/lab/guidance', label: 'Guidance', active: inLab && route.id === 'guidance' },
   ]
   // The bar carries the forms and the studies; the open lab appears beside a link to the labs on the front page.
   const links: Array<{ href: string; label: string; active: boolean }> = [
@@ -191,6 +194,7 @@ export default function App() {
       {route.kind === 'lab' && route.id === 'readiness' && <ReadinessLab key="lab-readiness" />}
       {route.kind === 'lab' && route.id === 'defence' && <DefenceLab key="lab-defence" />}
       {route.kind === 'lab' && route.id === 'accuracy' && <AccuracyLab key="lab-accuracy" />}
+      {route.kind === 'lab' && route.id === 'guidance' && <GuidanceLab key="lab-guidance" />}
     </>
   )
 }
