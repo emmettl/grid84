@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { famine } from './famine.ts'
-import { baselineDegreeDays, harvest } from './harvest.ts'
+import { baselineDegreeDays, growingSeasonDays, harvest } from './harvest.ts'
 import { burnedAreaKm2, fireAreaKm2, loftedFraction, referenceFuel, SOOT_CASES, SOOT_CHAIN, SOOT_PER_PERSON_KG, sootForFuel, sootFromDetonation } from './soot.ts'
 import { OZONE, ozoneColumn, ultraviolet } from './ozone.ts'
 import { injectionWeights, insolation, peakOf, runWinter, type Zonal } from './winter.ts'
@@ -138,6 +138,31 @@ describe('the harvest and the famine', () => {
     // that emptying every one of them leaves most of the world without food.
     expect(best.withoutFood).toBeGreaterThan(worst.withoutFood * 0.7)
     expect(best.withoutFood).toBeGreaterThan(4e9)
+  })
+
+  it('shortens the growing season by what Mills et al. 2014 measured, having never been fitted to it', () => {
+    // Mills, Toon, Lee-Taylor & Robock, Earth's Future 2 (2014): killing frosts
+    // reduce the growing season by 10 to 40 days a year for five years, at 5 Tg.
+    const years = harvest(run('regional-5', 96), zonal, { population: 7.86e9 })
+    const north = [12, 13, 14]
+    const lost = years.slice(0, 5).flatMap((y) => north.map((b) => y.seasonLost[b]))
+    expect(Math.min(...lost)).toBeGreaterThan(4)
+    expect(Math.max(...lost)).toBeLessThan(45)
+    expect(lost.filter((d) => d >= 10 && d <= 40).length).toBeGreaterThan(lost.length / 2)
+    // A full winter takes the season away entirely where the wheat is, for years.
+    const big = harvest(run('global-150', 96), zonal, { population: 7.86e9 })
+    expect(big[1].seasonDays[13]).toBe(0)
+    expect(big[3].seasonDays[13]).toBe(0)
+  })
+
+  it('counts the days of a season from the months, and loses none in an undisturbed year', () => {
+    const warm = Array.from({ length: 12 }, () => 20)
+    expect(growingSeasonDays(warm)).toBeCloseTo(365.25, 0)
+    expect(growingSeasonDays(Array.from({ length: 12 }, () => -20))).toBe(0)
+    // A year that crosses the threshold twice keeps the part above it.
+    const seasonal = [-5, -3, 2, 8, 14, 18, 20, 19, 14, 8, 2, -3]
+    expect(growingSeasonDays(seasonal)).toBeGreaterThan(150)
+    expect(growingSeasonDays(seasonal)).toBeLessThan(230)
   })
 
   it('accumulates heat where the crops are, and takes it away where the cold arrives', () => {

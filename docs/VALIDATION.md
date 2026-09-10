@@ -238,6 +238,24 @@ A forty-eight hour window is not where the dying stops; it is where the model us
 
 **What is still missing is larger than either.** Between the acute deaths and the cancers lie the injured who die because there is no hospital, the people who die of a winter without heat or water, the crops that fail and the famine that the atmospheric work of the last decade puts above every prompt effect combined. The studies of consequence, from the Office of Technology Assessment in 1979 to the crop-model work of the 2020s, are mostly about that gap. This engine does not model it and now says so on every surface-burst readout.
 
+## Reading the ground: land use in target identification
+
+The classifier's inputs were the geocoder's tag and the population density.
+Adding OpenStreetMap's land-use polygons, measured by shoelace within two
+and a half kilometres, changes what the console makes of a place. Two live
+checks:
+
+| Target | Ground, as measured | Old verdict | New verdict |
+| --- | --- | --- | --- |
+| Fairford, Gloucestershire | 48% farmland, 24% green, 20% military — 5.0 km²; largest polygon named RAF Fairford | RURAL, struck as a point | MILITARY, hard, surface burst |
+| Zurich | 69% residential, 22% green, 73% built on; largest polygon Zürichberg | URBAN-INDUSTRIAL by density | URBAN-INDUSTRIAL by the ground |
+
+Fairford is the case that justifies the whole thing: three thousand people,
+tagged `place=village`, and an airbase under it. The synthetic tests in
+`landuse.test.ts` check the areas, the classes and the precedence — tag
+first, then ground, then density — and the fallback when Overpass does not
+answer.
+
 ## The years after: soot, cold, the harvest and the famine
 
 The winter chain (`src/models/soot.ts`, `winter.ts`, `harvest.ts`,
@@ -274,6 +292,7 @@ billion:
 | Without food, year 2, no trade | 255 / 926 / 1,426 / 2,081 / 2,512 / 5,341 M | 247 / 1,101 / 1,500 / 1,993 / 2,724 / 5,536 M |
 | Without food, year 2, trade | 4 / 626 / 1,162 / 1,861 / 2,353 / 5,321 M | 129 / 474 / 1,042 / 1,503 / 2,462 / 5,752 M |
 | Ozone column, worst | −25% at 5 Tg, −75% at 150 | −25%, −75% |
+| Growing season lost, 5 Tg, five years | 10 to 40 days (Mills 2014) | 6 to 37 days at 30–60 °N |
 
 Eighteen published numbers, most within a tenth. Three places where it is
 not, and they are stated rather than tuned away: it runs cool at five
@@ -284,6 +303,15 @@ land-against-ocean contrast is milder than the published one at the same
 global mean, −12 against −18 over land, because a zonal band averages a
 continental interior with the coast beside it and the published maps do
 not.
+
+The growing-season row is the one worth noting, because nothing was fitted
+to it. The harvest model was set against Xia's crop losses and Xia's famine
+totals; the season length is a different quantity, computed from the
+monthly temperatures by interpolation, and it lands on Mills's published
+range on its own. At a hundred and fifty teragrams the same calculation
+gives no growing season at all between forty and sixty north, for four
+years running, which is Robock's Iowa and Ukraine staying below freezing
+for more than a year.
 
 ### What the fit had to be told twice
 

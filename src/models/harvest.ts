@@ -107,6 +107,31 @@ export function baselineDegreeDays(zonal: Zonal): number[] {
   })
 }
 
+/**
+ * Length of the growing season in days: how much of the year is warm enough
+ * for a crop to develop, by linear interpolation between the monthly means.
+ *
+ * The published figure to set this against is a frost-free count — the
+ * consecutive days whose *minimum* temperature stays above freezing — and a
+ * monthly mean is not a daily minimum. A month averaging five degrees has
+ * frost in it most nights. So the threshold here is the base temperature
+ * the degree days use, and the comparison with Mills's ten to forty days is
+ * a comparison of two proxies for the same thing, not of like with like.
+ */
+export function growingSeasonDays(monthlyTemps: number[], base = HARVEST_PARAMETERS.baseTemperature): number {
+  const days = 365.25 / 12
+  let total = 0
+  for (let m = 0; m < monthlyTemps.length; m += 1) {
+    const a = monthlyTemps[m]
+    const b = monthlyTemps[(m + 1) % monthlyTemps.length]
+    if (a >= base && b >= base) total += days
+    else if (a < base && b < base) continue
+    // The month the season opens or closes: the share of it above the threshold.
+    else total += days * Math.abs((Math.max(a, b) - base) / (Math.max(a, b) - Math.min(a, b)))
+  }
+  return total
+}
+
 export interface HarvestYear {
   /** Years after the exchange; year 1 is the first full year. */
   year: number
@@ -114,6 +139,9 @@ export interface HarvestYear {
   yieldFactor: number[]
   degreeDays: number[]
   frostMonths: number[]
+  /** Days of the year warm enough to grow in, and how many fewer than normal. */
+  seasonDays: number[]
+  seasonLost: number[]
   /** Calories the band produces, and the world's total, both as a fraction of the undisturbed year. */
   bandFraction: number[]
   fraction: number
@@ -140,6 +168,8 @@ export function harvest(frames: WinterFrame[], zonal: Zonal, options: { paramete
     const yieldFactor: number[] = []
     const gdd: number[] = []
     const frostMonths: number[] = []
+    const seasonDays: number[] = []
+    const seasonLost: number[] = []
     for (let i = 0; i < zonal.bands.length; i += 1) {
       const temps = window.map((f) => f.landTemp[i])
       const g = degreeDays(temps, p.baseTemperature)
@@ -159,13 +189,15 @@ export function harvest(frames: WinterFrame[], zonal: Zonal, options: { paramete
       frostMonths.push(extraFrosts)
       const light = saturating(window.reduce((a, f) => a + f.sunlight[i], 0) / window.length, p.lightFloor, p.lightExponent)
       const water = saturating(window.reduce((a, f) => a + f.precipitationBand[i], 0) / window.length, p.waterFloor, p.waterExponent)
+      seasonDays.push(growingSeasonDays(temps, p.baseTemperature))
+      seasonLost.push(Math.max(0, growingSeasonDays(normal, p.baseTemperature) - growingSeasonDays(temps, p.baseTemperature)))
       const baseGrowing = normal.filter((t) => t > p.baseTemperature).length
       const frostHit = extraFrosts > 0 ? 1 - (1 - p.frostSurvival) * Math.min(1, extraFrosts / Math.max(1, baseGrowing)) : 1
       yieldFactor.push(growing === 0 ? 0 : Math.min(heat, light, water) * frostHit)
     }
     const bandFraction = yieldFactor.map((f, i) => (croplandTotal > 0 ? (f * cropland[i]) / croplandTotal : 0))
     const fraction = bandFraction.reduce((a, b) => a + b, 0)
-    years.push({ year: y + 1, yieldFactor, degreeDays: gdd, frostMonths, bandFraction, fraction, calories: fraction * wholeCrop })
+    years.push({ year: y + 1, yieldFactor, degreeDays: gdd, frostMonths, seasonDays, seasonLost, bandFraction, fraction, calories: fraction * wholeCrop })
   }
   return years
 }
