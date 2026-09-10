@@ -54,6 +54,9 @@ describe('the atlas solver', () => {
     expect('failure' in plan).toBe(false)
     if ('failure' in plan) return
     expect(plan.sizing.warheads).toBeGreaterThan(1)
+    // A capital of twenty kilometres' radius draws the heavy load, not the nearest theatre missile.
+    expect(plan.delivery.site.warheadsPerMissile * plan.delivery.site.yieldKt).toBeGreaterThan(1_000)
+    expect(plan.lines.some((l) => /COVERS \d+% OF THE AREA/.test(l))).toBe(true)
     expect(plan.sizing.aimPoints).toHaveLength(plan.sizing.warheads)
     expect(plan.sizing.missiles).toBeGreaterThanOrEqual(1)
     expect(plan.lines.some((l) => /WEAPON SIZED/.test(l))).toBe(true)

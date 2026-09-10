@@ -37,6 +37,7 @@ export function StrikeConsole({ target, onLaunch, onStandDown }: { target: Atlas
   const skipRef = useRef(false)
   const started = useRef(performance.now())
   const next = useRef(1)
+  const opened = useRef(false)
 
   const say = (text: string, kind: Line['kind'] = 'plain', replace = false) => {
     const elapsed = Math.round((performance.now() - started.current) / 1000)
@@ -59,8 +60,10 @@ export function StrikeConsole({ target, onLaunch, onStandDown }: { target: Atlas
     const run = async () => {
       setPhase('reasoning')
       setCount(COUNTDOWN)
-      say(`TARGET ACQUIRED · ${target.name.toUpperCase()} · ${target.countryCode} · ${formatGrid(target.position)}`, 'mark')
-      say('READING THE 2025 GRID', 'calib')
+      // Development remounts the effect; the opening is written once.
+      if (!opened.current) say(`TARGET ACQUIRED · ${target.name.toUpperCase()} · ${target.countryCode} · ${formatGrid(target.position)}`, 'mark')
+      opened.current = true
+      say('READING THE 2025 GRID', 'calib', true)
       const [profile, wind] = await Promise.all([
         readProfile(target).catch((e: Error) => {
           say(`GRID UNREADABLE · ${e.message.toUpperCase()}`, 'mark')

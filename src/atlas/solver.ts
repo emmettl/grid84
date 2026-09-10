@@ -110,13 +110,13 @@ export function sizeWeapon(cls: Classification, site: ForceSite, center: LngLat,
   const yieldKt = site.yieldKt
   const burst: 'air' | 'surface' = cls.hard || wantFallout ? 'surface' : 'air'
   const r5 = radiusForPsi(yieldKt, 5, burst)
-  const cap = Math.max(1, Math.min(12, site.warheadsPerMissile * 2))
+  const cap = loadCap(site)
   let warheads = 1
   let reason: string
   if (cls.countervalue && cls.urbanRadiusMetres > 0) {
     const needed = Math.ceil((cls.urbanRadiusMetres * cls.urbanRadiusMetres) / (r5 * r5))
     warheads = Math.max(1, Math.min(cap, needed))
-    reason = `5 PSI RADIUS OF ${yieldKt >= 1000 ? `${(yieldKt / 1000).toFixed(1)} MT` : `${yieldKt} KT`} AT ${burst.toUpperCase()} BURST IS ${(r5 / 1000).toFixed(1)} KM · URBAN AREA ${Math.round(cls.urbanRadiusMetres / 1000)} KM · ${needed} DISC${needed > 1 ? 'S' : ''} TO TILE IT${needed > cap ? ` · CAPPED AT ${cap} BY TWO MISSILES' LOADS` : ''}`
+    reason = `5 PSI RADIUS OF ${yieldKt >= 1000 ? `${(yieldKt / 1000).toFixed(1)} MT` : `${yieldKt} KT`} AT ${burst.toUpperCase()} BURST IS ${(r5 / 1000).toFixed(1)} KM · URBAN AREA ${Math.round(cls.urbanRadiusMetres / 1000)} KM · ${needed} DISC${needed > 1 ? 'S' : ''} TO TILE IT${needed > cap ? ` · CAPPED AT ${cap} BY ${site.warheadsPerMissile >= 6 ? "ONE MISSILE'S LOAD" : "TWO MISSILES' LOADS"}` : ''}`
   } else if (cls.countervalue) {
     reason = `A TOWN INSIDE ONE 5 PSI DISC OF ${(r5 / 1000).toFixed(1)} KM · ONE WEAPON`
   } else {
@@ -125,6 +125,20 @@ export function sizeWeapon(cls: Classification, site: ForceSite, center: LngLat,
   const missiles = Math.ceil(warheads / site.warheadsPerMissile)
   const aimPoints = laydown(center, warheads, yieldKt, burst === 'surface' ? radiusForPsi(yieldKt, 5, 'surface') * 1.6 : undefined)
   return { warheads, missiles, yieldKt, burst, r5, aimPoints, reason }
+}
+
+/** How many warheads one strike may draw from a system: a heavy missile's full load, or two loads of a lighter one, never more than twelve. */
+export function loadCap(site: ForceSite): number {
+  return site.warheadsPerMissile >= 6 ? site.warheadsPerMissile : Math.max(1, Math.min(12, site.warheadsPerMissile * 2))
+}
+
+/** The fraction of the urban area the cap of this system would put under 5 psi; one for a point target. */
+export function coverageOf(cls: Classification, site: ForceSite, wantFallout: boolean): number {
+  if (!cls.countervalue || cls.urbanRadiusMetres <= 0) return 1
+  const burst: 'air' | 'surface' = cls.hard || wantFallout ? 'surface' : 'air'
+  const r5 = radiusForPsi(site.yieldKt, 5, burst)
+  const cap = loadCap(site)
+  return Math.min(1, (cap * r5 * r5) / (cls.urbanRadiusMetres * cls.urbanRadiusMetres))
 }
 
 export interface StrikePlan {
@@ -154,9 +168,16 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
     const nearest = options[0]
     return { failure: `NO ${POWERS[adversary.power].name.toUpperCase()} SYSTEM REACHES ${target.name.toUpperCase()}${nearest ? ` · NEAREST ${nearest.site.system.toUpperCase()} AT ${fmtKm(nearest.distanceMetres)} AGAINST A RANGE OF ${fmtKm(nearest.site.rangeKm * 1000)}` : ''}`, lines }
   }
-  for (const o of reachable.slice(0, 4)) lines.push(`DELIVERY OPTION · ${o.site.system.toUpperCase()} · ${o.site.name.toUpperCase()} · ${fmtKm(o.distanceMetres)} · ${fmtMin(o.flightSeconds)} · ${o.site.warheadsPerMissile} × ${o.site.yieldKt} KT`)
-  const delivery = reachable[0]
-  lines.push(`SELECTED · ${delivery.site.system.toUpperCase()} FROM ${delivery.site.name.toUpperCase()} · THE SHORTEST FLIGHT IN RANGE · ${fmtMin(delivery.flightSeconds)}`)
+  // Missiles before aircraft: a bomber's ten hours are the option of last resort.
+  const missiles = reachable.filter((o) => o.route === 'ballistic')
+  const pool = missiles.length > 0 ? missiles : reachable
+  if (missiles.length > 0 && missiles.length < reachable.length) lines.push(`${reachable.length - missiles.length} AIRCRAFT AND CRUISE OPTION${reachable.length - missiles.length > 1 ? 'S' : ''} SET ASIDE WHILE A MISSILE REACHES`)
+  // Sized for effect: each option's load against the area, then the shortest flight among those that cover it best.
+  const scored = pool.map((o) => ({ o, coverage: coverageOf(classification, o.site, wantFallout) }))
+  const bestCoverage = Math.max(...scored.map((x) => x.coverage))
+  for (const { o, coverage } of scored.slice(0, 5)) lines.push(`DELIVERY OPTION · ${o.site.system.toUpperCase()} · ${o.site.name.toUpperCase()} · ${fmtKm(o.distanceMetres)} · ${fmtMin(o.flightSeconds)} · ${o.site.warheadsPerMissile} × ${o.site.yieldKt} KT${classification.countervalue && classification.urbanRadiusMetres > 0 ? ` · COVERS ${Math.round(coverage * 100)}% OF THE AREA` : ''}`)
+  const delivery = scored.filter((x) => x.coverage >= bestCoverage - 1e-9).sort((a, b) => a.o.flightSeconds - b.o.flightSeconds)[0].o
+  lines.push(`SELECTED · ${delivery.site.system.toUpperCase()} FROM ${delivery.site.name.toUpperCase()} · ${classification.countervalue && classification.urbanRadiusMetres > 0 ? `THE LOAD THAT COVERS MOST OF THE AREA (${Math.round(bestCoverage * 100)}%), THEN THE SHORTEST FLIGHT` : 'THE SHORTEST FLIGHT IN RANGE'} · ${fmtMin(delivery.flightSeconds)}`)
   const sizing = sizeWeapon(classification, delivery.site, target.position, wantFallout)
   lines.push(`WEAPON SIZED FOR EFFECT · ${sizing.reason}`)
   lines.push(`LAYDOWN · ${sizing.warheads} WARHEAD${sizing.warheads > 1 ? 'S' : ''} OF ${sizing.yieldKt} KT ON ${sizing.missiles} MISSILE${sizing.missiles > 1 ? 'S' : ''} · ${sizing.warheads > 1 ? `AIM POINTS IN A SUNFLOWER SPACED SO THE 5 PSI DISCS MEET` : 'ONE AIM POINT AT THE CENTRE'} · ${sizing.burst.toUpperCase()} BURST${sizing.burst === 'surface' && classification.countervalue ? ' SO THE FALLOUT IS DRAWN; DOCTRINE WOULD AIRBURST A CITY, WHICH THE READOUT CAN SHOW' : ''}`)
