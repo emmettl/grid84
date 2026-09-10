@@ -2,6 +2,7 @@ import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 import { TIER_ORDER, type EvidenceTier } from '../evidence/evidence.ts'
 import { HUE, INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
+import { ensureReachHatch, REACH_HATCH } from './hatch.ts'
 import { planeImage } from './plane-icon.ts'
 
 /**
@@ -54,6 +55,11 @@ export function installEvidenceLayers(map: MapLibreMap): void {
       },
     })
   }
+  // A reach: the ground something must already be over. Hatched, faintly, so it
+  // reads as an area of ground rather than as an effect.
+  map.addSource('ev-reach', { type: 'geojson', data: empty() })
+  ensureReachHatch(map)
+  map.addLayer({ id: 'ev-reach-fill', type: 'fill', source: 'ev-reach', paint: { 'fill-pattern': REACH_HATCH, 'fill-opacity': 0.5 } })
   // Rings: uncertainty rings (inferred) and effect rings (modelled) as outlines.
   map.addLayer({
     id: 'ev-rings-inferred',

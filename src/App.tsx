@@ -45,7 +45,7 @@ type Route =
   | { kind: 'winter' }
   | { kind: 'chronicle' }
   | { kind: 'posture' }
-  | { kind: 'atlas'; strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null } }
+  | { kind: 'atlas'; strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null; site: string | null } }
   | { kind: 'study'; id: 'siop62' }
   | { kind: 'study'; id: 'siop62-alert'; option: number }
   | { kind: 'study'; id: 'defcon3-73'; variant: 'posture' | 'execute' | 'giant' }
@@ -129,22 +129,39 @@ function useTitle(route: Route) {
   }, [route])
 }
 
-function AtlasView({ strike }: { strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null } }) {
+function AtlasView({ strike }: { strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null; site: string | null } }) {
   const [study, setStudy] = useState<Study | null>(null)
+  // Coming back from a strike returns to a clean atlas: the search box empty,
+  // the target released, the globe back on standby. The counter remounts it,
+  // and the shared-strike preset is dropped so it is not acquired again.
+  const [runs, setRuns] = useState(0)
+  const [preset, setPreset] = useState(strike)
+  useEffect(() => {
+    setPreset(strike)
+  }, [strike])
   if (study) {
     return (
       <>
         <StudyView key={study.id} study={study} autoplay={{ rate: 20 }} />
-        <button type="button" className="loop-exit" onClick={() => setStudy(null)}>
+        <button
+          type="button"
+          className="loop-exit"
+          onClick={() => {
+            setStudy(null)
+            setPreset(undefined)
+            setRuns((r) => r + 1)
+            window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#/atlas`)
+          }}
+        >
           BACK TO THE ATLAS
         </button>
       </>
     )
   }
-  return <AtlasGlobe onLaunch={setStudy} preset={strike} />
+  return <AtlasGlobe key={runs} onLaunch={setStudy} preset={preset} />
 }
 
-function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; preset?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null } }) {
+function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; preset?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null; site: string | null } }) {
   const container = useRef<HTMLDivElement>(null)
   const atlas = useRef<Atlas | null>(null)
   const [phase, setPhase] = useState<AtlasPhase>({ kind: 'standby' })
@@ -189,7 +206,7 @@ function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; pr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presetRef])
   const acquired = phase.kind === 'acquired' ? phase.report.target : null
-  const share = (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading }): string | null => {
+  const share = (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading; site?: string | null }): string | null => {
     if (!acquired) return null
     const hash = strikeHash(acquired, choices)
     if (!hash) return null
@@ -202,7 +219,7 @@ function AtlasGlobe({ onLaunch, preset }: { onLaunch: (study: Study) => void; pr
       <div ref={container} className="atlas-map" aria-label="Grid/84 globe" />
       <div className="atlas-vignette" aria-hidden="true" />
       <Hud phase={phase} onAcquire={acquire} consoleOpen={!!acquired && stoodDown !== acquired.id} presetName={presetName} />
-      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} initialAdversary={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? (preset.adversary as Power | null) : null} initialDelivery={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? ((preset.delivery as DeliveryPreference | null) ?? 'best') : 'best'} initialLoading={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) && preset.loading === 'full' ? 'full' : 'deployed'} onShare={share} onLaunch={onLaunch} onStandDown={() => {
+      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} initialAdversary={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? (preset.adversary as Power | null) : null} initialDelivery={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? ((preset.delivery as DeliveryPreference | null) ?? 'best') : 'best'} initialLoading={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) && preset.loading === 'full' ? 'full' : 'deployed'} initialSite={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? preset.site : null} onShare={share} onLaunch={onLaunch} onStandDown={() => {
             atlas.current?.clearAimPoints()
             setStoodDown(acquired.id)
           }} onAimPoint={(p) => atlas.current?.addAimPoint(p)} onClearAimPoints={() => atlas.current?.clearAimPoints()} />}

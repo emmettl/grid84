@@ -5,6 +5,8 @@
  * mistaken for another neutral line on the map.
  */
 export const ALARM_HATCH = 'hatch-alarm'
+/** A faint grey hatch for an area that means a reach rather than a place: the boost-phase intercept ring. */
+export const REACH_HATCH = 'hatch-reach'
 
 export function hatchImage(size = 16, a = '#ff8a1f', b = '#0a0602', stripe = 4): { width: number; height: number; data: Uint8ClampedArray } | null {
   const canvas = document.createElement('canvas')
@@ -25,6 +27,13 @@ export function hatchImage(size = 16, a = '#ff8a1f', b = '#0a0602', stripe = 4):
     ctx.stroke()
   }
   return { width: size, height: size, data: new Uint8ClampedArray(ctx.getImageData(0, 0, size, size).data.buffer) }
+}
+
+/** Register the reach hatch: pale grey stripes on nothing, so the map beneath still reads through it. */
+export function ensureReachHatch(map: { hasImage(id: string): boolean; addImage(id: string, image: { width: number; height: number; data: Uint8ClampedArray }, options?: { pixelRatio?: number }): unknown }): void {
+  if (map.hasImage(REACH_HATCH)) return
+  const img = hatchImage(16, 'rgba(206, 218, 230, 0.5)', 'rgba(0, 0, 0, 0)', 2)
+  if (img) map.addImage(REACH_HATCH, img, { pixelRatio: 2 })
 }
 
 /** Register the alarm hatch on a map once; safe to call before the style has loaded only inside its load handler. */

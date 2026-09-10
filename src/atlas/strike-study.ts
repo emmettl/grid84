@@ -89,6 +89,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
             appearsAt: sv.launchDelaySeconds,
             vanishesAt: sv.launchDelaySeconds + delivery.boost!.burnoutSeconds,
             uncertaintyMetres: best.reachMetres,
+            ringFill: 'hatch' as const,
             evidence: 'modelled' as const,
             provenance: { source: 'The boost-phase arithmetic: detection at 60 s, decision at 30 s, a closing speed of 5 km/s; the constellation spread over its shell; one minus the Poisson zero', method: `An aircraft with a hypersonic interceptor would have to loiter within ${Math.round(airReachMetres(w) / 1000)} km of the launch point` },
             facts: [

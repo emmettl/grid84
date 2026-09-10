@@ -457,6 +457,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     if (!container.current) return
     const map = createBaseMap(container.current, { center: study.view.center, zoom: study.view.zoom })
     mapRef.current = map
+    if (import.meta.env.DEV) Object.assign(window, { __grid84Map: map })
     const labels = markers.current
     map.on('load', () => {
       terrainSync.current = installTerrainSync(map)
@@ -662,6 +663,8 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             appearedKey = key
             setSourceData(map, SOURCES.sites, [...statics.sites, ...due.map((e) => ({ type: 'Feature' as const, geometry: { type: 'Point' as const, coordinates: [e.position[0], e.position[1]] }, properties: { evidence: e.evidence, id: e.id } }))])
             appearedRings = due.filter((e) => e.uncertaintyMetres).map((e) => ({ type: 'Feature' as const, geometry: { type: 'LineString' as const, coordinates: geodesicCircle(e.position, e.uncertaintyMetres as number).map((p) => [p[0], p[1]]) }, properties: { evidence: (e.evidence === 'withheld' ? 'withheld' : 'inferred') as 'withheld' | 'inferred', id: `${e.id}-ring` } }))
+            // A ring that encloses ground worth filling: the boost-phase reach, hatched.
+            setSourceData(map, 'ev-reach', due.filter((e) => e.ringFill === 'hatch' && e.uncertaintyMetres).map((e) => ({ type: 'Feature' as const, geometry: { type: 'Polygon' as const, coordinates: [geodesicCircle(e.position, e.uncertaintyMetres as number).map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled' as const, id: `${e.id}-reach` } })))
             ringsKey = ''
           }
           for (const e of appearing) {
@@ -1116,7 +1119,9 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           )}
         </section>
 
-        {effectCount > 1 && (
+        {/* One detonation has an outcome as much as a hundred do: a strike on a
+            small town is sized for a single warhead, and it used to show nothing. */}
+        {effectCount > 0 && (
           <section className="aggregate" aria-label="Aggregate outcome">
             <h2>
               Outcome calculation <span className="badge badge--modelled">MODELLED</span>

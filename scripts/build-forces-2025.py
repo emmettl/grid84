@@ -21,6 +21,35 @@ NOTEBOOK = 'Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of t
 
 # side, name, kind, system, warheads per missile, yield kt, range km, lon, lat, evidence of the position, evidence of the load, note
 # Bombers and submarine cruise systems carry a standoff in STANDOFF below: how far short of the target the missiles are released.
+def slugify(text: str) -> str:
+    slug = ''.join(c if c.isalnum() else '-' for c in text.lower())
+    while '--' in slug:
+        slug = slug.replace('--', '-')
+    return slug.strip('-')
+
+
+def site_ids(sites) -> dict:
+    """Stable ids: the side and a slug of the place, not a running number.
+
+    A shared strike link names the launch point it flew from, so the id has
+    to survive a site being added to the middle of the list. The place is
+    the first segment of the name; where one place carries two units — Minot
+    has a missile wing and a bomb wing, and the Ohio boats patrol two oceans
+    — the second segment joins it.
+    """
+    first = {}
+    for row in sites:
+        side, name = row[0], row[1]
+        first.setdefault(f'{side}-{slugify(name.split(" · ")[0])}', []).append(name)
+    out = {}
+    for row in sites:
+        side, name = row[0], row[1]
+        parts = name.split(' · ')
+        base = f'{side}-{slugify(parts[0])}'
+        out[(side, name)] = base if len(first[base]) == 1 else f'{base}-{slugify(parts[1] if len(parts) > 1 else name)}'
+    return out
+
+
 SITES = [
     # United States
     ('us', 'Malmstrom AFB · 341st Missile Wing', 'icbm', 'Minuteman III', 1, 300, 13_000, -111.19, 47.50, 'documented', 'reconstructed', 'W87-0 on one reentry vehicle since the 2014 de-MIRV; 150 silos'),
@@ -29,6 +58,7 @@ SITES = [
     ('us', 'Ohio-class patrol · North Atlantic', 'slbm', 'Trident II D5', 4, 90, 12_000, -45.0, 42.0, 'inferred', 'reconstructed', 'W76-1 at about four per missile on patrol loads; W88 455 kt on some; the patrol box is a guess'),
     ('us', 'Ohio-class patrol · North Pacific', 'slbm', 'Trident II D5', 4, 90, 12_000, -155.0, 35.0, 'inferred', 'reconstructed', 'As the Atlantic'),
     ('us', 'Barksdale AFB · 2nd Bomb Wing', 'bomber', 'B-52H with AGM-86B', 8, 150, 12_000, -93.66, 32.50, 'documented', 'reconstructed', 'W80-1 on the air-launched cruise missile'),
+    ('us', 'Minot AFB · 5th Bomb Wing', 'bomber', 'B-52H with AGM-86B', 8, 150, 12_000, -101.35, 48.42, 'documented', 'reconstructed', 'The other half of the American cruise-missile force; Minot carries a missile wing and a bomb wing on the one field'),
     ('us', 'Whiteman AFB · 509th Bomb Wing', 'bomber', 'B-2A with B61-12', 8, 50, 11_000, -93.55, 38.73, 'documented', 'reconstructed', 'B61-12 at its highest option, a guided gravity bomb: the B-2 has no standoff and must reach the target; B83-1 1.2 Mt retiring'),
     # Russia
     ('ru', 'Kozelsk · 28th Guards Rocket Division', 'icbm', 'RS-24 Yars (silo)', 4, 100, 11_000, 35.78, 54.03, 'documented', 'reconstructed', 'Up to four warheads of about 100 kt'),
@@ -45,10 +75,16 @@ SITES = [
     ('ru', 'Engels · 22nd Heavy Bomber Division', 'bomber', 'Tu-160 with Kh-102', 12, 250, 9_000, 46.21, 51.48, 'documented', 'inferred', 'Kh-102 yield inferred at 250 kt'),
     ('ru', 'Ukrainka · 326th Heavy Bomber Division', 'bomber', 'Tu-95MS with Kh-102', 8, 250, 9_000, 128.45, 51.17, 'documented', 'inferred', ''),
     ('ru', 'Savasleyka · 764th Fighter Regiment', 'bomber', 'MiG-31K with Kh-47M2 Kinzhal', 1, 100, 3_000, 42.34, 55.46, 'documented', 'inferred', 'The MiG-31K carriers of the Kinzhal; a nuclear option for the missile is asserted by Russia and unverified, and its yield is inferred'),
+    ('ru', 'Vypolzovo · 7th Guards Rocket Division', 'icbm', 'RS-24 Yars (mobile)', 4, 100, 11_000, 33.06, 57.85, 'documented', 'reconstructed', 'Bologoye; converted from Topol'),
+    ('ru', 'Barnaul · 35th Rocket Division', 'icbm', 'RS-24 Yars (mobile)', 4, 100, 11_000, 83.75, 53.36, 'documented', 'reconstructed', ''),
+    ('ru', 'Yurya · 8th Rocket Division', 'icbm', 'RS-24 Yars (mobile)', 4, 100, 11_000, 49.31, 59.03, 'documented', 'reconstructed', ''),
+    ('ru', 'Olenya · Tu-95MS forward base', 'bomber', 'Tu-95MS with Kh-102', 8, 250, 9_000, 33.46, 68.15, 'documented', 'inferred', 'A Northern Fleet field the long-range bombers work from; the load is the standard one'),
     ('ru', 'Kaliningrad · 152nd Guards Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 20.55, 54.70, 'documented', 'inferred', 'Non-strategic; a nuclear option of some tens of kilotons is inferred'),
     ('ru', 'Luga · 26th Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 29.85, 58.74, 'documented', 'inferred', ''),
     ('ru', 'Mozdok · 12th Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 44.60, 43.79, 'documented', 'inferred', ''),
     ('ru', 'Ussuriysk · 20th Guards Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 131.95, 43.80, 'documented', 'inferred', ''),
+    ('ru', 'Kursk · 448th Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 36.19, 51.73, 'documented', 'inferred', ''),
+    ('ru', 'Yelnya · 119th Missile Brigade', 'irbm', 'Iskander-M', 1, 50, 500, 33.18, 54.58, 'documented', 'inferred', 'Smolensk oblast; the brigade nearest the Belarusian border'),
     # China
     ('cn', 'Yumen silo field', 'icbm', 'DF-41', 3, 250, 12_000, 97.30, 40.20, 'documented', 'inferred', 'About 120 silos under construction since 2021; the load and yield are inferred'),
     ('cn', 'Hami silo field', 'icbm', 'DF-41', 3, 250, 12_000, 93.50, 42.80, 'documented', 'inferred', ''),
@@ -64,6 +100,7 @@ SITES = [
     ('cn', 'Neixiang · 106th Brigade', 'bomber', 'H-6N with CJ-20A', 6, 200, 5_000, 111.85, 33.05, 'documented', 'inferred', 'The air leg of the triad since 2020; a nuclear cruise missile is reported and its yield inferred'),
     # France
     ('fr', 'Atlantic patrol · Force océanique stratégique', 'slbm', 'M51.3 (Triomphant)', 4, 100, 9_000, -15.0, 50.0, 'inferred', 'reconstructed', 'TNO of about 100 kt, four to six per missile; the patrol area is a guess'),
+    ('fr', 'Istres · Escadron 2/4 La Fayette', 'bomber', 'Rafale with ASMPA-R', 1, 300, 2_500, 4.92, 43.52, 'documented', 'reconstructed', 'The southern half of the airborne force; the same missile as Saint-Dizier'),
     ('fr', 'Saint-Dizier · Escadron 1/4 Gascogne', 'bomber', 'Rafale with ASMPA-R', 1, 300, 2_500, 4.90, 48.64, 'documented', 'reconstructed', 'TNA of up to 300 kt; the aircraft carries the missile most of the way'),
     # United Kingdom
     ('uk', 'North Atlantic patrol · Vanguard class', 'slbm', 'Trident II D5', 5, 100, 12_000, -20.0, 58.0, 'inferred', 'reconstructed', 'About 40 warheads over 8 missiles on patrol; the Holbrook warhead at about 100 kt'),
@@ -85,6 +122,8 @@ SITES = [
     ('nk', 'Wonsan · KN-23 brigade', 'irbm', 'KN-23', 1, 20, 700, 127.44, 39.15, 'inferred', 'inferred', 'Short-range solid-fuel missile with a claimed nuclear option'),
     ('nk', 'Sinpo · Pukguksong boat', 'slbm', 'Pukguksong-3', 1, 100, 1_900, 128.20, 40.03, 'documented', 'inferred', 'One experimental boat; treated as if at sea off the port'),
 ]
+
+IDS = site_ids(SITES)
 
 # Standoff by system: release distance km, carrier speed m/s, missile speed m/s. A standoff at the range means the launcher itself fires.
 # Standoff by system: the missile's own range in km, the carrier's speed and the missile's speed in m/s, an evidence
@@ -160,7 +199,7 @@ def main() -> int:
     sites = []
     for i, (side, name, kind, system, per, kt, rng, lon, lat, pos_ev, load_ev, note) in enumerate(SITES):
         sites.append({
-            'id': f'{side}-{i + 1}', 'side': side, 'name': name, 'kind': kind, 'system': system, 'warheadsPerMissile': per, 'yieldKt': kt, 'rangeKm': rng,
+            'id': IDS[(side, name)], 'side': side, 'name': name, 'kind': kind, 'system': system, 'warheadsPerMissile': per, 'yieldKt': kt, 'rangeKm': rng,
             'lon': lon, 'lat': lat, 'positionEvidence': pos_ev, 'evidence': load_ev, 'note': note, 'source': NOTEBOOK,
             **({'standoffKm': STANDOFF[system][0], 'carrierSpeedMs': STANDOFF[system][1], 'missileSpeedMs': STANDOFF[system][2], 'standoffEvidence': STANDOFF[system][3], 'standoffNote': STANDOFF[system][4]} if system in STANDOFF else {}),
             'cepMetres': ACCURACY[system][0], 'reliability': ACCURACY[system][1],

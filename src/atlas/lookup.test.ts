@@ -12,7 +12,11 @@ describe('shareable strikes', () => {
     expect(osmRefOf(t!)).toBe('R1682248')
     const hash = strikeHash(t!, { adversary: 'fr', delivery: 'aircraft' })
     expect(hash).toBe('#/atlas/strike/R1682248?adversary=fr&delivery=aircraft')
-    expect(parseStrikeHash(hash!)).toEqual({ ref: 'R1682248', adversary: 'fr', delivery: 'aircraft', loading: null })
+    expect(parseStrikeHash(hash!)).toEqual({ ref: 'R1682248', adversary: 'fr', delivery: 'aircraft', loading: null, site: null })
+    // The launch point the draw settled on rides with the link, so a shared strike flies from where its sender saw it fly from.
+    const withSite = strikeHash(t!, { adversary: 'ru', delivery: 'best', loading: 'deployed', site: 'ru-barents-sea-bastion' })
+    expect(withSite).toContain('site=ru-barents-sea-bastion')
+    expect(parseStrikeHash(withSite!)?.site).toBe('ru-barents-sea-bastion')
     expect(strikeHash(t!, { adversary: null, delivery: 'best', loading: 'full' })).toBe('#/atlas/strike/R1682248?loading=full')
     expect(strikeHash(t!, { adversary: null, delivery: 'best' })).toBe('#/atlas/strike/R1682248')
     expect(parseStrikeHash('#/atlas/strike/n42')?.ref).toBe('N42')

@@ -41,7 +41,7 @@
  },
  "sites": [
   {
-   "id": "us-1",
+   "id": "us-malmstrom-afb",
    "side": "us",
    "name": "Malmstrom AFB · 341st Missile Wing",
    "kind": "icbm",
@@ -61,7 +61,7 @@
    "warheadsPerMissileFull": 3
   },
   {
-   "id": "us-2",
+   "id": "us-minot-afb-91st-missile-wing",
    "side": "us",
    "name": "Minot AFB · 91st Missile Wing",
    "kind": "icbm",
@@ -81,7 +81,7 @@
    "warheadsPerMissileFull": 3
   },
   {
-   "id": "us-3",
+   "id": "us-f-e-warren-afb",
    "side": "us",
    "name": "F. E. Warren AFB · 90th Missile Wing",
    "kind": "icbm",
@@ -101,7 +101,7 @@
    "warheadsPerMissileFull": 3
   },
   {
-   "id": "us-4",
+   "id": "us-ohio-class-patrol-north-atlantic",
    "side": "us",
    "name": "Ohio-class patrol · North Atlantic",
    "kind": "slbm",
@@ -121,7 +121,7 @@
    "warheadsPerMissileFull": 8
   },
   {
-   "id": "us-5",
+   "id": "us-ohio-class-patrol-north-pacific",
    "side": "us",
    "name": "Ohio-class patrol · North Pacific",
    "kind": "slbm",
@@ -141,7 +141,7 @@
    "warheadsPerMissileFull": 8
   },
   {
-   "id": "us-6",
+   "id": "us-barksdale-afb",
    "side": "us",
    "name": "Barksdale AFB · 2nd Bomb Wing",
    "kind": "bomber",
@@ -167,7 +167,33 @@
    "weaponAltitudeMetres": 100
   },
   {
-   "id": "us-7",
+   "id": "us-minot-afb-5th-bomb-wing",
+   "side": "us",
+   "name": "Minot AFB · 5th Bomb Wing",
+   "kind": "bomber",
+   "system": "B-52H with AGM-86B",
+   "warheadsPerMissile": 8,
+   "yieldKt": 150,
+   "rangeKm": 12000,
+   "lon": -101.35,
+   "lat": 48.42,
+   "positionEvidence": "documented",
+   "evidence": "reconstructed",
+   "note": "The other half of the American cruise-missile force; Minot carries a missile wing and a bomb wing on the one field",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 2500,
+   "carrierSpeedMs": 250,
+   "missileSpeedMs": 240,
+   "standoffEvidence": "documented",
+   "standoffNote": "AGM-86B air-launched cruise missile, about 2,500 km; the B-52 has not been expected to penetrate since the 1980s",
+   "cepMetres": 30,
+   "reliability": 0.9,
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 12000,
+   "weaponAltitudeMetres": 100
+  },
+  {
+   "id": "us-whiteman-afb",
    "side": "us",
    "name": "Whiteman AFB · 509th Bomb Wing",
    "kind": "bomber",
@@ -188,7 +214,7 @@
    "weaponAltitudeMetres": 12000
   },
   {
-   "id": "ru-8",
+   "id": "ru-kozelsk",
    "side": "ru",
    "name": "Kozelsk · 28th Guards Rocket Division",
    "kind": "icbm",
@@ -208,7 +234,7 @@
    "warheadsPerMissileFull": 6
   },
   {
-   "id": "ru-9",
+   "id": "ru-teykovo",
    "side": "ru",
    "name": "Teykovo · 54th Guards Rocket Division",
    "kind": "icbm",
@@ -228,7 +254,7 @@
    "warheadsPerMissileFull": 6
   },
   {
-   "id": "ru-10",
+   "id": "ru-tatishchevo",
    "side": "ru",
    "name": "Tatishchevo · 60th Rocket Division",
    "kind": "icbm",
@@ -247,7 +273,7 @@
    "propellant": "solid"
   },
   {
-   "id": "ru-11",
+   "id": "ru-uzhur",
    "side": "ru",
    "name": "Uzhur · 62nd Rocket Division",
    "kind": "icbm",
@@ -266,7 +292,7 @@
    "propellant": "liquid"
   },
   {
-   "id": "ru-12",
+   "id": "ru-dombarovsky",
    "side": "ru",
    "name": "Dombarovsky · 13th Rocket Division",
    "kind": "icbm",
@@ -285,7 +311,7 @@
    "propellant": "liquid"
   },
   {
-   "id": "ru-13",
+   "id": "ru-novosibirsk",
    "side": "ru",
    "name": "Novosibirsk · 39th Guards Rocket Division",
    "kind": "icbm",
@@ -305,7 +331,7 @@
    "warheadsPerMissileFull": 6
   },
   {
-   "id": "ru-14",
+   "id": "ru-irkutsk",
    "side": "ru",
    "name": "Irkutsk · 29th Guards Rocket Division",
    "kind": "icbm",
@@ -325,7 +351,7 @@
    "warheadsPerMissileFull": 6
   },
   {
-   "id": "ru-15",
+   "id": "ru-yoshkar-ola",
    "side": "ru",
    "name": "Yoshkar-Ola · 14th Rocket Division",
    "kind": "icbm",
@@ -345,7 +371,7 @@
    "warheadsPerMissileFull": 6
   },
   {
-   "id": "ru-16",
+   "id": "ru-nizhny-tagil",
    "side": "ru",
    "name": "Nizhny Tagil · 42nd Rocket Division",
    "kind": "icbm",
@@ -365,7 +391,7 @@
    "warheadsPerMissileFull": 6
   },
   {
-   "id": "ru-17",
+   "id": "ru-barents-sea-bastion",
    "side": "ru",
    "name": "Barents Sea bastion · Northern Fleet patrol",
    "kind": "slbm",
@@ -385,7 +411,7 @@
    "warheadsPerMissileFull": 10
   },
   {
-   "id": "ru-18",
+   "id": "ru-sea-of-okhotsk-bastion",
    "side": "ru",
    "name": "Sea of Okhotsk bastion · Pacific Fleet patrol",
    "kind": "slbm",
@@ -405,7 +431,7 @@
    "warheadsPerMissileFull": 10
   },
   {
-   "id": "ru-19",
+   "id": "ru-engels",
    "side": "ru",
    "name": "Engels · 22nd Heavy Bomber Division",
    "kind": "bomber",
@@ -431,7 +457,7 @@
    "weaponAltitudeMetres": 60
   },
   {
-   "id": "ru-20",
+   "id": "ru-ukrainka",
    "side": "ru",
    "name": "Ukrainka · 326th Heavy Bomber Division",
    "kind": "bomber",
@@ -457,7 +483,7 @@
    "weaponAltitudeMetres": 60
   },
   {
-   "id": "ru-21",
+   "id": "ru-savasleyka",
    "side": "ru",
    "name": "Savasleyka · 764th Fighter Regiment",
    "kind": "bomber",
@@ -483,7 +509,93 @@
    "weaponAltitudeMetres": 25000
   },
   {
-   "id": "ru-22",
+   "id": "ru-vypolzovo",
+   "side": "ru",
+   "name": "Vypolzovo · 7th Guards Rocket Division",
+   "kind": "icbm",
+   "system": "RS-24 Yars (mobile)",
+   "warheadsPerMissile": 4,
+   "yieldKt": 100,
+   "rangeKm": 11000,
+   "lon": 33.06,
+   "lat": 57.85,
+   "positionEvidence": "documented",
+   "evidence": "reconstructed",
+   "note": "Bologoye; converted from Topol",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85,
+   "propellant": "solid",
+   "warheadsPerMissileFull": 6
+  },
+  {
+   "id": "ru-barnaul",
+   "side": "ru",
+   "name": "Barnaul · 35th Rocket Division",
+   "kind": "icbm",
+   "system": "RS-24 Yars (mobile)",
+   "warheadsPerMissile": 4,
+   "yieldKt": 100,
+   "rangeKm": 11000,
+   "lon": 83.75,
+   "lat": 53.36,
+   "positionEvidence": "documented",
+   "evidence": "reconstructed",
+   "note": "",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85,
+   "propellant": "solid",
+   "warheadsPerMissileFull": 6
+  },
+  {
+   "id": "ru-yurya",
+   "side": "ru",
+   "name": "Yurya · 8th Rocket Division",
+   "kind": "icbm",
+   "system": "RS-24 Yars (mobile)",
+   "warheadsPerMissile": 4,
+   "yieldKt": 100,
+   "rangeKm": 11000,
+   "lon": 49.31,
+   "lat": 59.03,
+   "positionEvidence": "documented",
+   "evidence": "reconstructed",
+   "note": "",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85,
+   "propellant": "solid",
+   "warheadsPerMissileFull": 6
+  },
+  {
+   "id": "ru-olenya",
+   "side": "ru",
+   "name": "Olenya · Tu-95MS forward base",
+   "kind": "bomber",
+   "system": "Tu-95MS with Kh-102",
+   "warheadsPerMissile": 8,
+   "yieldKt": 250,
+   "rangeKm": 9000,
+   "lon": 33.46,
+   "lat": 68.15,
+   "positionEvidence": "documented",
+   "evidence": "inferred",
+   "note": "A Northern Fleet field the long-range bombers work from; the load is the standard one",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 4000,
+   "carrierSpeedMs": 200,
+   "missileSpeedMs": 230,
+   "standoffEvidence": "inferred",
+   "standoffNote": "As the Tu-160",
+   "cepMetres": 20,
+   "reliability": 0.9,
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 10000,
+   "weaponAltitudeMetres": 60
+  },
+  {
+   "id": "ru-kaliningrad",
    "side": "ru",
    "name": "Kaliningrad · 152nd Guards Missile Brigade",
    "kind": "irbm",
@@ -502,7 +614,7 @@
    "propellant": "solid"
   },
   {
-   "id": "ru-23",
+   "id": "ru-luga",
    "side": "ru",
    "name": "Luga · 26th Missile Brigade",
    "kind": "irbm",
@@ -521,7 +633,7 @@
    "propellant": "solid"
   },
   {
-   "id": "ru-24",
+   "id": "ru-mozdok",
    "side": "ru",
    "name": "Mozdok · 12th Missile Brigade",
    "kind": "irbm",
@@ -540,7 +652,7 @@
    "propellant": "solid"
   },
   {
-   "id": "ru-25",
+   "id": "ru-ussuriysk",
    "side": "ru",
    "name": "Ussuriysk · 20th Guards Missile Brigade",
    "kind": "irbm",
@@ -559,7 +671,45 @@
    "propellant": "solid"
   },
   {
-   "id": "cn-26",
+   "id": "ru-kursk",
+   "side": "ru",
+   "name": "Kursk · 448th Missile Brigade",
+   "kind": "irbm",
+   "system": "Iskander-M",
+   "warheadsPerMissile": 1,
+   "yieldKt": 50,
+   "rangeKm": 500,
+   "lon": 36.19,
+   "lat": 51.73,
+   "positionEvidence": "documented",
+   "evidence": "inferred",
+   "note": "",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 30,
+   "reliability": 0.9,
+   "propellant": "solid"
+  },
+  {
+   "id": "ru-yelnya",
+   "side": "ru",
+   "name": "Yelnya · 119th Missile Brigade",
+   "kind": "irbm",
+   "system": "Iskander-M",
+   "warheadsPerMissile": 1,
+   "yieldKt": 50,
+   "rangeKm": 500,
+   "lon": 33.18,
+   "lat": 54.58,
+   "positionEvidence": "documented",
+   "evidence": "inferred",
+   "note": "Smolensk oblast; the brigade nearest the Belarusian border",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 30,
+   "reliability": 0.9,
+   "propellant": "solid"
+  },
+  {
+   "id": "cn-yumen-silo-field",
    "side": "cn",
    "name": "Yumen silo field",
    "kind": "icbm",
@@ -579,7 +729,7 @@
    "warheadsPerMissileFull": 10
   },
   {
-   "id": "cn-27",
+   "id": "cn-hami-silo-field",
    "side": "cn",
    "name": "Hami silo field",
    "kind": "icbm",
@@ -599,7 +749,7 @@
    "warheadsPerMissileFull": 10
   },
   {
-   "id": "cn-28",
+   "id": "cn-yulin-ordos-silo-field",
    "side": "cn",
    "name": "Yulin (Ordos) silo field",
    "kind": "icbm",
@@ -619,7 +769,7 @@
    "warheadsPerMissileFull": 10
   },
   {
-   "id": "cn-29",
+   "id": "cn-luoyang",
    "side": "cn",
    "name": "Luoyang · 634 Brigade",
    "kind": "icbm",
@@ -639,7 +789,7 @@
    "warheadsPerMissileFull": 5
   },
   {
-   "id": "cn-30",
+   "id": "cn-yibin",
    "side": "cn",
    "name": "Yibin · 631 Brigade",
    "kind": "icbm",
@@ -659,7 +809,7 @@
    "warheadsPerMissileFull": 3
   },
   {
-   "id": "cn-31",
+   "id": "cn-shaoyang",
    "side": "cn",
    "name": "Shaoyang · 633 Brigade",
    "kind": "icbm",
@@ -679,7 +829,7 @@
    "warheadsPerMissileFull": 3
   },
   {
-   "id": "cn-32",
+   "id": "cn-tianshui",
    "side": "cn",
    "name": "Tianshui · 621 Brigade",
    "kind": "icbm",
@@ -699,7 +849,7 @@
    "warheadsPerMissileFull": 3
   },
   {
-   "id": "cn-33",
+   "id": "cn-korla",
    "side": "cn",
    "name": "Korla · 646 Brigade",
    "kind": "irbm",
@@ -718,7 +868,7 @@
    "propellant": "solid"
   },
   {
-   "id": "cn-34",
+   "id": "cn-qingzhou",
    "side": "cn",
    "name": "Qingzhou · 651 Brigade",
    "kind": "irbm",
@@ -737,7 +887,7 @@
    "propellant": "solid"
   },
   {
-   "id": "cn-35",
+   "id": "cn-chizhou",
    "side": "cn",
    "name": "Chizhou · 613 Brigade",
    "kind": "irbm",
@@ -756,7 +906,7 @@
    "propellant": "solid"
   },
   {
-   "id": "cn-36",
+   "id": "cn-south-china-sea-patrol",
    "side": "cn",
    "name": "South China Sea patrol · Type 094",
    "kind": "slbm",
@@ -775,7 +925,7 @@
    "propellant": "solid"
   },
   {
-   "id": "cn-37",
+   "id": "cn-neixiang",
    "side": "cn",
    "name": "Neixiang · 106th Brigade",
    "kind": "bomber",
@@ -801,7 +951,7 @@
    "weaponAltitudeMetres": 100
   },
   {
-   "id": "fr-38",
+   "id": "fr-atlantic-patrol",
    "side": "fr",
    "name": "Atlantic patrol · Force océanique stratégique",
    "kind": "slbm",
@@ -821,7 +971,33 @@
    "warheadsPerMissileFull": 6
   },
   {
-   "id": "fr-39",
+   "id": "fr-istres",
+   "side": "fr",
+   "name": "Istres · Escadron 2/4 La Fayette",
+   "kind": "bomber",
+   "system": "Rafale with ASMPA-R",
+   "warheadsPerMissile": 1,
+   "yieldKt": 300,
+   "rangeKm": 2500,
+   "lon": 4.92,
+   "lat": 43.52,
+   "positionEvidence": "documented",
+   "evidence": "reconstructed",
+   "note": "The southern half of the airborne force; the same missile as Saint-Dizier",
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "standoffKm": 500,
+   "carrierSpeedMs": 290,
+   "missileSpeedMs": 300,
+   "standoffEvidence": "documented",
+   "standoffNote": "ASMPA-R, about 500 km at Mach 3; the missile is the reason the Rafale need not reach the target",
+   "cepMetres": 10,
+   "reliability": 0.9,
+   "propellant": "solid",
+   "cruiseAltitudeMetres": 12000,
+   "weaponAltitudeMetres": 20000
+  },
+  {
+   "id": "fr-saint-dizier",
    "side": "fr",
    "name": "Saint-Dizier · Escadron 1/4 Gascogne",
    "kind": "bomber",
@@ -847,7 +1023,7 @@
    "weaponAltitudeMetres": 20000
   },
   {
-   "id": "uk-40",
+   "id": "uk-north-atlantic-patrol",
    "side": "uk",
    "name": "North Atlantic patrol · Vanguard class",
    "kind": "slbm",
@@ -867,7 +1043,7 @@
    "warheadsPerMissileFull": 8
   },
   {
-   "id": "in-41",
+   "id": "in-central-india",
    "side": "in",
    "name": "Central India · Agni-V regiment",
    "kind": "icbm",
@@ -886,7 +1062,7 @@
    "propellant": "solid"
   },
   {
-   "id": "in-42",
+   "id": "in-northern-india",
    "side": "in",
    "name": "Northern India · Agni-II and Agni-III regiments",
    "kind": "irbm",
@@ -905,7 +1081,7 @@
    "propellant": "solid"
   },
   {
-   "id": "in-43",
+   "id": "in-bay-of-bengal-patrol",
    "side": "in",
    "name": "Bay of Bengal patrol · Arihant class",
    "kind": "slbm",
@@ -924,7 +1100,7 @@
    "propellant": "solid"
   },
   {
-   "id": "pk-44",
+   "id": "pk-sargodha",
    "side": "pk",
    "name": "Sargodha · Army Strategic Forces Command",
    "kind": "irbm",
@@ -943,7 +1119,7 @@
    "propellant": "solid"
   },
   {
-   "id": "pk-45",
+   "id": "pk-central-punjab",
    "side": "pk",
    "name": "Central Punjab · Shaheen-II and Ghauri brigades",
    "kind": "irbm",
@@ -962,7 +1138,7 @@
    "propellant": "solid"
   },
   {
-   "id": "pk-46",
+   "id": "pk-pano-aqil",
    "side": "pk",
    "name": "Pano Aqil · Nasr and Babur batteries",
    "kind": "irbm",
@@ -981,7 +1157,7 @@
    "propellant": "solid"
   },
   {
-   "id": "il-47",
+   "id": "il-sdot-micha",
    "side": "il",
    "name": "Sdot Micha",
    "kind": "irbm",
@@ -1000,7 +1176,7 @@
    "propellant": "solid"
   },
   {
-   "id": "il-48",
+   "id": "il-eastern-mediterranean-patrol",
    "side": "il",
    "name": "Eastern Mediterranean patrol · Dolphin class",
    "kind": "bomber",
@@ -1026,7 +1202,7 @@
    "weaponAltitudeMetres": 100
   },
   {
-   "id": "nk-49",
+   "id": "nk-sunan",
    "side": "nk",
    "name": "Sunan · Pyongyang",
    "kind": "icbm",
@@ -1045,7 +1221,7 @@
    "propellant": "solid"
   },
   {
-   "id": "nk-50",
+   "id": "nk-sil-li",
    "side": "nk",
    "name": "Sil-li · missile support facility",
    "kind": "icbm",
@@ -1064,7 +1240,7 @@
    "propellant": "liquid"
   },
   {
-   "id": "nk-51",
+   "id": "nk-sohae",
    "side": "nk",
    "name": "Sohae · Tongchang-ri",
    "kind": "irbm",
@@ -1083,7 +1259,7 @@
    "propellant": "liquid"
   },
   {
-   "id": "nk-52",
+   "id": "nk-wonsan",
    "side": "nk",
    "name": "Wonsan · KN-23 brigade",
    "kind": "irbm",
@@ -1102,7 +1278,7 @@
    "propellant": "solid"
   },
   {
-   "id": "nk-53",
+   "id": "nk-sinpo",
    "side": "nk",
    "name": "Sinpo · Pukguksong boat",
    "kind": "slbm",

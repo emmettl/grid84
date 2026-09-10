@@ -296,7 +296,28 @@ const fmtMin = (s: number) => (s >= 3600 ? `${(s / 3600).toFixed(1)} H` : `${Mat
 
 export type DeliveryPreference = 'best' | 'missile' | 'aircraft'
 
-export function planStrike(target: AtlasTarget, profile: Profile, override?: Power, wantFallout = true, prefer: DeliveryPreference = 'best', loading: Loading = 'deployed'): StrikePlan | { failure: string; lines: string[] } {
+/**
+ * How far below the best an option may score and still be drawn. A planner
+ * with fifteen systems that all reach a city does not run the same one
+ * every time: the choice among near-equals falls out of alert states,
+ * maintenance, the day's readiness and whatever else is going on, none of
+ * which is knowable here. So among the options within this much of the
+ * best, one is drawn on a seed made from the target's own name, which
+ * keeps a shared link reproducing exactly what its sender saw.
+ */
+export const NEAR_ENOUGH = 0.9
+
+/** A small deterministic hash, so the same target draws the same profile every time. */
+export function seedOf(text: string, variant = 0): number {
+  let h = 2166136261 ^ variant
+  for (let i = 0; i < text.length; i += 1) {
+    h ^= text.charCodeAt(i)
+    h = Math.imul(h, 16777619)
+  }
+  return (h >>> 0) / 4294967296
+}
+
+export function planStrike(target: AtlasTarget, profile: Profile, override?: Power, wantFallout = true, prefer: DeliveryPreference = 'best', loading: Loading = 'deployed', site?: string, variant = 0): StrikePlan | { failure: string; lines: string[] } {
   const lines: string[] = []
   const classification = classify(target, profile)
   lines.push(`TARGET IDENTIFIED · ${classification.category} · ${classification.reason}`)
@@ -330,8 +351,15 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   const scored = pool.map((o) => ({ o, score: scoreOf(classification, o, options, wantFallout) }))
   const best = Math.max(...scored.map((x) => x.score))
   for (const { o, score } of scored.slice(0, 5)) lines.push(`DELIVERY OPTION · ${o.site.system.toUpperCase()} · ${o.site.name.toUpperCase()} · ${fmtKm(o.distanceMetres)} · ${fmtMin(o.flightSeconds)}${o.route === 'cruise' && o.site.standoffKm ? ` · RELEASE ${fmtKm(Math.min(o.site.standoffKm * 1000, o.distanceMetres))} OUT` : ''} · ${o.site.warheadsPerMissile} × ${o.site.yieldKt} KT · CEP ${o.site.cepMetres} M${area ? ` · COVERS ${Math.round(score * 100)}% OF THE AREA WITH ${capacityOf(o.site.system, options)} MISSILES FROM ${options.filter((x) => x.inRange && x.site.system === o.site.system).length} SITE${options.filter((x) => x.inRange && x.site.system === o.site.system).length > 1 ? 'S' : ''}` : point ? ` · ONE LOAD GIVES ${Math.round(score * 100)}% DAMAGE EXPECTANCY` : ''}`)
-  const delivery = scored.filter((x) => x.score >= best - 1e-9).sort((a, b) => a.o.flightSeconds - b.o.flightSeconds)[0].o
-  lines.push(`SELECTED · ${delivery.site.system.toUpperCase()} FROM ${delivery.site.name.toUpperCase()} · ${area ? `THE SYSTEM THAT COVERS MOST OF THE AREA (${Math.round(best * 100)}%), THEN THE SHORTEST FLIGHT` : point ? `THE SYSTEM WITH THE BEST DAMAGE EXPECTANCY (${Math.round(best * 100)}%), THEN THE SHORTEST FLIGHT` : 'THE SHORTEST FLIGHT IN RANGE'} · ${fmtMin(delivery.flightSeconds)}`)
+  // Every option that comes near the best is a real choice a planner could
+  // make; which one is taken is drawn on the target's own seed rather than
+  // always falling to the same silo field.
+  const shortlist = scored.filter((x) => x.score >= best * NEAR_ENOUGH - 1e-9).sort((a, b) => a.o.flightSeconds - b.o.flightSeconds)
+  const named = site ? shortlist.find((x) => x.o.site.id === site) ?? scored.find((x) => x.o.site.id === site) : undefined
+  const drawn = shortlist[Math.min(shortlist.length - 1, Math.floor(seedOf(`${target.osmType}${target.osmId}${target.name}`, variant) * shortlist.length))]
+  const delivery = (named ?? drawn ?? shortlist[0]).o
+  const why = area ? `COVERS ${Math.round(scored.find((x) => x.o === delivery)!.score * 100)}% OF THE AREA` : point ? `${Math.round(scored.find((x) => x.o === delivery)!.score * 100)}% DAMAGE EXPECTANCY` : 'IN RANGE'
+  lines.push(`SELECTED · ${delivery.site.system.toUpperCase()} FROM ${delivery.site.name.toUpperCase()} · ${why} · ${fmtMin(delivery.flightSeconds)}${named ? ' · NAMED BY THE LINK' : shortlist.length > 1 ? ` · DRAWN FROM ${shortlist.length} OPTIONS WITHIN ${Math.round((1 - NEAR_ENOUGH) * 100)}% OF THE BEST, ON THIS TARGET'S OWN SEED` : ' · THE ONLY OPTION AT THIS SCORE'}`)
   const sizing = sizeWeapon(classification, delivery.site, target.position, wantFallout)
   lines.push(`WEAPON SIZED FOR EFFECT · ${sizing.reason}`)
   const salvos = planSalvos(delivery, options, sizing.missiles, delivery.site.warheadsPerMissile, sizing.warheads)

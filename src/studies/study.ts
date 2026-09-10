@@ -16,6 +16,12 @@ export interface SiteEntity extends Evidenced {
   position: LngLat
   /** Positional uncertainty in metres; drawn as a ring for inferred positions. */
   uncertaintyMetres?: number
+  /**
+   * Fill the ring as well as drawing it. Only for a ring that encloses an
+   * area meaning something — the ground a boost-phase interceptor must
+   * already be over — rather than a ring meaning "somewhere about here".
+   */
+  ringFill?: 'hatch'
   /** Label placement relative to the mark; default 'left' anchor (label to the right of the mark). */
   labelAnchor?: LabelAnchor
   /** Study seconds at which the site comes into existence; before that it is not drawn. Default: always there. */

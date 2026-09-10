@@ -29,7 +29,7 @@ const CADENCE_MS = 550
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPoint, onClearAimPoints, onShare, initialAdversary = null, initialDelivery = 'best', initialLoading = 'deployed' }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void; onShare?: (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading }) => string | null; initialAdversary?: Power | null; initialDelivery?: DeliveryPreference; initialLoading?: Loading }) {
+export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPoint, onClearAimPoints, onShare, initialAdversary = null, initialDelivery = 'best', initialLoading = 'deployed', initialSite = null }: { target: AtlasTarget; boundary: Boundary | null; onLaunch: (study: Study) => void; onStandDown: () => void; onAimPoint?: (point: AimPointMark) => void; onClearAimPoints?: () => void; onShare?: (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading; site?: string | null }) => string | null; initialAdversary?: Power | null; initialDelivery?: DeliveryPreference; initialLoading?: Loading; initialSite?: string | null }) {
   const boundaryRef = useRef(boundary)
   useEffect(() => {
     boundaryRef.current = boundary
@@ -42,6 +42,11 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
   const [pickOpen, setPickOpen] = useState(false)
   const [prefer, setPrefer] = useState<DeliveryPreference>(initialDelivery)
   const [loading, setLoading] = useState<Loading>(initialLoading)
+  // The launch point: named by a shared link, or drawn on the target's own seed,
+  // or re-drawn by the reader asking for another profile.
+  const [site, setSite] = useState<string | null>(initialSite)
+  const [variant, setVariant] = useState(0)
+  const chosen = useRef<string | null>(initialSite)
   const heldRef = useRef(false)
   const skipRef = useRef(false)
   const started = useRef(performance.now())
@@ -63,7 +68,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
   useEffect(() => {
     onShare?.({ adversary: override, delivery: prefer, loading })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [override, prefer, loading])
+  }, [override, prefer, loading, site, variant])
 
   useEffect(() => {
     let cancelled = false
@@ -92,7 +97,8 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       }
       say(`POPULATION · ${PROFILE_RINGS.map((r) => `${r / 1000} KM ${Math.round(profile.within[r]).toLocaleString('en-GB')}`).join(' · ')} · ${profile.gridName.toUpperCase()}`, 'calib', true)
       await sleep(CADENCE_MS)
-      const plan = planStrike(target, profile, override ?? undefined, true, prefer, loading)
+      const plan = planStrike(target, profile, override ?? undefined, true, prefer, loading, site ?? undefined, variant)
+      chosen.current = 'failure' in plan ? null : plan.delivery.site.id
       onClearAimPoints?.()
       // The aim points land on the globe as their lines print.
       const aims = 'failure' in plan ? [] : describeAimPoints(plan.sizing, target.position)
@@ -147,7 +153,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       controller.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, override, prefer, loading])
+  }, [target, override, prefer, loading, site, variant])
 
   const toggleHold = () => {
     heldRef.current = !heldRef.current
@@ -182,6 +188,17 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
         >
           Vector now
         </button>
+        <button
+          type="button"
+          title="Draw another launch point from the options that score as well as the best: a different service, a different profile, the same target"
+          disabled={phase === 'launching'}
+          onClick={() => {
+            setSite(null)
+            setVariant((v) => v + 1)
+          }}
+        >
+          Another profile
+        </button>
         <button type="button" onClick={onStandDown}>
           Stand down
         </button>
@@ -189,7 +206,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
           type="button"
           title="Copy a link that re-runs this strike: the target by its OpenStreetMap id and the choices made here"
           onClick={() => {
-            const link = onShare?.({ adversary: override, delivery: prefer, loading })
+            const link = onShare?.({ adversary: override, delivery: prefer, loading, site: chosen.current })
             if (!link) {
               say('NO LINK · THE TARGET HAS NO OPENSTREETMAP ID TO NAME IT BY', 'mark')
               return
