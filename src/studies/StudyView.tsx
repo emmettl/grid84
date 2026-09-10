@@ -1146,6 +1146,11 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             {study.omissions.map((o) => (
               <li key={o}>{o}</li>
             ))}
+            {burst === 'air' && effectCount > 0 && (
+              <li>
+                No fallout is drawn, and that is not the same as none existing. At the height that maximises the blast area the fireball never reaches the ground, so there is no soil for the fission products to condense onto and no plume within hours; the same activity instead forms particles small enough to stay aloft for weeks or years and comes down worldwide, much decayed and much diluted. This engine counts the local plume of a surface burst and does not count the delayed global fallout of an air burst, which is real and is nobody's local dose
+              </li>
+            )}
             {burst === 'surface' && (
               <>
                 <li>

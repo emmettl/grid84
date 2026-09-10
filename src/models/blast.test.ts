@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { brodeFreeAirBars, brodeScaledDistance, fireballRadiusMetres, kinneyGrahamScaledDistance, overpressureRadiusMetres, surfaceOverpressureRadiusMetres, promptEffects, radiationRadiusMetres, thirdDegreeBurnRadiusMetres } from './blast.ts'
+import { fireballTouchesGround, optimumBurstHeightMetres, brodeFreeAirBars, brodeScaledDistance, fireballRadiusMetres, kinneyGrahamScaledDistance, overpressureRadiusMetres, surfaceOverpressureRadiusMetres, promptEffects, radiationRadiusMetres, thirdDegreeBurnRadiusMetres } from './blast.ts'
 
 describe('overpressure', () => {
   it('reproduces the FAQ constants at 1 kt', () => {
@@ -81,5 +81,17 @@ describe('surface burst', () => {
   })
   it('scales with the cube root of yield', () => {
     expect(surfaceOverpressureRadiusMetres(8_000, 5) / surfaceOverpressureRadiusMetres(1_000, 5)).toBeCloseTo(2, 6)
+  })
+})
+
+describe('the fireball and the ground', () => {
+  it('clears the ground at the height that maximises the 5 psi area, and can touch it when the burst is for 20 psi', () => {
+    for (const y of [1, 100, 335, 1_100]) {
+      expect(fireballTouchesGround(y, optimumBurstHeightMetres(y, 5))).toBe(false)
+    }
+    // At the high-overpressure end the margin closes: a 335 kt burst for 20 psi sits about one fireball radius up.
+    expect(optimumBurstHeightMetres(335, 20) / fireballRadiusMetres(335)).toBeLessThan(1.2)
+    expect(fireballTouchesGround(335, 0)).toBe(true)
+    expect(fireballTouchesGround(335, 5_000)).toBe(false)
   })
 })

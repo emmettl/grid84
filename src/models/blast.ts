@@ -40,6 +40,31 @@ export function fireballRadiusMetres(yieldKt: number): number {
   return 2 * 100 * yieldKt ** 0.4 * 0.3048
 }
 
+/**
+ * Whether the fireball reaches the ground, which is the whole question for
+ * local fallout. If it does, soil is vaporised and drawn into the cloud, the
+ * fission products condense onto particles large enough to fall within
+ * hours, and there is a plume. If it does not, they condense onto each other
+ * as sub-micron particles that stay aloft for weeks or years and come down
+ * worldwide instead: the same activity, spread over the earth and much
+ * decayed, rather than over a county within a day.
+ */
+export function fireballTouchesGround(yieldKt: number, burstHeightMetres: number): boolean {
+  return burstHeightMetres <= fireballRadiusMetres(yieldKt)
+}
+
+/**
+ * A rough optimum height of burst for a given peak overpressure: the height
+ * that maximises the area covered, from the Mach reinforcement, taken here
+ * as a fraction of the ground range at that overpressure. The fraction falls
+ * as the overpressure rises, which is why a strike for very high
+ * overpressures is burst low and can touch the ground after all.
+ */
+export function optimumBurstHeightMetres(yieldKt: number, psi: 20 | 10 | 5 | 3 | 1): number {
+  const fraction = psi >= 20 ? 0.32 : psi >= 10 ? 0.38 : psi >= 5 ? 0.42 : psi >= 3 ? 0.45 : 0.5
+  return overpressureRadiusMetres(yieldKt, psi) * fraction
+}
+
 /** Third-degree burn radius in km: 0.67 · Y^0.41. */
 export function thirdDegreeBurnRadiusMetres(yieldKt: number): number {
   return 0.67 * yieldKt ** 0.41 * 1_000
