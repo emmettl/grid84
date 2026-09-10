@@ -85,7 +85,7 @@ export function Hud({ phase, onAcquire, consoleOpen = false }: HudProps) {
                   <button type="button" onMouseDown={(event) => event.preventDefault()} onClick={() => acquire(target)}>
                     <strong>{target.name}</strong>
                     <em>
-                      {designation.role} {designation.code}
+                      {[designation.role, designation.code].filter(Boolean).join(' ')}
                     </em>
                     {target.label && <span>{target.label}</span>}
                   </button>
@@ -129,7 +129,7 @@ function Readout({ phase }: { phase: AtlasPhase }) {
           <dd>{phase.target.name}</dd>
           <dt>Designation</dt>
           <dd>
-            {phase.designation.role} {phase.designation.code}
+            {[phase.designation.role, phase.designation.code].filter(Boolean).join(' ')}
           </dd>
         </dl>
       </>
@@ -144,7 +144,7 @@ function Readout({ phase }: { phase: AtlasPhase }) {
       <dl>
         <dt>Designation</dt>
         <dd>
-          {report.designation.role} {report.designation.code}
+          {[report.designation.role, report.designation.code].filter(Boolean).join(' ')}
         </dd>
         <dt>Grid</dt>
         <dd>{formatGrid(report.target.position)}</dd>

@@ -83,6 +83,7 @@ function parseFeature(feature: unknown): AtlasTarget | null {
     name,
     label,
     countryCode: (text(p.countrycode) ?? 'XX').toUpperCase(),
+    postcode: text(p.postcode),
     position: [longitude, latitude],
     extent,
   }

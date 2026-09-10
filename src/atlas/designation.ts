@@ -79,17 +79,18 @@ export function designationRole(osmKey: string, osmValue: string): string {
   }
 }
 
-export function designationCode(countryCode: string, osmId: number): string {
-  const prefix = /^[A-Z]{2}$/.test(countryCode) ? countryCode : 'XX'
-  const serial = Math.abs(Math.trunc(osmId)) % 10_000
-  return `${prefix}-${String(serial).padStart(4, '0')}`
+/** The country and the real postal code when the geocoder has one; nothing invented otherwise. */
+export function designationCode(countryCode: string, postcode?: string): string {
+  const code = (postcode ?? '').trim()
+  if (!code) return ''
+  const prefix = /^[A-Z]{2}$/.test(countryCode) && countryCode !== 'XX' ? countryCode : ''
+  const digits = code.split(/\s+/)[0]
+  return prefix && !digits.toUpperCase().startsWith(prefix) ? `${prefix}-${digits}` : digits
 }
 
-export function designate(
-  target: Pick<AtlasTarget, 'osmKey' | 'osmValue' | 'countryCode' | 'osmId'>,
-): Designation {
+export function designate(target: Pick<AtlasTarget, 'osmKey' | 'osmValue' | 'countryCode' | 'postcode'>): Designation {
   return {
     role: designationRole(target.osmKey, target.osmValue),
-    code: designationCode(target.countryCode, target.osmId),
+    code: designationCode(target.countryCode, target.postcode),
   }
 }
