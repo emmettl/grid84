@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { formatProvenance } from '../evidence/evidence.ts'
-import { costExchange, DEFAULT_CASE, engage, interceptorsNeeded, REFERENCE_CASES, type Attack, type Costs, type Defence } from '../models/defence.ts'
+import { costExchange, DEFAULT_CASE, engage, interceptorsNeeded, REFERENCE_CASES, TEST_RECORDS, type Attack, type Costs, type Defence } from '../models/defence.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
 
 const n = (v: number) => Math.round(v).toLocaleString('en-GB')
@@ -133,6 +133,32 @@ export function DefenceLab() {
               <span>Shoot, look, shoot</span>
             </label>
           </div>
+        </section>
+
+        <section className="clock" aria-label="Test records">
+          <h2>Where a kill probability comes from</h2>
+          <p className="log-empty">
+            A figure taken from a test record is already generous: the trajectory was known in advance, the target was not trying to survive, and the day was chosen. Before that generosity is reached there is the question of what was counted. Each pair below is the same set of tests under two defensible conventions.
+          </p>
+          <table className="bands">
+            <tbody>
+              {TEST_RECORDS.map((r) => (
+                <tr key={r.id}>
+                  <td>{r.system}</td>
+                  <td>
+                    {r.id === 'patriot-gulf' ? 'no demonstrable kill' : `${r.hits} of ${r.attempts}`}
+                    {r.alternates.map((a) => (
+                      <span key={a.by} className="lab-alt"> · {a.hits} of {a.attempts} ({a.by})</span>
+                    ))}
+                  </td>
+                  <td className="lab-system-source">{r.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="log-empty lab-system-source">
+            The Patriot row is the accounting office's finding that the data needed to demonstrate a kill was never recorded, not a claim that nothing was hit: telemetry transmitters were left off for the weight, and the system recorded a kill whenever the missile reached the computed point of closest approach and stopped talking.
+          </p>
         </section>
 
         <section className="log readiness-chart" aria-label="Leakage">

@@ -581,6 +581,46 @@ body,
   letter-spacing: 0.04em;
 }
 
+/*
+  The named-system presets of the intercept lab. The phase tag holds its row
+  open on the left; the reading beneath a chosen system separates what the
+  source says from what was done to it, and puts what was never published
+  last, in the withheld colour, because that is usually the load-bearing part.
+*/
+.lab-phase-tag {
+  align-self: center;
+  min-width: 5.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+.clock-controls button.is-fielded {
+  border-color: rgba(141, 250, 255, 0.55);
+}
+
+.lab-system {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+}
+
+.lab-system-source {
+  font-size: 0.82rem;
+  opacity: 0.72;
+}
+
+.lab-alt {
+  opacity: 0.68;
+}
+
+.lab-system-withheld {
+  font-size: 0.82rem;
+  color: var(--cyan);
+  opacity: 0.85;
+}
+
 .provenance {
   grid-column: 3;
   grid-row: 1 / span 2;

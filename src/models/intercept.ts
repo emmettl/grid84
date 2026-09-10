@@ -254,6 +254,7 @@ export interface InterceptSystem extends Evidenced {
     terminalSpeedMs: number
     ceilingMetres: number
     floorMetres: number
+    glideAltitudeMetres: number
   }>
   note: string
 }
@@ -286,6 +287,140 @@ export const INTERCEPT_SYSTEMS: InterceptSystem[] = [
       method: 'Fifteen hundred is the middle of that range; the speed and the orbit are the same round figures. The boosters are modern and solid, which is the three-minute case',
     },
     note: 'The same arithmetic as 1990 against a booster that burns for three minutes rather than five',
+  },
+  {
+    id: 'yal1',
+    name: 'YAL-1 Airborne Laser',
+    phase: 'boost',
+    status: 'cancelled',
+    years: '2002 to 2011',
+    preset: { burnSeconds: 300 },
+    evidence: 'withheld',
+    provenance: {
+      source: 'Missile Defense Agency release 10-NEWS-0002 (11 February 2010), on the destruction of a liquid-fuelled short-range missile from an aircraft; American Physical Society, Report of the Study Group on Boost-Phase Intercept Systems (July 2003), published Rev. Mod. Phys. 76 (2004)',
+      method: 'The five-minute burn is the liquid-fuelled case, which is the only one the aircraft was ever assessed to be able to reach in time',
+      withheldUnder: 'The engagement range on 3 and 11 February 2010 and the laser\u2019s output power are both classified; the figures of 300 to 600 km in circulation are attributed to the 2003 study but do not appear in it verbatim',
+    },
+    note: 'Gates told the House in May 2009 that a useful weapon would need a laser twenty to thirty times more powerful, and that the aircraft would have to orbit inside the borders of the country it was defending against',
+  },
+  {
+    id: 'kei',
+    name: 'Kinetic Energy Interceptor',
+    phase: 'boost',
+    status: 'cancelled',
+    years: '2003 to 2009',
+    preset: { interceptorMs: 6_000, burnSeconds: 180 },
+    evidence: 'modelled',
+    provenance: {
+      source: 'National Research Council, Making Sense of Ballistic Missile Defense (2012), which modelled a notional 6 km/s fly-out, 70-second interceptor from a Missile Defense Agency briefing of 14 January 2010',
+      method: 'The six kilometres a second is the committee\u2019s analysis parameter, not a specification: the agency never published a burnout velocity, saying only that the missile would have "a high velocity at burnout with heavy payloads"',
+    },
+    note: 'Terminated after six years and about four billion dollars without a single flight test; the booster test planned for 2009 never happened',
+  },
+  {
+    id: 'gmd',
+    name: 'Ground-Based Midcourse Defense',
+    phase: 'midcourse',
+    status: 'deployed',
+    years: '2004 to now',
+    preset: { interceptorMs: 7_500 },
+    evidence: 'withheld',
+    provenance: {
+      source: 'Forty-four interceptors, forty at Fort Greely and four at Vandenberg; twenty further silos completed at Greely in March 2025 and empty',
+      method: 'Seven and a half kilometres a second is the middle of the seven-to-eight band in circulation, which traces to a compendium that disclaims its own accuracy',
+      withheldUnder: 'No burnout velocity and no engagement altitude band has ever been published for the interceptor; the agency describes the engagement only as outside the atmosphere',
+    },
+    note: 'The one figure the makers do publish is a closing speed of over sixteen thousand miles an hour, which is the sum of the two and not the interceptor\u2019s own',
+  },
+  {
+    id: 'sm3-2a',
+    name: 'SM-3 Block IIA',
+    phase: 'midcourse',
+    status: 'deployed',
+    years: '2017 to now',
+    preset: { interceptorMs: 4_250 },
+    evidence: 'withheld',
+    provenance: {
+      source: 'FTM-44, 16 November 2020: USS John Finn destroyed an intercontinental-range target north-east of Hawaii with a single round, the first such intercept by a ship',
+      method: 'Four and a quarter kilometres a second is the middle of the four-to-four-and-a-half band George Lewis gives, with the caveat that no official figure has been released; estimates run to five and a half',
+      withheldUnder: 'No burnout velocity has been published for any variant of the missile',
+    },
+    note: 'The target flew short of the distance a real one would, and carried no countermeasures; the ship has no way to reload its launcher at sea',
+  },
+  {
+    id: 'arrow3',
+    name: 'Arrow 3',
+    phase: 'midcourse',
+    status: 'deployed',
+    years: '2017 to now',
+    preset: { ceilingMetres: 300_000, floorMetres: 100_000 },
+    evidence: 'withheld',
+    provenance: {
+      source: 'Israel Aerospace Industries with Boeing; declared operational 18 January 2017, first combat interception 9 November 2023 against a missile fired from the direction of the Red Sea',
+      method: 'The floor is the "over a hundred kilometres" of the trade press; the Israeli ministry\u2019s own words are qualitative, that the interceptor is designed to engage outside the atmosphere',
+      withheldUnder: 'Israel publishes neither the interceptor\u2019s speed nor the stockpile; the Mach 9 to Mach 17 figures in circulation trace to no manufacturer or ministry source',
+    },
+    note: 'Arrow 2 fired first, on 31 October 2023, and did it at about ninety-seven kilometres \u2014 twice the ceiling usually quoted for it. That one carries a fragmentation warhead; Arrow 3 has to hit',
+  },
+  {
+    id: 'a135',
+    name: 'A-135 · Moscow',
+    phase: 'terminal',
+    status: 'deployed',
+    years: '1995 to now',
+    preset: { ceilingMetres: 30_000, floorMetres: 5_000 },
+    evidence: 'withheld',
+    provenance: {
+      source: 'Pavel Podvig, Missile defense in Russia (Federation of American Scientists working paper, May 2017): sixty-eight short-range 53T6 interceptors at five sites round Moscow, the long-range 51T6 retired about 2006',
+      method: 'The altitude band is the endoatmospheric engagement the short-range missile was built for; Soviet estimates put the system\u2019s capability at one or two intercontinental missiles',
+      withheldUnder: 'The interceptor\u2019s speed is not published; the three kilometres a second widely quoted is the specified speed of the target, not of the missile',
+    },
+    note: 'The one system that answers the miss-distance problem by not needing to hit: the interceptors were built to carry nuclear warheads, which are reported to be stored eighty kilometres away and mated only in a threatening period',
+  },
+  {
+    id: 'thaad',
+    name: 'THAAD',
+    phase: 'terminal',
+    status: 'deployed',
+    years: '2008 to now',
+    preset: { terminalSpeedMs: 2_800, ceilingMetres: 150_000, floorMetres: 40_000 },
+    evidence: 'withheld',
+    provenance: {
+      source: 'Congressional Research Service IF12645 (23 June 2026): a battery of about ninety soldiers, six launchers, forty-eight interceptors and one radar; eight American batteries',
+      method: 'The speed traces to a compendium that disclaims its own accuracy, and George Lewis independently puts burnout at 2.6 to 2.8 km/s; the forty-kilometre floor is "not publicly available, but is generally taken to be about forty"',
+      withheldUnder: 'The maker publishes no speed, range or altitude for the system; the service gives only "inside or outside the atmosphere"',
+    },
+    note: 'The floor constrains it more than the ceiling: this is an upper-atmosphere weapon, not a last-ditch one. Its record is sixteen of sixteen on one convention and fourteen of eighteen on another, and neither counts the six straight failures of 1995 to 1999',
+  },
+  {
+    id: 'pac3',
+    name: 'Patriot PAC-3',
+    phase: 'terminal',
+    status: 'deployed',
+    years: '2001 to now',
+    preset: { ceilingMetres: 20_000, floorMetres: 2_000 },
+    evidence: 'withheld',
+    provenance: {
+      source: 'NATO fact sheet as the Congressional Research Service reproduces it (IF12297, 17 July 2025): a flight ceiling of about twenty kilometres and a defended area of about fifteen to twenty against ballistic missiles',
+      method: 'The floor is not published anywhere and two kilometres is a working figure; the ceiling and the footprint are the service\u2019s own',
+      withheldUnder: 'The research service states it plainly: official Patriot ranges and coverages are not available. The maker publishes no speed, and the Mach 4 to Mach 5 figures in circulation disagree with each other',
+    },
+    note: 'A defended area of fifteen kilometres is a city, not a country. The Gulf War record began at ninety-six per cent for Saudi Arabia and Israel together and ended, in the Army\u2019s own revision of April 1992, at seventy and forty',
+  },
+  {
+    id: 'gpi',
+    name: 'Glide Phase Interceptor',
+    phase: 'glide',
+    status: 'in development',
+    years: '2021 to now',
+    preset: { glideAltitudeMetres: 49_000 },
+    evidence: 'modelled',
+    provenance: {
+      source: 'Cameron Tracy and David Wright, Modeling the Performance of Hypersonic Boost-Glide Missiles, Science & Global Security 28:3 (2020), p. 159: a glide entered at about forty-nine kilometres, descending as drag bleeds the speed away',
+      method: 'The altitude is their notional vehicle\u2019s, not the interceptor\u2019s target set; the Chinese glider it is sized against is estimated at about sixty kilometres on a depressed trajectory',
+      withheldUnder: 'No engagement altitude band, unit cost or intercept test date has been published for the interceptor',
+    },
+    note: 'The phase exists as a category because the glide is flown below the floor of the midcourse systems and above the ceiling the terminal ones were built for. Delivery has moved five times, from 2034 to 2029 to 2035 to 2032 to 2031',
   },
 ]
 

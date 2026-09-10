@@ -181,12 +181,14 @@ export function InterceptLab() {
     if (x.preset.interceptorMs) setInterceptorMs(x.preset.interceptorMs)
     if (x.preset.constellation) setConstellation(x.preset.constellation)
     if (x.preset.orbitAltitudeMetres) setAltitudeKm(x.preset.orbitAltitudeMetres / 1_000)
+    if (x.preset.glideAltitudeMetres) setGlideKm(x.preset.glideAltitudeMetres / 1_000)
     if (x.preset.terminalSpeedMs || x.preset.ceilingMetres || x.preset.floorMetres) {
-      setTerminal((t) => ({
-        speed: x.preset.terminalSpeedMs ?? t.speed,
-        ceiling: x.preset.ceilingMetres ? x.preset.ceilingMetres / 1_000 : t.ceiling,
-        floor: x.preset.floorMetres ? x.preset.floorMetres / 1_000 : t.floor,
-      }))
+      setTerminal((t) => {
+        const ceiling = x.preset.ceilingMetres ? x.preset.ceilingMetres / 1_000 : t.ceiling
+        const floor = x.preset.floorMetres ? x.preset.floorMetres / 1_000 : t.floor
+        // A preset that sets only one end must not leave the band inside out.
+        return { speed: x.preset.terminalSpeedMs ?? t.speed, ceiling, floor: Math.min(floor, ceiling - 1) }
+      })
     }
   }
 
@@ -209,19 +211,28 @@ export function InterceptLab() {
 
         <section className="clock" aria-label="The phases">
           <h2>Named systems</h2>
-          <div className="clock-controls" role="group" aria-label="Systems">
-            {INTERCEPT_SYSTEMS.map((x) => (
-              <button key={x.id} type="button" className={x.id === systemId ? 'is-active' : ''} onClick={() => apply(x)} title={`${x.years} · ${x.status} · ${x.note}`}>
-                {x.name}
-              </button>
-            ))}
-          </div>
+          {(['boost', 'midcourse', 'terminal', 'glide'] as const).map((p) => (
+            <div key={p} className="clock-controls" role="group" aria-label={`${p} systems`}>
+              <span className="log-empty lab-phase-tag">{p}</span>
+              {INTERCEPT_SYSTEMS.filter((x) => x.phase === p).map((x) => (
+                <button key={x.id} type="button" className={`${x.id === systemId ? 'is-active' : ''} ${x.status === 'deployed' ? 'is-fielded' : ''}`} onClick={() => apply(x)} title={`${x.years} · ${x.status} · ${x.note}`}>
+                  {x.name}
+                </button>
+              ))}
+            </div>
+          ))}
           {system ? (
-            <p className="log-empty">
-              {system.years} · {system.status} · {system.phase} phase <span className={`badge badge--${system.evidence}`}>{system.evidence.toUpperCase()}</span> · {system.note}
-            </p>
+            <div className="lab-system">
+              <p className="log-empty">
+                {system.years} · {system.status} · {system.phase} phase <span className={`badge badge--${system.evidence}`}>{system.evidence.toUpperCase()}</span>
+              </p>
+              <p className="log-empty">{system.note}</p>
+              <p className="log-empty lab-system-source">{system.provenance.source}</p>
+              {system.provenance.method && <p className="log-empty lab-system-source">Method · {system.provenance.method}</p>}
+              {system.provenance.withheldUnder && <p className="log-empty lab-system-withheld">Not published · {system.provenance.withheldUnder}</p>}
+            </div>
           ) : (
-            <p className="log-empty">A preset sets the controls it has a figure for. More go in as the record for each is checked; none of them carries a probability of kill, and the reading panel says why.</p>
+            <p className="log-empty">A preset sets the controls it has a figure for and leaves the rest alone. Most of these are marked withheld, and it is worth saying why: no burnout velocity has ever been officially published for the ground-based interceptor, for any variant of the SM-3, for THAAD, for Patriot, for Arrow 3 or for the Russian 53T6. Every speed in circulation for them is an analyst's estimate, and the most-cited compendium disclaims its own accuracy. None of them carries a probability of kill either, and the reading panel says why.</p>
           )}
 
           <h2>The four phases</h2>

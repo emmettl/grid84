@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { costExchange, engage, interceptorsNeeded, REFERENCE_CASES } from './defence.ts'
+import { costExchange, engage, interceptorsNeeded, REFERENCE_CASES, TEST_RECORDS } from './defence.ts'
 
 const gmd = { interceptors: 44, pKill: 12 / 21, salvo: 4, absentee: 1, shootLookShoot: false }
 
@@ -56,5 +56,35 @@ describe('shot exchange', () => {
       expect(e.leaked).toBeLessThanOrEqual(r.attack.warheads)
       expect(r.provenance.source.length).toBeGreaterThan(20)
     }
+  })
+})
+
+describe('the intercept test records', () => {
+  it('gives every one a source, a cut-off and a tally that makes sense', () => {
+    for (const r of TEST_RECORDS) {
+      expect(r.provenance.source.length, `${r.id} has no source`).toBeGreaterThan(20)
+      expect(r.through.length, `${r.id} does not say what it counts through`).toBeGreaterThan(4)
+      expect(r.hits, r.id).toBeLessThanOrEqual(r.attempts)
+      expect(r.attempts, r.id).toBeGreaterThan(0)
+    }
+  })
+
+  it('carries at least one alternate for every record, because that is the point of the table', () => {
+    for (const r of TEST_RECORDS) {
+      expect(r.alternates.length, `${r.id} has no competing count`).toBeGreaterThan(0)
+      for (const a of r.alternates) {
+        expect(a.hits, `${r.id} · ${a.by}`).toBeLessThanOrEqual(a.attempts)
+        expect(a.because.length, `${r.id} · ${a.by} does not say why it differs`).toBeGreaterThan(30)
+        // An alternate that agrees with the headline on both numbers is not an alternate.
+        expect(a.hits === r.hits && a.attempts === r.attempts, `${r.id} · ${a.by} is the same count`).toBe(false)
+      }
+    }
+  })
+
+  it('keeps the ground-based record inside the range the published conventions give', () => {
+    const gmd = TEST_RECORDS.find((r) => r.id === 'gmd')!
+    const rates = [gmd.hits / gmd.attempts, ...gmd.alternates.map((a) => a.hits / a.attempts)]
+    expect(Math.min(...rates)).toBeGreaterThan(0.5)
+    expect(Math.max(...rates)).toBeLessThan(0.6)
   })
 })
