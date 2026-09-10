@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { adversaryFor } from './adversary.ts'
 import { FORCES, POWER_IDS } from './forces.ts'
-import { classify, deliveryOptions, MISSILES_PER_SITE, planStrike, PROFILE_RINGS, type Profile } from './solver.ts'
+import { classify, deliveryOptions, isPointFeature, MISSILES_PER_SITE, planStrike, PROFILE_RINGS, sizeWeapon, targetSpanMetres, type Profile } from './solver.ts'
 import type { AtlasTarget } from './target.ts'
 
 const place = (name: string, cc: string, position: [number, number], key = 'place', value = 'city'): AtlasTarget => ({ id: `t:${name}`, osmId: 1, osmType: 'N', osmKey: key, osmValue: value, name, label: '', countryCode: cc, position })
@@ -101,5 +101,60 @@ describe('sizing for effect', () => {
     expect(plan.sizing.warheads).toBeGreaterThan(1)
     expect(plan.kill.expected).toBeGreaterThan(plan.kill.perWarhead)
     expect(plan.lines.some((l) => /DAMAGE EXPECTANCY/.test(l))).toBe(true)
+  })
+})
+
+describe('one building is not the borough it stands in', () => {
+  // Enfield Cloisters, Fanshaw Street, Shoreditch: OSM way 31302696, a block
+  // of flats about 48 by 26 metres, reported as a 32 × 800 kt obliteration of
+  // Greater London before the solver could tell a structure from a place.
+  const cloisters: AtlasTarget = {
+    id: 'W:31302696', osmId: 31302696, osmType: 'W', osmKey: 'building', osmValue: 'yes',
+    name: 'Enfield Cloisters (1-78)', label: 'Fanshaw Street, Shoreditch', countryCode: 'GB',
+    position: [-0.0807805, 51.5291278],
+    extent: [-0.0811247, 51.5292566, -0.0804349, 51.5290187],
+  }
+  const london = profile([180_000, 900_000, 2_600_000, 6_000_000, 10_000_000])
+
+  it('measures the feature and finds it a structure, not a place', () => {
+    const span = targetSpanMetres(cloisters)!
+    expect(span).toBeGreaterThan(40)
+    expect(span).toBeLessThan(60)
+    expect(isPointFeature(cloisters)).toBe(true)
+  })
+
+  it('classifies it as a point in the middle of the densest profile there is', () => {
+    const c = classify(cloisters, london)
+    expect(c.category).toBe('STRUCTURE')
+    expect(c.countervalue).toBe(false)
+    expect(c.urbanRadiusMetres).toBe(0)
+  })
+
+  it('draws one aim point for it, not a laydown over the metropolitan area', () => {
+    const c = classify(cloisters, london)
+    const site = deliveryOptions('ru', cloisters.position)[0].site
+    const sizing = sizeWeapon(c, site, cloisters.position, false)
+    // One aim point, and only as many warheads on it as the system's own
+    // reliability asks for the stated damage expectancy — never a tiling.
+    expect(sizing.aimPoints).toHaveLength(1)
+    expect(sizing.warheads).toBeLessThanOrEqual(2)
+    // Against what the same weapon would have drawn had this been the city.
+    const asArea = sizeWeapon({ ...c, category: 'URBAN-INDUSTRIAL', countervalue: true, urbanRadiusMetres: 30_000 }, site, cloisters.position, false)
+    expect(asArea.warheads).toBeGreaterThan(20)
+  })
+
+  it('still reads the same postcode as an area when the place itself is selected', () => {
+    // The borough, not a building in it: no structure tag, no small box.
+    const hackney = place('London Borough of Hackney', 'GB', [-0.0808, 51.5291], 'place', 'city')
+    const c = classify(hackney, london)
+    expect(c.category).toBe('URBAN-INDUSTRIAL')
+    expect(c.countervalue).toBe(true)
+    expect(c.urbanRadiusMetres).toBeGreaterThan(0)
+  })
+
+  it('does not take a large estate for a building on the tag alone', () => {
+    const estate: AtlasTarget = { ...cloisters, extent: [-0.13, 51.56, -0.05, 51.50] }
+    expect(targetSpanMetres(estate)!).toBeGreaterThan(1_000)
+    expect(isPointFeature(estate)).toBe(false)
   })
 })

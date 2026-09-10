@@ -1,0 +1,306 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sixty Feet at One Kilotonne</title>
+<meta name="description" content="Every prompt-effect formula in the Grid/84 engine traced to its section of Glasstone and Dolan, The Effects of Nuclear Weapons (1977), with the computed values set against the handbook's own worked examples and tables.">
+<link rel="canonical" href="https://grid84.app/dossier/weapons-effects-sources">
+<link rel="stylesheet" href="./dossier.css">
+</head><body>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="stamp">
+    <span>Research dossier</span>
+    <b>The Effects of Nuclear Weapons, 1962 and 1977 editions</b>
+  </div>
+  <h1>Sixty Feet at One Kilotonne</h1>
+  <p class="dek">Every prompt-effect formula the engine uses, traced to the section of the handbook it comes from, with the computed values set beside the book&rsquo;s own worked examples &mdash; including the places where the two disagree, and the places where the handbook declines to give a number at all.</p>
+  <div class="mast-meta">
+    <span>Compiled 10 September 2026</span>
+    <span>Every figure below was computed by the engine, not typed</span>
+  </div>
+</header>
+
+<div class="legend" style="margin-top:1.6rem">
+  <h2>What this is</h2>
+  <p style="margin:0 0 0.8rem;max-width:70ch">A research dossier compiled for <a href="/">Grid/84</a>. Every ring the atlas draws, every crater it digs and every plume it lays down comes from one book: Samuel Glasstone and Philip J. Dolan, <em>The Effects of Nuclear Weapons</em>, third edition, prepared by the United States Department of Defense and the Energy Research and Development Administration, 1977. This document says which section each formula comes from, what was done to it, and how far the result sits from the handbook&rsquo;s own numbers.</p>
+  <p style="margin:0 0 0.8rem;max-width:70ch"><strong>Method.</strong> The tables below were produced by running the engine&rsquo;s own functions and printing the output, not by transcribing figures into a page. Where a comparison against the book is shown, the book&rsquo;s figure is quoted from the section named beside it. Several of the checks are also assertions in the test suite, so a formula cannot drift away from the source it was fitted to without a test failing.</p>
+  <p style="margin:0;max-width:70ch"><strong>Two things worth saying at the top.</strong> The handbook is not a model; it is a set of curves fitted to about fifteen years of atmospheric testing, and it carries its own uncertainties, some of them large &mdash; the initial-radiation curves are published with a stated reliability factor of <em>one half to two</em>. And where the book gives no number, this project gives none either. Section 06 lists what that leaves out.</p>
+</div>
+
+<div class="legend">
+  <h2>Evidence tiers used throughout</h2>
+  <div class="tiers">
+    <div class="tier"><span class="swatch sw-doc"></span><p><strong>Documented</strong>Stated in the handbook at a named section, table or figure, and quoted from it.</p></div>
+    <div class="tier"><span class="swatch sw-inf"></span><p><strong>Fitted or modelled</strong>A closed form fitted to the handbook&rsquo;s curves, or a result the engine computes from the handbook&rsquo;s constants that the handbook does not itself state.</p></div>
+    <div class="tier"><span class="swatch sw-con"></span><p><strong>Contested or uncertain</strong>The handbook carries its own stated uncertainty here, or its two editions differ, or the figure depends on something the book leaves open.</p></div>
+    <div class="tier"><span class="swatch sw-unt"></span><p><strong>No figure given</strong>The handbook names the effect and declines to quantify it. Nothing has been invented to fill the gap.</p></div>
+  </div>
+  <div class="filters">
+    <span class="lab">Filter claims</span>
+    <button class="fbtn" data-t="doc" aria-pressed="false">Documented</button>
+    <button class="fbtn" data-t="inf" aria-pressed="false">Fitted</button>
+    <button class="fbtn" data-t="con" aria-pressed="false">Uncertain</button>
+    <button class="fbtn" data-t="unt" aria-pressed="false">No figure</button>
+    <button class="fbtn" id="clearf" aria-pressed="false">Show all</button>
+  </div>
+</div>
+
+<section id="s0">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 00</span>
+    <h2 class="sec-title">The map</h2>
+    <p class="sec-sub">Every prompt-effect quantity the engine computes, and where it comes from. Each row is expanded in the section named.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <caption>What the engine takes from the handbook</caption>
+      <thead><tr><th>Quantity</th><th>Form</th><th>Source</th><th>Tier</th></tr></thead>
+      <tbody>
+        <tr><td>Overpressure radius, air burst</td><td class="num">r = c &middot; W<sup>1/3</sup></td><td>Fitted to the handbook&rsquo;s ch. III curves, at the height that maximises each ring</td><td>Fitted</td></tr>
+        <tr><td>Overpressure radius, surface burst</td><td class="num">Z(&Delta;p) &middot; (2W)<sup>1/3</sup></td><td>&sect;3.34, a contact burst as a free-air burst of twice the yield</td><td>Documented</td></tr>
+        <tr><td>Maximum fireball radius</td><td class="num">2 &times; 100 &middot; W<sup>0.4</sup> ft</td><td>&sect;2.127</td><td>Documented</td></tr>
+        <tr><td>Whether the fireball touches down</td><td class="num">h &le; R<sub>fireball</sub></td><td>&sect;9.48, on which bursts make early fallout</td><td>Documented</td></tr>
+        <tr><td>Third-degree burn radius</td><td class="num">0.67 &middot; W<sup>0.41</sup> km</td><td>Fitted; mechanism at &sect;7.96, outcome tabulated at Table 12.31 of the 1962 edition</td><td>Fitted</td></tr>
+        <tr><td>Initial radiation radius</td><td class="num">0.7 &middot; W<sup>0.19</sup> km, then one tenth-range per decade</td><td>&sect;8.32 for the form; &sect;8.34 for the one worked case</td><td>Fitted</td></tr>
+        <tr><td>Crater radius and depth</td><td class="num">60 and 30 ft &middot; W<sup>0.3</sup></td><td>&sect;6.09</td><td>Documented</td></tr>
+        <tr><td>Lip crest and ejecta</td><td class="num">1.25&times; and 2.15&times; the radius</td><td>&sect;6.71, &sect;6.74</td><td>Documented</td></tr>
+        <tr><td>Fallout contours</td><td class="num">a &middot; W<sup>b</sup>, per contour</td><td>Table 9.93, with &sect;9.94 for fission fraction and &sect;9.97 for wind</td><td>Documented</td></tr>
+        <tr><td>Fallout decay</td><td class="num">t<sup>&minus;1.2</sup></td><td>&sect;9.15</td><td>Documented</td></tr>
+        <tr><td>Terrain factor on dose rate</td><td class="num">0.7 in the open</td><td>&sect;9.95</td><td>Documented</td></tr>
+        <tr><td>Structural collapse pressures</td><td class="num">3 and 5 psi</td><td>&sect;5.53 for Japanese dwellings, &sect;5.57 and &sect;5.67 for the Nevada test houses</td><td>Documented</td></tr>
+        <tr><td>Aircraft in the open</td><td class="num">2 to 3 psi</td><td>&sect;5.150</td><td>Documented</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s1">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 01</span>
+    <h2 class="sec-title">Blast</h2>
+    <p class="sec-sub">The cube-root law, the two burst geometries, and the one place where putting the weapon on the ground reaches further than putting it in the air.</p>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Fitted</span><strong>The air-burst radii are a fit, and it is worth being clear whose.</strong> The closed forms are Carey Sublette&rsquo;s, from the Nuclear Weapons Frequently Asked Questions &sect;5.6, which are curve fits to the handbook&rsquo;s chapter III. They give the radius at the height of burst that maximises <em>that particular ring</em>, over flat ground in clear air, and are stated as accurate to about ten per cent from 1 kt to 20 Mt. Each ring therefore stands at its own optimum height, which is a spread of altitudes rather than one weapon at one height. This matters when comparing against other instruments, and the comparison is in the project&rsquo;s validation brief rather than here.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>The engine&rsquo;s air-burst radii, kilometres, at the height that maximises each ring</caption>
+      <thead><tr><th class="num">Yield</th><th class="num">20 psi</th><th class="num">5 psi</th><th class="num">1 psi</th><th class="num">Height for 5 psi</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1 kt</td><td class="num">0.28</td><td class="num">0.71</td><td class="num">2.20</td><td class="num">298 m</td></tr>
+        <tr><td class="num">20 kt</td><td class="num">0.76</td><td class="num">1.93</td><td class="num">5.97</td><td class="num">809 m</td></tr>
+        <tr><td class="num">100 kt</td><td class="num">1.30</td><td class="num">3.30</td><td class="num">10.21</td><td class="num">1,384 m</td></tr>
+        <tr><td class="num">335 kt</td><td class="num">1.94</td><td class="num">4.93</td><td class="num">15.28</td><td class="num">2,071 m</td></tr>
+        <tr><td class="num">1 Mt</td><td class="num">2.80</td><td class="num">7.10</td><td class="num">22.00</td><td class="num">2,982 m</td></tr>
+        <tr><td class="num">10 Mt</td><td class="num">6.03</td><td class="num">15.30</td><td class="num">47.40</td><td class="num">6,425 m</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The surface burst comes from the book directly, not from a fit.</strong> &sect;3.34: over an ideal reflecting surface the shock from a contact burst &ldquo;would correspond to that for a free air burst&hellip; with twice the energy yield&rdquo;. The engine takes that at face value &mdash; the upper value, since real surfaces absorb some of the energy &mdash; and inverts the Kinney and Graham free-air fit of 1985 for the scaled distance. What comes out is not a uniform reduction.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Contact surface burst against optimum-height air burst, 1 Mt</caption>
+      <thead><tr><th class="num">Overpressure</th><th class="num">Air burst</th><th class="num">Surface burst</th><th class="num">Ratio of radii</th><th class="num">Ratio of areas</th></tr></thead>
+      <tbody>
+        <tr><td class="num">20 psi</td><td class="num">2.80 km</td><td class="num">3.01 km</td><td class="num"><strong>1.07</strong></td><td class="num">1.15</td></tr>
+        <tr><td class="num">10 psi</td><td class="num">4.50 km</td><td class="num">4.10 km</td><td class="num">0.91</td><td class="num">0.83</td></tr>
+        <tr><td class="num">5 psi</td><td class="num">7.10 km</td><td class="num">5.77 km</td><td class="num">0.81</td><td class="num">0.66</td></tr>
+        <tr><td class="num">3 psi</td><td class="num">10.00 km</td><td class="num">7.69 km</td><td class="num">0.77</td><td class="num">0.59</td></tr>
+        <tr><td class="num">1 psi</td><td class="num">22.00 km</td><td class="num">16.94 km</td><td class="num">0.77</td><td class="num">0.59</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Fitted</span><strong>At twenty pounds a square inch the surface burst wins, and the reason is the whole logic of aiming.</strong> An air burst buys its reach from Mach reinforcement, where the incident and reflected shocks merge along the ground. That reinforcement is worth a great deal at low overpressure, far out, and very little close in, where the shock has not had room to merge. Doubling the effective yield helps everywhere. So at 1 psi the air burst covers nearly twice the area, and at 20 psi the surface burst covers fifteen per cent more. This is why a city is attacked from the air and a silo from the ground, and it falls out of the arithmetic rather than being asserted.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The pressures at which buildings fall are the book&rsquo;s, and they are not one number.</strong> &sect;5.53: Japanese-style wooden dwellings &ldquo;collapsed at distances up to 7,500 feet (1.4 miles) from ground zero, where the peak overpressure was estimated to be about 3 pounds per square inch&rdquo;. The American test houses of 1953 and 1955 collapsed or were damaged beyond repair at 5 psi (&sect;5.57, &sect;5.67), and 5 psi is the collapse pressure the 1979 Office of Technology Assessment casualty bands assume. The engine carries both, because applying an American suburb&rsquo;s collapse pressure to Hiroshima counts the dead at the wrong radius.</p></div>
+</section>
+
+<section id="s2">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 02</span>
+    <h2 class="sec-title">Thermal</h2>
+    <p class="sec-sub">Why the burn radius grows more slowly than the square root of the yield, and how the fit stands against the edition that tabulated the answer.</p>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The mechanism, from &sect;7.96.</strong> A target at distance D receives a radiant exposure of about Q &asymp; 3.07 f W &tau; / D&sup2; calories per square centimetre, where f is the thermal partition and &tau; the atmospheric transmittance. A fixed exposure would therefore put the radius at the <em>square root</em> of the yield. The engine&rsquo;s exponent is 0.41, below a half, and the reason is in the book too: the thermal pulse lengthens with yield, and a longer pulse delivers the same energy more slowly, so it takes more of it to do the same damage to skin.</p></div>
+
+  <div class="claim con"><p><span class="pill">Uncertain</span><strong>The 1977 edition draws the answer; the 1962 edition tabulates it.</strong> The third edition gives thermal effects as curves against slant range. The second edition&rsquo;s Table 12.31 gives ranges from ground zero for burns to bare skin from air bursts, directly, in statute miles. The engine is fitted to the third edition and checked against the second, which is the only reason both editions are used at all.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>The engine&rsquo;s third-degree radius against Table 12.31 of the 1962 edition, statute miles</caption>
+      <thead><tr><th class="num">Yield</th><th class="num">First-degree, book</th><th class="num">Second-degree, book</th><th class="num">Third-degree, engine</th><th class="num">Fraction of second</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1 kt</td><td class="num">0.7</td><td class="num">0.5</td><td class="num">0.42</td><td class="num">0.83</td></tr>
+        <tr><td class="num">10 kt</td><td class="num">1.9</td><td class="num">1.5</td><td class="num">1.07</td><td class="num">0.71</td></tr>
+        <tr><td class="num">100 kt</td><td class="num">5.3</td><td class="num">4.0</td><td class="num">2.75</td><td class="num">0.69</td></tr>
+        <tr><td class="num">1 Mt</td><td class="num">14</td><td class="num">11</td><td class="num">7.07</td><td class="num">0.64</td></tr>
+        <tr><td class="num">10 Mt</td><td class="num">&gt;30</td><td class="num">24</td><td class="num">18.17</td><td class="num">0.76</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Fitted</span><strong>The check passes on both counts a check like this can pass on.</strong> The book&rsquo;s tabulated second-degree ranges scale as W<sup>0.423</sup> against the engine&rsquo;s W<sup>0.41</sup> &mdash; the same exponent to within three per cent across four decades of yield. And the engine&rsquo;s third-degree radius sits <em>inside</em> the second-degree range at every yield, between 64 and 83 per cent of it, which is where a third-degree burn has to be: a deeper burn happens closer in. Independently, &sect;12.66 of the 1977 edition puts 4.5 to 6 cal/cm&sup2; at nine to ten miles for a megatonne, which is the same place the engine puts 7.07. The comparison table is data in the test suite, so the fit cannot drift.</p></div>
+
+  <div class="claim unt"><p><span class="pill">No figure</span><strong>Atmospheric transmittance is not modelled at all.</strong> The &tau; in &sect;7.96 varies with visibility, humidity and slant path, and the handbook gives it as a family of curves rather than a number. The engine assumes clear air and says so on every readout. A hazy day, or cloud below the burst, changes the thermal radius more than any other single factor in this dossier.</p></div>
+</section>
+
+<section id="s3">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 03 &mdash; CORE</span>
+    <h2 class="sec-title">Initial radiation, and the crossover</h2>
+    <p class="sec-sub">One worked case in the whole chapter to check against &mdash; and a result that explains why prompt radiation stopped being how anyone expected to be killed.</p>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The form, from &sect;8.32.</strong> The dose falls as the inverse square of distance and then again by absorption in the air. Over the range that matters, those two together are what a fixed distance per factor of ten in dose amounts to &mdash; the tenth-range. The engine puts the 1,000-rad radius at 0.7 &middot; W<sup>0.19</sup> km and then steps outward one tenth-range per decade of dose, with the tenth-range interpolated in the logarithm of yield from 330 m at 1 kt to 700 m at 20 Mt.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The single anchor, and the engine sits four per cent inside it.</strong> The doses themselves are curves &mdash; Figure 8.33a and b &mdash; not a table, so there is nothing to check against row by row. But &sect;8.34 works one case in the text: a 50 kt fission air burst gives &ldquo;somewhat less than 300 rads&rdquo; at 2,000 yards, which the book interpolates at about 250. <strong>The engine puts 250 rads at 1,922 yards</strong>, 3.9 per cent inside the book&rsquo;s own figure. Against curves that carry a stated reliability factor of one half to two, that is well inside the source&rsquo;s own uncertainty.</p></div>
+
+  <div class="claim con"><p><span class="pill">Uncertain</span><strong>The reliability factor is the largest stated uncertainty in this entire dossier, and it belongs to the book.</strong> The handbook&rsquo;s initial-radiation curves are for a <em>fission</em> weapon at nine tenths of sea-level air density, and are published with a reliability factor of one half to two &mdash; that is, the true dose may be half the curve or twice it. A thermonuclear weapon of the same total yield gives less, because a smaller share of its energy is fission. None of that is modelled. The engine&rsquo;s radiation ring is the least trustworthy ring it draws, and it is drawn anyway because leaving it out would imply the effect does not exist.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>Initial radiation against blast, both computed by the engine</caption>
+      <thead><tr><th class="num">Yield</th><th class="num">500 rad</th><th class="num">5 psi</th><th class="num">Ratio</th><th class="num">Third-degree burn</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1 kt</td><td class="num">799 m</td><td class="num">710 m</td><td class="num"><strong>1.13</strong></td><td class="num">670 m</td></tr>
+        <tr><td class="num">10 kt</td><td class="num">1,217 m</td><td class="num">1,530 m</td><td class="num">0.80</td><td class="num">1,722 m</td></tr>
+        <tr><td class="num">20 kt</td><td class="num">1,374 m</td><td class="num">1,927 m</td><td class="num">0.71</td><td class="num">2,288 m</td></tr>
+        <tr><td class="num">100 kt</td><td class="num">1,827 m</td><td class="num">3,296 m</td><td class="num">0.55</td><td class="num">4,427 m</td></tr>
+        <tr><td class="num">335 kt</td><td class="num">2,271 m</td><td class="num">4,931 m</td><td class="num">0.46</td><td class="num">7,267 m</td></tr>
+        <tr><td class="num">1 Mt</td><td class="num">2,769 m</td><td class="num">7,100 m</td><td class="num">0.39</td><td class="num">11,378 m</td></tr>
+        <tr><td class="num">10 Mt</td><td class="num">4,230 m</td><td class="num">15,296 m</td><td class="num">0.28</td><td class="num">29,247 m</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="verdict">
+    <h3>Above about two kilotonnes, the radiation ring stops mattering</h3>
+    <p>Running the engine&rsquo;s own fits against each other: the 500-rad ring falls inside the 5 psi ring above <strong>2.21 kt</strong>, and the 1,000-rad ring above <strong>0.91 kt</strong>. Below those yields prompt radiation is the outer effect and reaches people the blast does not; above them, everyone who would have taken a fatal dose was already inside a radius where the buildings came down and the exposed skin burned.</p>
+    <p>The reason is in the exponents and nothing else. Blast radius goes as W<sup>1/3</sup> and thermal as W<sup>0.41</sup>, but initial radiation goes as W<sup>0.19</sup>, because the air absorbs it: adding yield adds gamma rays, and the atmosphere takes almost all of the extra away before they arrive. This is the arithmetic behind the enhanced-radiation weapon &mdash; a weapon that wants prompt radiation to be the killing effect has to be <em>small</em>, and then deliberately shift its energy partition, because scaling up does not work.</p>
+    <p>At 1 kt the ordering inverts and the radiation ring is the outermost of the three. That is Hiroshima&rsquo;s scale territory, and it is part of why the acute radiation syndrome is so prominent in the medical record of 1945 and so nearly absent from the projections for a modern exchange &mdash; not because modern weapons are gentler, but because at three hundred kilotonnes the blast has already reached everyone the gamma rays would have.</p>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 04</span>
+    <h2 class="sec-title">The fireball and the hole</h2>
+    <p class="sec-sub">One constant from &sect;6.09 reproduces the book&rsquo;s own worked example and its lip statement at once &mdash; and the geometry decides, without being asked, which bursts make fallout.</p>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>&sect;2.127.</strong> The fireball radius at breakaway is about 100 &middot; W<sup>0.4</sup> feet, and the maximum &ldquo;may be taken to be about twice that at the time of breakaway&rdquo;. That is the whole of the fireball model: 200 feet at one kilotonne, 966 metres at a megatonne.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>&sect;6.09, and the arithmetic checks out against the book&rsquo;s own example.</strong> A one-kilotonne burst on the surface of dry soil or dry soft rock makes an apparent crater about <strong>60 feet</strong> in radius and about <strong>30 feet</strong> deep, with the crest of the lip some 15 feet beyond the crater&rsquo;s edge; every dimension scales as W<sup>0.3</sup>. The book then works its own example: a hundred kilotonnes gives 60 &times; 100<sup>0.3</sup> = 240 feet of radius and 120 of depth. The engine computes <strong>238.9 and 119.4</strong> &mdash; the book rounded, and the engine did not. The two are the same calculation.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The lip is stated twice, and one constant gives both.</strong> &sect;6.71 puts the lip crest at 1.25 times the apparent radius and about a quarter of the apparent depth above the original surface. &sect;6.09 separately says the crest stands 15 feet beyond a 60-foot crater. Those are the same statement: 1.25 &times; 60 = 75, and 75 &minus; 60 = 15. The engine carries the factor and reproduces the fifteen feet exactly, which is a small thing but the right kind of small thing &mdash; two sentences sixty-two sections apart that have to agree, and do.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>The hole, computed. Dry soil or dry soft rock, contact surface burst</caption>
+      <thead><tr><th class="num">Yield</th><th class="num">Radius</th><th class="num">Depth</th><th class="num">Lip height</th><th class="num">Ejecta to</th><th class="num">Soil lifted</th></tr></thead>
+      <tbody>
+        <tr><td class="num">15 kt</td><td class="num">41 m</td><td class="num">21 m</td><td class="num">5.2 m</td><td class="num">89 m</td><td class="num">0.09 Mt</td></tr>
+        <tr><td class="num">100 kt</td><td class="num">73 m</td><td class="num">36 m</td><td class="num">9.1 m</td><td class="num">157 m</td><td class="num">0.48 Mt</td></tr>
+        <tr><td class="num">335 kt</td><td class="num">105 m</td><td class="num">52 m</td><td class="num">13.1 m</td><td class="num">225 m</td><td class="num">1.44 Mt</td></tr>
+        <tr><td class="num">800 kt</td><td class="num">136 m</td><td class="num">68 m</td><td class="num">17.0 m</td><td class="num">292 m</td><td class="num">3.15 Mt</td></tr>
+        <tr><td class="num">1 Mt</td><td class="num">145 m</td><td class="num">73 m</td><td class="num">18.2 m</td><td class="num">312 m</td><td class="num">3.85 Mt</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim inf"><p><span class="pill">Fitted</span><strong>Why the tonnage is worth computing at all.</strong> The volume is taken as a paraboloid of revolution, which is the shape of the book&rsquo;s own crater profiles, at a bulk density of 1.6 tonnes per cubic metre for dry soil. A 335 kt surface burst therefore lifts about <strong>1.4 million tonnes</strong> of ground. That mass is not a curiosity: it is the surface the fission products condense onto. Particles that heavy fall within hours rather than years, over a county rather than a hemisphere, and the plume the fallout model draws is that soil coming back down. The crater and the fallout pattern are two views of one event.</p></div>
+
+  <div class="claim unt"><p><span class="pill">No figure</span><strong>Two media the book names and does not quantify.</strong> In water-saturated soil the radius is appreciably greater and the final depth shallower, because the hole fills; in hard rock the dimensions are somewhat less. The handbook gives neither a number, so the engine gives neither, and the readout says the figure is the dry-soil case. A silo field in granite and a silo field in a river plain are not the same target, and this project cannot yet say by how much.</p></div>
+
+  <div class="verdict">
+    <h3>Above about 320 kilotonnes, aiming at a silo makes fallout whether you meant it or not</h3>
+    <p>Nothing in the handbook says this, and the engine was not asked it; it falls out of putting two of the book&rsquo;s sections beside each other. A weapon placed at the height that maximises the 5 psi area &mdash; the city case &mdash; has its fireball far above the ground at every yield: at a megatonne the fireball is 966 metres in radius and the burst is at 2,982. There is no crater and, by &sect;9.48, no significant early fallout.</p>
+    <p>But a weapon placed at the height that maximises the <em>20 psi</em> area &mdash; the hard-target case &mdash; is much lower, and the fireball is growing faster with yield (W<sup>0.4</sup>) than the height is (W<sup>1/3</sup>). The engine finds the two cross at about <strong>323 kt</strong>: at 300 kt the fireball reaches 597 m and the burst sits at 600; at 335 kt the fireball reaches 624 m and the burst sits at 622. Above that, the fireball touches down.</p>
+    <p>The 335 kt W78 &mdash; the weapon the strike console fires most often at the Minuteman fields, two to a silo &mdash; is just over the line. A counterforce strike is described as the discriminate option, and at the yields actually deployed against silos the discrimination does not survive its own geometry: the burst digs, the soil goes up, and the plume goes downwind over whoever lives there. The heights of burst used here are the engine&rsquo;s own rule rather than the handbook&rsquo;s Figure 3.73 curves &mdash; see Section 06 &mdash; so the 323 kt figure is a modelled crossing, not a quoted one. The direction of the result does not depend on the rule.</p>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 05</span>
+    <h2 class="sec-title">Fallout</h2>
+    <p class="sec-sub">The one chapter of the handbook that is a model rather than a set of measurements, and the one the engine leans on hardest.</p>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>Table 9.93 is the whole pattern.</strong> The handbook gives idealized unit-time &mdash; that is, H+1 &mdash; reference dose-rate contours as downwind distance, maximum width and ground-zero width, each in the form a &middot; W<sup>b</sup> in statute miles, for a 15 mph effective wind with 15&deg; of directional shear. The upwind extent is about half the ground-zero width (&sect;9.93). Dose rates scale with the fission fraction (&sect;9.94); downwind distances scale with wind speed by the factor at &sect;9.97. The engine carries all eight contours of the table verbatim as data.</p></div>
+
+  <div class="tw">
+    <table>
+      <caption>The idealized H+1 pattern the engine draws, 335 kt at 50 per cent fission, 15 mph</caption>
+      <thead><tr><th class="num">Contour, 100% fission</th><th class="num">Rate at H+1 here</th><th class="num">Downwind</th><th class="num">Maximum width</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1,000 rad/hr</td><td class="num">500 rad/hr</td><td class="num">25 mi</td><td class="num">3.0 mi</td></tr>
+        <tr><td class="num">100 rad/hr</td><td class="num">50 rad/hr</td><td class="num">122 mi</td><td class="num">12.4 mi</td></tr>
+        <tr><td class="num">10 rad/hr</td><td class="num">5 rad/hr</td><td class="num">328 mi</td><td class="num">30.5 mi</td></tr>
+        <tr><td class="num">1 rad/hr</td><td class="num">0.5 rad/hr</td><td class="num">547 mi</td><td class="num">53.8 mi</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>The decay law, and what follows from it.</strong> &sect;9.15 gives the dose rate as t<sup>&minus;1.2</sup>, good to within about a quarter for two weeks. The engine computes a factor of <strong>10</strong> at seven hours and <strong>107</strong> at forty-nine, which is the seven-ten rule of chapter IX reproduced rather than asserted. Integrating that law from an arrival at one hour to infinity gives <strong>five</strong> times the H+1 rate, of which the forty-eight hours a study draws is <strong>54 per cent</strong>. The consequence is the one that matters operationally: most of the dose anyone ever takes is taken early, so an evacuation begun after the plume arrives does not help those already under the heavy contours.</p></div>
+
+  <div class="claim con"><p><span class="pill">Uncertain</span><strong>The far contours are the least trustworthy thing the engine draws, and the book says why.</strong> This is an idealized pattern over a smooth plane in a simple wind with no rain. &sect;9.95 states that real surfaces give 0.7 of these values in the open and 0.5 to 0.6 in rough terrain, and the engine carries the 0.7 as a terrain factor. Real patterns bend as the wind veers with height and over the hours; rain puts hotspots off the axis. By the time fallout has travelled to the 1 rad/hr contour, hundreds of miles downwind, the H+1 rate there has decayed a hundredfold. The shape at forty-eight hours is order of magnitude and general direction, and every readout says so.</p></div>
+
+  <div class="claim doc"><p><span class="pill">Documented</span><strong>&sect;9.48, and the half-truth it is usually reduced to.</strong> Air bursts produce no significant early fallout. That is not because they produce no fission products &mdash; they produce exactly as many &mdash; but because with no soil drawn into the fireball those products condense onto each other as sub-micron particles, which stay aloft for weeks or years and come down worldwide, much decayed, instead of over a county within a day. The same activity, distributed differently in space and time. The engine draws a plume for a surface burst and none for an air burst on this basis, and states the reason rather than letting the absence imply innocence.</p></div>
+
+  <div class="claim unt"><p><span class="pill">No figure</span><strong>Shelter is a control, not a model.</strong> The handbook gives protection factors of roughly two for an ordinary house, five for a ground-floor inner room, ten to forty for a basement and a hundred or more for a purpose-built shelter. Which of those applies to a given population is not a question the book can answer, and it is the single largest source of divergence between published casualty estimates for the same attack. The engine defaults to nobody sheltering &mdash; an upper bound, and labelled as one &mdash; and carries the protection factor as a slider so the sensitivity can be seen instead of argued about.</p></div>
+</section>
+
+<section id="s6">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 06</span>
+    <h2 class="sec-title">What the engine does not take from the handbook</h2>
+    <p class="sec-sub">The gaps, stated as gaps. A model that quietly fills them is worse than one that does not have them.</p>
+  </div>
+
+  <div class="reject">
+    <h4>In the book, not in the engine</h4>
+    <ul>
+      <li><strong>The height-of-burst curves, Figure 3.73.</strong> The engine takes each ring at its own optimum height, through a simple fraction of the ground range that falls as the overpressure rises. The handbook gives the full family of curves, which would let one weapon at one stated height be drawn correctly for every ring at once. Until those curves are carried as fits, any single-height comparison against this engine is comparing two different things &mdash; and the 323 kt crossing in Section 04 is the engine&rsquo;s arithmetic rather than the book&rsquo;s.</li>
+      <li><strong>Atmospheric transmittance, &tau;.</strong> Clear air is assumed throughout. Visibility is the largest unmodelled lever on the thermal radius.</li>
+      <li><strong>The fission fraction as a weapon property.</strong> The engine takes it as an input per study; the handbook&rsquo;s radiation curves assume a pure fission weapon, and a thermonuclear weapon of the same yield gives a smaller prompt dose.</li>
+      <li><strong>Water-saturated soil and hard rock craters.</strong> Named in &sect;6.09 and given no numbers there.</li>
+      <li><strong>Rainout and wind shear with height</strong> in the fallout pattern, beyond a single directional shear figure.</li>
+      <li><strong>Thermal shielding.</strong> A wall, a cloud or the far side of a hill stops the flash entirely; the engine draws the burn ring as though everyone in it were outdoors and facing the burst.</li>
+      <li><strong>Everything after the first day.</strong> The injured who die because there is no hospital, the winter without heat or water, the crops. That is the largest gap of all, larger than every item above it, and it is why the project carries a separate model for the years after and a separate dossier behind that one.</li>
+    </ul>
+  </div>
+
+  <div class="claim con"><p><span class="pill">Uncertain</span><strong>On the two editions.</strong> The 1977 third edition is the reference throughout. The 1962 second edition is used in exactly one place, for Table 12.31, because it tabulates a quantity the third edition only draws. Where the two differ on anything else, the third edition wins, and no figure in this project has been taken from the 1962 edition without the section being named.</p></div>
+</section>
+
+<section id="refs">
+  <div class="sec-head">
+    <span class="sec-num">SOURCES</span>
+    <h2 class="sec-title">Principal references</h2>
+  </div>
+  <ul class="refs">
+    <li>S. Glasstone and P. J. Dolan (eds.), <em>The Effects of Nuclear Weapons</em>, third edition, United States Department of Defense and Energy Research and Development Administration, 1977. Sections cited: &sect;2.127 (fireball); &sect;3.34 (contact burst as twice the yield), &sect;3.35&ndash;3.37 (terrain); &sect;5.53, &sect;5.57, &sect;5.67 (structural collapse), &sect;5.150 (aircraft); &sect;6.09, &sect;6.71, &sect;6.74 (crater, lip, ejecta); &sect;7.96 (radiant exposure), &sect;12.66; &sect;8.32, &sect;8.34, Figure 8.33 (initial radiation); &sect;9.15 (decay), &sect;9.48 (air bursts), &sect;9.93 and Table 9.93 (contours), &sect;9.94 (fission fraction), &sect;9.95 (terrain factor), &sect;9.97 (wind).</li>
+    <li>S. Glasstone (ed.), <em>The Effects of Nuclear Weapons</em>, second edition, 1962. Table 12.31, ranges for burns to bare skin from air bursts.</li>
+    <li>C. Sublette, <em>Nuclear Weapons Frequently Asked Questions</em>, &sect;5.6 &mdash; the closed-form fits to the handbook&rsquo;s chapter III and chapter VIII curves that the engine uses for air-burst radii, thermal radius and initial radiation.</li>
+    <li>G. F. Kinney and K. J. Graham, <em>Explosive Shocks in Air</em>, second edition, 1985 &mdash; the free-air overpressure fit inverted for the surface-burst case.</li>
+    <li>H. L. Brode, "Numerical Solutions of Spherical Blast Waves", <em>J. Appl. Phys.</em> 26 (1955) &mdash; the earlier free-air fit, carried as a cross-check.</li>
+    <li>Office of Technology Assessment, <em>The Effects of Nuclear War</em>, 1979 &mdash; the casualty bands, themselves a reprint of the 1973 Defense Civil Preparedness Agency manual, which the engine uses for blast lethality.</li>
+    <li>T. A. Postol, "Possible Fatalities from Superfires Following Nuclear Attacks in or near Urban Areas", in <em>The Medical Implications of Nuclear War</em>, National Academy Press, 1986 &mdash; the mass-fire bound the engine pairs with the blast bands.</li>
+  </ul>
+</section>
+
+<footer>
+  Prepared 10 September 2026 &middot; Every computed figure on this page was produced by running the engine&rsquo;s own functions; the handbook&rsquo;s figures are quoted from the sections named beside them<br>
+  A supporting document of <a href="/">Grid/84</a> &middot; the models it underpins are the atlas, the strike console and every study
+</footer>
+
+</div>
+<script src="./dossier.js"></script>
+</body></html>

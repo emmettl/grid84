@@ -108,7 +108,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
       chosen.current = 'failure' in plan ? null : plan.delivery.site.id
       onClearAimPoints?.()
       // The aim points land on the globe as their lines print.
-      const aims = 'failure' in plan ? [] : describeAimPoints(plan.sizing, target.position)
+      const aims = 'failure' in plan ? [] : describeAimPoints(plan.sizing, target.position, plan.classification)
       const cep = 'failure' in plan ? 0 : plan.delivery.site.cepMetres
       const place = (i: number) => {
         const a = aims[i]

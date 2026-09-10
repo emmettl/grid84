@@ -99,7 +99,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
           }
         })
       : []),
-    ...describeAimPoints(sizing, target.position).map((a, i, all) => ({
+    ...describeAimPoints(sizing, target.position, classification).map((a, i, all) => ({
       kind: 'site' as const,
       id: `aim-${a.index + 1}`,
       // The aim points materialise one by one through the prelude.
@@ -121,7 +121,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     })),
     ...strike.entities,
   ]
-  const aims = describeAimPoints(sizing, target.position)
+  const aims = describeAimPoints(sizing, target.position, classification)
   const approachLine = plan.lines.find((l) => /^APPROACH/.test(l)) ?? ''
   const events: StudyEvent[] = [
     { time: -countdownSeconds, text: `STRIKE ORDER · ${power.name.toUpperCase()} · ${site.system.toUpperCase()} FROM ${site.name.toUpperCase()}${salvos.length > 1 ? ` AND ${salvos.length - 1} MORE SITE${salvos.length > 2 ? 'S' : ''}` : ''} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt)} ON ${target.name.toUpperCase()}`, entityId: 'target-site' },
@@ -152,6 +152,9 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     events,
     omissions: [
       'The adversary and the weapon are a stated heuristic, not a plan on record; every arsenal here is the open literature\'s estimate and the opaque ones are inferred',
+      ...(classification.countervalue
+        ? []
+        : [`This is a point target: the weapon is sized to destroy ${target.name} and nothing else. Everyone counted below was in the way, not in the plan${classification.category === 'STRUCTURE' ? ' — the structure is tens of metres across and the 5 psi ring is kilometres' : ''}`]),
       'No attrition, no defence, no warning: the strike arrives as ordered',
       'Fallout from the wind of one level at one hour; no sheltering, no medical care, no fire spread beyond Postol\'s bound',
     ],

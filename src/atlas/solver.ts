@@ -26,7 +26,7 @@ export interface Profile {
 
 export const PROFILE_RINGS = [2_000, 5_000, 10_000, 20_000, 30_000]
 
-export type Category = 'URBAN-INDUSTRIAL' | 'MILITARY' | 'AIRFIELD' | 'PORT' | 'COMMAND' | 'INDUSTRY' | 'INFRASTRUCTURE' | 'TOWN' | 'RURAL'
+export type Category = 'URBAN-INDUSTRIAL' | 'MILITARY' | 'AIRFIELD' | 'PORT' | 'COMMAND' | 'INDUSTRY' | 'INFRASTRUCTURE' | 'TOWN' | 'RURAL' | 'STRUCTURE'
 
 export interface Classification {
   category: Category
@@ -48,6 +48,53 @@ function densityOfAnnulus(profile: Profile, inner: number, outer: number): numbe
   const people = (profile.within[outer] ?? 0) - (profile.within[inner] ?? 0)
   const areaKm2 = (Math.PI * (outer * outer - inner * inner)) / 1e6
   return areaKm2 > 0 ? people / areaKm2 : 0
+}
+
+/**
+ * How far across the selected feature is, metres: the larger of its bounding
+ * box's two sides. A building is tens of metres, a works a few hundred, a
+ * borough a few kilometres, a city tens. Undefined when the geocoder gave no
+ * box at all, which is what a node gets.
+ */
+export function targetSpanMetres(target: AtlasTarget): number | undefined {
+  if (!target.extent) return undefined
+  const [west, north, east, south] = target.extent
+  const lat = ((north + south) / 2) * (Math.PI / 180)
+  const across = Math.abs(east - west) * 111_320 * Math.cos(lat)
+  const down = Math.abs(north - south) * 110_540
+  return Math.max(across, down)
+}
+
+/**
+ * The span at or below which a feature is one structure rather than a place.
+ * A kilometre is generous — the Pentagon is 430 m across and a large works
+ * fits inside it — and it is meant to be, because the failure it guards
+ * against is the expensive one.
+ */
+export const POINT_SPAN_METRES = 1_000
+
+/** OSM keys that name a structure: a thing someone built, as against a place people live in. */
+const STRUCTURE_KEYS = new Set(['building', 'amenity', 'office', 'shop', 'tourism', 'historic', 'man_made', 'leisure', 'railway', 'craft', 'healthcare', 'emergency', 'bridge'])
+
+/**
+ * Whether what was selected is one structure rather than an area.
+ *
+ * This is the difference between "the Shard" and "Southwark", and before it
+ * existed the solver could not see it: a named building in the middle of a
+ * city inherited the city's density, came back countervalue, and drew enough
+ * warheads to tile the whole metropolitan area. That is a defensible plan
+ * against London and an absurd one against a building in London, and the
+ * distinction is the user's to make, not the population grid's.
+ *
+ * A structure needs both things: a tag that names a built thing, and a
+ * footprint small enough to sit inside a single weapon's radius. Either
+ * alone is not enough — `building=yes` is attached to some very large
+ * estates, and a small bounding box is what an unmapped village gets too.
+ */
+export function isPointFeature(target: AtlasTarget): boolean {
+  if (!STRUCTURE_KEYS.has(target.osmKey)) return false
+  const span = targetSpanMetres(target)
+  return span !== undefined && span <= POINT_SPAN_METRES
 }
 
 /**
@@ -86,6 +133,16 @@ export function classify(target: AtlasTarget, profile: Profile, land?: LandUse |
   if (key === 'power' || value === 'plant' || value === 'nuclear' || value === 'refinery' || value === 'dam') return role('INFRASTRUCTURE', false, true, `OPENSTREETMAP TAGS IT ${key}=${value} · A SURFACE BURST TO BE SURE OF THE STRUCTURE`)
   if (value === 'industrial' || key === 'industrial' || value === 'factory' || value === 'works') return role('INDUSTRY', false, false, `OPENSTREETMAP TAGS IT ${key}=${value} · INDUSTRIAL FLOOR SPACE`)
   if (value === 'government' || value === 'parliament' || value === 'palace' || value === 'ministry' || value === 'embassy') return role('COMMAND', false, false, `OPENSTREETMAP TAGS IT ${key}=${value} · LEADERSHIP`)
+
+  // One building is one building. Asked before the ground and the density,
+  // because both of those describe the surroundings and the surroundings are
+  // not what was selected. What the weapon does to the city around it is a
+  // consequence of the plan and not the plan, and the readout separates the
+  // two.
+  const span = targetSpanMetres(target)
+  if (isPointFeature(target)) {
+    return role('STRUCTURE', false, false, `ONE STRUCTURE, ${Math.round(span ?? 0)} M ACROSS · OPENSTREETMAP TAGS IT ${key}=${value} · STRUCK AS A POINT, NOT AS THE AREA AROUND IT`)
+  }
 
   // The ground itself, where the tag said nothing useful. A barracks or an
   // airfield that the geocoder called a suburb is still a barracks or an
@@ -279,17 +336,19 @@ export function planSalvos(primary: DeliveryOption, options: DeliveryOption[], m
 }
 
 /** Each aim point with its offset from the centre and the reason it is there. */
-export function describeAimPoints(sizing: Sizing, center: LngLat): Array<{ index: number; position: LngLat; distanceMetres: number; bearingDeg: number; reason: string }> {
+export function describeAimPoints(sizing: Sizing, center: LngLat, cls?: Classification): Array<{ index: number; position: LngLat; distanceMetres: number; bearingDeg: number; reason: string }> {
+  const single = cls && !cls.countervalue
   return sizing.aimPoints.map((p, i) => {
     const distanceMetres = haversineMetres(center, p)
     const bearingDeg = distanceMetres > 1 ? initialBearing(center, p) : 0
-    const reason = i === 0 ? 'THE CENTRE · THE DENSEST TWO KILOMETRES · THE GEOCODER\'S POINT' : `THE NEXT DISC OUTWARD ON THE SUNFLOWER · ${(distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(bearingDeg).toString().padStart(3, '0')}° · ITS 5 PSI EDGE MEETS ITS NEIGHBOURS'`
+    const first = single ? `THE FEATURE ITSELF${cls && cls.category === 'STRUCTURE' ? ', ONE STRUCTURE' : ''} · THE GEOCODER'S POINT` : 'THE CENTRE · THE DENSEST TWO KILOMETRES · THE GEOCODER\'S POINT'
+    const reason = i === 0 ? first : `THE NEXT DISC OUTWARD ON THE SUNFLOWER · ${(distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(bearingDeg).toString().padStart(3, '0')}° · ITS 5 PSI EDGE MEETS ITS NEIGHBOURS'`
     return { index: i, position: p, distanceMetres, bearingDeg, reason }
   })
 }
 
 /** The overpressure a target category is taken to fail at, psi: the lethality lab's ladder. */
-export const HARDNESS: Record<Category, number> = { 'URBAN-INDUSTRIAL': 5, TOWN: 5, RURAL: 5, INDUSTRY: 15, PORT: 15, AIRFIELD: 25, COMMAND: 50, INFRASTRUCTURE: 100, MILITARY: 1_000 }
+export const HARDNESS: Record<Category, number> = { 'URBAN-INDUSTRIAL': 5, TOWN: 5, RURAL: 5, STRUCTURE: 5, INDUSTRY: 15, PORT: 15, AIRFIELD: 25, COMMAND: 50, INFRASTRUCTURE: 100, MILITARY: 1_000 }
 
 export interface Kill {
   psi: number
@@ -394,11 +453,27 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   // make; which one is taken is drawn on the target's own seed rather than
   // always falling to the same silo field.
   const shortlist = scored.filter((x) => x.score >= best * NEAR_ENOUGH - 1e-9).sort((a, b) => a.o.flightSeconds - b.o.flightSeconds)
-  const named = site ? shortlist.find((x) => x.o.site.id === site) ?? scored.find((x) => x.o.site.id === site) : undefined
-  const drawn = shortlist[Math.min(shortlist.length - 1, Math.floor(seedOf(`${target.osmType}${target.osmId}${target.name}`, variant) * shortlist.length))]
-  const delivery = (named ?? drawn ?? shortlist[0]).o
+  // A point target that several systems can kill outright is a question of
+  // which warhead to spend, and a planner spends the smallest that does the
+  // job: the megatonne is wanted somewhere it is needed. Damage expectancy
+  // alone cannot make that choice, because everything saturates against
+  // something that falls at five pounds a square inch, so the draw would
+  // otherwise be free to put a megatonne on a building.
+  let choices = shortlist
+  if (point && shortlist.length > 1) {
+    const onOneWarhead = shortlist.filter((x) => sizeWeapon(classification, x.o.site, target.position, wantFallout).warheads === 1)
+    const pooled = onOneWarhead.length > 0 ? onOneWarhead : shortlist
+    const smallest = Math.min(...pooled.map((x) => x.o.site.yieldKt))
+    choices = pooled.filter((x) => x.o.site.yieldKt <= smallest * 2)
+    if (choices.length < shortlist.length) {
+      lines.push(`SMALLEST ADEQUATE WEAPON · ${shortlist.length - choices.length} HEAVIER OPTION${shortlist.length - choices.length > 1 ? 'S' : ''} SET ASIDE · ${choices.length} AT ${smallest} KT OR NEAR IT ${choices.length > 1 ? 'REACH' : 'REACHES'} THE DAMAGE EXPECTANCY ON ONE WARHEAD`)
+    }
+  }
+  const named = site ? choices.find((x) => x.o.site.id === site) ?? shortlist.find((x) => x.o.site.id === site) ?? scored.find((x) => x.o.site.id === site) : undefined
+  const drawn = choices[Math.min(choices.length - 1, Math.floor(seedOf(`${target.osmType}${target.osmId}${target.name}`, variant) * choices.length))]
+  const delivery = (named ?? drawn ?? choices[0] ?? shortlist[0]).o
   const why = area ? `COVERS ${Math.round(scored.find((x) => x.o === delivery)!.score * 100)}% OF THE AREA` : point ? `${Math.round(scored.find((x) => x.o === delivery)!.score * 100)}% DAMAGE EXPECTANCY` : 'IN RANGE'
-  lines.push(`SELECTED · ${delivery.site.system.toUpperCase()} FROM ${delivery.site.name.toUpperCase()} · ${why} · ${fmtMin(delivery.flightSeconds)}${named ? ' · NAMED BY THE LINK' : shortlist.length > 1 ? ` · DRAWN FROM ${shortlist.length} OPTIONS WITHIN ${Math.round((1 - NEAR_ENOUGH) * 100)}% OF THE BEST, ON THIS TARGET'S OWN SEED` : ' · THE ONLY OPTION AT THIS SCORE'}`)
+  lines.push(`SELECTED · ${delivery.site.system.toUpperCase()} FROM ${delivery.site.name.toUpperCase()} · ${why} · ${fmtMin(delivery.flightSeconds)}${named ? ' · NAMED BY THE LINK' : choices.length > 1 ? ` · DRAWN FROM ${choices.length} OPTIONS WITHIN ${Math.round((1 - NEAR_ENOUGH) * 100)}% OF THE BEST, ON THIS TARGET'S OWN SEED` : ' · THE ONLY OPTION AT THIS SCORE'}`)
   const sizing = sizeWeapon(classification, delivery.site, target.position, wantFallout)
   lines.push(`WEAPON SIZED FOR EFFECT · ${sizing.reason}`)
   const salvos = planSalvos(delivery, options, sizing.missiles, delivery.site.warheadsPerMissile, sizing.warheads)
@@ -409,7 +484,7 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
     sizing.missiles = salvos.reduce((a, x) => a + x.missiles, 0)
     if (sizing.aimPoints.length > 1) sizing.aimPoints = sizing.aimPoints.slice(0, carried)
   }
-  lines.push(`LAYDOWN · ${sizing.warheads} WARHEAD${sizing.warheads > 1 ? 'S' : ''} OF ${sizing.yieldKt} KT ON ${sizing.missiles} ${delivery.route === 'cruise' ? (sizing.missiles > 1 ? 'AIRCRAFT, A FLIGHT' : 'AIRCRAFT') : `MISSILE${sizing.missiles > 1 ? 'S' : ''}`} · ${sizing.aimPoints.length > 1 ? `AIM POINTS IN A SUNFLOWER SPACED SO THE 5 PSI DISCS MEET` : sizing.warheads > 1 ? 'ALL ON THE ONE AIM POINT' : 'ONE AIM POINT AT THE CENTRE'} · ${sizing.burst.toUpperCase()} BURST${sizing.burst === 'surface' && classification.countervalue ? ' SO THE FALLOUT IS DRAWN; DOCTRINE WOULD AIRBURST A CITY, WHICH THE READOUT CAN SHOW' : ''}`)
+  lines.push(`LAYDOWN · ${sizing.warheads} WARHEAD${sizing.warheads > 1 ? 'S' : ''} OF ${sizing.yieldKt} KT ON ${sizing.missiles} ${delivery.route === 'cruise' ? (sizing.missiles > 1 ? 'AIRCRAFT, A FLIGHT' : 'AIRCRAFT') : `MISSILE${sizing.missiles > 1 ? 'S' : ''}`} · ${sizing.aimPoints.length > 1 ? `AIM POINTS IN A SUNFLOWER SPACED SO THE 5 PSI DISCS MEET` : sizing.warheads > 1 ? 'ALL ON THE ONE AIM POINT' : 'ONE AIM POINT AT THE CENTRE'} · ${sizing.burst.toUpperCase()} BURST${sizing.burst === 'surface' && !classification.hard ? ` SO THE FALLOUT IS DRAWN; DOCTRINE WOULD AIRBURST ${classification.countervalue ? 'A CITY' : 'SOMETHING THIS SOFT'}, WHICH THE READOUT CAN SHOW` : ''}`)
   if (salvos.length > 1) {
     const arrival = Math.max(...salvos.map((x) => x.option.flightSeconds))
     lines.push(`SALVOS · ${salvos.map((x) => `${x.option.site.name.split(' · ')[0].toUpperCase()} ${x.missiles} ${delivery.route === 'cruise' ? 'AIRCRAFT' : `MISSILE${x.missiles > 1 ? 'S' : ''}`} (${x.warheads})`).join(' · ')} · LAUNCHES HELD ${salvos.map((x) => `${x.launchDelaySeconds} S`).join(' / ')} SO EVERY WARHEAD ARRIVES AT H+${Math.round(arrival / 60)} MIN`)
@@ -423,7 +498,7 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   const kill = killProbability(classification, delivery.site, sizing)
   lines.push(kill.line)
   const bearingDeg = initialBearing(delivery.site.position, target.position)
-  const aims = describeAimPoints(sizing, target.position)
+  const aims = describeAimPoints(sizing, target.position, classification)
   for (const a of aims.slice(0, 6)) lines.push(`AIM POINT ${a.index + 1} · ${a.reason}`)
   if (aims.length > 6) lines.push(`AIM POINTS ${7} TO ${aims.length} · THE SAME RULE, FURTHER OUT`)
   const release = delivery.site.standoffKm !== undefined ? Math.min(delivery.site.standoffKm * 1_000, delivery.distanceMetres - Math.min(150_000, delivery.distanceMetres / 3)) : 0
