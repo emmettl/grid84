@@ -5,6 +5,7 @@ import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { posture1983, type Posture1983 } from '../studies/window83/window.ts'
 import { assignmentsOf, describePlan, evaluateSeeds, loss, OBJECTIVES, perturb, randomPlan, rng, yieldClass, SU_CLASSES, US_CLASSES, type Averaged, type Constraints, type DeathTable, type Objective, type Plan } from './model.ts'
 import { buildTable, clearTable, type TableProgress } from './table.ts'
+import { resumByUnion, type UnionResum } from './union.ts'
 
 /**
  * WOPR. The globe turns; the machine searches the plan space of the 1983
@@ -53,6 +54,7 @@ export function WoprView() {
   const [current, setCurrent] = useState<Plan | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [matrixOpen, setMatrixOpen] = useState(false)
+  const [resum, setResum] = useState<{ plan: Plan; result: UnionResum; surrogate: number } | { plan: Plan; done: number; total: number } | null>(null)
   const state = useRef({ plan: null as Plan | null, loss: Infinity, temperature: 1, iteration: 0, seed: 1, gen: rng(1), lastArcs: 0, perObjective: {} as Partial<Record<Objective, Best>>, perObjectiveDirty: false, best: null as Best | null, first: null as Best | null, bestDirty: false })
   const objectiveRef = useRef(objective)
   const constraintsRef = useRef(constraints)
@@ -200,8 +202,8 @@ export function WoprView() {
     const row = (id: string, name: string, classes: number[]) => {
       const a = assigned.get(id)
       if (!a) return null
-      const dead = table[id]?.[yieldClass(a.kt, classes)]?.fire ?? 0
-      return { id, name, category: a.category, weapon: `${a.count} × ${a.warhead}`, system: a.system, dead }
+      const row = table[id]?.[yieldClass(a.kt, classes)]
+      return { id, name, category: a.category, weapon: `${a.count} × ${a.warhead}`, system: a.system, dead: row?.fire ?? 0, laid: row?.laid ?? row?.fire ?? 0 }
     }
     const moscowCmd = posture.sovietForces.find((f) => f.id === 'su-moscow')
     const icbm = posture.sovietForces.filter((f) => /Rocket Division/.test(f.name)).slice(0, 2)
@@ -227,7 +229,7 @@ export function WoprView() {
         </p>
         {calibrating && !error && (
           <p className="wopr-line">
-            CALIBRATING THE MATRIX {progress.total > 0 ? `${progress.done.toLocaleString('en-GB')} / ${progress.total.toLocaleString('en-GB')}` : ''}
+            CALIBRATING THE MATRIX{progress.pass === 'laydown' ? ' · LAYDOWNS' : ''} {progress.total > 0 ? `${progress.done.toLocaleString('en-GB')} / ${progress.total.toLocaleString('en-GB')}` : ''}
             <span className="wopr-cursor" />
           </p>
         )}
@@ -258,6 +260,17 @@ export function WoprView() {
                     OWN-SIDE DEAD {fmtM(best.result.score.usDead)} · DEPENDING ON THE BREAKS {fmtM(best.result.ownLow)} TO {fmtM(best.result.ownHigh)} · STATED ACCEPTABLE (TURGIDSON, 1964) {fmtM(TURGIDSON_TOPS)} · LOWEST FOUND {ownBest ? fmtM(ownBest.result.score.usDead) : '—'}
                   </p>
                   <p className="wopr-line wopr-line--plan">{describePlan(best.plan)}</p>
+                  {resum && 'result' in resum && (
+                    <p className="wopr-line">
+                      RE-SUMMED BY THE UNION{resum.plan !== best.plan ? ' (AN EARLIER BEST)' : ''}: {fmtFull(resum.result.total)} DEAD · AMERICAN {fmtM(resum.result.usDead)} · SOVIET {fmtM(resum.result.suDead)} · {resum.result.usDetonations + resum.result.suDetonations} DETONATIONS COUNTED ONCE PER PERSON · SURROGATE {fmtM(resum.surrogate)}
+                    </p>
+                  )}
+                  {resum && 'done' in resum && (
+                    <p className="wopr-line">
+                      RE-SUMMING BY THE UNION {resum.done} / {resum.total}
+                      <span className="wopr-cursor" />
+                    </p>
+                  )}
                 </>
               )
             ) : (
@@ -320,6 +333,25 @@ export function WoprView() {
           </button>
           <button
             type="button"
+            disabled={!best || idle || (resum !== null && 'done' in resum)}
+            title="Lay the best plan down weapon by weapon and count every person once, as the studies do"
+            onClick={() => {
+              if (!best || !table) return
+              const plan = best.plan
+              const surrogate = best.result.score.total
+              setResum({ plan, done: 0, total: 0 })
+              resumByUnion(posture, table, plan, constraintsRef.current, (done, total) => setResum({ plan, done, total }))
+                .then((result) => setResum({ plan, result, surrogate }))
+                .catch((e: Error) => {
+                  setError(e.message)
+                  setResum(null)
+                })
+            }}
+          >
+            Re-sum by the union
+          </button>
+          <button
+            type="button"
             onClick={() => {
               clearTable()
               window.location.reload()
@@ -365,6 +397,7 @@ export function WoprView() {
                     <th>Category</th>
                     <th>Assignment</th>
                     <th>Dead, one detonation</th>
+                    <th>Dead, all laid down</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -378,13 +411,14 @@ export function WoprView() {
                         <span className="wopr-dim">{r.system}</span>
                       </td>
                       <td>{fmtM(r.dead)}</td>
+                      <td>{fmtM(r.laid)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             )}
             <p className="wopr-note">
-              A plausible assignment inside the planners' rules, by the SIOP's categories and the systems of 1983: the megaton class on hard command, two W78 per silo on the ICBM fields, the SLBMs on time-urgent bomber and submarine bases, the W76 on urban-industrial areas by population with the W78 on the largest; SS-18 two to one on the Minuteman silos, the forward Yankees on the bases and command, the SS-11 and the reserve on the cities. The SIOP itself is withheld. For every target the dead from one detonation of the assigned class were computed once by the exposure workers over the 1985 grid, the DCPA bands for blast and Postol's bound for fire, and kept in this browser; a plan is scored as the sum over struck targets with the largest weapon counting once, as the studies' log lines are, without the union's once-only counting across targets. Seeds draw reliability, accuracy and penetration inside their published ranges.
+              A plausible assignment inside the planners' rules, by the SIOP's categories and the systems of 1983: the megaton class on hard command, two W78 per silo on the ICBM fields, the SLBMs on time-urgent bomber and submarine bases, the W76 on urban-industrial areas by population with the W78 on the largest; SS-18 two to one on the Minuteman silos, the forward Yankees on the bases and command, the SS-11 and the reserve on the cities. The SIOP itself is withheld. For every target the dead from one detonation of the assigned class, and from the assigned number laid down over the area and counted once per person, were computed by the exposure workers over the 1985 grid, the DCPA bands for blast and Postol's bound for fire, and kept in this browser; a plan is scored as the sum over struck targets, between those two figures by the number of weapons that arrive, without the union's once-only counting across neighbouring targets. Re-sum by the union lays the best plan down weapon by weapon and counts every person once. Seeds draw reliability, accuracy and penetration inside their published ranges.
             </p>
           </div>
         )}

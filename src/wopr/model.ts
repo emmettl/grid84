@@ -59,9 +59,9 @@ export interface Constraints {
   retaliatory: boolean
 }
 
-/** Deaths from one detonation on a target, by yield class, the largest weapon counting once. */
+/** Deaths on a target by yield class: from one detonation, and (`laid`) from the assigned number laid down over the area and counted once per person. */
 export interface DeathTable {
-  [targetId: string]: { [yieldKt: number]: { blast: number; fire: number } }
+  [targetId: string]: { [yieldKt: number]: { blast: number; fire: number; laid?: number } }
 }
 
 export interface Score {
@@ -82,6 +82,8 @@ export interface Score {
   sovietWeaponsFired: number
   feasible: boolean
   why: string
+  /** What was struck, and how many times, for the union to re-sum: the Soviet weapons on American targets and the American on Soviet. */
+  struck: { us: Struck; su: Struck }
 }
 
 /** The yield class the table was computed for, nearest below or equal. */
@@ -157,7 +159,7 @@ function draw(seed: number, key: string, lo: number, hi: number): number {
   return lo + (hi - lo) * hash01(`wopr:${seed}:${key}`)
 }
 
-interface Struck {
+export interface Struck {
   [targetId: string]: number
 }
 
@@ -173,12 +175,20 @@ function allocate(weapons: number, targets: Array<{ id: string; cap: number }>, 
   return left
 }
 
+/** The dead on one target from `n` weapons: one detonation's figure, rising to the laid-down figure at the assigned count, between them by line. */
+export function deadOn(row: { fire: number; laid?: number } | undefined, n: number, count: number): number {
+  if (!row || n <= 0) return 0
+  if (row.laid === undefined || count <= 1) return row.fire
+  const t = Math.max(0, Math.min(1, (n - 1) / (count - 1)))
+  return row.fire + (row.laid - row.fire) * t
+}
+
 function deaths(table: DeathTable, struck: Struck, assigned: Map<string, Assignment>, fallbackKt: number, classes: number[]): number {
   let sum = 0
   for (const id of Object.keys(struck)) {
-    const c = yieldClass(assigned.get(id)?.kt ?? fallbackKt, classes)
-    const row = table[id]?.[c]
-    if (row) sum += row.fire
+    const a = assigned.get(id)
+    const c = yieldClass(a?.kt ?? fallbackKt, classes)
+    sum += deadOn(table[id]?.[c], struck[id], a?.count ?? 1)
   }
   return sum
 }
@@ -264,7 +274,7 @@ export function evaluate(posture: Posture1983, table: DeathTable, plan: Plan, se
   const coverage = Object.keys(struckSu).length / targetCount
   const forcesStruck = posture.sovietForces.filter((t) => struckSu[t.id]).length / posture.sovietForces.length
   const suUrbanPop = posture.sovietCities.reduce((s, c) => s + c.population, 0)
-  const suCityDead = posture.sovietCities.reduce((s, c) => s + (struckSu[c.id] ? (table[c.id]?.[yieldClass(assigned.get(c.id)?.kt ?? 335, US_CLASSES)]?.fire ?? 0) : 0), 0)
+  const suCityDead = posture.sovietCities.reduce((s, c) => s + deadOn(table[c.id]?.[yieldClass(assigned.get(c.id)?.kt ?? 335, US_CLASSES)], struckSu[c.id] ?? 0, assigned.get(c.id)?.count ?? 1), 0)
   const populationDestroyed = suUrbanPop > 0 ? Math.min(1, suCityDead / suUrbanPop) : 0
 
   // --- The Soviet reserve, on the cities ----------------------------------------
@@ -287,7 +297,9 @@ export function evaluate(posture: Posture1983, table: DeathTable, plan: Plan, se
     feasible = false
     why = 'no retaliatory force survives'
   }
-  return { usDead, suDead, total, coverage, populationDestroyed, forcesStruck, retaliatory, silosSurviving, launchUnderAttack, usWeaponsFired: usFired, sovietWeaponsFired: arriving + Math.round(reserve * rel), feasible, why }
+  const struckUsAll: Struck = { ...struckUs }
+  for (const [id, n] of Object.entries(struckUs2)) struckUsAll[id] = (struckUsAll[id] ?? 0) + n
+  return { usDead, suDead, total, coverage, populationDestroyed, forcesStruck, retaliatory, silosSurviving, launchUnderAttack, usWeaponsFired: usFired, sovietWeaponsFired: arriving + Math.round(reserve * rel), feasible, why, struck: { us: struckUsAll, su: struckSu } }
 }
 
 /** The loss under an objective; lower is better. Infeasible plans are infinitely bad. */

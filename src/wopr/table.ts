@@ -4,7 +4,8 @@ import { ExposureService } from '../models/exposure-service.ts'
 import { resolveGridBase } from '../studies/StudyView.tsx'
 import type { LngLat } from '../geo/geodesy.ts'
 import type { Posture1983 } from '../studies/window83/window.ts'
-import { siloSamples, spreadSilos, tableTargets, type DeathTable } from './model.ts'
+import { assignmentsOf, siloSamples, spreadSilos, tableTargets, type DeathTable } from './model.ts'
+import { BAND_FRACTIONS, detonation, fieldSpread, laydown } from './union.ts'
 
 /**
  * The target-by-weapon matrix: for every target the search can strike, the
@@ -15,12 +16,13 @@ import { siloSamples, spreadSilos, tableTargets, type DeathTable } from './model
  * input, and the panel shows it as such.
  */
 
-const CACHE_PREFIX = 'grid84-wopr-table-v1'
+const CACHE_PREFIX = 'grid84-wopr-table-v2'
 const GRID = 'ghsl/popc_1985'
 
 export interface TableProgress {
   done: number
   total: number
+  pass?: 'single' | 'laydown'
 }
 
 /** The cache key carries a fingerprint of the target list, so a rebuilt list recomputes. */
@@ -53,14 +55,14 @@ export async function buildTable(posture: Posture1983, onProgress: (p: TableProg
   for (const s of samples) jobs.push({ id: s.id, position: s.position, kt: 500 })
   const table: DeathTable = {}
   let done = 0
-  onProgress({ done, total: jobs.length })
+  onProgress({ done, total: jobs.length, pass: 'single' })
   const run = async (job: { id: string; position: LngLat; kt: number }) => {
     const rings = [...OTA_BANDS.map((b) => ({ key: b.key, radius: radiusForPsi(job.kt, b.minPsi, 'air') })), { key: 'fire', radius: thirdDegreeBurnRadiusMetres(job.kt) }]
     const result = await service.exposure({ center: job.position, rings, subsamples: 2 })
     const o = outcome(applyBands(bandPopulations(result.within)), result.within.fire ?? 0)
     table[job.id] = { ...(table[job.id] ?? {}), [job.kt]: { blast: o.blast.fatal, fire: o.fire.fatal } }
     done += 1
-    if (done % 25 === 0 || done === jobs.length) onProgress({ done, total: jobs.length })
+    if (done % 25 === 0 || done === jobs.length) onProgress({ done, total: jobs.length, pass: 'single' })
   }
   const width = 8
   let next = 0
@@ -74,6 +76,31 @@ export async function buildTable(posture: Posture1983, onProgress: (p: TableProg
     }),
   )
   spreadSilos(posture, table, samples)
+  // The second pass: each target's assigned number of weapons laid down over its area and counted once per person, through the union.
+  const assigned = assignmentsOf(posture, table)
+  const laid = targets.filter((t) => (assigned.get(t.id)?.count ?? 1) > 1)
+  done = 0
+  const lanes = 4
+  let laidNext = 0
+  onProgress({ done: 0, total: laid.length, pass: 'laydown' })
+  await Promise.all(
+    Array.from({ length: lanes }, async (_, lane) => {
+      const key = `wopr-table-${lane}`
+      while (laidNext < laid.length) {
+        const t = laid[laidNext]
+        laidNext += 1
+        const a = assigned.get(t.id)
+        if (!a) continue
+        await service.unionReset(key)
+        const totals = await service.union(key, laydown(t.position, a.count, a.kt, fieldSpread(a.category, a.count)).map((c) => detonation(c, a.kt)), BAND_FRACTIONS)
+        const row = table[t.id]?.[a.kt]
+        if (row) row.laid = Math.max(row.fire, totals.fireDead)
+        done += 1
+        if (done % 25 === 0 || done === laid.length) onProgress({ done: Math.min(done, laid.length), total: laid.length, pass: 'laydown' })
+      }
+      await service.unionReset(key)
+    }),
+  )
   service.destroy()
   try {
     localStorage.setItem(key, JSON.stringify({ table, gridName }))
