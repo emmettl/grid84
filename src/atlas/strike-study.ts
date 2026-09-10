@@ -4,7 +4,7 @@ import type { Entity, Study, StudyEvent } from '../studies/study.ts'
 import { designate } from './designation.ts'
 import { FORCES_SOURCE, POWERS } from './forces.ts'
 import { STRIKE_GRID } from './profile.ts'
-import type { StrikePlan } from './solver.ts'
+import { describeAimPoints, type StrikePlan } from './solver.ts'
 import type { WindAloft } from './wind.ts'
 import type { Boundary } from './boundary.ts'
 
@@ -17,7 +17,10 @@ import type { Boundary } from './boundary.ts'
 
 const fmtYield = (kt: number) => (kt >= 1_000 ? `${(kt / 1_000).toFixed(1)} MT` : `${kt} KT`)
 
-export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSeconds = 5, boundary: Boundary | null = null): Study {
+/** Study seconds before the launch, spent on the target with its aim points marked; at the autoplay rate a few real seconds. */
+export const PRELUDE_SECONDS = 90
+
+export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSeconds = PRELUDE_SECONDS, boundary: Boundary | null = null): Study {
   const { target, delivery, sizing, adversary, classification } = plan
   const site = delivery.site
   const power = POWERS[adversary.power]
@@ -59,10 +62,27 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
   const entities: Entity[] = [
     launcherSite(launcher, { side: 'attacker', designation: `${site.kind.toUpperCase()} · ${site.system.toUpperCase()}`, evidence: site.evidence, provenance: { source: site.source, method: site.note }, positionEvidence: site.positionEvidence, label: true, facts: [{ label: 'Load', value: `${site.warheadsPerMissile} × ${fmtYield(site.yieldKt)} per missile · range ${site.rangeKm.toLocaleString('en-GB')} km`, evidence: site.evidence, provenance: { source: site.source } }] }),
     { kind: 'site', id: 'target-site', name: target.name, designation: `${[designation.role.toUpperCase(), designation.code].filter(Boolean).join(' ')} · ${classification.category}`, label: true, position: target.position, evidence: 'documented', provenance: { source: 'OpenStreetMap via Photon' }, facts: [{ label: 'Population within 10 km', value: classification.population > 0 ? `${Math.round(plan.classification.population).toLocaleString('en-GB')} within 30 km on the 2025 grid` : 'None on the grid', evidence: 'modelled', provenance: { source: 'GHSL GHS-POP R2023A, 2025 epoch' } }] },
+    ...describeAimPoints(sizing, target.position).map((a) => ({
+      kind: 'site' as const,
+      id: `aim-${a.index + 1}`,
+      name: `Aim point ${a.index + 1}`,
+      designation: a.index === 0 ? 'AIM POINT 1 · CENTRE' : `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}°`,
+      label: a.index < 8,
+      labelAnchor: (a.bearingDeg > 180 ? 'right' : 'left') as 'left' | 'right',
+      position: a.position,
+      evidence: 'modelled' as const,
+      provenance: { source: 'The atlas solver', method: a.reason },
+      facts: [{ label: 'Why here', value: a.reason, evidence: 'modelled' as const, provenance: { source: 'The atlas solver: a sunflower spaced so the 5 psi discs meet, centred on the geocoder\'s point' } }],
+    })),
     ...strike.entities,
   ]
+  const aims = describeAimPoints(sizing, target.position)
+  const approachLine = plan.lines.find((l) => /^APPROACH/.test(l)) ?? ''
   const events: StudyEvent[] = [
-    { time: -countdownSeconds, text: `STRIKE ORDER · ${power.name.toUpperCase()} · ${site.system.toUpperCase()} FROM ${site.name.toUpperCase()} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt)} ON ${target.name.toUpperCase()}`, entityId: launcher.id },
+    { time: -countdownSeconds, text: `STRIKE ORDER · ${power.name.toUpperCase()} · ${site.system.toUpperCase()} FROM ${site.name.toUpperCase()} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt)} ON ${target.name.toUpperCase()}`, entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 4 ? 9.5 : 10.5, pitch: 30, durationMs: 1_500 } },
+    { time: -countdownSeconds + Math.round(countdownSeconds * 0.25), text: `AIM POINTS · ${sizing.warheads} · ${sizing.warheads > 1 ? `A SUNFLOWER WITH NEIGHBOURS ABOUT ${((sizing.r5 * 1.6) / 1000).toFixed(1)} KM APART SO THE 5 PSI DISCS OF ${fmtYield(sizing.yieldKt)} MEET` : 'ONE, AT THE CENTRE'} · ${classification.category} · ${classification.countervalue && classification.urbanRadiusMetres > 0 ? `TILING THE ${Math.round(classification.urbanRadiusMetres / 1000)} KM URBAN AREA` : 'A POINT TARGET'}`, entityId: 'aim-1' },
+    ...aims.slice(1, 4).map((a, k) => ({ time: -countdownSeconds + Math.round(countdownSeconds * (0.35 + k * 0.1)), text: `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}° · ${a.reason.split(' · ').slice(-1)[0]}`, entityId: `aim-${a.index + 1}` })),
+    { time: -Math.round(countdownSeconds * 0.3), text: approachLine || `APPROACH · FROM ${Math.round((plan.bearingDeg + 180) % 360)}°`, entityId: launcher.id },
     { time: 0, text: `LAUNCH · ${sizing.missiles} MISSILE${sizing.missiles > 1 ? 'S' : ''} · ${Math.round(delivery.distanceMetres / 1000).toLocaleString('en-GB')} KM · FLIGHT ${Math.round(delivery.flightSeconds / 60)} MIN`, entityId: launcher.id, camera: { center: [(site.position[0] + target.position[0]) / 2, (site.position[1] + target.position[1]) / 2], zoom: delivery.distanceMetres > 8_000_000 ? 2.3 : delivery.distanceMetres > 5_000_000 ? 2.8 : delivery.distanceMetres > 2_500_000 ? 3.6 : delivery.distanceMetres > 1_000_000 ? 4.6 : 5.8, durationMs: 2_500 } },
     { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 3 ? 8 : 9, pitch: 40, durationMs: 3_000 } },
     { time: arrival, text: `DETONATION · ${target.name.toUpperCase()} · ${sizing.burst.toUpperCase()} BURST · ${fmtYield(sizing.yieldKt)}`, entityId: 'atlas-e-target' },

@@ -89,7 +89,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { tar
       for (const line of plan.lines) {
         if (cancelled) return
         await waitWhileHeld()
-        say(line, /^SELECTED|^LAYDOWN/.test(line) ? 'best' : 'plain')
+        say(line, /^SELECTED|^LAYDOWN|^APPROACH/.test(line) ? 'best' : 'plain')
         await sleep(CADENCE_MS)
       }
       if ('failure' in plan) {
@@ -114,7 +114,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown }: { tar
       say('LAUNCH · THE STUDY ENGINE TAKES THE STRIKE FROM HERE', 'mark')
       setPhase('launching')
       await sleep(600)
-      if (!cancelled) onLaunch(buildStrikeStudy(plan as StrikePlan, wind, 5, boundaryRef.current))
+      if (!cancelled) onLaunch(buildStrikeStudy(plan as StrikePlan, wind, undefined, boundaryRef.current))
     }
     void run()
     return () => {

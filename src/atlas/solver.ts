@@ -150,6 +150,16 @@ export function coverageOf(cls: Classification, site: ForceSite, wantFallout: bo
   return Math.min(1, (cap * r5 * r5) / (cls.urbanRadiusMetres * cls.urbanRadiusMetres))
 }
 
+/** Each aim point with its offset from the centre and the reason it is there. */
+export function describeAimPoints(sizing: Sizing, center: LngLat): Array<{ index: number; position: LngLat; distanceMetres: number; bearingDeg: number; reason: string }> {
+  return sizing.aimPoints.map((p, i) => {
+    const distanceMetres = haversineMetres(center, p)
+    const bearingDeg = distanceMetres > 1 ? initialBearing(center, p) : 0
+    const reason = i === 0 ? 'THE CENTRE · THE DENSEST TWO KILOMETRES · THE GEOCODER\'S POINT' : `THE NEXT DISC OUTWARD ON THE SUNFLOWER · ${(distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(bearingDeg).toString().padStart(3, '0')}° · ITS 5 PSI EDGE MEETS ITS NEIGHBOURS'`
+    return { index: i, position: p, distanceMetres, bearingDeg, reason }
+  })
+}
+
 export interface StrikePlan {
   target: AtlasTarget
   adversary: Adversary
@@ -203,5 +213,10 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   lines.push(`WEAPON SIZED FOR EFFECT · ${sizing.reason}`)
   lines.push(`LAYDOWN · ${sizing.warheads} WARHEAD${sizing.warheads > 1 ? 'S' : ''} OF ${sizing.yieldKt} KT ON ${sizing.missiles} MISSILE${sizing.missiles > 1 ? 'S' : ''} · ${sizing.warheads > 1 ? `AIM POINTS IN A SUNFLOWER SPACED SO THE 5 PSI DISCS MEET` : 'ONE AIM POINT AT THE CENTRE'} · ${sizing.burst.toUpperCase()} BURST${sizing.burst === 'surface' && classification.countervalue ? ' SO THE FALLOUT IS DRAWN; DOCTRINE WOULD AIRBURST A CITY, WHICH THE READOUT CAN SHOW' : ''}`)
   const bearingDeg = initialBearing(delivery.site.position, target.position)
+  const aims = describeAimPoints(sizing, target.position)
+  for (const a of aims.slice(0, 6)) lines.push(`AIM POINT ${a.index + 1} · ${a.reason}`)
+  if (aims.length > 6) lines.push(`AIM POINTS ${7} TO ${aims.length} · THE SAME RULE, FURTHER OUT`)
+  const approach = delivery.route === 'cruise' ? `${delivery.site.standoffKm && delivery.site.carrierSpeedMs ? `THE AIRCRAFT RELEASES ${Math.round(Math.min(delivery.site.standoffKm * 1000, (delivery.distanceMetres * 2) / 3) / 1000).toLocaleString('en-GB')} KM OUT AND TURNS FOR HOME; THE MISSILES COME IN LOW` : 'CRUISE MISSILES FROM THE LAUNCHER, LOW'}` : sizing.missiles > 0 && delivery.site.warheadsPerMissile > 1 ? 'THE BUS SEPARATES AFTER TWELVE PER CENT OF THE FLIGHT AND EACH WARHEAD TAKES ITS OWN ARC TO ITS AIM POINT' : 'ONE WARHEAD PER MISSILE ON A MINIMUM-ENERGY ARC'
+  lines.push(`APPROACH · FROM ${Math.round(((bearingDeg + 180) % 360)).toString().padStart(3, '0')}° · ${approach}`)
   return { target, adversary, classification, options, delivery, sizing, bearingDeg, lines }
 }
