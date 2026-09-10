@@ -1,0 +1,60 @@
+<!-- Generated from docs/WINTER.md by scripts/briefs.mjs. Edit the markdown, not this file. -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The years after</title>
+<meta name="description" content="The chain from the fires to the famine in five coupled models, and what each was fitted to.">
+<link rel="canonical" href="https://grid84.app/brief/winter">
+<link rel="stylesheet" href="../dossier/dossier.css">
+<link rel="stylesheet" href="./brief.css">
+</head><body>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="stamp">
+    <span>Working brief</span>
+    <b>The engine</b>
+  </div>
+  <h1>The years after</h1>
+  <p class="dek"><strong>What the weapons start and the sky finishes.</strong> A zonal climate model, a crop model and a food-system model, at <code>#/winter</code>, over fifteen years.</p>
+  <div class="mast-meta">
+    <span><a href="./">All the briefs</a></span>
+    <span><a href="/">Return to the atlas</a></span>
+  </div>
+</header>
+
+<main class="brief">
+<section id="why-a-different-model"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Why a different model</h2></div>
+<p>Everything else in this engine works in minutes and kilometres over a population grid. The thing that follows a general war works in months and degrees of latitude over the whole planet, and none of the machinery transfers. A plume is a local object; a soot layer in the stratosphere is not. The prompt effects kill people where the weapon lands; the winter kills people who never saw one.</p>
+<p>The scale of that difference is the point of the mode. For the global case the weapons kill 360 million people and the famine leaves six and a half billion without food. The horrors of mass death are the beginning of it.</p>
+</section>
+<section id="the-chain"><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">The chain</h2></div>
+<p>Five boxes, each with its own file, its own sources and its own controls where the published work is uncertain.</p>
+<p><strong>The source term</strong> (<code>src/models/soot.ts</code>). Toon's chain, in four multiplications: thirteen square kilometres set alight per fifteen kilotonnes, taken linear in yield; eleven tonnes of combustible material per person; two per cent of burned fuel emitted as black carbon; a fifth lost to the fire's own black rain and an eighth of the rest before it is above the weather. Multiplied out, that is <strong>about a hundred and fifty kilogrammes of stratospheric soot for every person inside the fire</strong>, and it reproduces both published anchors: a hundred fifteen-kilotonne weapons over Indian and Pakistani cities reach some thirty million people, which is five teragrams; four thousand four hundred hundred-kilotonne weapons over the northern hemisphere reach about a billion, which is a hundred and fifty.</p>
+<p><strong>The sky</strong> (<code>src/models/winter.ts</code>). A zonal energy-balance model: the world in eighteen ten-degree bands, each with a land tile and an ocean tile, each keeping a surface energy budget as the seasons turn and the soot shades them. The soot spreads along its own hemisphere in a couple of months and across the equator in about a year, and is removed with the published e-folding times. Sea ice forms when a sea surface reaches freezing and then falls like land, because the ice cuts it off from the ocean beneath.</p>
+<p><strong>The harvest</strong> (<code>src/models/harvest.ts</code>). Liebig's law over four factors: heat accumulated above five degrees against what a staple crop needs to ripen, light on a saturating curve, water, and a hard cut for a killing frost the war added inside a growing season.</p>
+<p><strong>The food system</strong> (<code>src/models/famine.ts</code>). The buffers, each of which can be spent once: the animals that eat a third of the world's crop calories and return a tenth, the fifth of the food that is thrown away, the ships. Then the published mortality rule: count the calories, divide by what a person can live on while losing weight, and the remainder is the number the world can feed.</p>
+<p><strong>The ultraviolet</strong> (<code>src/models/ozone.ts</code>). A quarter of the ozone column for a regional war, three quarters for a global one, and the sign change that follows: while the soot is thick it blocks ultraviolet too, so the worst of the burning comes years after the worst of the cold.</p>
+</section>
+<section id="what-the-reader-can-change-and-why-those-things"><div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">What the reader can change, and why those things</h2></div>
+<p>Two controls, because there are two real arguments.</p>
+<p><strong>How much fuel is in a city</strong>, from 0.1 to 60 grammes per square centimetre. This is the whole disagreement. Reisner's group simulated a regional war and found no nuclear winter; Robock's group obtained their fuel map and measured the target area at 0.14 g/cm², against the 12.6 to 94.5 of Toon's Indian and Pakistani targets. Below about four a fire does not organise into a firestorm, and without a firestorm the smoke never rises above the weather. Wagman's independent run at Livermore held everything else fixed and swept only this: at one there is no global forcing at all, at sixteen the stratosphere. So it is a slider, marked with every published measurement, and moving it takes the same four thousand four hundred weapons from one and a half teragrams to over three hundred.</p>
+<p>The National Academies reviewed all of it in 2025 and declined to say who was right. Hiroshima's own fuel loading is published at 3.9, at 10 and at 16 by three different authorities.</p>
+<p><strong>What the world does about food</strong>: whether grain still goes to animals, whether anything is still thrown away, whether ships still sail. These are Xia's own variants, and they reproduce his finding, which is the most useful thing in the paper: at five teragrams the buffers absorb everything and nobody need die; at a hundred and fifty there is no arrangement of them that feeds the world.</p>
+</section>
+<section id="what-it-does-not-do"><div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">What it does not do</h2></div>
+<p>It does not model the injured who die because there are no hospitals, the water, the sewage, the disease, the fuel, the killing over what is left, or anything at all about how a society behaves while it is starving. Those are not small corrections. On the published evidence they are larger than everything counted here, and they are why the number this page shows is a floor.</p>
+<p>It resolves latitude and not longitude, so it cannot say that Australia does better and Ukraine worse; it has one number for the tropics where the gridded crop models have a hundred thousand. Its no-trade case is correspondingly optimistic in the middle of the range, because a ten-degree band feeds itself from a pot that in reality is a dozen countries that would not share it.</p>
+<p>And the soot's own attenuation of ultraviolet is taken as equal to its attenuation of light, which understates the peak ultraviolet by about a third against Bardeen's model.</p>
+</section>
+<section id="sources"><div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Sources</h2></div>
+<ul><li>Turco, Toon, Ackerman, Pollack &amp; Sagan, "Nuclear winter: global consequences of multiple nuclear explosions", <em>Science</em> 222 (1983).</li><li>Toon, Turco, Robock, Bardeen, Oman &amp; Stenchikov, <em>Atmos. Chem. Phys.</em> 7 (2007), 1973–2002 — the source term, §6 and Table 13.</li><li>Robock, Oman, Stenchikov, Toon, Bardeen &amp; Turco, <em>Atmos. Chem. Phys.</em> 7 (2007), 2003–2012 — the five-teragram case.</li><li>Robock, Oman &amp; Stenchikov, "Nuclear winter revisited with a modern climate model", <em>J. Geophys. Res.</em> 112 (2007), D13107 — 150 and 50 Tg, and the soot lifetimes.</li><li>Toon, Robock &amp; Turco, "Environmental consequences of nuclear war", <em>Physics Today</em> 61 (2008) — the 180 Tg from 4,400 weapons.</li><li>Toon et al., "Rapidly expanding nuclear arsenals in Pakistan and India portend regional and global catastrophe", <em>Science Advances</em> 5 (2019), eaay5478.</li><li>Coupe, Bardeen, Robock &amp; Toon, <em>J. Geophys. Res. Atmos.</em> 124 (2019) — WACCM4 at 150 Tg.</li><li>Mills, Toon, Lee-Taylor &amp; Robock, <em>Earth's Future</em> 2 (2014) — growing season, 10 to 40 days for five years.</li><li>Xia, Robock, Scherrer, Harrison, Bodirsky, Weindl, Jägermeyr, Bardeen, Toon &amp; Heneghan, <em>Nature Food</em> 3 (2022), 586–596 — the famine, and every figure this model is set against.</li><li>Bardeen, Kinnison, Toon, Mills, Vitt, Xia, Jägermeyr, Lovenduski, Scherrer, Clyne &amp; Robock, <em>J. Geophys. Res. Atmos.</em> 126 (2021) — ozone and ultraviolet.</li><li>Reisner et al., <em>J. Geophys. Res. Atmos.</em> 123 (2018), 2752–2772, and the Reply, 124 (2019), 12,959–12,962.</li><li>Robock, Toon &amp; Bardeen, Comment, <em>J. Geophys. Res. Atmos.</em> 124 (2019), 12,953–12,958.</li><li>Wagman, Lundquist, Tang, Glascoe &amp; Bader, <em>J. Geophys. Res. Atmos.</em> 125 (2020) — the fuel-loading sweep.</li><li>Tarshish &amp; Romps, <em>J. Geophys. Res. Atmos.</em> 127 (2022) — the moisture that decides whether the plume rises.</li><li>National Academies, <em>Potential Environmental Effects of Nuclear War</em> (2025).</li><li>North, Cahalan &amp; Coakley, "Energy balance climate models", <em>Rev. Geophys.</em> 19 (1981) — the form of the model itself.</li><li>HYDE 3.3 (2023) for the land, the people, the built-up area and the cropland, by ten-degree band.</li></ul>
+</section>
+</main>
+
+<footer>
+  A working brief of <a href="/">Grid/84</a> &middot; the record of what the engine does and what it is set against<br>
+  Written as the work was done, corrections included &middot; the research dossiers behind the models are <a href="/dossier/">here</a>
+</footer>
+
+</div>
+</body></html>

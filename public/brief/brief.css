@@ -1,0 +1,124 @@
+/*
+  The briefs, in the house style of the dossiers with the parts a plain
+  document needs and an argued one does not: bare tables rather than the
+  dossier's claim blocks, code, and lists that carry a whole paragraph in a
+  single item, which the working notes do constantly.
+
+  Everything else — the palette, the masthead, the section rules, the
+  measure — is dossier.css, loaded first. This file only adds.
+*/
+
+/* A dossier's tables live inside claim blocks; a brief's stand alone. */
+.brief table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--step--1);
+}
+
+.brief th {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-align: left;
+  font-weight: 500;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-2);
+  vertical-align: bottom;
+}
+
+.brief td {
+  padding: 0.62rem 0.9rem;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+  color: var(--ink-2);
+}
+
+.brief tr:last-child td {
+  border-bottom: 0;
+}
+
+.brief td:first-child {
+  color: var(--ink);
+}
+
+/* Figures range right in the mono face, so a column of them can be compared down. */
+.brief th.num,
+.brief td.num {
+  text-align: right;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.brief td.num {
+  color: var(--ink);
+}
+
+/*
+  A brief's list item is often a whole argument rather than a phrase, so the
+  items are set apart and the marker is pulled clear of the text.
+*/
+.brief ul,
+.brief ol {
+  max-width: var(--measure);
+  padding-left: 1.35rem;
+}
+
+.brief li {
+  margin-bottom: 0.7rem;
+  line-height: 1.6;
+}
+
+.brief li > strong:first-child {
+  color: var(--ink);
+}
+
+/* Numbered lists carry the sequence, so the numeral is given the accent. */
+.brief ol > li::marker {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+.brief code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-radius: 2px;
+  padding: 0.05em 0.32em;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.brief pre {
+  margin: 1.4rem 0 1.7rem;
+  padding: 1rem 1.1rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  overflow-x: auto;
+  max-width: var(--measure);
+}
+
+.brief pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+/* The first section needs no rule above it; the masthead already drew one. */
+.brief > section:first-child {
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+@media (max-width: 640px) {
+  .brief table {
+    min-width: 460px;
+  }
+}

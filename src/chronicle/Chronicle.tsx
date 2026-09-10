@@ -433,7 +433,7 @@ export function Chronicle() {
             </table>
           </div>
           <p className="front-caption">
-            The five studies of this chapter are on the front page under <a href="#/studies">the theatre</a>; the brief is <a href="https://github.com/emmettl/grid84/blob/main/docs/THEATRE.md" rel="noreferrer">THEATRE.md</a>.
+            The five studies of this chapter are on the front page under <a href="#/studies">the theatre</a>; the brief is <a href="./brief/theatre.html">the theatre brief</a>.
           </p>
         </section>
 
@@ -486,7 +486,7 @@ export function Chronicle() {
             </table>
           </div>
           <p className="front-caption">
-            The chain is modelled in <a href="#/winter">the years after</a>, and the optimiser at <a href="#/wopr">WOPR</a> now prints what its own best plan does to the sky, which its loss function does not carry. The brief is <a href="https://github.com/emmettl/grid84/blob/main/docs/WINTER.md" rel="noreferrer">WINTER.md</a>.
+            The chain is modelled in <a href="#/winter">the years after</a>, and the optimiser at <a href="#/wopr">WOPR</a> now prints what its own best plan does to the sky, which its loss function does not carry. The brief is <a href="./brief/winter.html">the winter brief</a>.
           </p>
           <details className="sources">
             <summary>Sources for chapter 8</summary>

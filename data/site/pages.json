@@ -213,6 +213,96 @@
       "note": "The index of the dossier series. A directory, so it needs no rewrite on either host."
     },
     {
+      "path": "brief/",
+      "title": "The working briefs — what the engine does and what it is set against",
+      "note": "The index of the briefs, rendered from docs/ by scripts/briefs.mjs at build time."
+    },
+    {
+      "path": "brief/validation",
+      "title": "Validation against Hiroshima and Nagasaki — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/doctrine",
+      "title": "THE CHRONICLE — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/strike",
+      "title": "The strike console — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/winter",
+      "title": "The years after — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/intercept",
+      "title": "Interception — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/wopr",
+      "title": "WOPR — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/siop-62",
+      "title": "SIOP//62 — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/cuba-62",
+      "title": "The Cuban missile crisis gone hot — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/defcon3-73",
+      "title": "DEFCON 3, October 1973 — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/able-archer-83",
+      "title": "ABLE ARCHER//83 — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/window-83",
+      "title": "THE WINDOW OF VULNERABILITY — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/72-minutes",
+      "title": "SEVENTY-TWO MINUTES — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/britain-80",
+      "title": "Protect and Survive: Britain — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/theatre",
+      "title": "The theatre — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/v-force",
+      "title": "The V-force — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/attribution",
+      "title": "Attribution and licence audit — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
+      "path": "brief/hosting",
+      "title": "Hosting — a working brief",
+      "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
+    },
+    {
       "path": "dossier/nuclear-winter-sources",
       "title": "The Soot Question — the published record on nuclear winter",
       "note": "A static supporting document, not an app route. The Worker serves it without the .html the file carries, which is the form the sitemap advertises."

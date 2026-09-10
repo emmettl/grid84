@@ -1,0 +1,58 @@
+<!-- Generated from docs/WINDOW-83.md by scripts/briefs.mjs. Edit the markdown, not this file. -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE WINDOW OF VULNERABILITY</title>
+<meta name="description" content="The window of vulnerability, as the forces of 1983 actually stood in it.">
+<link rel="canonical" href="https://grid84.app/brief/window-83">
+<link rel="stylesheet" href="../dossier/dossier.css">
+<link rel="stylesheet" href="./brief.css">
+</head><body>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="stamp">
+    <span>Working brief</span>
+    <b>The studies</b>
+  </div>
+  <h1>THE WINDOW OF VULNERABILITY</h1>
+  <p class="dek"><strong>A Soviet first strike as the West feared it, 1983, and the two answers the posture allowed: ride it out, or launch under attack.</strong> Brief, 10 September 2026. Built the same day at <code>#/study/window-83</code> and <code>/launch</code>.</p>
+  <div class="mast-meta">
+    <span><a href="./">All the briefs</a></span>
+    <span><a href="/">Return to the atlas</a></span>
+  </div>
+</header>
+
+<main class="brief">
+<section id="thesis"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Thesis</h2></div>
+<p>Every study so far has the United States striking first or a crisis climbing. The posture of the late Cold War was built the other way round: against a Soviet counterforce strike that would land on the Minuteman fields before a president could decide, the "window of vulnerability" of Nitze's 1976 essay, Team B's estimate and the 1980 campaign. The fear had arithmetic in it. The SS-18 Mod 4 carried ten warheads of about half a megaton to a quarter of a kilometre; the estimates gave two of them on a two-thousand-psi silo better than four chances in five of a kill, and three hundred of them could put two warheads on every American silo and have half their force left. The open literature's accuracy, run through the engine's own rule, gives about two chances in three, which is the uncertainty Bunn and Tsipis put before the public in 1983 and the study's first finding. The answer was launch under attack: the missiles leave the silos on confirmed warning, thirty minutes after the Soviet launch and before the warheads arrive, so the strike hits holes in the ground. Every early-warning radar on the posture atlas and every minute of the seventy-two-minute scenario's decision clock descends from this.</p>
+<p>The study enacts the strike and both answers on the forces of 1983, and sums both on the 1985 grid. The claim is the arithmetic: how many silos survive a ride-out; what the surviving force and the boats at sea do to the Soviet Union; what launching under attack changes; and what the Soviet Union does with what it kept back. Nothing in the record says the Soviet Union planned this. The study says so, and draws the strike from the Western estimates that shaped the posture.</p>
+</section>
+<section id="the-tiers"><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">The tiers</h2></div>
+<div class="tw"><table><thead><tr><th>Tier</th><th>In this study</th></tr></thead><tbody><tr><td><strong>Documented</strong></td><td>The forces of 1983 as the Nuclear Notebook and the Databook count them; the accuracy and yield estimates of the open literature, tiered as estimates; the silo hardness of the Minuteman upgrade; the early-warning sites</td></tr><tr><td><strong>Reconstructed</strong></td><td>The silo fields as 150 points around each wing's base; the flight times; the warning timeline (satellite detection at launch, radar confirmation at about ten minutes, a decision by twenty, impact at thirty)</td></tr><tr><td><strong>Inferred</strong></td><td>The Soviet allocation, two warheads per silo from the SS-18 and SS-19 fields, submarine warheads on the bomber bases and ports from the coasts, the rest held; the American answer's allocation by the categories of the day; the launch-under-attack timing</td></tr><tr><td><strong>Modelled</strong></td><td>Silo survival by the single-shot kill rule of the accuracy lab; blast, fire and fallout; the union of the three on the grid</td></tr><tr><td><strong>Withheld</strong></td><td>The SIOP of 1983 and the Soviet plan, neither in the record</td></tr></tbody></table></div>
+</section>
+<section id="what-the-study-enacts"><div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">What the study enacts</h2></div>
+<p>Two acts on one clock, the Soviet launch at H.</p>
+<ol><li><strong>Ride it out</strong> (<code>#/study/window-83</code>). The Soviet ICBM force puts two warheads on each of the 1,045 American silos; its boats off the coasts put warheads on the bomber bases and the submarine ports with ten minutes' warning; the command sites are struck. The American ICBMs stay in their silos. Each silo survives or not by the single-shot kill rule with the engine's draw; the survivors launch at H+40 with the boats at sea and whatever bombers left the interior bases before the warheads arrived, against the Soviet forces and cities by the categories of the day. The Soviet Union answers with what it kept back.</li><li><strong>Launch under attack</strong> (<code>#/study/window-83/launch</code>). The same strike; the American ICBMs leave at H+20 on the radar confirmation, before the warheads arrive. The Soviet warheads land on empty silos. Everything else is the same.</li></ol>
+<p>The readout carries the two figures the posture turned on: silos surviving, and dead on each side.</p>
+</section>
+<section id="data-needed"><div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Data needed</h2></div>
+<div class="tw"><table><thead><tr><th>Need</th><th>Source</th><th>Status</th></tr></thead><tbody><tr><td>Forces of 1983</td><td>Nuclear Notebook and Databook totals spread over the wings and divisions the unit histories name, as the 1991 order of battle was built</td><td>To build: <code>scripts/build-order-of-battle-1983-strategic.py</code></td></tr><tr><td>Silo fields</td><td>150 silos in fifteen flights of ten around each wing, as points within about 60 km of the base, by rule</td><td>To build in the study</td></tr><tr><td>Silo hardness and Soviet accuracy</td><td>2,000 psi (Databook); SS-18 Mod 4 500 kt at 250 m, SS-19 550 kt at 300 m (the accuracy lab's estimates)</td><td>Have</td></tr><tr><td>Soviet urban targets</td><td>HYDE 1983 by <code>scripts/derive-urban-targets.py</code> over the Soviet Union, with the neighbours' cities inside the box excluded (Poland, Romania, Bulgaria, the Danube delta, Finland, Turkey, Iran, Hokkaido, and the southern land border as a polyline)</td><td>Built; cells named after the nearest city of <code>data/window83/cities-su-1983.json</code> (the 1983 names, geocoded by <code>scripts/name-cities-1983.py</code>) within thirty kilometres, the American cells after the modern list</td></tr><tr><td>Population</td><td>GHSL 1985 on the bucket for both sides</td><td>Have</td></tr><tr><td>The warning timeline</td><td>Bruce Blair, <em>Strategic Command and Control</em> (1985) and <em>The Logic of Accidental Nuclear War</em> (1993)</td><td>Cited</td></tr></tbody></table></div>
+</section>
+<section id="built-10-september-2026"><div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Built, 10 September 2026</h2></div>
+<p>The 1983 strategic forces are built by <code>scripts/build-order-of-battle-1983-strategic.py</code> from the Databook and Notebook totals (10,205 American and 8,654 Soviet weapons); the 1,045 silos are placed by rule in fifteen flights of ten around each wing; the Soviet urban targets come from the 1983 grid. The first finding is the one Bunn and Tsipis made in the year the study is set: with the open literature's accuracy, 500 kt at 250 m against 2,000 psi, a single SS-18 warhead kills a silo about two times in five and two warheads about two in three, so a ride-out leaves about half the silos to fire, not the handful the estimates feared, and fratricide, which the study does not model, would raise the survivors further. The warning clock runs from the satellites' detection at thirty seconds to the boats' warheads on the coastal bases at about eight minutes, the radar confirmation at ten, the conference at thirteen and the decision at twenty, with the first warheads on the silos at about thirty-four by the geometry, the five-minute liquid burn of the SS-18 included since the boost phase was added: a launch under attack ordered at twenty has some twelve minutes to spare. The outcome sums on the 1985 grid are on the readouts of both acts and are to be recorded here from a visible run.</p>
+</section>
+<section id="sources"><div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Sources</h2></div>
+<ul><li>Paul Nitze, "Deterring Our Deterrent," <em>Foreign Policy</em> 25 (Winter 1976–77).</li><li>The Team B report, <em>Soviet Strategic Objectives: An Alternative View</em> (1976), released 1992.</li><li>Bruce G. Blair, <em>Strategic Command and Control: Redefining the Nuclear Threat</em> (Brookings, 1985) and <em>The Logic of Accidental Nuclear War</em> (1993).</li><li>Kosta Tsipis, <em>Arsenal</em> (1983), ch. 6, and Bunn and Tsipis, "The Uncertainties of a Preemptive Nuclear Attack," <em>Scientific American</em> (November 1983), which put the arithmetic of this study before the public in the year it is set.</li><li>Office of Technology Assessment, <em>MX Missile Basing</em> (1981), on the silo problem.</li><li>Cochran, Arkin and Hoenig, <em>Nuclear Weapons Databook</em> vol. 1 (1984); Norris and Kristensen, Nuclear Notebook series.</li></ul>
+</section>
+<section id="selection-the-whole-missile-and-what-a-site-sent"><div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Selection: the whole missile, and what a site sent</h2></div>
+<p>Selecting a detonation lights the vehicle that delivered it at full strength and, at part strength, the rest of its missile: the bus track to the separation point, which is marked with its time, altitude and warhead count, and the sibling reentry vehicles, with their targets ringed. The panel lists the missile's warheads with their targets, arrival times and, once the grid has been read, the dead at each, summed across the missile with each detonation counted at its own target. Selecting a launch point, a division, a silo, a base or a patrol area, lights everything it sent and rings everything it hit, with the same sum. The resolver is <code>src/studies/missile.ts</code>; vehicles belong to the site they start at or whose name they carry, since a division's missiles are spread over its field by rule. A bomber's cruise missiles released at a standoff are one load in the same way, with the release point marked instead of a separation. This applies to every study, not only this one.</p>
+</section>
+</main>
+
+<footer>
+  A working brief of <a href="/">Grid/84</a> &middot; the record of what the engine does and what it is set against<br>
+  Written as the work was done, corrections included &middot; the research dossiers behind the models are <a href="/dossier/">here</a>
+</footer>
+
+</div>
+</body></html>

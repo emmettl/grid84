@@ -2,7 +2,12 @@ import { useEffect } from 'react'
 import { TIER_LABEL, TIER_MEANING, TIER_ORDER } from '../evidence/evidence.ts'
 
 const REPO = 'https://github.com/emmettl/grid84'
-const brief = (name: string) => `${REPO}/blob/main/docs/${name}`
+/**
+ * A study's brief. These are rendered from the markdown in docs/ into pages of
+ * this site at build time, so a reader who wants to know what a study is and
+ * what it is not never has to leave for a code host to find out.
+ */
+const brief = (name: string) => `./brief/${name.replace(/\.md$/, '').toLowerCase()}.html`
 
 type Chapter = 'strategic' | 'theatre' | 'modern'
 
@@ -188,7 +193,7 @@ const SOURCES: Array<{ what: string; who: string; href: string; terms: string }>
   { what: 'Population, study years', who: 'Klein Goldewijk, K. (2023). History Database of the Global Environment 3.3. Utrecht University', href: 'https://doi.org/10.24416/UU01-AEZZIT', terms: 'CC BY-NC-SA 4.0' },
   { what: 'Population, 1975 · 1985 · present', who: 'Schiavina, M., Freire, S., Carioli, A., MacManus, K. (2023). GHS-POP R2023A, GHS population grid multitemporal (1975–2030). European Commission, Joint Research Centre. PID http://data.europa.eu/89h/2ff68a52-5b5b-4a22-8f40-c41da8332cfe', href: 'https://doi.org/10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE', terms: 'CC BY 4.0' },
   { what: 'Analytics', who: 'Cloudflare Web Analytics: page views without cookies or personal data', href: 'https://www.cloudflare.com/web-analytics/', terms: 'Cookieless' },
-  { what: 'Software', who: 'MapLibre GL JS (BSD-3-Clause), React (MIT), DM Mono served from this site (SIL Open Font Licence 1.1)', href: 'https://github.com/emmettl/grid84/blob/main/docs/ATTRIBUTION.md', terms: 'Open source' },
+  { what: 'Software', who: 'MapLibre GL JS (BSD-3-Clause), React (MIT), DM Mono served from this site (SIL Open Font Licence 1.1)', href: './brief/attribution.html', terms: 'Open source' },
 ]
 
 /** The elevation sets the terrain tiles blend, each with the statement its provider asks for. */
@@ -254,7 +259,7 @@ export function FrontPage() {
                           {v.label}
                         </a>
                       ))}
-                      <a href={s.brief} rel="noreferrer">
+                      <a href={s.brief}>
                         Brief
                       </a>
                     </span>
@@ -308,12 +313,16 @@ export function FrontPage() {
         <section className="front-section" aria-labelledby="front-dossiers">
           <h2 id="front-dossiers">Background documents</h2>
           <p>
-            The research the models are built on, published as it was written. Every figure is traced to the paper or the file it comes from and graded on the same tiers the map uses, including the ones that say a thing could not be established.
+            Two kinds, and the difference is worth stating. A <strong>brief</strong> is about this instrument: what a model computes, how, and what it leaves out. A <strong>dossier</strong> is about the literature: what has been published on a subject, who disagrees with whom, and which widely repeated figures do not survive checking. Both are published as they were written, and both include the passages saying a thing could not be established.
           </p>
           <ul className="front-labs">
             <li>
+              <a href="./brief/">The working briefs</a>
+              <span>One brief for each model and each study: what it computes, which document or dataset every figure comes from, what it deliberately does not model, and where its output has been set against a published one. The validation brief is the one to read first, because it is where the engine is shown to be wrong as well as right.</span>
+            </li>
+            <li>
               <a href="./dossier/">The working papers</a>
-              <span>The series index, with what is published and what is still in preparation.</span>
+              <span>The research dossiers: the series index, with what is published and what is still in preparation.</span>
             </li>
             <li>
               <a href="./dossier/nuclear-winter-sources.html">The soot question</a>
@@ -357,7 +366,7 @@ export function FrontPage() {
           </p>
           <p>
             The engine is checked against Hiroshima and Nagasaki, against the Home Office and academic estimates for Square Leg, and against eight published NUKEMAP runs; the comparisons and where they disagree are in the{' '}
-            <a href={brief('VALIDATION.md')} rel="noreferrer">
+            <a href={brief('VALIDATION.md')}>
               validation notes
             </a>
             .
@@ -403,7 +412,7 @@ export function FrontPage() {
           </details>
           <p>
             This site is non-commercial. The HYDE grids are used under a non-commercial, share-alike licence and any redistribution of the prepared grids carries the same terms; the GHSL grids are re-tiled from the published product and the HYDE grids re-encoded, both unchanged in value. The plans, exercises and estimates are cited page by page in each study's brief and on each mark's provenance panel. The full audit of every service and dataset against its terms is in the{' '}
-            <a href={brief('ATTRIBUTION.md')} rel="noreferrer">
+            <a href={brief('ATTRIBUTION.md')}>
               attribution notes
             </a>
             .

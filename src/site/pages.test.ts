@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { parseRoute } from '../route.ts'
 
@@ -74,6 +74,44 @@ describe('the background documents given to a crawler', () => {
       const html = readFileSync(file, 'utf8')
       expect(html, `${extra.path} carries its own stylesheet instead of the shared one`).not.toMatch(/<style[\s>]/)
       expect(html, `${extra.path} does not link the shared stylesheet`).toContain('dossier.css')
+    }
+  })
+})
+
+/**
+ * The briefs are rendered from docs/ at build time. A brief renamed or added
+ * without a re-render would be advertised in the sitemap and 404, and one
+ * edited by hand would be silently overwritten by the next build, so the
+ * generated page is checked against the markdown it claims to come from.
+ */
+describe('the working briefs', () => {
+  it('every one in the sitemap is rendered, and says which markdown it came from', () => {
+    for (const extra of site.extras.filter((e) => e.path.startsWith('brief/') && e.path !== 'brief/')) {
+      const name = extra.path.slice('brief/'.length)
+      const file = `public/brief/${name}.html`
+      expect(existsSync(file), `${extra.path} is in the sitemap but ${file} is not there`).toBe(true)
+      const html = readFileSync(file, 'utf8')
+      expect(html.split('\n')[0], `${file} is not marked as generated`).toContain('scripts/briefs.mjs')
+      expect(existsSync(`docs/${name.toUpperCase()}.md`), `${file} claims a source that is not there`).toBe(true)
+    }
+  })
+
+  it('renders every brief in docs, so none is published without being listed', () => {
+    const docs = readdirSync('docs').filter((f) => f.endsWith('.md'))
+    const listed = new Set(site.extras.filter((e) => e.path.startsWith('brief/') && e.path !== 'brief/').map((e) => e.path.slice('brief/'.length)))
+    for (const doc of docs) {
+      const name = doc.replace(/\.md$/, '').toLowerCase()
+      expect(listed.has(name), `docs/${doc} is not in the sitemap; add it to data/site/pages.json`).toBe(true)
+    }
+  })
+
+  it('leaves no markdown unrendered on the page', () => {
+    for (const file of readdirSync('public/brief').filter((f) => f.endsWith('.html'))) {
+      const text = readFileSync(`public/brief/${file}`, 'utf8').replace(/<code>[\s\S]*?<\/code>/g, ' ').replace(/<[^>]+>/g, ' ')
+      expect(text, `${file} has unrendered bold`).not.toMatch(/\*\*/)
+      expect(text, `${file} has an unrendered link`).not.toMatch(/\]\(/)
+      expect(text, `${file} has an unrendered table row`).not.toMatch(/^\s*\|/m)
+      expect(text, `${file} has an unrendered heading`).not.toMatch(/^\s*#{1,4} /m)
     }
   })
 })

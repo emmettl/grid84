@@ -1,0 +1,53 @@
+<!-- Generated from docs/HOSTING.md by scripts/briefs.mjs. Edit the markdown, not this file. -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hosting</title>
+<meta name="description" content="How the site is built and served, on both of the hosts it runs on.">
+<link rel="canonical" href="https://grid84.app/brief/hosting">
+<link rel="stylesheet" href="../dossier/dossier.css">
+<link rel="stylesheet" href="./brief.css">
+</head><body>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="stamp">
+    <span>Working brief</span>
+    <b>The site</b>
+  </div>
+  <h1>Hosting</h1>
+  
+  <div class="mast-meta">
+    <span><a href="./">All the briefs</a></span>
+    <span><a href="/">Return to the atlas</a></span>
+  </div>
+</header>
+
+<main class="brief">
+<p>Grid/84 is dual-hosted from one artifact. Every push to <code>main</code> runs the checks, builds <code>dist/</code> and deploys it to GitHub Pages at <strong>https://emmettl.github.io/grid84/</strong> (<code>.github/workflows/pages.yml</code>). The same artifact is deployed to <strong>https://grid84.app/</strong> as a Cloudflare Worker with static assets (<code>wrangler.jsonc</code>): the Worker has no script, only the files, and the domain and <code>www</code> are its custom domains, so Cloudflare keeps the DNS records itself. The build uses a relative base (<code>base: './'</code> in <code>vite.config.ts</code>) and hash routes, so the artifact serves at the root of a domain or under a path without change.</p>
+<p>The Motion Studies sub-path edition (<code>motionstudies.app/grid84</code>) was retired on 10 September 2026: the atlas has too much of its own identity to be a sub-path of another site. Its <code>grid84</code> entry in Motion Studies' <code>hosting/editions.json</code> can go when convenient.</p>
+<section id="deploying-the-worker"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Deploying the Worker</h2></div>
+<p>From a machine logged in to wrangler (<code>npx wrangler login</code>):</p>
+<pre><code>npm run build &amp;&amp; npx wrangler deploy</code></pre>
+<p>The Pages workflow does the same in its <code>worker</code> job when the repository secret <code>CLOUDFLARE_API_TOKEN</code> exists; without it the job prints a note and grid84.app keeps its last deployment. The token comes from the Cloudflare dashboard, My Profile → API Tokens → Create Token → the <strong>Edit Cloudflare Workers</strong> template, with Account Resources set to this account and Zone Resources to grid84.app. A wrangler login's OAuth session cannot mint tokens (it lacks the API-tokens scope), so this is a dashboard step. The account id is in <code>wrangler.jsonc</code>; it is not a secret.</p>
+</section>
+<section id="caching"><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Caching</h2></div>
+<p><code>public/_headers</code> is honoured by the Worker and ignored by GitHub Pages, and follows the editions' policy: hashed files under <code>/assets/</code> are <code>public, max-age=31536000, immutable</code>; the HTML and the grids index are <code>public, max-age=0, must-revalidate</code>; the study grids under <code>/data/hyde/</code> revalidate daily; <code>/_release.json</code>, which the workflow writes with the commit and run, is <code>no-cache</code>. GitHub Pages applies its own ten-minute policy to everything.</p>
+</section>
+<section id="checks"><div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Checks</h2></div>
+<pre><code>curl -sI https://grid84.app/ | grep -i -E "server|cache-control|x-grid84"
+curl -sI https://grid84.app/assets/$(curl -s https://grid84.app/ | grep -o 'assets/index-[^"]*\.js' | head -1 | cut -d/ -f2) | grep -i cache-control
+curl -s https://grid84.app/_release.json
+curl -sI https://emmettl.github.io/grid84/ | grep -i -E "server|cache-control"</code></pre>
+</section>
+<section id="the-grids"><div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">The grids</h2></div>
+<p>Both hosts read the GHSL grids from the R2 bucket <code>grid84-grids</code>, named in <code>public/data/hyde/index.json</code> as <strong>https://tiles.grid84.app/ghsl/…</strong>: a custom domain on the bucket (<code>wrangler r2 bucket domain add grid84-grids --domain tiles.grid84.app --zone-id …</code>), for which Cloudflare keeps the DNS record. The bucket's r2.dev URL still answers and the CORS rule (GET and HEAD from any origin, Range allowed) applies to both. The grid files are immutable by name (<code>popc_1985.json</code> and its tiles), so a Cache Rule on the zone for <code>tiles.grid84.app/*</code> with a long edge TTL is worth adding in the dashboard; the bucket domain itself sets none.</p>
+</section>
+</main>
+
+<footer>
+  A working brief of <a href="/">Grid/84</a> &middot; the record of what the engine does and what it is set against<br>
+  Written as the work was done, corrections included &middot; the research dossiers behind the models are <a href="/dossier/">here</a>
+</footer>
+
+</div>
+</body></html>
