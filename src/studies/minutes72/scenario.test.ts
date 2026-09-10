@@ -12,6 +12,7 @@ describe('seventy-two minutes', () => {
     expect(tracks.find((t) => t.id === 'film-gbi-2')?.designation).toMatch(/MISS/)
     expect(effects).toHaveLength(1)
     expect(effects[0].kind === 'effect' && effects[0].time).toBeCloseTo(19 * 60, 0)
+    expect(effects[0].kind === 'effect' && effects[0].deliveredBy).toEqual(['film-icbm'])
     // The claim: a hit, and nothing arrives.
     const claim = seventyTwoMinutes('claim')
     expect(claim.entities.filter((e) => e.kind === 'effect')).toHaveLength(0)
@@ -55,6 +56,8 @@ describe('seventy-two minutes', () => {
     const effects = salvo.entities.filter((e) => e.kind === 'effect')
     const intercepted = missiles.filter((t) => /INTERCEPTED/.test(t.designation)).length
     expect(effects.length + intercepted).toBe(17)
+    const trackIds = new Set(tracks.map((t) => t.id))
+    for (const e of effects) expect(e.kind === 'effect' && e.deliveredBy?.every((id) => trackIds.has(id))).toBe(true)
     expect(effects.length).toBeGreaterThanOrEqual(6)
     expect(salvo.events.some((ev) => /NEVER ENGAGED/.test(ev.text))).toBe(true)
   })

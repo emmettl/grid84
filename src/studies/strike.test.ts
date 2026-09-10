@@ -54,6 +54,14 @@ describe('enactStrike with MIRVs', () => {
     expect(r.summary.weapons).toBe(3)
     expect(r.summary.delivered).toBe(3)
     expect(Object.keys(r.firstArrival).sort()).toEqual(['a', 'b', 'c'])
+    // Each detonation names the reentry vehicle that delivered it, and the id is a track in the result.
+    const trackIds = new Set(tracks.map((t) => t.id))
+    for (const e of r.entities) {
+      if (e.kind !== 'effect') continue
+      expect(e.deliveredBy?.length).toBe(1)
+      expect(trackIds.has(e.deliveredBy![0])).toBe(true)
+      expect(e.deliveredBy![0]).toMatch(/-rv\d$/)
+    }
   })
 
   it('flies a bomber through its targets in turn and loses both weapons when it is lost early', () => {
@@ -69,6 +77,9 @@ describe('enactStrike with MIRVs', () => {
     expect(r.summary.vehicles).toBe(1)
     expect(r.summary.delivered).toBe(2)
     expect(r.firstArrival.b.time).toBeGreaterThan(r.firstArrival.a.time)
+    // Both detonations were delivered by the one aircraft.
+    expect(r.firstArrival.a.tracks).toEqual([tracks[0].id])
+    expect(r.firstArrival.b.tracks).toEqual([tracks[0].id])
     const lost = enactStrike({ ...common, prefix: 'c', side: 'attacker', launchers: [l], targets, allocation: { maxWeaponsPerTarget: 1 }, attrition: { ...attrition, reliability: { ...attrition.reliability, bomber: 0 } } })
     expect(lost.summary.delivered).toBe(0)
     expect(lost.summary.lostReliability).toBe(2)
