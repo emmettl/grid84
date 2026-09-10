@@ -3,6 +3,7 @@ import { formatGrid } from '../geo/geodesy.ts'
 import type { Study } from '../studies/study.ts'
 import { POWER_IDS, POWERS, type Power } from './forces.ts'
 import { readProfile } from './profile.ts'
+import { useFold } from '../hud/collapse.ts'
 import { fetchLandUse } from './landuse.ts'
 import { describeAimPoints, planStrike, PROFILE_RINGS, type DeliveryPreference, type Loading, type StrikePlan } from './solver.ts'
 import type { AimPointMark } from '../map/atlas.ts'
@@ -48,6 +49,8 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
   const [site, setSite] = useState<string | null>(initialSite)
   const [variant, setVariant] = useState(0)
   const chosen = useRef<string | null>(initialSite)
+  // The setup controls fold away; the actions during a countdown do not.
+  const fold = useFold('strike')
   const heldRef = useRef(false)
   const skipRef = useRef(false)
   const started = useRef(performance.now())
@@ -192,6 +195,16 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
         >
           Vector now
         </button>
+        <button type="button" onClick={onStandDown}>
+          Stand down
+        </button>
+        <button type="button" className={`panel-fold-toggle${fold.folded ? '' : ' is-active'}`} aria-expanded={!fold.folded} onClick={fold.toggle}>
+          {fold.label}
+        </button>
+      </div>
+      {/* Everything that is chosen once rather than watched: on a phone it folds away and the globe keeps the screen. */}
+      <div className={`panel-fold${fold.folded ? ' is-folded' : ''}`}>
+      <div className="wopr-group strike-controls">
         <button
           type="button"
           title="Draw another launch point from the options that score as well as the best: a different service, a different profile, the same target"
@@ -202,9 +215,6 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
           }}
         >
           Another profile
-        </button>
-        <button type="button" onClick={onStandDown}>
-          Stand down
         </button>
         <button
           type="button"
@@ -289,6 +299,7 @@ export function StrikeConsole({ target, boundary, onLaunch, onStandDown, onAimPo
             {POWERS[p].name}
           </button>
         ))}
+      </div>
       </div>
     </section>
   )

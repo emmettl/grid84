@@ -91,7 +91,17 @@ function clearPadding(map: MapLibreMap): { top: number; bottom: number; left: nu
   const fallback = { top: margin, bottom: margin, left: margin, right: margin }
   if (!hud) return fallback
   const wide = w > 700
-  const panels = [...hud.children].filter((el): el is HTMLElement => el instanceof HTMLElement && el.offsetWidth > 0 && el.offsetHeight > 0)
+  // The panels, wherever they sit in the markup. A wrapper that generates no box
+  // of its own — the sheet, which is display:contents on a wide screen — is
+  // stepped through rather than measured, or the camera would forget that the
+  // log and the outcome are standing over the map.
+  const collect = (parent: Element): HTMLElement[] =>
+    [...parent.children].flatMap((el) => {
+      if (!(el instanceof HTMLElement)) return []
+      if (el.offsetWidth > 0 && el.offsetHeight > 0) return [el]
+      return el.children.length > 0 ? collect(el) : []
+    })
+  const panels = collect(hud)
   if (panels.length === 0) return fallback
   const box = hud.getBoundingClientRect()
   if (wide) {

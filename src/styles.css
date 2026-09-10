@@ -2459,10 +2459,15 @@ body,
     padding: 0.25rem 0.45rem;
   }
 
-  /* The readout and the credits give the console the room while it is up. */
+  /* The readout, the credits and the brand's own tagline give the console the
+     room while it is up: what matters then is the target and the reasoning. */
   .hud--console .hud-readout,
-  .hud--console .hud-sources {
+  .hud--console .hud-sources,
+  .hud--console .hud-brand > span {
     display: none;
+  }
+  .hud--console .hud-brand {
+    padding: 0.35rem 0.6rem;
   }
 }
 
