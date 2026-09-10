@@ -65,3 +65,7 @@ The shot-exchange lab first: self-contained, a week of scholarship already in th
 - Whether chapters live in the app or as briefs in `docs/` with the app holding only the map states and charts. The app, probably: the front page already reads as a page, and the reader should not leave the instrument.
 - How much text the register can bear. The studies say almost nothing in prose; the chronicle must say more, and it must keep the calm.
 - The 1990s: the drawdown is the part of the history the studies never touch. The 1991 epoch now marks its start; the curve down to 2024 is still a jump on the atlas and a line only on the stockpile chart.
+
+## Chapter 6: the theatre (built 10 September 2026)
+
+A table of eleven turns from Carte Blanche in 1955 to the presidential nuclear initiatives of 1991, each linking to the study or lab that draws it, under a head that states the argument: NATO could not match the conventional force against it and so promised nuclear use early, every strategic argument of the Cold War follows from that promise, and the documents describe a slope rather than a firebreak. Missile defence becomes chapter 7. The chapter's own brief is [THEATRE.md](THEATRE.md).

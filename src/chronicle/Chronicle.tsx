@@ -49,6 +49,21 @@ const DOCTRINES: Array<{ year: number; name: string; document: string; rule: str
   { year: 2018, name: 'The present plan', document: 'Nuclear Posture Reviews of 2018 and 2022; OPLAN 8010', rule: 'Withheld. The studies draw a rule from the counts: forces and command first, then the most populous cells', study: { label: 'Seventy-two minutes', href: '#/study/72-minutes/jacobsen' } },
 ]
 
+/** The theatre: the rungs of a ladder nobody could describe, and the studies that draw them. */
+const THEATRE: Array<{ year: number; name: string; what: string; href?: string; label?: string }> = [
+  { year: 1955, name: 'Carte Blanche', what: 'NATO\'s own exercise simulates 335 weapons over Germany and estimates 1.7 million West German dead from the immediate effects alone. The figures leak that autumn', href: '#/study/carte-blanche', label: 'Open' },
+  { year: 1957, name: 'MC 14/2', what: 'General nuclear response becomes the doctrine: the tripwire. Two years after the exercise that showed what it meant' },
+  { year: 1961, name: 'The Davy Crockett', what: 'A recoilless rifle with a twenty-ton warhead, issued to platoons. The weapon and the political decision to use one arrive at the same rank' },
+  { year: 1963, name: 'Down to the deck', what: 'Surface-to-air missiles drive every bomber force in Europe to low level; the V-force flies the profile it was not built for until Polaris takes the deterrent in 1969', href: '#/study/v-force/low', label: 'Open' },
+  { year: 1967, name: 'MC 14/3', what: 'Flexible response: direct defence, deliberate escalation, general nuclear response. The middle rung is never specified, because specifying it would show it has no floor' },
+  { year: 1977, name: 'The neutron bomb', what: 'An enhanced-radiation warhead is meant to kill crews and spare the town. It does not spare the town; it reaches the crews with a sixth of the wrecked ground a fission weapon needs, and that smallness is what makes it seem usable', href: '#/lab/neutron', label: 'Lab' },
+  { year: 1979, name: 'The double-track decision, and the plan from the other side', what: 'NATO decides on the Pershing IIs and the cruise missiles while negotiating; the Warsaw Pact writes an exercise plan that begins by assuming NATO has used nuclear weapons first, and answers on twelve named western cities', href: '#/study/seven-days', label: 'Open' },
+  { year: 1980, name: 'The demolition belt', what: 'Atomic demolition munitions stand buried on the defiles an advance must use, on the defender\'s own ground, waiting for a political release that has to arrive while the ground above them is fought over', href: '#/study/demolition-belt', label: 'Open' },
+  { year: 1983, name: 'The missiles arrive', what: 'The Euromissiles are deployed in the same weeks as Able Archer. Coupling stops being an argument and becomes a deployment', href: '#/study/able-archer-83', label: 'Open' },
+  { year: 1985, name: 'Sub-strategic', what: 'RAF Germany at two hundred feet with the WE.177. About two fifths of the weapons do not arrive, and the survivors are turned round and sent again', href: '#/study/tornado', label: 'Open' },
+  { year: 1991, name: 'The ground weapons go', what: 'The presidential nuclear initiatives withdraw the artillery shells, the demolition munitions and the short-range missiles. What is left in Europe is a bomb on an aircraft' },
+]
+
 /** The forward deployments that put the weapons where the crises were. */
 const BASING: Array<{ years: string; system: string; where: string; count: string; note: string; href?: string }> = [
   { years: '1959–1963', system: 'Thor', where: 'Britain, twenty sites in four groups', count: '60 missiles', note: 'The first American missiles in range of Moscow, under dual key' },
@@ -377,8 +392,34 @@ export function Chronicle() {
           <p className="front-caption">The treaties are lines on the curve above: switch them on with the Treaties button. The INF line takes the Euromissiles off the map; the START I line is where the drawdown begins; the last line is the last bound's end.</p>
         </section>
 
+        <section className="front-section chronicle-section" aria-labelledby="ch-theatre">
+          <h2 id="ch-theatre">Chapter 6 · The theatre, and why it is not a separate compartment</h2>
+          <p className="front-caption">
+            Strategic policy cannot be read apart from this. NATO could not match the conventional force against it and so promised nuclear use early; every strategic argument of the Cold War follows from that promise. Flexible response only deterred if theatre use led somewhere, which is what coupling meant, and the Euromissile crisis was a four-year argument about whether it did. The documents do not describe a firebreak. They describe a slope.
+          </p>
+          <div className="chronicle-table-wrap">
+            <table className="front-sources chronicle-table">
+              <tbody>
+                {THEATRE.map((t) => (
+                  <tr key={`${t.year}-${t.name}`}>
+                    <th scope="row">{t.year}</th>
+                    <td>
+                      <strong>{t.name}</strong>
+                    </td>
+                    <td>{t.what}</td>
+                    <td>{t.href ? <a href={t.href}>{t.label ?? 'Open'}</a> : ''}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="front-caption">
+            The five studies of this chapter are on the front page under <a href="#/studies">the theatre</a>; the brief is <a href="https://github.com/emmettl/grid84/blob/main/docs/THEATRE.md" rel="noreferrer">THEATRE.md</a>.
+          </p>
+        </section>
+
         <section className="front-section chronicle-section" aria-labelledby="ch-defence">
-          <h2 id="ch-defence">Chapter 6 · Missile defence</h2>
+          <h2 id="ch-defence">Chapter 7 · Missile defence</h2>
           <div className="chronicle-table-wrap">
           <table className="front-sources chronicle-table">
             <tbody>
@@ -399,8 +440,8 @@ export function Chronicle() {
             Every one of these faced the same arithmetic: the defender must buy shots faster than the attacker buys warheads and decoys. <a href="#/lab/defence">The defence lab</a> draws the curve; <a href="#/study/72-minutes/salvo">the salvo act</a> draws it on the map.
           </p>
           <details className="sources">
-            <summary>Sources and methods for chapters 3 to 6</summary>
-            <p className="provenance-method">Doctrine: NSC 162/2 and the SIOP-62 briefing through the National Security Archive; McNamara's 1965 draft presidential memorandum; NSDM-242 and NUWEP-74; PD-59; the 2018 and 2022 Nuclear Posture Reviews. Each rule is the study's reading of the document, stated on the study's own omissions panel. Basing: Norris and Kristensen on Cuba; the Nuclear Weapons Databook; the INF treaty's memorandum of understanding for the SS-20, Pershing II and GLCM counts. Defence: the Missile Defense Agency's test record; the American Physical Society (1987); the Union of Concerned Scientists (2000); the National Academies (2012); the Congressional Budget Office (2025), as reported. The counts in these tables are the open literature's and are quoted as such.</p>
+            <summary>Sources and methods for chapters 3 to 7</summary>
+            <p className="provenance-method">Doctrine: NSC 162/2 and the SIOP-62 briefing through the National Security Archive; McNamara's 1965 draft presidential memorandum; NSDM-242 and NUWEP-74; PD-59; the 2018 and 2022 Nuclear Posture Reviews. Each rule is the study's reading of the document, stated on the study's own omissions panel. Basing: Norris and Kristensen on Cuba; the Nuclear Weapons Databook; the INF treaty's memorandum of understanding for the SS-20, Pershing II and GLCM counts. Theatre: MC 14/2 and MC 14/3 as the standard accounts of NATO doctrine give them; the reporting of Carte Blanche and of the 2005 Polish release; the Nuclear Weapons Databook for the theatre systems. Defence: the Missile Defense Agency's test record; the American Physical Society (1987); the Union of Concerned Scientists (2000); the National Academies (2012); the Congressional Budget Office (2025), as reported. The counts in these tables are the open literature's and are quoted as such.</p>
           </details>
         </section>
       </div>
