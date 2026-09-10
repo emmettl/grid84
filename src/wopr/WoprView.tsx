@@ -3,7 +3,7 @@ import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl'
 import { greatCirclePoints } from '../engine/track.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { posture1983, type Posture1983 } from '../studies/window83/window.ts'
-import { assignmentsOf, describePlan, evaluateSeeds, OBJECTIVES, perturb, randomPlan, rng, yieldClass, SU_CLASSES, US_CLASSES, type Averaged, type Constraints, type DeathTable, type Objective, type Plan } from './model.ts'
+import { assignmentsOf, describePlan, evaluateSeeds, loss, OBJECTIVES, perturb, randomPlan, rng, yieldClass, SU_CLASSES, US_CLASSES, type Averaged, type Constraints, type DeathTable, type Objective, type Plan } from './model.ts'
 import { buildTable, clearTable, type TableProgress } from './table.ts'
 
 /**
@@ -24,9 +24,11 @@ interface Best {
   plan: Plan
   result: Averaged
   iteration: number
+  /** The loss under the objective this best was kept for. */
+  loss: number
 }
 
-const fmtM = (v: number) => (v >= 1e6 ? `${(v / 1e6).toFixed(v >= 1e8 ? 0 : 1)} M` : Math.round(v).toLocaleString('en-GB'))
+const fmtM = (v: number) => (v >= 1e6 ? `${(v / 1e6).toFixed(1)} M` : Math.round(v).toLocaleString('en-GB'))
 const fmtFull = (v: number) => Math.round(v / 10_000) * 10_000 > 0 ? (Math.round(v / 10_000) * 10_000).toLocaleString('en-GB') : Math.round(v).toLocaleString('en-GB')
 
 export function WoprView() {
@@ -38,6 +40,11 @@ export function WoprView() {
   const [progress, setProgress] = useState<TableProgress>({ done: 0, total: 0 })
   const [objective, setObjective] = useState<Objective>('total')
   const [constraints, setConstraints] = useState<Constraints>({ generalWar: true, minCoverage: 0.95, retaliatory: true })
+  const [sovietRule, setSovietRule] = useState<Plan['sovietRule']>('counterforce')
+  const sovietRuleRef = useRef(sovietRule)
+  useEffect(() => {
+    sovietRuleRef.current = sovietRule
+  }, [sovietRule])
   const [running, setRunning] = useState(true)
   const [iteration, setIteration] = useState(0)
   const [best, setBest] = useState<Best | null>(null)
@@ -46,7 +53,7 @@ export function WoprView() {
   const [current, setCurrent] = useState<Plan | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [matrixOpen, setMatrixOpen] = useState(false)
-  const state = useRef({ plan: null as Plan | null, loss: Infinity, temperature: 1, iteration: 0, seed: 1, gen: rng(1), lastArcs: 0 })
+  const state = useRef({ plan: null as Plan | null, loss: Infinity, temperature: 1, iteration: 0, seed: 1, gen: rng(1), lastArcs: 0, perObjective: {} as Partial<Record<Objective, Best>>, perObjectiveDirty: false, best: null as Best | null, first: null as Best | null, bestDirty: false })
   const objectiveRef = useRef(objective)
   const constraintsRef = useRef(constraints)
   useEffect(() => {
@@ -103,7 +110,7 @@ export function WoprView() {
     }
   }, [posture])
 
-  // The search, a few evaluations per frame while running.
+  // The search, a few evaluations per tick while running. A timer rather than an animation frame, so the search goes on in a background tab at whatever rate the browser allows.
   useEffect(() => {
     if (!table || !running) return
     let frame = 0
@@ -113,7 +120,8 @@ export function WoprView() {
       const obj = objectiveRef.current
       for (let k = 0; k < EVALS_PER_FRAME; k += 1) {
         st.iteration += 1
-        const candidate = st.plan && st.iteration % RESTART_EVERY !== 0 ? perturb(st.plan, st.gen, !c.generalWar) : randomPlan(st.gen, !c.generalWar)
+        const opts = { allowIdle: !c.generalWar, sovietRule: sovietRuleRef.current }
+        const candidate = st.plan && st.iteration % RESTART_EVERY !== 0 ? perturb(st.plan, st.gen, opts) : randomPlan(st.gen, opts)
         const r = evaluateSeeds(posture, table, candidate, SEEDS_FAST, c, obj)
         // Annealing: a worse plan is kept with a probability that falls as the run goes on.
         const accept = r.loss < st.loss || (Number.isFinite(r.loss) && Number.isFinite(st.loss) && st.gen() < Math.exp(-((r.loss - st.loss) / Math.max(1, Math.abs(st.loss))) / Math.max(0.02, st.temperature)))
@@ -123,41 +131,51 @@ export function WoprView() {
         }
         st.temperature = Math.max(0.02, st.temperature * 0.9995)
         if (Number.isFinite(r.loss)) {
-          // Every objective keeps its own best from the same stream of plans.
-          setPerObjective((prev) => {
-            const next = { ...prev }
-            for (const o of OBJECTIVES) {
-              const l = evaluateSeeds(posture, table, candidate, 1, c, o.id).loss
-              const have = next[o.id]
-              if (!have || l < evaluateSeeds(posture, table, have.plan, 1, c, o.id).loss) next[o.id] = { plan: candidate, result: r, iteration: st.iteration }
+          // Every objective keeps its own best from the same stream of plans; the score is the same, only the loss differs.
+          for (const o of OBJECTIVES) {
+            const l = loss(r.score, o.id)
+            const have = st.perObjective[o.id]
+            if (!have || l < have.loss) {
+              st.perObjective[o.id] = { plan: candidate, result: r, iteration: st.iteration, loss: l }
+              st.perObjectiveDirty = true
             }
-            return next
-          })
-          setBest((prev) => {
-            if (prev && prev.result.loss <= r.loss) return prev
+          }
+          // A candidate that beats the best on three seeds is re-scored on sixteen, and kept only if it still does.
+          if (!st.best || r.loss < st.best.loss) {
             const reported = evaluateSeeds(posture, table, candidate, SEEDS_REPORT, c, obj)
-            const b = { plan: candidate, result: reported, iteration: st.iteration }
-            setFirst((f) => f ?? b)
-            return b
-          })
+            if (!st.best || reported.loss < st.best.loss) {
+              st.best = { plan: candidate, result: reported, iteration: st.iteration, loss: reported.loss }
+              st.first ??= st.best
+              st.bestDirty = true
+            }
+          }
         }
       }
       setIteration(st.iteration)
       setCurrent(st.plan)
+      if (st.perObjectiveDirty) {
+        st.perObjectiveDirty = false
+        setPerObjective({ ...st.perObjective })
+      }
+      if (st.bestDirty) {
+        st.bestDirty = false
+        setBest(st.best)
+        setFirst(st.first)
+      }
       // A few trajectories of the plan under evaluation, now and then.
       const now = performance.now()
       if (now - st.lastArcs > 2_500 && st.plan) {
         st.lastArcs = now
         drawArcs(mapRef.current, posture, st.plan, st.gen)
       }
-      frame = requestAnimationFrame(step)
+      frame = window.setTimeout(step, 16)
     }
-    frame = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(frame)
+    frame = window.setTimeout(step, 16)
+    return () => window.clearTimeout(frame)
   }, [table, running, posture])
 
   const reset = () => {
-    state.current = { plan: null, loss: Infinity, temperature: 1, iteration: 0, seed: state.current.seed + 1, gen: rng(state.current.seed + 1), lastArcs: 0 }
+    state.current = { plan: null, loss: Infinity, temperature: 1, iteration: 0, seed: state.current.seed + 1, gen: rng(state.current.seed + 1), lastArcs: 0, perObjective: {}, perObjectiveDirty: false, best: null, first: null, bestDirty: false }
     setBest(null)
     setFirst(null)
     setPerObjective({})
@@ -178,7 +196,7 @@ export function WoprView() {
   const status = error ? 'FAULT' : calibrating ? 'CALIBRATING' : running ? 'SEARCHING' : 'HOLD'
   const matrixRows = useMemo(() => {
     if (!table) return null
-    const assigned = assignmentsOf(posture)
+    const assigned = assignmentsOf(posture, table)
     const row = (id: string, name: string, classes: number[]) => {
       const a = assigned.get(id)
       if (!a) return null
@@ -202,10 +220,10 @@ export function WoprView() {
       <section className="wopr-terminal" aria-live="polite">
         <p className="wopr-line wopr-line--title">WOPR · WAR OPERATION PLAN RESPONSE · POSTURE 1983</p>
         <p className="wopr-line">
-          OBJECTIVE: {OBJECTIVES.find((o) => o.id === objective)?.label.toUpperCase()}
+          OBJECTIVE: {OBJECTIVES.find((o) => o.id === objective)?.label.toUpperCase()} · SCENARIO: SOVIET FIRST STRIKE {sovietRule === 'counterforce' ? 'ON THE FORCES' : sovietRule === 'countervalue' ? 'ON THE CITIES' : 'MIXED'}
         </p>
         <p className="wopr-line">
-          CONSTRAINTS: {constraints.generalWar ? 'GENERAL WAR = TRUE' : 'EXECUTION OPTIONAL'} · COVERAGE ≥ {Math.round(constraints.minCoverage * 100)}% · {constraints.retaliatory ? 'RETALIATION > 0' : 'RETALIATION UNCONSTRAINED'}
+          CONSTRAINTS: {constraints.generalWar ? `GENERAL WAR = TRUE · COVERAGE ≥ ${Math.round(constraints.minCoverage * 100)}% · ${constraints.retaliatory ? 'RETALIATION > 0' : 'RETALIATION UNCONSTRAINED'}` : 'EXECUTION OPTIONAL · THE PLANNERS\' CONSTRAINTS ARE MOOT'}
         </p>
         {calibrating && !error && (
           <p className="wopr-line">
@@ -221,7 +239,7 @@ export function WoprView() {
               idle ? (
                 <>
                   <p className="wopr-line wopr-line--big">OPTIMAL POLICY: DO NOT LAUNCH</p>
-                  <p className="wopr-line">0 DEAD · THE ONLY WINNING MOVE, WHEN THE CONSTRAINT ALLOWS IT</p>
+                  <p className="wopr-line">0 DEAD · NEITHER SIDE LAUNCHES · ADMISSIBLE ONLY WHILE GENERAL WAR IS NOT IMPOSED</p>
                 </>
               ) : (
                 <>
@@ -263,14 +281,30 @@ export function WoprView() {
           ))}
         </div>
         <div className="wopr-group">
+          <span className="clock-label">Soviet first strike</span>
+          {(['counterforce', 'countervalue', 'mixed'] as const).map((r) => (
+            <button
+              key={r}
+              type="button"
+              className={r === sovietRule ? 'is-active' : ''}
+              onClick={() => {
+                setSovietRule(r)
+                reset()
+              }}
+            >
+              {r === 'counterforce' ? 'On the forces' : r === 'countervalue' ? 'On the cities' : 'Mixed'}
+            </button>
+          ))}
+        </div>
+        <div className="wopr-group">
           <span className="clock-label">Constraints</span>
           <button type="button" className={constraints.generalWar ? 'is-active' : ''} onClick={() => changeConstraints({ generalWar: !constraints.generalWar })}>
             General war
           </button>
-          <button type="button" className={constraints.minCoverage > 0 ? 'is-active' : ''} onClick={() => changeConstraints({ minCoverage: constraints.minCoverage > 0 ? 0 : 0.95 })}>
+          <button type="button" className={constraints.minCoverage > 0 ? 'is-active' : ''} disabled={!constraints.generalWar} onClick={() => changeConstraints({ minCoverage: constraints.minCoverage > 0 ? 0 : 0.95 })}>
             Coverage 95%
           </button>
-          <button type="button" className={constraints.retaliatory ? 'is-active' : ''} onClick={() => changeConstraints({ retaliatory: !constraints.retaliatory })}>
+          <button type="button" className={constraints.retaliatory ? 'is-active' : ''} disabled={!constraints.generalWar} onClick={() => changeConstraints({ retaliatory: !constraints.retaliatory })}>
             Retaliation
           </button>
         </div>

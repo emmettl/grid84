@@ -26,9 +26,9 @@ export interface Plan {
   usOption: number
   usRule: 'counterforce' | 'countervalue' | 'mixed'
   sovietRule: 'counterforce' | 'countervalue' | 'mixed'
-  /** Fraction of the Soviet force committed to the first strike. */
+  /** Fraction of the Soviet force committed to the first strike: the scenario, not the planner's choice; one, or zero when standing down is allowed. */
   sovietOption: number
-  /** Missile reliability assumed, both sides. */
+  /** Missile reliability assumed, both sides: the centre of the published range, which the seeds draw across. Not searched. */
   reliability: number
   /** Interceptors in a hypothetical American layer, at the defence lab's arithmetic; zero under the treaty. */
   interceptors: number
@@ -115,33 +115,41 @@ export interface Assignment {
  * SS-11 and the reserve on the cities. This is a plausible assignment
  * inside the planners' rules, not a leaked one; the SIOP is withheld.
  */
-const ASSIGNED = new WeakMap<Posture1983, Map<string, Assignment>>()
-export function assignmentsOf(posture: Posture1983): Map<string, Assignment> {
-  let m = ASSIGNED.get(posture)
+const ASSIGNED = new WeakMap<DeathTable, Map<string, Assignment>>()
+export function assignmentsOf(posture: Posture1983, table: DeathTable): Map<string, Assignment> {
+  let m = ASSIGNED.get(table)
   if (!m) {
-    m = assignments(posture)
-    ASSIGNED.set(posture, m)
+    m = assignments(posture, table)
+    ASSIGNED.set(table, m)
   }
   return m
 }
 
-export function assignments(posture: Posture1983): Map<string, Assignment> {
+/** The weapons an urban area draws: by the dead one 100 kt weapon would make there, which is the population within its reach, two to twelve. */
+function urbanCount(size: number): number {
+  return Math.max(2, Math.min(12, Math.ceil(size / 60_000)))
+}
+
+export function assignments(posture: Posture1983, table: DeathTable): Map<string, Assignment> {
   const out = new Map<string, Assignment>()
-  const cityCount = (pop: number) => Math.max(2, Math.min(12, Math.ceil(pop / 150_000)))
+  const size = (id: string, kt: number, fallback: number) => table[id]?.[kt]?.fire ?? fallback * 0.4
   for (const f of posture.sovietForces) {
     if (f.id === 'su-moscow') out.set(f.id, { system: 'Minuteman II', warhead: 'W56 1.2 Mt', kt: 1_100, count: 6, category: 'COMMAND' })
     else if (/Rocket Division/.test(f.name)) out.set(f.id, { system: 'Minuteman III', warhead: 'W78 335 kt', kt: 335, count: (f.maxWeapons ?? 2) * 2, category: 'ICBM FIELD' })
     else if (/Fleet/.test(f.name)) out.set(f.id, { system: 'Trident I C4', warhead: 'W76 100 kt', kt: 100, count: 4, category: 'SUBMARINE BASE' })
     else out.set(f.id, { system: 'Trident I C4', warhead: 'W76 100 kt', kt: 100, count: 4, category: 'BOMBER BASE' })
   }
+  // The W78 goes on the thirty largest urban areas by what a weapon would find there; the W76 on the rest.
+  const ranked = [...posture.sovietCities].sort((a, b) => size(b.id, 100, b.population) - size(a.id, 100, a.population))
+  const largest = new Set(ranked.slice(0, 30).map((c) => c.id))
   for (const c of posture.sovietCities) {
-    const big = c.population >= 1_500_000
-    out.set(c.id, { system: big ? 'Minuteman III' : 'Poseidon C3 and Trident I C4', warhead: big ? 'W78 335 kt' : 'W76 100 kt', kt: big ? 335 : 100, count: cityCount(c.population), category: 'URBAN-INDUSTRIAL' })
+    const big = largest.has(c.id)
+    out.set(c.id, { system: big ? 'Minuteman III' : 'Poseidon C3 and Trident I C4', warhead: big ? 'W78 335 kt' : 'W76 100 kt', kt: big ? 335 : 100, count: urbanCount(size(c.id, 100, c.population)), category: 'URBAN-INDUSTRIAL' })
   }
   for (const s of posture.siloTargets) out.set(s.id, { system: 'SS-18', warhead: '500 kt', kt: 500, count: 2, category: 'SILO' })
-  for (const b of posture.usBases) out.set(b.id, { system: 'SS-N-6 (Yankee, forward)', warhead: '1 Mt', kt: 1_000, count: 2, category: 'BOMBER BASE' })
+  for (const b of posture.usBases) out.set(b.id, { system: 'SS-N-6 (Yankee, forward)', warhead: '1 Mt', kt: 1_000, count: 2, category: /Naval|Kings Bay|Holy Loch|Bangor|Poseidon|Trident|Ohio/.test(b.name) ? 'SUBMARINE BASE' : 'BOMBER BASE' })
   for (const c of posture.usCommand) out.set(c.id, { system: 'SS-N-6 (Yankee, forward)', warhead: '1 Mt', kt: 1_000, count: 2, category: 'COMMAND' })
-  for (const c of posture.usCities) out.set(c.id, { system: 'SS-11 and the reserve', warhead: '1 Mt', kt: 1_000, count: cityCount(c.population), category: 'URBAN-INDUSTRIAL' })
+  for (const c of posture.usCities) out.set(c.id, { system: 'SS-11 and the reserve', warhead: '1 Mt', kt: 1_000, count: urbanCount(size(c.id, 500, c.population)), category: 'URBAN-INDUSTRIAL' })
   return out
 }
 
@@ -175,8 +183,8 @@ function deaths(table: DeathTable, struck: Struck, assigned: Map<string, Assignm
   return sum
 }
 
-export function evaluate(posture: Posture1983, table: DeathTable, plan: Plan, seed: number, constraints: Constraints, assigned: Map<string, Assignment> = assignmentsOf(posture)): Score {
-  const rel = Math.max(0.5, Math.min(1, plan.reliability + draw(seed, 'rel', -0.05, 0.05)))
+export function evaluate(posture: Posture1983, table: DeathTable, plan: Plan, seed: number, constraints: Constraints, assigned: Map<string, Assignment> = assignmentsOf(posture, table)): Score {
+  const rel = Math.max(0.5, Math.min(1, plan.reliability + draw(seed, 'rel', -0.1, 0.1)))
   const cep = draw(seed, 'cep', 200, 350)
   const penetration = draw(seed, 'pen', 0.5, 0.7)
   const pKill = singleShotKill(posture.accuracy['SS-18'].yieldKt, cep, posture.siloPsi)
@@ -194,7 +202,7 @@ export function evaluate(posture: Posture1983, table: DeathTable, plan: Plan, se
   const siloList = posture.siloTargets.map((t) => ({ id: t.id, cap: assigned.get(t.id)?.count ?? 2 }))
   const baseList = posture.usBases.map((t) => ({ id: t.id, cap: 2 }))
   const commandList = posture.usCommand.map((t) => ({ id: t.id, cap: 2 }))
-  const usCityList = posture.usCities.map((t) => ({ id: t.id, cap: cityCap(t.population) }))
+  const usCityList = posture.usCities.map((t) => ({ id: t.id, cap: assigned.get(t.id)?.count ?? cityCap(t.population) }))
   let left = arriving
   if (plan.sovietRule === 'counterforce') {
     left = allocate(left, siloList, struckUs)
@@ -238,7 +246,7 @@ export function evaluate(posture: Posture1983, table: DeathTable, plan: Plan, se
   const usFired = plan.usOption < 0.05 ? 0 : Math.round((icbmWarheads * rel + atSea * rel + bombersFlown * rel * penetration) * plan.usOption)
   const struckSu: Struck = {}
   const forceList = posture.sovietForces.map((t) => ({ id: t.id, cap: assigned.get(t.id)?.count ?? t.maxWeapons ?? 2 }))
-  const suCityList = posture.sovietCities.map((t) => ({ id: t.id, cap: cityCap(t.population) }))
+  const suCityList = posture.sovietCities.map((t) => ({ id: t.id, cap: assigned.get(t.id)?.count ?? cityCap(t.population) }))
   let usLeft = usFired
   if (plan.usRule === 'counterforce') {
     usLeft = allocate(usLeft, forceList, struckSu)
@@ -268,13 +276,14 @@ export function evaluate(posture: Posture1983, table: DeathTable, plan: Plan, se
   const total = usDead + suDead
   let feasible = true
   let why = 'admissible'
+  // The coverage and retaliation constraints are the planners' and apply to the war they planned; with execution optional they are moot.
   if (constraints.generalWar && (arriving < 1 || usFired < 1)) {
     feasible = false
     why = 'general war not executed'
-  } else if (coverage < constraints.minCoverage) {
+  } else if (constraints.generalWar && coverage < constraints.minCoverage) {
     feasible = false
     why = `coverage ${Math.round(coverage * 100)}% below ${Math.round(constraints.minCoverage * 100)}%`
-  } else if (constraints.retaliatory && retaliatory <= 0) {
+  } else if (constraints.generalWar && constraints.retaliatory && retaliatory <= 0) {
     feasible = false
     why = 'no retaliatory force survives'
   }
@@ -288,7 +297,8 @@ export function loss(score: Score, objective: Objective): number {
     case 'total':
       return score.total
     case 'own':
-      return score.usDead
+      // Ties among plans that cost no American lives are broken by everyone else's.
+      return score.usDead + score.total * 1e-6
     case 'destruction':
       return -(score.coverage + score.populationDestroyed + score.forcesStruck) * 1e8
     case 'retaliatory':
@@ -332,30 +342,37 @@ export function evaluateSeeds(posture: Posture1983, table: DeathTable, plan: Pla
   return { score, loss: loss(score, objective), low: Math.min(...scores.map((x) => x.total)), high: Math.max(...scores.map((x) => x.total)), ownLow: Math.min(...scores.map((x) => x.usDead)), ownHigh: Math.max(...scores.map((x) => x.usDead)) }
 }
 
-/** A random plan inside the bounds; with `allowIdle` the options may fall to zero, which is not launching. */
-export function randomPlan(rng: () => number, allowIdle = false): Plan {
+export interface SearchOptions {
+  /** The options may fall to zero, which is not launching; both sides. */
+  allowIdle?: boolean
+  /** The Soviet first strike's rule: the scenario, held fixed by the search. */
+  sovietRule?: Plan['sovietRule']
+}
+
+/** A random plan inside the bounds. The Soviet strike and the reliability are the scenario and are not varied. */
+export function randomPlan(rng: () => number, opts: SearchOptions = {}): Plan {
   const pick = <T,>(xs: readonly T[]) => xs[Math.floor(rng() * xs.length)]
   const span = (b: readonly [number, number]) => b[0] + rng() * (b[1] - b[0])
-  const option = allowIdle ? ([0, 1] as const) : PLAN_BOUNDS.usOption
+  const option = opts.allowIdle ? ([0, 1] as const) : PLAN_BOUNDS.usOption
   return {
     posture: rng() < 0.5 ? 'ride' : 'launch',
     warningMinutes: Math.round(span(PLAN_BOUNDS.warningMinutes)),
     bomberAlert: span(PLAN_BOUNDS.bomberAlert),
-    usOption: span(option),
+    usOption: opts.allowIdle && rng() < 0.5 ? 0 : span(option),
     usRule: pick(RULES),
-    sovietRule: pick(RULES),
-    sovietOption: span(option),
-    reliability: span(PLAN_BOUNDS.reliability),
+    sovietRule: opts.sovietRule ?? 'counterforce',
+    sovietOption: opts.allowIdle && rng() < 0.5 ? 0 : 1,
+    reliability: 0.85,
     interceptors: rng() < 0.7 ? 0 : Math.round(span(PLAN_BOUNDS.interceptors)),
   }
 }
 
-/** One variable nudged; with `allowIdle` the options may fall to zero. */
-export function perturb(plan: Plan, rng: () => number, allowIdle = false): Plan {
+/** One variable nudged. */
+export function perturb(plan: Plan, rng: () => number, opts: SearchOptions = {}): Plan {
   const next = { ...plan }
   const clamp = (v: number, b: readonly [number, number]) => Math.max(b[0], Math.min(b[1], v))
-  const option = allowIdle ? ([0, 1] as const) : PLAN_BOUNDS.usOption
-  const k = Math.floor(rng() * 9)
+  const option = opts.allowIdle ? ([0, 1] as const) : PLAN_BOUNDS.usOption
+  const k = Math.floor(rng() * (opts.allowIdle ? 7 : 6))
   const pick = <T,>(xs: readonly T[]) => xs[Math.floor(rng() * xs.length)]
   switch (k) {
     case 0:
@@ -374,17 +391,12 @@ export function perturb(plan: Plan, rng: () => number, allowIdle = false): Plan 
       next.usRule = pick(RULES)
       break
     case 5:
-      next.sovietRule = pick(RULES)
-      break
-    case 6:
-      next.sovietOption = clamp(next.sovietOption + (rng() - 0.5) * 0.3, option)
-      break
-    case 7:
-      next.reliability = clamp(next.reliability + (rng() - 0.5) * 0.06, PLAN_BOUNDS.reliability)
+      next.interceptors = rng() < 0.3 ? 0 : Math.round(clamp(next.interceptors + (rng() - 0.5) * 600, PLAN_BOUNDS.interceptors))
       break
     default:
-      next.interceptors = rng() < 0.3 ? 0 : Math.round(clamp(next.interceptors + (rng() - 0.5) * 600, PLAN_BOUNDS.interceptors))
+      next.sovietOption = next.sovietOption > 0 ? 0 : 1
   }
+  if (opts.sovietRule) next.sovietRule = opts.sovietRule
   return next
 }
 
@@ -405,9 +417,8 @@ export function describePlan(p: Plan): string {
   return [
     p.posture === 'launch' ? `LAUNCH UNDER ATTACK AT H+${p.warningMinutes}` : `RIDE OUT · DECIDE AT H+${p.warningMinutes}`,
     `BOMBERS ${Math.round(p.bomberAlert * 100)}% ON ALERT`,
-    `US OPTION ${Math.round(p.usOption * 100)}% · ${p.usRule.toUpperCase()}`,
-    `SOVIET ${Math.round(p.sovietOption * 100)}% · ${p.sovietRule.toUpperCase()}`,
-    `RELIABILITY ${Math.round(p.reliability * 100)}%`,
+    p.usOption < 0.05 ? 'US DOES NOT LAUNCH' : `US OPTION ${Math.round(p.usOption * 100)}% · ${p.usRule.toUpperCase()}`,
+    p.sovietOption < 0.05 ? 'SOVIETS STAND DOWN' : `SOVIET FIRST STRIKE ${p.sovietRule.toUpperCase()}`,
     p.interceptors > 0 ? `${p.interceptors} INTERCEPTORS` : 'NO DEFENCE',
   ].join(' · ')
 }

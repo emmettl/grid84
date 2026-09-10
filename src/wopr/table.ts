@@ -15,7 +15,7 @@ import { siloSamples, spreadSilos, tableTargets, type DeathTable } from './model
  * input, and the panel shows it as such.
  */
 
-const CACHE_KEY = 'grid84-wopr-table-v1'
+const CACHE_PREFIX = 'grid84-wopr-table-v1'
 const GRID = 'ghsl/popc_1985'
 
 export interface TableProgress {
@@ -23,9 +23,17 @@ export interface TableProgress {
   total: number
 }
 
+/** The cache key carries a fingerprint of the target list, so a rebuilt list recomputes. */
+function cacheKey(posture: Posture1983): string {
+  let h = 0
+  for (const t of tableTargets(posture)) h = (h * 31 + Math.abs(Math.round(t.position[0] * 100)) * 7 + Math.abs(Math.round(t.position[1] * 100))) % 1_000_000_007
+  return `${CACHE_PREFIX}:${tableTargets(posture).length}:${h}`
+}
+
 export async function buildTable(posture: Posture1983, onProgress: (p: TableProgress) => void): Promise<{ table: DeathTable; gridName: string; fromCache: boolean }> {
+  const key = cacheKey(posture)
   try {
-    const cached = localStorage.getItem(CACHE_KEY)
+    const cached = localStorage.getItem(key)
     if (cached) {
       const parsed = JSON.parse(cached) as { table: DeathTable; gridName: string }
       onProgress({ done: 1, total: 1 })
@@ -68,7 +76,7 @@ export async function buildTable(posture: Posture1983, onProgress: (p: TableProg
   spreadSilos(posture, table, samples)
   service.destroy()
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ table, gridName }))
+    localStorage.setItem(key, JSON.stringify({ table, gridName }))
   } catch {
     // too big for this browser; the next visit recomputes
   }
@@ -77,7 +85,7 @@ export async function buildTable(posture: Posture1983, onProgress: (p: TableProg
 
 export function clearTable(): void {
   try {
-    localStorage.removeItem(CACHE_KEY)
+    for (const k of Object.keys(localStorage)) if (k.startsWith(CACHE_PREFIX)) localStorage.removeItem(k)
   } catch {
     // nothing to clear
   }

@@ -35,8 +35,9 @@ describe('WOPR model', () => {
   })
 
   it('finds that not launching is best when general war is not required', () => {
-    const idle = evaluate(p, table, { ...base, sovietOption: 0.25, usOption: 0.25 }, 0, { generalWar: false, minCoverage: 0, retaliatory: false })
+    const idle = evaluate(p, table, { ...base, sovietOption: 0, usOption: 0 }, 0, { generalWar: false, minCoverage: 0, retaliatory: false })
     const full = evaluate(p, table, base, 0, { generalWar: false, minCoverage: 0, retaliatory: false })
+    expect(idle.total).toBe(0)
     expect(idle.total).toBeLessThan(full.total)
   })
 
@@ -64,6 +65,8 @@ describe('WOPR model', () => {
     const r2 = rng(7)
     expect(randomPlan(r1)).toEqual(randomPlan(r2))
     const moved = perturb(base, rng(3))
+    expect(randomPlan(rng(5), { sovietRule: 'countervalue' }).sovietRule).toBe('countervalue')
+    expect(randomPlan(rng(5)).sovietOption).toBe(1)
     expect(JSON.stringify(moved)).not.toBe(JSON.stringify(base))
     expect(describePlan(base)).toMatch(/RIDE OUT/)
   })
