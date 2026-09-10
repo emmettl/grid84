@@ -45,21 +45,18 @@ export function installEvidenceLayers(map: MapLibreMap): void {
       'fill-opacity': ['case', ['has', 'dose'], ['interpolate', ['linear'], ['log10', ['max', 0.1, ['get', 'dose']]], -1, 0.143, 0, 0.2, 1, 0.343, 2, 0.486, 3, 0.571], 1],
     },
   })
-  // A thin edge on each contour, so the steps between dose rates are legible
-  // where the fills overlap into one wash.
-  map.addLayer({
-    id: 'ev-rings-plume',
-    type: 'line',
-    source: SOURCES.rings,
-    filter: ['has', 'dose'],
-    paint: { 'line-color': FALLOUT_LINE, 'line-width': 0.9, 'line-opacity': 0.55 },
-  })
+  // The contours want an edge only in the sense that a step in the wash should
+  // be findable — a drawn line makes the plume look like a chart of itself and
+  // loses the soft shape a spreading thing should have. So it is a blurred
+  // glow at the boundary rather than a stroke, and there is one of them: the
+  // areas source carries the contours on both the compact and the full path,
+  // and edging the rings source as well drew every one of them twice.
   map.addLayer({
     id: 'ev-areas-plume-edge',
     type: 'line',
     source: SOURCES.areas,
     filter: ['has', 'dose'],
-    paint: { 'line-color': FALLOUT_LINE, 'line-width': 0.8, 'line-opacity': 0.65 },
+    paint: { 'line-color': FALLOUT_LINE, 'line-width': 1.4, 'line-blur': 2.5, 'line-opacity': 0.2 },
   })
   for (const tier of TIER_ORDER) {
     const g = LINE[tier]
@@ -88,7 +85,7 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     id: 'ev-rings-inferred',
     type: 'line',
     source: SOURCES.rings,
-    filter: ['==', ['get', 'evidence'], 'inferred'],
+    filter: ['all', ['==', ['get', 'evidence'], 'inferred'], ['!', ['has', 'dose']]],
     paint: { 'line-color': INFERRED_RING, 'line-width': 1, 'line-dasharray': [1, 2] },
   })
   // The effect rings are what the reader is looking at, so they get a line of
