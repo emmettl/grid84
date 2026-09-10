@@ -19,18 +19,61 @@ export interface HardTarget {
   name: string
   /** Overpressure at which the target is destroyed, psi. */
   psi: number
+  /**
+   * How big the thing itself is, metres across. It is drawn to scale beside
+   * the lethal radius, because that comparison is the whole argument about
+   * accuracy: a silo lid is four metres wide and a city is ten kilometres,
+   * so a warhead that must land within a few hundred metres of one need not
+   * be aimed at all carefully at the other.
+   */
+  extentMetres: number
   note: string
   provenance: Evidenced['provenance']
 }
 
 export const TARGETS: HardTarget[] = [
-  { id: 'city', name: 'City centre', psi: 5, note: 'Brick and frame construction severely damaged; the OTA and NUKEMAP casualty bands take 5 psi as the line', provenance: { source: 'Office of Technology Assessment, The Effects of Nuclear War (1979), ch. II' } },
-  { id: 'airfield', name: 'Aircraft in the open', psi: 3, note: 'Parked aircraft damaged beyond use at 2 to 3 psi', provenance: { source: 'Glasstone and Dolan, The Effects of Nuclear Weapons (1977), §5.150' } },
-  { id: 'silo-1960s', name: 'Silo, early 1960s', psi: 300, note: 'Minuteman I silos were built to about 300 psi', provenance: { source: 'Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984), Minuteman' } },
-  { id: 'silo-hard', name: 'Hardened silo, 1970s', psi: 2_000, note: 'The Minuteman upgrade programme of the 1970s took the silos to about 2,000 psi; Soviet silos of the same decade were estimated at 2,000 to 6,000', provenance: { source: 'Databook vol. 1; Tsipis, Arsenal (1983), ch. 6' } },
-  { id: 'silo-superhard', name: 'Superhard silo, as estimated', psi: 6_000, note: 'The upper estimate for the SS-18 fields', provenance: { source: 'Tsipis, Arsenal (1983); Bunn and Tsipis (1983)' } },
-  { id: 'bunker', name: 'Deep command bunker', psi: 10_000, note: 'A figure of merit rather than a design: at this hardness only a crater reaches the target, and the overpressure rule overstates what a near miss does', provenance: { source: 'Illustrative; deep-underground hardening is not published' } },
+  { id: 'city', name: 'City centre', psi: 5, extentMetres: 10_000, note: 'Brick and frame construction severely damaged; the OTA and NUKEMAP casualty bands take 5 psi as the line', provenance: { source: 'Office of Technology Assessment, The Effects of Nuclear War (1979), ch. II' } },
+  { id: 'airfield', name: 'Aircraft in the open', psi: 3, extentMetres: 2_500, note: 'Parked aircraft damaged beyond use at 2 to 3 psi', provenance: { source: 'Glasstone and Dolan, The Effects of Nuclear Weapons (1977), §5.150' } },
+  { id: 'silo-1960s', name: 'Silo, early 1960s', psi: 300, extentMetres: 4, note: 'Minuteman I silos were built to about 300 psi', provenance: { source: 'Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984), Minuteman' } },
+  { id: 'silo-hard', name: 'Hardened silo, 1970s', psi: 2_000, extentMetres: 4, note: 'The Minuteman upgrade programme of the 1970s took the silos to about 2,000 psi; Soviet silos of the same decade were estimated at 2,000 to 6,000', provenance: { source: 'Databook vol. 1; Tsipis, Arsenal (1983), ch. 6' } },
+  { id: 'silo-superhard', name: 'Superhard silo, as estimated', psi: 6_000, extentMetres: 4, note: 'The upper estimate for the SS-18 fields', provenance: { source: 'Tsipis, Arsenal (1983); Bunn and Tsipis (1983)' } },
+  { id: 'bunker', name: 'Deep command bunker', psi: 10_000, extentMetres: 60, note: 'A figure of merit rather than a design: at this hardness only a crater reaches the target, and the overpressure rule overstates what a near miss does', provenance: { source: 'Illustrative; deep-underground hardening is not published' } },
 ]
+
+/**
+ * Where a salvo actually lands.
+ *
+ * Circular error probable is the radius that half the warheads fall inside.
+ * The impacts themselves are two independent normal errors, one in each
+ * direction, each with a standard deviation of CEP / 1.1774 — the factor is
+ * the Rayleigh median. Drawing them is worth more than quoting the number:
+ * against a silo four metres wide, a hundred-metre CEP is the difference
+ * between a weapon that works and one that does not, and against a city
+ * nothing about it matters at all.
+ *
+ * The draw is seeded so that the same salvo can be looked at twice.
+ */
+export const CEP_TO_SIGMA = 1 / 1.1774
+
+export function impactPattern(cepMetres: number, shots: number, seed = 1): Array<{ x: number; y: number; radius: number }> {
+  const sigma = cepMetres * CEP_TO_SIGMA
+  let state = (seed * 2654435761) >>> 0
+  const next = () => {
+    state = (state * 1664525 + 1013904223) >>> 0
+    return (state >>> 8) / 16777216
+  }
+  const out: Array<{ x: number; y: number; radius: number }> = []
+  for (let i = 0; i < shots; i += 1) {
+    // Box-Muller, twice, for two independent normal errors.
+    const u1 = Math.max(1e-9, next())
+    const u2 = next()
+    const r = sigma * Math.sqrt(-2 * Math.log(u1))
+    const x = r * Math.cos(2 * Math.PI * u2)
+    const y = r * Math.sin(2 * Math.PI * u2)
+    out.push({ x, y, radius: Math.hypot(x, y) })
+  }
+  return out
+}
 
 /** Ground range at which the overpressure is reached: the optimum-height air burst for soft targets, the contact surface burst for hard ones. */
 export function lethalRadiusMetres(yieldKt: number, psi: number): number {

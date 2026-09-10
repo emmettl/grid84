@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { formatProvenance } from '../evidence/evidence.ts'
-import { COUNTERFORCE_PSI, killProbability, lethalRadiusMetres, singleShotKill, SYSTEMS, TARGETS, type WeaponSystem } from '../models/lethality.ts'
+import { COUNTERFORCE_PSI, impactPattern, killProbability, lethalRadiusMetres, singleShotKill, SYSTEMS, TARGETS, type WeaponSystem } from '../models/lethality.ts'
 import { BLAST_MODEL, SURFACE_BLAST_MODEL } from '../models/blast.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
 import { placeLabels, type LabelWish } from '../chart/labels.ts'
@@ -67,6 +67,63 @@ export function CrossingChart({ psi, selected, onPick }: { psi: number; selected
   )
 }
 
+/**
+ * A salvo, landed.
+ *
+ * The table says a hundred-metre CEP against a two-thousand-psi silo gives
+ * eighty-odd per cent. This draws it: the silo at its real size, the radius
+ * inside which the overpressure destroys it, the circle half the warheads
+ * fall inside, and twenty warheads where they actually land. It is the same
+ * arithmetic, and it is the reason the argument of the 1970s was about
+ * metres.
+ *
+ * The scale is the point. Against a city the lethal radius is kilometres
+ * across and the aim point may as well be anywhere; against a silo lid four
+ * metres wide it is the accuracy and nothing else.
+ */
+function SalvoPlan({ yieldKt, cepMetres, psi, extentMetres, shots, seed }: { yieldKt: number; cepMetres: number; psi: number; extentMetres: number; shots: number; seed: number }) {
+  const lethal = lethalRadiusMetres(yieldKt, psi)
+  const impacts = useMemo(() => impactPattern(cepMetres, shots, seed), [cepMetres, shots, seed])
+  const span = Math.max(lethal, cepMetres * 1.6, extentMetres / 2) * 2.4
+  const S = 420
+  const scale = S / span
+  const px = (metres: number) => metres * scale
+  const cx = S / 2
+  const killed = impacts.filter((i) => i.radius <= lethal).length
+  // A round number of metres for the bar, about a fifth of the view.
+  const barMetres = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1_000, 2_000, 5_000, 10_000, 20_000].reduce((best, m) => (Math.abs(px(m) - S / 5) < Math.abs(px(best) - S / 5) ? m : best), 1)
+  return (
+    <div className="salvo">
+      <svg className="gen-chart salvo-plan" viewBox={`0 0 ${S} ${S}`} role="img" aria-label={`${shots} warheads aimed at a ${psi} psi target, drawn to scale`}>
+        <rect x={0} y={0} width={S} height={S} className="salvo-ground" />
+        {/* The radius inside which the target is destroyed. */}
+        <circle cx={cx} cy={cx} r={px(lethal)} className="salvo-lethal" />
+        {/* The circle half of them land inside. */}
+        <circle cx={cx} cy={cx} r={px(cepMetres)} className="salvo-cep" />
+        {/* The thing itself, at its own size. */}
+        {px(extentMetres / 2) >= 1.5 ? (
+          <rect x={cx - px(extentMetres / 2)} y={cx - px(extentMetres / 2)} width={px(extentMetres)} height={px(extentMetres)} className="salvo-target" />
+        ) : (
+          <circle cx={cx} cy={cx} r={2} className="salvo-target" />
+        )}
+        {impacts.map((i, n) => (
+          <g key={n} className={i.radius <= lethal ? 'salvo-hit' : 'salvo-miss'}>
+            <line x1={cx + px(i.x) - 4} x2={cx + px(i.x) + 4} y1={cx + px(i.y)} y2={cx + px(i.y)} />
+            <line x1={cx + px(i.x)} x2={cx + px(i.x)} y1={cx + px(i.y) - 4} y2={cx + px(i.y) + 4} />
+          </g>
+        ))}
+        <g className="salvo-scale">
+          <line x1={16} x2={16 + px(barMetres)} y1={S - 18} y2={S - 18} />
+          <text x={16} y={S - 24}>{barMetres >= 1_000 ? `${barMetres / 1_000} km` : `${barMetres} m`}</text>
+        </g>
+      </svg>
+      <p className="log-empty">
+        {killed} of {shots} inside the {km(lethal)} at which {psi.toLocaleString('en-GB')} psi is reached · the target itself is {extentMetres >= 1_000 ? `${(extentMetres / 1_000).toFixed(1)} km` : `${extentMetres} m`} across · CEP {km(cepMetres)}
+      </p>
+    </div>
+  )
+}
+
 export function AccuracyLab() {
   const [systemId, setSystemId] = useState('atlas-d')
   const base = SYSTEMS.find((s) => s.id === systemId) ?? SYSTEMS[0]
@@ -74,6 +131,8 @@ export function AccuracyLab() {
   const [psi, setPsi] = useState(COUNTERFORCE_PSI)
   const [shots, setShots] = useState(1)
   const [reliability, setReliability] = useState(0.8)
+  const [salvo, setSalvo] = useState(20)
+  const [seed, setSeed] = useState(1)
   const sys: WeaponSystem = edit ? { ...base, ...edit } : base
   const pick = (id: string) => {
     setSystemId(id)
@@ -140,6 +199,18 @@ export function AccuracyLab() {
         </section>
 
         <section className="log readiness-chart" aria-label="Crossing">
+          <h2>What missing looks like</h2>
+          <SalvoPlan yieldKt={sys.yieldKt} cepMetres={sys.cepMetres} psi={psi} extentMetres={target?.extentMetres ?? 4} shots={salvo} seed={seed} />
+          <div className="clock-controls" role="group" aria-label="Salvo">
+            {[5, 20, 100].map((n) => (
+              <button key={n} type="button" className={n === salvo ? 'is-active' : ''} onClick={() => setSalvo(n)}>
+                {n} warheads
+              </button>
+            ))}
+            <button type="button" onClick={() => setSeed((v) => v + 1)}>
+              Fire again
+            </button>
+          </div>
           <h2>The counterforce crossing</h2>
           <CrossingChart psi={psi} selected={systemId} onPick={pick} />
           <table className="bands">

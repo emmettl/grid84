@@ -2983,3 +2983,70 @@ body,
     order: -1;
   }
 }
+
+/* ---------- The salvo plan: what missing looks like ---------- */
+
+.salvo-plan {
+  max-width: 26rem;
+  margin: 0 auto;
+  display: block;
+}
+
+/* The salvo's own controls, and then the chart it demonstrates. */
+.salvo + .clock-controls {
+  margin-bottom: 0.4rem;
+}
+
+.readiness-chart .clock-controls + h2 {
+  margin-top: 1rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed rgba(141, 250, 255, 0.25);
+}
+
+.salvo-ground {
+  fill: rgba(141, 250, 255, 0.03);
+  stroke: rgba(141, 250, 255, 0.18);
+}
+
+/* The radius inside which the overpressure destroys the target. */
+.salvo-lethal {
+  fill: rgba(255, 96, 96, 0.1);
+  stroke: rgba(255, 96, 96, 0.75);
+  stroke-width: 1.5;
+}
+
+/* The circle half the warheads land inside. */
+.salvo-cep {
+  fill: none;
+  stroke: rgba(141, 250, 255, 0.7);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+
+/* The thing being aimed at, at its own size. */
+.salvo-target {
+  fill: rgba(255, 179, 71, 0.85);
+  stroke: rgba(255, 179, 71, 1);
+  stroke-width: 1;
+}
+
+.salvo-hit line {
+  stroke: rgb(255, 96, 96);
+  stroke-width: 1.6;
+}
+
+.salvo-miss line {
+  stroke: rgba(232, 251, 255, 0.55);
+  stroke-width: 1.2;
+}
+
+.salvo-scale line {
+  stroke: rgba(232, 251, 255, 0.7);
+  stroke-width: 1.5;
+}
+
+.salvo-scale text {
+  fill: rgba(232, 251, 255, 0.7);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
