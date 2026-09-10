@@ -1,0 +1,1529 @@
+{
+ "date": "end of 1991",
+ "note": "The force at the start of the drawdown: START I signed in July, the bombers off alert from September, the union dissolved in December with rocket divisions in Ukraine, Belarus and Kazakhstan. No study is built on this epoch; it exists so the posture atlas can show the 1990s.",
+ "rules": {
+  "usIcbm": {
+   "launchers": 1000,
+   "note": "1,000 ICBMs: 450 Minuteman II, 500 Minuteman III, 50 Peacekeeper; the Minuteman IIs stood down from alert under the September 1991 initiative and are counted as they stood"
+  },
+  "usSsbn": {
+   "boats": 32,
+   "note": "About 32 boats and 5,700 warheads at the end of 1991 (Notebook); boats spread over the bases as the squadron histories place them, half at sea, the loadings the Notebook's averages"
+  },
+  "usBombers": {
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings"
+  },
+  "suIcbm": {
+   "SS-18": {
+    "launchers": 308,
+    "divisions": 6,
+    "warheads": 10,
+    "yieldKt": 550
+   },
+   "SS-19": {
+    "launchers": 300,
+    "divisions": 4,
+    "warheads": 6,
+    "yieldKt": 550
+   },
+   "SS-24": {
+    "launchers": 89,
+    "divisions": 4,
+    "warheads": 10,
+    "yieldKt": 400
+   },
+   "SS-25": {
+    "launchers": 288,
+    "divisions": 12,
+    "warheads": 1,
+    "yieldKt": 550
+   },
+   "SS-11": {
+    "launchers": 326,
+    "divisions": 4,
+    "warheads": 1,
+    "yieldKt": 1000
+   },
+   "SS-17": {
+    "launchers": 47,
+    "divisions": 1,
+    "warheads": 4,
+    "yieldKt": 750
+   },
+   "SS-13": {
+    "launchers": 40,
+    "divisions": 1,
+    "warheads": 1,
+    "yieldKt": 750
+   }
+  },
+  "suSsbn": {
+   "boats": 59,
+   "note": "Fifty-nine boats from Yankee to Typhoon; the loading per missile is the fleet average; six boats at sea is an inference"
+  }
+ },
+ "sites": [
+  {
+   "side": "us",
+   "name": "Malmstrom AFB · 341st Missile Wing",
+   "kind": "icbm",
+   "missiles": 200,
+   "weapons": 300,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman II",
+     "warheads": 1,
+     "yieldKt": 1200
+    },
+    {
+     "missiles": 50,
+     "version": "Minuteman III",
+     "warheads": 3,
+     "yieldKt": 335
+    }
+   ],
+   "note": "1,000 ICBMs: 450 Minuteman II, 500 Minuteman III, 50 Peacekeeper; the Minuteman IIs stood down from alert under the September 1991 initiative and are counted as they stood",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "malmstrom-341",
+   "lon": -111.1785,
+   "lat": 47.5049,
+   "geocoded": "Malmstrom Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Ellsworth AFB · 44th Missile Wing",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 150,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman II",
+     "warheads": 1,
+     "yieldKt": 1200
+    }
+   ],
+   "note": "1,000 ICBMs: 450 Minuteman II, 500 Minuteman III, 50 Peacekeeper; the Minuteman IIs stood down from alert under the September 1991 initiative and are counted as they stood",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "ellsworth-44",
+   "lon": -103.0868,
+   "lat": 44.1472,
+   "geocoded": "Ellsworth Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Whiteman AFB · 351st Missile Wing",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 150,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman II",
+     "warheads": 1,
+     "yieldKt": 1200
+    }
+   ],
+   "note": "1,000 ICBMs: 450 Minuteman II, 500 Minuteman III, 50 Peacekeeper; the Minuteman IIs stood down from alert under the September 1991 initiative and are counted as they stood",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "whiteman-351",
+   "lon": -93.5545,
+   "lat": 38.7303,
+   "geocoded": "Whiteman Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Minot AFB · 91st Missile Wing",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman III",
+     "warheads": 3,
+     "yieldKt": 335
+    }
+   ],
+   "note": "1,000 ICBMs: 450 Minuteman II, 500 Minuteman III, 50 Peacekeeper; the Minuteman IIs stood down from alert under the September 1991 initiative and are counted as they stood",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "minot-91",
+   "lon": -101.3372,
+   "lat": 48.42,
+   "geocoded": "Minot Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Grand Forks AFB · 321st Missile Wing",
+   "kind": "icbm",
+   "missiles": 150,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman III",
+     "warheads": 3,
+     "yieldKt": 335
+    }
+   ],
+   "note": "1,000 ICBMs: 450 Minuteman II, 500 Minuteman III, 50 Peacekeeper; the Minuteman IIs stood down from alert under the September 1991 initiative and are counted as they stood",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "grand-forks-321",
+   "lon": -97.4004,
+   "lat": 47.9636,
+   "geocoded": "Grand Forks Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "F. E. Warren AFB · 90th Missile Wing",
+   "kind": "icbm",
+   "missiles": 200,
+   "weapons": 950,
+   "squadrons": [
+    {
+     "missiles": 150,
+     "version": "Minuteman III",
+     "warheads": 3,
+     "yieldKt": 170
+    },
+    {
+     "missiles": 50,
+     "version": "Peacekeeper",
+     "warheads": 10,
+     "yieldKt": 300
+    }
+   ],
+   "note": "1,000 ICBMs: 450 Minuteman II, 500 Minuteman III, 50 Peacekeeper; the Minuteman IIs stood down from alert under the September 1991 initiative and are counted as they stood",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, LGM-30 Minuteman; LGM-118 Peacekeeper",
+   "id": "warren-90",
+   "lon": -104.8633,
+   "lat": 41.1659,
+   "geocoded": "Francis E. Warren Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Trident and Poseidon patrol · North Atlantic",
+   "kind": "slbm",
+   "boats": 8,
+   "missiles": 128,
+   "weapons": 1024,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 100,
+   "note": "Boats from Charleston, Kings Bay and Holy Loch. About 32 boats and 5,700 warheads at the end of 1991 (Notebook); boats spread over the bases as the squadron histories place them, half at sea, the loadings the Notebook's averages",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases",
+   "id": "ssbn-atlantic",
+   "lon": -45.0,
+   "lat": 45.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Trident patrol · North Pacific",
+   "kind": "slbm",
+   "boats": 4,
+   "missiles": 96,
+   "weapons": 768,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 100,
+   "note": "Boats from Bangor. About 32 boats and 5,700 warheads at the end of 1991 (Notebook); boats spread over the bases as the squadron histories place them, half at sea, the loadings the Notebook's averages",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases",
+   "id": "ssbn-pacific",
+   "lon": -160.0,
+   "lat": 45.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Naval Weapons Station Charleston · Poseidon and Trident I",
+   "kind": "slbm-port",
+   "boats": 8,
+   "missiles": 128,
+   "weapons": 1024,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 100,
+   "note": "About 32 boats and 5,700 warheads at the end of 1991 (Notebook); boats spread over the bases as the squadron histories place them, half at sea, the loadings the Notebook's averages",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Databook vol. 1",
+   "id": "charleston",
+   "lon": -79.95,
+   "lat": 32.97,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Naval Submarine Base Kings Bay · Trident II",
+   "kind": "slbm-port",
+   "boats": 4,
+   "missiles": 96,
+   "weapons": 768,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 455,
+   "note": "About 32 boats and 5,700 warheads at the end of 1991 (Notebook); boats spread over the bases as the squadron histories place them, half at sea, the loadings the Notebook's averages",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Databook vol. 1",
+   "id": "kings-bay",
+   "lon": -81.5399,
+   "lat": 30.7926,
+   "geocoded": "Naval Submarine Base Kings Bay",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Naval Submarine Base Bangor · Trident I",
+   "kind": "slbm-port",
+   "boats": 4,
+   "missiles": 96,
+   "weapons": 768,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 100,
+   "note": "About 32 boats and 5,700 warheads at the end of 1991 (Notebook); boats spread over the bases as the squadron histories place them, half at sea, the loadings the Notebook's averages",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Databook vol. 1",
+   "id": "bangor",
+   "lon": -122.7192,
+   "lat": 47.7255,
+   "geocoded": "Naval Base Kitsap - Bangor",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Holy Loch · Submarine Squadron 14",
+   "kind": "slbm-port",
+   "boats": 4,
+   "missiles": 64,
+   "weapons": 512,
+   "weaponsPerVehicle": 8,
+   "yieldKt": 100,
+   "note": "About 32 boats and 5,700 warheads at the end of 1991 (Notebook); boats spread over the bases as the squadron histories place them, half at sea, the loadings the Notebook's averages",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Databook vol. 1",
+   "id": "holy-loch",
+   "lon": -4.93,
+   "lat": 55.98,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Barksdale AFB · 2nd Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 28,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "barksdale-2",
+   "lon": -93.6108,
+   "lat": 32.4975,
+   "geocoded": "Barksdale Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Castle AFB · 93rd Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 26,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "castle-93",
+   "lon": -120.5706,
+   "lat": 37.3803,
+   "geocoded": "Castle Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Loring AFB · 42nd Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 26,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "loring-42",
+   "lon": -67.89,
+   "lat": 46.95,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Wurtsmith AFB · 379th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 26,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "wurtsmith-379",
+   "lon": -83.3751,
+   "lat": 44.457,
+   "geocoded": "Oscoda-Wurtsmith Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Griffiss AFB · 416th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 26,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "griffiss-416",
+   "lon": -75.4143,
+   "lat": 43.2322,
+   "geocoded": "Griffiss International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Eaker AFB · 97th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52G",
+   "aircraft": 26,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "eaker-97",
+   "lon": -89.94,
+   "lat": 35.96,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Fairchild AFB · 92nd Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 24,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "fairchild-92",
+   "lon": -117.647,
+   "lat": 47.6161,
+   "geocoded": "Fairchild Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Minot AFB · 5th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 24,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "minot-5",
+   "lon": -101.3372,
+   "lat": 48.42,
+   "geocoded": "Minot Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Carswell AFB · 7th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 24,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "carswell-7",
+   "lon": -97.4312,
+   "lat": 32.7664,
+   "geocoded": "Naval Air Station Joint Reserve Base Fort Worth (Carswell Field)",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "K. I. Sawyer AFB · 410th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-52H",
+   "aircraft": 24,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "ki-sawyer-410",
+   "lon": -87.39,
+   "lat": 46.35,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Dyess AFB · 96th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-1B",
+   "aircraft": 24,
+   "weaponsPerAircraft": 16,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "dyess-96",
+   "lon": -99.8382,
+   "lat": 32.4206,
+   "geocoded": "Dyess Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Ellsworth AFB · 28th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-1B",
+   "aircraft": 24,
+   "weaponsPerAircraft": 16,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "ellsworth-28",
+   "lon": -103.0868,
+   "lat": 44.1472,
+   "geocoded": "Ellsworth Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Grand Forks AFB · 319th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-1B",
+   "aircraft": 24,
+   "weaponsPerAircraft": 16,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "grand-forks-319",
+   "lon": -97.4004,
+   "lat": 47.9636,
+   "geocoded": "Grand Forks Air Force Base",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "McConnell AFB · 384th Bomb Wing",
+   "kind": "bomber",
+   "model": "B-1B",
+   "aircraft": 24,
+   "weaponsPerAircraft": 16,
+   "yieldKt": 200,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "mcconnell-384",
+   "lon": -97.27,
+   "lat": 37.62,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "us",
+   "name": "Pease AFB · 509th Bomb Wing",
+   "kind": "bomber",
+   "model": "FB-111A",
+   "aircraft": 30,
+   "weaponsPerAircraft": 6,
+   "yieldKt": 170,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "pease-509",
+   "lon": -70.8187,
+   "lat": 43.079,
+   "geocoded": "Portsmouth International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "us",
+   "name": "Plattsburgh AFB · 380th Bomb Wing",
+   "kind": "bomber",
+   "model": "FB-111A",
+   "aircraft": 30,
+   "weaponsPerAircraft": 6,
+   "yieldKt": 170,
+   "alert": 0.0,
+   "note": "About 280 heavy bombers and 60 FB-111As (Notebook); wing strengths spread from the fleet totals over the wings the unit histories list; twelve weapons per B-52 (cruise missiles and bombs), sixteen per B-1B, six per FB-111A, the Notebook's loadings",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, List of B-52 units; Rockwell B-1 Lancer; General Dynamics F-111",
+   "id": "plattsburgh-380",
+   "lon": -73.4644,
+   "lat": 44.6517,
+   "geocoded": "Plattsburgh International Airport",
+   "positionEvidence": "reconstructed"
+  },
+  {
+   "side": "su",
+   "name": "Dombarovsky · 13th Rocket Division",
+   "kind": "icbm",
+   "missiles": 52,
+   "weapons": 520,
+   "squadrons": [
+    {
+     "missiles": 52,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 550
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "dombarovsky",
+   "lon": 59.53,
+   "lat": 50.76,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Kartaly · 59th Rocket Division",
+   "kind": "icbm",
+   "missiles": 52,
+   "weapons": 520,
+   "squadrons": [
+    {
+     "missiles": 52,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 550
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "kartaly",
+   "lon": 60.65,
+   "lat": 53.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Uzhur · 62nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 51,
+   "weapons": 510,
+   "squadrons": [
+    {
+     "missiles": 51,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 550
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "uzhur",
+   "lon": 89.83,
+   "lat": 55.3,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Aleysk · 41st Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 51,
+   "weapons": 510,
+   "squadrons": [
+    {
+     "missiles": 51,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 550
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "aleysk",
+   "lon": 82.78,
+   "lat": 52.49,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Zhangiz-Tobe · 57th Rocket Division",
+   "kind": "icbm",
+   "missiles": 51,
+   "weapons": 510,
+   "squadrons": [
+    {
+     "missiles": 51,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 550
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "zhangiz-tobe",
+   "lon": 81.2,
+   "lat": 49.2,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Derzhavinsk · 38th Rocket Division",
+   "kind": "icbm",
+   "missiles": 51,
+   "weapons": 510,
+   "squadrons": [
+    {
+     "missiles": 51,
+     "version": "SS-18",
+     "warheads": 10,
+     "yieldKt": 550
+    }
+   ],
+   "note": "308 SS-18 launchers spread evenly over 6 divisions; 10 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "derzhavinsk",
+   "lon": 66.32,
+   "lat": 51.1,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Kozelsk · 28th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 75,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 75,
+     "version": "SS-19",
+     "warheads": 6,
+     "yieldKt": 550
+    }
+   ],
+   "note": "300 SS-19 launchers spread evenly over 4 divisions; 6 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "kozelsk",
+   "lon": 35.79,
+   "lat": 54.04,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Tatishchevo · 60th Rocket Division",
+   "kind": "icbm",
+   "missiles": 75,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 75,
+     "version": "SS-19",
+     "warheads": 6,
+     "yieldKt": 550
+    }
+   ],
+   "note": "300 SS-19 launchers spread evenly over 4 divisions; 6 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "tatishchevo",
+   "lon": 45.6,
+   "lat": 51.67,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Pervomaysk · 46th Rocket Division",
+   "kind": "icbm",
+   "missiles": 75,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 75,
+     "version": "SS-19",
+     "warheads": 6,
+     "yieldKt": 550
+    }
+   ],
+   "note": "300 SS-19 launchers spread evenly over 4 divisions; 6 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "pervomaysk",
+   "lon": 30.85,
+   "lat": 48.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Khmelnytskyi · 19th Rocket Division",
+   "kind": "icbm",
+   "missiles": 75,
+   "weapons": 450,
+   "squadrons": [
+    {
+     "missiles": 75,
+     "version": "SS-19",
+     "warheads": 6,
+     "yieldKt": 550
+    }
+   ],
+   "note": "300 SS-19 launchers spread evenly over 4 divisions; 6 warheads of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "khmelnytskyi",
+   "lon": 26.98,
+   "lat": 49.42,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Kostroma · 10th Guards Rocket Division · rail",
+   "kind": "icbm",
+   "missiles": 23,
+   "weapons": 230,
+   "squadrons": [
+    {
+     "missiles": 23,
+     "version": "SS-24",
+     "warheads": 10,
+     "yieldKt": 400
+    }
+   ],
+   "note": "89 SS-24 launchers spread evenly over 4 divisions; 10 warheads of about 400 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "kostroma",
+   "lon": 40.93,
+   "lat": 57.77,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Bershet · 52nd Rocket Division · rail",
+   "kind": "icbm",
+   "missiles": 22,
+   "weapons": 220,
+   "squadrons": [
+    {
+     "missiles": 22,
+     "version": "SS-24",
+     "warheads": 10,
+     "yieldKt": 400
+    }
+   ],
+   "note": "89 SS-24 launchers spread evenly over 4 divisions; 10 warheads of about 400 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "bershet",
+   "lon": 57.77,
+   "lat": 57.73,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Krasnoyarsk · 36th Guards Rocket Division · rail",
+   "kind": "icbm",
+   "missiles": 22,
+   "weapons": 220,
+   "squadrons": [
+    {
+     "missiles": 22,
+     "version": "SS-24",
+     "warheads": 10,
+     "yieldKt": 400
+    }
+   ],
+   "note": "89 SS-24 launchers spread evenly over 4 divisions; 10 warheads of about 400 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "krasnoyarsk",
+   "lon": 91.75,
+   "lat": 56.17,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Pervomaysk · 46th Rocket Division · silo",
+   "kind": "icbm",
+   "missiles": 22,
+   "weapons": 220,
+   "squadrons": [
+    {
+     "missiles": 22,
+     "version": "SS-24",
+     "warheads": 10,
+     "yieldKt": 400
+    }
+   ],
+   "note": "89 SS-24 launchers spread evenly over 4 divisions; 10 warheads of about 400 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "pervomaysk-24",
+   "lon": 30.85,
+   "lat": 48.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Teykovo · 54th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "teykovo",
+   "lon": 40.54,
+   "lat": 56.86,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yoshkar-Ola · 14th Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "yoshkar-ola",
+   "lon": 47.89,
+   "lat": 56.63,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Vypolzovo · 7th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "vypolzovo",
+   "lon": 33.8,
+   "lat": 57.85,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yurya · 8th Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "yurya",
+   "lon": 49.32,
+   "lat": 59.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Nizhny Tagil · 42nd Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "nizhny-tagil",
+   "lon": 60.55,
+   "lat": 58.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Novosibirsk · 39th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "novosibirsk",
+   "lon": 83.02,
+   "lat": 55.18,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Irkutsk · 29th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "irkutsk",
+   "lon": 104.28,
+   "lat": 52.29,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Barnaul · 35th Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "barnaul",
+   "lon": 83.62,
+   "lat": 53.28,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Kansk · 23rd Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "kansk",
+   "lon": 95.72,
+   "lat": 56.2,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Drovyanaya · 4th Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "drovyanaya",
+   "lon": 113.05,
+   "lat": 51.6,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Lida · 49th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "lida",
+   "lon": 25.3,
+   "lat": 53.89,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Mozyr · 33rd Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 24,
+   "weapons": 24,
+   "squadrons": [
+    {
+     "missiles": 24,
+     "version": "SS-25",
+     "warheads": 1,
+     "yieldKt": 550
+    }
+   ],
+   "note": "288 SS-25 launchers spread evenly over 12 divisions; 1 warhead of about 550 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "mozyr",
+   "lon": 29.25,
+   "lat": 52.05,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Gladkaya · 36th Guards Rocket Division",
+   "kind": "icbm",
+   "missiles": 82,
+   "weapons": 82,
+   "squadrons": [
+    {
+     "missiles": 82,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "326 SS-11 launchers spread evenly over 4 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "gladkaya",
+   "lon": 91.75,
+   "lat": 56.17,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Svobodny · 27th Rocket Division",
+   "kind": "icbm",
+   "missiles": 82,
+   "weapons": 82,
+   "squadrons": [
+    {
+     "missiles": 82,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "326 SS-11 launchers spread evenly over 4 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "svobodny",
+   "lon": 128.32,
+   "lat": 51.45,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Olovyannaya · 47th Rocket Division",
+   "kind": "icbm",
+   "missiles": 81,
+   "weapons": 81,
+   "squadrons": [
+    {
+     "missiles": 81,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "326 SS-11 launchers spread evenly over 4 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "olovyannaya",
+   "lon": 115.58,
+   "lat": 50.95,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Teykovo · 54th Guards Rocket Division · silos",
+   "kind": "icbm",
+   "missiles": 81,
+   "weapons": 81,
+   "squadrons": [
+    {
+     "missiles": 81,
+     "version": "SS-11",
+     "warheads": 1,
+     "yieldKt": 1000
+    }
+   ],
+   "note": "326 SS-11 launchers spread evenly over 4 divisions; 1 warhead of about 1000 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "teykovo-11",
+   "lon": 40.54,
+   "lat": 56.86,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Vypolzovo · 7th Guards Rocket Division · silos",
+   "kind": "icbm",
+   "missiles": 47,
+   "weapons": 188,
+   "squadrons": [
+    {
+     "missiles": 47,
+     "version": "SS-17",
+     "warheads": 4,
+     "yieldKt": 750
+    }
+   ],
+   "note": "47 SS-17 launchers spread evenly over 1 division; 4 warheads of about 750 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "vypolzovo-17",
+   "lon": 33.8,
+   "lat": 57.85,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Yoshkar-Ola · 14th Rocket Division · silos",
+   "kind": "icbm",
+   "missiles": 40,
+   "weapons": 40,
+   "squadrons": [
+    {
+     "missiles": 40,
+     "version": "SS-13",
+     "warheads": 1,
+     "yieldKt": 750
+    }
+   ],
+   "note": "40 SS-13 launchers spread evenly over 1 division; 1 warhead of about 750 kt each",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Strategic Rocket Forces; Podvig, Russian Strategic Nuclear Forces (2001)",
+   "id": "yoshkar-ola-13",
+   "lon": 47.89,
+   "lat": 56.63,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Delta and Typhoon patrol · Barents Sea",
+   "kind": "slbm",
+   "boats": 4,
+   "missiles": 64,
+   "weapons": 256,
+   "weaponsPerVehicle": 4,
+   "yieldKt": 100,
+   "note": "Boats of the Northern Fleet. Fifty-nine boats from Yankee to Typhoon; the loading per missile is the fleet average; six boats at sea is an inference",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases",
+   "id": "su-ssbn-barents",
+   "lon": 38.0,
+   "lat": 73.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Delta patrol · Sea of Okhotsk",
+   "kind": "slbm",
+   "boats": 2,
+   "missiles": 32,
+   "weapons": 128,
+   "weaponsPerVehicle": 4,
+   "yieldKt": 100,
+   "note": "Boats of the Pacific Fleet. Fifty-nine boats from Yankee to Typhoon; the loading per missile is the fleet average; six boats at sea is an inference",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases",
+   "id": "su-ssbn-okhotsk",
+   "lon": 150.0,
+   "lat": 54.0,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Gadzhiyevo · Northern Fleet",
+   "kind": "slbm-port",
+   "boats": 30,
+   "missiles": 480,
+   "weapons": 1440,
+   "weaponsPerVehicle": 3,
+   "yieldKt": 100,
+   "note": "Fifty-nine boats from Yankee to Typhoon; the loading per missile is the fleet average; six boats at sea is an inference",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Databook vol. 4",
+   "id": "gadzhiyevo",
+   "lon": 33.33,
+   "lat": 69.25,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Rybachiy · Pacific Fleet",
+   "kind": "slbm-port",
+   "boats": 23,
+   "missiles": 368,
+   "weapons": 1104,
+   "weaponsPerVehicle": 3,
+   "yieldKt": 100,
+   "note": "Fifty-nine boats from Yankee to Typhoon; the loading per missile is the fleet average; six boats at sea is an inference",
+   "evidence": "reconstructed",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Databook vol. 4",
+   "id": "rybachiy",
+   "lon": 158.4,
+   "lat": 52.93,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Ukrainka · 73rd Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95MS",
+   "aircraft": 40,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 250,
+   "alert": 0.0,
+   "note": "About 160 heavy bombers (Notebook) spread over the fields the division histories name; Kh-55 cruise missiles as the loading",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Soviet Long Range Aviation",
+   "id": "ukrainka",
+   "lon": 124.24,
+   "lat": 51.17,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Mozdok · 182nd Guards Regiment",
+   "kind": "bomber",
+   "model": "Tu-95MS",
+   "aircraft": 20,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 250,
+   "alert": 0.0,
+   "note": "About 160 heavy bombers (Notebook) spread over the fields the division histories name; Kh-55 cruise missiles as the loading",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Soviet Long Range Aviation",
+   "id": "mozdok",
+   "lon": 44.6,
+   "lat": 43.79,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Uzin · 106th Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95MS",
+   "aircraft": 25,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 250,
+   "alert": 0.0,
+   "note": "About 160 heavy bombers (Notebook) spread over the fields the division histories name; Kh-55 cruise missiles as the loading",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Soviet Long Range Aviation",
+   "id": "uzin",
+   "lon": 30.42,
+   "lat": 49.83,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Semipalatinsk · 79th Heavy Bomber Division",
+   "kind": "bomber",
+   "model": "Tu-95MS",
+   "aircraft": 40,
+   "weaponsPerAircraft": 8,
+   "yieldKt": 250,
+   "alert": 0.0,
+   "note": "About 160 heavy bombers (Notebook) spread over the fields the division histories name; Kh-55 cruise missiles as the loading",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Soviet Long Range Aviation",
+   "id": "semipalatinsk",
+   "lon": 79.15,
+   "lat": 50.45,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Priluki · 184th Guards Regiment",
+   "kind": "bomber",
+   "model": "Tu-160",
+   "aircraft": 19,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 250,
+   "alert": 0.0,
+   "note": "About 160 heavy bombers (Notebook) spread over the fields the division histories name; Kh-55 cruise missiles as the loading",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Soviet Long Range Aviation",
+   "id": "priluki",
+   "lon": 32.39,
+   "lat": 50.59,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  },
+  {
+   "side": "su",
+   "name": "Engels · 1096th Regiment",
+   "kind": "bomber",
+   "model": "Tu-160",
+   "aircraft": 6,
+   "weaponsPerAircraft": 12,
+   "yieldKt": 250,
+   "alert": 0.0,
+   "note": "About 160 heavy bombers (Notebook) spread over the fields the division histories name; Kh-55 cruise missiles as the loading",
+   "evidence": "inferred",
+   "source": "Norris and Arkin, \"Nuclear Notebook: U.S. strategic nuclear forces, end of 1991\" and \"Soviet strategic nuclear forces, end of 1991,\" Bulletin of the Atomic Scientists (1992), as reprinted; Cochran, Arkin and Hoenig, Nuclear Weapons Databook vol. 1 (1984) and vol. 4 (1989) for the bases; Wikipedia, Soviet Long Range Aviation",
+   "id": "engels",
+   "lon": 46.2,
+   "lat": 51.48,
+   "geocoded": "hand-set",
+   "positionEvidence": "inferred"
+  }
+ ]
+}

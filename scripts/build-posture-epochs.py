@@ -101,6 +101,18 @@ def epoch_1983():
     return {'year': 1983, 'label': 'November 1983 · Europe', 'scope': 'theatre', 'study': '#/study/able-archer-83', 'studyName': 'Able Archer 83', 'sides': {'us': 'NATO', 'su': 'Warsaw Pact'}, 'sites': sites, 'rules': r, 'source': d.get('date', '')}
 
 
+def epoch_1991():
+    d = load('data/chronicle/order-of-battle-1991.json')
+    sites = []
+    for s in d['sites']:
+        k = s['kind']
+        if k == 'bomber':
+            sites.append(site(s, s['side'], 'bomber', s['aircraft'] * s['weaponsPerAircraft'], s['aircraft'], 'aircraft'))
+        elif k in ('icbm', 'slbm', 'slbm-port'):
+            sites.append(site(s, s['side'], k, s['weapons'], s.get('missiles'), 'missiles'))
+    return {'year': 1991, 'label': 'End of 1991', 'scope': 'strategic', 'study': '', 'studyName': '', 'sides': {'us': 'United States', 'su': 'Soviet Union'}, 'sites': sites, 'rules': d['rules'], 'source': d.get('note', '')}
+
+
 def epoch_2024():
     d = load('data/72-minutes/order-of-battle-2024.json')
     sites = []
@@ -120,7 +132,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', required=True, type=Path)
     args = ap.parse_args()
-    epochs = [epoch_1961(), epoch_1962(), epoch_1973(), epoch_1983(), epoch_2024()]
+    epochs = [epoch_1961(), epoch_1962(), epoch_1973(), epoch_1983(), epoch_1991(), epoch_2024()]
     for e in epochs:
         totals = {}
         for s in e['sites']:

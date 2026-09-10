@@ -127,7 +127,7 @@ export function PostureAtlas() {
         <header className="hud-brand study-brand">
           <span>SurfaceStudies · Terminal Atlas · Chronicle</span>
           <strong>POSTURE · {epoch.label.toUpperCase()}</strong>
-          <span>The forces where they stood, by the study that built them · {epoch.scope === 'theatre' ? 'a theatre picture, not comparable with the strategic epochs' : 'the strategic forces'}</span>
+          <span>The forces where they stood · {epoch.scope === 'theatre' ? 'a theatre picture, not comparable with the strategic epochs' : 'the strategic forces'}</span>
         </header>
 
         <section className="clock" aria-label="Epoch">
@@ -142,7 +142,8 @@ export function PostureAtlas() {
             ))}
           </div>
           <p className="log-empty">
-            Disc area is the weapons the study counted at the site, by its own rules. <a href={epoch.study}>Open {epoch.studyName}</a>.
+            Disc area is the weapons counted at the site, by the rules of the study or the table that built the epoch.{' '}
+            {epoch.study ? <a href={epoch.study}>Open {epoch.studyName}</a> : 'No study stands on this epoch: it is the start of the drawdown, drawn from the Notebook\'s end-of-year tables.'}
           </p>
         </section>
 
@@ -199,7 +200,7 @@ export function PostureAtlas() {
           <details className="sources">
             <summary>Sources and methods</summary>
             <p className="provenance-method">{POSTURE.note}</p>
-            <p className="provenance-method">Built by `scripts/build-posture-epochs.py` from the five orders of battle: 1961 from the SIOP//62 study (unit lists, Sagan for the Soviet totals), 1962 from Norris and Kristensen's Cuban order of battle, 1973 from the DEFCON 3 study's unit histories and the Databook, 1983 from the Able Archer study's theatre forces, 2024 from the Nuclear Notebook. The gaps between epochs are the chronicle's own work still to do.</p>
+            <p className="provenance-method">Built by `scripts/build-posture-epochs.py` from the five orders of battle: 1961 from the SIOP//62 study (unit lists, Sagan for the Soviet totals), 1962 from Norris and Kristensen's Cuban order of battle, 1973 from the DEFCON 3 study's unit histories and the Databook, 1983 from the Able Archer study's theatre forces, 1991 from the Nuclear Notebook's end-of-year tables spread over the wings and divisions the unit histories name, 2024 from the Nuclear Notebook. The gaps between epochs are the chronicle's own work still to do.</p>
           </details>
         </section>
       </div>
