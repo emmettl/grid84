@@ -20,6 +20,8 @@ import { window83 } from './studies/window83/window.ts'
 import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
+import { StrikeConsole } from './atlas/StrikeConsole.tsx'
+import type { Study } from './studies/study.ts'
 import { WoprView } from './wopr/WoprView.tsx'
 import { Chronicle } from './chronicle/Chronicle.tsx'
 import { PostureAtlas } from './chronicle/PostureAtlas.tsx'
@@ -89,9 +91,25 @@ function useRoute(): Route {
 }
 
 function AtlasView() {
+  const [study, setStudy] = useState<Study | null>(null)
+  if (study) {
+    return (
+      <>
+        <StudyView key={study.id} study={study} autoplay={{ rate: 20 }} />
+        <button type="button" className="loop-exit" onClick={() => setStudy(null)}>
+          BACK TO THE ATLAS
+        </button>
+      </>
+    )
+  }
+  return <AtlasGlobe onLaunch={setStudy} />
+}
+
+function AtlasGlobe({ onLaunch }: { onLaunch: (study: Study) => void }) {
   const container = useRef<HTMLDivElement>(null)
   const atlas = useRef<Atlas | null>(null)
   const [phase, setPhase] = useState<AtlasPhase>({ kind: 'standby' })
+  const [stoodDown, setStoodDown] = useState<string | null>(null)
 
   useEffect(() => {
     if (!container.current) return
@@ -104,11 +122,13 @@ function AtlasView() {
     }
   }, [])
 
+  const acquired = phase.kind === 'acquired' ? phase.report.target : null
   return (
     <>
       <div ref={container} className="atlas-map" aria-label="Grid/84 globe" />
       <div className="atlas-vignette" aria-hidden="true" />
       <Hud phase={phase} onAcquire={(target) => atlas.current?.acquire(target)} />
+      {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} onLaunch={onLaunch} onStandDown={() => setStoodDown(acquired.id)} />}
     </>
   )
 }

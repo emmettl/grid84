@@ -120,4 +120,6 @@ export interface Study {
   sides?: { attacker: { name: string }; defender: { name: string; reference?: { label: string; value: number; source: string } } }
   /** Sibling studies reached by a switch on the clock panel, such as the execution options of a plan. */
   variants?: { label: string; current: string; items: Array<{ id: string; label: string; href: string }> }
+  /** Further reading: the studies and labs this one leans on, and outside sources. */
+  links?: Array<{ label: string; href: string }>
 }

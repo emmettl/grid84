@@ -39,3 +39,7 @@ Every service and dataset the published site touches, what its terms ask, where 
 - The HYDE licence should be confirmed against the Utrecht data portal by hand, since the portal blocks automated reads. The download metadata says CC BY-NC-SA 4.0 and the site treats it as such.
 - The terrain credit names the largest sources and links to the full list; the Tilezen page does not say whether a short form is acceptable. The full list is one click from every map.
 - Routing, when it comes, will need its own line here; the demo servers are for development only.
+
+## Weather
+
+- **Open-Meteo** (https://open-meteo.com/), the forecast wind aloft at the target for the strike console's plume, CC BY 4.0. Fetched live, keyless, on the reader's request only.

@@ -45,14 +45,16 @@ export function Hud({ phase, onAcquire }: HudProps) {
       </header>
 
       <form className="hud-search" onSubmit={submit} role="search" aria-label="Designate target">
-        <label htmlFor="target-query">Designate target</label>
+        <label htmlFor="target-query" className="hud-prompt-label">
+          <span aria-hidden="true">&gt; </span>ENTER TARGET
+        </label>
         <div className="hud-search-row">
         <input
           id="target-query"
           type="search"
           autoComplete="off"
           spellCheck={false}
-          placeholder="Address, place, coordinates…"
+          placeholder=""
           value={geocoder.query}
           onChange={(event) => {
             geocoder.setQuery(event.target.value)
@@ -62,6 +64,7 @@ export function Hud({ phase, onAcquire }: HudProps) {
           onKeyDown={onKeyDown}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
         />
+        {geocoder.query === '' && <span className="wopr-cursor hud-cursor" aria-hidden="true" />}
         <button type="submit" disabled={geocoder.query.trim() === ''}>
           Acquire
         </button>
@@ -97,7 +100,7 @@ export function Hud({ phase, onAcquire }: HudProps) {
 
       <footer className="hud-sources">
         Geometry: OpenStreetMap contributors · Tiles: OpenFreeMap · Terrain: Mapzen / AWS Terrain Tiles ·
-        Geocoding: Photon (komoot)
+        Geocoding: Photon (komoot) · Weather: Open-Meteo · Population: GHSL 2025 · Forces: Nuclear Notebook, SIPRI
       </footer>
     </div>
   )

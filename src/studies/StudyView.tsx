@@ -240,7 +240,7 @@ export interface LoopOptions {
   onFinished: (result: LoopResult) => void
 }
 
-export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions }) {
+export function StudyView({ study, loop, autoplay }: { study: Study; loop?: LoopOptions; autoplay?: { rate: number } }) {
   const loopRef = useRef<LoopOptions | undefined>(loop)
   useEffect(() => {
     loopRef.current = loop
@@ -317,7 +317,7 @@ export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions })
   useEffect(() => {
     boundsRef.current = bounds
   }, [bounds])
-  const initialClock: ClockState = { time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: !!loop, rate: loop?.rate ?? 60 }
+  const initialClock: ClockState = { time: (study.startTime ?? Math.max(study.bounds.start, -600)), playing: !!loop || !!autoplay, rate: loop?.rate ?? autoplay?.rate ?? 60 }
   const clockRef = useRef<ClockState>(initialClock)
   const [clock, setClock] = useState<ClockState>(initialClock)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -1002,6 +1002,18 @@ export function StudyView({ study, loop }: { study: Study; loop?: LoopOptions })
               <li key={o}>{o}</li>
             ))}
           </ul>
+          {study.links && study.links.length > 0 && (
+            <>
+              <h2>Further reading</h2>
+              <ul className="study-links">
+                {study.links.map((l) => (
+                  <li key={l.href}>
+                    <a href={l.href}>{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </section>
 
         <EvidenceLegend />
