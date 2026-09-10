@@ -31,7 +31,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     rangeMetres: site.rangeKm * 1_000,
     yieldKt: sizing.yieldKt,
     reactionSeconds: 0,
-    speedMs: site.kind === 'bomber' ? (site.carrierSpeedMs && site.carrierSpeedMs > 0 ? site.carrierSpeedMs : 240) : undefined,
+    speedMs: site.kind === 'bomber' && site.carrierSpeedMs !== 0 ? (site.carrierSpeedMs ?? 240) : undefined,
     standoffMetres: site.kind === 'bomber' && site.standoffKm !== undefined ? site.standoffKm * 1_000 : undefined,
     missileSpeedMs: site.missileSpeedMs,
   }

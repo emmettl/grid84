@@ -83,9 +83,10 @@ const CRUISE_SPEED_MS = 240
 /** Time from launch to the target for an air-delivered weapon: the carrier to its release point, the missile the rest. */
 export function cruiseFlightSeconds(site: ForceSite, distanceMetres: number): number {
   const standoff = (site.standoffKm ?? 0) * 1_000
-  const leg = Math.max(0, distanceMetres - standoff)
-  const carrier = site.carrierSpeedMs && site.carrierSpeedMs > 0 ? site.carrierSpeedMs : CRUISE_SPEED_MS
-  return leg / carrier + (distanceMetres - leg) / (site.missileSpeedMs ?? CRUISE_SPEED_MS)
+  const carrier = site.carrierSpeedMs !== undefined && site.carrierSpeedMs > 0
+  // The carrier flies at least a third of the way before release; a boat fires from where it sits.
+  const leg = carrier ? Math.max(distanceMetres - standoff, distanceMetres / 3) : 0
+  return leg / (carrier ? (site.carrierSpeedMs as number) : CRUISE_SPEED_MS) + (distanceMetres - leg) / (site.missileSpeedMs ?? CRUISE_SPEED_MS)
 }
 
 export function deliveryOptions(power: Power, position: LngLat): DeliveryOption[] {

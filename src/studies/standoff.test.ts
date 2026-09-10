@@ -47,6 +47,14 @@ describe('standoff air delivery', () => {
     expect(m!.vehicles).toHaveLength(3)
     expect(m!.effects).toHaveLength(3)
   })
+  it('flies at least a third of the way when the standoff exceeds the distance', () => {
+    const near = enactStrike({ ...common, prefix: 'near', launchers: [{ ...bomber, position: [46.21, 51.48] }], targets: [{ id: 'w', name: 'Warsaw', priority: 0, position: [21.01, 52.23], maxWeapons: 1 }] })
+    const aircraft = near.entities.find((e) => e.kind === 'track' && e.vehicle === 'aircraft')
+    expect(aircraft).toBeDefined()
+    if (!aircraft || aircraft.kind !== 'track') return
+    const d = haversineMetres([46.21, 51.48], [21.01, 52.23])
+    expect(haversineMetres(aircraft.track.waypoints[0].position, aircraft.track.waypoints[1].position)).toBeCloseTo(d / 3, -4)
+  })
   it('lets a submarine fire its cruise missile from where it sits, with no carrier leg', () => {
     const s = enactStrike({ ...common, prefix: 'sub', launchers: [sub], targets: [{ id: 't', name: 'Damascus', priority: 0, position: [36.3, 33.5], maxWeapons: 1 }] })
     const t = s.entities.filter((e) => e.kind === 'track')

@@ -91,12 +91,24 @@ export interface StrikeResult {
   summary: StrikeSummary
 }
 
+/**
+ * How far the carrier flies before release: to the standoff, but at least a
+ * third of the way, since a bomber launches from the air and not from its
+ * apron; a launcher without a carrier speed, a boat, fires from where it is.
+ */
+export function standoffLeg(launcher: Launcher, distanceMetres: number): number {
+  if (launcher.standoffMetres === undefined) return distanceMetres
+  const carrier = launcher.speedMs !== undefined && launcher.speedMs > 0
+  if (!carrier) return 0
+  return Math.max(distanceMetres - launcher.standoffMetres, distanceMetres / 3)
+}
+
 export function sortieTiming(launcher: Launcher, sortie: Sortie, target: Target): { launch: number; arrival: number; route: 'ballistic' | 'cruise' } {
   const launch = launcher.reactionSeconds
   if (launcher.kind === 'bomber') {
     const speed = launcher.speedMs ?? 230
     if (launcher.standoffMetres !== undefined) {
-      const leg = Math.max(0, sortie.distanceMetres - launcher.standoffMetres)
+      const leg = standoffLeg(launcher, sortie.distanceMetres)
       return { launch, arrival: launch + leg / speed + (sortie.distanceMetres - leg) / (launcher.missileSpeedMs ?? 240), route: 'cruise' }
     }
     return { launch, arrival: launch + sortie.distanceMetres / speed, route: 'cruise' }
@@ -213,7 +225,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       const missileSpeed = l.missileSpeedMs ?? 240
       const first = targetById[v.sorties[0].targetId]
       const distance = haversineMetres(l.position, first.position)
-      const leg = Math.max(0, distance - l.standoffMetres)
+      const leg = standoffLeg(l, distance)
       const release: LngLat = leg > 0 ? destinationPoint(l.position, initialBearing(l.position, first.position), leg) : l.position
       const releaseTime = launch + leg / speed
       const weapons = v.sorties.length
