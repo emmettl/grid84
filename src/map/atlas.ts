@@ -215,7 +215,7 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
       r.setAttribute('aria-hidden', 'true')
       r.innerHTML = '<span class="aim-reticle-ring"></span><i></i><i></i><i></i><i></i>'
       const mark = new Marker({ element: r, anchor: 'center' }).setLngLat([point.position[0], point.position[1]]).addTo(map)
-      window.setTimeout(() => mark.remove(), 1_300)
+      window.setTimeout(() => mark.remove(), 2_050)
     }
     const el = document.createElement('div')
     el.className = 'atlas-aim-label'

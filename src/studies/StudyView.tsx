@@ -84,7 +84,7 @@ export async function resolveGridBase(grid: string): Promise<string> {
  * under a panel, so the padding is measured from the panels themselves.
  */
 /** How long the converging mark takes; matched by the keyframes in the stylesheet. */
-const RETICLE_MS = 1_100
+const RETICLE_MS = 1_900
 
 /**
  * The targeting mark: four corner brackets that converge on a point and a ring
