@@ -1,0 +1,242 @@
+{
+ "year": 1979,
+ "source": "Siedem dni do Renu, the Warsaw Pact exercise plan of 1979, declassified by the Polish Ministry of National Defence in November 2005; the cities are those named in the reporting of the release. The primary document is public in Poland and is not transcribed here",
+ "forceSource": "Cochran, Arkin and Hoenig, Nuclear Weapons Databook; Norris and Kristensen, Nuclear Notebook, for the theatre systems of 1979",
+ "note": "The plan assumes NATO uses nuclear weapons first, on Poland, and answers westward. Both halves are drawn. The western cities are named in the release; the Polish cities are the country's largest of the period and stand for a premise the plan states without a transcribed list.",
+ "west": [
+  {
+   "name": "Brussels",
+   "lon": 4.3517,
+   "lat": 50.8467,
+   "country": "BE",
+   "note": "NATO and SHAPE country; named in the plan"
+  },
+  {
+   "name": "Antwerp",
+   "lon": 4.4025,
+   "lat": 51.2194,
+   "country": "BE",
+   "note": "The reinforcement port for northern Europe"
+  },
+  {
+   "name": "Amsterdam",
+   "lon": 4.8952,
+   "lat": 52.3702,
+   "country": "NL",
+   "note": ""
+  },
+  {
+   "name": "Utrecht",
+   "lon": 5.1214,
+   "lat": 52.0907,
+   "country": "NL",
+   "note": ""
+  },
+  {
+   "name": "Copenhagen",
+   "lon": 12.5683,
+   "lat": 55.6761,
+   "country": "DK",
+   "note": "Denmark closes the Baltic exits"
+  },
+  {
+   "name": "Hamburg",
+   "lon": 9.9937,
+   "lat": 53.5511,
+   "country": "DE",
+   "note": "The northern port and the NORTHAG rear"
+  },
+  {
+   "name": "Stuttgart",
+   "lon": 9.1829,
+   "lat": 48.7758,
+   "country": "DE",
+   "note": "CENTAG and the American command"
+  },
+  {
+   "name": "Munich",
+   "lon": 11.582,
+   "lat": 48.1351,
+   "country": "DE",
+   "note": ""
+  },
+  {
+   "name": "Vienna",
+   "lon": 16.3738,
+   "lat": 48.2082,
+   "country": "AT",
+   "note": "Austria was neutral. The plan names it anyway"
+  },
+  {
+   "name": "Verona",
+   "lon": 10.9916,
+   "lat": 45.4384,
+   "country": "IT",
+   "note": "The Italian corps sector and its command"
+  },
+  {
+   "name": "Vicenza",
+   "lon": 11.548,
+   "lat": 45.5455,
+   "country": "IT",
+   "note": ""
+  },
+  {
+   "name": "Padua",
+   "lon": 11.8768,
+   "lat": 45.4064,
+   "country": "IT",
+   "note": ""
+  }
+ ],
+ "poland": [
+  {
+   "name": "Warsaw",
+   "lon": 21.0122,
+   "lat": 52.2297,
+   "country": "PL",
+   "note": ""
+  },
+  {
+   "name": "Lodz",
+   "lon": 19.456,
+   "lat": 51.7592,
+   "country": "PL",
+   "note": ""
+  },
+  {
+   "name": "Krakow",
+   "lon": 19.945,
+   "lat": 50.0647,
+   "country": "PL",
+   "note": ""
+  },
+  {
+   "name": "Wroclaw",
+   "lon": 16.9252,
+   "lat": 51.1079,
+   "country": "PL",
+   "note": ""
+  },
+  {
+   "name": "Gdansk",
+   "lon": 18.6466,
+   "lat": 54.352,
+   "country": "PL",
+   "note": "The Baltic ports the plan expects to lose"
+  },
+  {
+   "name": "Katowice area",
+   "lon": 18.9987,
+   "lat": 49.8225,
+   "country": "PL",
+   "note": "The industrial region of Upper Silesia"
+  },
+  {
+   "name": "Poznan",
+   "lon": 16.9252,
+   "lat": 52.4064,
+   "country": "PL",
+   "note": ""
+  },
+  {
+   "name": "Szczecin",
+   "lon": 14.5528,
+   "lat": 53.4285,
+   "country": "PL",
+   "note": ""
+  }
+ ],
+ "launchers": [
+  {
+   "system": "SS-20 Saber (Pioneer)",
+   "name": "Postavy · 32nd Guards Rocket Division",
+   "warheads": 27,
+   "yieldKt": 150,
+   "rangeKm": 5000,
+   "lon": 26.83,
+   "lat": 55.11,
+   "note": "Three warheads a missile; the system the double-track decision was answering"
+  },
+  {
+   "system": "SS-20 Saber (Pioneer)",
+   "name": "Mozyr · rocket division",
+   "warheads": 27,
+   "yieldKt": 150,
+   "rangeKm": 5000,
+   "lon": 29.27,
+   "lat": 52.05,
+   "note": ""
+  },
+  {
+   "system": "SS-4 Sandal (R-12)",
+   "name": "Kolomyia · rocket regiment",
+   "warheads": 12,
+   "yieldKt": 1000,
+   "rangeKm": 2000,
+   "lon": 25.04,
+   "lat": 48.53,
+   "note": "The old megaton IRBMs, still deployed in 1979"
+  },
+  {
+   "system": "SS-12 Scaleboard (Temp-S)",
+   "name": "Group of Soviet Forces in Germany · missile brigade",
+   "warheads": 12,
+   "yieldKt": 500,
+   "rangeKm": 900,
+   "lon": 12.5,
+   "lat": 52.3,
+   "note": "Operational-tactical, held at army level"
+  },
+  {
+   "system": "SS-12 Scaleboard (Temp-S)",
+   "name": "Northern Group of Forces · Poland",
+   "warheads": 12,
+   "yieldKt": 500,
+   "rangeKm": 900,
+   "lon": 16.2,
+   "lat": 52.9,
+   "note": ""
+  },
+  {
+   "system": "SS-1 Scud-B (R-17)",
+   "name": "Central Group of Forces · Czechoslovakia",
+   "warheads": 18,
+   "yieldKt": 100,
+   "rangeKm": 300,
+   "lon": 15.3,
+   "lat": 49.5,
+   "note": "Divisional and army missiles; the short rungs of the ladder"
+  },
+  {
+   "system": "SS-1 Scud-B (R-17)",
+   "name": "Group of Soviet Forces in Germany · army brigades",
+   "warheads": 24,
+   "yieldKt": 100,
+   "rangeKm": 300,
+   "lon": 11.8,
+   "lat": 51.2,
+   "note": ""
+  },
+  {
+   "system": "Su-24 Fencer",
+   "name": "Templin · air army",
+   "warheads": 16,
+   "yieldKt": 350,
+   "rangeKm": 1800,
+   "lon": 13.5,
+   "lat": 53.12,
+   "note": "Theatre strike aviation, low level"
+  },
+  {
+   "system": "Tu-22M Backfire",
+   "name": "Bobruisk · heavy bomber division",
+   "warheads": 12,
+   "yieldKt": 350,
+   "rangeKm": 4000,
+   "lon": 29.22,
+   "lat": 53.15,
+   "note": "The medium bomber the West counted as strategic and Moscow did not"
+  }
+ ]
+}

@@ -1,6 +1,6 @@
 # The theatre
 
-**A planning brief, 10 September 2026.** From the user's proposal: the tactical and theatre nuclear doctrine of Europe from the 1950s to the 1980s, and the scenarios worth drawing from it. Not built.
+**A planning brief, 10 September 2026.** From the user's proposal: the tactical and theatre nuclear doctrine of Europe from the 1950s to the 1980s, and the scenarios worth drawing from it. The first of them, Seven Days to the River Rhine, is built at `#/study/seven-days`; the rest are not.
 
 ## Why it belongs here
 
@@ -20,7 +20,7 @@ It is also where the weapons stop being abstract. A strategic warhead is aimed a
 
 In the order I would build them.
 
-- **Seven Days to the River Rhine, 1979.** A declassified plan with named targets, from the side whose plans are almost never available. It draws directly, it needs no invented list, and it makes the user's argument for them: the plan begins with theatre use and ends in general war, and its authors assumed that was the normal course.
+- **Seven Days to the River Rhine, 1979. Built.** The study runs the plan in the plan's own order. It opens on its premise, which is that NATO has already decided to use nuclear weapons first, on the Vistula; sixteen weapons leave England and Poland is struck at H+73. Twenty minutes after the last of them the counter-offensive is released, thirty-six warheads of the hundred and sixty in the theatre, the missiles on the deep targets and the strike aviation low against the near ones, and the twelve cities the release names are struck, Vienna among them, in a country that was neutral by treaty and by its own constitutional law. The last event says what the plan does not: that it has nothing to say about what the strategic forces do next, and that this is the point of it. The primary document is public in Poland and is not transcribed here; the western cities are the ones named in the reporting of the release, the Polish half is a premise standing in for a list nobody has published, and every readout says which is which.
 - **Carte Blanche, 1955.** 335 weapons on Germany with a documented casualty estimate to set the engine's own figure against, exactly as the Britain study sets its outcome against Openshaw and the Home Office. The finding is the one the exercise itself produced.
 - **The demolition belt.** SADM and Blue Peacock as static weapons on the map: emplacement sites in the Fulda Gap and the North German Plain, their yields, and the fact that they are on the defender's own soil. Small, strange, and quick to build once the first two exist.
 - **A Tornado strike package, 1985**, as the successor to the V-force study: WE.177 at low level against a river crossing or an airfield, with the same profile machinery, and the question of what a theatre weapon on a bridge is supposed to achieve.
