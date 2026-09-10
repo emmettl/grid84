@@ -23,9 +23,14 @@ export interface StrikeAttrition {
   note: string
 }
 
+/** At or below this many detonations a strike draws its rings rather than one mark each. */
+export const RINGS_UP_TO = 12
+
 export interface StrikeOptions {
   /** Prefix for entity ids, so two strikes can share a study. */
   prefix: string
+  /** Force the compact drawing either way; by default it follows the number of detonations. */
+  compact?: boolean
   side: 'attacker' | 'defender'
   launchers: Launcher[]
   targets: Target[]
@@ -399,6 +404,15 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       arrive(t.id, ownTrack.end, s.yieldKt, l.kind, `${id}-rv${k + 1}`)
     })
   }
+  /**
+   * A compact effect is one mark scaled by yield, with the rings kept back
+   * until it is selected. That is right for a study laying down two thousand
+   * detonations, where the rings would be a single wash; it is wrong for a
+   * strike of one, where the rings are the whole of what the reader came to
+   * see. So the drawing follows the count rather than being fixed.
+   */
+  const detonations = Object.keys(firstArrival).length
+  const compact = o.compact ?? detonations > RINGS_UP_TO
   for (const [targetId, fa] of Object.entries(firstArrival)) {
     const t = targetById[targetId]
     const category = o.targetCategory?.(t) ?? 'TARGET'
@@ -409,7 +423,7 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       name: t.name,
       designation: `${category} · ${fa.weapons} WEAPON${fa.weapons > 1 ? 'S' : ''} · ${[...fa.kinds].join('/').toUpperCase()} · LARGEST ${fmtYield(fa.yieldKt)}`,
       label: false,
-      compact: true,
+      compact,
       side: o.side,
       center: t.position,
       time: fa.time,

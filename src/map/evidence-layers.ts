@@ -1,7 +1,7 @@
 import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 import { TIER_ORDER, type EvidenceTier } from '../evidence/evidence.ts'
-import { FALLOUT_FILL, FALLOUT_LINE, HUE, INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
+import { EFFECT_RING, FALLOUT_FILL, FALLOUT_LINE, HUE, INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
 import { ensureReachHatch, REACH_HATCH } from './hatch.ts'
 import { planeImage } from './plane-icon.ts'
 
@@ -48,6 +48,13 @@ export function installEvidenceLayers(map: MapLibreMap): void {
   // A thin edge on each contour, so the steps between dose rates are legible
   // where the fills overlap into one wash.
   map.addLayer({
+    id: 'ev-rings-plume',
+    type: 'line',
+    source: SOURCES.rings,
+    filter: ['has', 'dose'],
+    paint: { 'line-color': FALLOUT_LINE, 'line-width': 0.9, 'line-opacity': 0.55 },
+  })
+  map.addLayer({
     id: 'ev-areas-plume-edge',
     type: 'line',
     source: SOURCES.areas,
@@ -84,12 +91,22 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     filter: ['==', ['get', 'evidence'], 'inferred'],
     paint: { 'line-color': INFERRED_RING, 'line-width': 1, 'line-dasharray': [1, 2] },
   })
+  // The effect rings are what the reader is looking at, so they get a line of
+  // their own rather than borrowing the modelled-track grammar: a soft glow
+  // underneath to lift them off a lit basemap, and the ring itself over it.
+  map.addLayer({
+    id: 'ev-rings-modelled-glow',
+    type: 'line',
+    source: SOURCES.rings,
+    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']]],
+    paint: { 'line-color': EFFECT_RING.glow, 'line-width': EFFECT_RING.width * 3, 'line-blur': 3 },
+  })
   map.addLayer({
     id: 'ev-rings-modelled',
     type: 'line',
     source: SOURCES.rings,
-    filter: ['==', ['get', 'evidence'], 'modelled'],
-    paint: { 'line-color': LINE.modelled.color, 'line-width': LINE.modelled.width },
+    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']]],
+    paint: { 'line-color': EFFECT_RING.color, 'line-width': EFFECT_RING.width },
   })
   map.addLayer({
     id: 'ev-rings-withheld',

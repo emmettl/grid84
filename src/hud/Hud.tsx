@@ -17,7 +17,15 @@ interface HudProps {
 export function Hud({ phase, onAcquire, consoleOpen = false, presetName = null }: HudProps) {
   const geocoder = useGeocoder()
   const [open, setOpen] = useState(false)
+  /**
+   * Which candidate the keyboard is on, or -1 for none. Minus one is not the
+   * same as zero: with nothing highlighted, Enter means "take the query and
+   * resolve it", which is how the prompt behaved before it had a list at all
+   * and is what someone who has typed a full place name expects.
+   */
+  const [active, setActive] = useState(-1)
   const focused = useRef(false)
+  const listRef = useRef<HTMLUListElement>(null)
   useEffect(() => {
     if (presetName) geocoder.settle(presetName)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,6 +33,7 @@ export function Hud({ phase, onAcquire, consoleOpen = false, presetName = null }
 
   const acquire = (target: AtlasTarget) => {
     setOpen(false)
+    setActive(-1)
     geocoder.settle(target.name)
     onAcquire(target)
   }
@@ -35,15 +44,87 @@ export function Hud({ phase, onAcquire, consoleOpen = false, presetName = null }
     if (first) acquire(first)
   }
 
-  // Enter acquires the first candidate. Handled explicitly so it does not depend on
-  // implicit form submission, which some embedded browsers skip for synthetic keys.
+  const showResults = open && geocoder.query.trim() !== '' && geocoder.status !== 'idle'
+  const candidates = showResults ? geocoder.results : []
+
+  // A new set of candidates is a new list, so the highlight goes back to nothing
+  // rather than staying on whatever happened to be at that index before.
+  useEffect(() => {
+    setActive(-1)
+  }, [geocoder.results])
+
+  /**
+   * The prompt is a combobox and is driven like one.
+   *
+   * Down and up walk the candidates and wrap; Home and End go to the ends.
+   * Enter takes the highlighted one, or resolves the query when nothing is
+   * highlighted. Escape closes the list, and a second Escape clears the
+   * prompt — the usual two-stage escape, so a wrong search can be abandoned
+   * without reaching for the mouse or holding backspace.
+   *
+   * Enter is handled here rather than left to the form so it does not depend
+   * on implicit submission, which some embedded browsers skip for synthetic
+   * keys.
+   */
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key !== 'Enter' || event.nativeEvent.isComposing) return
-    event.preventDefault()
-    void submit()
+    if (event.nativeEvent.isComposing) return
+    const last = candidates.length - 1
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'ArrowUp': {
+        // Down on a closed list opens it without moving, which is what a
+        // reader who has just clicked back into the prompt is asking for.
+        if (!open) {
+          setOpen(true)
+          if (geocoder.results.length > 0) return
+        }
+        if (last < 0) return
+        event.preventDefault()
+        const step = event.key === 'ArrowDown' ? 1 : -1
+        setActive((i) => (i < 0 ? (step > 0 ? 0 : last) : (i + step + candidates.length) % candidates.length))
+        return
+      }
+      case 'Home':
+        if (last < 0) return
+        event.preventDefault()
+        setActive(0)
+        return
+      case 'End':
+        if (last < 0) return
+        event.preventDefault()
+        setActive(last)
+        return
+      case 'Enter': {
+        event.preventDefault()
+        const chosen = candidates[active]
+        if (chosen) acquire(chosen)
+        else void submit()
+        return
+      }
+      case 'Escape':
+        event.preventDefault()
+        if (open && candidates.length > 0) {
+          setOpen(false)
+          setActive(-1)
+        } else {
+          geocoder.setQuery('')
+          setActive(-1)
+        }
+        return
+      case 'Tab':
+        // Leaving the prompt abandons the highlight rather than acquiring it.
+        setOpen(false)
+        setActive(-1)
+        return
+      default:
+    }
   }
 
-  const showResults = open && geocoder.query.trim() !== '' && geocoder.status !== 'idle'
+  // The highlight is driven by the keyboard, so it has to bring itself into view.
+  useEffect(() => {
+    if (active < 0) return
+    listRef.current?.children[active]?.scrollIntoView({ block: 'nearest' })
+  }, [active])
 
   return (
     <div className={`hud${consoleOpen ? ' hud--console' : ''}`}>
@@ -78,7 +159,12 @@ export function Hud({ phase, onAcquire, consoleOpen = false, presetName = null }
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={onKeyDown}
-          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          onBlur={() => setTimeout(() => { setOpen(false); setActive(-1) }, 150)}
+          role="combobox"
+          aria-expanded={showResults && candidates.length > 0}
+          aria-controls="target-candidates"
+          aria-autocomplete="list"
+          aria-activedescendant={active >= 0 && candidates[active] ? `target-candidate-${active}` : undefined}
         />
         {/* The block cursor: the native caret is hidden and a blinking block rides on an invisible mirror of the typed text. */}
         <span className="hud-caret" aria-hidden="true">
@@ -93,14 +179,16 @@ export function Hud({ phase, onAcquire, consoleOpen = false, presetName = null }
           {geocoder.status === 'searching' && 'Querying geocoder…'}
           {geocoder.status === 'error' && 'Geocoder unreachable'}
           {geocoder.status === 'ready' && geocoder.results.length === 0 && 'No target matches'}
+          {geocoder.status === 'ready' && candidates.length > 0 && `${candidates.length} candidate${candidates.length > 1 ? 's' : ''} · ↑↓ to choose · ⏎ to acquire`}
         </span>
-        {showResults && geocoder.results.length > 0 && (
-          <ul className="hud-results" role="listbox" aria-label="Candidate targets">
-            {geocoder.results.map((target) => {
+        {showResults && candidates.length > 0 && (
+          <ul id="target-candidates" ref={listRef} className="hud-results" role="listbox" aria-label="Candidate targets">
+            {candidates.map((target, i) => {
               const designation = designate(target)
               return (
-                <li key={target.id} role="option" aria-selected={false}>
-                  <button type="button" onMouseDown={(event) => event.preventDefault()} onClick={() => acquire(target)}>
+                <li key={target.id} id={`target-candidate-${i}`} role="option" aria-selected={i === active} className={i === active ? 'is-active' : undefined}>
+                  {/* The pointer moves the highlight too, so the two never disagree about which candidate is live. */}
+                  <button type="button" onMouseDown={(event) => event.preventDefault()} onMouseEnter={() => setActive(i)} onClick={() => acquire(target)}>
                     <strong>{target.name}</strong>
                     <em>
                       {[designation.role, designation.code].filter(Boolean).join(' ')}

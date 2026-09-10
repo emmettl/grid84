@@ -68,7 +68,16 @@ export const POINT: Record<EvidenceTier, PointGrammar> = {
 export const WITHHELD_BORDER = rgba(HUE.cyan, 0.7)
 /** Fill for withheld areas: a hatch is approximated with a dense dash on the outline plus a near-black fill. */
 export const WITHHELD_FILL = rgba(HUE.ink, 0.92)
-export const MODELLED_FILL = rgba(HUE.effect, 0.14)
+/*
+  The wash inside a blast ring. It has been raised twice for the same reason:
+  on a lit basemap at a wide zoom the rings are the thing the reader is meant
+  to be looking at and they were reading as a haze. Now that the plume carries
+  its own hue this tint no longer has to staylow to keep the two apart, so it
+  is set where the ring is unmistakably an effect and not a shadow.
+*/
+export const MODELLED_FILL = rgba(HUE.effect, 0.22)
+/** The effect rings' own line, heavier than the modelled-track grammar they used to borrow. */
+export const EFFECT_RING = { color: rgba(HUE.effect, 1), width: 2, glow: rgba(HUE.effect, 0.35) } as const
 /** The plume's own fill and edge, so it is never mistaken for a prompt effect. */
 export const FALLOUT_FILL = rgba(HUE.fallout, 0.16)
 export const FALLOUT_LINE = rgba(HUE.fallout, 0.5)

@@ -267,8 +267,12 @@ function timedFeatures(study: Study, time: number, burst: Burst, selectedId: str
         const hoursSince = (time - e.time) / 3_600
         const contours = plume({ center: e.center, yieldKt: e.effects.yieldKt, fissionFraction: e.fallout.fissionFraction, windMph: e.fallout.windMph, downwindBearingDeg: e.fallout.downwindBearingDeg, untilHours: e.fallout.untilHours, shearDeg: e.fallout.shearDeg, terrainFactor: e.fallout.terrainFactor, reachedHours: hoursSince })
         for (const c of [...contours].reverse()) {
-          areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [c.ring.map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}` } })
-          rings.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: c.ring.map((p) => [p[0], p[1]]) }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}-line` } })
+          // The dose is what tells the layers this is fallout and not a blast
+          // ring, so it must be carried here as well as on the compact path —
+          // without it a plume drawn beside its own rings comes out in the
+          // effect red and the two become one wash again.
+          areas.push({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [c.ring.map((p) => [p[0], p[1]])] }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}`, dose: c.radsPerHour } })
+          rings.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: c.ring.map((p) => [p[0], p[1]]) }, properties: { evidence: 'modelled', id: `${e.id}-plume-${c.key}-line`, dose: c.radsPerHour } })
         }
       }
     }
