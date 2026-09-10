@@ -135,10 +135,10 @@ function AtlasView({ strike }: { strike?: { ref: string; adversary: string | nul
   // the target released, the globe back on standby. The counter remounts it,
   // and the shared-strike preset is dropped so it is not acquired again.
   const [runs, setRuns] = useState(0)
-  const [preset, setPreset] = useState(strike)
-  useEffect(() => {
-    setPreset(strike)
-  }, [strike])
+  // The preset is dropped by naming the one that has been used rather than by
+  // copying it into state, so a new shared link still arrives.
+  const [dropped, setDropped] = useState<typeof strike>(undefined)
+  const preset = strike && strike !== dropped ? strike : undefined
   if (study) {
     return (
       <>
@@ -148,7 +148,7 @@ function AtlasView({ strike }: { strike?: { ref: string; adversary: string | nul
           className="loop-exit"
           onClick={() => {
             setStudy(null)
-            setPreset(undefined)
+            setDropped(strike)
             setRuns((r) => r + 1)
             window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#/atlas`)
           }}
