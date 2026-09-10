@@ -2608,3 +2608,47 @@ body,
     max-height: 30vh;
   }
 }
+
+/* ---------- The neutron bomb lab ---------- */
+
+.erw-town {
+  fill: rgba(141, 250, 255, 0.07);
+  stroke: rgba(141, 250, 255, 0.35);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.erw-blast {
+  fill: rgba(255, 96, 96, 0.1);
+  stroke: rgba(255, 96, 96, 0.6);
+  stroke-width: 1.2;
+}
+
+.erw-blast--severe {
+  fill: rgba(255, 96, 96, 0.18);
+}
+
+.erw-dose {
+  fill: none;
+  stroke: rgba(157, 255, 176, 0.85);
+  stroke-width: 1.4;
+}
+
+.erw-dose--1 {
+  stroke: rgba(157, 255, 176, 0.6);
+  stroke-dasharray: 6 3;
+}
+
+.erw-dose--2 {
+  stroke: rgba(157, 255, 176, 0.42);
+  stroke-dasharray: 4 4;
+}
+
+.erw-dose--3 {
+  stroke: rgba(157, 255, 176, 0.28);
+  stroke-dasharray: 2 5;
+}
+
+.erw-zero {
+  fill: var(--ink);
+}

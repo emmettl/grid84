@@ -8,6 +8,7 @@ import { ReadinessLab } from './lab/ReadinessLab.tsx'
 import { DefenceLab } from './lab/DefenceLab.tsx'
 import { AccuracyLab } from './lab/AccuracyLab.tsx'
 import { GuidanceLab } from './lab/GuidanceLab.tsx'
+import { ErwLab } from './lab/ErwLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
 import { ALERT_FORCE, forceForOption } from './studies/siop62/alert-force.ts'
@@ -52,7 +53,7 @@ type Route =
   | { kind: 'study'; id: 'carte-blanche' }
   | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }
   | { kind: 'study'; id: 'window-83'; posture: 'ride' | 'launch' }
-  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' }
+  | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' | 'neutron' }
 
 function parseRoute(hash: string): Route {
   if (hash === '' || hash === '#' || hash === '#/' || hash === '#/sources' || hash === '#/labs') return { kind: 'front' }
@@ -90,6 +91,7 @@ function parseRoute(hash: string): Route {
   if (hash === '#/lab/population') return { kind: 'lab', id: 'population' }
   if (hash === '#/lab/terrain') return { kind: 'lab', id: 'terrain' }
   if (hash === '#/lab/fallout') return { kind: 'lab', id: 'fallout' }
+  if (hash === '#/lab/neutron') return { kind: 'lab', id: 'neutron' }
   if (hash === '#/lab/readiness') return { kind: 'lab', id: 'readiness' }
   if (hash === '#/lab/defence') return { kind: 'lab', id: 'defence' }
   if (hash === '#/lab/accuracy') return { kind: 'lab', id: 'accuracy' }
@@ -262,6 +264,7 @@ export default function App() {
     { href: '#/lab/defence', label: 'Defence', active: inLab && route.id === 'defence' },
     { href: '#/lab/accuracy', label: 'Accuracy', active: inLab && route.id === 'accuracy' },
     { href: '#/lab/guidance', label: 'Guidance', active: inLab && route.id === 'guidance' },
+    { href: '#/lab/neutron', label: 'Neutron bomb', active: inLab && route.id === 'neutron' },
   ]
   // The bar carries the forms and the studies; the open lab appears beside a link to the labs on the front page.
   const links: Array<{ href: string; label: string; active: boolean }> = [
@@ -318,6 +321,7 @@ export default function App() {
       {route.kind === 'lab' && route.id === 'defence' && <DefenceLab key="lab-defence" />}
       {route.kind === 'lab' && route.id === 'accuracy' && <AccuracyLab key="lab-accuracy" />}
       {route.kind === 'lab' && route.id === 'guidance' && <GuidanceLab key="lab-guidance" />}
+      {route.kind === 'lab' && route.id === 'neutron' && <ErwLab key="lab-neutron" />}
     </>
   )
 }
