@@ -135,7 +135,7 @@ def main() -> int:
             **({'standoffKm': STANDOFF[system][0], 'carrierSpeedMs': STANDOFF[system][1], 'missileSpeedMs': STANDOFF[system][2]} if system in STANDOFF else {}),
             'cepMetres': ACCURACY[system][0], 'reliability': ACCURACY[system][1],
         })
-    out = {'date': '2025', 'note': 'Launch points for the atlas: one entry per system and place, not a count of the force. Bases are public; patrol areas are guesses; the loads and yields of the opaque arsenals are inferred, and Israel\'s is withheld.', 'powers': POWERS, 'sites': sites}
+    out = {'date': '2025', 'note': 'Launch points for the atlas: one entry per system and place, not a count of the force. Bases are public; patrol areas are guesses; the loads and yields of the opaque arsenals are inferred, and Israel\'s is withheld. Warheads per missile are the deployed loads the Notebook gives (Trident at about four, Minuteman de-MIRVed to one, Yars four, Bulava six, Voevoda ten), not the missiles\' capacities; a full-loading posture would roughly double the American and British figures.', 'powers': POWERS, 'sites': sites}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(out, indent=1, ensure_ascii=False) + '\n')
     print(f'{len(sites)} sites for {len(POWERS)} powers')

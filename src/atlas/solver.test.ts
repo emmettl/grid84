@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { adversaryFor } from './adversary.ts'
 import { FORCES, POWER_IDS } from './forces.ts'
-import { classify, deliveryOptions, planStrike, PROFILE_RINGS, type Profile } from './solver.ts'
+import { classify, deliveryOptions, MISSILES_PER_SITE, planStrike, PROFILE_RINGS, type Profile } from './solver.ts'
 import type { AtlasTarget } from './target.ts'
 
 const place = (name: string, cc: string, position: [number, number], key = 'place', value = 'city'): AtlasTarget => ({ id: `t:${name}`, osmId: 1, osmType: 'N', osmKey: key, osmValue: value, name, label: '', countryCode: cc, position })
@@ -69,5 +69,31 @@ describe('the atlas solver', () => {
     expect(plan.lines.some((l) => /WEAPON SIZED/.test(l))).toBe(true)
     const nowhere = planStrike(place('Ushuaia', 'AR', [-68.3, -54.8]), village, 'nk')
     expect('failure' in nowhere).toBe(true)
+  })
+})
+
+describe('sizing for effect', () => {
+  const tokyo = profile([300_000, 1_500_000, 4_000_000, 9_000_000, 14_000_000])
+  it('calls on several launch points for a great city and holds the nearer launches for a common arrival', () => {
+    // A three-warhead system against a thirty-kilometre city: more missiles than one field's salvo.
+    const plan = planStrike(place('Tokyo', 'JP', [139.7, 35.7]), tokyo, 'cn')
+    expect('failure' in plan).toBe(false)
+    if ('failure' in plan) return
+    expect(plan.sizing.missiles).toBeGreaterThan(MISSILES_PER_SITE)
+    expect(plan.salvos.length).toBeGreaterThan(1)
+    expect(plan.salvos.reduce((a, s) => a + s.warheads, 0)).toBe(plan.sizing.warheads)
+    expect(plan.salvos[0].launchDelaySeconds).toBeGreaterThanOrEqual(0)
+    const arrivals = plan.salvos.map((s) => s.launchDelaySeconds + s.option.flightSeconds)
+    expect(Math.max(...arrivals) - Math.min(...arrivals)).toBeLessThan(1.5)
+    expect(plan.lines.some((l) => /^SALVOS/.test(l))).toBe(true)
+  })
+  it('puts several warheads on the one aim point of a hard target when the CEP leaves the kill in doubt', () => {
+    const plan = planStrike(place('Bunker', 'JP', [139.7, 35.7], 'military', 'bunker'), village, 'nk')
+    expect('failure' in plan).toBe(false)
+    if ('failure' in plan) return
+    expect(plan.sizing.aimPoints).toHaveLength(1)
+    expect(plan.sizing.warheads).toBeGreaterThan(1)
+    expect(plan.kill.expected).toBeGreaterThan(plan.kill.perWarhead)
+    expect(plan.lines.some((l) => /DAMAGE EXPECTANCY/.test(l))).toBe(true)
   })
 })
