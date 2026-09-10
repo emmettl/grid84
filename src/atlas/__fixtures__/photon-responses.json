@@ -1,0 +1,887 @@
+{
+ "Zürich HB": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 721216225,
+     "osm_key": "information",
+     "osm_value": "guidepost",
+     "type": "house",
+     "name": "Zürich HB",
+     "street": "Walchebrücke",
+     "locality": "City",
+     "district": "Altstadt",
+     "city": "Zurich",
+     "county": "District Zurich",
+     "state": "Zurich",
+     "country": "Switzerland",
+     "postcode": "8021",
+     "countrycode": "CH"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      8.5414387,
+      47.3786185
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 81967712,
+     "osm_key": "railway",
+     "osm_value": "stop",
+     "type": "house",
+     "name": "Zürich HB SZU Süd",
+     "street": "Militärbrücke",
+     "locality": "Langstrasse",
+     "district": "Aussersihl",
+     "city": "Zurich",
+     "county": "District Zurich",
+     "state": "Zurich",
+     "country": "Switzerland",
+     "postcode": "8004",
+     "countrycode": "CH"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      8.5339307,
+      47.375116
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 3632572089,
+     "osm_key": "railway",
+     "osm_value": "service_station",
+     "type": "house",
+     "name": "Zürich HB SZU Süd",
+     "street": "Militärbrücke",
+     "locality": "Langstrasse",
+     "district": "Aussersihl",
+     "city": "Zurich",
+     "county": "District Zurich",
+     "state": "Zurich",
+     "country": "Switzerland",
+     "postcode": "8004",
+     "countrycode": "CH"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      8.533968,
+      47.3751311
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 1234955551,
+     "osm_key": "railway",
+     "osm_value": "stop",
+     "type": "house",
+     "name": "Zürich HB SZU Süd",
+     "street": "Militärbrücke",
+     "locality": "Langstrasse",
+     "district": "Aussersihl",
+     "city": "Zurich",
+     "county": "District Zurich",
+     "state": "Zurich",
+     "country": "Switzerland",
+     "postcode": "8004",
+     "countrycode": "CH"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      8.5339756,
+      47.3751001
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 1236383343,
+     "osm_key": "railway",
+     "osm_value": "station",
+     "type": "house",
+     "name": "Zürich Hauptbahnhof",
+     "street": "Passage Löwenstrasse",
+     "locality": "City",
+     "district": "Altstadt",
+     "city": "Zurich",
+     "county": "District Zurich",
+     "state": "Zurich",
+     "country": "Switzerland",
+     "postcode": "8021",
+     "countrycode": "CH"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      8.5393635,
+      47.3781008
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 1267322099,
+     "osm_key": "amenity",
+     "osm_value": "taxi",
+     "type": "house",
+     "name": "Taxistand Zürich HB",
+     "street": "Bahnhofpassage",
+     "locality": "City",
+     "district": "Altstadt",
+     "city": "Zurich",
+     "county": "District Zurich",
+     "state": "Zurich",
+     "country": "Switzerland",
+     "postcode": "8021",
+     "countrycode": "CH",
+     "extent": [
+      8.5400918,
+      47.3772697,
+      8.5404976,
+      47.3771446
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      8.5402947,
+      47.3772072
+     ]
+    }
+   }
+  ]
+ },
+ "Heathrow": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 7905705,
+     "osm_key": "place",
+     "osm_value": "locality",
+     "type": "locality",
+     "name": "Heathrow",
+     "district": "Bahia Subdivision",
+     "city": "Heathrow",
+     "county": "Seminole",
+     "state": "Florida",
+     "country": "United States",
+     "countrycode": "US",
+     "extent": [
+      -81.3851309,
+      28.7934764,
+      -81.358878,
+      28.7562183
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -81.3717535,
+      28.7750325
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 7905705,
+     "osm_key": "place",
+     "osm_value": "locality",
+     "type": "other",
+     "name": "Heathrow",
+     "city": "Heathrow",
+     "county": "Seminole",
+     "state": "Florida",
+     "country": "United States",
+     "countrycode": "US",
+     "extent": [
+      -81.3851309,
+      28.7934764,
+      -81.358878,
+      28.7562183
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -81.3717535,
+      28.7750325
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 14001268,
+     "osm_key": "aeroway",
+     "osm_value": "aerodrome",
+     "type": "house",
+     "name": "Heathrow Airport",
+     "street": "Western Perimeter Road Roundabout",
+     "district": "London Borough of Hillingdon",
+     "city": "London",
+     "state": "England",
+     "country": "United Kingdom",
+     "postcode": "TW19 7NR",
+     "countrycode": "GB",
+     "extent": [
+      -0.4943776,
+      51.4794056,
+      -0.4151697,
+      51.4560987
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -0.4587801,
+      51.467739
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 5182384972,
+     "osm_key": "railway",
+     "osm_value": "station",
+     "type": "house",
+     "name": "Heathrow Terminal 5",
+     "street": "Wallis Road",
+     "district": "Harmondsworth",
+     "city": "London",
+     "state": "England",
+     "country": "United Kingdom",
+     "postcode": "TW6 2GD",
+     "countrycode": "GB"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -0.4877331,
+      51.472515
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 6539853773,
+     "osm_key": "railway",
+     "osm_value": "station",
+     "type": "house",
+     "name": "Heathrow Terminal 5",
+     "street": "Wallis Road",
+     "district": "Harmondsworth",
+     "city": "London",
+     "state": "England",
+     "country": "United Kingdom",
+     "postcode": "TW6 2GD",
+     "countrycode": "GB"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -0.4877251,
+      51.4722216
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 1645907858,
+     "osm_key": "railway",
+     "osm_value": "station",
+     "type": "house",
+     "name": "Heathrow Terminal 4",
+     "street": "Seven Seas Road",
+     "district": "London Borough of Hillingdon",
+     "city": "London",
+     "state": "England",
+     "country": "United Kingdom",
+     "postcode": "TW6 3YD",
+     "countrycode": "GB"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -0.4454717,
+      51.4588093
+     ]
+    }
+   }
+  ]
+ },
+ "Cheyenne Mountain": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 358944247,
+     "osm_key": "natural",
+     "osm_value": "peak",
+     "type": "other",
+     "name": "Cheyenne Mountain",
+     "county": "El Paso",
+     "state": "Colorado",
+     "country": "United States",
+     "countrycode": "US"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -104.8808063,
+      38.737213
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 219721781,
+     "osm_key": "leisure",
+     "osm_value": "nature_reserve",
+     "type": "other",
+     "name": "Cheyenne Mountain State Park",
+     "city": "Colorado Springs",
+     "county": "El Paso",
+     "state": "Colorado",
+     "country": "United States",
+     "countrycode": "US",
+     "extent": [
+      -104.8675389,
+      38.7434989,
+      -104.8094036,
+      38.7157913
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -104.8425804,
+      38.7294012
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 232961415,
+     "osm_key": "amenity",
+     "osm_value": "school",
+     "type": "house",
+     "housenumber": "1200",
+     "name": "Cheyenne Mountain High School",
+     "street": "Cresta Road",
+     "city": "Colorado Springs",
+     "county": "El Paso",
+     "state": "Colorado",
+     "country": "United States",
+     "postcode": "80906",
+     "countrycode": "US",
+     "extent": [
+      -104.8599766,
+      38.8058444,
+      -104.8537115,
+      38.8004892
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -104.8571749,
+      38.8029444
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 218021908,
+     "osm_key": "tourism",
+     "osm_value": "zoo",
+     "type": "house",
+     "name": "Cheyenne Mountain Zoo",
+     "street": "Cheyenne Mountain Zoo Road",
+     "city": "Colorado Springs",
+     "county": "El Paso",
+     "state": "Colorado",
+     "country": "United States",
+     "postcode": "80906",
+     "countrycode": "US",
+     "extent": [
+      -104.8593307,
+      38.7762272,
+      -104.8503855,
+      38.7665021
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -104.855441,
+      38.7713841
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 7677512,
+     "osm_key": "highway",
+     "osm_value": "service",
+     "type": "street",
+     "name": "Cheyenne Mountain Highway",
+     "city": "Colorado Springs",
+     "county": "El Paso",
+     "state": "Colorado",
+     "country": "United States",
+     "postcode": "80906",
+     "countrycode": "US",
+     "extent": [
+      -104.867112,
+      38.7723928,
+      -104.8607248,
+      38.7588518
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -104.8653528,
+      38.7680809
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 219721782,
+     "osm_key": "landuse",
+     "osm_value": "military",
+     "type": "other",
+     "name": "NORAD Cheyenne Mountain Complex",
+     "city": "Colorado Springs",
+     "county": "El Paso",
+     "state": "Colorado",
+     "country": "United States",
+     "countrycode": "US",
+     "extent": [
+      -104.85427,
+      38.7478063,
+      -104.8311189,
+      38.730207
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -104.8425521,
+      38.738857
+     ]
+    }
+   }
+  ]
+ },
+ "Vandenberg": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "N",
+     "osm_id": 8292451094,
+     "osm_key": "place",
+     "osm_value": "village",
+     "type": "city",
+     "name": "Vandenberg SFB",
+     "county": "Santa Barbara",
+     "state": "California",
+     "country": "United States",
+     "postcode": "93438",
+     "countrycode": "US"
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -120.534267,
+      34.7519092
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 317711,
+     "osm_key": "landuse",
+     "osm_value": "military",
+     "type": "other",
+     "name": "Vandenberg Space Force Base",
+     "county": "Santa Barbara",
+     "state": "California",
+     "country": "United States",
+     "countrycode": "US",
+     "extent": [
+      -120.650728,
+      34.906984,
+      -120.439757,
+      34.510479
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -120.5447422,
+      34.7088437
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 133586308,
+     "osm_key": "military",
+     "osm_value": "airfield",
+     "type": "house",
+     "name": "Vandenberg Space Force Base",
+     "street": "Mira Road",
+     "county": "Santa Barbara",
+     "state": "California",
+     "country": "United States",
+     "postcode": "93437",
+     "countrycode": "US",
+     "extent": [
+      -120.6081998,
+      34.7580355,
+      -120.5599415,
+      34.7164399
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -120.5826246,
+      34.7383545
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 133586308,
+     "osm_key": "aeroway",
+     "osm_value": "aerodrome",
+     "type": "house",
+     "name": "Vandenberg Space Force Base",
+     "street": "Mira Road",
+     "county": "Santa Barbara",
+     "state": "California",
+     "country": "United States",
+     "postcode": "93437",
+     "countrycode": "US",
+     "extent": [
+      -120.6081998,
+      34.7580355,
+      -120.5599415,
+      34.7164399
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -120.5826246,
+      34.7383545
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 133585927,
+     "osm_key": "landuse",
+     "osm_value": "industrial",
+     "type": "locality",
+     "name": "Vandenberg Space Launch Complex 4",
+     "county": "Santa Barbara",
+     "state": "California",
+     "country": "United States",
+     "countrycode": "US",
+     "extent": [
+      -120.6174941,
+      34.6376014,
+      -120.6074428,
+      34.6306176
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -120.6125368,
+      34.6338646
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "W",
+     "osm_id": 133586233,
+     "osm_key": "landuse",
+     "osm_value": "industrial",
+     "type": "locality",
+     "name": "Vandenberg Space Launch Complex 3",
+     "county": "Santa Barbara",
+     "state": "California",
+     "country": "United States",
+     "countrycode": "US",
+     "extent": [
+      -120.5950249,
+      34.6455449,
+      -120.585362,
+      34.6381081
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -120.5905319,
+      34.6419405
+     ]
+    }
+   }
+  ]
+ },
+ "Hamburg": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 62782,
+     "osm_key": "place",
+     "osm_value": "city",
+     "type": "city",
+     "name": "Hamburg",
+     "country": "Germany",
+     "countrycode": "DE",
+     "extra": {
+      "admin_level": "4"
+     },
+     "extent": [
+      8.1044993,
+      54.02765,
+      10.3252805,
+      53.3951118
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      10.0013165,
+      53.5501721
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 10492087,
+     "osm_key": "place",
+     "osm_value": "town",
+     "type": "city",
+     "name": "Hamburg",
+     "county": "Erie County",
+     "state": "New York",
+     "country": "United States",
+     "countrycode": "US",
+     "extra": {
+      "admin_level": "7"
+     },
+     "extent": [
+      -78.9703478,
+      42.8058587,
+      -78.784354,
+      42.696215
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -78.828717,
+      42.716293
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 176042,
+     "osm_key": "place",
+     "osm_value": "town",
+     "type": "district",
+     "name": "Hamburg",
+     "city": "Hamburg",
+     "county": "Erie County",
+     "state": "New York",
+     "country": "United States",
+     "countrycode": "US",
+     "extra": {
+      "admin_level": "8"
+     },
+     "extent": [
+      -78.860002,
+      42.739492,
+      -78.81285,
+      42.709593
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -78.828717,
+      42.716293
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 111205,
+     "osm_key": "place",
+     "osm_value": "village",
+     "type": "city",
+     "name": "Hamburg",
+     "county": "Ashley",
+     "state": "Arkansas",
+     "country": "United States",
+     "postcode": "71646",
+     "countrycode": "US",
+     "extra": {
+      "admin_level": "8"
+     },
+     "extent": [
+      -91.8123192,
+      33.2442082,
+      -91.7819,
+      33.2053806
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -91.7976285,
+      33.2281757
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 188499,
+     "osm_key": "place",
+     "osm_value": "town",
+     "type": "city",
+     "name": "Hamburg",
+     "county": "Berks",
+     "state": "Pennsylvania",
+     "country": "United States",
+     "postcode": "19526",
+     "countrycode": "US",
+     "extra": {
+      "admin_level": "8"
+     },
+     "extent": [
+      -76.0001558,
+      40.573518,
+      -75.969821,
+      40.537232
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -75.9824083,
+      40.5553081
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "properties": {
+     "osm_type": "R",
+     "osm_id": 128827,
+     "osm_key": "place",
+     "osm_value": "village",
+     "type": "city",
+     "name": "Hamburg",
+     "county": "Fremont",
+     "state": "Iowa",
+     "country": "United States",
+     "countrycode": "US",
+     "extra": {
+      "admin_level": "8"
+     },
+     "extent": [
+      -95.6682219,
+      40.621627,
+      -95.6445406,
+      40.5893581
+     ]
+    },
+    "geometry": {
+     "type": "Point",
+     "coordinates": [
+      -95.657771,
+      40.604446
+     ]
+    }
+   }
+  ]
+ }
+}

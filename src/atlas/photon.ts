@@ -1,3 +1,4 @@
+import { rankTargets } from './rank.ts'
 import type { AtlasTarget } from './target.ts'
 
 /** Photon is komoot's open OpenStreetMap geocoder. Public instance, no key, fair-use rate limits. */
@@ -110,5 +111,7 @@ export async function searchPhoton(query: string, options: SearchOptions = {}): 
   const doFetch = options.fetch ?? fetch
   const response = await doFetch(url, { signal: options.signal })
   if (!response.ok) throw new Error(`Geocoder responded ${response.status}`)
-  return parsePhotonResponse(await response.json())
+  // Photon's order is by string match, which puts a signpost above the station
+  // it stands outside. Reordered, never filtered: see rank.ts.
+  return rankTargets(parsePhotonResponse(await response.json()), q)
 }
