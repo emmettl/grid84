@@ -8,6 +8,12 @@ Each study is a moment: December 1961, October 1962, October 1973, November 1983
 
 The manifesto's tension runs through this history more plainly than through any single plan: the stockpile curve is the calmest chart in the world, and it counts sixty thousand warheads at its peak.
 
+## Principles, agreed 10 September 2026
+
+- **Visual first.** The chart or the map state is the chapter; the prose is a caption, never an essay. A chapter that needs more than a screen of words has not found its picture.
+- **Sources and methods, one click away and never in the way.** Every chart and map state carries a disclosure, collapsed by default, that names the series, the document and the method with page or figure references, and links out to the source and to the validation notes. The reader who wants the scholarship finds all of it; the reader who does not is never made to read it. The lab's `Sources and methods` panel is the pattern.
+- **The register holds.** Calm, terminal type, the evidence grammar on every mark. The chronicle is a strange work of scholarship and looks like one.
+
 ## The form
 
 A third form beside the studies and the labs, reached from the front page: chapters that read as text with the map as their spine. Each chapter is a few hundred words, one or two charts drawn from a cited series, and one or more **map states**, which are the engine's own entities at a date, opened in the same view the studies use and scrubbed across time where the data allows. The reader moves between the chapter and the map; the map is never illustration, it is the argument's evidence.
@@ -25,7 +31,7 @@ The map states already exist for five epochs, because the studies built their or
 
 ## Labs the chronicle needs
 
-**The shot-exchange lab.** An attacker with N warheads, D decoys per warhead and a MIRV multiplier against a defender with M interceptors of single-shot kill probability p fired in salvos of k. Outputs: leakage (warheads through) as a function of M, the cost-exchange ratio at stated unit costs, and the point at which the attacker's cheapest countermeasure beats the defender's dearest interceptor. Reference cases from the published record: Safeguard's 100 interceptors against the 1975 Soviet force; the APS 1987 directed-energy study's numbers for SDI; the UCS 2000 countermeasures report; the NAS 2012 assessment of GMD; the Congressional Budget Office's 2025 estimate for a space-based interceptor layer. The lab runs against the seventy-two-minute act: what forty-four interceptors at the test record do to one missile, and to fifty. This is the "folly" made visible as a curve, in the same calm as everything else.
+**The shot-exchange lab** (built 10 September 2026 at `#/lab/defence`; model in `src/models/defence.ts`). An attacker with N warheads, D decoys per warhead and a MIRV multiplier against a defender with M interceptors of single-shot kill probability p fired in salvos of k. Outputs: leakage (warheads through) as a function of M, the cost-exchange ratio at stated unit costs, and the point at which the attacker's cheapest countermeasure beats the defender's dearest interceptor. Reference cases from the published record: Safeguard's 100 interceptors against the 1975 Soviet force; the APS 1987 directed-energy study's numbers for SDI; the UCS 2000 countermeasures report; the NAS 2012 assessment of GMD; the Congressional Budget Office's 2025 estimate for a space-based interceptor layer. The lab runs against the seventy-two-minute act: what forty-four interceptors at the test record do to one missile, and to fifty. This is the "folly" made visible as a curve, in the same calm as everything else.
 
 **The stockpile chart** as a chart component the chronicle and the front page can reuse, with the series cited on the chart and every value a published estimate.
 

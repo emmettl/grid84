@@ -91,6 +91,7 @@ const LABS: Array<{ title: string; line: string; href: string }> = [
   { title: 'Terrain', line: 'Blast over real ground: shadow, wave and terrain factor.', href: '#/lab/terrain' },
   { title: 'Fallout', line: 'A contact surface burst and its idealized early fallout under a chosen wind.', href: '#/lab/fallout' },
   { title: 'Readiness', line: 'The fourteen execution options as a force-generation curve.', href: '#/lab/readiness' },
+  { title: 'Defence', line: 'The shot exchange: warheads and decoys against interceptors, from Safeguard through SDI to the present decade\'s space layer, with the Nitze criterion in numbers.', href: '#/lab/defence' },
 ]
 
 const SOURCES: Array<{ what: string; who: string; href: string; terms: string }> = [

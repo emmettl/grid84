@@ -1502,3 +1502,65 @@ body,
   display: grid;
   gap: 0.25rem;
 }
+
+/* ---------- Defence lab ---------- */
+
+.defence .fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.defence .field {
+  display: grid;
+  gap: 0.15rem;
+  font-size: 0.56rem;
+  color: var(--muted);
+}
+
+.defence .field input[type='number'] {
+  width: 100%;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid rgba(141, 250, 255, 0.35);
+  background: rgba(5, 4, 16, 0.6);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.7rem;
+}
+
+.defence .field--check {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.4rem;
+  text-transform: uppercase;
+}
+
+.defence .grid-facts .field {
+  display: inline-grid;
+  width: 5rem;
+  vertical-align: middle;
+}
+
+.defence .grid--needed {
+  stroke: var(--amber);
+  stroke-dasharray: 4 4;
+  opacity: 0.8;
+}
+
+.defence .sources {
+  margin-top: 0.6rem;
+}
+
+.defence .sources summary {
+  cursor: pointer;
+  color: var(--cyan);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.defence .sources p {
+  text-transform: none;
+  letter-spacing: 0.03em;
+}
