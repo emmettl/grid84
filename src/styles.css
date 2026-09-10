@@ -1837,3 +1837,29 @@ body,
 .posture .clock-time {
   font-size: 2.2rem;
 }
+
+.chronicle-chart .grid--treaty {
+  stroke: rgba(196, 168, 255, 0.5);
+  stroke-dasharray: 2 3;
+}
+
+.chronicle-chart .tick--treaty {
+  fill: var(--lilac);
+  font-size: 9px;
+}
+
+.chronicle-treaties {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 0.3rem 1.2rem;
+  font-size: 0.66rem;
+  color: var(--muted);
+}
+
+.chronicle-treaties strong {
+  color: var(--lilac);
+  font-weight: 500;
+}

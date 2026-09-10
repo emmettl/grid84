@@ -19,6 +19,19 @@ const MOMENTS: Array<{ year: number; label: string; href: string }> = [
   { year: 2025, label: '72 minutes', href: '#/study/72-minutes' },
 ]
 
+/** The treaties as bounds on the curve: the year each entered into force, or ended. */
+const TREATIES: Array<{ year: number; label: string; note: string }> = [
+  { year: 1963, label: 'LTBT', note: 'Limited Test Ban Treaty: no tests in the atmosphere, in space or under water' },
+  { year: 1970, label: 'NPT', note: 'Non-Proliferation Treaty in force' },
+  { year: 1972, label: 'SALT I · ABM', note: 'Interim agreement freezing launchers; the ABM treaty limiting defences to two sites, later one' },
+  { year: 1979, label: 'SALT II', note: 'Signed, never ratified, observed until 1986' },
+  { year: 1987, label: 'INF', note: 'Intermediate-range missiles eliminated: the SS-20s, Pershing IIs and cruise missiles of the Able Archer study' },
+  { year: 1991, label: 'START I', note: 'Deployed strategic warheads to 6,000 each; the drawdown the 1990s curve shows' },
+  { year: 2002, label: 'SORT', note: 'Operationally deployed warheads to 1,700 to 2,200' },
+  { year: 2011, label: 'New START', note: 'Deployed strategic warheads to 1,550 each, in force to February 2026' },
+  { year: 2026, label: 'New START ends', note: 'The last bound expires' },
+]
+
 /** Draw order and colour role: the two arsenals that made the curve, then the rest. */
 const ORDER = ['United States', 'Russia', 'United Kingdom', 'France', 'China', 'Israel', 'India', 'Pakistan', 'North Korea', 'South Africa']
 const ROLE: Record<string, string> = { 'United States': 'us', Russia: 'ru' }
@@ -28,7 +41,7 @@ const H = 420
 const PAD = { l: 60, r: 120, t: 24, b: 40 }
 const fmt = (v: number) => v.toLocaleString('en-GB')
 
-function StockpileChart({ scale, onHover, hover }: { scale: 'linear' | 'log'; onHover: (y: number | null) => void; hover: number | null }) {
+function StockpileChart({ scale, onHover, hover, treaties }: { scale: 'linear' | 'log'; onHover: (y: number | null) => void; hover: number | null; treaties: boolean }) {
   const [y0, y1] = STOCKPILES.years
   const max = useMemo(() => Math.max(...Object.values(STOCKPILES.series).flat().map(([, v]) => v)), [])
   const yMax = scale === 'linear' ? Math.ceil(max / 10_000) * 10_000 : 100_000
@@ -91,6 +104,15 @@ function StockpileChart({ scale, onHover, hover }: { scale: 'linear' | 'log'; on
           </text>
         </g>
       ))}
+      {treaties &&
+        TREATIES.map((t) => (
+          <g key={t.label} className="treaty">
+            <line x1={x(t.year)} x2={x(t.year)} y1={PAD.t + 30} y2={H - PAD.b} className="grid grid--treaty" />
+            <text x={x(t.year) - 3} y={PAD.t + 34} className="tick tick--treaty" transform={`rotate(-90 ${x(t.year) - 3} ${PAD.t + 34})`} textAnchor="end">
+              {t.label}
+            </text>
+          </g>
+        ))}
       {[...ORDER].reverse().map((name) =>
         paths[name] ? <path key={name} d={paths[name]} className={`series series--state series--${ROLE[name] ?? 'other'}`} /> : null,
       )}
@@ -122,6 +144,7 @@ function StockpileChart({ scale, onHover, hover }: { scale: 'linear' | 'log'; on
 
 export function Chronicle() {
   const [scale, setScale] = useState<'linear' | 'log'>('linear')
+  const [treaties, setTreaties] = useState(false)
   const [hover, setHover] = useState<number | null>(null)
   const at = hover ?? STOCKPILES.years[1]
   const values = ORDER.map((name) => ({ name, v: STOCKPILES.series[name].find(([yy]) => yy === at)?.[1] ?? 0 })).filter((r) => r.v > 0)
@@ -144,9 +167,12 @@ export function Chronicle() {
               <button type="button" className={scale === 'log' ? 'is-active' : ''} onClick={() => setScale('log')}>
                 Log
               </button>
+              <button type="button" className={treaties ? 'is-active' : ''} onClick={() => setTreaties((t) => !t)}>
+                Treaties
+              </button>
             </div>
           </div>
-          <StockpileChart scale={scale} onHover={setHover} hover={hover} />
+          <StockpileChart scale={scale} onHover={setHover} hover={hover} treaties={treaties} />
           <div className="chronicle-readout">
             <span className="chronicle-year">{at}</span>
             {values.map((r) => (
@@ -155,6 +181,15 @@ export function Chronicle() {
               </span>
             ))}
           </div>
+          {treaties && (
+            <ul className="chronicle-treaties">
+              {TREATIES.map((t) => (
+                <li key={t.label}>
+                  <strong>{t.year}</strong> {t.label} · {t.note}
+                </li>
+              ))}
+            </ul>
+          )}
           <nav className="front-links chronicle-moments" aria-label="Studies on the curve">
             {MOMENTS.map((m) => (
               <a key={m.href} href={m.href}>
