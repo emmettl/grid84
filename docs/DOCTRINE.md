@@ -39,7 +39,7 @@ The map states already exist for five epochs, because the studies built their or
 
 **The stockpile chart** (built 10 September 2026 at `#/chronicle`, chapter 1). The Federation of American Scientists' inventory series as republished by Our World in Data under CC BY, all nine states, linear and log, the studies marked on their years, the world's peak labelled (64,452 in 1986), a hover readout by year, and the sources collapsed beneath. The first chapter of the chronicle and the pattern for the rest.
 
-**The posture atlas** as a date scrubber over the orders of battle, which is engine work rather than a lab: a launcher entity gains a `from` and `until`, and the study view learns to show a date rather than a clock.
+**The posture atlas** (built 10 September 2026 at `#/chronicle/posture`, chapter 2). `scripts/build-posture-epochs.py` normalises the five orders of battle into one shape, a site with a side, a kind, a position and the weapons its study counted by that study's rules, keeping each site's tier and source. The atlas draws them as discs whose area is the weapons, scrubbed by a slider over 1961, 1962, 1973, 1983 and 2024, with totals by side and kind and the selected site's provenance. The theatre epochs say they are not comparable with the strategic ones. The gaps between epochs, and the 1990s drawdown above all, are still to fill.
 
 ## Data needed
 

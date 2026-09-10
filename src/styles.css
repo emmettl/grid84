@@ -1813,3 +1813,27 @@ body,
   margin-top: 0.5rem;
   font-size: 0.7rem;
 }
+
+/* ---------- Posture atlas ---------- */
+
+.posture-hud .provenance .sources {
+  margin-top: 0.6rem;
+  text-align: left;
+}
+
+.posture-hud .provenance .sources summary {
+  cursor: pointer;
+  color: var(--cyan);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+}
+
+.posture-totals table td:last-child {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.posture .clock-time {
+  font-size: 2.2rem;
+}

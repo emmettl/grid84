@@ -177,18 +177,18 @@ export function Chronicle() {
         </section>
 
         <section className="front-section" aria-labelledby="ch-next">
-          <h2 id="ch-next">Chapters to come</h2>
+          <h2 id="ch-next">Chapters</h2>
           <ul className="front-labs">
             <li>
-              <span className="front-epoch">Posture</span>
-              <span>The forces where they stood, scrubbed across the epochs the studies built: 1961, 1962, 1973, 1983, 2024.</span>
+              <a href="#/chronicle/posture">Chapter 2 · Posture</a>
+              <span>The forces where they stood, scrubbed across the epochs the studies built: 1961, 1962, 1973, 1983, 2024. Disc area is the weapons each study counted at the site.</span>
             </li>
             <li>
-              <span className="front-epoch">Doctrine as arithmetic</span>
+              <a href="#/lab/accuracy">Doctrine as arithmetic</a>
               <span>Each named policy as the target rule it implies; the accuracy lab shows why the choice was technical first.</span>
             </li>
             <li>
-              <span className="front-epoch">Missile defence</span>
+              <a href="#/lab/defence">Missile defence</a>
               <span>The shot exchange from Safeguard to the present decade, in the defence lab and on the map.</span>
             </li>
           </ul>
