@@ -36,6 +36,7 @@ import type { AtlasTarget } from './atlas/target.ts'
 import type { Study } from './studies/study.ts'
 import { WoprView } from './wopr/WoprView.tsx'
 import { WinterView } from './winter/WinterView.tsx'
+import { InterceptView } from './intercept/InterceptView.tsx'
 import { Chronicle } from './chronicle/Chronicle.tsx'
 import { parseRoute, type Route } from './route.ts'
 import { PostureAtlas } from './chronicle/PostureAtlas.tsx'
@@ -54,7 +55,7 @@ function useRoute(): Route {
 function useTitle(route: Route) {
   useEffect(() => {
     const part =
-      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'winter' ? 'The years after' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
+      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'winter' ? 'The years after' : route.kind === 'intercept' ? 'Intercept' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
     // A study names the tab itself, from its title.
     if (route.kind === 'study') return
     document.title = part ? `Grid/84 · ${part}` : 'Grid/84'
@@ -264,7 +265,7 @@ export default function App() {
   ]
   return (
     <>
-      {route.kind !== 'loop' && route.kind !== 'wopr' && route.kind !== 'winter' && (
+      {route.kind !== 'loop' && route.kind !== 'wopr' && route.kind !== 'winter' && route.kind !== 'intercept' && (
       <nav className="grid-nav" aria-label="Views">
         {links.map((l) => (
           <a key={l.href} href={l.href} className={l.active ? 'is-active' : ''} aria-current={l.active ? 'page' : undefined}>
@@ -276,6 +277,7 @@ export default function App() {
       {route.kind === 'loop' && <LoopView />}
       {route.kind === 'wopr' && <WoprView />}
       {route.kind === 'winter' && <WinterView />}
+      {route.kind === 'intercept' && <InterceptView />}
       {route.kind === 'front' && <FrontPage />}
       {route.kind === 'chronicle' && <Chronicle />}
       {route.kind === 'posture' && <PostureAtlas key="posture" />}

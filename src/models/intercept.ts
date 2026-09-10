@@ -284,3 +284,112 @@ export const INTERCEPT_SYSTEMS: InterceptSystem[] = [
     note: 'The same arithmetic as 1990 against a booster that burns for three minutes rather than five',
   },
 ]
+
+
+/**
+ * One engagement, resolved.
+ *
+ * The lab's four clocks decide this, not a number taken from a test range.
+ * An attempt fails for one of four reasons and each of them is one of the
+ * four phases' own arithmetic:
+ *
+ *   no shot        nothing was inside the reach circle when the missile
+ *                  lifted, or the thing was seen too late to fly at.
+ *   wrong object   the interceptor went after a balloon, because in vacuum
+ *                  there was nothing to tell it from the warhead.
+ *   missed         the kill vehicle could not null the error in the time
+ *                  it had: the correction it can make is half its divert
+ *                  times the seconds since handover, and the error was
+ *                  bigger than that.
+ *   killed         it could.
+ *
+ * That last test is where "hitting a bullet with a bullet" actually lives,
+ * and it is the one part of this that is routinely done successfully. The
+ * three above it are the reasons a defence fails anyway.
+ */
+export type Outcome = 'killed' | 'missed' | 'wrong object' | 'no shot'
+
+export interface Attempt {
+  outcome: Outcome
+  reason: string
+  /** How far the kill vehicle ended up from the warhead, metres. */
+  missMetres: number
+  /** What it could have corrected, and what it needed to. */
+  correctionMetres: number
+  objects: number
+}
+
+export interface Engagement {
+  phase: Phase
+  /** Boost and glide: how many shooters were within reach when it mattered. */
+  expectedShooters?: number
+  /** Midcourse: objects on the same trajectory, one of which is the warhead. */
+  decoys?: number
+  /** The kill vehicle's own capability. */
+  divertMs: number
+  handoverSeconds: number
+  closingSpeedMs: number
+  /** How well the track is known at handover, metres and seconds. */
+  trackErrorMetres: number
+  timingErrorSeconds: number
+}
+
+/** A small deterministic generator, so a run can be replayed. */
+export function rng(seed: number): () => number {
+  let state = (seed * 1103515245 + 12345) >>> 0
+  return () => {
+    state = (state * 1103515245 + 12345) >>> 0
+    return state / 4294967296
+  }
+}
+
+export function attempt(e: Engagement, next: () => number): Attempt {
+  const objects = 1 + (e.decoys ?? 0)
+  const miss = missDistanceMetres({
+    lateralErrorMetres: e.trackErrorMetres,
+    timingErrorSeconds: e.timingErrorSeconds,
+    closingSpeedMs: e.closingSpeedMs,
+    handoverSeconds: e.handoverSeconds,
+  })
+  // What the kill vehicle can move sideways in the time it has: s = ½ a t², with a = divert / t.
+  const correction = 0.5 * e.divertMs * e.handoverSeconds
+  const base = { missMetres: miss.missMetres, correctionMetres: correction, objects }
+
+  if (e.expectedShooters !== undefined) {
+    // Poisson: was anything in reach at all.
+    const present = -Math.log(Math.max(1e-12, next())) < e.expectedShooters
+    if (!present) {
+      return { ...base, outcome: 'no shot', reason: `NOTHING IN REACH · ${e.expectedShooters.toFixed(1)} EXPECTED OVER THE LAUNCH POINT` }
+    }
+  }
+  if (objects > 1) {
+    const chosen = Math.floor(next() * objects)
+    if (chosen !== 0) {
+      return { ...base, outcome: 'wrong object', reason: `WENT FOR ONE OF ${objects - 1} DECOYS · NOTHING IN VACUUM TELLS THEM APART` }
+    }
+  }
+  if (miss.missMetres > correction) {
+    return { ...base, outcome: 'missed', reason: `MISSED BY ${Math.round(miss.missMetres - correction).toLocaleString('en-GB')} M · NEEDED ${Math.round(miss.divertNeededMs)} M/S OF DIVERT AND HAD ${Math.round(e.divertMs)}` }
+  }
+  return { ...base, outcome: 'killed', reason: `KILLED · CORRECTED ${Math.round(miss.missMetres).toLocaleString('en-GB')} M WITH ${Math.round(correction).toLocaleString('en-GB')} M IN HAND` }
+}
+
+/** The chance of each outcome, worked analytically rather than drawn: the same arithmetic, for the readout. */
+export function chances(e: Engagement): Record<Outcome, number> {
+  const objects = 1 + (e.decoys ?? 0)
+  const shot = e.expectedShooters === undefined ? 1 : 1 - Math.exp(-e.expectedShooters)
+  const right = 1 / objects
+  const miss = missDistanceMetres({
+    lateralErrorMetres: e.trackErrorMetres,
+    timingErrorSeconds: e.timingErrorSeconds,
+    closingSpeedMs: e.closingSpeedMs,
+    handoverSeconds: e.handoverSeconds,
+  })
+  const hits = miss.missMetres <= 0.5 * e.divertMs * e.handoverSeconds ? 1 : 0
+  return {
+    'no shot': 1 - shot,
+    'wrong object': shot * (1 - right),
+    missed: shot * right * (1 - hits),
+    killed: shot * right * hits,
+  }
+}

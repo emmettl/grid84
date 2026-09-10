@@ -197,6 +197,13 @@
    "title": "The intercept lab — boost, midcourse, glide and terminal",
    "description": "Why intercepting a ballistic missile is hard, phase by phase: the boost window that detection and a decision consume, the absentee ratio that puts a space layer's cost in the thousands, the horizon a glide vehicle stays under, and the ground a terminal battery can actually defend.",
    "summary": "Every figure is arithmetic rather than a claim about a named system, and the footprint formula is checked against the published radius of two deployed batteries."
+  },
+  {
+   "path": "intercept",
+   "hash": "#/intercept",
+   "title": "Intercept — a launch, an attempt, and mostly a miss",
+   "description": "One engagement at a time on the globe: a real launcher, a real city, a real interceptor site, and whether the shot connects. Most do not, and each attempt says which of the four reasons it failed for.",
+   "summary": "No probability of kill is taken from a test range. Each attempt is drawn from the same arithmetic the intercept lab draws: whether anything was in reach, which object it went for, and whether the kill vehicle could null the error in the time it had."
   }
  ]
 }

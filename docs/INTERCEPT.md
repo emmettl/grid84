@@ -81,6 +81,40 @@ for a point-defence one. Two orders of magnitude of area between them for a
 factor of less than two in speed, which is the whole reason terminal
 defence protects a base or a city and not a country.
 
+## The loop
+
+`#/intercept` flies it. A real launcher from the atlas's own order of
+battle, a real city from the most populous cells of the 2025 grid, the two
+interceptor sites the American midcourse system is actually deployed at,
+and one engagement at a time on the globe. A tally keeps count, and the log
+reads the way the thing reads: miss, miss, miss, hit, miss.
+
+A table does not make anyone feel a probability. That is the whole reason
+the loop exists beside the lab rather than instead of it.
+
+**No probability of kill is borrowed from a test range.** Each attempt is
+drawn from the arithmetic above, and fails for one of four reasons, each of
+which is one of the four phases' own:
+
+- **Nothing in reach.** Drawn from the absentee ratio: with fifteen hundred
+  interceptors in orbit against a three-minute booster, one and a half are
+  expected over the launch point, so one attempt in five finds nothing to
+  shoot with at all.
+- **Went for a decoy.** With nine balloons on the same trajectory, nine
+  times in ten the kill vehicle goes for the wrong object, because in
+  vacuum nothing tells them apart.
+- **Missed.** The kill vehicle could not null the error in the seconds it
+  had: the correction available is half its divert times the time since
+  handover, and the error was larger.
+- **Killed.** It could. This is the part that works.
+
+The default case is the documented one: a midcourse engagement against a
+threat carrying simple balloon countermeasures, which the Union of
+Concerned Scientists and MIT set out in *Countermeasures* in 2000 and which
+the defence lab already models. Turn the decoys off and the same loop hits
+almost every time, which is the honest shape of the argument: the closing
+geometry is solved, and the defence fails for the other three reasons.
+
 ## What this lab deliberately does not do
 
 It gives no probability of kill for any named system. Test records are

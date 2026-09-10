@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { INTERCEPT_SYSTEMS, absentee, airDensity, footprint, horizonMetres, missDistanceMetres, reachMetres, window } from './intercept.ts'
+import { INTERCEPT_SYSTEMS, absentee, airDensity, attempt, chances, footprint, horizonMetres, missDistanceMetres, reachMetres, rng, window } from './intercept.ts'
 
 describe('the boost window', () => {
   it('leaves a solid-fuelled booster almost nothing, and a liquid one not much more', () => {
@@ -138,5 +138,64 @@ describe('the named systems', () => {
     // Three thousand more interceptors against a booster that burns two minutes longer.
     expect(chance(pebbles)).toBeGreaterThan(chance(now))
     expect(chance(now)).toBeLessThan(0.9)
+  })
+})
+
+describe('one engagement, resolved', () => {
+  const midcourse = {
+    phase: 'midcourse' as const,
+    decoys: 0,
+    divertMs: 150,
+    handoverSeconds: 10,
+    closingSpeedMs: 10_000,
+    trackErrorMetres: 20,
+    timingErrorSeconds: 0.002,
+  }
+
+  it('kills when the track is good enough for the divert it has', () => {
+    const a = attempt(midcourse, rng(1))
+    expect(a.outcome).toBe('killed')
+    expect(a.correctionMetres).toBeGreaterThan(a.missMetres)
+  })
+
+  it('misses when the track is not, and says by how much and what it would have needed', () => {
+    const a = attempt({ ...midcourse, timingErrorSeconds: 0.1 }, rng(1))
+    expect(a.outcome).toBe('missed')
+    expect(a.missMetres).toBeGreaterThan(900)
+    expect(a.reason).toMatch(/MISSED BY/)
+    expect(a.reason).toMatch(/DIVERT/)
+  })
+
+  it('goes for a balloon most of the time when there are balloons, whatever the tracking', () => {
+    const gen = rng(7)
+    const runs = Array.from({ length: 400 }, () => attempt({ ...midcourse, decoys: 9 }, gen))
+    const wrong = runs.filter((r) => r.outcome === 'wrong object').length / runs.length
+    // One warhead among ten objects: nine times in ten it shoots a decoy.
+    expect(wrong).toBeGreaterThan(0.82)
+    expect(wrong).toBeLessThan(0.96)
+    expect(runs.filter((r) => r.outcome === 'killed').length / runs.length).toBeLessThan(0.18)
+  })
+
+  it('finds nothing to shoot with when the constellation is somewhere else', () => {
+    const gen = rng(3)
+    const boost = { ...midcourse, phase: 'boost' as const, expectedShooters: 0.2, handoverSeconds: 20 }
+    const runs = Array.from({ length: 400 }, () => attempt(boost, gen))
+    const none = runs.filter((r) => r.outcome === 'no shot').length / runs.length
+    // One in five expected in reach: four times in five there is no shot at all.
+    expect(none).toBeGreaterThan(0.75)
+    expect(none).toBeLessThan(0.87)
+  })
+
+  it('agrees with the analytic chances it is drawn from', () => {
+    const e = { ...midcourse, decoys: 4, expectedShooters: 1.5, handoverSeconds: 20 }
+    const gen = rng(11)
+    const runs = Array.from({ length: 2_000 }, () => attempt(e, gen))
+    const c = chances(e)
+    for (const outcome of ['killed', 'missed', 'wrong object', 'no shot'] as const) {
+      const drawn = runs.filter((r) => r.outcome === outcome).length / runs.length
+      expect(Math.abs(drawn - c[outcome]), `${outcome}: drew ${drawn}, expected ${c[outcome]}`).toBeLessThan(0.05)
+    }
+    // And they are a distribution.
+    expect(Object.values(c).reduce((a, b) => a + b, 0)).toBeCloseTo(1, 6)
   })
 })

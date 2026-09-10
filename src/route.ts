@@ -11,6 +11,7 @@ export type Route =
   | { kind: 'loop' }
   | { kind: 'wopr' }
   | { kind: 'winter' }
+  | { kind: 'intercept' }
   | { kind: 'chronicle' }
   | { kind: 'posture' }
   | { kind: 'atlas'; strike?: { ref: string; adversary: string | null; delivery: string | null; loading: string | null; site: string | null } }
@@ -37,6 +38,7 @@ export function parseRoute(hash: string): Route {
   if (hash === '#/loop') return { kind: 'loop' }
   if (hash === '#/wopr') return { kind: 'wopr' }
   if (hash === '#/winter') return { kind: 'winter' }
+  if (hash === '#/intercept') return { kind: 'intercept' }
   if (hash === '#/chronicle') return { kind: 'chronicle' }
   if (hash === '#/chronicle/posture') return { kind: 'posture' }
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
