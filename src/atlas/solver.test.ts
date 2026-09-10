@@ -40,6 +40,12 @@ describe('the atlas solver', () => {
     expect(b.hard).toBe(true)
     expect(classify(place('Hamlet', 'PL', [21, 52.2]), village).category).toBe('RURAL')
   })
+  it('keeps an ICBM off a target across the border: Seoul draws the short-range missile', () => {
+    const seoul = deliveryOptions('nk', [126.98, 37.57]).filter((o) => o.inRange)
+    expect(seoul.length).toBeGreaterThan(0)
+    expect(seoul.every((o) => !/Hwasong-1[78]/.test(o.site.system))).toBe(true)
+    expect(seoul.some((o) => /KN-23/.test(o.site.system))).toBe(true)
+  })
   it('picks the shortest flight in range, so Warsaw draws a theatre missile and New York an ICBM or a boat', () => {
     const w = deliveryOptions('ru', [21, 52.2])
     expect(w[0].inRange).toBe(true)

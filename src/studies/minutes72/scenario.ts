@@ -166,9 +166,10 @@ interface Missile {
 }
 
 /** The flight with its boost phase: the class profile for the range and propellant, then the coast. */
-function flightPlan(from: LngLat, to: LngLat, propellant: Propellant = 'solid') {
+function flightPlan(from: LngLat, to: LngLat, propellant: Propellant = 'solid', kind: 'icbm' | 'irbm' = 'icbm') {
   const range = haversineMetres(from, to)
-  const boost = boostProfileFor('icbm', range, propellant) as NonNullable<ReturnType<typeof boostProfileFor>>
+  // The class follows the system: an ICBM's stages, or the interceptor's, whatever this flight's distance.
+  const boost = boostProfileFor(kind, kind === 'icbm' ? 12_000_000 : 5_000_000, propellant, range) as NonNullable<ReturnType<typeof boostProfileFor>>
   return boostedTrajectory(from, to, boost)
 }
 
@@ -262,12 +263,12 @@ function interceptors(prefix: string, incoming: Track, shots: Shot[], provenance
     let meet = shot.launch + 8 * MIN
     for (let k = 0; k < 4; k += 1) {
       const p = incoming.positionAt(Math.min(meet, incoming.end - 1)) ?? incoming.waypoints[incoming.waypoints.length - 1].position
-      meet = shot.launch + flightPlan(greely, p).totalSeconds
+      meet = shot.launch + flightPlan(greely, p, 'solid', 'irbm').totalSeconds
     }
     const at = Math.min(meet, incoming.end - 30)
     const p = incoming.positionAt(at)!
     // The interceptor boosts too: a three-stage solid booster's profile for its range, cut where the meeting falls.
-    const ownPlan = flightPlan(greely, p)
+    const ownPlan = flightPlan(greely, p, 'solid', 'irbm')
     const own = cutAt(boostedWaypoints(greely, p, ownPlan.boost, shot.launch), at)
     // Lift the end of the arc to the incoming's height so the meeting is drawn where it happens.
     const targetAlt = incoming.altitudeAt(at)

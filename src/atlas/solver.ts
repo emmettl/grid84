@@ -92,14 +92,21 @@ export function cruiseFlightSeconds(site: ForceSite, distanceMetres: number): nu
   return leg / (carrier ? (site.carrierSpeedMs as number) : CRUISE_SPEED_MS) + (distanceMetres - leg) / (site.missileSpeedMs ?? CRUISE_SPEED_MS)
 }
 
+/** The least distance a system can be flown: about an eighth of its reach for a ballistic missile, nothing for aircraft. */
+export function minimumRangeMetres(site: ForceSite): number {
+  if (site.kind === 'bomber') return 0
+  return site.rangeKm * 1_000 * 0.12
+}
+
 export function deliveryOptions(power: Power, position: LngLat): DeliveryOption[] {
   const out: DeliveryOption[] = []
   for (const site of FORCES) {
     if (site.side !== power) continue
     const distanceMetres = haversineMetres(site.position, position)
-    const inRange = distanceMetres <= site.rangeKm * 1_000
+    // A ballistic missile has a minimum range as well as a maximum: an ICBM cannot be flown across a border.
+    const inRange = distanceMetres <= site.rangeKm * 1_000 && distanceMetres >= minimumRangeMetres(site)
     const route = site.kind === 'bomber' ? 'cruise' : 'ballistic'
-    const boost = route === 'ballistic' ? boostProfileFor(site.kind, distanceMetres, site.propellant) : null
+    const boost = route === 'ballistic' ? boostProfileFor(site.kind, site.rangeKm * 1_000, site.propellant, distanceMetres) : null
     const flightSeconds = route === 'cruise' ? cruiseFlightSeconds(site, distanceMetres) : boost ? boostedTrajectory(site.position, position, boost).totalSeconds : 0
     out.push({ site, distanceMetres, flightSeconds, route, inRange, boost })
   }

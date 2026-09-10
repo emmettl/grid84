@@ -122,7 +122,7 @@ export function sortieTiming(launcher: Launcher, sortie: Sortie, target: Target)
 /** The boost profile a launcher flies: the one given, or the class default by range and propellant; null keeps the impulsive burn. */
 export function boostOf(launcher: Launcher, distanceMetres: number): BoostProfile | null {
   if (launcher.boost === null) return null
-  return launcher.boost ?? boostProfileFor(launcher.kind, distanceMetres, launcher.propellant)
+  return launcher.boost ?? boostProfileFor(launcher.kind, launcher.rangeMetres, launcher.propellant, distanceMetres)
 }
 
 /** Seconds after burnout for the post-boost vehicle to release its warheads. */

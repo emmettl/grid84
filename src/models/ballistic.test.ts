@@ -65,5 +65,9 @@ describe('the boost phase', () => {
     for (let i = 1; i < 6; i += 1) expect(wps[i].altitude).toBeGreaterThan(wps[i - 1].altitude)
     expect(boostProfileFor('bomber', 5_000_000)).toBeNull()
     expect(boostProfileFor('irbm', 300_000)!.burnoutDownrangeMetres).toBeLessThanOrEqual(120_000)
+    // A heavy flying short still burns its stages out; only the downrange is held inside the flight.
+    const short = boostProfileFor('icbm', 11_000_000, 'liquid', 2_640_000)!
+    expect(short.burnoutSeconds).toBe(300)
+    expect(short.burnoutDownrangeMetres).toBe(600_000)
   })
 })

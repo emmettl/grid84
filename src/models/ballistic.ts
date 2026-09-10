@@ -108,8 +108,14 @@ export interface BoostProfile {
 
 export type Propellant = 'solid' | 'liquid'
 
-export function boostProfileFor(kind: 'icbm' | 'slbm' | 'irbm' | 'bomber', rangeMetres: number, propellant: Propellant = 'solid'): BoostProfile | null {
+/**
+ * The profile follows the system's class, its reach, not the distance of one
+ * flight: a heavy burns its stages out whether it flies two thousand
+ * kilometres or eight; only the burnout downrange is held inside the flight.
+ */
+export function boostProfileFor(kind: 'icbm' | 'slbm' | 'irbm' | 'bomber', classRangeMetres: number, propellant: Propellant = 'solid', distanceMetres = classRangeMetres): BoostProfile | null {
   if (kind === 'bomber') return null
+  const rangeMetres = Number.isFinite(classRangeMetres) ? classRangeMetres : 12_000_000
   let profile: BoostProfile
   if (rangeMetres < 1_000_000) profile = { burnoutSeconds: 60, burnoutAltitudeMetres: 40_000, burnoutDownrangeMetres: 60_000, label: 'short-range, single stage' }
   else if (rangeMetres < 3_000_000) profile = { burnoutSeconds: 110, burnoutAltitudeMetres: 100_000, burnoutDownrangeMetres: 180_000, label: 'medium-range' }
@@ -117,7 +123,7 @@ export function boostProfileFor(kind: 'icbm' | 'slbm' | 'irbm' | 'bomber', range
   else if (propellant === 'liquid') profile = { burnoutSeconds: 300, burnoutAltitudeMetres: 250_000, burnoutDownrangeMetres: 600_000, label: 'liquid-fuelled, three stages' }
   else profile = { burnoutSeconds: 180, burnoutAltitudeMetres: 200_000, burnoutDownrangeMetres: 400_000, label: kind === 'slbm' ? 'solid, submarine-launched' : 'solid, three stages' }
   // A short flight cannot spend most of its range under power.
-  const downrange = Math.min(profile.burnoutDownrangeMetres, rangeMetres * 0.4)
+  const downrange = Math.min(profile.burnoutDownrangeMetres, Math.max(1, distanceMetres) * 0.4)
   return { ...profile, burnoutDownrangeMetres: downrange }
 }
 
