@@ -112,7 +112,7 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
     }
     if (message.type === 'union-reset') {
       unions.delete(message.key)
-      const response: WorkerResponse = { id: message.id, type: 'union', totals: { blastDead: 0, blastInjured: 0, fireDead: 0, falloutDead: 0, combinedDead: 0, underPlume: 0, samples: 0 } }
+      const response: WorkerResponse = { id: message.id, type: 'union', totals: { blastDead: 0, blastInjured: 0, fireDead: 0, falloutDead: 0, combinedDead: 0, underPlume: 0, personRads: 0, samples: 0 } }
       self.postMessage(response)
       return
     }

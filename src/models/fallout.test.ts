@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { accumulatedDose, acuteMortality, contourDimensions, contourRing, decayRatio, plume, shearAdjust, TABLE_9_93, windFactor } from './fallout.ts'
+import { accumulatedDose, acuteMortality, contourDimensions, contourRing, decayRatio, doseFractionByHour, infiniteDose, latentFatalCancers, plume, shearAdjust, TABLE_9_93, windFactor } from './fallout.ts'
 
 const MILE = 1_609.344
 
@@ -106,5 +106,23 @@ describe('shear and terrain', () => {
     const rough = plume({ center: [0, 50], yieldKt: 800, fissionFraction: 0.5, windMph: 15, downwindBearingDeg: 90, untilHours: 48, terrainFactor: 0.7 })
     expect(rough[0].radsPerHour).toBeCloseTo(base[0].radsPerHour * 0.7, 6)
     expect(shearAdjust(base[0], 15).maxWidthMetres).toBeCloseTo(base[0].maxWidthMetres, 6)
+  })
+})
+
+describe('the long tail', () => {
+  it('shows how much of the dose a forty-eight hour window leaves out', () => {
+    // From an arrival at one hour the whole dose is five times the unit-time rate.
+    expect(infiniteDose(1, 1)).toBeCloseTo(5, 6)
+    expect(doseFractionByHour(1, 48)).toBeGreaterThan(0.5)
+    expect(doseFractionByHour(1, 48)).toBeLessThan(0.6)
+    expect(doseFractionByHour(1, 168)).toBeGreaterThan(doseFractionByHour(1, 48))
+    expect(doseFractionByHour(1, 720)).toBeGreaterThan(0.7)
+    expect(doseFractionByHour(1, 720)).toBeLessThan(0.8)
+    // A late arrival takes less in all, since the field has already decayed.
+    expect(infiniteDose(1, 6)).toBeLessThan(infiniteDose(1, 1))
+  })
+  it('gives latent cancers at the nominal coefficient', () => {
+    expect(latentFatalCancers(100 * 1_000_000)).toBeCloseTo(0.055 * 1_000_000, 6)
+    expect(latentFatalCancers(0)).toBe(0)
   })
 })

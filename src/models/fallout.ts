@@ -72,6 +72,38 @@ export function decayRatio(hours: number): number {
   return Math.max(hours, 1 / 60) ** -1.2
 }
 
+/**
+ * The dose someone takes who never leaves: the decay integral to infinity,
+ * which converges because t^-1.2 falls faster than 1/t. From an arrival at
+ * one hour it is five times the unit-time rate, and the forty-eight hours a
+ * study draws is a little over half of it. The t^-1.2 law is good to within
+ * about a quarter for two weeks and is an extrapolation beyond that, so this
+ * is a bound and is labelled as one.
+ */
+export function infiniteDose(r1: number, arrivalHours: number): number {
+  const a = Math.max(arrivalHours, 1 / 60)
+  return (r1 * a ** -0.2) / 0.2
+}
+
+/** What fraction of the dose someone would ever take is taken by `untilHours`. */
+export function doseFractionByHour(arrivalHours: number, untilHours: number): number {
+  const whole = infiniteDose(1, arrivalHours)
+  return whole > 0 ? accumulatedDose(1, arrivalHours, untilHours) / whole : 0
+}
+
+/**
+ * Latent fatal cancers from a collective dose, at the nominal risk
+ * coefficient of about five per cent per sievert. Applying a coefficient to
+ * a population's collective dose is contested, and the commission that
+ * publishes the coefficient advises against exactly this use; it is given
+ * because the alternative is to leave the long tail at zero, which is
+ * further from the truth.
+ */
+export const CANCER_PER_PERSON_SIEVERT = 0.055
+export function latentFatalCancers(personRads: number): number {
+  return (personRads / 100) * CANCER_PER_PERSON_SIEVERT
+}
+
 /** Accumulated dose in rads from arrival at `arrivalHours` to `untilHours`, for unit-time reference rate r1. */
 export function accumulatedDose(r1: number, arrivalHours: number, untilHours: number): number {
   const a = Math.max(arrivalHours, 0.1)

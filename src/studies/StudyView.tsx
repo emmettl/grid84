@@ -10,7 +10,7 @@ import { TrackLayer } from '../map/track-layer.ts'
 import { prepareTracks, type TrackSpec } from '../map/track-scene.ts'
 import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst, type Outcome } from '../models/casualties.ts'
 import { SURFACE_BLAST_MODEL, thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
-import { acuteMortality, plume } from '../models/fallout.ts'
+import { acuteMortality, CANCER_PER_PERSON_SIEVERT, latentFatalCancers, plume } from '../models/fallout.ts'
 import { ExposureService } from '../models/exposure-service.ts'
 import type { UnionDetonation, UnionTotals } from '../models/exposure.ts'
 import { EvidenceLegend } from './EvidenceLegend.tsx'
@@ -25,6 +25,13 @@ const RATES = [1, 10, 60, 600, 3_600]
  * at, since each one costs a pass over the grid.
  */
 const FALLOUT_STAGES = [1, 2, 4, 8, 16, 24, 36, 48, 72, 96]
+/**
+ * Where the count is carried to once the study's own clock has run out: a
+ * month of standing in the fallout, which is about three quarters of the
+ * dose anyone would ever take from it. Nobody would stand there for a
+ * month, which is the point of showing it.
+ */
+const STAY_HOURS = 720
 
 /** Headline figures rounded to two significant figures, as the readout states. */
 function fmt(v: number) {
@@ -227,12 +234,21 @@ function OutcomeCells({ union, blastDead, blastInjured, fireDead, falloutDead, u
         <div className={rising ? 'is-rising' : undefined}>
           <span>
             Fallout · no shelter{union ? ' · among the survivors' : ''}
-            {falloutHours > 0 ? ` · to H+${falloutHours} h` : ''}
+            {falloutHours >= STAY_HOURS ? ' · if nobody leaves for a month' : falloutHours > 0 ? ` · to H+${falloutHours} h` : ''}
           </span>
           <strong>{fmt(union ? union.falloutDead : (falloutDead ?? 0))}</strong>
           <em>
             acute deaths · {fmt(union ? union.underPlume : under1)} under the plumes{union ? '' : ` · ${plumes} plumes summed`}
             {rising ? ' · still rising' : ''}
+          </em>
+        </div>
+      )}
+      {union && showFallout && union.personRads > 0 && (
+        <div>
+          <span>Latent fatal cancers, over decades</span>
+          <strong>{fmt(latentFatalCancers(union.personRads))}</strong>
+          <em>
+            among the survivors · {fmt(union.personRads / 100)} person-sieverts at {Math.round(CANCER_PER_PERSON_SIEVERT * 1_000) / 10}% per sievert
           </em>
         </div>
       )}
@@ -694,7 +710,9 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             }
             // The fallout count is carried forward as the dose accumulates: the plume reaches further and the people
             // under the near contours have taken more, so the figure grows through the study rather than arriving whole.
-            const stageHours = e.fallout ? FALLOUT_STAGES.filter((hrs) => hrs <= Math.min((next.time - e.time) / 3_600, e.fallout!.untilHours)).pop() : undefined
+            // Stages while the study runs; at its end the count is carried out to a month, which the readout labels.
+            const atEnd = next.time >= bounds.end - 1
+            const stageHours = e.fallout ? (atEnd ? STAY_HOURS : FALLOUT_STAGES.filter((hrs) => hrs <= Math.min((next.time - e.time) / 3_600, e.fallout!.untilHours)).pop()) : undefined
             if (burstRef.current === 'surface' && e.fallout && service && service.grid && stageHours !== undefined && stageHours > (falloutStage.current.get(e.id) ?? 0)) {
               const first = !falloutStage.current.has(e.id)
               falloutStage.current.set(e.id, stageHours)
@@ -772,7 +790,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     }
     frame = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(frame)
-  }, [ready, study, statics, glTracks, buses])
+  }, [ready, study, statics, glTracks, buses, bounds.end])
 
   const setClockState = (patch: Partial<ClockState>) => {
     clockRef.current = { ...clockRef.current, ...patch }
@@ -1155,6 +1173,9 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               <>
                 <li>
                   Nobody moves. The dose accumulates from arrival over the population where the grid has it. For an attack of this size that is close to the case, and it is what the governments themselves assumed: British policy was to stay at home, and American crisis relocation needed several days of warning it did not expect to get
+                </li>
+                <li>
+                  The count stops at the acute deaths and the latent cancers. Everything between them is omitted: the injured who die because there is no hospital, the people who die of the winter without heat or water, the crops that fail, the famine that the atmospheric work of the last decade puts far above every prompt effect combined. Those are the deaths the studies of consequence are about, and this engine does not model them
                 </li>
                 <li>
                   Nobody shelters either, and that is a bound rather than a case. The dose is taken in the open, at a protection factor of one; a ground-floor inner room is worth about five and a basement twenty, so a sheltered population takes a fraction of this. It is the largest single uncertainty in any fallout figure, and the reason official and academic estimates of the same attack differ by millions. <a href="#/lab/fallout">The fallout lab</a> has the factor as a control

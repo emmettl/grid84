@@ -269,11 +269,13 @@ export interface UnionTotals {
   combinedDead: number
   /** People under any plume's outermost contour. */
   underPlume: number
+  /** Collective dose among those the blast and fire left alive, person-rads: the input to any latent-cancer estimate. */
+  personRads: number
   samples: number
 }
 
 export function unionTotals(state: UnionState, bands: BandFractions[]): UnionTotals {
-  const t: UnionTotals = { blastDead: 0, blastInjured: 0, fireDead: 0, falloutDead: 0, combinedDead: 0, underPlume: 0, samples: state.people.size }
+  const t: UnionTotals = { blastDead: 0, blastInjured: 0, fireDead: 0, falloutDead: 0, combinedDead: 0, underPlume: 0, personRads: 0, samples: state.people.size }
   for (const [key, people] of state.people) {
     const band = state.bands.get(key)
     const pb = band === undefined ? 0 : bands[band].fatal
@@ -287,7 +289,11 @@ export function unionTotals(state: UnionState, bands: BandFractions[]): UnionTot
     t.fireDead += people * afterBlastAndFire
     t.falloutDead += people * (1 - afterBlastAndFire) * pr
     t.combinedDead += people * (1 - (1 - afterBlastAndFire) * (1 - pr))
-    if (dose !== undefined) t.underPlume += people
+    if (dose !== undefined) {
+      t.underPlume += people
+      // The dose the survivors of blast and fire go on carrying.
+      t.personRads += people * (1 - afterBlastAndFire) * dose
+    }
   }
   return t
 }
