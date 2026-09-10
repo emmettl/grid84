@@ -24,6 +24,36 @@ def load(rel: str):
     return json.loads((ROOT / rel).read_text())
 
 
+def radar(lid, name, side, lon, lat, bearing, width, range_km, note, source):
+    return {'id': lid, 'name': name, 'side': side, 'kind': 'sensor', 'lon': lon, 'lat': lat, 'weapons': 0, 'vehicles': None, 'unit': None, 'evidence': 'documented', 'positionEvidence': 'inferred', 'source': source, 'note': note,
+            'coverage': {'bearingDeg': bearing, 'widthDeg': width, 'rangeKm': range_km, 'evidence': 'inferred', 'note': 'Centre bearing and width from the public description of the faces; range as the open literature gives the class'}}
+
+
+BMEWS = 'Wikipedia, Ballistic Missile Early Warning System; Solid State Phased Array Radar System'
+SOVIET_EW = 'Wikipedia, Dnestr radar; Daryal radar; Main Centre for Missile Attack Warning; Podvig, Russian Strategic Nuclear Forces (2001)'
+THULE = ('thule-bmews', 'Thule · BMEWS site I', 'us', -68.30, 76.57, 0, 240, 4_800, 'Four detection radars facing north, operational from September 1960', BMEWS)
+CLEAR = ('clear-bmews', 'Clear · BMEWS site II', 'us', -149.18, 64.29, 0, 240, 4_800, 'Operational from 1961; the polar approaches over Alaska', BMEWS)
+FYLINGDALES = ('fylingdales-bmews', 'Fylingdales · BMEWS site III', 'us', -0.67, 54.36, 0, 240, 4_800, 'Operational from 1963; the three golf balls', BMEWS)
+PAVE_PAWS_1991 = [
+    ('beale-pp', 'Beale · PAVE PAWS', 'us', -121.38, 39.12, 300, 240, 5_500, 'Two faces over the Pacific, from 1980', BMEWS),
+    ('cape-cod-pp', 'Cape Cod · PAVE PAWS', 'us', -70.55, 41.76, 60, 240, 5_500, 'Two faces over the Atlantic, from 1980', BMEWS),
+    ('robins-pp', 'Robins · PAVE PAWS', 'us', -83.58, 32.60, 150, 240, 5_500, 'Two faces to the south-east, 1987 to 1995', BMEWS),
+    ('eldorado-pp', 'Eldorado · PAVE PAWS', 'us', -100.60, 30.98, 200, 240, 5_500, 'Two faces to the south, 1987 to 1995', BMEWS),
+]
+SOVIET_1973 = [
+    ('olenegorsk-dnestr', 'Olenegorsk · Dnestr-M', 'su', 33.17, 68.11, 0, 120, 3_000, 'The first of the network, from 1968; the polar approaches', SOVIET_EW),
+    ('skrunda-dnestr', 'Skrunda · Dnestr-M', 'su', 22.0, 56.7, 300, 120, 3_000, 'From 1969; the north-west', SOVIET_EW),
+    ('mishelevka-dnestr', 'Mishelevka · Dnestr', 'su', 103.27, 52.86, 130, 120, 3_000, 'The south-east', SOVIET_EW),
+    ('balkhash-dnestr', 'Balkhash · Dnestr', 'su', 73.6, 46.6, 180, 120, 3_000, 'Sary Shagan; the south', SOVIET_EW),
+]
+SOVIET_1991 = SOVIET_1973 + [
+    ('pechora-daryal', 'Pechora · Daryal', 'su', 57.29, 65.21, 0, 110, 6_000, 'The large phased array, from 1984', SOVIET_EW),
+    ('gabala-daryal', 'Gabala · Daryal', 'su', 47.8, 40.9, 180, 110, 6_000, 'From 1985; the south', SOVIET_EW),
+    ('sevastopol-dnepr', 'Sevastopol · Dnepr', 'su', 33.4, 44.6, 200, 120, 3_000, 'The south-west', SOVIET_EW),
+    ('mukachevo-dnepr', 'Mukachevo · Dnepr', 'su', 22.7, 48.4, 240, 120, 3_000, 'The west', SOVIET_EW),
+]
+
+
 def site(s, side, kind, weapons, vehicles=None, unit=None):
     return {
         'id': s['id'], 'name': s['name'], 'side': side, 'kind': kind, 'lon': s['lon'], 'lat': s['lat'],
@@ -62,6 +92,8 @@ def epoch_1961():
     for b in bases:
         sites.append({**site(b, 'su', 'bomber', each * per, round(each), 'aircraft'), 'note': f'{bombers} Long Range Aviation bombers and tankers (Sagan) spread evenly over six inferred fields; {per} weapons each'})
     icbm = doc['icbms']
+    sites.append(radar(*THULE))
+    sites.append(radar(*CLEAR))
     sites.append({'id': 'plesetsk-r7', 'name': 'Plesetsk · R-7 launch sites', 'side': 'su', 'kind': 'icbm', 'lon': 40.5, 'lat': 62.9, 'weapons': int(icbm['low']), 'vehicles': int(icbm['low']), 'unit': 'launchers', 'evidence': 'inferred', 'positionEvidence': 'reconstructed', 'source': icbm['source'], 'note': f"Four R-7 launchers at Plesetsk stood for the Soviet ICBM force of 1961; the documented estimate is {icbm['low']} to {icbm['high']}"})
     return {'year': 1961, 'label': 'December 1961', 'scope': 'strategic', 'study': '#/study/siop62-alert', 'studyName': 'SIOP//62 alert force', 'sides': {'us': 'United States', 'su': 'Soviet Union'}, 'sites': sites, 'rules': r, 'source': d.get('date', ''), 'caveat': 'The Soviet side is the intercontinental force only, four ICBMs and the heavy bombers as Sagan counts them; the medium bombers and the R-12s facing Europe, most of the stockpile, are not drawn'}
 
@@ -76,6 +108,20 @@ def epoch_1962():
     return {'year': 1962, 'label': 'October 1962 · Cuba', 'scope': 'theatre', 'study': '#/study/cuba-62', 'studyName': 'Cuba 62', 'sides': {'us': 'United States', 'su': 'Soviet forces in Cuba'}, 'sites': sites, 'rules': {}, 'source': d.get('date', '')}
 
 
+def epoch_1967():
+    d = load('data/chronicle/order-of-battle-1967.json')
+    sites = []
+    for s in d['sites']:
+        k = s['kind']
+        if k == 'bomber':
+            sites.append(site(s, s['side'], 'bomber', s['aircraft'] * s['weaponsPerAircraft'], s['aircraft'], 'aircraft'))
+        elif k in ('icbm', 'slbm', 'slbm-port'):
+            sites.append(site(s, s['side'], k, s['weapons'], s.get('missiles'), 'missiles'))
+    for r in (THULE, CLEAR, FYLINGDALES):
+        sites.append(radar(*r))
+    return {'year': 1967, 'label': 'End of 1967', 'scope': 'strategic', 'study': '', 'studyName': '', 'sides': {'us': 'United States', 'su': 'Soviet Union'}, 'sites': sites, 'rules': d['rules'], 'source': d.get('note', ''), 'caveat': 'The peak of the American stockpile and the thousandth Minuteman silo, from the Databook\'s totals over the wings the unit lists name; the Soviet fields filling'}
+
+
 def epoch_1973():
     d = load('data/defcon3/order-of-battle-1973.json')
     sites = []
@@ -85,6 +131,8 @@ def epoch_1973():
             sites.append(site(l, l['side'], 'bomber', l['aircraft'] * l['weaponsPerAircraft'], l['aircraft'], 'aircraft'))
         elif k in ('icbm', 'slbm', 'slbm-port'):
             sites.append(site(l, l['side'], k, l['weapons'], l.get('missiles'), 'missiles'))
+    for r in (THULE, CLEAR, FYLINGDALES, *SOVIET_1973):
+        sites.append(radar(*r))
     return {'year': 1973, 'label': 'October 1973', 'scope': 'strategic', 'study': '#/study/defcon3-73', 'studyName': 'DEFCON 3', 'sides': {'us': 'United States', 'su': 'Soviet Union'}, 'sites': sites, 'rules': d['rules'], 'source': d.get('date', '')}
 
 
@@ -119,6 +167,8 @@ def epoch_1991():
             sites.append(site(s, s['side'], 'bomber', s['aircraft'] * s['weaponsPerAircraft'], s['aircraft'], 'aircraft'))
         elif k in ('icbm', 'slbm', 'slbm-port'):
             sites.append(site(s, s['side'], k, s['weapons'], s.get('missiles'), 'missiles'))
+    for r in (THULE, CLEAR, FYLINGDALES, *PAVE_PAWS_1991, *SOVIET_1991):
+        sites.append(radar(*r))
     return {'year': 1991, 'label': 'End of 1991', 'scope': 'strategic', 'study': '', 'studyName': '', 'sides': {'us': 'United States', 'su': 'Soviet Union'}, 'sites': sites, 'rules': d['rules'], 'source': d.get('note', '')}
 
 
@@ -133,7 +183,10 @@ def epoch_2024():
         elif k in ('icbm', 'slbm', 'slbm-port'):
             sites.append(site(s, side, k, s['weapons'], s.get('missiles'), 'missiles'))
         elif k in ('interceptor', 'sensor', 'command'):
-            sites.append(site(s, side, k, 0, s.get('interceptors'), 'interceptors' if k == 'interceptor' else None))
+            rec = site(s, side, k, 0, s.get('interceptors'), 'interceptors' if k == 'interceptor' else None)
+            if s.get('coverage'):
+                rec['coverage'] = s['coverage']
+            sites.append(rec)
     return {'year': 2024, 'label': '2024', 'scope': 'strategic', 'study': '#/study/72-minutes', 'studyName': 'Seventy-two minutes', 'sides': {'us': 'United States', 'su': 'Russia', 'nk': 'North Korea'}, 'sites': sites, 'rules': d['rules'], 'source': d.get('date', '')}
 
 
@@ -141,7 +194,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', required=True, type=Path)
     args = ap.parse_args()
-    epochs = [epoch_1956(), epoch_1961(), epoch_1962(), epoch_1973(), epoch_1983(), epoch_1991(), epoch_2024()]
+    epochs = [epoch_1956(), epoch_1961(), epoch_1962(), epoch_1967(), epoch_1973(), epoch_1983(), epoch_1991(), epoch_2024()]
     for e in epochs:
         totals = {}
         for s in e['sites']:

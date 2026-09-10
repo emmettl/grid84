@@ -4,7 +4,7 @@ import posture from '../../data/chronicle/posture.json'
 
 describe('chronicle data', () => {
   it('carries a contiguous stockpile series for every state with its citation', () => {
-    const s = stockpiles as { years: [number, number]; source: string; licence: string; series: Record<string, Array<[number, number]>> }
+    const s = stockpiles as unknown as { years: [number, number]; source: string; licence: string; series: Record<string, Array<[number, number]>> }
     expect(s.source).toMatch(/Federation of American Scientists/)
     expect(s.licence).toMatch(/CC BY/)
     for (const [name, points] of Object.entries(s.series)) {
@@ -36,7 +36,9 @@ describe('chronicle data', () => {
         expect(['documented', 'reconstructed', 'inferred', 'modelled', 'withheld']).toContain(s.evidence)
         expect(s.source.length).toBeGreaterThan(0)
       }
-      if (e.scope === 'strategic' && e.year !== 1991 && e.year !== 1956) expect(e.study).toMatch(/^#\/study\//)
+      // Epochs without a study behind them say so with an empty link; the rest open their study.
+      if (e.study) expect(e.study).toMatch(/^#\/study\//)
+      for (const s of e.sites.filter((x) => 'coverage' in x)) expect((s as { coverage: { rangeKm: number } }).coverage.rangeKm).toBeGreaterThan(0)
     }
   })
 })

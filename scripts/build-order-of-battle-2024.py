@@ -73,19 +73,20 @@ INTERCEPTORS = [
 GBI_TESTS = (12, 21)
 
 # Early-warning and tracking sites the scenarios name or rely on.
+# (id, name, query, note, coverage) with coverage as (centre bearing, width, range km): the faces as the public descriptions give them, the bearings inferred from them.
 US_SENSORS = [
-    ('buckley', 'Buckley SFB · SBIRS ground station', 'Buckley Space Force Base', 'Overhead infrared; the satellites themselves are not placed'),
-    ('beale', 'Beale AFB · upgraded early warning radar', 'Beale Air Force Base', 'PAVE PAWS, facing the Pacific'),
-    ('clear', 'Clear SFS · upgraded early warning radar', 'Clear Space Force Station', 'Facing the polar approaches'),
-    ('cape-cod', 'Cape Cod SFS · upgraded early warning radar', 'Cape Cod Space Force Station', 'Facing the Atlantic'),
-    ('fylingdales', 'RAF Fylingdales · upgraded early warning radar', 'RAF Fylingdales', 'Facing the polar approaches from the east'),
-    ('pituffik', 'Pituffik SB · upgraded early warning radar', 'Pituffik Space Base', 'Thule; the polar approaches'),
-    ('cobra-dane', 'Shemya · Cobra Dane radar', 'Eareckson Air Station', 'Aleutians; the north-west Pacific approaches'),
-    ('shariki', 'Shariki · AN/TPY-2 forward radar', 'Tsugaru, Aomori', 'Forward X-band radar in northern Japan'),
-    ('kyogamisaki', 'Kyogamisaki · AN/TPY-2 forward radar', 'Kyotango', 'Forward X-band radar on the Sea of Japan'),
+    ('buckley', 'Buckley SFB · SBIRS ground station', 'Buckley Space Force Base', 'Overhead infrared; the satellites themselves are not placed', None),
+    ('beale', 'Beale AFB · upgraded early warning radar', 'Beale Air Force Base', 'PAVE PAWS, two faces over the Pacific approaches', (300, 240, 5_500)),
+    ('clear', 'Clear SFS · upgraded early warning radar', 'Clear Space Force Station', 'Two faces over the polar approaches', (0, 240, 5_500)),
+    ('cape-cod', 'Cape Cod SFS · upgraded early warning radar', 'Cape Cod Space Force Station', 'PAVE PAWS, two faces over the Atlantic', (60, 240, 5_500)),
+    ('fylingdales', 'RAF Fylingdales · upgraded early warning radar', 'RAF Fylingdales', 'Three faces, all round', (0, 360, 5_500)),
+    ('pituffik', 'Pituffik SB · upgraded early warning radar', 'Pituffik Space Base', 'Thule; two faces over the polar approaches', (0, 240, 5_500)),
+    ('cobra-dane', 'Shemya · Cobra Dane radar', 'Eareckson Air Station', 'One face over the north-west Pacific and Kamchatka', (290, 120, 3_000)),
+    ('shariki', 'Shariki · AN/TPY-2 forward radar', 'Tsugaru, Aomori', 'Forward X-band radar in northern Japan, one face', (300, 120, 1_500)),
+    ('kyogamisaki', 'Kyogamisaki · AN/TPY-2 forward radar', 'Kyotango', 'Forward X-band radar on the Sea of Japan, one face', (300, 120, 1_500)),
 ]
 # The sea-based X-band radar's position is a deployment choice; drawn on its usual station in the central Pacific.
-SBX = ('sbx-1', 'SBX-1 · sea-based X-band radar', (-165.0, 40.0), 'Home port Pearl Harbor, formerly Adak; the mid-Pacific station is inferred')
+SBX = ('sbx-1', 'SBX-1 · sea-based X-band radar', (-165.0, 40.0), 'Home port Pearl Harbor, formerly Adak; the mid-Pacific station is inferred', (300, 360, 2_000))
 
 US_COMMAND = [
     ('pentagon', 'The Pentagon · National Military Command Center', 'The Pentagon', 'The book\'s ground zero'),
@@ -136,18 +137,18 @@ RU_BOMBERS = [
 
 # Early warning: the satellite ground stations and the Voronezh and Daryal radars (Wikipedia, Main Centre for Missile Attack Warning).
 RU_SENSORS = [
-    ('serpukhov-15', 'Serpukhov-15 · western satellite ground station', 'Kurilovo, Kaluga Oblast', 'The 1983 false alarm\'s station; the book\'s commander reports from here'),
-    ('pivan-1', 'Pivan-1 · eastern satellite ground station', 'Pivan, Khabarovsk Krai', 'Eastern control of the EKS satellites'),
-    ('lekhtusi', 'Lekhtusi · Voronezh-M radar', 'Lekhtusi', 'North-west'),
-    ('olenegorsk', 'Olenegorsk · Dnestr/Voronezh radar', 'Olenegorsk, Murmansk Oblast', 'North'),
-    ('pechora', 'Pechora · Daryal radar', 'Pechora, Komi Republic', 'North'),
-    ('vorkuta', 'Vorkuta · Voronezh radar', 'Vorkuta', 'North, under construction into the 2020s'),
-    ('armavir', 'Armavir · Voronezh-DM radar', 'Armavir, Krasnodar Krai', 'South-west'),
-    ('pionersky', 'Pionersky · Voronezh-DM radar', 'Pionersky, Kaliningrad Oblast', 'West'),
-    ('orsk', 'Orsk · Voronezh-M radar', 'Orsk', 'South'),
-    ('barnaul-radar', 'Barnaul · Voronezh-DM radar', 'Barnaul', 'South-east'),
-    ('yeniseysk', 'Yeniseysk · Voronezh-DM radar', 'Yeniseysk', 'North-east'),
-    ('mishelevka', 'Mishelevka · Voronezh-M radar', 'Usolye-Sibirskoye', 'East'),
+    ('serpukhov-15', 'Serpukhov-15 · western satellite ground station', 'Kurilovo, Kaluga Oblast', 'The 1983 false alarm\'s station; the book\'s commander reports from here', None),
+    ('pivan-1', 'Pivan-1 · eastern satellite ground station', 'Pivan, Khabarovsk Krai', 'Eastern control of the EKS satellites', None),
+    ('lekhtusi', 'Lekhtusi · Voronezh-M radar', 'Lekhtusi', 'North-west, one face', (330, 120, 6_000)),
+    ('olenegorsk', 'Olenegorsk · Dnestr/Voronezh radar', 'Olenegorsk, Murmansk Oblast', 'North, one face', (0, 120, 6_000)),
+    ('pechora', 'Pechora · Daryal radar', 'Pechora, Komi Republic', 'North, one face', (0, 110, 6_000)),
+    ('vorkuta', 'Vorkuta · Voronezh radar', 'Vorkuta', 'North, under construction into the 2020s', (0, 120, 6_000)),
+    ('armavir', 'Armavir · Voronezh-DM radar', 'Armavir, Krasnodar Krai', 'South-west and south-east, two faces', (190, 240, 6_000)),
+    ('pionersky', 'Pionersky · Voronezh-DM radar', 'Pionersky, Kaliningrad Oblast', 'West, two faces', (270, 240, 6_000)),
+    ('orsk', 'Orsk · Voronezh-M radar', 'Orsk', 'South, one face', (180, 120, 6_000)),
+    ('barnaul-radar', 'Barnaul · Voronezh-DM radar', 'Barnaul', 'South, one face', (170, 120, 6_000)),
+    ('yeniseysk', 'Yeniseysk · Voronezh-DM radar', 'Yeniseysk', 'North-east, one face', (30, 120, 6_000)),
+    ('mishelevka', 'Mishelevka · Voronezh-M radar', 'Usolye-Sibirskoye', 'East and south-east, one face', (130, 120, 6_000)),
 ]
 RU_COMMAND = [
     ('moscow-genstaff', 'Moscow · General Staff', 'Kremlin, Moscow', 'The Russian president and the General Staff; the book\'s unanswered line'),
@@ -211,6 +212,13 @@ HAND = {
 }
 
 
+def coverage(cov):
+    if not cov:
+        return {}
+    bearing, width, range_km = cov
+    return {'coverage': {'bearingDeg': bearing, 'widthDeg': width, 'rangeKm': range_km, 'evidence': 'inferred', 'note': 'Centre bearing and width from the public description of the faces; range as the open literature gives the class'}}
+
+
 def geocode(query: str):
     url = PHOTON + '?' + urllib.parse.urlencode({'q': query, 'limit': 1, 'lang': 'en'})
     req = urllib.request.Request(url, headers={'User-Agent': 'grid84 order-of-battle build'})
@@ -265,10 +273,10 @@ def main() -> int:
         add({'side': 'us', 'name': name, 'kind': 'bomber', 'model': model, 'aircraft': aircraft, 'weaponsPerAircraft': weapons, 'yieldKt': kt, 'alert': 0.0, 'note': f'{note}. No bomber alert since 1991; generation takes hours to days', 'evidence': 'reconstructed', 'source': f'{NN_US}; {WIKI}, List of B-52 units; 509th Bomb Wing'}, lid, query)
     for lid, name, query, n in INTERCEPTORS:
         add({'side': 'us', 'name': name, 'kind': 'interceptor', 'interceptors': n, 'testRecord': {'hits': GBI_TESTS[0], 'tests': GBI_TESTS[1]}, 'note': f'{n} ground-based interceptors; {GBI_TESTS[0]} hits in {GBI_TESTS[1]} intercept tests through December 2023', 'evidence': 'documented', 'source': f'Missile Defense Agency; {WIKI}, Ground-Based Midcourse Defense'}, lid, query)
-    for lid, name, query, note in US_SENSORS:
-        add({'side': 'us', 'name': name, 'kind': 'sensor', 'note': note, 'evidence': 'documented', 'source': f'{WIKI}, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System'}, lid, query)
-    lid, name, pos, note = SBX
-    add({'side': 'us', 'name': name, 'kind': 'sensor', 'note': note, 'evidence': 'documented', 'source': f'{WIKI}, Sea-Based X-Band Radar'}, lid, pos=pos)
+    for lid, name, query, note, cov in US_SENSORS:
+        add({'side': 'us', 'name': name, 'kind': 'sensor', 'note': note, 'evidence': 'documented', 'source': f'{WIKI}, Solid State Phased Array Radar System; AN/TPY-2; Space-Based Infrared System', **coverage(cov)}, lid, query)
+    lid, name, pos, note, cov = SBX
+    add({'side': 'us', 'name': name, 'kind': 'sensor', 'note': note, 'evidence': 'documented', 'source': f'{WIKI}, Sea-Based X-Band Radar', **coverage(cov)}, lid, pos=pos)
     for lid, name, query, note in US_COMMAND:
         add({'side': 'us', 'name': name, 'kind': 'command', 'note': note, 'evidence': 'documented', 'source': WIKI}, lid, query)
 
@@ -283,8 +291,8 @@ def main() -> int:
         add({'side': 'ru', 'name': name, 'kind': 'slbm-port', 'boats': boats, 'missiles': boats * tubes, 'weapons': boats * tubes * warheads, 'weaponsPerVehicle': warheads, 'yieldKt': kt, 'note': 'Boats in port; the book has them launching from there, which Russia\'s boats can', 'evidence': 'reconstructed', 'source': f'{NN_RU}; {WIKI}, Borei-class submarine; Delta-class submarine'}, lid, query)
     for lid, name, query, model, aircraft, weapons, kt, note in RU_BOMBERS:
         add({'side': 'ru', 'name': name, 'kind': 'bomber', 'model': model, 'aircraft': aircraft, 'weaponsPerAircraft': weapons, 'yieldKt': kt, 'alert': 0.0, 'note': note, 'evidence': 'reconstructed', 'source': f'{NN_RU}; {WIKI}, Russian Long Range Aviation'}, lid, query)
-    for lid, name, query, note in RU_SENSORS:
-        add({'side': 'ru', 'name': name, 'kind': 'sensor', 'note': note, 'evidence': 'documented', 'source': f'{WIKI}, Main Centre for Missile Attack Warning; Voronezh radar'}, lid, query)
+    for lid, name, query, note, cov in RU_SENSORS:
+        add({'side': 'ru', 'name': name, 'kind': 'sensor', 'note': note, 'evidence': 'documented', 'source': f'{WIKI}, Main Centre for Missile Attack Warning; Voronezh radar', **coverage(cov)}, lid, query)
     for lid, name, query, note in RU_COMMAND:
         add({'side': 'ru', 'name': name, 'kind': 'command', 'note': note, 'evidence': 'documented', 'source': WIKI}, lid, query)
 
