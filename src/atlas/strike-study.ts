@@ -37,6 +37,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     speedMs: s.option.site.kind === 'bomber' && s.option.site.carrierSpeedMs !== 0 ? (s.option.site.carrierSpeedMs ?? 240) : undefined,
     standoffMetres: s.option.site.kind === 'bomber' && s.option.site.standoffKm !== undefined ? s.option.site.standoffKm * 1_000 : undefined,
     missileSpeedMs: s.option.site.missileSpeedMs,
+    propellant: s.option.site.propellant,
   }))
   const launcher = launchers[0]
   const designation = designate(target)
@@ -99,6 +100,7 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     { time: -Math.round(countdownSeconds * 0.2), text: approachLine || `APPROACH · FROM ${Math.round((plan.bearingDeg + 180) % 360)}°`, entityId: launcher.id },
     ...salvos.filter((s) => s.launchDelaySeconds > 0).map((s) => ({ time: s.launchDelaySeconds, text: `LAUNCH · ${s.option.site.name.toUpperCase()} · ${s.missiles} MISSILE${s.missiles > 1 ? 'S' : ''} · HELD ${s.launchDelaySeconds} S FOR A COMMON ARRIVAL`, entityId: `atlas-${s.option.site.id}` })),
     { time: 0, text: `LAUNCH · ${salvos[0].option.site.name.toUpperCase()} · ${salvos[0].missiles} MISSILE${salvos[0].missiles > 1 ? 'S' : ''}${salvos.length > 1 ? ` · ${salvos.length - 1} MORE SITE${salvos.length > 2 ? 'S' : ''} TO FOLLOW` : ''} · ${Math.round(delivery.distanceMetres / 1000).toLocaleString('en-GB')} KM · FLIGHT ${Math.round(delivery.flightSeconds / 60)} MIN`, entityId: launcher.id, camera: { center: [(site.position[0] + target.position[0]) / 2, (site.position[1] + target.position[1]) / 2], zoom: delivery.distanceMetres > 8_000_000 ? 2.3 : delivery.distanceMetres > 5_000_000 ? 2.8 : delivery.distanceMetres > 2_500_000 ? 3.6 : delivery.distanceMetres > 1_000_000 ? 4.6 : 5.8, durationMs: 2_500 } },
+    ...(delivery.boost ? [{ time: delivery.boost.burnoutSeconds, text: `BURNOUT · +${delivery.boost.burnoutSeconds} S · ${Math.round(delivery.boost.burnoutAltitudeMetres / 1000)} KM UP · THE BOOST-PHASE INTERCEPT WINDOW CLOSES · ${sizing.warheads > 1 && site.warheadsPerMissile > 1 ? 'THE BUS RELEASES ITS WARHEADS OVER THE NEXT MINUTE AND A HALF' : 'THE WARHEAD COASTS FROM HERE'}`, entityId: launcher.id }] : []),
     { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 3 ? 8 : 9, pitch: 40, durationMs: 3_000 } },
     { time: arrival, text: `DETONATION · ${target.name.toUpperCase()} · ${sizing.burst.toUpperCase()} BURST · ${fmtYield(sizing.yieldKt)}`, entityId: 'atlas-e-target' },
     ...(last > arrival + 1 ? [{ time: last, text: `LAST OF ${sizing.warheads} WARHEADS DOWN`, entityId: 'atlas-e-target' }] : []),

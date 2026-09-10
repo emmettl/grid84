@@ -33,6 +33,9 @@ export interface Launcher {
    */
   standoffMetres?: number
   missileSpeedMs?: number
+  /** Ballistic systems: the propellant sets the boost profile; a profile given here overrides it, null means an impulsive burn as the old model had. */
+  propellant?: 'solid' | 'liquid'
+  boost?: import('./ballistic.ts').BoostProfile | null
 }
 
 export interface Target {

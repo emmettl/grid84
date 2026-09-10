@@ -42,6 +42,8 @@ export interface TrackEntity extends Evidenced {
   route: Evidenced
   /** 'full' draws the whole path at once; 'progressive' reveals it behind the vehicle as the clock runs. */
   reveal: 'full' | 'progressive'
+  /** Moments on the trail worth a mark: burnout, where the boost phase and its intercept window end. */
+  marks?: Array<{ kind: 'burnout'; time: number; position: LngLat; altitude: number }>
   labelAnchor?: LabelAnchor
   facts: Array<Evidenced & { label: string; value: string }>
 }

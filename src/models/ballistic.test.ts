@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { heightAt, minimumEnergyTrajectory } from './ballistic.ts'
+import { boostedTrajectory, boostedWaypoints, boostProfileFor, heightAt, minimumEnergyTrajectory } from './ballistic.ts'
 
 const WARREN = [-104.867, 41.133] as const
 const ANADYR = [177.467, 64.733] as const
@@ -43,5 +43,27 @@ describe('heightAt', () => {
     expect(Math.abs(heightAt(plan, 1))).toBeLessThan(1_000)
     expect(heightAt(plan, 0.5)).toBeCloseTo(plan.apogeeMetres, -2)
     expect(heightAt(plan, 0.25)).toBeLessThan(plan.apogeeMetres)
+  })
+})
+
+describe('the boost phase', () => {
+  it('adds the burn to the flight and puts burnout up and downrange', () => {
+    const from: [number, number] = [59.53, 50.76]
+    const to: [number, number] = [-101.34, 48.42]
+    const liquid = boostProfileFor('icbm', 8_500_000, 'liquid')!
+    const solid = boostProfileFor('icbm', 8_500_000, 'solid')!
+    expect(liquid.burnoutSeconds).toBeGreaterThan(solid.burnoutSeconds)
+    const plan = boostedTrajectory(from, to, liquid)
+    expect(plan.totalSeconds).toBeGreaterThan(plan.free.flightSeconds + 299)
+    expect(plan.totalSeconds / 60).toBeGreaterThan(30)
+    expect(plan.totalSeconds / 60).toBeLessThan(38)
+    const wps = boostedWaypoints(from, to, liquid, 0)
+    expect(wps[0].altitude).toBe(0)
+    const burnout = wps.find((w) => Math.abs(w.time - liquid.burnoutSeconds) < 1e-6)!
+    expect(burnout.altitude).toBeCloseTo(liquid.burnoutAltitudeMetres, 0)
+    expect(wps[wps.length - 1].altitude).toBe(0)
+    for (let i = 1; i < 6; i += 1) expect(wps[i].altitude).toBeGreaterThan(wps[i - 1].altitude)
+    expect(boostProfileFor('bomber', 5_000_000)).toBeNull()
+    expect(boostProfileFor('irbm', 300_000)!.burnoutDownrangeMetres).toBeLessThanOrEqual(120_000)
   })
 })

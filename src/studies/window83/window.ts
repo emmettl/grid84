@@ -3,7 +3,7 @@ import { haversineMetres, type LngLat } from '../../geo/geodesy.ts'
 import { destinationPoint } from '../../geo/sector.ts'
 import type { Launcher, Target } from '../../models/allocation.ts'
 import { hash01 } from '../../models/attrition.ts'
-import { minimumEnergyTrajectory } from '../../models/ballistic.ts'
+import { boostedTrajectory, boostProfileFor } from '../../models/ballistic.ts'
 import { singleShotKill } from '../../models/lethality.ts'
 import { enactStrike, launcherSite, type StrikeAttrition } from '../strike.ts'
 import type { Entity, Study, StudyEvent } from '../study.ts'
@@ -150,7 +150,8 @@ function sovietLaunchers(kinds: 'first' | 'second'): Launcher[] {
       for (const s of l.squadrons ?? []) {
         const heavy = s.version === 'SS-18' || s.version === 'SS-19'
         if ((kinds === 'first') !== heavy) continue
-        out.push({ id: `${l.id}-${s.version.toLowerCase()}`, name: `${l.name} (${s.version})`, kind: 'icbm', position, weapons: s.missiles * s.warheads, weaponsPerVehicle: s.warheads, rangeMetres: 13_000_000, yieldKt: s.yieldKt, reactionSeconds: kinds === 'first' ? 0 : T.sovietSecond })
+        // The SS-13 was the one solid-fuelled Soviet ICBM of 1983; the rest burned for five minutes.
+        out.push({ id: `${l.id}-${s.version.toLowerCase()}`, name: `${l.name} (${s.version})`, kind: 'icbm', position, weapons: s.missiles * s.warheads, weaponsPerVehicle: s.warheads, rangeMetres: 13_000_000, yieldKt: s.yieldKt, reactionSeconds: kinds === 'first' ? 0 : T.sovietSecond, propellant: s.version === 'SS-13' ? 'solid' : 'liquid' })
       }
     } else if (l.kind === 'slbm') {
       const forward = /Yankee/.test(l.name)
@@ -268,7 +269,7 @@ function build(posture: Posture): Study {
   // The American answer: the silos that fire, the boats at sea, the alert bombers that got off.
   const icbmLaunch = posture === 'launch' ? T.launchUnderAttack : T.rideOutLaunch
   const firing = posture === 'launch' ? field : survivors
-  const usLaunchers: Launcher[] = firing.map((s) => ({ id: `${s.id}-l`, name: `${s.wing.name.split(' · ')[0]} silo ${s.id.split('-silo-')[1]}`, kind: 'icbm', position: s.position, weapons: s.warheads, weaponsPerVehicle: s.warheads, rangeMetres: 13_000_000, yieldKt: s.yieldKt, reactionSeconds: icbmLaunch }))
+  const usLaunchers: Launcher[] = firing.map((s) => ({ id: `${s.id}-l`, name: `${s.wing.name.split(' · ')[0]} silo ${s.id.split('-silo-')[1]}`, kind: 'icbm', position: s.position, weapons: s.warheads, weaponsPerVehicle: s.warheads, rangeMetres: 13_000_000, yieldKt: s.yieldKt, reactionSeconds: icbmLaunch, propellant: /titan/i.test(s.version) ? 'liquid' : 'solid' }))
   for (const l of RAW.filter((r) => r.side === 'us' && r.kind === 'slbm')) usLaunchers.push({ id: l.id, name: l.name, kind: 'slbm', position: [l.lon, l.lat], weapons: weaponsOf(l), weaponsPerVehicle: l.weaponsPerVehicle ?? 8, rangeMetres: 7_400_000, yieldKt: l.yieldKt ?? 100, reactionSeconds: icbmLaunch })
   let bombersLost = 0
   let bombersOff = 0
@@ -384,10 +385,16 @@ export function window83(posture: Posture): Study {
   return s
 }
 
+/** An SS-18's flight, boost included: five minutes of liquid-fuelled burn, then the coast. */
+function heavyFlight(from: LngLat, to: LngLat): number {
+  const boost = boostProfileFor('icbm', haversineMetres(from, to), 'liquid')
+  return boost ? boostedTrajectory(from, to, boost).totalSeconds : 0
+}
+
 /** For tests and the brief: how the survival arithmetic comes out before the study is drawn. */
 export function windowArithmetic() {
   const p18 = singleShotKill(RULES.accuracy['SS-18'].yieldKt, RULES.accuracy['SS-18'].cepMetres, RULES.siloPsi)
-  const flight = minimumEnergyTrajectory([59.53, 50.76], [-101.34, 48.42]).flightSeconds
+  const flight = heavyFlight([59.53, 50.76], [-101.34, 48.42])
   return { p18, twoShots: 1 - (1 - p18) ** 2, flightMinutes: flight / 60, silos: silos().length, decisionMinutes: T.decision / 60, launchMinutes: T.launchUnderAttack / 60, coast: haversineMetres([-65, 33], [-80.4, 25.5]) / 1_000 }
 }
 
@@ -427,7 +434,7 @@ export function posture1983() {
     sovietBoats,
     sovietForces: sovietTargets().filter((t) => !t.id.includes('-city-')),
     sovietCities: urban('su', suUrban).map((t, i) => ({ ...t, population: suUrban.targets[i].population })),
-    flightSeconds: minimumEnergyTrajectory([59.53, 50.76], [-101.34, 48.42]).flightSeconds,
+    flightSeconds: heavyFlight([59.53, 50.76], [-101.34, 48.42]),
     clock: T,
   }
 }

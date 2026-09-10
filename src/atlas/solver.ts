@@ -1,5 +1,5 @@
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
-import { minimumEnergyTrajectory } from '../models/ballistic.ts'
+import { boostedTrajectory, boostProfileFor, type BoostProfile } from '../models/ballistic.ts'
 import { radiusForPsi } from '../models/casualties.ts'
 import { lethalRadiusMetres, singleShotKill } from '../models/lethality.ts'
 import { laydown } from '../wopr/union.ts'
@@ -77,6 +77,8 @@ export interface DeliveryOption {
   flightSeconds: number
   route: 'ballistic' | 'cruise'
   inRange: boolean
+  /** The boost profile a ballistic option flies; null for aircraft. */
+  boost: BoostProfile | null
 }
 
 const CRUISE_SPEED_MS = 240
@@ -97,8 +99,9 @@ export function deliveryOptions(power: Power, position: LngLat): DeliveryOption[
     const distanceMetres = haversineMetres(site.position, position)
     const inRange = distanceMetres <= site.rangeKm * 1_000
     const route = site.kind === 'bomber' ? 'cruise' : 'ballistic'
-    const flightSeconds = route === 'cruise' ? cruiseFlightSeconds(site, distanceMetres) : minimumEnergyTrajectory(site.position, position).flightSeconds
-    out.push({ site, distanceMetres, flightSeconds, route, inRange })
+    const boost = route === 'ballistic' ? boostProfileFor(site.kind, distanceMetres, site.propellant) : null
+    const flightSeconds = route === 'cruise' ? cruiseFlightSeconds(site, distanceMetres) : boost ? boostedTrajectory(site.position, position, boost).totalSeconds : 0
+    out.push({ site, distanceMetres, flightSeconds, route, inRange, boost })
   }
   // In range first, ballistic before cruise, then the shortest flight.
   return out.sort((a, b) => Number(b.inRange) - Number(a.inRange) || Number(a.route === 'cruise') - Number(b.route === 'cruise') || a.flightSeconds - b.flightSeconds)
@@ -335,5 +338,9 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   if (aims.length > 6) lines.push(`AIM POINTS ${7} TO ${aims.length} · THE SAME RULE, FURTHER OUT`)
   const approach = delivery.route === 'cruise' ? `${delivery.site.standoffKm && delivery.site.carrierSpeedMs ? `THE AIRCRAFT RELEASES ${Math.round(Math.min(delivery.site.standoffKm * 1000, (delivery.distanceMetres * 2) / 3) / 1000).toLocaleString('en-GB')} KM OUT AND TURNS FOR HOME; THE MISSILES COME IN LOW` : 'CRUISE MISSILES FROM THE LAUNCHER, LOW'}` : sizing.missiles > 0 && delivery.site.warheadsPerMissile > 1 ? 'THE BUS SEPARATES AFTER TWELVE PER CENT OF THE FLIGHT AND EACH WARHEAD TAKES ITS OWN ARC TO ITS AIM POINT' : 'ONE WARHEAD PER MISSILE ON A MINIMUM-ENERGY ARC'
   lines.push(`APPROACH · FROM ${Math.round(((bearingDeg + 180) % 360)).toString().padStart(3, '0')}° · ${approach}`)
+  if (delivery.boost) {
+    const b = delivery.boost
+    lines.push(`BOOST · ${b.label.toUpperCase()} · BURNOUT AT +${b.burnoutSeconds} S, ${Math.round(b.burnoutAltitudeMetres / 1000)} KM UP, ${Math.round(b.burnoutDownrangeMetres / 1000)} KM DOWNRANGE · THE SATELLITES SEE THE PLUME WITHIN A MINUTE · A BOOST-PHASE INTERCEPTOR HAS ${Math.max(0, b.burnoutSeconds - 60)} S TO CLOSE ON A BOOSTER OVER ${POWERS[adversary.power].name.toUpperCase()}; AFTER BURNOUT THERE IS ONLY THE BUS AND ITS ${sizing.warheads > 1 ? 'WARHEADS' : 'WARHEAD'}`)
+  }
   return { target, adversary, classification, options, delivery, sizing, salvos, kill, bearingDeg, lines }
 }

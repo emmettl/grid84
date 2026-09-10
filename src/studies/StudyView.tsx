@@ -380,7 +380,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
       const child = study.entities.find((c): c is Extract<Entity, { kind: 'track' }> => c.kind === 'track' && busIdOf(c.id) === e.id && c.id !== e.id)
       const at = child ? child.track.waypoints[0] : e.track.waypoints[e.track.waypoints.length - 1]
       return { id: e.id, time: at.time, position: at.position, kind: child && /-cm\d+$/.test(child.id) ? 'release' : 'separation' }
-    })
+    }).concat(study.entities.flatMap((e) => (e.kind === 'track' && e.marks ? e.marks.map((m) => ({ id: `${e.id}-${m.kind}`, time: m.time, position: m.position, kind: m.kind as string })) : [])))
   }, [study])
   // The WebGL layer draws large studies and any study whose tracks leave the surface, which GeoJSON cannot.
   const glTracks = useMemo(() => study.entities.filter((e) => e.kind === 'track').length > GL_TRACK_THRESHOLD || study.entities.some((e) => e.kind === 'track' && e.track.elevated), [study])
@@ -416,7 +416,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
       map.addSource('ev-focus', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
       // Separation and release points on the trails, small and permanent once passed.
       map.addSource('ev-separations', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
-      map.addLayer({ id: 'ev-separations', type: 'circle', source: 'ev-separations', paint: { 'circle-radius': 2.4, 'circle-color': 'rgba(232, 251, 255, 0.95)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.55)', 'circle-stroke-width': 1.5 } })
+      map.addLayer({ id: 'ev-separations', type: 'circle', source: 'ev-separations', paint: { 'circle-radius': ['case', ['==', ['get', 'kind'], 'burnout'], 2, 2.4], 'circle-color': ['case', ['==', ['get', 'kind'], 'burnout'], 'rgba(255, 190, 90, 0.95)', 'rgba(232, 251, 255, 0.95)'], 'circle-stroke-color': ['case', ['==', ['get', 'kind'], 'burnout'], 'rgba(255, 160, 60, 0.5)', 'rgba(141, 250, 255, 0.55)'], 'circle-stroke-width': 1.5 } })
       map.addLayer({ id: 'ev-focus-targets', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'target'], paint: { 'circle-radius': 9, 'circle-color': 'rgba(0, 0, 0, 0)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.55)', 'circle-stroke-width': 1 } })
       map.addLayer({ id: 'ev-focus-separation', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'separation'], paint: { 'circle-radius': 4, 'circle-color': 'rgba(141, 250, 255, 0.9)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.4)', 'circle-stroke-width': 4 } })
       setSourceData(map, SOURCES.sites, statics.sites)

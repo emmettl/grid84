@@ -4,7 +4,7 @@ import type { LngLat } from '../../geo/geodesy.ts'
 import { pointInRing } from '../../geo/polygon.ts'
 import type { Launcher, Target } from '../../models/allocation.ts'
 import { hash01 } from '../../models/attrition.ts'
-import { ballisticWaypoints, minimumEnergyTrajectory } from '../../models/ballistic.ts'
+import { boostedTrajectory, boostedWaypoints, boostProfileFor, type Propellant } from '../../models/ballistic.ts'
 import { BLAST_MODEL, promptEffects } from '../../models/blast.ts'
 import { enactStrike, launcherSite, type StrikeAttrition, type StrikeResult } from '../strike.ts'
 import type { Entity, FalloutAssumption, Study, StudyEvent } from '../study.ts'
@@ -157,10 +157,19 @@ interface Missile {
   provenance: Provenance
   routeProvenance: Provenance
   surface?: FalloutAssumption
+  /** Sets the boost profile; the North Korean heavies burn liquid. Default solid. */
+  propellant?: Propellant
   targetName: string
   targetFacts?: Array<Evidenced & { label: string; value: string }>
   /** The vehicle is destroyed here and nothing arrives. */
   interceptedAt?: number
+}
+
+/** The flight with its boost phase: the class profile for the range and propellant, then the coast. */
+function flightPlan(from: LngLat, to: LngLat, propellant: Propellant = 'solid') {
+  const range = haversineMetres(from, to)
+  const boost = boostProfileFor('icbm', range, propellant) as NonNullable<ReturnType<typeof boostProfileFor>>
+  return boostedTrajectory(from, to, boost)
 }
 
 function cutAt(waypoints: Waypoint[], endTime: number): Waypoint[] {
@@ -170,9 +179,9 @@ function cutAt(waypoints: Waypoint[], endTime: number): Waypoint[] {
 }
 
 function missile(m: Missile): { entities: Entity[]; arrival: number; track: Track } {
-  const plan = minimumEnergyTrajectory(m.from, m.to)
-  const arrival = m.launch + plan.flightSeconds
-  const waypoints = ballisticWaypoints(m.from, m.to, m.launch, arrival)
+  const plan = flightPlan(m.from, m.to, m.propellant)
+  const arrival = m.launch + plan.totalSeconds
+  const waypoints = boostedWaypoints(m.from, m.to, plan.boost, m.launch)
   const track = new Track(waypoints)
   const entities: Entity[] = [
     {
@@ -189,7 +198,7 @@ function missile(m: Missile): { entities: Entity[]; arrival: number; track: Trac
       provenance: m.provenance,
       route: { evidence: 'modelled', provenance: m.routeProvenance },
       facts: [
-        { label: 'Flight time', value: `${Math.round(plan.flightSeconds / 60)} minutes over ${Math.round(plan.rangeMetres / 1_000).toLocaleString('en-GB')} km, apogee ${Math.round(plan.apogeeMetres / 1_000).toLocaleString('en-GB')} km, minimum-energy trajectory`, evidence: 'modelled', provenance: m.routeProvenance },
+        { label: 'Flight time', value: `${Math.round(plan.totalSeconds / 60)} minutes over ${Math.round(plan.rangeMetres / 1_000).toLocaleString('en-GB')} km: burnout at ${plan.boost.burnoutSeconds} s, ${Math.round(plan.boost.burnoutAltitudeMetres / 1_000)} km up (${plan.boost.label}), then a minimum-energy coast with apogee ${Math.round(plan.free.apogeeMetres / 1_000).toLocaleString('en-GB')} km`, evidence: 'modelled', provenance: m.routeProvenance },
       ],
     },
   ]
@@ -253,11 +262,13 @@ function interceptors(prefix: string, incoming: Track, shots: Shot[], provenance
     let meet = shot.launch + 8 * MIN
     for (let k = 0; k < 4; k += 1) {
       const p = incoming.positionAt(Math.min(meet, incoming.end - 1)) ?? incoming.waypoints[incoming.waypoints.length - 1].position
-      meet = shot.launch + minimumEnergyTrajectory(greely, p).flightSeconds
+      meet = shot.launch + flightPlan(greely, p).totalSeconds
     }
     const at = Math.min(meet, incoming.end - 30)
     const p = incoming.positionAt(at)!
-    const own = ballisticWaypoints(greely, p, shot.launch, at)
+    // The interceptor boosts too: a three-stage solid booster's profile for its range, cut where the meeting falls.
+    const ownPlan = flightPlan(greely, p)
+    const own = cutAt(boostedWaypoints(greely, p, ownPlan.boost, shot.launch), at)
     // Lift the end of the arc to the incoming's height so the meeting is drawn where it happens.
     const targetAlt = incoming.altitudeAt(at)
     const lifted = own.map((w) => {
@@ -434,10 +445,11 @@ const COMMON_OMISSIONS = [
 /** Act one: the film's single missile, on a nineteen-minute clock from detection. */
 function filmStudy(fate: Fate): Study {
   const f = S.film
-  const plan = minimumEnergyTrajectory(f.launch, f.target.position)
-  const launch = f.minutesToImpactAtDetection * MIN - plan.flightSeconds
+  const plan = flightPlan(f.launch, f.target.position, 'liquid')
+  const launch = f.minutesToImpactAtDetection * MIN - plan.totalSeconds
   const incoming = missile({
     id: 'film-icbm',
+    propellant: 'liquid',
     name: `Unattributed missile → ${f.target.name}`,
     designation: `ICBM · ORIGIN NOT ATTRIBUTED · ${fmtYield(f.yieldKt)} BORROWED`,
     from: f.launch,
@@ -489,6 +501,7 @@ function filmStudy(fate: Fate): Study {
 function incomingSpec(f: typeof S.film, launch: number): Missile {
   return {
     id: 'film-icbm',
+    propellant: 'liquid',
     name: `Unattributed missile → ${f.target.name}`,
     designation: `ICBM · ORIGIN NOT ATTRIBUTED · ${fmtYield(f.yieldKt)} BORROWED`,
     from: f.launch,
@@ -511,6 +524,7 @@ function bookStudy(): Study {
   // The first missile and the four interceptors, which the book has miss.
   const hwasong = missile({
     id: 'book-hwasong',
+    propellant: 'liquid',
     name: `Sunan → ${b.hwasong.target.name}`,
     designation: `HWASONG-17 · ${fmtYield(b.hwasong.yieldKt)} · THE BOOK'S WARHEAD`,
     from: positionOf(b.hwasong.from),

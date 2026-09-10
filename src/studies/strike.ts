@@ -4,7 +4,7 @@ import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { destinationPoint } from '../geo/sector.ts'
 import { allocate, megatons, type AllocationOptions, type Launcher, type Sortie, type SystemKind, type Target } from '../models/allocation.ts'
 import { fate } from '../models/attrition.ts'
-import { ballisticWaypoints, minimumEnergyTrajectory } from '../models/ballistic.ts'
+import { ballisticWaypoints, boostedTrajectory, boostedWaypoints, boostProfileFor, minimumEnergyTrajectory, type BoostProfile } from '../models/ballistic.ts'
 import { BLAST_MODEL, promptEffects } from '../models/blast.ts'
 import type { Entity, FalloutAssumption } from './study.ts'
 
@@ -113,9 +113,20 @@ export function sortieTiming(launcher: Launcher, sortie: Sortie, target: Target)
     }
     return { launch, arrival: launch + sortie.distanceMetres / speed, route: 'cruise' }
   }
+  const boost = boostOf(launcher, sortie.distanceMetres)
+  if (boost) return { launch, arrival: launch + boostedTrajectory(launcher.position, target.position, boost).totalSeconds, route: 'ballistic' }
   const plan = minimumEnergyTrajectory(launcher.position, target.position)
   return { launch, arrival: launch + plan.flightSeconds, route: 'ballistic' }
 }
+
+/** The boost profile a launcher flies: the one given, or the class default by range and propellant; null keeps the impulsive burn. */
+export function boostOf(launcher: Launcher, distanceMetres: number): BoostProfile | null {
+  if (launcher.boost === null) return null
+  return launcher.boost ?? boostProfileFor(launcher.kind, distanceMetres, launcher.propellant)
+}
+
+/** Seconds after burnout for the post-boost vehicle to release its warheads. */
+const POST_BOOST_SECONDS = 90
 
 interface VehicleGroup {
   launcher: Launcher
@@ -279,11 +290,15 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       }
       continue
     }
-    // Ballistic: a single arc, or a bus that splits into its reentry vehicles after post-boost.
+    // Ballistic: the boost to burnout, then a single coast, or a bus that releases its reentry vehicles after post-boost.
     const seed = targetById[v.sorties[0].targetId]
-    const seedPlan = minimumEnergyTrajectory(l.position, seed.position)
-    const seedArrival = launch + seedPlan.flightSeconds
-    const boost = ballisticWaypoints(l.position, seed.position, launch, seedArrival)
+    const profile = boostOf(l, haversineMetres(l.position, seed.position))
+    const flightTo = (target: Target) => (profile ? boostedTrajectory(l.position, target.position, profile).totalSeconds : minimumEnergyTrajectory(l.position, target.position).flightSeconds)
+    const pathTo = (target: Target, arrival: number) => (profile ? boostedWaypoints(l.position, target.position, profile, launch) : ballisticWaypoints(l.position, target.position, launch, arrival))
+    const seedArrival = launch + flightTo(seed)
+    const boost = pathTo(seed, seedArrival)
+    const burnoutMark = profile ? { kind: 'burnout' as const, time: launch + profile.burnoutSeconds, position: boostedTrajectory(l.position, seed.position, profile).burnoutPoint, altitude: profile.burnoutAltitudeMetres } : null
+    const withMarks = (e: Entity): Entity => (e.kind === 'track' && burnoutMark && e.track.end >= burnoutMark.time ? { ...e, marks: [burnoutMark] } : e)
     if (!f.delivered) {
       // A missile that fails at launch takes every warhead with it.
       lostReliability += v.sorties.length
@@ -291,18 +306,19 @@ export function enactStrike(o: StrikeOptions): StrikeResult {
       continue
     }
     if (v.sorties.length === 1) {
-      entities.push(track(id, `${l.name} → ${seed.name}`, `${l.kind.toUpperCase()} · ${fmtYield(v.sorties[0].yieldKt)}`, boost, 'ballistic', o.route.ballistic))
+      entities.push(withMarks(track(id, `${l.name} → ${seed.name}`, `${l.kind.toUpperCase()} · ${fmtYield(v.sorties[0].yieldKt)}${profile ? ` · BURNOUT AT +${profile.burnoutSeconds} S` : ''}`, boost, 'ballistic', o.route.ballistic)))
       delivered += 1
       arrive(seed.id, seedArrival, v.sorties[0].yieldKt, l.kind, id)
       continue
     }
-    const splitTime = launch + (seedArrival - launch) * splitFraction
+    // The bus releases after burnout and the post-boost manoeuvre, never later than a fifth of the flight.
+    const splitTime = profile ? Math.min(launch + profile.burnoutSeconds + POST_BOOST_SECONDS, launch + (seedArrival - launch) * 0.2) : launch + (seedArrival - launch) * splitFraction
     const boostTrack = new Track(boost)
     const busWaypoints = cut(boost, splitTime)
-    entities.push(track(id, `${l.name} → ${v.sorties.map((s) => targetById[s.targetId].name).join(', ')}`, `${l.kind.toUpperCase()} · BUS · ${v.sorties.length} RV OF ${fmtYield(v.sorties[0].yieldKt)}`, busWaypoints, 'ballistic', o.route.ballistic))
+    entities.push(withMarks(track(id, `${l.name} → ${v.sorties.map((s) => targetById[s.targetId].name).join(', ')}`, `${l.kind.toUpperCase()} · BUS · ${v.sorties.length} RV OF ${fmtYield(v.sorties[0].yieldKt)}${profile ? ` · BURNOUT AT +${profile.burnoutSeconds} S` : ''}`, busWaypoints, 'ballistic', o.route.ballistic)))
     v.sorties.forEach((s, k) => {
       const t = targetById[s.targetId]
-      const own = ballisticWaypoints(l.position, t.position, launch, launch + minimumEnergyTrajectory(l.position, t.position).flightSeconds)
+      const own = pathTo(t, launch + flightTo(t))
       const ownTrack = new Track(own)
       // From the split the vehicle leaves the bus's arc for its own over the next quarter of the flight.
       const blendEnd = splitTime + (ownTrack.end - launch) * 0.25

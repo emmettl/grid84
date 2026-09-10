@@ -62,7 +62,7 @@ export function ballisticWaypoints(from: LngLat, to: LngLat, launchTime: number,
   return out
 }
 
-function slerpLngLat(a: LngLat, b: LngLat, f: number): LngLat {
+export function slerpLngLat(a: LngLat, b: LngLat, f: number): LngLat {
   const toRad = Math.PI / 180
   const [lon1, lat1] = [a[0] * toRad, a[1] * toRad]
   const [lon2, lat2] = [b[0] * toRad, b[1] * toRad]
@@ -89,4 +89,75 @@ export function heightAt(plan: BallisticPlan, f: number): number {
   // Eccentric anomaly runs from E0 (launch, before apogee) through π (apogee) to 2π − E0 (impact).
   const E = E0 + f * (2 * Math.PI - 2 * E0)
   return a * (1 - e * Math.cos(E)) - R
+}
+
+/**
+ * The powered phase. A missile does not leave the pad at burnout speed: it
+ * climbs under thrust for one to five minutes, reaching burnout some tens
+ * to hundreds of kilometres up and downrange, and only then coasts on the
+ * ellipse. The profiles here are round figures from the open literature by
+ * class and propellant, stated as reconstructed; the boost phase is the
+ * only window a boost-phase interceptor has, which is why it is drawn.
+ */
+export interface BoostProfile {
+  burnoutSeconds: number
+  burnoutAltitudeMetres: number
+  burnoutDownrangeMetres: number
+  label: string
+}
+
+export type Propellant = 'solid' | 'liquid'
+
+export function boostProfileFor(kind: 'icbm' | 'slbm' | 'irbm' | 'bomber', rangeMetres: number, propellant: Propellant = 'solid'): BoostProfile | null {
+  if (kind === 'bomber') return null
+  let profile: BoostProfile
+  if (rangeMetres < 1_000_000) profile = { burnoutSeconds: 60, burnoutAltitudeMetres: 40_000, burnoutDownrangeMetres: 60_000, label: 'short-range, single stage' }
+  else if (rangeMetres < 3_000_000) profile = { burnoutSeconds: 110, burnoutAltitudeMetres: 100_000, burnoutDownrangeMetres: 180_000, label: 'medium-range' }
+  else if (rangeMetres < 5_500_000 && kind === 'irbm') profile = { burnoutSeconds: 150, burnoutAltitudeMetres: 150_000, burnoutDownrangeMetres: 280_000, label: 'intermediate-range' }
+  else if (propellant === 'liquid') profile = { burnoutSeconds: 300, burnoutAltitudeMetres: 250_000, burnoutDownrangeMetres: 600_000, label: 'liquid-fuelled, three stages' }
+  else profile = { burnoutSeconds: 180, burnoutAltitudeMetres: 200_000, burnoutDownrangeMetres: 400_000, label: kind === 'slbm' ? 'solid, submarine-launched' : 'solid, three stages' }
+  // A short flight cannot spend most of its range under power.
+  const downrange = Math.min(profile.burnoutDownrangeMetres, rangeMetres * 0.4)
+  return { ...profile, burnoutDownrangeMetres: downrange }
+}
+
+export interface BoostedPlan {
+  boost: BoostProfile
+  burnoutPoint: LngLat
+  /** The coast from burnout to impact. */
+  free: BallisticPlan
+  rangeMetres: number
+  totalSeconds: number
+}
+
+/** Boost to the burnout point along the great circle, then the minimum-energy coast over the rest of the range. */
+export function boostedTrajectory(from: LngLat, to: LngLat, boost: BoostProfile): BoostedPlan {
+  const rangeMetres = haversineMetres(from, to)
+  const f = rangeMetres > 0 ? boost.burnoutDownrangeMetres / rangeMetres : 0
+  const burnoutPoint = slerpLngLat(from, to, Math.min(0.9, f))
+  const free = minimumEnergyTrajectory(burnoutPoint, to)
+  return { boost, burnoutPoint, free, rangeMetres, totalSeconds: boost.burnoutSeconds + free.flightSeconds }
+}
+
+/**
+ * Waypoints for the whole flight: the powered climb, steep and slow at
+ * first (downrange grows as the square of time, height a little faster
+ * than linearly), then the coast from burnout altitude down to impact.
+ */
+export function boostedWaypoints(from: LngLat, to: LngLat, boost: BoostProfile, launchTime: number, segments = 24): Array<{ position: LngLat; time: number; altitude: number }> {
+  const plan = boostedTrajectory(from, to, boost)
+  const out: Array<{ position: LngLat; time: number; altitude: number }> = []
+  const powered = 6
+  for (let i = 0; i < powered; i += 1) {
+    const u = i / powered
+    out.push({ position: slerpLngLat(from, plan.burnoutPoint, u * u), time: launchTime + u * boost.burnoutSeconds, altitude: boost.burnoutAltitudeMetres * u ** 1.6 })
+  }
+  const burnoutTime = launchTime + boost.burnoutSeconds
+  const arrival = launchTime + plan.totalSeconds
+  for (let i = 0; i <= segments; i += 1) {
+    const f = i / segments
+    // The coast starts at burnout altitude and ends on the surface; the ellipse's own height rides on top.
+    out.push({ position: slerpLngLat(plan.burnoutPoint, to, f), time: burnoutTime + f * (arrival - burnoutTime), altitude: Math.max(0, heightAt(plan.free, f) + boost.burnoutAltitudeMetres * (1 - f)) })
+  }
+  return out
 }

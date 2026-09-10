@@ -63,3 +63,23 @@ describe('standoff air delivery', () => {
     expect(t[0].kind === 'track' && t[0].track.waypoints[0].position).toEqual(sub.position)
   })
 })
+
+describe('the boost phase in the engine', () => {
+  it('marks burnout on the trail, releases the bus after it, and keeps the impulsive model when asked', () => {
+    const heavy: Launcher = { id: 'uzhur', name: 'Uzhur', kind: 'icbm', position: [89.83, 55.31], weapons: 3, weaponsPerVehicle: 10, rangeMetres: 11_000_000, yieldKt: 800, reactionSeconds: 0, propellant: 'liquid' }
+    const s = enactStrike({ ...common, prefix: 'bp', launchers: [heavy], targets: [{ id: 'a', name: 'Malmstrom 1', priority: 0, position: [-111.19, 47.5], maxWeapons: 1 }, { id: 'b', name: 'Malmstrom 2', priority: 1, position: [-111.0, 47.6], maxWeapons: 1 }, { id: 'c', name: 'Malmstrom 3', priority: 2, position: [-111.3, 47.4], maxWeapons: 1 }] })
+    const bus = s.entities.find((e) => e.kind === 'track' && !/-rv\d+$/.test(e.id))
+    expect(bus).toBeDefined()
+    if (!bus || bus.kind !== 'track') return
+    expect(bus.marks?.[0]?.kind).toBe('burnout')
+    expect(bus.marks?.[0]?.time).toBe(300)
+    expect(bus.track.end).toBeGreaterThanOrEqual(300 + 89)
+    expect(bus.track.end).toBeLessThanOrEqual(300 + 91)
+    const arrival = Object.values(s.firstArrival)[0].time
+    expect(arrival / 60).toBeGreaterThan(30)
+    const impulsive = enactStrike({ ...common, prefix: 'im', launchers: [{ ...heavy, boost: null }], targets: [{ id: 'a', name: 'Malmstrom 1', priority: 0, position: [-111.19, 47.5], maxWeapons: 1 }] })
+    const t = impulsive.entities.find((e) => e.kind === 'track')
+    expect(t && t.kind === 'track' ? t.marks : 'x').toBeUndefined()
+    expect(Object.values(impulsive.firstArrival)[0].time).toBeLessThan(arrival)
+  })
+})
