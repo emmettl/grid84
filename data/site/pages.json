@@ -162,6 +162,34 @@
    "title": "The neutron bomb — enhanced radiation and the doctrine for it",
    "description": "The argument made for a weapon that kills crews and spares the town, tested against the standard scaling.",
    "summary": "It does not spare the town. What it does is reach the crews with a sixth of the wrecked ground."
+  },
+  {
+   "path": "labs/evidence",
+   "hash": "#/lab/evidence",
+   "title": "The evidence lab — how every figure is tiered",
+   "description": "One entity of every evidence tier, side by side: documented, reconstructed, inferred, modelled and withheld, with the line grammar each is drawn in.",
+   "summary": "The contract the whole engine is built on, shown rather than described."
+  },
+  {
+   "path": "labs/terrain",
+   "hash": "#/lab/terrain",
+   "title": "The terrain lab — what the ground does to a blast",
+   "description": "Elevation under a detonation, and what a hill or a valley does to the reach of the overpressure.",
+   "summary": "Terrain shielding over real elevation data."
+  },
+  {
+   "path": "labs/readiness",
+   "hash": "#/lab/readiness",
+   "title": "The readiness lab — alert states and reaction times",
+   "description": "What an alert state actually buys: how much of a force can fly, and how long it takes.",
+   "summary": "Generation curves for the bomber and missile forces of the record."
+  },
+  {
+   "path": "labs/guidance",
+   "hash": "#/lab/guidance",
+   "title": "The guidance lab — how a warhead finds its aim point",
+   "description": "Inertial guidance, stellar fixes and satellite correction, and what each is worth in metres.",
+   "summary": "Where circular error probable comes from."
   }
  ]
 }
