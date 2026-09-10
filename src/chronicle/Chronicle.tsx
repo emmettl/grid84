@@ -49,6 +49,25 @@ const DOCTRINES: Array<{ year: number; name: string; document: string; rule: str
   { year: 2018, name: 'The present plan', document: 'Nuclear Posture Reviews of 2018 and 2022; OPLAN 8010', rule: 'Withheld. The studies draw a rule from the counts: forces and command first, then the most populous cells', study: { label: 'Seventy-two minutes', href: '#/study/72-minutes/jacobsen' } },
 ]
 
+
+/** The aftermath, as it was discovered, disputed, forgotten and found again. */
+const AFTERMATH: Array<{ year: number; name: string; what: string; href?: string; label?: string }> = [
+  { year: 1982, name: 'Twilight at noon', what: "Crutzen and Birks, asked to write about the atmosphere after a nuclear war, notice that nobody has costed the smoke. Not the dust a burst throws up, which had been studied, but the smoke of the cities and forests burning afterwards. Their estimate is that it would darken the northern hemisphere for months, and they publish it in a Swedish environmental journal" },
+  { year: 1983, name: 'TTAPS', what: 'Turco, Toon, Ackerman, Pollack and Sagan put the smoke through a radiative model and find continental interiors falling tens of degrees below freezing, in summer, for months. It is presented at a Washington conference on Halloween and published in Science before Christmas. The name in the title is the thing that carries: nuclear winter' },
+  { year: 1983, name: 'And the biology', what: 'Ehrlich and eighteen co-authors publish the biological companion in the same issue, and make the point the physics paper does not: the cold itself is not what kills most people. The harvest is. That argument waits thirty-nine years for numbers', href: '#/winter', label: 'Model' },
+  { year: 1983, name: 'The same answer in Moscow', what: "Aleksandrov and Stenchikov, at the Computing Centre of the USSR Academy of Sciences, run the case on a general circulation model rather than a one-dimensional one, and get the same result. Two adversaries' modelling establishments agree about the consequence of their own arsenals, which had not happened before" },
+  { year: 1984, name: 'Some policy implications', what: "Sagan argues in Foreign Affairs that the finding makes the arsenals self-deterring: a first strike large enough to work would destroy the country that launched it, without retaliation. He proposes cutting below the threshold where the effect begins. The argument's weakness is that nobody can say where that threshold is" },
+  { year: 1985, name: 'The Academy confirms it, widely', what: 'The US National Research Council reports that the mechanism is real and the magnitude uncertain by a factor of several. It is a fair verdict and a politically useless one: both sides of the argument quote it' },
+  { year: 1985, name: 'SCOPE 28', what: 'The international scientific committee runs the fuller study in two volumes, physical and biological, and reaches the conclusion that has held ever since: the indirect effects, above all the loss of a harvest, would kill far more people than the weapons' },
+  { year: 1985, name: 'Aleksandrov does not come home', what: 'The Soviet modeller who had confirmed the American result disappears in Madrid on 31 March, after a conference. He has never been found and no account of what happened has ever been established' },
+  { year: 1986, name: 'Nuclear autumn', what: "Thompson and Schneider publish a reappraisal in Foreign Affairs arguing the cooling would be milder, and coin the phrase that does the political work: autumn, not winter. Their own paper says the policy implications are unchanged. That sentence is not the one that gets quoted" },
+  { year: 1990, name: 'The authors revise themselves', what: 'Turco, Toon, Ackerman, Pollack and Sagan publish an appraisal of their own 1983 work in Science: the continental summer cooling is now ten to twenty degrees rather than thirty to forty, and the effect is real. The subject then goes quiet for sixteen years' },
+  { year: 2000, name: 'What it was for', what: "Gorbachev, asked what moved him, names the models: the knowledge of what the two countries' scientists had found was, in his words, a great stimulus to act. Whether it moved the arsenals is not settled; it is the only case in this chronicle of a piece of physics being offered as a reason for disarmament by a man who could order one" },
+  { year: 2007, name: 'Reopened', what: 'Robock and Toon run it again on a modern coupled climate model and find the 1983 result held, and worse in one respect: a hundred weapons between India and Pakistan, a fraction of one per cent of the world arsenal, would cool the planet more than any year of the last millennium', href: '#/winter', label: 'Model' },
+  { year: 2022, name: 'The harvest, in numbers', what: "Xia and thirteen co-authors put the soot through a crop model, a fishery model and the world's food balance sheets. Five billion people are outside the food system after a war between the two large arsenals. Ehrlich's 1983 argument, quantified", href: '#/winter', label: 'Model' },
+  { year: 2025, name: 'The Academies decline to adjudicate', what: 'A National Academies review of the whole field finds the fire models and the urban fuel surveys both inadequate to settle whether the smoke rises at all, and picks no winner. The quantity the argument turns on has been measured for one city, where the published values differ by a factor of four', href: '#/winter', label: 'Dial' },
+]
+
 /** The theatre: the rungs of a ladder nobody could describe, and the studies that draw them. */
 const THEATRE: Array<{ year: number; name: string; what: string; href?: string; label?: string }> = [
   { year: 1955, name: 'Carte Blanche', what: 'NATO\'s own exercise simulates 335 weapons over Germany and estimates 1.7 million West German dead from the immediate effects alone. The figures leak that autumn', href: '#/study/carte-blanche', label: 'Open' },
@@ -418,6 +437,7 @@ export function Chronicle() {
           </p>
         </section>
 
+
         <section className="front-section chronicle-section" aria-labelledby="ch-defence">
           <h2 id="ch-defence">Chapter 7 · Missile defence</h2>
           <div className="chronicle-table-wrap">
@@ -442,6 +462,37 @@ export function Chronicle() {
           <details className="sources">
             <summary>Sources and methods for chapters 3 to 7</summary>
             <p className="provenance-method">Doctrine: NSC 162/2 and the SIOP-62 briefing through the National Security Archive; McNamara's 1965 draft presidential memorandum; NSDM-242 and NUWEP-74; PD-59; the 2018 and 2022 Nuclear Posture Reviews. Each rule is the study's reading of the document, stated on the study's own omissions panel. Basing: Norris and Kristensen on Cuba; the Nuclear Weapons Databook; the INF treaty's memorandum of understanding for the SS-20, Pershing II and GLCM counts. Theatre: MC 14/2 and MC 14/3 as the standard accounts of NATO doctrine give them; the reporting of Carte Blanche and of the 2005 Polish release; the Nuclear Weapons Databook for the theatre systems. Defence: the Missile Defense Agency's test record; the American Physical Society (1987); the Union of Concerned Scientists (2000); the National Academies (2012); the Congressional Budget Office (2025), as reported. The counts in these tables are the open literature's and are quoted as such.</p>
+          </details>
+        </section>
+        <section className="front-section chronicle-section" aria-labelledby="ch-aftermath">
+          <h2 id="ch-aftermath">Chapter 8 · The aftermath, and what it did to the argument</h2>
+          <p className="front-caption">
+            Every chapter above counts what the weapons do where they land. From 1982 it was understood that this is not most of what they do. The smoke of the cities they burn would shade the northern hemisphere, the harvest would fail under it, and the famine would kill more people than the war. That finding has been made three times by two adversaries' scientists, disputed once on grounds its own authors called policy-neutral, forgotten for sixteen years, and confirmed with better models since. It is the only physics in this chronicle that a head of state has cited as a reason to disarm.
+          </p>
+          <div className="chronicle-table-wrap">
+            <table className="front-sources chronicle-table">
+              <tbody>
+                {AFTERMATH.map((a) => (
+                  <tr key={`${a.year}-${a.name}`}>
+                    <th scope="row">{a.year}</th>
+                    <td>
+                      <strong>{a.name}</strong>
+                    </td>
+                    <td>{a.what}</td>
+                    <td>{a.href ? <a href={a.href}>{a.label ?? 'Open'}</a> : ''}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="front-caption">
+            The chain is modelled in <a href="#/winter">the years after</a>, and the optimiser at <a href="#/wopr">WOPR</a> now prints what its own best plan does to the sky, which its loss function does not carry. The brief is <a href="https://github.com/emmettl/grid84/blob/main/docs/WINTER.md" rel="noreferrer">WINTER.md</a>.
+          </p>
+          <details className="sources">
+            <summary>Sources for chapter 8</summary>
+            <p className="provenance-method">
+              Crutzen and Birks, Ambio 11 (1982); Turco, Toon, Ackerman, Pollack and Sagan, Science 222 (1983), and their own appraisal, Science 247 (1990); Ehrlich and eighteen others, Science 222 (1983); Aleksandrov and Stenchikov (1983) as the standard accounts of the Soviet work give it; Sagan, Foreign Affairs 62 (1983/84); the National Research Council, The Effects on the Atmosphere of a Major Nuclear Exchange (1985); SCOPE 28 (1985); Thompson and Schneider, Foreign Affairs 64 (1986); Robock, Oman and Stenchikov, J. Geophys. Res. 112 (2007); Xia and others, Nature Food 3 (2022); National Academies, Potential Environmental Effects of Nuclear War (2025). Gorbachev's remark is his own, from an interview of 2000, and is given here as a statement he made rather than as evidence of what moved a government. Aleksandrov's disappearance in Madrid on 31 March 1985 is reported as the fact it is: unresolved.
+            </p>
           </details>
         </section>
       </div>
