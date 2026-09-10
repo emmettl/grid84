@@ -18,6 +18,9 @@ export interface ForceSite {
   standoffKm?: number
   carrierSpeedMs?: number
   missileSpeedMs?: number
+  /** Circular error probable, metres, and the planning reliability; inferred for the opaque arsenals. */
+  cepMetres: number
+  reliability: number
   position: LngLat
   positionEvidence: EvidenceTier
   evidence: EvidenceTier
@@ -27,7 +30,7 @@ export interface ForceSite {
 
 interface Raw {
   powers: Record<string, { name: string; adjective: string }>
-  sites: Array<Omit<ForceSite, 'position' | 'side' | 'kind' | 'positionEvidence' | 'evidence'> & { lon: number; lat: number; side: string; kind: string; positionEvidence: string; evidence: string; standoffKm?: number; carrierSpeedMs?: number; missileSpeedMs?: number }>
+  sites: Array<Omit<ForceSite, 'position' | 'side' | 'kind' | 'positionEvidence' | 'evidence'> & { lon: number; lat: number; side: string; kind: string; positionEvidence: string; evidence: string; standoffKm?: number; carrierSpeedMs?: number; missileSpeedMs?: number; cepMetres: number; reliability: number }>
 }
 
 const raw = forces as Raw
@@ -47,6 +50,8 @@ export const FORCES: ForceSite[] = raw.sites.map((s) => ({
   standoffKm: s.standoffKm,
   carrierSpeedMs: s.carrierSpeedMs,
   missileSpeedMs: s.missileSpeedMs,
+  cepMetres: s.cepMetres,
+  reliability: s.reliability,
   position: [s.lon, s.lat],
   positionEvidence: s.positionEvidence as EvidenceTier,
   evidence: s.evidence as EvidenceTier,

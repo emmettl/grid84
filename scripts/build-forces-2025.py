@@ -96,6 +96,20 @@ STANDOFF = {
     'H-6N with CJ-20A': (1_500, 220, 240),
 }
 
+# Accuracy and reliability by system: CEP metres and the planning reliability. Documented for the American and Russian
+# strategic systems in the Notebook and the open literature; inferred for the rest, and said so on the readout.
+ACCURACY = {
+    'Minuteman III': (120, 0.85), 'Trident II D5': (90, 0.85), 'B-52H with AGM-86B': (30, 0.9), 'B-2A with B61-12': (30, 0.9),
+    'RS-24 Yars (silo)': (150, 0.85), 'RS-24 Yars (mobile)': (150, 0.85), 'Topol-M (silo)': (200, 0.85), 'R-36M2 Voevoda': (250, 0.85), 'R-36M2 Voevoda / Avangard': (250, 0.85),
+    'R-30 Bulava (Borei)': (250, 0.85), 'Tu-160 with Kh-102': (20, 0.9), 'Tu-95MS with Kh-102': (20, 0.9), 'Iskander-M': (30, 0.9),
+    'DF-41': (100, 0.85), 'DF-5B': (500, 0.8), 'DF-31AG': (150, 0.85), 'DF-26': (100, 0.85), 'DF-21A': (150, 0.85), 'JL-3': (300, 0.8), 'H-6N with CJ-20A': (20, 0.9),
+    'M51.3 (Triomphant)': (150, 0.85), 'Rafale with ASMPA-R': (10, 0.9),
+    'Agni-V': (200, 0.8), 'Agni-III': (300, 0.8), 'K-4': (400, 0.75),
+    'Shaheen-III': (300, 0.8), 'Shaheen-II': (350, 0.8), 'Babur cruise missile': (20, 0.85),
+    'Jericho III': (300, 0.8), 'Popeye Turbo cruise missile': (20, 0.85),
+    'Hwasong-18': (1_000, 0.7), 'Hwasong-17': (1_500, 0.6), 'Hwasong-12': (800, 0.7), 'KN-23': (100, 0.8), 'Pukguksong-3': (1_000, 0.6),
+}
+
 POWERS = {
     'us': {'name': 'United States', 'adjective': 'American'},
     'ru': {'name': 'Russia', 'adjective': 'Russian'},
@@ -119,6 +133,7 @@ def main() -> int:
             'id': f'{side}-{i + 1}', 'side': side, 'name': name, 'kind': kind, 'system': system, 'warheadsPerMissile': per, 'yieldKt': kt, 'rangeKm': rng,
             'lon': lon, 'lat': lat, 'positionEvidence': pos_ev, 'evidence': load_ev, 'note': note, 'source': NOTEBOOK,
             **({'standoffKm': STANDOFF[system][0], 'carrierSpeedMs': STANDOFF[system][1], 'missileSpeedMs': STANDOFF[system][2]} if system in STANDOFF else {}),
+            'cepMetres': ACCURACY[system][0], 'reliability': ACCURACY[system][1],
         })
     out = {'date': '2025', 'note': 'Launch points for the atlas: one entry per system and place, not a count of the force. Bases are public; patrol areas are guesses; the loads and yields of the opaque arsenals are inferred, and Israel\'s is withheld.', 'powers': POWERS, 'sites': sites}
     args.out.parent.mkdir(parents=True, exist_ok=True)

@@ -1,6 +1,7 @@
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
 import { minimumEnergyTrajectory } from '../models/ballistic.ts'
 import { radiusForPsi } from '../models/casualties.ts'
+import { lethalRadiusMetres, singleShotKill } from '../models/lethality.ts'
 import { laydown } from '../wopr/union.ts'
 import { adversaryFor, type Adversary } from './adversary.ts'
 import { FORCES, POWERS, type ForceSite, type Power } from './forces.ts'
@@ -160,6 +161,32 @@ export function describeAimPoints(sizing: Sizing, center: LngLat): Array<{ index
   })
 }
 
+/** The overpressure a target category is taken to fail at, psi: the lethality lab's ladder. */
+export const HARDNESS: Record<Category, number> = { 'URBAN-INDUSTRIAL': 5, TOWN: 5, RURAL: 5, INDUSTRY: 15, PORT: 15, AIRFIELD: 25, COMMAND: 50, INFRASTRUCTURE: 100, MILITARY: 1_000 }
+
+export interface Kill {
+  psi: number
+  cepMetres: number
+  lethalRadiusMetres: number
+  sspk: number
+  reliability: number
+  /** Probability one warhead as fired kills its aim point: reliability times the single-shot kill. */
+  perWarhead: number
+  /** Expected aim points killed of those assigned. */
+  expected: number
+  line: string
+}
+
+export function killProbability(cls: Classification, site: ForceSite, sizing: Sizing): Kill {
+  const psi = HARDNESS[cls.category]
+  const lethal = lethalRadiusMetres(sizing.yieldKt, psi)
+  const sspk = singleShotKill(sizing.yieldKt, site.cepMetres, psi)
+  const perWarhead = site.reliability * sspk
+  const expected = perWarhead * sizing.warheads
+  const line = `KILL PROBABILITY · ${cls.category} TAKEN AT ${psi} PSI · LETHAL RADIUS ${(lethal / 1000).toFixed(1)} KM AGAINST A CEP OF ${site.cepMetres} M · SINGLE-SHOT ${Math.round(sspk * 100)}% · RELIABILITY ${Math.round(site.reliability * 100)}% · ${Math.round(perWarhead * 100)}% PER WARHEAD AS FIRED · ${expected.toFixed(1)} OF ${sizing.warheads} AIM POINTS EXPECTED KILLED${sspk > 0.99 ? ' · ACCURACY IS NO LONGER THE QUESTION AT THIS YIELD' : ''}`
+  return { psi, cepMetres: site.cepMetres, lethalRadiusMetres: lethal, sspk, reliability: site.reliability, perWarhead, expected, line }
+}
+
 export interface StrikePlan {
   target: AtlasTarget
   adversary: Adversary
@@ -167,6 +194,7 @@ export interface StrikePlan {
   options: DeliveryOption[]
   delivery: DeliveryOption
   sizing: Sizing
+  kill: Kill
   bearingDeg: number
   lines: string[]
 }
@@ -212,11 +240,13 @@ export function planStrike(target: AtlasTarget, profile: Profile, override?: Pow
   const sizing = sizeWeapon(classification, delivery.site, target.position, wantFallout)
   lines.push(`WEAPON SIZED FOR EFFECT · ${sizing.reason}`)
   lines.push(`LAYDOWN · ${sizing.warheads} WARHEAD${sizing.warheads > 1 ? 'S' : ''} OF ${sizing.yieldKt} KT ON ${sizing.missiles} MISSILE${sizing.missiles > 1 ? 'S' : ''} · ${sizing.warheads > 1 ? `AIM POINTS IN A SUNFLOWER SPACED SO THE 5 PSI DISCS MEET` : 'ONE AIM POINT AT THE CENTRE'} · ${sizing.burst.toUpperCase()} BURST${sizing.burst === 'surface' && classification.countervalue ? ' SO THE FALLOUT IS DRAWN; DOCTRINE WOULD AIRBURST A CITY, WHICH THE READOUT CAN SHOW' : ''}`)
+  const kill = killProbability(classification, delivery.site, sizing)
+  lines.push(kill.line)
   const bearingDeg = initialBearing(delivery.site.position, target.position)
   const aims = describeAimPoints(sizing, target.position)
   for (const a of aims.slice(0, 6)) lines.push(`AIM POINT ${a.index + 1} · ${a.reason}`)
   if (aims.length > 6) lines.push(`AIM POINTS ${7} TO ${aims.length} · THE SAME RULE, FURTHER OUT`)
   const approach = delivery.route === 'cruise' ? `${delivery.site.standoffKm && delivery.site.carrierSpeedMs ? `THE AIRCRAFT RELEASES ${Math.round(Math.min(delivery.site.standoffKm * 1000, (delivery.distanceMetres * 2) / 3) / 1000).toLocaleString('en-GB')} KM OUT AND TURNS FOR HOME; THE MISSILES COME IN LOW` : 'CRUISE MISSILES FROM THE LAUNCHER, LOW'}` : sizing.missiles > 0 && delivery.site.warheadsPerMissile > 1 ? 'THE BUS SEPARATES AFTER TWELVE PER CENT OF THE FLIGHT AND EACH WARHEAD TAKES ITS OWN ARC TO ITS AIM POINT' : 'ONE WARHEAD PER MISSILE ON A MINIMUM-ENERGY ARC'
   lines.push(`APPROACH · FROM ${Math.round(((bearingDeg + 180) % 360)).toString().padStart(3, '0')}° · ${approach}`)
-  return { target, adversary, classification, options, delivery, sizing, bearingDeg, lines }
+  return { target, adversary, classification, options, delivery, sizing, kill, bearingDeg, lines }
 }

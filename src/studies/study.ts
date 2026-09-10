@@ -18,6 +18,8 @@ export interface SiteEntity extends Evidenced {
   uncertaintyMetres?: number
   /** Label placement relative to the mark; default 'left' anchor (label to the right of the mark). */
   labelAnchor?: LabelAnchor
+  /** Study seconds at which the site comes into existence; before that it is not drawn. Default: always there. */
+  appearsAt?: number
   facts: Array<Evidenced & { label: string; value: string }>
 }
 

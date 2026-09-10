@@ -76,6 +76,7 @@ function staticFeatures(study: Study) {
     if (e.kind === 'track') {
       if (e.reveal === 'full') paths.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: e.track.geometry().map((p) => [p[0], p[1]]) }, properties: { evidence: e.route.evidence, id: e.id } })
     } else if (e.kind === 'site') {
+      if (e.appearsAt !== undefined) continue
       sites.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [e.position[0], e.position[1]] }, properties: { evidence: e.evidence, id: e.id } })
       if (e.uncertaintyMetres) {
         rings.push({
@@ -223,7 +224,7 @@ function labelOffset(anchor: LabelAnchor): [number, number] {
 function labelElement(entity: Entity, onSelect: (id: string) => void): HTMLElement {
   const el = document.createElement('button')
   el.type = 'button'
-  el.className = `ev-label ev-label--${entity.evidence}`
+  el.className = `ev-label ev-label--${entity.evidence}${entity.kind === 'site' && entity.appearsAt !== undefined ? ' ev-label--appears' : ''}`
   el.innerHTML = `<span class="ev-label-name"></span><span class="ev-label-designation"></span>`
   ;(el.firstChild as HTMLElement).textContent = entity.name
   ;(el.lastChild as HTMLElement).textContent = entity.designation
@@ -413,7 +414,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         if (!position) continue
         const anchor = e.kind === 'site' ? (e.labelAnchor ?? 'left') : 'left'
         const marker = new Marker({ element: labelElement(e, setSelectedId), anchor, offset: labelOffset(anchor) }).setLngLat([position[0], position[1]])
-        if (e.kind === 'site') marker.addTo(map)
+        if (e.kind === 'site' && e.appearsAt === undefined) marker.addTo(map)
         markers.current.set(e.id, marker)
       }
       for (const e of study.entities) {
@@ -478,6 +479,8 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     let lastFlashes = 0
     let lastUnion = 0
     let flashesKey = ''
+    let appearedKey = ''
+    let appearedRings: EvidenceFeature[] = []
     let ringsKey = ''
     const perf = { ticks: 0, updateMs: 0, maxUpdateMs: 0, renderer: glTracks ? 'webgl' : 'geojson' }
     if (import.meta.env.DEV) Object.assign(window, { __grid84Perf: perf })
@@ -534,7 +537,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         const nextRingsKey = `${timed.rings.length}:${timed.areas.length}:${selectedRef.current}:${burstRef.current}:${timed.animated ? Math.floor(now / 500) : ''}`
         if (nextRingsKey !== ringsKey) {
           ringsKey = nextRingsKey
-          setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings])
+          setSourceData(map, SOURCES.rings, [...statics.rings, ...timed.rings, ...appearedRings])
           setSourceData(map, SOURCES.areas, timed.areas)
         }
         const nextFlashesKey = `${timed.flashes.length}:${selectedRef.current}`
@@ -542,6 +545,28 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           flashesKey = nextFlashesKey
           lastFlashes = now
           setSourceData(map, SOURCES.flashes, timed.flashes)
+        }
+        // Sites that come into existence during the study: the source and the label follow the clock, and a flash marks the moment.
+        const appearing = study.entities.filter((e): e is Extract<Entity, { kind: 'site' }> => e.kind === 'site' && e.appearsAt !== undefined)
+        if (appearing.length > 0) {
+          const due = appearing.filter((e) => next.time >= (e.appearsAt as number))
+          const key = due.map((e) => e.id).join(',')
+          if (key !== appearedKey) {
+            appearedKey = key
+            setSourceData(map, SOURCES.sites, [...statics.sites, ...due.map((e) => ({ type: 'Feature' as const, geometry: { type: 'Point' as const, coordinates: [e.position[0], e.position[1]] }, properties: { evidence: e.evidence, id: e.id } }))])
+            appearedRings = due.filter((e) => e.uncertaintyMetres).map((e) => ({ type: 'Feature' as const, geometry: { type: 'LineString' as const, coordinates: geodesicCircle(e.position, e.uncertaintyMetres as number).map((p) => [p[0], p[1]]) }, properties: { evidence: (e.evidence === 'withheld' ? 'withheld' : 'inferred') as 'withheld' | 'inferred', id: `${e.id}-ring` } }))
+            ringsKey = ''
+          }
+          for (const e of appearing) {
+            const at = e.appearsAt as number
+            const isDue = next.time >= at
+            const marker = markers.current.get(e.id)
+            if (marker) {
+              if (isDue && !marker.getElement().isConnected) marker.addTo(map)
+              else if (!isDue && marker.getElement().isConnected) marker.remove()
+            }
+            if (changed && previous.time < at && next.time >= at && previous.playing) flashLayer.current?.flash(e.position[0], e.position[1], 22)
+          }
         }
         for (const e of study.entities) {
           const marker = markers.current.get(e.id)

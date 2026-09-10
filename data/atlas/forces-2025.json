@@ -54,7 +54,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "W87-0 on one reentry vehicle since the 2014 de-MIRV; 150 silos",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 120,
+   "reliability": 0.85
   },
   {
    "id": "us-2",
@@ -70,7 +72,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "W78, one per missile; 150 silos",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 120,
+   "reliability": 0.85
   },
   {
    "id": "us-3",
@@ -86,7 +90,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "150 silos",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 120,
+   "reliability": 0.85
   },
   {
    "id": "us-4",
@@ -102,7 +108,9 @@
    "positionEvidence": "inferred",
    "evidence": "reconstructed",
    "note": "W76-1 at about four per missile on patrol loads; W88 455 kt on some; the patrol box is a guess",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 90,
+   "reliability": 0.85
   },
   {
    "id": "us-5",
@@ -118,7 +126,9 @@
    "positionEvidence": "inferred",
    "evidence": "reconstructed",
    "note": "As the Atlantic",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 90,
+   "reliability": 0.85
   },
   {
    "id": "us-6",
@@ -137,7 +147,9 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
    "standoffKm": 2400,
    "carrierSpeedMs": 250,
-   "missileSpeedMs": 240
+   "missileSpeedMs": 240,
+   "cepMetres": 30,
+   "reliability": 0.9
   },
   {
    "id": "us-7",
@@ -156,7 +168,9 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
    "standoffKm": 60,
    "carrierSpeedMs": 250,
-   "missileSpeedMs": 200
+   "missileSpeedMs": 200,
+   "cepMetres": 30,
+   "reliability": 0.9
   },
   {
    "id": "ru-8",
@@ -172,7 +186,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "Up to four warheads of about 100 kt",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "ru-9",
@@ -188,7 +204,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "ru-10",
@@ -204,7 +222,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "Single warhead of about 800 kt; Yars regiments alongside",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 200,
+   "reliability": 0.85
   },
   {
    "id": "ru-11",
@@ -220,7 +240,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "Ten warheads; Sarmat replacing",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 250,
+   "reliability": 0.85
   },
   {
    "id": "ru-12",
@@ -236,7 +258,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 250,
+   "reliability": 0.85
   },
   {
    "id": "ru-13",
@@ -252,7 +276,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "ru-14",
@@ -268,7 +294,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "ru-15",
@@ -284,7 +312,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "ru-16",
@@ -300,7 +330,9 @@
    "positionEvidence": "documented",
    "evidence": "reconstructed",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "ru-17",
@@ -316,7 +348,9 @@
    "positionEvidence": "inferred",
    "evidence": "reconstructed",
    "note": "Six warheads of about 100 kt; the bastion is a guess",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 250,
+   "reliability": 0.85
   },
   {
    "id": "ru-18",
@@ -332,7 +366,9 @@
    "positionEvidence": "inferred",
    "evidence": "reconstructed",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 250,
+   "reliability": 0.85
   },
   {
    "id": "ru-19",
@@ -351,7 +387,9 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
    "standoffKm": 3000,
    "carrierSpeedMs": 260,
-   "missileSpeedMs": 230
+   "missileSpeedMs": 230,
+   "cepMetres": 20,
+   "reliability": 0.9
   },
   {
    "id": "ru-20",
@@ -370,7 +408,9 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
    "standoffKm": 3000,
    "carrierSpeedMs": 200,
-   "missileSpeedMs": 230
+   "missileSpeedMs": 230,
+   "cepMetres": 20,
+   "reliability": 0.9
   },
   {
    "id": "ru-21",
@@ -386,7 +426,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "Non-strategic; a nuclear option of some tens of kilotons is inferred",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 30,
+   "reliability": 0.9
   },
   {
    "id": "ru-22",
@@ -402,7 +444,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 30,
+   "reliability": 0.9
   },
   {
    "id": "ru-23",
@@ -418,7 +462,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 30,
+   "reliability": 0.9
   },
   {
    "id": "ru-24",
@@ -434,7 +480,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 30,
+   "reliability": 0.9
   },
   {
    "id": "cn-25",
@@ -450,7 +498,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "About 120 silos under construction since 2021; the load and yield are inferred",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 100,
+   "reliability": 0.85
   },
   {
    "id": "cn-26",
@@ -466,7 +516,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 100,
+   "reliability": 0.85
   },
   {
    "id": "cn-27",
@@ -482,7 +534,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 100,
+   "reliability": 0.85
   },
   {
    "id": "cn-28",
@@ -498,7 +552,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "Multiple warheads; the yield is inferred",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 500,
+   "reliability": 0.8
   },
   {
    "id": "cn-29",
@@ -514,7 +570,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "cn-30",
@@ -530,7 +588,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "cn-31",
@@ -546,7 +606,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "cn-32",
@@ -562,7 +624,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "Dual-capable intermediate-range; the nuclear yield is inferred",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 100,
+   "reliability": 0.85
   },
   {
    "id": "cn-33",
@@ -578,7 +642,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 100,
+   "reliability": 0.85
   },
   {
    "id": "cn-34",
@@ -594,7 +660,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "cn-35",
@@ -610,7 +678,9 @@
    "positionEvidence": "inferred",
    "evidence": "inferred",
    "note": "Six boats from Yulin, Hainan; the load and yield are inferred",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 300,
+   "reliability": 0.8
   },
   {
    "id": "cn-36",
@@ -629,7 +699,9 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
    "standoffKm": 1500,
    "carrierSpeedMs": 220,
-   "missileSpeedMs": 240
+   "missileSpeedMs": 240,
+   "cepMetres": 20,
+   "reliability": 0.9
   },
   {
    "id": "fr-37",
@@ -645,7 +717,9 @@
    "positionEvidence": "inferred",
    "evidence": "reconstructed",
    "note": "TNO of about 100 kt, four to six per missile; the patrol area is a guess",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 150,
+   "reliability": 0.85
   },
   {
    "id": "fr-38",
@@ -664,7 +738,9 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
    "standoffKm": 500,
    "carrierSpeedMs": 290,
-   "missileSpeedMs": 260
+   "missileSpeedMs": 260,
+   "cepMetres": 10,
+   "reliability": 0.9
   },
   {
    "id": "uk-39",
@@ -680,7 +756,9 @@
    "positionEvidence": "inferred",
    "evidence": "reconstructed",
    "note": "About 40 warheads over 8 missiles on patrol; the Holbrook warhead at about 100 kt",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 90,
+   "reliability": 0.85
   },
   {
    "id": "in-40",
@@ -696,7 +774,9 @@
    "positionEvidence": "inferred",
    "evidence": "inferred",
    "note": "The Strategic Forces Command keeps its sites quiet; a central location is assumed; a boosted-fission yield in the tens of kilotons is inferred",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 200,
+   "reliability": 0.8
   },
   {
    "id": "in-41",
@@ -712,7 +792,9 @@
    "positionEvidence": "inferred",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 300,
+   "reliability": 0.8
   },
   {
    "id": "in-42",
@@ -728,7 +810,9 @@
    "positionEvidence": "inferred",
    "evidence": "inferred",
    "note": "From Visakhapatnam",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 400,
+   "reliability": 0.75
   },
   {
    "id": "pk-43",
@@ -744,7 +828,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "A yield in the tens of kilotons is inferred from the 1998 tests",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 300,
+   "reliability": 0.8
   },
   {
    "id": "pk-44",
@@ -760,7 +846,9 @@
    "positionEvidence": "inferred",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 350,
+   "reliability": 0.8
   },
   {
    "id": "pk-45",
@@ -776,7 +864,9 @@
    "positionEvidence": "inferred",
    "evidence": "inferred",
    "note": "Short-range and cruise systems; a small yield is inferred",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 20,
+   "reliability": 0.85
   },
   {
    "id": "il-46",
@@ -792,7 +882,9 @@
    "positionEvidence": "documented",
    "evidence": "withheld",
    "note": "Israel neither confirms nor denies; the arsenal, the system and its yield are the open literature's estimates",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 300,
+   "reliability": 0.8
   },
   {
    "id": "il-47",
@@ -811,7 +903,9 @@
    "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
    "standoffKm": 1500,
    "carrierSpeedMs": 0,
-   "missileSpeedMs": 240
+   "missileSpeedMs": 240,
+   "cepMetres": 20,
+   "reliability": 0.85
   },
   {
    "id": "nk-48",
@@ -827,7 +921,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "Solid-fuel ICBM tested 2023; a yield near the 2017 test is inferred",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 1000,
+   "reliability": 0.7
   },
   {
    "id": "nk-49",
@@ -843,7 +939,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 1500,
+   "reliability": 0.6
   },
   {
    "id": "nk-50",
@@ -859,7 +957,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 800,
+   "reliability": 0.7
   },
   {
    "id": "nk-51",
@@ -875,7 +975,9 @@
    "positionEvidence": "inferred",
    "evidence": "inferred",
    "note": "Short-range solid-fuel missile with a claimed nuclear option",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 100,
+   "reliability": 0.8
   },
   {
    "id": "nk-52",
@@ -891,7 +993,9 @@
    "positionEvidence": "documented",
    "evidence": "inferred",
    "note": "One experimental boat; treated as if at sea off the port",
-   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025"
+   "source": "Kristensen, Korda, Johns and Knight, Nuclear Notebook (Bulletin of the Atomic Scientists, 2023-2025); SIPRI Yearbook 2025",
+   "cepMetres": 1000,
+   "reliability": 0.6
   }
  ]
 }

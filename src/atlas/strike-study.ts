@@ -61,18 +61,25 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
   const last = Math.max(...Object.values(strike.firstArrival).map((f) => f.time))
   const entities: Entity[] = [
     launcherSite(launcher, { side: 'attacker', designation: `${site.kind.toUpperCase()} · ${site.system.toUpperCase()}`, evidence: site.evidence, provenance: { source: site.source, method: site.note }, positionEvidence: site.positionEvidence, label: true, facts: [{ label: 'Load', value: `${site.warheadsPerMissile} × ${fmtYield(site.yieldKt)} per missile · range ${site.rangeKm.toLocaleString('en-GB')} km`, evidence: site.evidence, provenance: { source: site.source } }] }),
-    { kind: 'site', id: 'target-site', name: target.name, designation: `${[designation.role.toUpperCase(), designation.code].filter(Boolean).join(' ')} · ${classification.category}`, label: true, position: target.position, evidence: 'documented', provenance: { source: 'OpenStreetMap via Photon' }, facts: [{ label: 'Population within 10 km', value: classification.population > 0 ? `${Math.round(plan.classification.population).toLocaleString('en-GB')} within 30 km on the 2025 grid` : 'None on the grid', evidence: 'modelled', provenance: { source: 'GHSL GHS-POP R2023A, 2025 epoch' } }] },
-    ...describeAimPoints(sizing, target.position).map((a) => ({
+    { kind: 'site', id: 'target-site', name: target.name, designation: `${[designation.role.toUpperCase(), designation.code].filter(Boolean).join(' ')} · ${classification.category}`, label: true, position: target.position, evidence: 'documented', provenance: { source: 'OpenStreetMap via Photon' }, facts: [{ label: 'Population', value: classification.population > 0 ? `${Math.round(plan.classification.population).toLocaleString('en-GB')} within 30 km on the 2025 grid` : 'None on the grid', evidence: 'modelled', provenance: { source: 'GHSL GHS-POP R2023A, 2025 epoch' } }, { label: 'Kill probability', value: `${Math.round(plan.kill.perWarhead * 100)}% per warhead as fired: ${classification.category.toLowerCase()} taken at ${plan.kill.psi} psi, lethal radius ${(plan.kill.lethalRadiusMetres / 1000).toFixed(1)} km against a CEP of ${plan.kill.cepMetres} m, reliability ${Math.round(plan.kill.reliability * 100)}%`, evidence: site.evidence, provenance: { source: 'SSPK = 1 − 0.5^((r/CEP)²), the accuracy lab; CEP and reliability from the forces file' } }] },
+    ...describeAimPoints(sizing, target.position).map((a, i, all) => ({
       kind: 'site' as const,
       id: `aim-${a.index + 1}`,
+      // The aim points materialise one by one through the prelude.
+      appearsAt: -countdownSeconds + Math.round(countdownSeconds * (0.25 + (0.5 * i) / Math.max(1, all.length))),
       name: `Aim point ${a.index + 1}`,
-      designation: a.index === 0 ? 'AIM POINT 1 · CENTRE' : `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}°`,
+      designation: `${a.index === 0 ? 'AIM POINT 1 · CENTRE' : `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}°`} · CEP ${site.cepMetres} M`,
       label: a.index < 8,
+      // The ring is the weapon's CEP: half the warheads fall inside it.
+      uncertaintyMetres: site.cepMetres,
       labelAnchor: (a.bearingDeg > 180 ? 'right' : 'left') as 'left' | 'right',
       position: a.position,
       evidence: 'modelled' as const,
       provenance: { source: 'The atlas solver', method: a.reason },
-      facts: [{ label: 'Why here', value: a.reason, evidence: 'modelled' as const, provenance: { source: 'The atlas solver: a sunflower spaced so the 5 psi discs meet, centred on the geocoder\'s point' } }],
+      facts: [
+        { label: 'Why here', value: a.reason, evidence: 'modelled' as const, provenance: { source: 'The atlas solver: a sunflower spaced so the 5 psi discs meet, centred on the geocoder\'s point' } },
+        { label: 'CEP', value: `${site.cepMetres} m for the ${site.system}: the ring within which half the warheads fall; the lethal radius at ${plan.kill.psi} psi is ${(plan.kill.lethalRadiusMetres / 1000).toFixed(1)} km`, evidence: site.evidence, provenance: { source: site.source, method: 'Circular error probable as the open literature gives it; inferred for the opaque arsenals' } },
+      ],
     })),
     ...strike.entities,
   ]
@@ -82,7 +89,8 @@ export function buildStrikeStudy(plan: StrikePlan, wind: WindAloft, countdownSec
     { time: -countdownSeconds, text: `STRIKE ORDER · ${power.name.toUpperCase()} · ${site.system.toUpperCase()} FROM ${site.name.toUpperCase()} · ${sizing.warheads} × ${fmtYield(sizing.yieldKt)} ON ${target.name.toUpperCase()}`, entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 4 ? 9.5 : 10.5, pitch: 30, durationMs: 1_500 } },
     { time: -countdownSeconds + Math.round(countdownSeconds * 0.25), text: `AIM POINTS · ${sizing.warheads} · ${sizing.warheads > 1 ? `A SUNFLOWER WITH NEIGHBOURS ABOUT ${((sizing.r5 * 1.6) / 1000).toFixed(1)} KM APART SO THE 5 PSI DISCS OF ${fmtYield(sizing.yieldKt)} MEET` : 'ONE, AT THE CENTRE'} · ${classification.category} · ${classification.countervalue && classification.urbanRadiusMetres > 0 ? `TILING THE ${Math.round(classification.urbanRadiusMetres / 1000)} KM URBAN AREA` : 'A POINT TARGET'}`, entityId: 'aim-1' },
     ...aims.slice(1, 4).map((a, k) => ({ time: -countdownSeconds + Math.round(countdownSeconds * (0.35 + k * 0.1)), text: `AIM POINT ${a.index + 1} · ${(a.distanceMetres / 1000).toFixed(1)} KM AT ${Math.round(a.bearingDeg).toString().padStart(3, '0')}° · ${a.reason.split(' · ').slice(-1)[0]}`, entityId: `aim-${a.index + 1}` })),
-    { time: -Math.round(countdownSeconds * 0.3), text: approachLine || `APPROACH · FROM ${Math.round((plan.bearingDeg + 180) % 360)}°`, entityId: launcher.id },
+    { time: -Math.round(countdownSeconds * 0.22), text: plan.kill.line, entityId: 'aim-1' },
+    { time: -Math.round(countdownSeconds * 0.12), text: approachLine || `APPROACH · FROM ${Math.round((plan.bearingDeg + 180) % 360)}°`, entityId: launcher.id },
     { time: 0, text: `LAUNCH · ${sizing.missiles} MISSILE${sizing.missiles > 1 ? 'S' : ''} · ${Math.round(delivery.distanceMetres / 1000).toLocaleString('en-GB')} KM · FLIGHT ${Math.round(delivery.flightSeconds / 60)} MIN`, entityId: launcher.id, camera: { center: [(site.position[0] + target.position[0]) / 2, (site.position[1] + target.position[1]) / 2], zoom: delivery.distanceMetres > 8_000_000 ? 2.3 : delivery.distanceMetres > 5_000_000 ? 2.8 : delivery.distanceMetres > 2_500_000 ? 3.6 : delivery.distanceMetres > 1_000_000 ? 4.6 : 5.8, durationMs: 2_500 } },
     { time: arrival - 60, text: 'ONE MINUTE TO IMPACT', entityId: 'target-site', camera: { center: target.position, zoom: sizing.warheads > 3 ? 8 : 9, pitch: 40, durationMs: 3_000 } },
     { time: arrival, text: `DETONATION · ${target.name.toUpperCase()} · ${sizing.burst.toUpperCase()} BURST · ${fmtYield(sizing.yieldKt)}`, entityId: 'atlas-e-target' },

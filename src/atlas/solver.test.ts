@@ -57,6 +57,13 @@ describe('the atlas solver', () => {
     // A capital of twenty kilometres' radius draws the heavy load, not the nearest theatre missile.
     expect(plan.delivery.site.warheadsPerMissile * plan.delivery.site.yieldKt).toBeGreaterThan(1_000)
     expect(plan.lines.some((l) => /COVERS \d+% OF THE AREA/.test(l))).toBe(true)
+    // A city at 5 psi against a megaton-class warhead: accuracy is no longer the question; reliability is.
+    expect(plan.kill.sspk).toBeGreaterThan(0.99)
+    expect(plan.kill.perWarhead).toBeCloseTo(plan.delivery.site.reliability, 2)
+    expect(plan.lines.some((l) => /^KILL PROBABILITY/.test(l))).toBe(true)
+    const hard = planStrike(place('Base', 'PL', [21, 52.2], 'military', 'airfield'), village)
+    expect('failure' in hard).toBe(false)
+    if (!('failure' in hard)) expect(hard.kill.psi).toBe(1_000)
     expect(plan.sizing.aimPoints).toHaveLength(plan.sizing.warheads)
     expect(plan.sizing.missiles).toBeGreaterThanOrEqual(1)
     expect(plan.lines.some((l) => /WEAPON SIZED/.test(l))).toBe(true)
