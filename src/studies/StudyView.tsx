@@ -102,6 +102,46 @@ function reticle(map: MapLibreMap, position: LngLat): void {
   window.setTimeout(() => marker.remove(), RETICLE_MS + 120)
 }
 
+/**
+ * The clear space, as padding a fit can actually use. The panels can take two
+ * thirds of a wide screen, and MapLibre cannot frame anything in what that
+ * leaves — it returns no camera rather than a bad one, and the move silently
+ * does not happen. So the padding is clamped to leave at least two fifths of
+ * each axis: the camera then frames the box a little off-centre rather than
+ * not at all, which is the better failure.
+ */
+function fitPadding(map: MapLibreMap): { top: number; bottom: number; left: number; right: number } {
+  const pad = clearPadding(map)
+  const canvas = map.getCanvas()
+  const w = canvas.clientWidth
+  const h = canvas.clientHeight
+  const squeeze = (a: number, b: number, extent: number) => {
+    const allowed = extent * 0.6
+    if (a + b <= allowed || a + b === 0) return [a, b] as const
+    const k = allowed / (a + b)
+    return [Math.round(a * k), Math.round(b * k)] as const
+  }
+  const [left, right] = squeeze(pad.left, pad.right, w)
+  const [top, bottom] = squeeze(pad.top, pad.bottom, h)
+  return { top, bottom, left, right }
+}
+
+/**
+ * A zoom that frames a set of points across the clear width, for the case
+ * where MapLibre declines to work one out. At zoom z a 512-pixel tile spans
+ * the world, so the scale is 40,075 km · cos φ / (512 · 2^z) metres a pixel.
+ */
+function zoomForSpan(map: MapLibreMap, points: LngLat[]): number {
+  const lons = points.map((p) => p[0])
+  const lats = points.map((p) => p[1])
+  const lat = (Math.min(...lats) + Math.max(...lats)) / 2
+  const pad = fitPadding(map)
+  const clearPx = Math.max(120, map.getCanvas().clientWidth - pad.left - pad.right)
+  const spanDeg = Math.max(Math.max(...lons) - Math.min(...lons), (Math.max(...lats) - Math.min(...lats)) * 1.6, 0.01)
+  const spanMetres = (spanDeg / 360) * 40_075_017 * Math.max(0.2, Math.cos((lat * Math.PI) / 180))
+  return Math.max(0.6, Math.min(16, Math.log2((40_075_017 * Math.cos((lat * Math.PI) / 180) * clearPx) / (512 * spanMetres))))
+}
+
 function clearPadding(map: MapLibreMap): { top: number; bottom: number; left: number; right: number } {
   const canvas = map.getCanvas()
   const w = canvas.clientWidth
@@ -623,33 +663,41 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           if (event.camera && previous.time < event.time && next.time >= event.time) {
             const c = event.camera
             // Fit the points that matter into the part of the map the panels
-            // leave clear — and fall back to the stated centre if the box
-            // cannot be framed. Under the globe projection MapLibre gives up
-            // on a box spanning much of a hemisphere and throws from inside
-            // fitBounds, which would otherwise take the whole clock with it:
-            // the study's camera is data, and data must not be able to stop
-            // the engine.
-            const flown =
-              c.fit && c.fit.length > 1
-                ? (() => {
-                    const lons = c.fit.map((p) => p[0])
-                    const lats = c.fit.map((p) => p[1])
-                    try {
-                      map.fitBounds(
-                        [
-                          [Math.min(...lons), Math.min(...lats)],
-                          [Math.max(...lons), Math.max(...lats)],
-                        ],
-                        { padding: clearPadding(map), pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, maxZoom: c.zoom, essential: true },
-                      )
-                      return true
-                    } catch {
-                      return false
-                    }
-                  })()
-                : false
+            // leave clear. Two things can stop that working and both have to
+            // be handled, because a study's camera is data and data must not
+            // be able to stop the engine.
+            //
+            // The panels can leave too little canvas: on a wide screen they
+            // take nine hundred pixels of a fourteen hundred pixel map, and a
+            // box spanning seventy-five degrees of longitude does not go into
+            // what is left. MapLibre answers that by returning no camera at
+            // all rather than by throwing, so the result is checked and not
+            // merely tried. And under the globe projection a box spanning much
+            // of a hemisphere makes it throw from inside fitBounds.
+            //
+            // Either way the fallback flies to the stated centre at a zoom
+            // that actually frames the box, rather than at the camera's zoom,
+            // which for a fitted move is only the cap on how close it may go.
+            const flown = (() => {
+              if (!c.fit || c.fit.length < 2) return false
+              const lons = c.fit.map((p) => p[0])
+              const lats = c.fit.map((p) => p[1])
+              const bounds: [[number, number], [number, number]] = [
+                [Math.min(...lons), Math.min(...lats)],
+                [Math.max(...lons), Math.max(...lats)],
+              ]
+              const options = { padding: fitPadding(map), pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, maxZoom: c.zoom, essential: true }
+              try {
+                if (!map.cameraForBounds(bounds, options)) return false
+                map.fitBounds(bounds, options)
+                return true
+              } catch {
+                return false
+              }
+            })()
             if (!flown) {
-              map.flyTo({ center: [c.center[0], c.center[1]], zoom: c.zoom, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, essential: true })
+              const zoom = c.fit && c.fit.length > 1 ? Math.min(c.zoom, zoomForSpan(map, c.fit)) : c.zoom
+              map.flyTo({ center: [c.center[0], c.center[1]], zoom, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, duration: c.durationMs ?? 4_000, essential: true })
             }
           }
         }
