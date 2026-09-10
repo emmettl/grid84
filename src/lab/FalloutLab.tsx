@@ -1,5 +1,6 @@
 import type { Map as MapLibreMap } from 'maplibre-gl'
 import { fetchWindAloft } from '../atlas/wind.ts'
+import { PROTECTION_FACTORS } from '../models/fallout.ts'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { formatGrid, type LngLat } from '../geo/geodesy.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
@@ -47,6 +48,7 @@ export function FalloutLab() {
   const [bearing, setBearing] = useState(90)
   const [shear, setShear] = useState(15)
   const [terrain, setTerrain] = useState(1)
+  const [protection, setProtection] = useState(1)
   const [windNote, setWindNote] = useState<string | null>(null)
   const [fetching, setFetching] = useState(false)
   const [hours, setHours] = useState(96)
@@ -55,7 +57,7 @@ export function FalloutLab() {
   const [exposure, setExposure] = useState<Record<string, number> | null>(null)
   const [ready, setReady] = useState(false)
 
-  const contours = useMemo(() => plume({ center, yieldKt, fissionFraction: fission, windMph, downwindBearingDeg: bearing, untilHours: hours, shearDeg: shear, terrainFactor: terrain }), [center, yieldKt, fission, windMph, bearing, hours, shear, terrain])
+  const contours = useMemo(() => plume({ center, yieldKt, fissionFraction: fission, windMph, downwindBearingDeg: bearing, untilHours: hours, shearDeg: shear, terrainFactor: terrain, protectionFactor: protection }), [center, yieldKt, fission, windMph, bearing, hours, shear, terrain, protection])
 
   useEffect(() => {
     if (!container.current) return
@@ -214,6 +216,19 @@ export function FalloutLab() {
             Surface factor {terrain.toFixed(2)} <span className="badge badge--documented">§9.95</span>
           </h2>
           <input type="range" min={0.5} max={1} step={0.05} value={terrain} aria-label="Fraction of the idealized dose rate a real surface gives" onChange={(e) => setTerrain(Number(e.target.value))} />
+          <h2>
+            Shelter · protection factor {protection} <span className="badge badge--documented">GLASSTONE CH. IX</span>
+          </h2>
+          <div className="clock-controls">
+            {PROTECTION_FACTORS.map((p) => (
+              <button key={p.key} type="button" className={protection === p.factor ? 'is-active' : ''} title={p.note} onClick={() => setProtection(p.factor)}>
+                {p.label}
+              </button>
+            ))}
+          </div>
+          <p className="log-empty">
+            The dose is divided by this. The studies assume one, standing in the open, which is an upper bound on the dead; it is the single largest uncertainty in any fallout casualty figure, and the reason the Home Office and its critics differed by millions over the same attack.
+          </p>
           <h2>Dose accumulated to H+{hours} h</h2>
           <input type="range" min={1} max={336} step={1} value={hours} aria-label="Hours after burst" onChange={(e) => setHours(Number(e.target.value))} />
         </section>

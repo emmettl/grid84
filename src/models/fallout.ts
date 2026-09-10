@@ -173,7 +173,25 @@ export interface PlumeOptions {
   shearDeg?: number
   /** §9.95: real surfaces give about 0.7 of the idealized dose rates in the open, 0.5 to 0.6 in rough terrain. Default 1, the idealized plane. */
   terrainFactor?: number
+  /**
+   * Shielding, as the factor by which a structure divides the dose its
+   * occupants take: Glasstone's protection factor. One is standing in the
+   * open, which is the studies' assumption and an upper bound on the dead;
+   * a house is two to three, a basement ten to forty, a purpose-built
+   * shelter a hundred or more. This is the single largest uncertainty in
+   * any fallout casualty figure.
+   */
+  protectionFactor?: number
 }
+
+/** Glasstone ch. IX: what a structure divides the dose by. Round figures, and the range within each kind is wide. */
+export const PROTECTION_FACTORS = [
+  { key: 'open', label: 'In the open', factor: 1, note: 'The studies\' assumption, and an upper bound on the dead' },
+  { key: 'house', label: 'A house, upper floor', factor: 2, note: 'Frame and brick houses give little: two to three' },
+  { key: 'ground', label: 'A house, ground floor, inner room', factor: 5, note: 'The British stay-at-home advice: an inner refuge away from outside walls' },
+  { key: 'basement', label: 'A basement', factor: 20, note: 'Ten to forty, depending on how much of it is below grade' },
+  { key: 'shelter', label: 'A purpose-built shelter', factor: 100, note: 'What civil-defence programmes costed and, in Britain and America, did not build for the public' },
+] as const
 
 /** The table's contours widened and shortened for a shear other than the 15° they assume. */
 export function shearAdjust(dims: ContourDimensions, shearDeg: number): ContourDimensions {
@@ -186,13 +204,14 @@ export function plume(options: PlumeOptions): PlumeContour[] {
   const metresPerHour = options.windMph * MILE
   const clip = options.reachedHours === undefined ? Infinity : Math.max(0, options.reachedHours) * metresPerHour
   const terrain = options.terrainFactor ?? 1
+  const protection = Math.max(1, options.protectionFactor ?? 1)
   return TABLE_9_93.map((row) => {
     const ideal = contourDimensions(row, options.yieldKt, options.fissionFraction, options.windMph)
     const sheared = options.shearDeg !== undefined && options.shearDeg !== 15 ? shearAdjust(ideal, options.shearDeg) : ideal
     const dims = { ...sheared, radsPerHour: sheared.radsPerHour * terrain }
     const arrivalTip = dims.downwindMetres / metresPerHour
     const arrivalMid = (dims.downwindMetres / 3) / metresPerHour
-    const dose = accumulatedDose(dims.radsPerHour, arrivalMid, options.untilHours)
+    const dose = accumulatedDose(dims.radsPerHour, arrivalMid, options.untilHours) / protection
     return {
       key: `r${row.radsPerHour}`,
       ...dims,

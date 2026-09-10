@@ -1147,9 +1147,14 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               <li key={o}>{o}</li>
             ))}
             {burst === 'surface' && (
-              <li>
-                Nobody moves. The fallout count grows as the dose accumulates from arrival, over the population where it was when the weapons fell, with no sheltering and no evacuation. That is a simplifying assumption and, in an attack of this size, close to the case: the roads are in the blast areas, the plume outruns a car on most axes, and the people under the heaviest contours take a lethal dose in the first hours, before any movement could matter
-              </li>
+              <>
+                <li>
+                  Nobody moves. The dose accumulates from arrival over the population where the grid has it. For an attack of this size that is close to the case, and it is what the governments themselves assumed: British policy was to stay at home, and American crisis relocation needed several days of warning it did not expect to get
+                </li>
+                <li>
+                  Nobody shelters either, and that is a bound rather than a case. The dose is taken in the open, at a protection factor of one; a ground-floor inner room is worth about five and a basement twenty, so a sheltered population takes a fraction of this. It is the largest single uncertainty in any fallout figure, and the reason official and academic estimates of the same attack differ by millions. <a href="#/lab/fallout">The fallout lab</a> has the factor as a control
+                </li>
+              </>
             )}
           </ul>
           {study.links && study.links.length > 0 && (
