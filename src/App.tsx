@@ -22,6 +22,7 @@ import { vForce } from './studies/vforce/vforce.ts'
 import { sevenDays } from './studies/sevendays/seven-days.ts'
 import { carteBlanche } from './studies/carteblanche/carte-blanche.ts'
 import { demolitionBelt } from './studies/demolition/belt.ts'
+import { tornadoStrike } from './studies/tornado/tornado.ts'
 import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
@@ -53,6 +54,7 @@ type Route =
   | { kind: 'study'; id: 'seven-days' }
   | { kind: 'study'; id: 'carte-blanche' }
   | { kind: 'study'; id: 'demolition-belt' }
+  | { kind: 'study'; id: 'tornado' }
   | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }
   | { kind: 'study'; id: 'window-83'; posture: 'ride' | 'launch' }
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'readiness' | 'defence' | 'accuracy' | 'guidance' | 'neutron' }
@@ -76,6 +78,7 @@ function parseRoute(hash: string): Route {
   if (hash === '#/study/cuba-62') return { kind: 'study', id: 'cuba-62', general: false }
   if (hash === '#/study/cuba-62/general') return { kind: 'study', id: 'cuba-62', general: true }
   if (hash === '#/study/able-archer-83') return { kind: 'study', id: 'able-archer-83' }
+  if (hash === '#/study/tornado') return { kind: 'study', id: 'tornado' }
   if (hash === '#/study/demolition-belt') return { kind: 'study', id: 'demolition-belt' }
   if (hash === '#/study/carte-blanche') return { kind: 'study', id: 'carte-blanche' }
   if (hash === '#/study/seven-days') return { kind: 'study', id: 'seven-days' }
@@ -224,6 +227,11 @@ function AbleArcherStudy() {
   return <StudyView key={study.id} study={study} />
 }
 
+function TornadoStudy() {
+  const study = useMemo(() => tornadoStrike(), [])
+  return <StudyView key={study.id} study={study} />
+}
+
 function DemolitionBeltStudy() {
   const study = useMemo(() => demolitionBelt(), [])
   return <StudyView key={study.id} study={study} />
@@ -288,6 +296,7 @@ export default function App() {
     { href: '#/study/v-force', label: 'V-force', active: route.kind === 'study' && route.id === 'v-force' },
     { href: '#/study/carte-blanche', label: 'Carte Blanche', active: route.kind === 'study' && route.id === 'carte-blanche' },
     { href: '#/study/demolition-belt', label: 'Demolition belt', active: route.kind === 'study' && route.id === 'demolition-belt' },
+    { href: '#/study/tornado', label: 'Tornado', active: route.kind === 'study' && route.id === 'tornado' },
     { href: '#/study/seven-days', label: 'Seven days', active: route.kind === 'study' && route.id === 'seven-days' },
     { href: '#/study/window-83', label: 'The window', active: route.kind === 'study' && route.id === 'window-83' },
     { href: '#/study/72-minutes', label: '72 minutes', active: route.kind === 'study' && route.id === '72-minutes' },
@@ -316,6 +325,7 @@ export default function App() {
       {route.kind === 'study' && route.id === 'defcon3-73' && <Defcon3Study variant={route.variant} />}
       {route.kind === 'study' && route.id === 'cuba-62' && <CubaStudy general={route.general} />}
       {route.kind === 'study' && route.id === 'able-archer-83' && <AbleArcherStudy />}
+      {route.kind === 'study' && route.id === 'tornado' && <TornadoStudy />}
       {route.kind === 'study' && route.id === 'demolition-belt' && <DemolitionBeltStudy />}
       {route.kind === 'study' && route.id === 'carte-blanche' && <CarteBlancheStudy />}
       {route.kind === 'study' && route.id === 'seven-days' && <SevenDaysStudy />}

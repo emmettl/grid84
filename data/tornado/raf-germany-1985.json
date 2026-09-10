@@ -1,0 +1,137 @@
+{
+ "year": 1985,
+ "source": "RAF Germany order of battle, 1985: Tornado GR1 squadrons at Bruggen and Laarbruch; the WE.177 as the strike weapon. The strike plans and the target list are not published",
+ "weapon": "WE.177: a laydown weapon in three marks, the 450 kt B and the 200 kt C being the ones the Tornado carried. 200 kt is taken here and the mark at any station is not known",
+ "yieldKt": 200,
+ "profile": {
+  "cruiseAltitudeMetres": 9000,
+  "runInMetres": 60,
+  "descendAtMetres": 250000,
+  "speedMs": 250,
+  "note": "Transit at height while over friendly ground, then down to two hundred feet on terrain-following radar for the run in: the V-force profile of 1963, flown by an aircraft designed for it from the start"
+ },
+ "attrition": {
+  "reliability": 0.9,
+  "penetration": 0.55,
+  "note": "RAF Germany's own loss estimates are not published. Contemporary studies of interdiction against the Warsaw Pact's air defences put attrition at tens of per cent a sortie; nine aircraft in ten serviceable and away, and a little over half through, are inferred here"
+ },
+ "rule": "Two aircraft to each target, the nearest station first; the real plans are not published",
+ "bases": [
+  {
+   "id": "bruggen",
+   "name": "RAF Bruggen",
+   "lon": 6.1319,
+   "lat": 51.1997,
+   "squadrons": "IX, 14, 17 and 31 Squadrons",
+   "aircraft": 48
+  },
+  {
+   "id": "laarbruch",
+   "name": "RAF Laarbruch",
+   "lon": 6.1425,
+   "lat": 51.7533,
+   "squadrons": "15, 16 and 20 Squadrons",
+   "aircraft": 36
+  }
+ ],
+ "targets": [
+  {
+   "id": "t-0",
+   "name": "Werneuchen airfield",
+   "lon": 13.74,
+   "lat": 52.63,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-1",
+   "name": "Finow airfield",
+   "lon": 13.68,
+   "lat": 52.83,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-2",
+   "name": "Sperenberg airfield",
+   "lon": 13.37,
+   "lat": 52.15,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-3",
+   "name": "Altes Lager airfield",
+   "lon": 13.16,
+   "lat": 51.95,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-4",
+   "name": "Zerbst airfield",
+   "lon": 12.15,
+   "lat": 51.97,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-5",
+   "name": "Merseburg airfield",
+   "lon": 12.06,
+   "lat": 51.36,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-6",
+   "name": "Wittstock airfield",
+   "lon": 12.44,
+   "lat": 53.16,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-7",
+   "name": "Parchim airfield",
+   "lon": 11.78,
+   "lat": 53.43,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-8",
+   "name": "Cottbus airfield",
+   "lon": 14.36,
+   "lat": 51.89,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-9",
+   "name": "Grossenhain airfield",
+   "lon": 13.55,
+   "lat": 51.29,
+   "kind": "airfield"
+  },
+  {
+   "id": "t-10",
+   "name": "Oder crossing at Frankfurt",
+   "lon": 14.55,
+   "lat": 52.34,
+   "kind": "crossing"
+  },
+  {
+   "id": "t-11",
+   "name": "Oder crossing at Kustrin",
+   "lon": 14.66,
+   "lat": 52.59,
+   "kind": "crossing"
+  },
+  {
+   "id": "t-12",
+   "name": "Elbe crossing at Magdeburg",
+   "lon": 11.64,
+   "lat": 52.13,
+   "kind": "crossing"
+  },
+  {
+   "id": "t-13",
+   "name": "Elbe crossing at Wittenberge",
+   "lon": 11.75,
+   "lat": 52.99,
+   "kind": "crossing"
+  }
+ ]
+}
