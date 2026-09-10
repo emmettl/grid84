@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl'
-import { greatCirclePoints } from '../engine/track.ts'
+import type { Map as MapLibreMap } from 'maplibre-gl'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
+import { TrackLayer } from '../map/track-layer.ts'
+import { prepareTracks } from '../map/track-scene.ts'
+import { salvo } from './arcs.ts'
 import { posture1983, type Posture1983 } from '../studies/window83/window.ts'
 import { assignmentsOf, describePlan, evaluateSeeds, loss, OBJECTIVES, perturb, randomPlan, rng, yieldClass, SU_CLASSES, US_CLASSES, type Averaged, type Constraints, type DeathTable, type Objective, type Plan } from './model.ts'
 import { buildTable, clearTable } from './table.ts'
@@ -22,6 +24,9 @@ const EVALS_PER_FRAME = 10
 const RESTART_EVERY = 300
 const STATUS_EVERY = 250
 const LOG_KEEP = 80
+/** How long a salvo takes to fly across the globe in wall time, and how many trajectories it carries. */
+const SALVO_MS = 12_000
+const SALVO_TRACKS = 18
 /** General Turgidson's bound, Dr. Strangelove (1964): "no more than ten to twenty million killed, tops... depending on the breaks." The stated acceptable own-side loss, printed beside what the search finds. */
 const TURGIDSON_TOPS = 20_000_000
 
@@ -50,6 +55,7 @@ export function WoprView() {
   const container = useRef<HTMLDivElement>(null)
   const terminal = useRef<HTMLElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
+  const trackLayer = useRef<TrackLayer | null>(null)
   const posture = useMemo<Posture1983>(() => posture1983(), [])
   const [table, setTable] = useState<DeathTable | null>(null)
   const [gridName, setGridName] = useState('')
@@ -68,7 +74,7 @@ export function WoprView() {
   const [lines, setLines] = useState<LogLine[]>([])
   const started = useRef(performance.now())
   const log = useRef<{ lines: LogLine[]; next: number; dirty: boolean }>({ lines: [], next: 1, dirty: false })
-  const state = useRef({ plan: null as Plan | null, loss: Infinity, temperature: 1, iteration: 0, seed: 1, gen: rng(1), lastArcs: 0, perObjective: {} as Partial<Record<Objective, Best>>, perObjectiveDirty: false, best: null as Best | null, first: null as Best | null, bestDirty: false })
+  const state = useRef({ plan: null as Plan | null, loss: Infinity, temperature: 1, iteration: 0, seed: 1, gen: rng(1), lastArcs: 0, salvoStart: 0, salvoSpan: 0, perObjective: {} as Partial<Record<Objective, Best>>, perObjectiveDirty: false, best: null as Best | null, first: null as Best | null, bestDirty: false })
   const objectiveRef = useRef(objective)
   const constraintsRef = useRef(constraints)
   const sovietRuleRef = useRef(sovietRule)
@@ -127,8 +133,11 @@ export function WoprView() {
     }
     map.on('load', () => {
       sync = installTerrainSync(map)
-      map.addSource('wopr-arcs', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
-      map.addLayer({ id: 'wopr-arcs', type: 'line', source: 'wopr-arcs', paint: { 'line-color': ['match', ['get', 'side'], 'us', 'rgba(141, 250, 255, 0.45)', 'rgba(255, 96, 96, 0.45)'], 'line-width': 1 } })
+      // The same custom layer the studies fly their weapons on, so the arcs here are trajectories and not lines drawn on the ground.
+      const layer = new TrackLayer('wopr-tracks-gl')
+      layer.setFade({ enabled: true, holdSeconds: 240, spanSeconds: 900, floor: 0 })
+      map.addLayer(layer)
+      trackLayer.current = layer
       pad()
       const spin = () => {
         if (!map.isMoving()) {
@@ -146,6 +155,7 @@ export function WoprView() {
       sync?.(true)
       map.remove()
       mapRef.current = null
+      trackLayer.current = null
     }
   }, [])
 
@@ -246,12 +256,19 @@ export function WoprView() {
         setFirst(st.first)
       }
       flush()
-      // A few trajectories of the plan under evaluation, now and then.
+      // The trajectories of the plan under evaluation, flown: a fresh salvo
+      // every twelve seconds, its own flight time run through in that span.
       const now = performance.now()
-      if (now - st.lastArcs > 2_500 && st.plan) {
+      if (now - st.lastArcs > SALVO_MS && st.plan && trackLayer.current) {
         st.lastArcs = now
-        drawArcs(mapRef.current, posture, st.plan, st.gen)
+        st.salvoStart = now
+        const { specs, span } = salvo(posture, st.plan, { count: SALVO_TRACKS, spread: 600, gen: st.gen })
+        if (specs.length > 0) {
+          trackLayer.current.setScene(prepareTracks(specs))
+          st.salvoSpan = span
+        }
       }
+      if (trackLayer.current && st.salvoSpan > 0) trackLayer.current.setTime(((now - st.salvoStart) / SALVO_MS) * st.salvoSpan)
       frame = window.setTimeout(step, 16)
     }
     frame = window.setTimeout(step, 16)
@@ -260,7 +277,7 @@ export function WoprView() {
   }, [table, running, posture])
 
   const reset = (why: string) => {
-    state.current = { plan: null, loss: Infinity, temperature: 1, iteration: 0, seed: state.current.seed + 1, gen: rng(state.current.seed + 1), lastArcs: 0, perObjective: {}, perObjectiveDirty: false, best: null, first: null, bestDirty: false }
+    state.current = { plan: null, loss: Infinity, temperature: 1, iteration: 0, seed: state.current.seed + 1, gen: rng(state.current.seed + 1), lastArcs: 0, salvoStart: 0, salvoSpan: 0, perObjective: {}, perObjectiveDirty: false, best: null, first: null, bestDirty: false }
     setBest(null)
     setFirst(null)
     setPerObjective({})
@@ -528,25 +545,3 @@ export function WoprView() {
   )
 }
 
-/** A handful of great circles from the plan under evaluation, drawn faintly and replaced a few seconds later. */
-function drawArcs(map: MapLibreMap | null, posture: Posture1983, plan: Plan, gen: () => number): void {
-  if (!map) return
-  const source = map.getSource('wopr-arcs') as GeoJSONSource | undefined
-  if (!source) return
-  const pick = <T,>(xs: T[]) => xs[Math.floor(gen() * xs.length)]
-  const features = []
-  const n = 4 + Math.floor(gen() * 5)
-  for (let i = 0; i < n; i += 1) {
-    const soviet = gen() < 0.5
-    if (soviet && plan.sovietOption >= 0.05) {
-      const from = pick(posture.sovietHeavy).position
-      const to = plan.sovietRule === 'countervalue' ? pick(posture.usCities).position : pick(posture.silos).position
-      features.push({ type: 'Feature' as const, geometry: { type: 'LineString' as const, coordinates: greatCirclePoints(from, to, 48).map((p) => [p[0], p[1]]) }, properties: { side: 'su' } })
-    } else if (plan.usOption >= 0.05) {
-      const from = gen() < 0.7 ? pick(posture.silos).position : pick(posture.usSlbmAtSea).position
-      const to = plan.usRule === 'countervalue' ? pick(posture.sovietCities).position : pick(posture.sovietForces).position
-      features.push({ type: 'Feature' as const, geometry: { type: 'LineString' as const, coordinates: greatCirclePoints(from, to, 48).map((p) => [p[0], p[1]]) }, properties: { side: 'us' } })
-    }
-  }
-  source.setData({ type: 'FeatureCollection', features })
-}

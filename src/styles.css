@@ -464,6 +464,32 @@ body,
   text-decoration: none;
 }
 
+/* The run button while the clock is stopped: a slow pulse, because nothing on the map moves until it is pressed. */
+.clock-controls button.is-primed {
+  color: var(--ink);
+  border-color: var(--cyan);
+  animation: clock-prime 2s ease-in-out infinite;
+}
+
+@keyframes clock-prime {
+  0%,
+  100% {
+    background: rgba(141, 250, 255, 0.06);
+    box-shadow: 0 0 0 0 rgba(141, 250, 255, 0.3);
+  }
+  50% {
+    background: rgba(141, 250, 255, 0.2);
+    box-shadow: 0 0 0 5px rgba(141, 250, 255, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clock-controls button.is-primed {
+    animation: none;
+    background: rgba(141, 250, 255, 0.16);
+  }
+}
+
 .clock-controls button.is-active,
 .clock-controls--variants a.is-active {
   color: var(--ink);

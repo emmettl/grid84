@@ -19,6 +19,10 @@ import { planeGlsl, PLANE_SCALE } from './plane-icon.ts'
 
 export const TRACK_LAYER_ID = 'ev-tracks-gl'
 
+/** How long a trail is held at full strength before it fades, and how long the fade takes, in study seconds. */
+export const TRAIL_HOLD_SECONDS = 5 * 60
+export const TRAIL_FADE_SECONDS = 25 * 60
+
 /** Vehicle mark in CSS pixels: dark fill, tier-coloured ring and a faint halo, as in the GeoJSON layer. */
 const MARK = { fill: 3, ring: 5, halo: 10 }
 /** At most this many offset passes thicken the one-pixel GL lines. */
@@ -299,7 +303,7 @@ export class TrackLayer implements CustomLayerInterface {
   private frame: TrackFrame | null = null
   private flashes: Flash[] = []
   /** Trail fading in study seconds: hold, then fade over a span to a floor of the line's alpha. */
-  private fade = { enabled: false, holdSeconds: 5 * 60, spanSeconds: 25 * 60, floor: 0 }
+  private fade = { enabled: false, holdSeconds: TRAIL_HOLD_SECONDS, spanSeconds: TRAIL_FADE_SECONDS, floor: 0 }
 
   /** Tracks drawn again without the fade: the selected vehicle, or the vehicles that delivered a selected detonation; `faint` draws the bus and the sibling vehicles at part strength. */
   setHighlight(ids: Iterable<string>, faint: Iterable<string> = []): void {

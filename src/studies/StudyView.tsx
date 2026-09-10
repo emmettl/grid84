@@ -1,4 +1,4 @@
-import { Marker, type Map as MapLibreMap } from 'maplibre-gl'
+import { Marker, type ExpressionSpecification, type Map as MapLibreMap } from 'maplibre-gl'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { advance, formatStudyTime, type ClockState } from '../engine/clock.ts'
 import { formatProvenance, TIER_LABEL, type Evidenced } from '../evidence/evidence.ts'
@@ -6,7 +6,7 @@ import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
 import { ALARM_HATCH, ensureAlarmHatch } from '../map/hatch.ts'
-import { TrackLayer } from '../map/track-layer.ts'
+import { TrackLayer, TRAIL_FADE_SECONDS, TRAIL_HOLD_SECONDS } from '../map/track-layer.ts'
 import { prepareTracks, type TrackSpec } from '../map/track-scene.ts'
 import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst, type Outcome } from '../models/casualties.ts'
 import { SURFACE_BLAST_MODEL, thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
@@ -483,7 +483,10 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
       map.addSource('ev-focus', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
       // Separation and release points on the trails, small and permanent once passed.
       map.addSource('ev-separations', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
-      map.addLayer({ id: 'ev-separations', type: 'circle', source: 'ev-separations', paint: { 'circle-radius': ['case', ['==', ['get', 'kind'], 'burnout'], 2, 2.4], 'circle-color': ['case', ['==', ['get', 'kind'], 'burnout'], 'rgba(255, 190, 90, 0.95)', 'rgba(232, 251, 255, 0.95)'], 'circle-stroke-color': ['case', ['==', ['get', 'kind'], 'burnout'], 'rgba(255, 160, 60, 0.5)', 'rgba(141, 250, 255, 0.55)'], 'circle-stroke-width': 1.5 } })
+      // A separation point belongs to the trail it sits on, so it fades with it:
+      // the same hold and span the track layer uses, driven by the mark's own age.
+      const markFade = ['interpolate', ['linear'], ['get', 'age'], 0, 1, TRAIL_HOLD_SECONDS, 1, TRAIL_HOLD_SECONDS + TRAIL_FADE_SECONDS, 0] as unknown as ExpressionSpecification
+      map.addLayer({ id: 'ev-separations', type: 'circle', source: 'ev-separations', paint: { 'circle-radius': ['case', ['==', ['get', 'kind'], 'burnout'], 2, 2.4], 'circle-color': ['case', ['==', ['get', 'kind'], 'burnout'], 'rgba(255, 190, 90, 0.95)', 'rgba(232, 251, 255, 0.95)'], 'circle-opacity': markFade, 'circle-stroke-color': ['case', ['==', ['get', 'kind'], 'burnout'], 'rgba(255, 160, 60, 0.5)', 'rgba(141, 250, 255, 0.55)'], 'circle-stroke-width': 1.5, 'circle-stroke-opacity': markFade } })
       map.addLayer({ id: 'ev-focus-targets', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'target'], paint: { 'circle-radius': 9, 'circle-color': 'rgba(0, 0, 0, 0)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.55)', 'circle-stroke-width': 1 } })
       map.addLayer({ id: 'ev-focus-separation', type: 'circle', source: 'ev-focus', filter: ['==', ['get', 'role'], 'separation'], paint: { 'circle-radius': 4, 'circle-color': 'rgba(141, 250, 255, 0.9)', 'circle-stroke-color': 'rgba(141, 250, 255, 0.4)', 'circle-stroke-width': 4 } })
       setSourceData(map, SOURCES.sites, statics.sites)
@@ -642,10 +645,12 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         // Separation and release points appear on the trails as the clock passes them.
         if (buses.length > 0) {
           const due = buses.filter((b) => next.time >= b.time)
-          const key = String(due.length)
+          const fading = trailsRef.current === 'fade'
+          // While the trails fade, the marks have to be rewritten as they age; while they do not, only their number changes.
+          const key = fading ? `${due.length}:${Math.round(next.time / 20)}` : String(due.length)
           if (key !== separationsKey) {
             separationsKey = key
-            setSourceData(map, 'ev-separations', due.map((b) => ({ type: 'Feature' as const, geometry: { type: 'Point' as const, coordinates: [b.position[0], b.position[1]] }, properties: { evidence: 'modelled' as const, id: `${b.id}-${b.kind}`, kind: b.kind } })))
+            setSourceData(map, 'ev-separations', due.map((b) => ({ type: 'Feature' as const, geometry: { type: 'Point' as const, coordinates: [b.position[0], b.position[1]] }, properties: { evidence: 'modelled' as const, id: `${b.id}-${b.kind}`, kind: b.kind, age: fading ? Math.max(0, next.time - b.time) : 0 } })))
           }
         }
         // Sites that come into existence during the study: the source and the label follow the clock, and a flash marks the moment.
@@ -875,7 +880,8 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         <section className="clock" aria-label="Study clock">
           <div className="clock-time">{formatStudyTime(clock.time)}</div>
           <div className="clock-controls">
-            <button type="button" className={clock.playing ? 'is-active' : ''} onClick={() => setClockState({ playing: !clock.playing })}>
+            {/* While the clock is stopped this is the thing to press, and it says so. */}
+            <button type="button" className={clock.playing ? 'is-active' : 'is-primed'} onClick={() => setClockState({ playing: !clock.playing })}>
               {clock.playing ? 'HOLD' : 'RUN'}
             </button>
             {/* A study may open at a rate of its own, such as the atlas strike at twenty; it gets a button of its own so the running rate is always lit. */}
