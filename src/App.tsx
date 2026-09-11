@@ -61,8 +61,11 @@ function useTitle(route: Route) {
       route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'winter' ? 'The years after' : route.kind === 'intercept' ? 'Intercept' : route.kind === 'impact' ? 'The terminal phase' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
     // A study names the tab itself, from its title. A lab does not, even the
     // one built as a study: its tab reads like the other labs' rather than
-    // shouting a study's title at the tab strip.
-    if (route.kind === 'study') return
+    // shouting a study's title at the tab strip. The atlas names its own too,
+    // once it knows what it is looking at — see AtlasGlobe. It has to be its
+    // own owner, because a child's effect runs before its parent's and this
+    // one would otherwise overwrite the name with the generic line.
+    if (route.kind === 'study' || route.kind === 'atlas') return
     document.title = part ? `Grid/84 · ${part}` : 'Grid/84'
   }, [route])
 }
@@ -174,6 +177,23 @@ function AtlasGlobe({ onLaunch, onLaunching, preset }: { onLaunch: (study: Study
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presetRef])
   const acquired = phase.kind === 'acquired' ? phase.report.target : null
+
+  /*
+   * The tab names what is on the screen. A shared strike link arrives naming
+   * only an OpenStreetMap id, so until the lookup comes back there is nothing
+   * to say and the generic line stands; after it, the tab carries the place,
+   * and a link that was shared as a strike says that it is one. It matters
+   * more here than anywhere else on the site: a strike is the one thing this
+   * engine makes that people send to each other, and half a dozen of them open
+   * in a browser were until now half a dozen tabs all called Terminal Atlas.
+   */
+  // Standing down releases the target, so the tab lets go of the name too.
+  const released = acquired !== null && stoodDown === acquired.id
+  const named = released ? null : (acquired?.name ?? presetName)
+  useEffect(() => {
+    document.title = named ? `Grid/84 · ${preset ? 'A strike on ' : ''}${named}` : 'Grid/84 · Terminal Atlas'
+  }, [named, preset])
+
   const share = (choices: { adversary: Power | null; delivery: DeliveryPreference; loading: Loading; site?: string | null }): string | null => {
     if (!acquired) return null
     const hash = strikeHash(acquired, choices)
