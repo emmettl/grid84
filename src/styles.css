@@ -3748,3 +3748,74 @@ body,
     overflow: auto;
   }
 }
+
+/* ---------- The terminal phase ---------- */
+
+/*
+ * The companion to the accuracy lab: the same arithmetic, flown. The answer a
+ * counterforce calculation actually gives is not a probability, it is a word,
+ * and the word is stamped where it cannot be missed.
+ */
+.impact-stamp {
+  margin: 0.5rem 0 0.3rem;
+  padding: 0.25rem 0.7rem;
+  border-left: 3px solid var(--muted);
+  color: var(--muted);
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+}
+
+.impact-stamp--hit {
+  border-left-color: var(--green);
+  background: rgba(120, 220, 140, 0.08);
+  color: var(--green);
+}
+
+.impact-stamp--miss {
+  border-left-color: rgb(255, 96, 96);
+  background: rgba(255, 96, 96, 0.08);
+  color: rgb(255, 96, 96);
+}
+
+.impact-stamp--dud {
+  border-left-color: var(--amber);
+  background: rgba(255, 179, 71, 0.08);
+  color: var(--amber);
+}
+
+.impact-line {
+  padding: 0.12rem 0;
+  color: var(--muted);
+}
+
+.impact-line strong {
+  display: inline-block;
+  min-width: 3.2rem;
+  font-weight: 500;
+}
+
+.impact-line--hit strong { color: var(--green); }
+.impact-line--miss strong { color: rgb(255, 96, 96); }
+.impact-line--dud strong { color: var(--amber); }
+
+.impact .wopr-controls .field {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.impact .wopr-controls select,
+.impact .wopr-controls input {
+  width: 100%;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid rgba(141, 250, 255, 0.35);
+  background: rgba(5, 4, 16, 0.6);
+  color: var(--ink);
+  font: inherit;
+  letter-spacing: 0.08em;
+}
+
+.impact .wopr-log {
+  max-height: 12rem;
+}

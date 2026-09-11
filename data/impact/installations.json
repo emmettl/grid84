@@ -1,0 +1,82 @@
+{
+  "note": "Representative installations for the terminal-phase lab. This is not a target list and no state's plan is claimed for any of it: each entry is a real, publicly known place of its kind, put here so that a weapon of a stated yield and accuracy can be flown at something with a shape and a hardness rather than at an abstraction. Positions are from public sources and are given to about a hundred metres where the installation is openly mapped, and to a kilometre or so where it is known by name and region only; the tier on each entry says which. Hardness is the class hardness from the accuracy lab and is modelled, not measured.",
+  "source": "Positions: OpenStreetMap and the installations' own published locations, cross-read against the Nuclear Notebook (Kristensen, Korda, Johns and Knight, Bulletin of the Atomic Scientists) and FAS Nuclear Information Project where those name a place. Hardness classes: Office of Technology Assessment (1979); Glasstone and Dolan (1977); Cochran, Arkin and Hoenig, Nuclear Weapons Databook.",
+  "categories": {
+    "dockyard": {
+      "name": "Dockyard",
+      "target": "airfield",
+      "note": "A submarine or fleet base. Soft: what fails here is what is alongside, and the piers and sheds go with it. A boat at sea is not on this list, which is the whole argument for putting them there."
+    },
+    "command": {
+      "name": "Command centre",
+      "target": "bunker",
+      "note": "A national or theatre command post. The deep ones are a figure of merit rather than a design: at ten thousand pounds per square inch only a crater reaches the target, and the overpressure rule overstates what a near miss does."
+    },
+    "radar": {
+      "name": "Early-warning radar",
+      "target": "airfield",
+      "note": "A ballistic-missile early-warning set. Large, fixed, soft, and the first thing a side that means to strike first would want off the air — which is why attacking one has always been read as the opening move rather than a raid."
+    }
+  },
+  "installations": [
+    { "id": "kings-bay", "category": "dockyard", "name": "Naval Submarine Base Kings Bay", "country": "US", "lon": -81.5222, "lat": 30.7975, "evidence": "documented", "note": "The Atlantic Trident force: eight Ohio-class boats, and the Strategic Weapons Facility Atlantic beside them" },
+    { "id": "bangor", "category": "dockyard", "name": "Naval Base Kitsap · Bangor", "country": "US", "lon": -122.7086, "lat": 47.7231, "evidence": "documented", "note": "The Pacific Trident force on Hood Canal, with the weapons handling wharf and the limited-area magazine" },
+    { "id": "norfolk", "category": "dockyard", "name": "Naval Station Norfolk", "country": "US", "lon": -76.3266, "lat": 36.9460, "evidence": "documented", "note": "The largest naval base in the world by tonnage alongside; carriers, not boomers" },
+    { "id": "pearl-harbor", "category": "dockyard", "name": "Joint Base Pearl Harbor–Hickam", "country": "US", "lon": -157.9620, "lat": 21.3510, "evidence": "documented", "note": "Pacific Fleet submarine force and the shipyard" },
+    { "id": "san-diego", "category": "dockyard", "name": "Naval Base San Diego", "country": "US", "lon": -117.1300, "lat": 32.6850, "evidence": "documented", "note": "The Pacific surface fleet's home port" },
+    { "id": "portsmouth-nh", "category": "dockyard", "name": "Portsmouth Naval Shipyard", "country": "US", "lon": -70.7370, "lat": 43.0790, "evidence": "documented", "note": "Attack-submarine overhaul at Kittery, Maine" },
+    { "id": "gadzhiyevo", "category": "dockyard", "name": "Gadzhiyevo · Yagelnaya Bay", "country": "RU", "lon": 33.3350, "lat": 69.2540, "evidence": "documented", "note": "The Northern Fleet's ballistic-missile submarine base on the Kola inlet" },
+    { "id": "vilyuchinsk", "category": "dockyard", "name": "Vilyuchinsk · Rybachiy", "country": "RU", "lon": 158.4700, "lat": 52.9200, "evidence": "documented", "note": "The Pacific Fleet's submarine base on Krasheninnikov Bay, Kamchatka" },
+    { "id": "severodvinsk", "category": "dockyard", "name": "Severodvinsk · Sevmash", "country": "RU", "lon": 39.8180, "lat": 64.5700, "evidence": "documented", "note": "Where Russian submarines are built and refitted; the yard, not a patrol base" },
+    { "id": "polyarny", "category": "dockyard", "name": "Polyarny", "country": "RU", "lon": 33.4500, "lat": 69.1990, "evidence": "documented", "note": "Northern Fleet base and repair yard at the mouth of the Kola Bay" },
+    { "id": "baltiysk", "category": "dockyard", "name": "Baltiysk", "country": "RU", "lon": 19.9000, "lat": 54.6500, "evidence": "documented", "note": "The Baltic Fleet's main base, in Kaliningrad oblast" },
+    { "id": "sevastopol", "category": "dockyard", "name": "Sevastopol", "country": "RU", "lon": 33.5300, "lat": 44.6160, "evidence": "documented", "note": "The Black Sea Fleet's base, in the harbour the fleet has used since 1783" },
+    { "id": "vladivostok", "category": "dockyard", "name": "Vladivostok · Golden Horn", "country": "RU", "lon": 131.8850, "lat": 43.1080, "evidence": "documented", "note": "Pacific Fleet headquarters" },
+    { "id": "faslane", "category": "dockyard", "name": "HMNB Clyde · Faslane", "country": "GB", "lon": -4.8180, "lat": 56.0640, "evidence": "documented", "note": "The whole British deterrent: four Vanguard boats on the Gare Loch, with the warheads at Coulport two miles west" },
+    { "id": "coulport", "category": "dockyard", "name": "RNAD Coulport", "country": "GB", "lon": -4.8800, "lat": 56.0570, "evidence": "documented", "note": "Where the British warheads are stored and loaded, on Loch Long" },
+    { "id": "devonport", "category": "dockyard", "name": "HMNB Devonport", "country": "GB", "lon": -4.1830, "lat": 50.3900, "evidence": "documented", "note": "Submarine refit and the largest naval base in western Europe" },
+    { "id": "ile-longue", "category": "dockyard", "name": "Île Longue · Brest", "country": "FR", "lon": -4.5080, "lat": 48.3060, "evidence": "documented", "note": "The French ballistic-missile submarine base in the Rade de Brest" },
+    { "id": "toulon", "category": "dockyard", "name": "Toulon", "country": "FR", "lon": 5.9080, "lat": 43.1160, "evidence": "documented", "note": "The Mediterranean fleet and the carrier" },
+    { "id": "yulin", "category": "dockyard", "name": "Yulin · Hainan", "country": "CN", "lon": 109.5400, "lat": 18.2200, "evidence": "reconstructed", "note": "The South Sea Fleet submarine base with the tunnel entrances at Yalong Bay; identified from imagery rather than announced" },
+    { "id": "jianggezhuang", "category": "dockyard", "name": "Jianggezhuang · Qingdao", "country": "CN", "lon": 120.5800, "lat": 36.1100, "evidence": "reconstructed", "note": "The North Sea Fleet submarine base, long identified as the first Chinese ballistic-missile submarine's home" },
+    { "id": "yokosuka", "category": "dockyard", "name": "Yokosuka", "country": "JP", "lon": 139.6650, "lat": 35.2900, "evidence": "documented", "note": "The forward-deployed American carrier group and the Japanese fleet" },
+    { "id": "sasebo", "category": "dockyard", "name": "Sasebo", "country": "JP", "lon": 129.7150, "lat": 33.1600, "evidence": "documented", "note": "Amphibious force and the western approaches" },
+    { "id": "karwar", "category": "dockyard", "name": "INS Kadamba · Karwar", "country": "IN", "lon": 74.1300, "lat": 14.8300, "evidence": "reconstructed", "note": "India's purpose-built naval base, and the intended home of the Arihant boats" },
+    { "id": "visakhapatnam", "category": "dockyard", "name": "Visakhapatnam · INS Varsha", "country": "IN", "lon": 83.2800, "lat": 17.6900, "evidence": "inferred", "note": "Eastern Naval Command; the ballistic-missile submarine base at Rambilli nearby is under construction and its extent is not published" },
+
+    { "id": "cheyenne-mountain", "category": "command", "name": "Cheyenne Mountain Complex", "country": "US", "lon": -104.8480, "lat": 38.7440, "evidence": "documented", "note": "NORAD's hardened alternate command centre, inside a granite mountain behind twenty-five-tonne blast doors; the reason the mountain is on every list of this kind" },
+    { "id": "peterson", "category": "command", "name": "Peterson Space Force Base", "country": "US", "lon": -104.7000, "lat": 38.8150, "evidence": "documented", "note": "NORAD and NORTHCOM headquarters, on the surface eight miles from the mountain" },
+    { "id": "offutt", "category": "command", "name": "Offutt AFB · USSTRATCOM", "country": "US", "lon": -95.9130, "lat": 41.1180, "evidence": "documented", "note": "Strategic Command, and the successor to SAC's underground command post" },
+    { "id": "raven-rock", "category": "command", "name": "Raven Rock Mountain Complex · Site R", "country": "US", "lon": -77.4230, "lat": 39.7390, "evidence": "documented", "note": "The Pentagon's alternate, dug into greenstone on the Pennsylvania–Maryland line" },
+    { "id": "mount-weather", "category": "command", "name": "Mount Weather", "country": "US", "lon": -77.8890, "lat": 39.0620, "evidence": "documented", "note": "The civil continuity-of-government site in the Blue Ridge" },
+    { "id": "pentagon", "category": "command", "name": "The Pentagon", "country": "US", "lon": -77.0560, "lat": 38.8710, "evidence": "documented", "note": "Unhardened, which is the point of the two entries above it" },
+    { "id": "kosvinsky", "category": "command", "name": "Kosvinsky Kamen", "country": "RU", "lon": 59.5300, "lat": 59.5200, "evidence": "inferred", "note": "The northern Urals mountain long identified in the open literature as a hardened strategic command post; nothing about it is announced and the position is the mountain, not a facility" },
+    { "id": "yamantau", "category": "command", "name": "Yamantau", "country": "RU", "lon": 58.1040, "lat": 54.2500, "evidence": "inferred", "note": "The southern Urals complex; the purpose has never been stated by anyone in a position to state it, and the entry is here as the case the open literature argues about" },
+    { "id": "sharapovo", "category": "command", "name": "Chekhov · Sharapovo", "country": "RU", "lon": 37.3300, "lat": 55.2000, "evidence": "inferred", "note": "The wartime command bunker south of Moscow named in the post-Soviet memoir literature" },
+    { "id": "ndcc-moscow", "category": "command", "name": "National Defence Control Centre, Moscow", "country": "RU", "lon": 37.5340, "lat": 55.7480, "evidence": "documented", "note": "The Ministry of Defence building on Frunzenskaya Embankment, opened as the national control centre in 2014" },
+    { "id": "kremlin", "category": "command", "name": "The Kremlin", "country": "RU", "lon": 37.6170, "lat": 55.7520, "evidence": "documented", "note": "Category one on the 1956 list for reasons that have not changed" },
+    { "id": "northwood", "category": "command", "name": "Northwood Headquarters", "country": "GB", "lon": -0.4110, "lat": 51.6180, "evidence": "documented", "note": "The British Permanent Joint Headquarters, and the shore end of the deterrent's communications" },
+    { "id": "corsham", "category": "command", "name": "Corsham · the Burlington complex", "country": "GB", "lon": -2.1900, "lat": 51.4300, "evidence": "documented", "note": "The Cold War central government war headquarters in the Bath stone quarries, declassified in 2004" },
+    { "id": "shape", "category": "command", "name": "SHAPE · Casteau", "country": "BE", "lon": 3.9800, "lat": 50.5100, "evidence": "documented", "note": "Allied Command Operations" },
+    { "id": "western-hills", "category": "command", "name": "Western Hills · Beijing", "country": "CN", "lon": 116.1300, "lat": 39.9600, "evidence": "inferred", "note": "The command complex in the hills west of Beijing named in the open literature; the position is the district" },
+    { "id": "diefenbunker", "category": "command", "name": "CFS Carp · the Diefenbunker", "country": "CA", "lon": -76.0430, "lat": 45.3500, "evidence": "documented", "note": "Canada's central emergency government headquarters, now a museum, which is the most complete surviving example of the type" },
+
+    { "id": "fylingdales", "category": "radar", "name": "RAF Fylingdales", "country": "GB", "lon": -0.6700, "lat": 54.3610, "evidence": "documented", "note": "The BMEWS site on the North York Moors; the three golfballs went in 1992 and the solid-state phased array replaced them" },
+    { "id": "pituffik", "category": "radar", "name": "Pituffik Space Base · Thule", "country": "GL", "lon": -68.2900, "lat": 76.5700, "evidence": "documented", "note": "The northern BMEWS site, and the one whose loss of contact in 1960 was read at Colorado Springs as the start of a war" },
+    { "id": "clear", "category": "radar", "name": "Clear Space Force Station", "country": "US", "lon": -149.1900, "lat": 64.2900, "evidence": "documented", "note": "The third BMEWS site, in interior Alaska" },
+    { "id": "beale", "category": "radar", "name": "Beale AFB · PAVE PAWS", "country": "US", "lon": -121.3500, "lat": 39.1360, "evidence": "documented", "note": "The western sea-launched-missile warning array" },
+    { "id": "cape-cod", "category": "radar", "name": "Cape Cod Space Force Station", "country": "US", "lon": -70.5380, "lat": 41.7520, "evidence": "documented", "note": "The eastern PAVE PAWS array" },
+    { "id": "cavalier", "category": "radar", "name": "Cavalier Space Force Station", "country": "US", "lon": -97.8990, "lat": 48.7240, "evidence": "documented", "note": "North Dakota; the surviving radar of the Safeguard system that was shut down after one day" },
+    { "id": "eglin", "category": "radar", "name": "Eglin AFB · AN/FPS-85", "country": "US", "lon": -86.2140, "lat": 30.5720, "evidence": "documented", "note": "Space surveillance and southern approaches" },
+    { "id": "pechora", "category": "radar", "name": "Pechora · Daryal", "country": "RU", "lon": 57.2900, "lat": 65.2100, "evidence": "documented", "note": "The Daryal-type array in the Komi Republic, the type the 1972 treaty was argued over" },
+    { "id": "armavir", "category": "radar", "name": "Armavir · Voronezh-DM", "country": "RU", "lon": 40.9800, "lat": 44.9250, "evidence": "documented", "note": "Southern approaches, and the set that replaced the loss of the Ukrainian and Azerbaijani stations" },
+    { "id": "lekhtusi", "category": "radar", "name": "Lekhtusi · Voronezh-M", "country": "RU", "lon": 30.5400, "lat": 60.2750, "evidence": "documented", "note": "North-west approaches, near St Petersburg; the first of the Voronezh generation" },
+    { "id": "olenegorsk", "category": "radar", "name": "Olenegorsk · Dnestr-M and Daugava", "country": "RU", "lon": 33.3200, "lat": 68.1150, "evidence": "documented", "note": "The Kola station covering the polar approach" },
+    { "id": "baranovichi", "category": "radar", "name": "Baranovichi · Volga", "country": "BY", "lon": 26.1650, "lat": 52.8500, "evidence": "documented", "note": "The Belarusian station Russia operates under lease, covering western Europe" },
+    { "id": "mishelevka", "category": "radar", "name": "Mishelevka · Voronezh-M", "country": "RU", "lon": 103.2600, "lat": 52.8550, "evidence": "documented", "note": "Irkutsk oblast, covering the Chinese and Pacific approaches" },
+    { "id": "yeniseysk", "category": "radar", "name": "Yeniseysk · Voronezh-DM", "country": "RU", "lon": 92.1000, "lat": 58.4500, "evidence": "documented", "note": "Central Siberia, closing the gap the abandoned Krasnoyarsk set left" },
+    { "id": "krasnoyarsk-abakan", "category": "radar", "name": "Usolye-Sibirskoye and the Krasnoyarsk site", "country": "RU", "lon": 92.4000, "lat": 56.1700, "evidence": "inferred", "note": "The Krasnoyarsk radar was the treaty violation of the 1980s and was dismantled; the position is the site rather than a working set" },
+    { "id": "barnaul", "category": "radar", "name": "Barnaul · Voronezh-DM", "country": "RU", "lon": 83.7000, "lat": 53.2000, "evidence": "documented", "note": "Southern Siberia" },
+    { "id": "orsk", "category": "radar", "name": "Orsk · Voronezh-M", "country": "RU", "lon": 58.5600, "lat": 51.1700, "evidence": "documented", "note": "Southern approaches over central Asia" }
+  ]
+}

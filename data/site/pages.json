@@ -317,6 +317,17 @@
       ]
     },
     {
+      "path": "impact",
+      "hash": "#/impact",
+      "title": "The terminal phase — HIT, MISS, and what accuracy is worth",
+      "description": "A real weapon aimed at a real installation, one warhead at a time, with the miss drawn from the same circular error the accuracy lab integrates. A city fails at five pounds per square inch and a silo at two thousand, and the same weapon does both.",
+      "summary": "The single-shot kill probability is not a property of a weapon; it is what happens when you keep firing. This is the keeping firing.",
+      "reading": [
+        "dossier/weapons-effects-sources",
+        "brief/validation"
+      ]
+    },
+    {
       "path": "intercept",
       "hash": "#/intercept",
       "title": "Intercept — a launch, an attempt, and mostly a miss",

@@ -276,6 +276,9 @@ export function AccuracyLab() {
           <p className="log-empty">
             A city fails at 5 psi and a hardened silo at 2,000. For a megaton the first radius is about 7 km and the second about 400 m. With a CEP of miles the city is a target and the silo is not: counterforce was not available to the planners of 1961 whatever they wanted, and assured destruction was what the weapons could do. The systems that cross the even-chance line do it by accuracy, not yield: Minuteman III's refit, Peacekeeper and Trident II carry a third of the yield of the weapons of 1962 at a thirtieth of the miss distance. The MIRV bus made the accurate warhead cheap enough to spend on silos. That is the shift from the large unitary warhead to the accurate MIRV, and it is what the present doctrine rests on.
           </p>
+          <p className="log-empty">
+            A probability is a hard thing to feel from a curve. <a href="#/impact">The terminal phase</a> flies it: a weapon of this list aimed at a real installation of a stated hardness, one warhead at a time, the miss drawn from the same circular error this page integrates, and the answer in the form the answer actually takes.
+          </p>
           <details className="sources">
             <summary>Sources and methods</summary>
             <p className="provenance-source">Weapon: {formatProvenance(base.provenance)}</p>

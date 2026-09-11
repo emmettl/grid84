@@ -292,6 +292,10 @@ export function FrontPage() {
               <span>A constrained optimiser over the 1983 posture, searching for the plan that minimises a chosen loss under the planners' constraints. It improves relentlessly, and the word beside the number is the work.</span>
             </li>
             <li>
+              <a href="#/impact">The terminal phase</a>
+              <span>A real weapon at a real installation, one warhead at a time, looping: the lethal radius drawn on the ground, the miss drawn from the same circular error the accuracy lab integrates, and the answer in the form the answer actually takes — HIT or MISS. A city fails at five pounds per square inch and a silo at two thousand, which is why the same weapon is a certainty against one and almost nothing against the other.</span>
+            </li>
+            <li>
               <a href="#/intercept">Intercept</a>
               <span>A real launcher, a real city, a real interceptor site, one engagement at a time, looping. Most of them fail, and each says which of the four reasons it failed for. No probability of kill is borrowed from a test range: every attempt is drawn from the arithmetic of the intercept lab.</span>
             </li>

@@ -10,6 +10,7 @@ import { InterceptLab } from './lab/InterceptLab.tsx'
 import { AccuracyLab } from './lab/AccuracyLab.tsx'
 import { GuidanceLab } from './lab/GuidanceLab.tsx'
 import { CloudLab } from './lab/CloudLab.tsx'
+import { ImpactView } from './impact/ImpactView.tsx'
 import { ErwLab } from './lab/ErwLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
@@ -57,7 +58,7 @@ function useRoute(): Route {
 function useTitle(route: Route) {
   useEffect(() => {
     const part =
-      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'winter' ? 'The years after' : route.kind === 'intercept' ? 'Intercept' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
+      route.kind === 'atlas' ? 'Terminal Atlas' : route.kind === 'wopr' ? 'WOPR' : route.kind === 'winter' ? 'The years after' : route.kind === 'intercept' ? 'Intercept' : route.kind === 'impact' ? 'The terminal phase' : route.kind === 'loop' ? 'The loop' : route.kind === 'chronicle' ? 'Chronicle' : route.kind === 'lab' ? `${route.id.charAt(0).toUpperCase()}${route.id.slice(1)} lab` : ''
     // A study names the tab itself, from its title. A lab does not, even the
     // one built as a study: its tab reads like the other labs' rather than
     // shouting a study's title at the tab strip.
@@ -347,6 +348,7 @@ export default function App() {
       {route.kind === 'lab' && route.id === 'accuracy' && <AccuracyLab key="lab-accuracy" />}
       {route.kind === 'lab' && route.id === 'guidance' && <GuidanceLab key="lab-guidance" />}
       {route.kind === 'lab' && route.id === 'cloud' && <CloudLab key="lab-cloud" />}
+      {route.kind === 'impact' && <ImpactView key="impact" />}
       {route.kind === 'lab' && route.id === 'neutron' && <ErwLab key="lab-neutron" />}
     </>
   )

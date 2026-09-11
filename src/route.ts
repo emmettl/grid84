@@ -29,6 +29,7 @@ export type Route =
   | { kind: 'study'; id: 'sino-soviet-1969' }
   | { kind: 'study'; id: '72-minutes'; variant: 'film' | 'record' | 'claim' | 'salvo' | 'book' }
   | { kind: 'study'; id: 'window-83'; posture: 'ride' | 'launch' }
+  | { kind: 'impact' }
   | { kind: 'lab'; id: 'evidence' | 'population' | 'terrain' | 'fallout' | 'cloud' | 'readiness' | 'defence' | 'accuracy' | 'guidance' | 'neutron' | 'intercept' }
 
 export function parseRoute(hash: string): Route {
@@ -40,6 +41,7 @@ export function parseRoute(hash: string): Route {
   if (hash === '#/wopr') return { kind: 'wopr' }
   if (hash === '#/winter') return { kind: 'winter' }
   if (hash === '#/intercept') return { kind: 'intercept' }
+  if (hash === '#/impact') return { kind: 'impact' }
   if (hash === '#/chronicle') return { kind: 'chronicle' }
   if (hash === '#/chronicle/posture') return { kind: 'posture' }
   if (hash === '#/study/siop62') return { kind: 'study', id: 'siop62' }
