@@ -50,6 +50,16 @@ export function StrikeConsole({ target, boundary, onLaunch, onLaunching, onStand
   // or re-drawn by the reader asking for another profile.
   const [site, setSite] = useState<string | null>(initialSite)
   const [variant, setVariant] = useState(0)
+  /*
+   * The link, shown rather than only copied. A clipboard write can fail, and on
+   * a phone the place it would have been reported — the console log — is in the
+   * console's own upper case with letters spaced out, which is the one register
+   * a URL cannot be read in. So the link appears in a field of its own, in its
+   * own case, selected, where it can be copied by hand if the clipboard would
+   * not take it.
+   */
+  const [link, setLink] = useState<string | null>(null)
+  const linkField = useRef<HTMLInputElement>(null)
   const chosen = useRef<string | null>(initialSite)
   // The setup controls fold away; the actions during a countdown do not.
   const fold = useFold('strike')
@@ -72,7 +82,15 @@ export function StrikeConsole({ target, boundary, onLaunch, onLaunching, onStand
   }
 
   useEffect(() => {
-    onShare?.({ adversary: override, delivery: prefer, loading })
+    const made = onShare?.({ adversary: override, delivery: prefer, loading, site: chosen.current }) ?? null
+    /*
+     * A shown link names one strike, and the console goes on choosing things
+     * after it is shown — the launch site is drawn during the reasoning. So the
+     * field is refreshed rather than emptied: once it is up it always names the
+     * strike on the screen, and it never disappears from under a thumb that was
+     * about to copy it.
+     */
+    setLink((shown) => (shown ? made : null))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [override, prefer, loading, site, variant])
 
@@ -205,10 +223,46 @@ export function StrikeConsole({ target, boundary, onLaunch, onLaunching, onStand
         <button type="button" onClick={onStandDown}>
           Stand down
         </button>
+        <button
+          type="button"
+          title="A link that re-runs this strike: the target by its OpenStreetMap id and the choices made here"
+          onClick={() => {
+            const made = onShare?.({ adversary: override, delivery: prefer, loading, site: chosen.current })
+            if (!made) {
+              say('NO LINK · THE TARGET HAS NO OPENSTREETMAP ID TO NAME IT BY', 'mark')
+              return
+            }
+            setLink(made)
+            // Shown first and copied second: the field is the thing that works
+            // everywhere, and the clipboard is the convenience on top of it.
+            window.setTimeout(() => linkField.current?.select(), 0)
+            navigator.clipboard?.writeText(made).then(
+              () => say('LINK COPIED · IT RE-RUNS THIS STRIKE WITH THE WIND OF ITS OWN HOUR', 'mark'),
+              () => say('LINK READY BELOW · THIS BROWSER WOULD NOT TAKE IT TO THE CLIPBOARD', 'mark'),
+            )
+          }}
+        >
+          Share
+        </button>
         <button type="button" className={`panel-fold-toggle${fold.folded ? '' : ' is-active'}`} aria-expanded={!fold.folded} onClick={fold.toggle}>
           {fold.label}
         </button>
       </div>
+      {link && (
+        <div className="wopr-group strike-share">
+          <span className="clock-label">Link</span>
+          <input
+            ref={linkField}
+            className="strike-share-link"
+            type="text"
+            readOnly
+            value={link}
+            aria-label="A link that re-runs this strike"
+            onFocus={(e) => e.currentTarget.select()}
+            onClick={(e) => e.currentTarget.select()}
+          />
+        </div>
+      )}
       {/* Everything that is chosen once rather than watched: on a phone it folds away and the globe keeps the screen. */}
       <div className={`panel-fold${fold.folded ? ' is-folded' : ''}`}>
       <div className="wopr-group strike-controls">
@@ -222,23 +276,6 @@ export function StrikeConsole({ target, boundary, onLaunch, onLaunching, onStand
           }}
         >
           Another profile
-        </button>
-        <button
-          type="button"
-          title="Copy a link that re-runs this strike: the target by its OpenStreetMap id and the choices made here"
-          onClick={() => {
-            const link = onShare?.({ adversary: override, delivery: prefer, loading, site: chosen.current })
-            if (!link) {
-              say('NO LINK · THE TARGET HAS NO OPENSTREETMAP ID TO NAME IT BY', 'mark')
-              return
-            }
-            navigator.clipboard?.writeText(link).then(
-              () => say(`LINK COPIED · ${link} · RE-RUNS THIS STRIKE WITH THE WIND OF ITS OWN HOUR`, 'mark'),
-              () => say(`LINK · ${link}`, 'mark'),
-            )
-          }}
-        >
-          Share
         </button>
       </div>
       <div className="wopr-group strike-controls">

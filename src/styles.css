@@ -2723,6 +2723,39 @@ body,
   margin-top: 0.3rem;
 }
 
+/*
+ * The link, in its own register. The console shouts in upper case with the
+ * letters spaced apart, which is right for a readout and is the one way a URL
+ * cannot be read; this field opts out of all of it. It is selected when it
+ * appears and selects itself again on a tap, so on a phone — where the
+ * clipboard is least reliable and the Share button was until now folded out of
+ * sight entirely — the address can always be taken by hand.
+ */
+.strike-share {
+  margin-top: 0.3rem;
+  align-items: center;
+}
+
+.strike-share-link {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid rgba(157, 255, 176, 0.35);
+  background: rgba(3, 8, 6, 0.6);
+  color: var(--phosphor);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0;
+  text-transform: none;
+  text-overflow: ellipsis;
+  -webkit-user-select: all;
+  user-select: all;
+}
+
+.strike-share-link:focus {
+  outline: 1px solid var(--phosphor);
+}
+
 @media (max-width: 700px) {
   .strike-console {
     width: auto;
@@ -2741,6 +2774,12 @@ body,
 
   .strike-controls button {
     padding: 0.25rem 0.45rem;
+  }
+
+  /* iOS zooms the page when a focused field is under 16px and never zooms back. */
+  .strike-share-link {
+    flex-basis: 100%;
+    font-size: 16px;
   }
 
   /* The readout, the credits and the brand's own tagline give the console the
