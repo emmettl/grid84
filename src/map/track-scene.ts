@@ -25,6 +25,18 @@ export interface TrackSpec {
   side: 'attacker' | 'defender'
   vehicle: VehicleKind
   reveal: 'full' | 'progressive'
+  /**
+   * Overrides the tier's own colours for the line and the moving mark. The
+   * grammar is derived from the tier everywhere else and should stay that way;
+   * this exists for the one case the tiers do not cover, which is a track that
+   * is a different *kind* of event rather than a different quality of
+   * evidence — a warhead that arrives and does not go off is drawn in the same
+   * modelled red as one that does, and it is not the same thing at all.
+   */
+  lineColor?: Rgba
+  markColor?: Rgba
+  /** Overrides the tier's line width, in CSS pixels. */
+  lineWidth?: number
 }
 
 /** Floats per line vertex: x, y, altitude (m), r, g, b, a, distance, dash on, dash period, width, time (s). */
@@ -118,9 +130,9 @@ export function prepareTracks(specs: TrackSpec[]): TrackScene {
     const merc = new Float64Array(count * 2)
     const dist = new Float64Array(count)
     const alt = new Float64Array(count)
-    const line = parseRgba(LINE[spec.route].color)
+    const line = spec.lineColor ?? parseRgba(LINE[spec.route].color)
     const dash = dashFor(spec.route)
-    const width = LINE[spec.route].width
+    const width = spec.lineWidth ?? LINE[spec.route].width
     let d = 0
     for (let i = 0; i < count; i += 1) {
       const [x, y] = mercator(g[i].position[0], g[i].position[1])
@@ -132,7 +144,7 @@ export function prepareTracks(specs: TrackSpec[]): TrackScene {
       alt[i] = g[i].altitude ?? 0
       writeLineVertex(vertices, (first + i) * LINE_STRIDE, x, y, alt[i], line, d, dash, width, times[i])
     }
-    tracks.push({ spec, first, count, times, merc, dist, alt, line, vehicle: vehicleColor(spec.evidence, spec.side), shape: spec.vehicle === 'aircraft' ? 1 : 0, dash, width })
+    tracks.push({ spec, first, count, times, merc, dist, alt, line, vehicle: spec.markColor ?? vehicleColor(spec.evidence, spec.side), shape: spec.vehicle === 'aircraft' ? 1 : 0, dash, width })
     first += count
     segmentCapacity += count // count - 1 flown segments plus one head segment
   })
