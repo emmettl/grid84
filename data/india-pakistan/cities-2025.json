@@ -1,0 +1,2046 @@
+{
+ "note": "The urban centres of the India-Pakistan study. Named first and measured second: every entry is a city of the usual reckoning, geocoded by Photon, assigned to a side by the geocoder's own country code, and then weighed on the GHS-POP 2025 grid. A cell rule was not used because the Punjab is continuous across the border and would have given each side cities belonging to the other.",
+ "rule": "Population summed from the grid within 10 km of the geocoded centre; entries ordered by that sum; no two targets within 12 km of each other, the first-listed of a colliding pair kept; the geocoder must have returned a populated place and at least 50,000 people must live within the radius.",
+ "grid": "Schiavina, M., Freire, S., Carioli, A., MacManus, K. (2023). GHS-POP R2023A, GHS population grid multitemporal (1975-2030). European Commission, Joint Research Centre. https://doi.org/10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE",
+ "geocoder": "Photon (komoot) over OpenStreetMap, on the day of the build",
+ "evidence": "reconstructed",
+ "radiusKm": 10.0,
+ "spacingKm": 12.0,
+ "cities": [
+  {
+   "side": "in",
+   "name": "Kolkata",
+   "lon": 88.3639,
+   "lat": 22.5726,
+   "hit": "Kolkata",
+   "kind": "place=city",
+   "population": 10759121
+  },
+  {
+   "side": "in",
+   "name": "Bangalore",
+   "lon": 77.5901,
+   "lat": 12.9768,
+   "hit": "Bengaluru",
+   "kind": "place=city",
+   "population": 9739685
+  },
+  {
+   "side": "in",
+   "name": "Delhi",
+   "lon": 77.2198,
+   "lat": 28.6328,
+   "hit": "Delhi",
+   "kind": "place=city",
+   "population": 8289154
+  },
+  {
+   "side": "in",
+   "name": "Mumbai",
+   "lon": 72.8692,
+   "lat": 19.055,
+   "hit": "Mumbai",
+   "kind": "place=city",
+   "population": 8127380
+  },
+  {
+   "side": "in",
+   "name": "Ahmedabad",
+   "lon": 72.5801,
+   "lat": 23.0215,
+   "hit": "Ahmedabad",
+   "kind": "place=city",
+   "population": 7420921
+  },
+  {
+   "side": "in",
+   "name": "Noida",
+   "lon": 77.3272,
+   "lat": 28.5706,
+   "hit": "Noida",
+   "kind": "place=city",
+   "population": 5588634
+  },
+  {
+   "side": "in",
+   "name": "Surat",
+   "lon": 72.8317,
+   "lat": 21.2095,
+   "hit": "Surat",
+   "kind": "place=city",
+   "population": 5258773
+  },
+  {
+   "side": "in",
+   "name": "Chennai",
+   "lon": 80.2702,
+   "lat": 13.0837,
+   "hit": "Chennai",
+   "kind": "place=city",
+   "population": 5235733
+  },
+  {
+   "side": "in",
+   "name": "Pune",
+   "lon": 73.8545,
+   "lat": 18.5214,
+   "hit": "Pune",
+   "kind": "place=city",
+   "population": 5208983
+  },
+  {
+   "side": "in",
+   "name": "Hyderabad",
+   "lon": 78.4741,
+   "lat": 17.3606,
+   "hit": "Hyderabad",
+   "kind": "place=city",
+   "population": 5009846
+  },
+  {
+   "side": "in",
+   "name": "Thane",
+   "lon": 72.9702,
+   "lat": 19.1943,
+   "hit": "Thane",
+   "kind": "place=city",
+   "population": 4338350
+  },
+  {
+   "side": "in",
+   "name": "Maheshtala",
+   "lon": 88.2502,
+   "lat": 22.506,
+   "hit": "Maheshtala",
+   "kind": "place=city",
+   "population": 4293513
+  },
+  {
+   "side": "in",
+   "name": "Lucknow",
+   "lon": 80.9346,
+   "lat": 26.8381,
+   "hit": "Lucknow",
+   "kind": "place=city",
+   "population": 4064762
+  },
+  {
+   "side": "in",
+   "name": "Ghaziabad",
+   "lon": 77.412,
+   "lat": 28.6712,
+   "hit": "Ghaziabad",
+   "kind": "place=city",
+   "population": 3982157
+  },
+  {
+   "side": "in",
+   "name": "Kanpur",
+   "lon": 80.3218,
+   "lat": 26.4609,
+   "hit": "Kanpur",
+   "kind": "place=city",
+   "population": 3859426
+  },
+  {
+   "side": "in",
+   "name": "Varanasi",
+   "lon": 83.0076,
+   "lat": 25.3356,
+   "hit": "Varanasi",
+   "kind": "place=city",
+   "population": 3346421
+  },
+  {
+   "side": "in",
+   "name": "Indore",
+   "lon": 75.8682,
+   "lat": 22.7204,
+   "hit": "Indore",
+   "kind": "place=city",
+   "population": 3324187
+  },
+  {
+   "side": "in",
+   "name": "Jaipur",
+   "lon": 75.819,
+   "lat": 26.9155,
+   "hit": "Jaipur",
+   "kind": "place=city",
+   "population": 3210893
+  },
+  {
+   "side": "in",
+   "name": "Nagpur",
+   "lon": 79.0821,
+   "lat": 21.1498,
+   "hit": "Nagpur",
+   "kind": "place=city",
+   "population": 3121901
+  },
+  {
+   "side": "in",
+   "name": "Patna",
+   "lon": 85.1235,
+   "lat": 25.6093,
+   "hit": "Patna",
+   "kind": "place=city",
+   "population": 3115174
+  },
+  {
+   "side": "in",
+   "name": "Ambernath",
+   "lon": 73.2005,
+   "lat": 19.2016,
+   "hit": "Ambernath",
+   "kind": "place=town",
+   "population": 2897793
+  },
+  {
+   "side": "in",
+   "name": "Kozhikode",
+   "lon": 75.7755,
+   "lat": 11.2451,
+   "hit": "Kozhikode",
+   "kind": "place=city",
+   "population": 2891657
+  },
+  {
+   "side": "in",
+   "name": "Agra",
+   "lon": 78.0098,
+   "lat": 27.1753,
+   "hit": "Agra",
+   "kind": "place=city",
+   "population": 2775200
+  },
+  {
+   "side": "in",
+   "name": "Allahabad",
+   "lon": 81.8338,
+   "lat": 25.4381,
+   "hit": "Prayagraj",
+   "kind": "place=city",
+   "population": 2634656
+  },
+  {
+   "side": "in",
+   "name": "Rajpur Sonarpur",
+   "lon": 88.4246,
+   "lat": 22.4409,
+   "hit": "Rajpur Sonarpur",
+   "kind": "place=town",
+   "population": 2522856
+  },
+  {
+   "side": "in",
+   "name": "Bhopal",
+   "lon": 77.402,
+   "lat": 23.2585,
+   "hit": "Bhopal",
+   "kind": "place=city",
+   "population": 2402731
+  },
+  {
+   "side": "in",
+   "name": "Vadodara",
+   "lon": 73.1943,
+   "lat": 22.2973,
+   "hit": "Vadodara",
+   "kind": "place=city",
+   "population": 2227449
+  },
+  {
+   "side": "in",
+   "name": "Madurai",
+   "lon": 78.1141,
+   "lat": 9.9261,
+   "hit": "Madurai",
+   "kind": "place=city",
+   "population": 2216591
+  },
+  {
+   "side": "in",
+   "name": "Ludhiana",
+   "lon": 75.8516,
+   "lat": 30.909,
+   "hit": "Ludhiana",
+   "kind": "place=city",
+   "population": 2209310
+  },
+  {
+   "side": "in",
+   "name": "Meerut",
+   "lon": 77.7062,
+   "lat": 28.9963,
+   "hit": "Meerut",
+   "kind": "place=city",
+   "population": 2159253
+  },
+  {
+   "side": "in",
+   "name": "Faridabad",
+   "lon": 77.3106,
+   "lat": 28.4031,
+   "hit": "Faridabad",
+   "kind": "place=city",
+   "population": 2097808
+  },
+  {
+   "side": "in",
+   "name": "Asansol",
+   "lon": 86.9747,
+   "lat": 23.6871,
+   "hit": "Asansol",
+   "kind": "place=city",
+   "population": 2054551
+  },
+  {
+   "side": "in",
+   "name": "Jamshedpur",
+   "lon": 86.203,
+   "lat": 22.8015,
+   "hit": "Jamshedpur",
+   "kind": "place=city",
+   "population": 1976082
+  },
+  {
+   "side": "in",
+   "name": "Nashik",
+   "lon": 73.7902,
+   "lat": 20.0112,
+   "hit": "Nashik",
+   "kind": "place=city",
+   "population": 1942363
+  },
+  {
+   "side": "in",
+   "name": "Chandigarh",
+   "lon": 76.7797,
+   "lat": 30.7334,
+   "hit": "Chandigarh",
+   "kind": "place=city",
+   "population": 1880406
+  },
+  {
+   "side": "in",
+   "name": "Coimbatore",
+   "lon": 76.9628,
+   "lat": 11.0018,
+   "hit": "Coimbatore",
+   "kind": "place=city",
+   "population": 1848848
+  },
+  {
+   "side": "in",
+   "name": "Ranchi",
+   "lon": 85.325,
+   "lat": 23.3701,
+   "hit": "Ranchi",
+   "kind": "place=city",
+   "population": 1840770
+  },
+  {
+   "side": "in",
+   "name": "Aligarh",
+   "lon": 78.069,
+   "lat": 27.8815,
+   "hit": "Aligarh",
+   "kind": "place=city",
+   "population": 1798416
+  },
+  {
+   "side": "in",
+   "name": "Dhanbad",
+   "lon": 86.431,
+   "lat": 23.7953,
+   "hit": "Dhanbad",
+   "kind": "place=city",
+   "population": 1745582
+  },
+  {
+   "side": "in",
+   "name": "Jabalpur",
+   "lon": 79.9325,
+   "lat": 23.1702,
+   "hit": "Jabalpur",
+   "kind": "place=city",
+   "population": 1743873
+  },
+  {
+   "side": "in",
+   "name": "Bareilly",
+   "lon": 79.4179,
+   "lat": 28.3551,
+   "hit": "Bareilly",
+   "kind": "place=city",
+   "population": 1664829
+  },
+  {
+   "side": "in",
+   "name": "Kollam",
+   "lon": 76.5907,
+   "lat": 8.8871,
+   "hit": "Kollam",
+   "kind": "place=city",
+   "population": 1647356
+  },
+  {
+   "side": "in",
+   "name": "Raipur",
+   "lon": 81.6337,
+   "lat": 21.2381,
+   "hit": "Raipur",
+   "kind": "place=city",
+   "population": 1617553
+  },
+  {
+   "side": "in",
+   "name": "Gorakhpur",
+   "lon": 83.3668,
+   "lat": 26.76,
+   "hit": "Gorakhpur",
+   "kind": "place=city",
+   "population": 1602788
+  },
+  {
+   "side": "in",
+   "name": "Rajkot",
+   "lon": 70.8028,
+   "lat": 22.3053,
+   "hit": "Rajkot",
+   "kind": "place=city",
+   "population": 1599808
+  },
+  {
+   "side": "in",
+   "name": "Moradabad",
+   "lon": 78.7733,
+   "lat": 28.8335,
+   "hit": "Moradabad",
+   "kind": "place=city",
+   "population": 1584483
+  },
+  {
+   "side": "in",
+   "name": "Gwalior",
+   "lon": 78.1574,
+   "lat": 26.2037,
+   "hit": "Gwalior",
+   "kind": "place=city",
+   "population": 1574876
+  },
+  {
+   "side": "in",
+   "name": "Thrissur",
+   "lon": 76.2146,
+   "lat": 10.527,
+   "hit": "Thrissur",
+   "kind": "place=city",
+   "population": 1560558
+  },
+  {
+   "side": "in",
+   "name": "Avadi",
+   "lon": 80.0936,
+   "lat": 13.119,
+   "hit": "Avadi",
+   "kind": "place=city",
+   "population": 1537833
+  },
+  {
+   "side": "in",
+   "name": "Saharanpur",
+   "lon": 77.5427,
+   "lat": 29.9637,
+   "hit": "Saharanpur",
+   "kind": "place=city",
+   "population": 1429865
+  },
+  {
+   "side": "in",
+   "name": "Amritsar",
+   "lon": 74.8787,
+   "lat": 31.6357,
+   "hit": "Amritsar",
+   "kind": "place=city",
+   "population": 1389190
+  },
+  {
+   "side": "in",
+   "name": "Muzaffarpur",
+   "lon": 85.3858,
+   "lat": 26.1183,
+   "hit": "Muzaffarpur",
+   "kind": "place=city",
+   "population": 1388685
+  },
+  {
+   "side": "in",
+   "name": "Mysore",
+   "lon": 76.6554,
+   "lat": 12.3052,
+   "hit": "Mysuru",
+   "kind": "place=city",
+   "population": 1378527
+  },
+  {
+   "side": "in",
+   "name": "Guwahati",
+   "lon": 91.7539,
+   "lat": 26.1806,
+   "hit": "Guwahati",
+   "kind": "place=city",
+   "population": 1373753
+  },
+  {
+   "side": "in",
+   "name": "Srinagar",
+   "lon": 74.8204,
+   "lat": 34.0747,
+   "hit": "Srinagar",
+   "kind": "place=city",
+   "population": 1364291
+  },
+  {
+   "side": "in",
+   "name": "Bhilai",
+   "lon": 81.3733,
+   "lat": 21.2121,
+   "hit": "Bhilai",
+   "kind": "place=city",
+   "population": 1362908
+  },
+  {
+   "side": "in",
+   "name": "Jodhpur",
+   "lon": 73.0351,
+   "lat": 26.2968,
+   "hit": "Jodhpur",
+   "kind": "place=city",
+   "population": 1358707
+  },
+  {
+   "side": "in",
+   "name": "Salem",
+   "lon": 78.1582,
+   "lat": 11.6552,
+   "hit": "Salem",
+   "kind": "place=city",
+   "population": 1350459
+  },
+  {
+   "side": "in",
+   "name": "Tiruchirappalli",
+   "lon": 78.6881,
+   "lat": 10.8071,
+   "hit": "Tiruchirappalli",
+   "kind": "place=city",
+   "population": 1342962
+  },
+  {
+   "side": "in",
+   "name": "Vijayawada",
+   "lon": 80.616,
+   "lat": 16.5115,
+   "hit": "Vijayawada",
+   "kind": "place=city",
+   "population": 1337439
+  },
+  {
+   "side": "in",
+   "name": "Kota",
+   "lon": 75.8574,
+   "lat": 25.1737,
+   "hit": "Kota",
+   "kind": "place=city",
+   "population": 1301835
+  },
+  {
+   "side": "in",
+   "name": "Kulti",
+   "lon": 86.8397,
+   "lat": 23.7302,
+   "hit": "Kulti",
+   "kind": "place=suburb",
+   "population": 1285822
+  },
+  {
+   "side": "in",
+   "name": "Jalandhar",
+   "lon": 75.5769,
+   "lat": 31.3324,
+   "hit": "Jalandhar",
+   "kind": "place=city",
+   "population": 1281247
+  },
+  {
+   "side": "in",
+   "name": "Tiruppur",
+   "lon": 77.3452,
+   "lat": 11.1018,
+   "hit": "Tiruppur",
+   "kind": "place=city",
+   "population": 1238228
+  },
+  {
+   "side": "in",
+   "name": "Dehradun",
+   "lon": 78.0437,
+   "lat": 30.3256,
+   "hit": "Dehradun",
+   "kind": "place=city",
+   "population": 1229216
+  },
+  {
+   "side": "in",
+   "name": "Solapur",
+   "lon": 75.9008,
+   "lat": 17.67,
+   "hit": "Solapur",
+   "kind": "place=city",
+   "population": 1227115
+  },
+  {
+   "side": "in",
+   "name": "Kochi",
+   "lon": 76.2444,
+   "lat": 9.9679,
+   "hit": "Kochi",
+   "kind": "place=city",
+   "population": 1225083
+  },
+  {
+   "side": "in",
+   "name": "Ozhukarai",
+   "lon": 79.8065,
+   "lat": 11.9414,
+   "hit": "Oulgaret",
+   "kind": "place=town",
+   "population": 1202335
+  },
+  {
+   "side": "in",
+   "name": "Bhubaneswar",
+   "lon": 85.8395,
+   "lat": 20.2603,
+   "hit": "Bhubaneshwar",
+   "kind": "place=city",
+   "population": 1191965
+  },
+  {
+   "side": "in",
+   "name": "Barasat",
+   "lon": 88.4826,
+   "lat": 22.7191,
+   "hit": "Barasat",
+   "kind": "place=city",
+   "population": 1174274
+  },
+  {
+   "side": "in",
+   "name": "Visakhapatnam",
+   "lon": 83.2921,
+   "lat": 17.6936,
+   "hit": "Visakhapatnam",
+   "kind": "place=city",
+   "population": 1160139
+  },
+  {
+   "side": "in",
+   "name": "Darbhanga",
+   "lon": 85.8995,
+   "lat": 26.157,
+   "hit": "Darbhanga",
+   "kind": "place=city",
+   "population": 1134998
+  },
+  {
+   "side": "in",
+   "name": "Navi Mumbai",
+   "lon": 73.0199,
+   "lat": 19.0308,
+   "hit": "Navi Mumbai",
+   "kind": "place=city",
+   "population": 1097583
+  },
+  {
+   "side": "in",
+   "name": "Begusarai",
+   "lon": 86.1349,
+   "lat": 25.4139,
+   "hit": "Begusarai",
+   "kind": "place=city",
+   "population": 1080783
+  },
+  {
+   "side": "in",
+   "name": "Bhiwandi",
+   "lon": 73.0588,
+   "lat": 19.3026,
+   "hit": "Bhiwandi",
+   "kind": "place=city",
+   "population": 1077986
+  },
+  {
+   "side": "in",
+   "name": "Firozabad",
+   "lon": 78.3991,
+   "lat": 27.1528,
+   "hit": "Firozabad",
+   "kind": "place=town",
+   "population": 1070504
+  },
+  {
+   "side": "in",
+   "name": "Gaya",
+   "lon": 85.008,
+   "lat": 24.7964,
+   "hit": "Gaya",
+   "kind": "place=city",
+   "population": 1047666
+  },
+  {
+   "side": "in",
+   "name": "Cuttack",
+   "lon": 85.8792,
+   "lat": 20.4686,
+   "hit": "Cuttack",
+   "kind": "place=city",
+   "population": 1046817
+  },
+  {
+   "side": "in",
+   "name": "Kolhapur",
+   "lon": 74.2405,
+   "lat": 16.7028,
+   "hit": "Kolhapur",
+   "kind": "place=city",
+   "population": 1045569
+  },
+  {
+   "side": "in",
+   "name": "Bokaro",
+   "lon": 86.1456,
+   "lat": 23.6544,
+   "hit": "Bokaro",
+   "kind": "place=city",
+   "population": 979320
+  },
+  {
+   "side": "in",
+   "name": "Agartala",
+   "lon": 91.2824,
+   "lat": 23.8312,
+   "hit": "Agartala",
+   "kind": "place=city",
+   "population": 954352
+  },
+  {
+   "side": "in",
+   "name": "Bikaner",
+   "lon": 73.3171,
+   "lat": 28.0159,
+   "hit": "Bikaner",
+   "kind": "place=city",
+   "population": 941070
+  },
+  {
+   "side": "in",
+   "name": "Guntur",
+   "lon": 80.4542,
+   "lat": 16.2915,
+   "hit": "Guntur",
+   "kind": "place=city",
+   "population": 939388
+  },
+  {
+   "side": "in",
+   "name": "Bihar Sharif",
+   "lon": 85.5209,
+   "lat": 25.1939,
+   "hit": "Bihar Sharif",
+   "kind": "place=city",
+   "population": 938529
+  },
+  {
+   "side": "in",
+   "name": "Belgaum",
+   "lon": 74.5069,
+   "lat": 15.8573,
+   "hit": "Belagavi",
+   "kind": "place=city",
+   "population": 902262
+  },
+  {
+   "side": "in",
+   "name": "Jalgaon",
+   "lon": 75.5696,
+   "lat": 21.0101,
+   "hit": "Jalgaon",
+   "kind": "place=city",
+   "population": 854894
+  },
+  {
+   "side": "in",
+   "name": "Udaipur",
+   "lon": 73.6863,
+   "lat": 24.5787,
+   "hit": "Udaipur",
+   "kind": "place=city",
+   "population": 853411
+  },
+  {
+   "side": "in",
+   "name": "Arrah",
+   "lon": 84.6632,
+   "lat": 25.5603,
+   "hit": "Arrah",
+   "kind": "place=city",
+   "population": 852315
+  },
+  {
+   "side": "in",
+   "name": "Warangal",
+   "lon": 79.5971,
+   "lat": 17.9821,
+   "hit": "Warangal",
+   "kind": "place=city",
+   "population": 842297
+  },
+  {
+   "side": "in",
+   "name": "Mirzapur",
+   "lon": 82.569,
+   "lat": 25.1461,
+   "hit": "Mirzapur",
+   "kind": "place=city",
+   "population": 835710
+  },
+  {
+   "side": "in",
+   "name": "Panipat",
+   "lon": 76.9772,
+   "lat": 29.3913,
+   "hit": "Panipat",
+   "kind": "place=city",
+   "population": 823551
+  },
+  {
+   "side": "in",
+   "name": "Rourkela",
+   "lon": 84.8679,
+   "lat": 22.2309,
+   "hit": "Rourkela",
+   "kind": "place=city",
+   "population": 818111
+  },
+  {
+   "side": "in",
+   "name": "Rampur",
+   "lon": 79.0284,
+   "lat": 28.8014,
+   "hit": "Rampur",
+   "kind": "place=town",
+   "population": 809691
+  },
+  {
+   "side": "in",
+   "name": "Amravati",
+   "lon": 77.7588,
+   "lat": 20.9316,
+   "hit": "Amravati",
+   "kind": "place=city",
+   "population": 807584
+  },
+  {
+   "side": "in",
+   "name": "Gulbarga",
+   "lon": 76.8334,
+   "lat": 17.331,
+   "hit": "Kalaburagi",
+   "kind": "place=city",
+   "population": 798051
+  },
+  {
+   "side": "in",
+   "name": "Mau",
+   "lon": 83.5716,
+   "lat": 25.9391,
+   "hit": "Mau",
+   "kind": "place=city",
+   "population": 797713
+  },
+  {
+   "side": "in",
+   "name": "Jhansi",
+   "lon": 78.58,
+   "lat": 25.4502,
+   "hit": "Jhansi",
+   "kind": "place=city",
+   "population": 793003
+  },
+  {
+   "side": "in",
+   "name": "Shahjahanpur",
+   "lon": 79.911,
+   "lat": 27.8827,
+   "hit": "Shahjahanpur",
+   "kind": "place=town",
+   "population": 792098
+  },
+  {
+   "side": "in",
+   "name": "Brahmapur",
+   "lon": 84.7972,
+   "lat": 19.3098,
+   "hit": "Brahmapur",
+   "kind": "place=city",
+   "population": 756548
+  },
+  {
+   "side": "in",
+   "name": "Farrukhabad",
+   "lon": 79.5791,
+   "lat": 27.3895,
+   "hit": "Farrukhabad",
+   "kind": "place=town",
+   "population": 747422
+  },
+  {
+   "side": "in",
+   "name": "Jamnagar",
+   "lon": 70.0552,
+   "lat": 22.4732,
+   "hit": "Jamnagar",
+   "kind": "place=city",
+   "population": 743776
+  },
+  {
+   "side": "in",
+   "name": "Imphal",
+   "lon": 93.9364,
+   "lat": 24.7991,
+   "hit": "Imphal",
+   "kind": "place=city",
+   "population": 743343
+  },
+  {
+   "side": "in",
+   "name": "Rajahmundry",
+   "lon": 81.7805,
+   "lat": 17.005,
+   "hit": "Rajamahendravaram",
+   "kind": "place=city",
+   "population": 739041
+  },
+  {
+   "side": "in",
+   "name": "Ajmer",
+   "lon": 74.639,
+   "lat": 26.4691,
+   "hit": "Ajmer",
+   "kind": "place=city",
+   "population": 738016
+  },
+  {
+   "side": "in",
+   "name": "Mathura",
+   "lon": 77.6856,
+   "lat": 27.4956,
+   "hit": "Mathura",
+   "kind": "place=city",
+   "population": 730541
+  },
+  {
+   "side": "in",
+   "name": "Akola",
+   "lon": 77.0026,
+   "lat": 20.7117,
+   "hit": "Akola",
+   "kind": "place=city",
+   "population": 724535
+  },
+  {
+   "side": "in",
+   "name": "Hapur",
+   "lon": 77.7755,
+   "lat": 28.73,
+   "hit": "Hapur",
+   "kind": "place=town",
+   "population": 710583
+  },
+  {
+   "side": "in",
+   "name": "Malegaon",
+   "lon": 74.5247,
+   "lat": 20.5576,
+   "hit": "Malegaon",
+   "kind": "place=city",
+   "population": 705394
+  },
+  {
+   "side": "in",
+   "name": "Purnia",
+   "lon": 87.4731,
+   "lat": 25.7774,
+   "hit": "Purnia",
+   "kind": "place=city",
+   "population": 698428
+  },
+  {
+   "side": "in",
+   "name": "Dhule",
+   "lon": 74.7732,
+   "lat": 20.898,
+   "hit": "Dhule",
+   "kind": "place=city",
+   "population": 698005
+  },
+  {
+   "side": "in",
+   "name": "Sagar",
+   "lon": 78.7467,
+   "lat": 23.8418,
+   "hit": "Sagar",
+   "kind": "place=city",
+   "population": 673790
+  },
+  {
+   "side": "in",
+   "name": "Ujjain",
+   "lon": 75.7717,
+   "lat": 23.1885,
+   "hit": "Ujjain",
+   "kind": "place=city",
+   "population": 672103
+  },
+  {
+   "side": "in",
+   "name": "Alwar",
+   "lon": 76.6132,
+   "lat": 27.5646,
+   "hit": "Alwar",
+   "kind": "place=city",
+   "population": 663241
+  },
+  {
+   "side": "in",
+   "name": "Aurangabad",
+   "lon": 88.0266,
+   "lat": 24.622,
+   "hit": "Aurangabad",
+   "kind": "place=town",
+   "population": 656061
+  },
+  {
+   "side": "in",
+   "name": "Ichalkaranji",
+   "lon": 74.4556,
+   "lat": 16.6959,
+   "hit": "Ichalkaranji",
+   "kind": "place=city",
+   "population": 654631
+  },
+  {
+   "side": "in",
+   "name": "Ballari",
+   "lon": 76.9173,
+   "lat": 15.143,
+   "hit": "Ballari",
+   "kind": "place=city",
+   "population": 650773
+  },
+  {
+   "side": "in",
+   "name": "Davanagere",
+   "lon": 75.9206,
+   "lat": 14.4661,
+   "hit": "Davanagere",
+   "kind": "place=city",
+   "population": 634898
+  },
+  {
+   "side": "in",
+   "name": "Satna",
+   "lon": 80.8326,
+   "lat": 24.5751,
+   "hit": "Satna",
+   "kind": "place=city",
+   "population": 623934
+  },
+  {
+   "side": "in",
+   "name": "Etawah",
+   "lon": 79.022,
+   "lat": 26.7781,
+   "hit": "Etawah",
+   "kind": "place=town",
+   "population": 622177
+  },
+  {
+   "side": "in",
+   "name": "Latur",
+   "lon": 76.5626,
+   "lat": 18.3982,
+   "hit": "Latur",
+   "kind": "place=city",
+   "population": 603369
+  },
+  {
+   "side": "in",
+   "name": "Sonipat",
+   "lon": 77.0234,
+   "lat": 28.9954,
+   "hit": "Sonipat",
+   "kind": "place=city",
+   "population": 593594
+  },
+  {
+   "side": "in",
+   "name": "Siliguri",
+   "lon": 88.431,
+   "lat": 26.7164,
+   "hit": "Siliguri",
+   "kind": "place=city",
+   "population": 588058
+  },
+  {
+   "side": "in",
+   "name": "Tirunelveli",
+   "lon": 77.7103,
+   "lat": 8.7332,
+   "hit": "Tirunelveli",
+   "kind": "place=city",
+   "population": 578668
+  },
+  {
+   "side": "in",
+   "name": "Tirupati",
+   "lon": 79.4232,
+   "lat": 13.6316,
+   "hit": "Tirupati",
+   "kind": "place=city",
+   "population": 557684
+  },
+  {
+   "side": "in",
+   "name": "Kurnool",
+   "lon": 78.0425,
+   "lat": 15.8309,
+   "hit": "Kurnool",
+   "kind": "place=city",
+   "population": 544678
+  },
+  {
+   "side": "in",
+   "name": "Bhilwara",
+   "lon": 74.636,
+   "lat": 25.348,
+   "hit": "Bhilwara",
+   "kind": "place=city",
+   "population": 525011
+  },
+  {
+   "side": "in",
+   "name": "Nizamabad",
+   "lon": 78.0978,
+   "lat": 18.6732,
+   "hit": "Nizamabad",
+   "kind": "place=city",
+   "population": 508636
+  },
+  {
+   "side": "in",
+   "name": "Bharatpur",
+   "lon": 77.4987,
+   "lat": 27.2154,
+   "hit": "Bharatpur",
+   "kind": "place=city",
+   "population": 505602
+  },
+  {
+   "side": "in",
+   "name": "Korba",
+   "lon": 82.7111,
+   "lat": 22.3547,
+   "hit": "Korba",
+   "kind": "place=city",
+   "population": 498998
+  },
+  {
+   "side": "in",
+   "name": "Shivamogga",
+   "lon": 75.575,
+   "lat": 13.9326,
+   "hit": "Shivamogga",
+   "kind": "place=city",
+   "population": 489818
+  },
+  {
+   "side": "in",
+   "name": "Bathinda",
+   "lon": 74.9464,
+   "lat": 30.2068,
+   "hit": "Bathinda",
+   "kind": "place=city",
+   "population": 488672
+  },
+  {
+   "side": "in",
+   "name": "Parbhani",
+   "lon": 76.7718,
+   "lat": 19.2625,
+   "hit": "Parbhani",
+   "kind": "place=town",
+   "population": 488258
+  },
+  {
+   "side": "in",
+   "name": "Chandrapur",
+   "lon": 79.2987,
+   "lat": 19.9508,
+   "hit": "Chandrapur",
+   "kind": "place=city",
+   "population": 484542
+  },
+  {
+   "side": "in",
+   "name": "Anantapur",
+   "lon": 77.6065,
+   "lat": 14.6783,
+   "hit": "Anantapur",
+   "kind": "place=city",
+   "population": 483288
+  },
+  {
+   "side": "in",
+   "name": "Tumkur",
+   "lon": 77.1006,
+   "lat": 13.3401,
+   "hit": "Tumakuru",
+   "kind": "place=city",
+   "population": 480867
+  },
+  {
+   "side": "in",
+   "name": "Bhagalpur",
+   "lon": 86.9828,
+   "lat": 25.2495,
+   "hit": "Bhagalpur",
+   "kind": "place=city",
+   "population": 474018
+  },
+  {
+   "side": "in",
+   "name": "Jalna",
+   "lon": 75.8819,
+   "lat": 19.8393,
+   "hit": "Jalna",
+   "kind": "place=city",
+   "population": 462517
+  },
+  {
+   "side": "in",
+   "name": "Durgapur",
+   "lon": 87.338,
+   "lat": 23.535,
+   "hit": "Durgapur",
+   "kind": "place=city",
+   "population": 460356
+  },
+  {
+   "side": "in",
+   "name": "Thoothukudi",
+   "lon": 78.1453,
+   "lat": 8.8053,
+   "hit": "Thoothukudi",
+   "kind": "place=city",
+   "population": 460032
+  },
+  {
+   "side": "in",
+   "name": "Rewa",
+   "lon": 81.2934,
+   "lat": 24.5359,
+   "hit": "Rewa",
+   "kind": "place=city",
+   "population": 458019
+  },
+  {
+   "side": "in",
+   "name": "Eluru",
+   "lon": 81.1154,
+   "lat": 16.7104,
+   "hit": "Eluru",
+   "kind": "place=city",
+   "population": 452559
+  },
+  {
+   "side": "in",
+   "name": "Khammam",
+   "lon": 80.15,
+   "lat": 17.2465,
+   "hit": "Khammam",
+   "kind": "place=city",
+   "population": 449593
+  },
+  {
+   "side": "in",
+   "name": "Dewas",
+   "lon": 76.0549,
+   "lat": 22.9636,
+   "hit": "Dewas",
+   "kind": "place=city",
+   "population": 448542
+  },
+  {
+   "side": "in",
+   "name": "Ratlam",
+   "lon": 75.0361,
+   "lat": 23.3311,
+   "hit": "Ratlam",
+   "kind": "place=city",
+   "population": 444938
+  },
+  {
+   "side": "in",
+   "name": "Karimnagar",
+   "lon": 79.1328,
+   "lat": 18.4348,
+   "hit": "Karimnagar",
+   "kind": "place=city",
+   "population": 436404
+  },
+  {
+   "side": "in",
+   "name": "Sikar",
+   "lon": 75.1396,
+   "lat": 27.6092,
+   "hit": "Sikar",
+   "kind": "place=city",
+   "population": 423989
+  },
+  {
+   "side": "in",
+   "name": "Junagadh",
+   "lon": 70.4582,
+   "lat": 21.522,
+   "hit": "Junagadh",
+   "kind": "place=city",
+   "population": 415167
+  },
+  {
+   "side": "in",
+   "name": "Aizawl",
+   "lon": 92.718,
+   "lat": 23.7278,
+   "hit": "Aizawl",
+   "kind": "place=city",
+   "population": 411667
+  },
+  {
+   "side": "in",
+   "name": "Raichur",
+   "lon": 77.3527,
+   "lat": 16.1983,
+   "hit": "Raichur",
+   "kind": "place=city",
+   "population": 380276
+  },
+  {
+   "side": "in",
+   "name": "Bardhaman",
+   "lon": 87.8682,
+   "lat": 23.2496,
+   "hit": "Bardhaman",
+   "kind": "place=city",
+   "population": 353050
+  },
+  {
+   "side": "in",
+   "name": "Ramagundam",
+   "lon": 79.4788,
+   "lat": 18.7615,
+   "hit": "Ramagundam",
+   "kind": "place=city",
+   "population": 306657
+  },
+  {
+   "side": "in",
+   "name": "Gandhinagar",
+   "lon": 72.6492,
+   "lat": 23.2233,
+   "hit": "Gandhinagar",
+   "kind": "place=city",
+   "population": 301408
+  },
+  {
+   "side": "in",
+   "name": "Pali",
+   "lon": 73.3275,
+   "lat": 25.7682,
+   "hit": "Pali",
+   "kind": "place=city",
+   "population": 301319
+  },
+  {
+   "side": "in",
+   "name": "Nanded",
+   "lon": 77.4833,
+   "lat": 19.0943,
+   "hit": "Nanded District",
+   "kind": "boundary=administrative",
+   "population": 244420
+  },
+  {
+   "side": "in",
+   "name": "Hubli",
+   "lon": 75.138,
+   "lat": 15.3518,
+   "hit": "Hubli",
+   "kind": "place=city",
+   "population": 176915
+  },
+  {
+   "side": "in",
+   "name": "Bilaspur",
+   "lon": 76.7612,
+   "lat": 31.3381,
+   "hit": "Bilaspur",
+   "kind": "place=town",
+   "population": 169888
+  },
+  {
+   "side": "in",
+   "name": "Karnal",
+   "lon": 76.8333,
+   "lat": 29.6667,
+   "hit": "Karnal",
+   "kind": "place=county",
+   "population": 159892
+  },
+  {
+   "side": "in",
+   "name": "Ahmednagar",
+   "lon": 78.2041,
+   "lat": 17.8217,
+   "hit": "Ahmednagar",
+   "kind": "place=village",
+   "population": 68945
+  },
+  {
+   "side": "pk",
+   "name": "Karachi",
+   "lon": 67.0207,
+   "lat": 24.8547,
+   "hit": "Karachi",
+   "kind": "place=city",
+   "population": 11476718
+  },
+  {
+   "side": "pk",
+   "name": "Lahore",
+   "lon": 74.3142,
+   "lat": 31.5657,
+   "hit": "Lahore",
+   "kind": "place=city",
+   "population": 6722317
+  },
+  {
+   "side": "pk",
+   "name": "Faisalabad",
+   "lon": 73.0923,
+   "lat": 31.4221,
+   "hit": "Faisalabad",
+   "kind": "place=subdistrict",
+   "population": 5350296
+  },
+  {
+   "side": "pk",
+   "name": "Rawalpindi",
+   "lon": 73.0537,
+   "lat": 33.5915,
+   "hit": "Rawalpindi",
+   "kind": "place=city",
+   "population": 3653245
+  },
+  {
+   "side": "pk",
+   "name": "Hyderabad",
+   "lon": 68.3715,
+   "lat": 25.3868,
+   "hit": "Hyderabad",
+   "kind": "place=city",
+   "population": 2951973
+  },
+  {
+   "side": "pk",
+   "name": "Gujranwala",
+   "lon": 74.1934,
+   "lat": 32.1525,
+   "hit": "Gujranwala",
+   "kind": "place=subdistrict",
+   "population": 2881744
+  },
+  {
+   "side": "pk",
+   "name": "Multan",
+   "lon": 71.472,
+   "lat": 30.1978,
+   "hit": "Multan",
+   "kind": "place=city",
+   "population": 2856620
+  },
+  {
+   "side": "pk",
+   "name": "Peshawar",
+   "lon": 71.5787,
+   "lat": 34.0124,
+   "hit": "Peshawar",
+   "kind": "place=city",
+   "population": 2308932
+  },
+  {
+   "side": "pk",
+   "name": "Sialkot",
+   "lon": 74.5416,
+   "lat": 32.4945,
+   "hit": "Sialkot",
+   "kind": "place=city",
+   "population": 1926345
+  },
+  {
+   "side": "pk",
+   "name": "Mardan",
+   "lon": 72.0451,
+   "lat": 34.1938,
+   "hit": "Mardan",
+   "kind": "place=city",
+   "population": 1313681
+  },
+  {
+   "side": "pk",
+   "name": "Sargodha",
+   "lon": 72.6777,
+   "lat": 32.089,
+   "hit": "Sargodha",
+   "kind": "place=city",
+   "population": 1290318
+  },
+  {
+   "side": "pk",
+   "name": "Sheikhupura",
+   "lon": 73.9864,
+   "lat": 31.7085,
+   "hit": "Sheikhupura",
+   "kind": "place=city",
+   "population": 1151598
+  },
+  {
+   "side": "pk",
+   "name": "Mingora",
+   "lon": 72.3608,
+   "lat": 34.7725,
+   "hit": "Mingora",
+   "kind": "place=city",
+   "population": 1141068
+  },
+  {
+   "side": "pk",
+   "name": "Gujrat",
+   "lon": 74.0715,
+   "lat": 32.5687,
+   "hit": "Gujrat",
+   "kind": "place=city",
+   "population": 1068889
+  },
+  {
+   "side": "pk",
+   "name": "Sukkur",
+   "lon": 68.8589,
+   "lat": 27.6962,
+   "hit": "Sukkur",
+   "kind": "place=city",
+   "population": 936459
+  },
+  {
+   "side": "pk",
+   "name": "Okara",
+   "lon": 73.4493,
+   "lat": 30.8091,
+   "hit": "Okara",
+   "kind": "place=city",
+   "population": 935039
+  },
+  {
+   "side": "pk",
+   "name": "Sahiwal",
+   "lon": 73.1111,
+   "lat": 30.6715,
+   "hit": "Sahiwal",
+   "kind": "place=city",
+   "population": 906679
+  },
+  {
+   "side": "pk",
+   "name": "Abbottabad",
+   "lon": 73.2133,
+   "lat": 34.1436,
+   "hit": "Abbottabad",
+   "kind": "place=city",
+   "population": 904781
+  },
+  {
+   "side": "pk",
+   "name": "Quetta",
+   "lon": 67.0172,
+   "lat": 30.1958,
+   "hit": "Quetta",
+   "kind": "place=city",
+   "population": 897851
+  },
+  {
+   "side": "pk",
+   "name": "Bahawalpur",
+   "lon": 71.6639,
+   "lat": 29.3946,
+   "hit": "Bahawalpur",
+   "kind": "place=subdistrict",
+   "population": 879804
+  },
+  {
+   "side": "pk",
+   "name": "Rahim Yar Khan",
+   "lon": 70.3037,
+   "lat": 28.4176,
+   "hit": "Rahim Yar Khan",
+   "kind": "place=city",
+   "population": 851805
+  },
+  {
+   "side": "pk",
+   "name": "Wah Cantonment",
+   "lon": 72.7519,
+   "lat": 33.7708,
+   "hit": "Wah Cantonment",
+   "kind": "place=town",
+   "population": 790855
+  },
+  {
+   "side": "pk",
+   "name": "Larkana",
+   "lon": 68.2102,
+   "lat": 27.5565,
+   "hit": "Larkana",
+   "kind": "place=city",
+   "population": 759782
+  },
+  {
+   "side": "pk",
+   "name": "Kasur",
+   "lon": 74.4478,
+   "lat": 31.1175,
+   "hit": "Kasur",
+   "kind": "place=city",
+   "population": 746760
+  },
+  {
+   "side": "pk",
+   "name": "Dera Ghazi Khan",
+   "lon": 70.6401,
+   "lat": 30.0321,
+   "hit": "Dera Ghazi Khan",
+   "kind": "place=city",
+   "population": 728913
+  },
+  {
+   "side": "pk",
+   "name": "Daska",
+   "lon": 74.3512,
+   "lat": 32.3322,
+   "hit": "Daska",
+   "kind": "place=city",
+   "population": 710581
+  },
+  {
+   "side": "pk",
+   "name": "Jhelum",
+   "lon": 73.7194,
+   "lat": 32.9247,
+   "hit": "Jhelum",
+   "kind": "place=city",
+   "population": 709883
+  },
+  {
+   "side": "pk",
+   "name": "Nowshera",
+   "lon": 71.9813,
+   "lat": 34.0156,
+   "hit": "Nowshera",
+   "kind": "place=city",
+   "population": 703427
+  },
+  {
+   "side": "pk",
+   "name": "Jhang",
+   "lon": 72.3103,
+   "lat": 31.2729,
+   "hit": "Jhang",
+   "kind": "place=city",
+   "population": 637972
+  },
+  {
+   "side": "pk",
+   "name": "Sadiqabad",
+   "lon": 70.1283,
+   "lat": 28.3087,
+   "hit": "Sadiqabad",
+   "kind": "place=city",
+   "population": 636579
+  },
+  {
+   "side": "pk",
+   "name": "Chiniot",
+   "lon": 72.9803,
+   "lat": 31.7223,
+   "hit": "Chiniot",
+   "kind": "place=city",
+   "population": 633623
+  },
+  {
+   "side": "pk",
+   "name": "Kohat",
+   "lon": 71.44,
+   "lat": 33.5967,
+   "hit": "Kohat",
+   "kind": "place=city",
+   "population": 575052
+  },
+  {
+   "side": "pk",
+   "name": "Gojra",
+   "lon": 72.6859,
+   "lat": 31.1482,
+   "hit": "Gojra",
+   "kind": "place=city",
+   "population": 566862
+  },
+  {
+   "side": "pk",
+   "name": "Burewala",
+   "lon": 72.6797,
+   "lat": 30.1588,
+   "hit": "Burewala",
+   "kind": "place=city",
+   "population": 540204
+  },
+  {
+   "side": "pk",
+   "name": "Pakpattan",
+   "lon": 73.3892,
+   "lat": 30.3423,
+   "hit": "Pakpattan",
+   "kind": "place=city",
+   "population": 530304
+  },
+  {
+   "side": "pk",
+   "name": "Mirpur Khas",
+   "lon": 69.0112,
+   "lat": 25.5264,
+   "hit": "Mirpur Khas",
+   "kind": "place=city",
+   "population": 495124
+  },
+  {
+   "side": "pk",
+   "name": "Khanewal",
+   "lon": 71.9279,
+   "lat": 30.3023,
+   "hit": "Khanewal",
+   "kind": "place=city",
+   "population": 493368
+  },
+  {
+   "side": "pk",
+   "name": "Mandi Bahauddin",
+   "lon": 73.4914,
+   "lat": 32.5846,
+   "hit": "Mandi Bahauddin",
+   "kind": "place=city",
+   "population": 492788
+  },
+  {
+   "side": "pk",
+   "name": "Khanpur",
+   "lon": 70.656,
+   "lat": 28.6477,
+   "hit": "Khanpur",
+   "kind": "place=city",
+   "population": 484934
+  },
+  {
+   "side": "pk",
+   "name": "Muzaffargarh",
+   "lon": 71.1906,
+   "lat": 30.0743,
+   "hit": "Muzaffargarh",
+   "kind": "place=city",
+   "population": 478642
+  },
+  {
+   "side": "pk",
+   "name": "Dera Ismail Khan",
+   "lon": 70.9091,
+   "lat": 31.8275,
+   "hit": "Dera Ismail Khan",
+   "kind": "place=city",
+   "population": 473888
+  },
+  {
+   "side": "pk",
+   "name": "Shikarpur",
+   "lon": 68.6409,
+   "lat": 27.9557,
+   "hit": "Shikarpur",
+   "kind": "place=city",
+   "population": 468851
+  },
+  {
+   "side": "pk",
+   "name": "Vehari",
+   "lon": 72.3564,
+   "lat": 30.048,
+   "hit": "Vehari",
+   "kind": "place=city",
+   "population": 459867
+  },
+  {
+   "side": "pk",
+   "name": "Nawabshah",
+   "lon": 68.404,
+   "lat": 26.2453,
+   "hit": "Nawabshah",
+   "kind": "place=city",
+   "population": 441643
+  },
+  {
+   "side": "pk",
+   "name": "Muridke",
+   "lon": 74.2541,
+   "lat": 31.8011,
+   "hit": "Muridke",
+   "kind": "place=city",
+   "population": 436708
+  },
+  {
+   "side": "pk",
+   "name": "Khairpur",
+   "lon": 68.7594,
+   "lat": 27.5269,
+   "hit": "Khairpur",
+   "kind": "place=city",
+   "population": 420309
+  },
+  {
+   "side": "pk",
+   "name": "Jacobabad",
+   "lon": 68.4364,
+   "lat": 28.2813,
+   "hit": "Jacobabad",
+   "kind": "place=city",
+   "population": 402267
+  },
+  {
+   "side": "pk",
+   "name": "Tando Allahyar",
+   "lon": 68.7198,
+   "lat": 25.462,
+   "hit": "Tando Allahyar",
+   "kind": "place=city",
+   "population": 339835
+  },
+  {
+   "side": "pk",
+   "name": "Chakwal",
+   "lon": 72.863,
+   "lat": 32.9328,
+   "hit": "Chakwal",
+   "kind": "place=city",
+   "population": 336564
+  },
+  {
+   "side": "pk",
+   "name": "Bahawalnagar",
+   "lon": 73.2528,
+   "lat": 29.9936,
+   "hit": "Bahawalnagar",
+   "kind": "place=city",
+   "population": 331288
+  },
+  {
+   "side": "pk",
+   "name": "Bhakkar",
+   "lon": 71.0677,
+   "lat": 31.6303,
+   "hit": "Bhakkar",
+   "kind": "place=city",
+   "population": 315780
+  },
+  {
+   "side": "pk",
+   "name": "Attock",
+   "lon": 72.3611,
+   "lat": 33.7695,
+   "hit": "Attock",
+   "kind": "place=city",
+   "population": 307198
+  },
+  {
+   "side": "pk",
+   "name": "Turbat",
+   "lon": 63.0506,
+   "lat": 26.0028,
+   "hit": "Turbat",
+   "kind": "place=city",
+   "population": 218801
+  },
+  {
+   "side": "pk",
+   "name": "Chishtian",
+   "lon": 72.8277,
+   "lat": 29.6401,
+   "hit": "Chishtian Tehsil",
+   "kind": "place=subdistrict",
+   "population": 166680
+  },
+  {
+   "side": "pk",
+   "name": "Khuzdar",
+   "lon": 66.6167,
+   "lat": 27.8,
+   "hit": "Khuzdar",
+   "kind": "place=city",
+   "population": 159582
+  },
+  {
+   "side": "pk",
+   "name": "Hafizabad",
+   "lon": 73.5452,
+   "lat": 32.0518,
+   "hit": "Hafizabad District",
+   "kind": "place=district",
+   "population": 143812
+  },
+  {
+   "side": "pk",
+   "name": "Kamoke",
+   "lon": 74.3846,
+   "lat": 31.9956,
+   "hit": "Kamoke Tehsil",
+   "kind": "place=subdistrict",
+   "population": 126535
+  },
+  {
+   "side": "pk",
+   "name": "Gwadar",
+   "lon": 62.3255,
+   "lat": 25.148,
+   "hit": "Gwādar",
+   "kind": "place=city",
+   "population": 100157
+  }
+ ],
+ "dropped": [
+  {
+   "side": "in",
+   "name": "Mangalore",
+   "why": "the geocoder found a aeroway=aerodrome, not a populated place",
+   "lon": 74.8847,
+   "lat": 12.9546,
+   "hit": "Mangalore International Airport",
+   "country": "IN",
+   "kind": "aeroway=aerodrome"
+  },
+  {
+   "side": "in",
+   "name": "Bijapur",
+   "why": "only 46,897 people within 10 km — geocoded to a place of the same name, not the city",
+   "lon": 80.8159,
+   "lat": 18.7936,
+   "hit": "Bijapur",
+   "country": "IN",
+   "kind": "place=town"
+  },
+  {
+   "side": "in",
+   "name": "Kirari Suleman Nagar",
+   "why": "the geocoder found a waterway=drain, not a populated place",
+   "lon": 77.0562,
+   "lat": 28.6768,
+   "hit": "Kirari Suleman Nagar Drain",
+   "country": "IN",
+   "kind": "waterway=drain"
+  },
+  {
+   "side": "in",
+   "name": "Howrah",
+   "why": "within 12 km of Kolkata"
+  },
+  {
+   "side": "in",
+   "name": "Ambattur",
+   "why": "within 12 km of Chennai"
+  },
+  {
+   "side": "in",
+   "name": "Bally",
+   "why": "within 12 km of Kolkata"
+  },
+  {
+   "side": "in",
+   "name": "Durg",
+   "why": "within 12 km of Bhilai"
+  },
+  {
+   "side": "in",
+   "name": "North Dumdum",
+   "why": "within 12 km of Kolkata"
+  },
+  {
+   "side": "in",
+   "name": "New Delhi",
+   "why": "within 12 km of Delhi"
+  },
+  {
+   "side": "in",
+   "name": "Baranagar",
+   "why": "within 12 km of Kolkata"
+  },
+  {
+   "side": "in",
+   "name": "Tiruvottiyur",
+   "why": "within 12 km of Chennai"
+  },
+  {
+   "side": "in",
+   "name": "Puducherry",
+   "why": "within 12 km of Ozhukarai"
+  },
+  {
+   "side": "pk",
+   "name": "Islamabad",
+   "why": "within 12 km of Rawalpindi"
+  },
+  {
+   "side": "pk",
+   "name": "Kotri",
+   "why": "within 12 km of Hyderabad"
+  }
+ ],
+ "counts": {
+  "in": 158,
+  "pk": 58
+ }
+}

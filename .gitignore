@@ -27,3 +27,4 @@ public/data/ghsl/
 
 # Wrangler state
 .wrangler/
+.cache/
