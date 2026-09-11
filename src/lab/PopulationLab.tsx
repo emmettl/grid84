@@ -14,6 +14,7 @@ import { formatProvenance } from '../evidence/evidence.ts'
 import { VALIDATION_CASES, type RecordedFigure, type ValidationCase } from '../models/validation-cases.ts'
 import { COMPARISON_CASES, NUKEMAP_METHOD, radiusOfSqMi, type ComparisonCase } from '../models/comparison-cases.ts'
 import { planarEstimate, radiusComparisons } from '../models/validation.ts'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 // Resolved against the page, because the worker would otherwise resolve a relative path against its own script URL.
 const gridUrl = (name: string) => new URL(`${import.meta.env.BASE_URL}data/hyde/${name}`, document.baseURI).href
@@ -215,6 +216,7 @@ export function PopulationLab() {
           <span>Click the ground to move ground zero · HYDE 3.3 by year, GHSL for the present</span>
         </header>
 
+        <ControlSheet id="population">
         <section className="clock" aria-label="Weapon">
           <h2>Yield</h2>
           <div className="clock-controls">
@@ -301,7 +303,9 @@ export function PopulationLab() {
             )}
           </div>
         </section>
+        </ControlSheet>
 
+        <ReadingSheet id="population">
         <section className="log" aria-label="Grid">
           <h2>Grid</h2>
           {grid.status === 'loading' && <p className="log-empty">Loading population grid…</p>}
@@ -393,10 +397,8 @@ export function PopulationLab() {
             </>
           )}
         </section>
-
         {validation && <RecordedPanel c={validation} yieldKt={yieldKt} />}
         {comparison && <ComparisonPanel c={comparison} result={result} gridName={grid.summary ? `${grid.summary.source.name} ${grid.summary.source.year}` : null} />}
-
         <section className="omissions" aria-label="Not represented">
           <h2>Not represented</h2>
           <ul>
@@ -406,6 +408,7 @@ export function PopulationLab() {
             <li>Medical collapse: the injured are counted, not treated</li>
           </ul>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

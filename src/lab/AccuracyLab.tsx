@@ -4,6 +4,7 @@ import { COUNTERFORCE_PSI, impactPattern, killProbability, lethalRadiusMetres, s
 import { BLAST_MODEL, SURFACE_BLAST_MODEL } from '../models/blast.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
 import { placeLabels, type LabelWish } from '../chart/labels.ts'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 const pct = (v: number) => `${Math.round(v * 100)}%`
 const km = (m: number) => (m >= 1_000 ? `${(m / 1_000).toFixed(m >= 10_000 ? 0 : 1)} km` : `${Math.round(m)} m`)
@@ -154,6 +155,7 @@ export function AccuracyLab() {
           <span>Counterforce as a technical choice · what a warhead of a given yield and CEP can destroy</span>
         </header>
 
+        <ControlSheet id="accuracy">
         <section className="clock" aria-label="Weapon and target">
           <h2>Weapon</h2>
           <div className="clock-controls clock-controls--variants" role="group" aria-label="Systems">
@@ -197,7 +199,9 @@ export function AccuracyLab() {
             ))}
           </div>
         </section>
+        </ControlSheet>
 
+        <ReadingSheet id="accuracy">
         <section className="log readiness-chart" aria-label="Crossing">
           <h2>What missing looks like</h2>
           <SalvoPlan yieldKt={sys.yieldKt} cepMetres={sys.cepMetres} psi={psi} extentMetres={target?.extentMetres ?? 4} shots={salvo} seed={seed} />
@@ -284,6 +288,7 @@ export function AccuracyLab() {
             </p>
           </details>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

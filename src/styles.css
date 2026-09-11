@@ -383,7 +383,15 @@ body,
   text-transform: uppercase;
 }
 
-.study-hud > * {
+/*
+ * `pointer-events` is inherited, so the wrappers below — which generate no box
+ * on a wide screen — still hand it to the panels inside them. `min-width` is
+ * not inherited and the panels are grid items of this element either way, so
+ * they are named through the wrappers as well.
+ */
+.study-hud > *,
+.study-hud > .study-controls > *,
+.study-hud > .study-sheet > * {
   pointer-events: auto;
   min-width: 0;
 }
@@ -401,6 +409,18 @@ body,
 /* The sheet's handle belongs to the phone layout only; on a wide screen the
    wrapper is not a box and the handle would become a stray grid item. */
 .study-sheet-handle {
+  display: none;
+}
+
+/*
+ * The controls of a lab, wrapped for the same reason and in the same way: a
+ * phone folds them behind one handle, a wide screen never sees the wrapper.
+ */
+.study-controls {
+  display: contents;
+}
+
+.study-controls-handle {
   display: none;
 }
 
@@ -1129,7 +1149,8 @@ body,
   .study-sheet > .omissions {
     display: none;
   }
-  .study-sheet-handle {
+  .study-sheet-handle,
+  .study-controls-handle {
     display: block;
     order: 0;
     flex: none;
@@ -1485,13 +1506,15 @@ body,
 @media (max-width: 1099px) {
   .readiness-hud {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto auto auto;
+    grid-template-rows: repeat(7, auto);
     align-content: start;
     overflow-y: auto;
     pointer-events: auto;
   }
   /* Panels take their full content height; the container scrolls, not the panels. */
-  .readiness-hud > * {
+  .readiness-hud > *,
+  .readiness-hud > .study-controls > *,
+  .readiness-hud > .study-sheet > * {
     min-height: auto;
     max-height: none;
     overflow: visible;
@@ -1500,8 +1523,15 @@ body,
   .readiness-hud .clock { grid-row: 2; }
   .readiness-chart { grid-column: 1; grid-row: 3; }
   .readiness-hud .provenance { grid-column: 1; grid-row: 4; max-height: none; text-align: left; }
-  .readiness-hud .omissions { grid-column: 1; grid-row: 5; text-align: left; }
-  .readiness-hud .legend { grid-row: 6; }
+  /*
+   * Two panels written as controls are both placed in row two, so the shot
+   * exchange's test records sat on top of the case they are evidence for, and
+   * the case could not be reached underneath them. Here the rows are auto and
+   * the column scrolls, so the records take a row of their own.
+   */
+  .readiness-hud .lab-records { grid-column: 1; grid-row: 5; }
+  .readiness-hud .omissions { grid-column: 1; grid-row: 6; text-align: left; }
+  .readiness-hud .legend { grid-row: 7; }
 }
 
 .gen-chart {
@@ -3440,4 +3470,221 @@ body,
 
 .iv-battery {
   fill: var(--amber);
+}
+
+/* ---------- The labs on a phone ---------- */
+
+/*
+ * A lab is control-heavy on purpose: a dozen presets, a stack of sliders and
+ * three or four tables of method, all of it over the map the controls are
+ * driving. On a wide screen that is the point. On a phone it meant the map was
+ * never visible at all — the controls alone were taller than the screen on the
+ * fallout lab, and on the population lab the panels ran off the bottom with no
+ * way to scroll to them.
+ *
+ * So a phone gets the study's arrangement: the controls fold behind one handle
+ * and open to at most a third of the screen, scrolling inside themselves; the
+ * readings are a sheet along the bottom that can be pushed off; and the middle
+ * belongs to the map. A lab will never be a good thing to drive on a phone.
+ * This is so that it can be read on one.
+ */
+@media (max-width: 700px) {
+  /* The rule for the hud's own children, extended to the panels now one level
+     down inside a wrapper: nothing may push the column wider than the phone. */
+  .study-controls > *,
+  .study-sheet > * {
+    pointer-events: auto;
+    flex: none;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .study-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+    /* vh first for anything that does not know dvh. Open, the controls take a
+       third of the screen and scroll; the map and the readout keep the rest. */
+    max-height: 34vh;
+    max-height: 34dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .study-controls > .clock {
+    align-self: stretch;
+    flex: none;
+    max-height: none;
+  }
+
+  /* Folded, the controls are the handle and nothing else. */
+  .study-controls.is-folded {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .study-controls.is-folded > *:not(.study-controls-handle) {
+    display: none;
+  }
+
+  /*
+   * The labs that are a document rather than a map — the shot exchange, the
+   * intercept chain, accuracy, guidance, readiness, the neutron bomb — scroll
+   * as a whole. Inside a scrolling column a panel with its own scroll is a
+   * trap, so there the controls simply fold and take whatever height they
+   * need, and the readings are not a sheet at all.
+   */
+  .readiness-hud .study-controls {
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* And their readings are not a sheet: the wrapper generates no box, the
+     panels are flex items of the scrolling column exactly as they were, and
+     the handle that would uncover a map has no map to uncover. */
+  .readiness-hud .study-sheet {
+    display: contents;
+  }
+
+  /* With the wrapper gone the panels are flex items of the column itself, so
+     they take back the two things the column gives its own children: their
+     full height, and the order they are written in. */
+  .readiness-hud .study-sheet > * {
+    order: 0;
+    max-height: none;
+  }
+
+  .readiness-hud .study-sheet-handle {
+    display: none;
+  }
+
+  /* The lab panels the study layout does not have. */
+  .study-sheet > .recorded,
+  .study-sheet > .legend {
+    align-self: stretch;
+    flex: none;
+    max-height: none;
+    margin-top: 0;
+  }
+
+  /*
+   * The sheet reads in the order the study set: the outcome, the narration,
+   * then whatever is selected. A lab has no aggregate outcome, and its two
+   * extra panels — the recorded comparison and what is not represented — are
+   * the end of the argument, so they come after the method.
+   */
+  .study-sheet > .recorded {
+    order: 4;
+  }
+
+  .lab-hud .study-sheet > .omissions {
+    order: 5;
+  }
+
+  /*
+   * A study hides what it does not represent, because its sheet is short and
+   * the outcome is the answer. A lab is about the method, so the omissions are
+   * part of the reading and stay.
+   */
+  .lab-hud .study-sheet > .omissions {
+    display: block;
+  }
+
+  /* A chart is drawn at a fixed viewBox and scaled; it must not set the width
+     of the column it is in, and a label that runs past the edge of the drawing
+     is clipped rather than allowed to widen the page. */
+  .readiness-chart svg,
+  .gen-chart svg {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  /*
+   * A study's provenance panel is whatever the reader has selected, and with
+   * nothing selected it is one line of instruction, which a phone does not
+   * need. A lab's provenance panel is its method — the model, the sections it
+   * comes from, what it assumes — and the notes in it are written as the same
+   * kind of line. It was being hidden on a phone for having them.
+   */
+  .lab-hud .provenance:has(> .log-empty) {
+    display: block;
+  }
+
+  /* The test records come after the finding they support, not before it. */
+  .readiness-hud .study-sheet > .lab-records {
+    order: 4;
+  }
+
+  /*
+   * A lab's tables are its findings — six columns of contour dimensions, four
+   * of force generation — and a phone has room for about three. Rather than
+   * fold them into lists, which loses the comparison down a column that is the
+   * whole point of a table, each one becomes its own horizontal scroller: the
+   * table stays a table, every figure stays reachable, and nothing widens the
+   * page. Cells are capped so that a column of prose wraps instead of running
+   * to a screen and a half.
+   */
+  .lab-hud .bands {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .lab-hud .bands td,
+  .lab-hud .bands th {
+    max-width: 62vw;
+  }
+
+  /* Long unbroken tokens — a DOI, a designation, a URL — break rather than
+     widen the screen. */
+  .lab-hud .provenance-source,
+  .lab-hud .provenance-method,
+  .lab-hud .log-empty,
+  .lab-hud .bands td {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ---------- The front page on a phone ---------- */
+
+/*
+ * The licence table was the one thing on the home page wider than the phone.
+ * Three columns of prose, each contributing the longest word it contains —
+ * "Schiavina", "OpenStreetMap", "CC BY 4.0" — came to 442 pixels of minimum
+ * width on a 343-pixel column, and the whole page scrolled sideways to hold
+ * it. Each row becomes a block: what it is, who it is from, what the terms
+ * are, down the page.
+ */
+/*
+ * Not the chronicle's tables, which borrow this class and are deliberately
+ * wider than a phone inside a scroller of their own.
+ */
+@media (max-width: 640px) {
+  .front-sources:not(.chronicle-table),
+  .front-sources:not(.chronicle-table) tbody,
+  .front-sources:not(.chronicle-table) tr,
+  .front-sources:not(.chronicle-table) th,
+  .front-sources:not(.chronicle-table) td {
+    display: block;
+    width: auto;
+  }
+
+  .front-sources:not(.chronicle-table) tr {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(141, 250, 255, 0.15);
+  }
+
+  .front-sources:not(.chronicle-table) th,
+  .front-sources:not(.chronicle-table) td {
+    padding: 0;
+    border-bottom: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .front-sources:not(.chronicle-table) td:last-child {
+    color: var(--muted);
+  }
 }

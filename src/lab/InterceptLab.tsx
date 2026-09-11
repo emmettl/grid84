@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
 import { absentee, footprint, horizonMetres, INTERCEPT_SYSTEMS, missDistanceMetres, PHASES, reachMetres, window as boostWindow, DETECT_SECONDS, DECIDE_SECONDS, type InterceptSystem } from '../models/intercept.ts'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 /**
  * The intercept lab: why hitting a bullet with a bullet is the easy part.
@@ -121,15 +122,25 @@ function HorizonChart({ sensorHeight, glideAltitude, apogee }: { sensorHeight: n
   return (
     <svg className="gen-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Detection range against the altitude a thing flies at">
       <path d={curve} className="iv-line" />
-      {marks.map((m) => (
-        <g key={m.label}>
-          <line x1={PAD.l} x2={x(horizonMetres(sensorHeight, m.h))} y1={y(m.h)} y2={y(m.h)} className={m.cls} />
-          <circle cx={x(horizonMetres(sensorHeight, m.h))} cy={y(m.h)} r={3.5} className="iv-dot" />
-          <text x={x(horizonMetres(sensorHeight, m.h)) + 6} y={y(m.h) + 3} className="tick">
-            {m.label} · {km(horizonMetres(sensorHeight, m.h))}
-          </text>
-        </g>
-      ))}
+      {marks.map((m) => {
+        const at = x(horizonMetres(sensorHeight, m.h))
+        const text = `${m.label} · ${km(horizonMetres(sensorHeight, m.h))}`
+        /* The label sits beside its dot, and the dot is wherever the horizon
+           falls; a high apogee puts it near the right edge and the label ran
+           off the drawing and was clipped. Past the point where it would not
+           fit, it reads back towards the axis instead. Six units a character
+           is the tick face at 10px, rounded up. */
+        const flip = at + 6 + text.length * 6 > W - PAD.r
+        return (
+          <g key={m.label}>
+            <line x1={PAD.l} x2={at} y1={y(m.h)} y2={y(m.h)} className={m.cls} />
+            <circle cx={at} cy={y(m.h)} r={3.5} className="iv-dot" />
+            <text x={flip ? at - 6 : at + 6} y={y(m.h) + 3} className="tick" textAnchor={flip ? 'end' : 'start'}>
+              {text}
+            </text>
+          </g>
+        )
+      })}
       <text x={PAD.l - 8} y={y(0) + 3} className="tick" textAnchor="end">
         0
       </text>
@@ -209,6 +220,7 @@ export function InterceptLab() {
           <span>Four phases, four reasons it is hard, and the arithmetic of each</span>
         </header>
 
+        <ControlSheet id="intercept">
         <section className="clock" aria-label="The phases">
           <h2>Named systems</h2>
           {(['boost', 'midcourse', 'terminal', 'glide'] as const).map((p) => (
@@ -302,7 +314,9 @@ export function InterceptLab() {
             </label>
           </div>
         </section>
+        </ControlSheet>
 
+        <ReadingSheet id="intercept">
         <section className="log readiness-chart" aria-label="The arithmetic of each phase">
           <h2>Boost · the window, and who is in it</h2>
           <WindowBar burnSeconds={burnSeconds} />
@@ -313,7 +327,6 @@ export function InterceptLab() {
           <p className="log-empty">
             That circle is {(space.fraction * 100).toFixed(2)}% of the shell at {altitudeKm} km, so {constellation.toLocaleString('en-GB')} interceptors put {space.expected.toFixed(1)} of them over the launch point: a {Math.round(space.ratio).toLocaleString('en-GB')} to one absentee ratio, and a {Math.round(space.chance * 100)}% chance that at least one is there. This is why every serious proposal for shooting in boost phase has been counted in thousands.
           </p>
-
           <h2>Midcourse · hitting a bullet with a bullet</h2>
           <p className="log-empty">
             Twenty minutes of flight and nothing in a hurry, which is why every deployed strategic defence works here. The price is that the kill vehicle closes at about 10 km/s: {timingError} s of error in knowing when the target will be somewhere is {km(miss.alongTrackMetres)} of being in the wrong place, and cancelling that in the last ten seconds asks {Math.round(miss.divertNeededMs)} m/s of sideways push from a vehicle that carries a few hundred. And in vacuum a balloon of a few hundred grammes flies the same path as a warhead of a few hundred kilogrammes, because gravity does not care about mass.
@@ -324,13 +337,11 @@ export function InterceptLab() {
               <input type="number" min={0.001} max={1} step={0.01} value={timingError} onChange={(e) => setTimingError(Math.max(0.001, Number(e.target.value)))} />
             </label>
           </div>
-
           <h2>Glide · the horizon</h2>
           <HorizonChart sensorHeight={sensorHeight} glideAltitude={glideKm * 1_000} apogee={apogeeKm * 1_000} />
           <p className="log-empty">
             A ground sensor {sensorHeight} m up sees a ballistic apogee at {km(horizonMetres(sensorHeight, apogeeKm * 1_000))} and a glide vehicle at {glideKm} km only at {km(horizonMetres(sensorHeight, glideKm * 1_000))}. At 3 km/s that is {ballisticWarning.toFixed(0)} minutes of warning against {glideWarning.toFixed(1)}. Nothing about the glide vehicle is hidden; it is simply lower, and the Earth is curved.
           </p>
-
           <h2>Terminal · the footprint</h2>
           <FootprintPlan radiusMetres={foot.radiusMetres} cityRadiusMetres={7_500} />
           <p className="log-empty">
@@ -350,6 +361,7 @@ export function InterceptLab() {
             What is deliberately not here is a probability of kill for a named system. Test records are small, conducted against targets whose trajectory is known, and are not the same thing as a defence against an attack that is trying not to be intercepted.
           </p>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

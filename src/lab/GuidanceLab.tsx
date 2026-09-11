@@ -3,6 +3,7 @@ import { formatProvenance } from '../evidence/evidence.ts'
 import { budget, PRESETS, type ErrorTerms } from '../models/guidance.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
 import { placeLabels } from '../chart/labels.ts'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 const m = (v: number) => (v >= 1_000 ? `${(v / 1_000).toFixed(2)} km` : `${Math.round(v)} m`)
 const pct = (v: number) => `${Math.round(v * 100)}%`
@@ -95,6 +96,7 @@ export function GuidanceLab() {
           <span>Where a CEP comes from · the submarine missile and the problem of cumulative error</span>
         </header>
 
+        <ControlSheet id="guidance">
         <section className="clock" aria-label="System">
           <h2>System</h2>
           <div className="clock-controls clock-controls--variants" role="group" aria-label="Systems">
@@ -128,7 +130,9 @@ export function GuidanceLab() {
             {num('Star sight removes', 'starSightRemoves', 0.05)}
           </div>
         </section>
+        </ControlSheet>
 
+        <ReadingSheet id="guidance">
         <section className="log readiness-chart" aria-label="Cumulative error">
           <h2>The clock on the boat</h2>
           <DriftChart terms={terms} at={terms.hoursSinceFix} />
@@ -179,6 +183,7 @@ export function GuidanceLab() {
             </p>
           </details>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

@@ -9,6 +9,7 @@ import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
 import { overpressureRadiusForPsi } from '../models/casualties.ts'
 import type { TerrainRequest, TerrainResponse } from '../models/terrain.worker.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 const N = 224
 
@@ -279,6 +280,7 @@ export function TerrainLab() {
           <span>Blast over real ground · shadow, wave, terrain factor</span>
         </header>
 
+        <ControlSheet id="terrain">
         <section className="clock" aria-label="Burst">
           <h2>Case</h2>
           <div className="clock-controls">
@@ -307,7 +309,9 @@ export function TerrainLab() {
           </div>
           {progress > 0 && progress < 1 && <p className="log-empty">Front at {pct(progress)} of the box</p>}
         </section>
+        </ControlSheet>
 
+        <ReadingSheet id="terrain">
         <section className="log" aria-label="Terrain">
           <h2>Terrain</h2>
           <p className="log-empty">{status}</p>
@@ -378,6 +382,7 @@ export function TerrainLab() {
             <li>Thermal shadowing by smoke and dust after the flash</li>
           </ul>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

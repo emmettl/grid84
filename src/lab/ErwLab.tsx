@@ -3,6 +3,7 @@ import { formatProvenance } from '../evidence/evidence.ts'
 import { BLAST_MODEL } from '../models/blast.ts'
 import { doctrine, DOSES, equivalentFissionYieldKt, ERW_MODEL, erwProfile, SHIELDING, type ShieldingKey, type WeaponKind } from '../models/enhanced-radiation.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 const m = (v: number) => (v >= 1_000 ? `${(v / 1_000).toFixed(2)} km` : `${Math.round(v)} m`)
 const ktLabel = (v: number) => (v >= 1_000 ? `${(v / 1_000).toFixed(1)} Mt` : v >= 1 ? `${Math.round(v * 10) / 10} kt` : `${Math.round(v * 1_000)} t`)
@@ -58,6 +59,7 @@ export function ErwLab() {
           <span>Enhanced radiation weapons and the doctrine written around them</span>
         </header>
 
+        <ControlSheet id="neutron">
         <section className="clock" aria-label="Weapon">
           <h2>Weapon</h2>
           <div className="clock-controls">
@@ -96,7 +98,9 @@ export function ErwLab() {
           <h2>The town is {m(townMetres)} away</h2>
           <input type="range" min={200} max={4_000} step={50} value={townMetres} aria-label="Distance to the nearest town" onChange={(e) => setTownMetres(Number(e.target.value))} />
         </section>
+        </ControlSheet>
 
+        <ReadingSheet id="neutron">
         <section className="log" aria-label="The doctrine">
           <h2>The claim, and what holds of it</h2>
           <dl className="grid-facts">
@@ -184,6 +188,7 @@ export function ErwLab() {
             </li>
           </ul>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

@@ -8,6 +8,7 @@ import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
 import { ALARM_HATCH, ensureAlarmHatch } from '../map/hatch.ts'
 import { useFold } from '../hud/collapse.ts'
+import { ReadingSheet } from '../hud/sheets.tsx'
 import { TrackLayer, TRAIL_FADE_SECONDS, TRAIL_HOLD_SECONDS } from '../map/track-layer.ts'
 import { prepareTracks, type TrackSpec } from '../map/track-scene.ts'
 import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst, type Outcome } from '../models/casualties.ts'
@@ -473,8 +474,6 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   const effectCount = useMemo(() => study.entities.filter((e) => e.kind === 'effect').length, [study])
   // The toggles and the variants fold away; the clock, the transport and the scrubber do not.
   const fold = useFold('study')
-  // The reading panels as a whole: on a phone they are a sheet that can be put away.
-  const sheet = useFold('study-sheet', false)
   const sums = useMemo(() => {
     const sideOf: Record<string, 'attacker' | 'defender'> = {}
     const totals = { attacker: 0, defender: 0 }
@@ -1178,11 +1177,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
         </section>
 
         {/* On a phone these become one bottom sheet so the map keeps the middle of the screen; on a wide screen the wrapper is not a box at all and the grid places each panel itself. */}
-        <div className={`study-sheet${sheet.folded ? ' is-folded' : ''}`}>
-          {/* A phone's whole screen is the map, and the readout can be pushed off it. */}
-          <button type="button" className="study-sheet-handle" aria-expanded={!sheet.folded} onClick={sheet.toggle}>
-            {sheet.folded ? 'Show the readout' : 'Hide the readout'}
-          </button>
+        <ReadingSheet id="study">
         <section className="log" aria-label="Event log" aria-live="polite">
           <h2>Log</h2>
           {log.length === 0 && <p className="log-empty">Nothing yet. Run the clock.</p>}
@@ -1421,7 +1416,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
             </>
           )}
         </section>
-        </div>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

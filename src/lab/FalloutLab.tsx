@@ -8,6 +8,7 @@ import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } f
 import { ExposureService, type GridSummary } from '../models/exposure-service.ts'
 import { acuteMortality, FALLOUT_MODEL, plume } from '../models/fallout.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 const gridUrl = (name: string) => new URL(`${import.meta.env.BASE_URL}data/hyde/${name}`, document.baseURI).href
 
@@ -159,6 +160,7 @@ export function FalloutLab() {
           <span>Contact surface burst · idealized early fallout under a chosen wind</span>
         </header>
 
+        <ControlSheet id="fallout">
         <section className="clock" aria-label="Burst and wind">
           <h2>Case</h2>
           <div className="clock-controls">
@@ -232,7 +234,9 @@ export function FalloutLab() {
           <h2>Dose accumulated to H+{hours} h</h2>
           <input type="range" min={1} max={336} step={1} value={hours} aria-label="Hours after burst" onChange={(e) => setHours(Number(e.target.value))} />
         </section>
+        </ControlSheet>
 
+        <ReadingSheet id="fallout">
         <section className="log" aria-label="Grid">
           <h2>Population</h2>
           {grid.status === 'loading' && <p className="log-empty">Loading population grid…</p>}
@@ -296,6 +300,7 @@ export function FalloutLab() {
             <li>Late effects: cancers, and doses after the chosen hour</li>
           </ul>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

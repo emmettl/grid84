@@ -3,6 +3,7 @@ import { formatProvenance } from '../evidence/evidence.ts'
 import { commandsAt, COMMAND_TOTALS, DEFCON, DEFCON_PROVENANCE, generationAt, GENERATION_POINTS, MEGATONS, POSTURE_1961, REACTION, RIGIDITY, SEQUENCE, SYSTEMS } from '../models/readiness.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
 import { placeLabels } from '../chart/labels.ts'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 const n = (v: number) => Math.round(v).toLocaleString('en-GB')
 
@@ -122,6 +123,7 @@ export function ReadinessLab() {
           <span>The fourteen execution options as a force-generation curve</span>
         </header>
 
+        <ControlSheet id="readiness">
         <section className="clock" aria-label="Warning time">
           <h2>Preparation time</h2>
           <div className="clock-time">{at >= 14 ? '≥ 14 H' : `${at.toFixed(1)} H`}</div>
@@ -147,7 +149,9 @@ export function ReadinessLab() {
           </dl>
           <p className="log-empty">Option n at n−1 hours fits the two stated cases; the numbers of the other options are inferred from that pattern. Lines between the four documented points are straight, and reconstructed.</p>
         </section>
+        </ControlSheet>
 
+        <ReadingSheet id="readiness">
         <section className="log readiness-chart" aria-label="Force generation">
           <h2>Force generation</h2>
           <GenerationChart hours={hours} onHover={setHover} />
@@ -234,6 +238,7 @@ export function ReadinessLab() {
             ))}
           </ul>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>

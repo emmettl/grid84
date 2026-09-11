@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { formatProvenance } from '../evidence/evidence.ts'
 import { costExchange, DEFAULT_CASE, engage, interceptorsNeeded, REFERENCE_CASES, TEST_RECORDS, type Attack, type Costs, type Defence } from '../models/defence.ts'
 import { EvidenceLegend } from '../studies/EvidenceLegend.tsx'
+import { ControlSheet, ReadingSheet } from '../hud/sheets.tsx'
 
 const n = (v: number) => Math.round(v).toLocaleString('en-GB')
 const pct = (v: number) => `${Math.round(v * 100)}%`
@@ -107,6 +108,7 @@ export function DefenceLab() {
           <span>Warheads, decoys and interceptors · the arithmetic every missile defence has faced since Sentinel</span>
         </header>
 
+        <ControlSheet id="defence">
         <section className="clock" aria-label="Case">
           <h2>Case</h2>
           <div className="clock-controls clock-controls--variants" role="group" aria-label="Reference cases">
@@ -134,8 +136,10 @@ export function DefenceLab() {
             </label>
           </div>
         </section>
+        </ControlSheet>
 
-        <section className="clock" aria-label="Test records">
+        <ReadingSheet id="defence">
+        <section className="provenance recorded lab-records" aria-label="Test records">
           <h2>Where a kill probability comes from</h2>
           <p className="log-empty">
             A figure taken from a test record is already generous: the trajectory was known in advance, the target was not trying to survive, and the day was chosen. Before that generosity is reached there is the question of what was counted. Each pair below is the same set of tests under two defensible conventions.
@@ -228,6 +232,7 @@ export function DefenceLab() {
             </p>
           </details>
         </section>
+        </ReadingSheet>
 
         <EvidenceLegend />
       </div>
