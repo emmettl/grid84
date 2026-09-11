@@ -317,6 +317,17 @@
       ]
     },
     {
+      "path": "strike",
+      "hash": "#/atlas",
+      "title": "A strike, worked out on real geography",
+      "description": "Someone chose a place and the console worked out who would strike it, with what, from where and on what flight profile, printing the rule behind every step. The link carries the target; the engine works out the rest and shows its reasoning as it goes.",
+      "summary": "This is where a shared strike lands. Nothing about it is invented: the adversary follows a stated doctrine, the delivery is chosen by flight time from the real arsenals, and the laydown is sized to the ground the place actually covers.",
+      "reading": [
+        "brief/strike",
+        "dossier/weapons-effects-sources"
+      ]
+    },
+    {
       "path": "impact",
       "hash": "#/impact",
       "title": "The terminal phase — HIT, MISS, and what accuracy is worth",

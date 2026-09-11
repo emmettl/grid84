@@ -200,7 +200,19 @@ function AtlasGlobe({ onLaunch, onLaunching, preset }: { onLaunch: (study: Study
     if (!hash) return null
     // The address bar carries the strike without a navigation; the link is what gets shared.
     window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}${hash}`)
-    return `${window.location.origin}${window.location.pathname}${hash}`
+    /*
+     * The shared link points at a path rather than at the root, because a hash
+     * fragment is never sent to a server and a crawler asked to preview a
+     * shared strike would be handed the front page's card. `/strike/` is a
+     * prerendered page with a card of its own that says what the link is, and
+     * it passes any hash it is given straight through to the app.
+     *
+     * Built from the base rather than from the current path: after a shared
+     * link has been followed the browser is already under that page, and
+     * sharing again from there would otherwise name it twice.
+     */
+    const base = new URL(import.meta.env.BASE_URL, window.location.origin).pathname
+    return `${window.location.origin}${base}strike/${hash}`
   }
   return (
     <>

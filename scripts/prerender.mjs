@@ -17,6 +17,12 @@ import { dirname, join } from 'node:path'
  * the root of grid84.app and from a subdirectory on GitHub Pages. A page one
  * or two directories down has to climb back out, so the asset references are
  * rewritten by depth rather than made absolute.
+ *
+ * A visitor who arrives carrying a hash keeps it. That is what makes a shared
+ * strike possible: the link points at a path, so a crawler has a path to fetch
+ * and a card to read, and the strike itself rides in the fragment, which no
+ * crawler was ever going to be sent. Without this the page would send the
+ * reader to its own default hash and throw the strike away on the doorstep.
  */
 
 const site = JSON.parse(readFileSync('data/site/pages.json', 'utf8'))
@@ -82,7 +88,7 @@ for (const page of site.pages) {
       <p><a href="${up}${page.hash}">Open it in Grid/84</a></p>
       ${reading ? `<h2>Behind this page</h2><ul>${reading}</ul>` : ''}
     </main></div>
-    <script>window.location.replace(${JSON.stringify(`${up}${page.hash}`)})</script>`
+    <script>window.location.replace(${JSON.stringify(up)} + (window.location.hash || ${JSON.stringify(page.hash)}))</script>`
   html = html.replace('<div id="root"></div>', body)
   const file = join('dist', page.path, 'index.html')
   mkdirSync(dirname(file), { recursive: true })
