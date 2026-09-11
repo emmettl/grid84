@@ -1,0 +1,85 @@
+<!-- Generated from docs/INDIA-PAKISTAN.md by scripts/briefs.mjs. Edit the markdown, not this file. -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fifty to a hundred and twenty-five million</title>
+<meta name="description" content="A working brief of Grid/84: Fifty to a hundred and twenty-five million.">
+<link rel="canonical" href="https://grid84.app/brief/india-pakistan">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Grid/84">
+<meta property="og:url" content="https://grid84.app/brief/india-pakistan">
+<meta property="og:title" content="Fifty to a hundred and twenty-five million">
+<meta property="og:description" content="A working brief of Grid/84: Fifty to a hundred and twenty-five million.">
+<meta property="og:image" content="https://grid84.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Grid/84: the history and doctrine of strategic nuclear weapons">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fifty to a hundred and twenty-five million">
+<meta name="twitter:description" content="A working brief of Grid/84: Fifty to a hundred and twenty-five million.">
+<meta name="twitter:image" content="https://grid84.app/og.png">
+<meta name="theme-color" content="#141715">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../dossier/dossier.css">
+<link rel="stylesheet" href="./brief.css">
+</head><body>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="stamp">
+    <span>Working brief</span>
+    <b>Grid/84</b>
+  </div>
+  <h1>Fifty to a hundred and twenty-five million</h1>
+  <p class="dek"><strong>Brief, 11 September 2026.</strong> Not built. A study of the India–Pakistan war modelled by Toon, Robock and eleven co-authors in <em>Science Advances</em> in 2019: the one scenario on this site's list that a peer-reviewed paper has already run end to end, with its weapon counts, its yields, its fatalities and its soot all published.</p>
+  <div class="mast-meta">
+    <span><a href="./">All the briefs</a></span>
+    <span><a href="/">Return to the atlas</a></span>
+  </div>
+</header>
+
+<main class="brief">
+<p><a href="https://github.com/emmettl/grid84/blob/main/ROADMAP.md" rel="noreferrer">Roadmap</a> · <a href="./winter.html">Winter</a> · <a href="./validation.html">Validation</a></p>
+<section id="why-this-one"><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Why this one</h2></div>
+<p>Every other study here reconstructs a plan from a release and says where the record stops. This one is different in a way that is worth the difference: <strong>the answer is already published, so the engine can be marked against it.</strong></p>
+<p>The winter model already carries Toon's figures. <code>SOOT_CASES</code> in <code>src/models/soot.ts</code> holds the 2019 paper's three yield cases — 16, 27 and 37 teragrams of black carbon, 52, 97 and 127 million dead — and the years-after view reads them as given. They are inputs. Nothing in this engine has ever computed them.</p>
+<p>So the study is a test of the instrument on ground where the instrument can be wrong in public. Put 250 detonations over the real cities of the subcontinent on the 2025 population grid, sum the dead with the engine's own blast and fire models, sum the soot with the engine's own fire-to-stratosphere chain, and set both totals beside the numbers the winter view has been quoting all along. If they agree, the two halves of this engine agree with each other and with the literature. If they do not, that is a finding about the engine and it goes in the validation notes.</p>
+<p>That is the prize. It is also the risk, and it is the right risk to take before showing this to anyone who works on the subject.</p>
+</section>
+<section id="the-paper-s-own-scenario"><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">The paper's own scenario</h2></div>
+<p>Toon, O. B., C. G. Bardeen, A. Robock, L. Xia, H. Kristensen, M. McKinzie, R. J. Peterson, C. S. Harrison, N. S. Lovenduski and R. P. Turco, "Rapidly expanding nuclear arsenals in Pakistan and India portend regional and global catastrophe," <em>Science Advances</em> <strong>5</strong>, eaay5478 (2 October 2019). The narrative below is the companion account the authors published in the <em>Bulletin of the Atomic Scientists</em>.</p>
+<p><strong>The arsenals.</strong> Both countries are projected to hold 400 to 500 weapons between them by 2025, with yields from the tested 12 to 45 kilotonnes up to a few hundred. India tested a weapon of 40 to 50 kilotonnes in 1998.</p>
+<p><strong>The escalation</strong>, in the authors' own telling, and it does not begin with cities:</p>
+<div class="tw"><table><thead><tr><th>Day</th><th>What happens</th></tr></thead><tbody><tr><td>1</td><td>Pakistan fires tactical weapons of about 5 kt — less than half of Hiroshima — as low air bursts against Indian armour, inside its own borders</td></tr><tr><td>2</td><td>Fifteen more tactical weapons. India uses 20 strategic weapons as air bursts: two over the garrison at Bahawalpur, eighteen over Pakistani airfields and weapons depots. Unlike the tactical shots in open country, these start immense fires</td></tr><tr><td>3</td><td>Pakistan uses 30 air bursts — twenty over garrisons in Indian cities, ten over naval bases and airfields in urban areas — and fifteen more tactical weapons against Indian troops. India answers over ten Pakistani bases, all of them in cities</td></tr><tr><td>4–6</td><td>Pakistan spends the rest of its strategic arsenal: 120 weapons on Indian cities</td></tr></tbody></table></div>
+<p><strong>The totals the paper models:</strong> India 100 strategic weapons on Pakistani urban centres, Pakistan 150 on Indian ones.</p>
+<p><strong>What it finds</strong>, in three yield cases:</p>
+<div class="tw"><table><thead><tr><th class="num">Weapon yield</th><th class="num">Black carbon to the upper atmosphere</th><th class="num">From India's weapons</th><th class="num">From Pakistan's</th><th>Direct fatalities</th></tr></thead><tbody><tr><td class="num">15 kt</td><td class="num">16.1 Tg</td><td class="num">11.0</td><td class="num">5.1</td><td>50–125 million across the three cases</td></tr><tr><td class="num">50 kt</td><td class="num">27.3 Tg</td><td class="num">19.8</td><td class="num">7.5</td><td>—</td></tr><tr><td class="num">100 kt</td><td class="num">36.6 Tg</td><td class="num">27.5</td><td class="num">9.1</td><td>—</td></tr></tbody></table></div>
+<p>The asymmetry in the soot column is the paper's most quotable line and the study should draw it: <strong>India's hundred weapons make roughly three times the smoke of Pakistan's hundred and fifty</strong>, because Indian cities are larger and more densely built, and smoke is what the climate answers to. The side that fires fewer weapons does more to the world.</p>
+<p><strong>And the world:</strong> surface sunlight down 20 to 35 per cent, global surface cooling of 2 to 5 °C, precipitation down 15 to 30 per cent, net primary productivity down 15 to 30 per cent on land and 5 to 15 per cent in the ocean, and recovery taking more than ten years. For scale, the authors put a United States–Russia war at 150 Tg (Coupe et al., 2019), which this engine already carries as the <code>global-150</code> case.</p>
+</section>
+<section id="what-the-engine-already-has"><div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">What the engine already has</h2></div>
+<ul><li><strong>The 2025 population grid.</strong> GHS-POP 2025 is prepared as 30-arc-second tiles and fetched on demand. The paper models 2025; the grid is the right year and finer than the inner rings, so the cell-resolution caveat that governs every HYDE readout does not apply here.</li><li><strong>The effects models.</strong> Blast, thermal, prompt radiation and the optimum-height air burst, all tested against Glasstone and Dolan. The paper's weapons are air bursts throughout, which is the case the engine is strongest on.</li><li><strong>The exposure workers</strong>, with the union machinery that counts a person under several detonations once. With 250 detonations over one subcontinent the overlaps will be large, and the difference between the summed-per-target figure and the union figure is itself worth showing.</li><li><strong>The soot chain</strong> in <code>src/models/soot.ts</code>: fuel loading from population density, the emission factor, prompt and further rainout, and the lofted fraction. This is the machinery the paper's 16.1 Tg would be checked against.</li><li><strong>The winter model</strong>, which already runs the paper's answers. It would run the engine's instead, side by side.</li><li><strong>The forces</strong>, partly: <code>data/atlas/forces-2025.json</code> carries Indian and Pakistani systems with yields, ranges and CEPs from the Nuclear Notebook.</li></ul>
+</section>
+<section id="what-it-needs-that-it-has-not-got"><div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">What it needs that it has not got</h2></div>
+<ol><li><strong>An urban target list for both countries on the 2025 grid.</strong> <code>scripts/derive-urban-targets.py</code> does exactly this job — the N most populous cells inside a bounding box, skipping any within a spacing distance of one already taken, recording the rule and the population of each cell — but it reads HYDE <code>.asc</code> files at five arc minutes. It needs to read the GHSL tiles, or a sibling script does. Every such target is drawn modelled, as the existing studies do.</li><li><strong>The military aim points of days 2 and 3.</strong> The paper's first sixty weapons go on garrisons, airfields, naval bases and weapons depots, and the point of naming them is that the fires start there — the authors say so explicitly. Some are in <code>forces-2025.json</code>; the rest would be inferred from open sources and tiered accordingly.</li><li><strong>A yield switch.</strong> Three cases, 15 / 50 / 100 kt, as the paper has them. The engine's studies carry variants already; this is the same mechanism.</li><li><strong>The soot sum as a study output.</strong> The engine computes soot per detonation. It has never summed it over a whole war and handed the total to the winter model. That is the join between the two halves of the engine, and it does not exist yet.</li></ol>
+</section>
+<section id="the-rule-this-study-would-state"><div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">The rule this study would state</h2></div>
+<p><em>The paper's own scenario, enacted.</em> India's 100 and Pakistan's 150 strategic weapons as optimum-height air bursts over the most populous urban cells of the other country on the 2025 grid, one weapon to a city, at the chosen yield; the sixty military shots of days 2 and 3 on named installations; the tactical weapons of day 1 drawn and not counted, because they are fired in open country and start no fires. Everything counted by the engine's own models, and the paper's published totals shown beside the engine's as a check rather than as a source.</p>
+</section>
+<section id="fidelity-ceiling-declared-in-advance"><div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Fidelity ceiling, declared in advance</h2></div>
+<ul><li><strong>The escalation is the paper's, not a prediction.</strong> Six days from armour in the desert to a hundred and twenty weapons on cities is one authored sequence of events, and the study says so on every readout. It is the scenario's spine because it is published and cited, not because anyone thinks it is what would happen.</li><li><strong>One weapon to a city is the paper's convention</strong>, and it is coarse. Real planning puts several on the largest.</li><li><strong>The fire model is the weakest part</strong>, as it is everywhere in this subject and as the paper's own authors say. Fuel loading from population density is an estimate over a region whose construction differs from the American and Japanese cities the loadings were measured in. This is the number most likely to disagree with Toon's, and the disagreement would be the most interesting thing the study produces.</li><li><strong>No fallout.</strong> The paper's weapons are air bursts, which make no early local plume, and the engine says so already.</li><li><strong>No famine count of its own.</strong> The winter model's Xia variants carry that, and they are read from the literature rather than computed here.</li></ul>
+</section>
+<section id="what-would-have-to-be-true-for-this-to-be-worth-publishing"><div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">What would have to be true for this to be worth publishing</h2></div>
+<p>The direct-fatality total for the 15 kt case lands within a factor of about 1.5 of the paper's 50 million, or the study explains in the validation notes why it does not. Anything else and the engine is claiming a precision it has not got.</p>
+</section>
+<section id="sources"><div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Sources</h2></div>
+<ul><li>Toon et al., <em>Science Advances</em> <strong>5</strong>, eaay5478 (2019). doi:10.1126/sciadv.aay5478</li><li>Robock, Toon and Bardeen, "How an India-Pakistan nuclear war could start — and have global consequences," <em>Bulletin of the Atomic Scientists</em> (2019) — the escalation narrative and the per-country soot split.</li><li>Coupe, Bardeen, Robock and Toon, <em>J. Geophys. Res. Atmos.</em> <strong>124</strong> (2019) — the 150 Tg case, already carried.</li><li>Xia et al., <em>Nature Food</em> <strong>3</strong> (2022) — the famine work the winter model already reads.</li><li>Kristensen and Korda, Nuclear Notebook, on Indian and Pakistani forces — already carried in <code>data/atlas/forces-2025.json</code>.</li><li>GHS-POP 2025, European Commission Joint Research Centre — already prepared.</li></ul>
+</section>
+</main>
+
+<footer>
+  A working brief of <a href="/">Grid/84</a> &middot; the record of what the engine does and what it is set against<br>
+  Written as the work was done, corrections included &middot; the research dossiers behind the models are <a href="/dossier/">here</a>
+</footer>
+
+</div>
+</body></html>
