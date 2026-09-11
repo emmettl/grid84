@@ -1,7 +1,7 @@
 import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 import { TIER_ORDER, type EvidenceTier } from '../evidence/evidence.ts'
-import { EFFECT_RING, FALLOUT_FILL, FALLOUT_LINE, HUE, INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
+import { CLOUD_FILL, CLOUD_LINE, EFFECT_RING, FALLOUT_FILL, FALLOUT_LINE, HUE, INFERRED_RING, LINE, MODELLED_FILL, POINT } from '../evidence/grammar.ts'
 import { ensureReachHatch, REACH_HATCH } from './hatch.ts'
 import { planeImage } from './plane-icon.ts'
 
@@ -41,8 +41,8 @@ export function installEvidenceLayers(map: MapLibreMap): void {
       // after rather than the moment — and until it had a hue of its own the
       // two were the same red at different opacities and could not be told
       // apart at a glance. A contour carries a dose; a ring does not.
-      'fill-color': ['case', ['has', 'dose'], FALLOUT_FILL, MODELLED_FILL],
-      'fill-opacity': ['case', ['has', 'dose'], ['interpolate', ['linear'], ['log10', ['max', 0.1, ['get', 'dose']]], -1, 0.143, 0, 0.2, 1, 0.343, 2, 0.486, 3, 0.571], 1],
+      'fill-color': ['case', ['has', 'cloud'], CLOUD_FILL, ['has', 'dose'], FALLOUT_FILL, MODELLED_FILL],
+      'fill-opacity': ['case', ['has', 'cloud'], 1, ['has', 'dose'], ['interpolate', ['linear'], ['log10', ['max', 0.1, ['get', 'dose']]], -1, 0.143, 0, 0.2, 1, 0.343, 2, 0.486, 3, 0.571], 1],
     },
   })
   // The contours want an edge only in the sense that a step in the wash should
@@ -57,6 +57,18 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     source: SOURCES.areas,
     filter: ['has', 'dose'],
     paint: { 'line-color': FALLOUT_LINE, 'line-width': 1.4, 'line-blur': 2.5, 'line-opacity': 0.2 },
+  })
+  /*
+   * The stabilized cloud: a plan view of the thing overhead, dashed so that it
+   * cannot be mistaken for a ring anything happened inside. The head is the
+   * outer ring, the stem the inner one.
+   */
+  map.addLayer({
+    id: 'ev-rings-cloud',
+    type: 'line',
+    source: SOURCES.rings,
+    filter: ['has', 'cloud'],
+    paint: { 'line-color': CLOUD_LINE, 'line-width': 1.3, 'line-dasharray': [3, 3], 'line-opacity': 0.85 },
   })
   for (const tier of TIER_ORDER) {
     const g = LINE[tier]
@@ -85,7 +97,7 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     id: 'ev-rings-inferred',
     type: 'line',
     source: SOURCES.rings,
-    filter: ['all', ['==', ['get', 'evidence'], 'inferred'], ['!', ['has', 'dose']]],
+    filter: ['all', ['==', ['get', 'evidence'], 'inferred'], ['!', ['has', 'dose']], ['!', ['has', 'cloud']]],
     paint: { 'line-color': INFERRED_RING, 'line-width': 1, 'line-dasharray': [1, 2] },
   })
   // The effect rings are what the reader is looking at, so they get a line of
@@ -102,14 +114,14 @@ export function installEvidenceLayers(map: MapLibreMap): void {
     id: 'ev-rings-modelled-glow',
     type: 'line',
     source: SOURCES.rings,
-    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']], ['!', ['has', 'aggregate']]],
+    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']], ['!', ['has', 'aggregate']], ['!', ['has', 'cloud']]],
     paint: { 'line-color': EFFECT_RING.glow, 'line-width': EFFECT_RING.width * 3, 'line-blur': 3 },
   })
   map.addLayer({
     id: 'ev-rings-modelled',
     type: 'line',
     source: SOURCES.rings,
-    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']], ['!', ['has', 'aggregate']]],
+    filter: ['all', ['==', ['get', 'evidence'], 'modelled'], ['!', ['has', 'dose']], ['!', ['has', 'aggregate']], ['!', ['has', 'cloud']]],
     paint: { 'line-color': EFFECT_RING.color, 'line-width': EFFECT_RING.width },
   })
   map.addLayer({

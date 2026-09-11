@@ -9,6 +9,7 @@ import { DefenceLab } from './lab/DefenceLab.tsx'
 import { InterceptLab } from './lab/InterceptLab.tsx'
 import { AccuracyLab } from './lab/AccuracyLab.tsx'
 import { GuidanceLab } from './lab/GuidanceLab.tsx'
+import { CloudLab } from './lab/CloudLab.tsx'
 import { ErwLab } from './lab/ErwLab.tsx'
 import { createAtlas, type Atlas, type AtlasPhase } from './map/atlas.ts'
 import { SIOP62_PROOF } from './studies/siop62/proof.ts'
@@ -267,6 +268,7 @@ export default function App() {
     { href: '#/lab/population', label: 'Population', active: inLab && route.id === 'population' },
     { href: '#/lab/terrain', label: 'Terrain', active: inLab && route.id === 'terrain' },
     { href: '#/lab/fallout', label: 'Fallout', active: inLab && route.id === 'fallout' },
+    { href: '#/lab/cloud', label: 'Cloud', active: inLab && route.id === 'cloud' },
     { href: '#/lab/readiness', label: 'Readiness', active: inLab && route.id === 'readiness' },
     { href: '#/lab/defence', label: 'Defence', active: inLab && route.id === 'defence' },
     { href: '#/lab/intercept', label: 'Interception', active: inLab && route.id === 'intercept' },
@@ -344,6 +346,7 @@ export default function App() {
       {route.kind === 'lab' && route.id === 'intercept' && <InterceptLab key="lab-intercept" />}
       {route.kind === 'lab' && route.id === 'accuracy' && <AccuracyLab key="lab-accuracy" />}
       {route.kind === 'lab' && route.id === 'guidance' && <GuidanceLab key="lab-guidance" />}
+      {route.kind === 'lab' && route.id === 'cloud' && <CloudLab key="lab-cloud" />}
       {route.kind === 'lab' && route.id === 'neutron' && <ErwLab key="lab-neutron" />}
     </>
   )

@@ -188,6 +188,7 @@ const LABS: Array<{ title: string; line: string; href: string }> = [
   { title: 'Population', line: 'Click the ground, choose a yield and a year; exposure by the 1961 method against the mass-fire bound, with published NUKEMAP runs beside it.', href: '#/lab/population' },
   { title: 'Terrain', line: 'Blast over real ground: shadow, wave and terrain factor.', href: '#/lab/terrain' },
   { title: 'Fallout', line: 'A contact surface burst and its idealized early fallout under a chosen wind.', href: '#/lab/fallout' },
+  { title: 'The cloud', line: 'Where the mushroom cloud stops rising, and why that is the only thing about it that matters: a cloud that stays under the tropopause puts its fallout on a county within a day, and one that goes through puts part of it on a hemisphere for years.', href: '#/lab/cloud' },
   { title: 'Readiness', line: 'The fourteen execution options as a force-generation curve.', href: '#/lab/readiness' },
   { title: 'Accuracy', line: 'Counterforce as a technical choice: what a warhead of a given yield and CEP can destroy, from Atlas to Trident II, and the year the even-chance line against a hardened silo was crossed.', href: '#/lab/accuracy' },
   { title: 'Guidance', line: 'Where a CEP comes from: the error budget of a submarine missile, the boat\'s own drift since its last fix, and the star sight that took the boat out of the sum.', href: '#/lab/guidance' },

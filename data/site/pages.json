@@ -214,6 +214,17 @@
       ]
     },
     {
+      "path": "labs/cloud",
+      "hash": "#/lab/cloud",
+      "title": "The cloud lab — where a mushroom cloud stops rising",
+      "description": "The stabilized cloud's top, base and radius against yield from Glasstone and Dolan's Figure 2.16, drawn in plan over real ground and in elevation against the tropopause. The crossing decides whether the fallout is local or global.",
+      "summary": "The only thing about a mushroom cloud that decides anything: whether it goes through the tropopause.",
+      "reading": [
+        "dossier/weapons-effects-sources",
+        "dossier/where-the-smoke-goes"
+      ]
+    },
+    {
       "path": "labs/accuracy",
       "hash": "#/lab/accuracy",
       "title": "The accuracy lab — CEP, yield and the kill probability",

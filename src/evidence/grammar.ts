@@ -82,3 +82,12 @@ export const EFFECT_RING = { color: rgba(HUE.effect, 1), width: 2, glow: rgba(HU
 export const FALLOUT_FILL = rgba(HUE.fallout, 0.16)
 export const FALLOUT_LINE = rgba(HUE.fallout, 0.5)
 export const INFERRED_RING = rgba(HUE.cyan, 0.35)
+
+/*
+ * The stabilized cloud is not an effect on the ground; it is a volume
+ * overhead, and what is drawn is its plan. It takes the fallout hue, because
+ * it is where the fallout comes from, and it is drawn faint and dashed so that
+ * it never reads as a ring anything happened inside.
+ */
+export const CLOUD_FILL = rgba(HUE.fallout, 0.07)
+export const CLOUD_LINE = rgba(HUE.fallout, 0.55)

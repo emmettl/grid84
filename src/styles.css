@@ -3688,3 +3688,63 @@ body,
     color: var(--muted);
   }
 }
+
+/* ---------- The cloud lab ---------- */
+
+/*
+ * The stabilized cloud is drawn twice: as a curve against yield, and in
+ * elevation to scale. Both carry the same one line across them — the
+ * tropopause — because the crossing is the entire reading.
+ */
+.cl-tropopause {
+  stroke: var(--amber);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+/* §2.16's 20-to-100-kilotonne band, where the height curve flattens. */
+.cl-band {
+  fill: rgba(255, 179, 71, 0.07);
+}
+
+/* Above the boundary there is no weather to wash anything out. */
+.cl-strato {
+  fill: rgba(255, 179, 71, 0.05);
+}
+
+.cl-head {
+  fill: rgba(190, 232, 92, 0.2);
+  stroke: rgba(190, 232, 92, 0.75);
+  stroke-width: 1.2;
+}
+
+.cl-stem {
+  fill: rgba(190, 232, 92, 0.12);
+  stroke: rgba(190, 232, 92, 0.45);
+  stroke-width: 1;
+}
+
+.cl-ground {
+  stroke: var(--cyan);
+  stroke-width: 1.5;
+}
+
+.cl-measure {
+  stroke: rgba(141, 250, 255, 0.5);
+  stroke-width: 1;
+}
+
+@media (min-width: 901px) {
+  /*
+   * The elevation takes the third column's lower row and exactly that: the row
+   * is minmax(0, 1fr) and whatever is left after the controls, so the panel
+   * stretches into it and scrolls rather than growing past it and printing
+   * itself over the omissions below.
+   */
+  .cloud-lab .recorded {
+    align-self: stretch;
+    min-height: 0;
+    max-height: none;
+    overflow: auto;
+  }
+}
