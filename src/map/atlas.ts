@@ -1,7 +1,7 @@
 import { Marker, type GeoJSONSource } from 'maplibre-gl'
 import type { AtlasTarget } from '../atlas/target.ts'
 import type { Boundary } from '../atlas/boundary.ts'
-import { ALARM_HATCH, ensureAlarmHatch } from './hatch.ts'
+import { installTargetBounds, setTargetBounds } from './target-bounds.ts'
 import { geodesicCircle } from '../geo/shapes.ts'
 import { designate, type Designation } from '../atlas/designation.ts'
 import { haversineMetres, initialBearing, type LngLat } from '../geo/geodesy.ts'
@@ -105,14 +105,7 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
       ]),
     })
   }
-  const ensureBoundaryLayers = () => {
-    if (map.getSource('atlas-boundary')) return
-    ensureAlarmHatch(map)
-    map.addSource('atlas-boundary', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
-    map.addLayer({ id: 'atlas-boundary-fill', type: 'fill', source: 'atlas-boundary', paint: { 'fill-pattern': ALARM_HATCH, 'fill-opacity': 0.28 } })
-    map.addLayer({ id: 'atlas-boundary-line', type: 'line', source: 'atlas-boundary', paint: { 'line-color': '#ff8a1f', 'line-width': 2, 'line-opacity': 0.95 } })
-    map.addLayer({ id: 'atlas-boundary-line-dark', type: 'line', source: 'atlas-boundary', paint: { 'line-color': '#0a0602', 'line-width': 2, 'line-dasharray': [2, 2], 'line-opacity': 0.9 } })
-  }
+  const ensureBoundaryLayers = () => installTargetBounds(map)
   map.on('load', () => {
     ensureBoundaryLayers()
     spin()
@@ -194,8 +187,7 @@ export function createAtlas(container: HTMLElement, options: AtlasOptions): Atla
     const draw = () => {
       if (destroyed) return
       ensureBoundaryLayers()
-      const source = map.getSource('atlas-boundary') as GeoJSONSource | undefined
-      source?.setData({ type: 'FeatureCollection', features: boundary ? boundary.rings.map((ring) => ({ type: 'Feature', geometry: { type: 'Polygon', coordinates: [ring.map((p) => [p[0], p[1]])] }, properties: { kind: boundary.kind } })) : [] })
+      setTargetBounds(map, boundary ? boundary.rings : [], boundary?.kind)
     }
     if (map.isStyleLoaded()) draw()
     else map.once('load', draw)

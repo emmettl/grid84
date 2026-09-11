@@ -32,6 +32,18 @@ describe('the catalogue', () => {
     expect(tidyName('GORK IY /FEDYAKOVO')).toBe('Gork Iy / Fedyakovo')
   })
 
+  /**
+   * A patrol box is a guessed rectangle of sea, and a boat in it is the one
+   * thing on either side that cannot be aimed at — which is the whole reason
+   * the boats are there. None of them is a target on this list.
+   */
+  it('has nowhere in it that is a guessed patch of open sea', () => {
+    for (const t of allTargets()) {
+      expect(t.name.toLowerCase(), t.id).not.toContain('patrol')
+      expect(t.name.toLowerCase(), t.id).not.toContain('bastion')
+    }
+  })
+
   it('ranges from a city that fails at five psi to a bunker that does not fail at ten thousand', () => {
     expect(targetsIn('city')[0].hardness.psi).toBe(5)
     expect(targetsIn('silo')[0].hardness.psi).toBe(2_000)

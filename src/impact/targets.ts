@@ -171,7 +171,15 @@ function airfields(): Installation[] {
       extentMetres: h.extentMetres,
     }))
   const modern = forceSites
-    .filter((s) => s.kind === 'bomber')
+    /*
+     * Bomber bases, and only the ones that are places. The force file files
+     * cruise-missile launch points under the air leg, and one of those is an
+     * Israeli submarine patrol box in the eastern Mediterranean — a guessed
+     * rectangle of sea, with its position tiered inferred for that reason.
+     * A boat at sea is not something anybody can aim at, which is the whole
+     * argument for putting them there, so it is not on this list.
+     */
+    .filter((s) => s.kind === 'bomber' && s.positionEvidence !== 'inferred')
     .map((s) => ({
       id: `af-${s.id}`,
       name: s.name,

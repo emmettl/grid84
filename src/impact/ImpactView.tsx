@@ -5,6 +5,7 @@ import { useFold } from '../hud/collapse.ts'
 import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
 import { installEvidenceLayers, setSourceData, SOURCES, type EvidenceFeature } from '../map/evidence-layers.ts'
+import { installTargetBounds, setTargetBounds } from '../map/target-bounds.ts'
 import { TrackLayer } from '../map/track-layer.ts'
 import { prepareTracks } from '../map/track-scene.ts'
 import { arrivalBearing, REENTRY_SECONDS, reentrySpec } from './reentry.ts'
@@ -96,6 +97,9 @@ export function ImpactView() {
     }
     map.on('load', () => {
       sync = installTerrainSync(map)
+      // The bounds go on before the effect layers, so the hatch lies under the
+      // ring rather than over it: the thing first, then what happened to it.
+      installTargetBounds(map)
       installEvidenceLayers(map)
       const layer = new TrackLayer('impact-tracks-gl')
       layer.setFade({ enabled: false })
@@ -171,6 +175,15 @@ export function ImpactView() {
           })),
       ]
       setSourceData(map, SOURCES.rings, rings)
+      /*
+       * The target itself, hatched in the warning livery: a disc the width of
+       * its class — ten kilometres for a city, two and a half for an airfield,
+       * four metres for a silo lid. It is a class figure and not a survey, so
+       * it is drawn as a circle: it says about this big, not this shape. It is
+       * also the comparison the whole screen is about, because a lethal radius
+       * that covers it is a weapon that works and one that does not is not.
+       */
+      setTargetBounds(map, [geodesicCircle(e.target.position, Math.max(2, e.target.extentMetres / 2))], 'extent')
       setSourceData(map, SOURCES.sites, [
         { type: 'Feature', geometry: { type: 'Point', coordinates: [e.target.position[0], e.target.position[1]] }, properties: { evidence: 'documented', id: 'aim' } },
         ...landed.map((a, i) => ({
@@ -316,7 +329,7 @@ export function ImpactView() {
                     <th scope="row">Target</th>
                     <td>{current.target.name}</td>
                     <td className="wopr-dim">
-                      {current.target.hardness.name} · fails at {current.target.hardness.psi.toLocaleString('en-GB')} psi · {formatGrid(current.target.position)}
+                      {current.target.hardness.name} · fails at {current.target.hardness.psi.toLocaleString('en-GB')} psi · {m(current.target.extentMetres)} across, hatched · {formatGrid(current.target.position)}
                     </td>
                   </tr>
                   <tr>
@@ -407,7 +420,7 @@ export function ImpactView() {
           <div className={`panel-fold${fold.folded ? ' is-folded' : ''}`}>
           {category && <p className="wopr-line wopr-line--plan">{CATEGORIES.find((c) => c.id === category)!.line}</p>}
           <p className="wopr-line wopr-dim">
-            Not a target list. The cities and the airfields are the 1956 SAC study’s, which is the one released document of its kind and is one-sided because the release is; everything else is a representative installation of its class, and no state’s plan is claimed for any of it. Hardness is the accuracy lab’s class figure and is modelled. Reliability is {pct(RELIABILITY)}, and it covers the whole chain — a missile that fails to launch, one that fails in flight, and a warhead that arrives and does not go off. All three are drawn here as the third, in grey, because it is the one of them you could stand next to.
+            Not a target list. The cities and the airfields are the 1956 SAC study’s, which is the one released document of its kind and is one-sided because the release is; everything else is a representative installation of its class, and no state’s plan is claimed for any of it. Hardness and extent are the accuracy lab’s class figures and are modelled: the hatched bounds are a disc the width of the class, which says about this big rather than this shape. Reliability is {pct(RELIABILITY)}, and it covers the whole chain — a missile that fails to launch, one that fails in flight, and a warhead that arrives and does not go off. All three are drawn here as the third, in grey, because it is the one of them you could stand next to.
           </p>
           </div>
         </div>
