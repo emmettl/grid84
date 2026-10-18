@@ -17,7 +17,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm install --global npm@11.19.0 --ignore-scripts
+      - run: npm install --global npm@11.21.1 --ignore-scripts
       - run: npm ci
       - run: npm run typecheck && npm run lint && npm test
       # The build ships the HYDE study grids and drops the local GHSL tiles; the site reads those from the R2 bucket named in the grids index.
