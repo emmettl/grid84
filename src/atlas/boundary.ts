@@ -16,7 +16,7 @@ export interface Boundary {
 
 export const NOMINATIM_LOOKUP = 'https://nominatim.openstreetmap.org/lookup'
 
-const cache = new Map<string, Promise<Boundary | null>>()
+const cache = new Map<string, Boundary | null>()
 
 /** Outer rings of a GeoJSON Polygon or MultiPolygon, as [lon, lat] pairs; other geometries give none. */
 export function ringsOf(geometry: unknown): LngLat[][] {
@@ -39,10 +39,10 @@ export function extentRing(extent: readonly [number, number, number, number]): L
   ]
 }
 
-export function fetchBoundary(target: AtlasTarget, signal?: AbortSignal): Promise<Boundary | null> {
-  const have = cache.get(target.id)
-  if (have) return have
-  const p = (async (): Promise<Boundary | null> => {
+export async function fetchBoundary(target: AtlasTarget, signal?: AbortSignal): Promise<Boundary | null> {
+  if (signal?.aborted) return null
+  if (cache.has(target.id)) return cache.get(target.id) ?? null
+  const boundary = await (async (): Promise<Boundary | null> => {
     const letter = target.osmType.charAt(0).toUpperCase()
     if (['N', 'W', 'R'].includes(letter) && letter !== 'N') {
       try {
@@ -57,9 +57,30 @@ export function fetchBoundary(target: AtlasTarget, signal?: AbortSignal): Promis
         // fall through to the extent
       }
     }
+    if (signal?.aborted) return null
     if (target.extent) return { rings: [extentRing(target.extent)], kind: 'extent', source: 'The geocoder\'s bounding box; the feature has no polygon or it could not be fetched' }
     return null
   })()
-  cache.set(target.id, p)
-  return p
+  // An aborted acquisition must not leave a cached fallback for a later visit.
+  if (!signal?.aborted) cache.set(target.id, boundary)
+  return boundary
+}
+
+/** Own one acquisition at a time, including when a fetch ignores cancellation. */
+export function createBoundaryLoader(fetcher = fetchBoundary) {
+  let current: AbortController | null = null
+  const cancel = () => {
+    current?.abort()
+    current = null
+  }
+  return {
+    cancel,
+    async load(target: AtlasTarget, apply: (boundary: Boundary | null) => void): Promise<void> {
+      cancel()
+      const request = new AbortController()
+      current = request
+      const boundary = await fetcher(target, request.signal)
+      if (current === request && !request.signal.aborted) apply(boundary)
+    },
+  }
 }

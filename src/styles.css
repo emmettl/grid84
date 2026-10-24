@@ -3858,3 +3858,53 @@ body,
 .impact .wopr-log {
   max-height: 12rem;
 }
+
+/* Keep source detail available without covering the atlas on first load. */
+.provenance-disclosure {
+  align-self: start;
+}
+
+.provenance-disclosure > summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.provenance-disclosure[open] > summary {
+  margin-bottom: 0.6rem;
+}
+
+/* A constrained grid item must shrink before its overflow can scroll. */
+.study-sheet > .aggregate {
+  min-height: 0;
+  overscroll-behavior: contain;
+}
+
+@media (min-width: 701px) and (max-width: 900px) {
+  .study-hud {
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto auto auto;
+  }
+
+  .study-sheet > .aggregate {
+    grid-column: 1;
+    grid-row: 5;
+    max-height: 30vh;
+    max-height: 30dvh;
+  }
+
+  .study-sheet > .aggregate + .omissions { grid-row: 6; }
+  .study-sheet > .legend { grid-row: 7; }
+}
+
+@media (max-width: 700px) {
+  .study-sheet {
+    min-height: 0;
+    touch-action: pan-y;
+  }
+
+  /* The sheet owns scrolling; its cards take their full content height. */
+  .study-sheet > .aggregate,
+  .study-sheet > .log,
+  .study-sheet > .provenance {
+    overflow: visible;
+  }
+}

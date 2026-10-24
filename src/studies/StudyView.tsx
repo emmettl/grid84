@@ -1193,7 +1193,8 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           </ol>
         </section>
 
-        <section className="provenance" aria-label="Selected entity">
+        <details className="provenance provenance-disclosure" aria-label="Selected entity">
+          <summary>Provenance{selected ? ` · ${selected.name}` : ''}</summary>
           {selected ? (
             <>
               <h2>
@@ -1326,7 +1327,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
               <p className="log-empty">Select a mark or a log line. Every mark on this page traces to a source.</p>
             </>
           )}
-        </section>
+        </details>
 
         {/* One detonation has an outcome as much as a hundred do: a strike on a
             small town is sized for a single warhead, and it used to show nothing. */}

@@ -31,7 +31,7 @@ import { StudyView } from './studies/StudyView.tsx'
 import { FrontPage } from './front/FrontPage.tsx'
 import { LoopView } from './studies/LoopView.tsx'
 import { StrikeConsole } from './atlas/StrikeConsole.tsx'
-import { fetchBoundary, type Boundary } from './atlas/boundary.ts'
+import { createBoundaryLoader, type Boundary } from './atlas/boundary.ts'
 import { lookupTarget, strikeHash } from './atlas/lookup.ts'
 import type { Power } from './atlas/forces.ts'
 import type { DeliveryPreference, Loading } from './atlas/solver.ts'
@@ -138,6 +138,9 @@ function AtlasGlobe({ onLaunch, onLaunching, preset }: { onLaunch: (study: Study
   const [phase, setPhase] = useState<AtlasPhase>({ kind: 'standby' })
   const [stoodDown, setStoodDown] = useState<string | null>(null)
   const [presetName, setPresetName] = useState<string | null>(null)
+  const boundaryLoader = useMemo(() => createBoundaryLoader(), [])
+
+  useEffect(() => () => boundaryLoader.cancel(), [boundaryLoader])
 
   useEffect(() => {
     if (!container.current) return
@@ -154,7 +157,8 @@ function AtlasGlobe({ onLaunch, onLaunching, preset }: { onLaunch: (study: Study
   const acquire = (target: AtlasTarget) => {
     atlas.current?.acquire(target)
     atlas.current?.showBoundary(target, null)
-    void fetchBoundary(target).then((b) => {
+    setBoundary({ id: target.id, boundary: null })
+    void boundaryLoader.load(target, (b) => {
       setBoundary({ id: target.id, boundary: b })
       atlas.current?.showBoundary(target, b)
     })
@@ -220,6 +224,7 @@ function AtlasGlobe({ onLaunch, onLaunching, preset }: { onLaunch: (study: Study
       <div className="atlas-vignette" aria-hidden="true" />
       <Hud phase={phase} onAcquire={acquire} consoleOpen={!!acquired && stoodDown !== acquired.id} presetName={presetName} />
       {acquired && stoodDown !== acquired.id && <StrikeConsole key={acquired.id} target={acquired} boundary={boundary.id === acquired.id ? boundary.boundary : null} initialAdversary={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? (preset.adversary as Power | null) : null} initialDelivery={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? ((preset.delivery as DeliveryPreference | null) ?? 'best') : 'best'} initialLoading={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) && preset.loading === 'full' ? 'full' : 'deployed'} initialSite={preset && preset.ref === (acquired.osmType.charAt(0).toUpperCase() + acquired.osmId) ? preset.site : null} onShare={share} onLaunch={onLaunch} onLaunching={onLaunching} onStandDown={() => {
+            boundaryLoader.cancel()
             atlas.current?.clearAimPoints()
             setStoodDown(acquired.id)
           }} onAimPoint={(p) => atlas.current?.addAimPoint(p)} onClearAimPoints={() => atlas.current?.clearAimPoints()} />}

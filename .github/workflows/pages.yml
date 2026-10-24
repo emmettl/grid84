@@ -2,12 +2,14 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: pages-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'release' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -22,14 +24,25 @@ jobs:
       - run: npm run typecheck && npm run lint && npm test
       # The build ships the HYDE study grids and drops the local GHSL tiles; the site reads those from the R2 bucket named in the grids index.
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: browser-test-results
+          path: test-results/
+          retention-days: 7
       - name: Release marker
+        if: github.event_name != 'pull_request'
         run: printf '{"repository":"%s","commit":"%s","run_id":"%s","workflow_url":"%s/%s/actions/runs/%s"}\n' "$GITHUB_REPOSITORY" "$GITHUB_SHA" "$GITHUB_RUN_ID" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > dist/_release.json
       - uses: actions/upload-artifact@v7
+        if: github.event_name != 'pull_request'
         with:
           name: grid84-site
           path: dist
           retention-days: 1
   deploy:
+    if: github.event_name != 'pull_request'
     needs: check
     runs-on: ubuntu-latest
     permissions:
@@ -52,6 +65,7 @@ jobs:
   # The same artifact to grid84.app as a Cloudflare Worker with static assets, when the token is present
   # (repository secret CLOUDFLARE_API_TOKEN from the "Edit Cloudflare Workers" template; see docs/HOSTING.md).
   worker:
+    if: github.event_name != 'pull_request'
     needs: check
     runs-on: ubuntu-latest
     env:
