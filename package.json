@@ -13,7 +13,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "briefs": "node scripts/briefs.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "deploy": "wrangler deploy"
   },
   "engines": {
     "node": ">=24.0.0"

@@ -1,7 +1,7 @@
 import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi } from '../models/casualties.ts'
 import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
 import { ExposureService } from '../models/exposure-service.ts'
-import { resolveGridBase } from '../studies/StudyView.tsx'
+import { resolveGridBase } from '../models/grid-location.ts'
 import type { LngLat } from '../geo/geodesy.ts'
 import type { Posture1983 } from '../studies/window83/window.ts'
 import { assignmentsOf, siloSamples, spreadSilos, tableTargets, type DeathTable } from './model.ts'

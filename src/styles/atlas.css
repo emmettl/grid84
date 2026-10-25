@@ -1,0 +1,188 @@
+/* ---------- The prompt and the strike console ---------- */
+
+/* The target prompt as an 80s console line: a phosphor prompt, the typed text, a blinking block when nothing has been typed. */
+.hud-search {
+  --phosphor: #9dffb0;
+}
+
+.hud-prompt-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--phosphor) !important;
+  text-shadow:
+    0 0 1px rgba(157, 255, 176, 0.55),
+    0 0 8px rgba(157, 255, 176, 0.3);
+}
+
+.hud-search-row {
+  position: relative;
+  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.hud-search input {
+  min-width: 0;
+}
+
+.hud-search input {
+  border-color: rgba(157, 255, 176, 0.4) !important;
+  background:
+    repeating-linear-gradient(rgba(157, 255, 176, 0.035) 0 1px, transparent 1px 3px),
+    rgba(3, 8, 6, 0.82) !important;
+  color: var(--phosphor) !important;
+  font-family: var(--mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.14em !important;
+  caret-color: transparent;
+  text-shadow: 0 0 6px rgba(157, 255, 176, 0.3);
+}
+
+.hud-search input:focus {
+  border-color: var(--phosphor) !important;
+  box-shadow: 0 0 0 1px rgba(157, 255, 176, 0.5), 0 0 24px rgba(157, 255, 176, 0.18) !important;
+}
+
+/* The mirror wears the input's font and spacing exactly, so the block lands after the last typed character. */
+.hud-caret {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 0.8rem;
+  pointer-events: none;
+  overflow: hidden;
+  max-width: calc(100% - 7rem);
+  white-space: pre;
+}
+
+.hud-caret-mirror {
+  visibility: hidden;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hud-caret .wopr-cursor {
+  width: 0.55rem;
+  height: 1.05rem;
+  margin-left: 0;
+  vertical-align: middle;
+}
+
+.strike-console {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 1.6rem);
+  z-index: 26;
+  display: flex;
+  flex-direction: column;
+  width: min(46rem, calc(100% - 2rem));
+  max-height: 58vh;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(157, 255, 176, 0.3);
+  background:
+    repeating-linear-gradient(rgba(157, 255, 176, 0.035) 0 1px, transparent 1px 3px),
+    rgba(3, 8, 6, 0.86);
+  color: #9dffb0;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 1px rgba(157, 255, 176, 0.55),
+    0 0 6px rgba(157, 255, 176, 0.28);
+  backdrop-filter: blur(8px);
+  --phosphor: #9dffb0;
+  --phosphor-dim: rgba(157, 255, 176, 0.62);
+  --phosphor-faint: rgba(157, 255, 176, 0.42);
+}
+
+.strike-log {
+  flex: 1 1 auto;
+  min-height: 6rem;
+  max-height: 38vh;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.strike-log .wopr-log-line {
+  white-space: normal;
+}
+
+.strike-controls {
+  margin-top: 0.3rem;
+}
+
+/*
+ * The link, in its own register. The console shouts in upper case with the
+ * letters spaced apart, which is right for a readout and is the one way a URL
+ * cannot be read; this field opts out of all of it. It is selected when it
+ * appears and selects itself again on a tap, so on a phone — where the
+ * clipboard is least reliable and the Share button was until now folded out of
+ * sight entirely — the address can always be taken by hand.
+ */
+.strike-share {
+  margin-top: 0.3rem;
+  align-items: center;
+}
+
+.strike-share-link {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid rgba(157, 255, 176, 0.35);
+  background: rgba(3, 8, 6, 0.6);
+  color: var(--phosphor);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0;
+  text-transform: none;
+  text-overflow: ellipsis;
+  -webkit-user-select: all;
+  user-select: all;
+}
+
+.strike-share-link:focus {
+  outline: 1px solid var(--phosphor);
+}
+
+@media (max-width: 700px) {
+  .strike-console {
+    width: auto;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(0.6rem, env(safe-area-inset-bottom));
+    max-height: 52vh;
+    padding: 0.6rem 0.7rem;
+    font-size: 0.54rem;
+  }
+
+  .strike-log {
+    min-height: 4rem;
+    max-height: 30vh;
+    font-size: 0.52rem;
+  }
+
+  .strike-controls button {
+    padding: 0.25rem 0.45rem;
+  }
+
+  /* iOS zooms the page when a focused field is under 16px and never zooms back. */
+  .strike-share-link {
+    flex-basis: 100%;
+    font-size: 16px;
+  }
+
+  /* The readout, the credits and the brand's own tagline give the console the
+     room while it is up: what matters then is the target and the reasoning. */
+  .hud--console .hud-readout,
+  .hud--console .hud-sources,
+  .hud--console .hud-brand > span {
+    display: none;
+  }
+  .hud--console .hud-brand {
+    padding: 0.35rem 0.6rem;
+  }
+}

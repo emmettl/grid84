@@ -1,5 +1,5 @@
 import { ExposureService } from '../models/exposure-service.ts'
-import { resolveGridBase } from '../studies/StudyView.tsx'
+import { resolveGridBase } from '../models/grid-location.ts'
 import type { AtlasTarget } from './target.ts'
 import { PROFILE_RINGS, type Profile } from './solver.ts'
 

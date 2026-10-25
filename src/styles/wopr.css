@@ -1,0 +1,373 @@
+/* ---------- WOPR ---------- */
+
+.wopr {
+  position: fixed;
+  inset: 0;
+  --phosphor: #9dffb0;
+  --phosphor-dim: rgba(157, 255, 176, 0.62);
+  --phosphor-faint: rgba(157, 255, 176, 0.38);
+}
+
+/* The terminal column: the whole left edge, header and figure at the top, the teletype filling the rest. */
+.wopr-terminal {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  top: max(1rem, env(safe-area-inset-top));
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 1.4rem);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  width: min(48rem, 54vw);
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(157, 255, 176, 0.3);
+  background:
+    repeating-linear-gradient(rgba(157, 255, 176, 0.035) 0 1px, transparent 1px 3px),
+    rgba(3, 8, 6, 0.82);
+  color: var(--phosphor);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  /* The phosphor bloom: a tight core, a soft skirt and a faint wide wash, each weak enough that the letterforms stay crisp. */
+  text-shadow:
+    0 0 1px rgba(157, 255, 176, 0.55),
+    0 0 6px rgba(157, 255, 176, 0.28),
+    0 0 18px rgba(157, 255, 176, 0.1);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+/* A faint wash across the tube, brighter where the figure sits, and a slight darkening at the edges. */
+.wopr-terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 45% at 30% 22%, rgba(157, 255, 176, 0.07), transparent 70%),
+    radial-gradient(ellipse 120% 120% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+.wopr-head {
+  flex: none;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed rgba(157, 255, 176, 0.25);
+}
+
+.wopr-figure {
+  flex: none;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed rgba(157, 255, 176, 0.25);
+}
+
+.wopr-line {
+  margin: 0 0 0.3rem;
+  color: var(--phosphor-dim);
+}
+
+.wopr-line--title {
+  color: var(--phosphor);
+  margin-bottom: 0.6rem;
+}
+
+.wopr-line--big {
+  margin: 0.2rem 0 0.5rem;
+  color: #d9ffe0;
+  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  text-shadow:
+    0 0 2px rgba(157, 255, 176, 0.7),
+    0 0 12px rgba(157, 255, 176, 0.4),
+    0 0 36px rgba(157, 255, 176, 0.18);
+}
+
+/* The consequence the loss function does not carry: dimmer than the figure, and it does not blink. */
+.wopr-line--after {
+  color: rgba(157, 255, 176, 0.78);
+  border-left: 2px solid rgba(157, 255, 176, 0.35);
+  padding-left: 0.5rem;
+}
+
+.wopr-line--plan {
+  color: var(--phosphor);
+  font-size: 0.6rem;
+}
+
+.wopr-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.95em;
+  margin-left: 0.3em;
+  vertical-align: -0.1em;
+  background: var(--phosphor);
+  animation: wopr-blink 1s steps(2, start) infinite;
+}
+
+@keyframes wopr-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* The teletype: newest line at the bottom, older lines pushed up and off the top. */
+.wopr-log {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  font-size: 0.6rem;
+  line-height: 1.5;
+}
+
+.wopr-log-line {
+  /* Never shrunk to fit: the lines keep their height and the oldest clip off the top. */
+  flex: none;
+  display: flex;
+  gap: 0.8em;
+  line-height: 1.6;
+  color: var(--phosphor-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 5px rgba(157, 255, 176, 0.16);
+}
+
+.wopr-log-at {
+  flex: none;
+  color: var(--phosphor-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.wopr-log-text {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wopr-log-line--best {
+  color: var(--phosphor);
+  text-shadow:
+    0 0 1px rgba(157, 255, 176, 0.5),
+    0 0 8px rgba(157, 255, 176, 0.3);
+}
+
+.wopr-log-line--mark,
+.wopr-log-line--resum {
+  color: var(--phosphor-dim);
+}
+
+.wopr-log-line.is-new .wopr-log-text {
+  animation:
+    wopr-type 0.5s steps(40, end),
+    wopr-settle 1.6s ease-out;
+}
+
+/* A fresh line lands bright and settles to its resting glow, the way a phosphor trace decays. */
+@keyframes wopr-settle {
+  from {
+    color: #e6fff0;
+    text-shadow:
+      0 0 2px rgba(157, 255, 176, 0.9),
+      0 0 12px rgba(157, 255, 176, 0.55),
+      0 0 30px rgba(157, 255, 176, 0.25);
+  }
+  40% {
+    color: #c9ffd6;
+  }
+  to {
+    color: inherit;
+    text-shadow: inherit;
+  }
+}
+
+@keyframes wopr-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.wopr-controls {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 1.4rem);
+  z-index: 25;
+  display: grid;
+  gap: 0.5rem;
+  max-width: min(30rem, calc(46vw - 2rem));
+  max-height: 46vh;
+  overflow: auto;
+  padding: 0.7rem 0.9rem;
+  border-right: 2px solid rgba(157, 255, 176, 0.5);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.wopr-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.wopr-group button {
+  padding: 0.3rem 0.55rem;
+  border: 1px solid rgba(141, 250, 255, 0.35);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.wopr-group button:hover,
+.wopr-group button:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+.wopr-group button.is-active {
+  color: var(--phosphor);
+  border-color: var(--phosphor);
+}
+
+.wopr-group button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.wopr-objectives {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.58rem;
+}
+
+.wopr-objectives th,
+.wopr-objectives td {
+  padding: 0.25rem 0.5rem 0.25rem 0;
+  border-bottom: 1px solid rgba(141, 250, 255, 0.15);
+  text-align: left;
+  vertical-align: top;
+  color: var(--muted);
+}
+
+.wopr-objectives th {
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.wopr-objectives tr.is-fire td {
+  color: var(--phosphor);
+}
+
+.wopr-dim {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.wopr-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.56rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--muted);
+}
+
+.wopr-note a {
+  color: var(--cyan);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(141, 250, 255, 0.35);
+}
+
+.wopr-note a:hover,
+.wopr-note a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+  outline: none;
+}
+
+/*
+  The reading list under a mode's own note: each document on its own line with
+  its gloss beside it, so what to read next is a list rather than a sentence
+  to be picked apart. The label heads it in the panel's own small caps.
+*/
+.wopr-reading {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.18rem 0.5rem;
+  align-items: baseline;
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(141, 250, 255, 0.16);
+}
+
+.wopr-reading-label {
+  grid-column: 1 / -1;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  opacity: 0.8;
+  margin-bottom: 0.15rem;
+}
+
+.wopr-reading a {
+  grid-column: 1;
+  white-space: nowrap;
+}
+
+.wopr-reading > .wopr-dim {
+  grid-column: 2;
+}
+
+/* On a phone the gloss goes under its link rather than beside it. */
+@media (max-width: 700px) {
+  .wopr-reading {
+    grid-template-columns: 1fr;
+  }
+
+  .wopr-reading a,
+  .wopr-reading > .wopr-dim {
+    grid-column: 1;
+  }
+
+  .wopr-reading > .wopr-dim {
+    margin-bottom: 0.3rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .wopr-terminal {
+    width: auto;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: auto;
+    height: 52vh;
+    margin-top: 2.2rem;
+    font-size: 0.56rem;
+  }
+
+  .wopr-line--big {
+    font-size: 1.2rem;
+  }
+
+  .wopr-log {
+    font-size: 0.52rem;
+  }
+
+  .wopr-controls {
+    left: max(1rem, env(safe-area-inset-left));
+    max-width: none;
+    max-height: 30vh;
+  }
+}

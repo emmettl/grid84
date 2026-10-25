@@ -1,0 +1,152 @@
+/* ---------- Guidance lab ---------- */
+
+.guidance .fields {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.guidance-bar {
+  display: inline-block;
+  height: 0.5rem;
+  max-width: 6rem;
+  vertical-align: middle;
+  background: rgba(141, 250, 255, 0.45);
+}
+
+.guidance .bands td:nth-child(3) {
+  white-space: nowrap;
+}
+
+/* Lab panels never widen the page: a chart or a table wider than a phone scrolls inside its panel. */
+.readiness-chart {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 700px) {
+  .guidance .bands td:nth-child(3) {
+    white-space: normal;
+  }
+  .guidance .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.gen-chart .leader {
+  stroke: rgba(232, 251, 255, 0.35);
+  stroke-width: 1;
+}
+
+/* A detonation's vehicles, listed on its panel; each selects the track. */
+.delivered {
+  margin: 0.4rem 0;
+}
+
+.delivered ul {
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.delivered button {
+  padding: 0.2rem 0;
+  border: 0;
+  background: none;
+  color: var(--cyan);
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.delivered button:hover,
+.delivered button:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+/* ---------- Sites that come into existence ---------- */
+
+.ev-label--appears {
+  animation: ev-appear 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  transform-origin: left center;
+}
+
+@keyframes ev-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+    filter: brightness(2.2);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* ---------- The whole missile and the launch point ---------- */
+
+.delivered li.is-own button {
+  color: var(--ink);
+}
+
+.ev-focus-label {
+  padding: 0.15rem 0.4rem;
+  border: 1px solid rgba(141, 250, 255, 0.4);
+  background: var(--panel);
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---------- The target label on the globe ---------- */
+
+.atlas-target-label {
+  display: grid;
+  gap: 0.05rem;
+  padding: 0.2rem 0.5rem;
+  border-left: 3px solid #ff8a1f;
+  border-image: repeating-linear-gradient(135deg, #ff8a1f 0 4px, #0a0602 4px 8px) 1;
+  background: rgba(5, 4, 16, 0.72);
+  font-family: var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+}
+
+.atlas-target-name {
+  color: var(--ink);
+  font-size: 0.7rem;
+}
+
+.atlas-target-kind {
+  color: #ff8a1f;
+  font-size: 0.5rem;
+}
+
+/* Aim points on the globe, as the console works them out. */
+.atlas-aim-label {
+  padding: 0.1rem 0.35rem;
+  border-left: 2px solid #ff8a1f;
+  background: rgba(5, 4, 16, 0.72);
+  color: #ffb066;
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: ev-appear 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  transform-origin: left center;
+}

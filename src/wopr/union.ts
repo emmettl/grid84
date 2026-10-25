@@ -4,7 +4,7 @@ import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
 import { OTA_BANDS, radiusForPsi } from '../models/casualties.ts'
 import type { UnionDetonation } from '../models/exposure.ts'
 import { ExposureService } from '../models/exposure-service.ts'
-import { resolveGridBase } from '../studies/StudyView.tsx'
+import { resolveGridBase } from '../models/grid-location.ts'
 import type { Posture1983 } from '../studies/window83/window.ts'
 import { assignmentsOf, evaluate, type Constraints, type DeathTable, type Plan } from './model.ts'
 

@@ -1,0 +1,945 @@
+/* ---------- Study view ---------- */
+
+.study-hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) 1fr minmax(0, 24rem);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  /* The bottom edge clears the map credit, which sits under this panel and must stay readable. */
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    calc(max(1rem, env(safe-area-inset-bottom)) + 1.5rem) max(1rem, env(safe-area-inset-left));
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/*
+ * `pointer-events` is inherited, so the wrappers below — which generate no box
+ * on a wide screen — still hand it to the panels inside them. `min-width` is
+ * not inherited and the panels are grid items of this element either way, so
+ * they are named through the wrappers as well.
+ */
+.study-hud > *,
+.study-hud > .study-controls > *,
+.study-hud > .study-sheet > * {
+  pointer-events: auto;
+  min-width: 0;
+}
+
+/*
+ * The reading panels — the log, the provenance, the outcome, the omissions —
+ * are wrapped so that a phone can make them one thing. On a wide screen the
+ * wrapper generates no box at all, so the grid places each panel exactly as
+ * it did before.
+ */
+.study-sheet {
+  display: contents;
+}
+
+/* The sheet's handle belongs to the phone layout only; on a wide screen the
+   wrapper is not a box and the handle would become a stray grid item. */
+.study-sheet-handle {
+  display: none;
+}
+
+/*
+ * The controls of a lab, wrapped for the same reason and in the same way: a
+ * phone folds them behind one handle, a wide screen never sees the wrapper.
+ */
+.study-controls {
+  display: contents;
+}
+
+.study-controls-handle {
+  display: none;
+}
+
+.study-brand {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.study-hud h2 {
+  margin: 0 0 0.4rem;
+  color: var(--cyan);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+}
+
+.clock {
+  grid-column: 1;
+  grid-row: 2;
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.7rem 0.8rem;
+  border-left: 2px solid var(--green);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+}
+
+.clock-time {
+  color: var(--ink);
+  font-size: 1.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+/* A label and its buttons stay together: a row of toggles breaks between groups, never inside one. */
+.clock-group {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.clock-controls--toggles {
+  column-gap: 0.7rem;
+}
+
+.clock-controls button,
+.clock-controls--variants a,
+.log button {
+  padding: 0.3rem 0.55rem;
+  border: 1px solid rgba(141, 250, 255, 0.35);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.clock-controls button:hover,
+.clock-controls button:focus-visible,
+.clock-controls--variants a:hover,
+.clock-controls--variants a:focus-visible {
+  color: var(--ink);
+  border-color: var(--cyan);
+  outline: none;
+}
+
+.clock-controls--variants a {
+  padding: 0.3rem 0.4rem;
+  min-width: 1.6rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* The run button while the clock is stopped: a slow pulse, because nothing on the map moves until it is pressed. */
+.clock-controls button.is-primed {
+  color: var(--ink);
+  border-color: var(--cyan);
+  animation: clock-prime 2s ease-in-out infinite;
+}
+
+@keyframes clock-prime {
+  0%,
+  100% {
+    background: rgba(141, 250, 255, 0.06);
+    box-shadow: 0 0 0 0 rgba(141, 250, 255, 0.3);
+  }
+  50% {
+    background: rgba(141, 250, 255, 0.2);
+    box-shadow: 0 0 0 5px rgba(141, 250, 255, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clock-controls button.is-primed {
+    animation: none;
+    background: rgba(141, 250, 255, 0.16);
+  }
+}
+
+.clock-controls button.is-active,
+.clock-controls--variants a.is-active {
+  color: var(--ink);
+  background: rgba(125, 255, 154, 0.14);
+  border-color: var(--green);
+}
+
+.clock input[type='range'] {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--green);
+}
+
+.clock-bounds {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.56rem;
+}
+
+.log {
+  grid-column: 1;
+  grid-row: 3;
+  /* The log is the study's narrative: it keeps at least a dozen lines and scrolls for the rest. */
+  min-height: min(13rem, 30vh);
+  overflow: auto;
+  padding: 0.7rem 0.8rem;
+  border-left: 2px solid rgba(141, 250, 255, 0.4);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+}
+
+.log ol {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.log li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  color: var(--muted);
+}
+
+.log li.is-latest {
+  color: var(--ink);
+}
+
+.log time {
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.log button {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  text-align: left;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+}
+
+.log button:disabled {
+  cursor: default;
+}
+
+.log button:not(:disabled):hover {
+  color: var(--cyan);
+}
+
+.log-empty {
+  margin: 0;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+/*
+  An aim point of a large laydown carries only its number, so the label shrinks
+  to the numeral rather than keeping the width of a line it no longer has.
+*/
+.ev-label .ev-label-designation:empty {
+  display: none;
+}
+
+/*
+  The handover veil. Between the strike console and the study engine one globe
+  is destroyed and another built, and there is a moment with nothing on the
+  page. The veil closes over the atlas while the console counts its last
+  second, holds through the swap, and opens on the study — so the moment reads
+  as a cut, which is what it is, rather than as a fault.
+
+  It is the page's own ground rather than black, so what shows through is the
+  colour everything else is drawn on.
+*/
+.handover-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.handover-veil--open {
+  opacity: 0;
+  visibility: hidden;
+  /* Opening is quicker than closing: the study is already there to be seen. */
+  transition: opacity 0.45s ease-out, visibility 0s linear 0.45s;
+}
+
+.handover-veil--closing,
+.handover-veil--closed {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handover-veil {
+    transition: none !important;
+  }
+}
+
+/*
+  The detonation. A white core that blows out and two shock rings running out
+  behind it, over in a second and a half. It is punctuation and not geometry —
+  the rings it leaves behind are the geometry — so it is sized in viewport
+  units and scaled only loosely by yield.
+*/
+.detonation-burst {
+  position: relative;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  --burst: calc(clamp(70px, 13vmin, 170px) * var(--burst-scale, 1));
+}
+
+.detonation-burst span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--burst);
+  height: var(--burst);
+  margin-left: calc(var(--burst) / -2);
+  margin-top: calc(var(--burst) / -2);
+  border-radius: 50%;
+}
+
+.detonation-core {
+  background: radial-gradient(circle, rgba(255, 255, 245, 0.98) 0%, rgba(255, 226, 170, 0.85) 32%, rgba(255, 140, 90, 0.5) 58%, rgba(255, 96, 96, 0) 74%);
+  animation: detonation-core 1.5s cubic-bezier(0.1, 0.75, 0.25, 1) forwards;
+}
+
+.detonation-shock {
+  border: 2px solid rgba(255, 214, 170, 0.85);
+  box-shadow: 0 0 14px rgba(255, 150, 100, 0.5);
+  animation: detonation-shock 1.5s cubic-bezier(0.08, 0.7, 0.2, 1) forwards;
+}
+
+/* The second ring leaves a beat later, which is what makes it read as a wave. */
+.detonation-shock--late {
+  border-color: rgba(255, 160, 120, 0.55);
+  animation-delay: 0.16s;
+}
+
+@keyframes detonation-core {
+  0% { transform: scale(0.05); opacity: 1; }
+  14% { transform: scale(1.15); opacity: 1; }
+  40% { transform: scale(0.8); opacity: 0.85; }
+  100% { transform: scale(0.5); opacity: 0; }
+}
+
+@keyframes detonation-shock {
+  0% { transform: scale(0.05); opacity: 0; }
+  10% { opacity: 0.95; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* Someone who has asked for less motion gets the moment without the expansion. */
+@media (prefers-reduced-motion: reduce) {
+  .detonation-core,
+  .detonation-shock {
+    animation: detonation-hold 1.2s steps(1, end) forwards;
+    transform: none;
+  }
+
+  @keyframes detonation-hold {
+    0%, 70% { opacity: 0.9; }
+    100% { opacity: 0; }
+  }
+}
+
+/*
+  The targeting mark. Four brackets converge on the aim point and a ring
+  collapses into it, once, as the point is placed: the classic reticle, which
+  is theatre and is meant to be. It is drawn entirely by this rule set — the
+  element carries four empty <i> corners and one ring — and it removes itself
+  when the animation ends.
+*/
+.aim-reticle {
+  position: relative;
+  /* The frame the brackets close on. Sized against the viewport rather than
+     fixed, because the mark has to read as an instrument closing on a place
+     and a seventy-pixel square on a large screen reads as a speck. */
+  width: clamp(90px, 16vmin, 190px);
+  height: clamp(90px, 16vmin, 190px);
+  pointer-events: none;
+}
+
+.aim-reticle i {
+  position: absolute;
+  width: 26%;
+  height: 26%;
+  border: 2px solid var(--cyan);
+  box-shadow: 0 0 6px rgba(141, 250, 255, 0.45);
+  animation: aim-converge 1.9s cubic-bezier(0.16, 0.9, 0.28, 1) forwards;
+}
+
+/* Each corner keeps two of its four sides, and starts a long way outside the
+   frame — far enough that the eye is drawn in with it rather than to it. */
+.aim-reticle i:nth-child(2) { top: 0; left: 0; border-right: 0; border-bottom: 0; --aim-x: -125%; --aim-y: -125%; }
+.aim-reticle i:nth-child(3) { top: 0; right: 0; border-left: 0; border-bottom: 0; --aim-x: 125%; --aim-y: -125%; }
+.aim-reticle i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; --aim-x: 125%; --aim-y: 125%; }
+.aim-reticle i:nth-child(5) { bottom: 0; left: 0; border-right: 0; border-top: 0; --aim-x: -125%; --aim-y: 125%; }
+
+.aim-reticle-ring {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(141, 250, 255, 0.6);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(141, 250, 255, 0.28), inset 0 0 10px rgba(141, 250, 255, 0.18);
+  animation: aim-collapse 1.9s cubic-bezier(0.16, 0.9, 0.28, 1) forwards;
+}
+
+/* The crosshair the ring collapses onto: a thin cross that arrives last. */
+.aim-reticle::before,
+.aim-reticle::after {
+  content: '';
+  position: absolute;
+  background: rgba(141, 250, 255, 0.5);
+  animation: aim-cross 1.9s ease-out forwards;
+}
+
+.aim-reticle::before { left: 50%; top: 34%; width: 1px; height: 32%; transform: translateX(-0.5px); }
+.aim-reticle::after { top: 50%; left: 34%; height: 1px; width: 32%; transform: translateY(-0.5px); }
+
+/*
+  The mark closes in the first third and then holds. The dwell is the point of
+  it: a reticle that arrives and leaves in the same breath reads as a flicker,
+  where one that settles reads as a decision.
+*/
+@keyframes aim-converge {
+  0% { transform: translate(var(--aim-x), var(--aim-y)) scale(1.5); opacity: 0; }
+  10% { opacity: 1; }
+  38% { transform: translate(0, 0) scale(1); opacity: 1; }
+  80% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0; }
+}
+
+@keyframes aim-collapse {
+  0% { transform: scale(3.4); opacity: 0; }
+  11% { opacity: 0.95; }
+  40% { transform: scale(0.62); opacity: 0.85; }
+  80% { transform: scale(0.55); opacity: 0.8; }
+  100% { transform: scale(0.42); opacity: 0; }
+}
+
+@keyframes aim-cross {
+  0%, 30% { opacity: 0; }
+  42% { opacity: 1; }
+  82% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Someone who has asked for less motion gets the mark without the movement. */
+@media (prefers-reduced-motion: reduce) {
+  .aim-reticle i,
+  .aim-reticle-ring {
+    animation: aim-hold 1.9s steps(1, end) forwards;
+    transform: none;
+  }
+  @keyframes aim-hold {
+    0%, 82% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+}
+
+/*
+  The named-system presets of the intercept lab. The phase tag holds its row
+  open on the left; the reading beneath a chosen system separates what the
+  source says from what was done to it, and puts what was never published
+  last, in the withheld colour, because that is usually the load-bearing part.
+*/
+.lab-phase-tag {
+  align-self: center;
+  min-width: 5.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+.clock-controls button.is-fielded {
+  border-color: rgba(141, 250, 255, 0.55);
+}
+
+.lab-system {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+}
+
+.lab-system-source {
+  font-size: 0.82rem;
+  opacity: 0.72;
+}
+
+.lab-alt {
+  opacity: 0.68;
+}
+
+.lab-system-withheld {
+  font-size: 0.82rem;
+  color: var(--cyan);
+  opacity: 0.85;
+}
+
+.provenance {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  justify-self: end;
+  width: 100%;
+  max-height: 55vh;
+  overflow: auto;
+  padding: 0.8rem 1rem;
+  border-right: 2px solid var(--cyan);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  text-align: right;
+}
+
+.provenance h2 {
+  color: var(--ink);
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  overflow-wrap: anywhere;
+}
+
+.provenance-designation {
+  margin: 0 0 0.4rem;
+  color: var(--cyan);
+}
+
+.provenance-source,
+.provenance-method {
+  margin: 0 0 0.3rem;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.provenance dl {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0.6rem 0 0;
+}
+
+.fact {
+  display: grid;
+  gap: 0.15rem;
+  padding-right: 0.5rem;
+  border-right: 2px solid rgba(141, 250, 255, 0.3);
+}
+
+.fact--documented { border-right-color: var(--cyan); }
+.fact--reconstructed { border-right-color: rgba(196, 168, 255, 0.95); }
+.fact--inferred { border-right-style: dotted; border-right-color: rgba(141, 250, 255, 0.5); }
+.fact--modelled { border-right-color: rgb(255, 96, 96); }
+.fact--withheld { border-right-color: var(--bg); box-shadow: 2px 0 0 rgba(141, 250, 255, 0.7); }
+
+.fact dt {
+  color: var(--muted);
+}
+
+.fact dd {
+  margin: 0;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.fact dd.is-withheld {
+  display: inline-block;
+  justify-self: end;
+  padding: 0.1rem 0.5rem;
+  background: var(--bg);
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  outline: 1px solid rgba(141, 250, 255, 0.7);
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 0.3rem;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  vertical-align: middle;
+}
+
+.badge--documented { color: var(--bg); background: var(--cyan); }
+.badge--reconstructed { color: var(--lilac); outline: 1px solid var(--lilac); }
+.badge--inferred { color: rgba(141, 250, 255, 0.7); outline: 1px dotted rgba(141, 250, 255, 0.7); }
+.badge--modelled { color: rgb(255, 96, 96); outline: 1px solid rgb(255, 96, 96); }
+.badge--withheld { color: var(--cyan); background: var(--bg); outline: 1px solid rgba(141, 250, 255, 0.7); }
+
+.omissions {
+  grid-column: 3;
+  grid-row: 4;
+  align-self: end;
+  padding: 0.7rem 1rem;
+  border-right: 2px solid var(--amber);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  text-align: right;
+  max-height: 28vh;
+  overflow: auto;
+}
+
+.omissions h2 {
+  color: var(--amber);
+}
+
+.study-links a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+.study-links a:hover,
+.study-links a:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+.omissions ul {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Legend ---------- */
+
+.legend {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  align-self: end;
+  justify-self: start;
+  max-width: min(46rem, calc(100% - 6rem));
+  padding: 0.6rem 0.8rem;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+}
+
+.legend ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.3rem 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend li {
+  display: grid;
+  grid-template-columns: 2.2rem auto;
+  grid-template-rows: auto auto;
+  column-gap: 0.6rem;
+  align-items: center;
+  color: var(--muted);
+}
+
+.legend strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.legend li > span:last-child {
+  grid-column: 2;
+  font-size: 0.56rem;
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.swatch {
+  grid-row: 1 / span 2;
+  height: 0;
+  border-top: 2px solid var(--cyan);
+}
+
+.swatch--reconstructed { border-top-color: rgba(196, 168, 255, 0.95); }
+.swatch--inferred { border-top-style: dotted; border-top-color: rgba(141, 250, 255, 0.55); }
+.swatch--modelled { border-top-color: rgb(255, 96, 96); }
+.swatch--withheld { height: 6px; border: 0; background: var(--bg); outline: 1px solid rgba(141, 250, 255, 0.7); }
+
+/* ---------- Map labels ---------- */
+
+.ev-label {
+  display: grid;
+  gap: 0.05rem;
+  padding: 0.15rem 0.4rem;
+  border: 0;
+  border-left: 2px solid var(--cyan);
+  background: rgba(5, 4, 16, 0.7);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ev-label-designation {
+  color: var(--muted);
+  font-size: 0.5rem;
+}
+
+.ev-label--reconstructed { border-left-color: var(--lilac); }
+.ev-label--inferred { border-left-style: dotted; color: rgba(232, 251, 255, 0.75); }
+.ev-label--modelled { border-left-color: rgb(255, 96, 96); }
+.ev-label--withheld { border-left-color: var(--bg); background: var(--bg); color: var(--cyan); outline: 1px solid rgba(141, 250, 255, 0.7); }
+.ev-label:hover, .ev-label:focus-visible { background: rgba(141, 250, 255, 0.14); outline: 1px solid var(--cyan); }
+
+@media (max-width: 900px) {
+  .study-hud {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
+    font-size: 0.6rem;
+  }
+  .study-brand { grid-row: 1; }
+  .clock { grid-row: 2; }
+  .provenance { grid-column: 1; grid-row: 3; max-height: 30vh; }
+  .log { grid-row: 4; }
+  .omissions { grid-column: 1; grid-row: 5; }
+  .legend { grid-row: 6; max-width: 100%; }
+  .grid-nav { top: auto; bottom: max(0.5rem, env(safe-area-inset-bottom)); max-width: calc(100% - 1rem); overflow-x: auto; }
+}
+
+/* Phones: a column with the map in the middle. The title, the clock and the act switch at the top; the outcome, the log and a selected mark's provenance at the bottom, each capped and scrolling; the omissions and the legend wait for a wider screen. */
+@media (max-width: 700px) {
+  .study-hud {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: max(0.5rem, env(safe-area-inset-top)) 0.5rem calc(max(0.5rem, env(safe-area-inset-bottom)) + 2.6rem);
+    font-size: 0.58rem;
+  }
+  .study-hud > * {
+    flex: none;
+    max-width: none;
+    /* Nothing may push the column wider than the phone: panels shrink below their content and clip. */
+    min-width: 0;
+    overflow-x: hidden;
+  }
+  /* The desktop grid aligns some panels to an edge; in a column of flex items
+     that alignment is across the page, and it left the outcome panel narrow
+     and pushed to the right while every other panel ran full width. The
+     desktop rules come later in the file, so these have to out-specify them. */
+  .study-sheet > * {
+    pointer-events: auto;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+  /*
+   * Named one by one: the desktop rules for these panels sit later in the file
+   * at the same specificity, and a class plus a universal selector does not
+   * beat a class. Inside the sheet each panel gives up the height and the
+   * alignment it was given for the wide grid; the sheet's own height governs,
+   * and it scrolls.
+   */
+  .study-sheet > .log,
+  .study-sheet > .provenance,
+  .study-sheet > .aggregate,
+  .study-sheet > .omissions {
+    align-self: stretch;
+    flex: none;
+    max-height: none;
+    margin-top: 0;
+  }
+  /* The outcome is the answer, so it is what the sheet opens on; then the
+     narration, then whatever is selected. The omissions are a wide-screen
+     reading and are not worth a phone's room. */
+  .study-sheet > .aggregate {
+    order: 1;
+  }
+  .study-sheet > .log {
+    order: 2;
+    min-height: 0;
+  }
+  .study-sheet > .provenance {
+    order: 3;
+  }
+  .study-sheet > .omissions {
+    display: none;
+  }
+  .study-sheet-handle,
+  .study-controls-handle {
+    display: block;
+    order: 0;
+    flex: none;
+    align-self: stretch;
+    padding: 0.35rem 0.6rem;
+    border: 0;
+    border-left: 2px solid rgba(141, 250, 255, 0.4);
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    color: var(--muted);
+    font: inherit;
+    letter-spacing: 0.14em;
+    text-align: left;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  /* Folded, the sheet is the handle and nothing else, and the map has the screen. */
+  .study-sheet.is-folded {
+    max-height: none;
+    overflow: visible;
+  }
+  .study-sheet.is-folded > *:not(.study-sheet-handle) {
+    display: none;
+  }
+  .study-hud > .clock {
+    align-self: stretch;
+    max-height: none;
+  }
+  /* The desktop panel is right-aligned against the edge of the screen; on a
+     phone it is a full-width card and reads down the page from the left. */
+  .study-sheet > .aggregate {
+    text-align: left;
+  }
+
+  /*
+   * The map is the study. The panels used to stack down the whole phone and
+   * leave it nothing: a clock, an outcome and a log, and the strike happening
+   * behind all three. The reading panels are now one sheet along the bottom,
+   * holding two fifths of the screen and scrolling inside itself, and the
+   * middle of the screen belongs to the map.
+   */
+  .study-sheet {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: auto;
+    /* vh first for anything that does not know dvh; dvh so the sheet does not
+       jump when Safari's own chrome comes and goes. */
+    max-height: 42vh;
+    max-height: 42dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    min-width: 0;
+  }
+  /* Inside the sheet the sheet's own height governs; the log gives up its floor. */
+  .study-sheet > .log {
+    min-height: 0;
+  }
+  .clock-controls {
+    flex-wrap: wrap;
+  }
+  /* Trails and burst are two small toggles; they share a row rather than taking two. */
+  .clock-controls--toggles {
+    column-gap: 0.6rem;
+  }
+  .clock-controls button {
+    padding: 0.3rem 0.5rem;
+  }
+  /* The exit sits in the brand's top-right corner at a size that leaves the title its room. */
+  .study-brand {
+    padding-right: 8rem;
+  }
+  .loop-exit {
+    top: max(0.5rem, env(safe-area-inset-top));
+    right: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+  }
+  /* iOS zooms the page when a focused field is under 16px, and never zooms back. */
+  .hud-search input,
+  .hud-caret-mirror {
+    font-size: 16px;
+  }
+
+  /*
+   * The outcome on a phone: a stack of cards, each one a caption, a figure and
+   * a note, in that order down the page.
+   *
+   * It used to put the caption and the figure side by side, the caption taking
+   * a flexible column and the figure whatever was left. With a caption like
+   * "blast only · 1961 method" what was left was almost nothing, and the
+   * figure — which is allowed to break anywhere, because it must never push
+   * the panel wider than the phone — came out one digit per line, six lines
+   * tall. A number is a single object and is now treated as one: it takes its
+   * own line, it does not break, and it is sized to the width of the screen.
+   */
+  .aggregate {
+    padding: 0.45rem 0.6rem;
+    text-align: left;
+  }
+  .aggregate h2 {
+    margin-bottom: 0.2rem;
+  }
+  .aggregate .log-empty {
+    display: none;
+  }
+  .aggregate .two-numbers {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+    margin: 0.3rem 0 0;
+  }
+  .aggregate .two-numbers > div {
+    display: block;
+    padding: 0.35rem 0.55rem;
+  }
+  .aggregate .two-numbers > div > span,
+  .aggregate .two-numbers > div > em {
+    display: block;
+    min-width: 0;
+    font-size: 0.5rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  .aggregate .two-numbers > div > strong {
+    display: block;
+    margin: 0.05rem 0;
+    /* Sized so that the widest figure the models produce, thirteen characters
+       for the billions, still fits one line on the narrowest phone. */
+    font-size: clamp(0.95rem, 5.8vw, 1.9rem);
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+  .study-brand {
+    padding: 0.35rem 0.6rem;
+  }
+  .study-brand > span {
+    display: none;
+  }
+  .study-hud .hud-brand strong {
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+  }
+  .clock {
+    padding: 0.4rem 0.6rem;
+    gap: 0.3rem;
+  }
+  .clock-time {
+    font-size: 1.1rem;
+  }
+  .provenance:has(> .log-empty) {
+    display: none;
+  }
+  .legend {
+    display: none;
+  }
+}

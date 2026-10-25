@@ -9,10 +9,11 @@ The Motion Studies sub-path edition (`motionstudies.app/grid84`) was retired on 
 From a machine logged in to wrangler (`npx wrangler login`):
 
 ```bash
-npm run build && npx wrangler deploy
+npm ci
+npm run build && npm run deploy
 ```
 
-The Pages workflow does the same in its `worker` job when the repository secret `CLOUDFLARE_API_TOKEN` exists; without it the job prints a note and grid84.app keeps its last deployment. The token comes from the Cloudflare dashboard, My Profile → API Tokens → Create Token → the **Edit Cloudflare Workers** template, with Account Resources set to this account and Zone Resources to grid84.app. A wrangler login's OAuth session cannot mint tokens (it lacks the API-tokens scope), so this is a dashboard step. The account id is in `wrangler.jsonc`; it is not a secret.
+The Pages workflow installs the lockfile and runs the same pinned Wrangler in its `worker` job when the repository secret `CLOUDFLARE_API_TOKEN` exists; without it the job prints a note and grid84.app keeps its last deployment. The token comes from the Cloudflare dashboard, My Profile → API Tokens → Create Token → the **Edit Cloudflare Workers** template, with Account Resources set to this account and Zone Resources to grid84.app. A wrangler login's OAuth session cannot mint tokens (it lacks the API-tokens scope), so this is a dashboard step. The account id is in `wrangler.jsonc`; it is not a secret.
 
 ## Caching
 

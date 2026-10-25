@@ -1,7 +1,9 @@
+import { OutcomePanel } from './OutcomePanel.tsx'
+import { ProvenancePanel } from './ProvenancePanel.tsx'
+import { fmt, STAY_HOURS, type Outcomes, type FalloutOutcomes, type Unions } from './readouts.ts'
 import { Marker, type ExpressionSpecification, type Map as MapLibreMap } from 'maplibre-gl'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { advance, formatStudyTime, type ClockState } from '../engine/clock.ts'
-import { formatProvenance, TIER_LABEL, type Evidenced } from '../evidence/evidence.ts'
 import type { LngLat } from '../geo/geodesy.ts'
 import { geodesicCircle } from '../geo/shapes.ts'
 import { createBaseMap, installTerrainSync } from '../map/base.ts'
@@ -11,11 +13,12 @@ import { useFold } from '../hud/collapse.ts'
 import { ReadingSheet } from '../hud/sheets.tsx'
 import { TrackLayer, TRAIL_FADE_SECONDS, TRAIL_HOLD_SECONDS } from '../map/track-layer.ts'
 import { prepareTracks, type TrackSpec } from '../map/track-scene.ts'
-import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst, type Outcome } from '../models/casualties.ts'
-import { SURFACE_BLAST_MODEL, thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
-import { acuteMortality, CANCER_PER_PERSON_SIEVERT, latentFatalCancers, plume } from '../models/fallout.ts'
+import { applyBands, bandPopulations, OTA_BANDS, outcome, radiusForPsi, type Burst } from '../models/casualties.ts'
+import { thirdDegreeBurnRadiusMetres } from '../models/blast.ts'
+import { acuteMortality, plume } from '../models/fallout.ts'
+import { resolveGridBase } from '../models/grid-location.ts'
 import { ExposureService } from '../models/exposure-service.ts'
-import type { UnionDetonation, UnionTotals } from '../models/exposure.ts'
+import type { UnionDetonation } from '../models/exposure.ts'
 import { EvidenceLegend } from './EvidenceLegend.tsx'
 import { busIdOf, launchedFrom, missileOf } from './missile.ts'
 import type { Entity, LabelAnchor, Study } from './study.ts'
@@ -28,56 +31,9 @@ const RATES = [1, 10, 60, 600, 3_600]
  * at, since each one costs a pass over the grid.
  */
 const FALLOUT_STAGES = [1, 2, 4, 8, 16, 24, 36, 48, 72, 96]
-/**
- * Where the count is carried to once the study's own clock has run out: a
- * month of standing in the fallout, which is about three quarters of the
- * dose anyone would ever take from it. Nobody would stand there for a
- * month, which is the point of showing it.
- */
-const STAY_HOURS = 720
-
-/** Headline figures rounded to two significant figures, as the readout states. */
-function fmt(v: number) {
-    if (v < 10) return Math.round(v).toLocaleString('en-GB')
-    const magnitude = 10 ** (Math.floor(Math.log10(v)) - 1)
-    return (Math.round(v / magnitude) * magnitude).toLocaleString('en-GB')
-}
-
 /** The OTA bands' fatal and injured fractions, for the union. */
 const BAND_FRACTIONS = OTA_BANDS.map((b) => ({ fatal: b.fatal, injured: b.injured }))
 
-/**
- * Where a study's grid lives. A bare name is a HYDE grid under data/hyde; an
- * absolute URL is used as given; a path such as ghsl/popc_1985 is looked up
- * in the grids index, which is where `scripts/point-grids-at.py` records
- * whether the tiles are local or in the bucket.
- */
-export async function resolveGridBase(grid: string): Promise<string> {
-  if (/^https?:/.test(grid)) return grid
-  const local = (path: string) => new URL(`${import.meta.env.BASE_URL}data/${path}`, document.baseURI).href
-  if (!grid.includes('/')) return local(`hyde/${grid}`)
-  const name = grid.split('/').pop() ?? grid
-  try {
-    const index = (await fetch(local('hyde/index.json')).then((r) => (r.ok ? r.json() : null))) as { grids: Array<{ name: string; path?: string; fallback?: string }> } | null
-    const entry = index?.grids.find((g) => g.name === name)
-    if (entry?.path) {
-      const primary = /^https?:/.test(entry.path) ? entry.path : local(entry.path)
-      if (!entry.fallback) return primary
-      // A bucket behind a young domain may not resolve everywhere yet; if its summary does not answer, the bucket's own URL does.
-      try {
-        const head = await fetch(`${primary}.json`, { method: 'HEAD' })
-        if (head.ok) return primary
-      } catch {
-        // fall through to the fallback
-      }
-      console.warn(`grid ${name}: ${primary} did not answer; using ${entry.fallback}`)
-      return entry.fallback
-    }
-  } catch {
-    // fall through to the local path
-  }
-  return local(grid)
-}
 /**
  * The part of the map the panels leave clear. On a wide screen the study's
  * panels take a column each side; on a phone they take the top and the
@@ -209,10 +165,6 @@ function clearPadding(map: MapLibreMap): { top: number; bottom: number; left: nu
 /** Studies with more tracks than this draw them through the WebGL layer instead of GeoJSON sources. */
 export const GL_TRACK_THRESHOLD = 100
 
-function Badge({ evidence }: { evidence: Evidenced['evidence'] }) {
-  return <span className={`badge badge--${evidence}`}>{TIER_LABEL[evidence]}</span>
-}
-
 function staticFeatures(study: Study) {
   const paths: EvidenceFeature[] = []
   const sites: EvidenceFeature[] = []
@@ -327,59 +279,6 @@ function drawnRadius(e: Entity & { kind: 'effect' }, burst: Burst, key: string):
   return ring ? ring.radius : 0
 }
 
-/**
- * The headline cells for one side. With a union they are path-dependent: blast
- * first, then fire as Postol's bound, then fallout among the survivors, and
- * the last cell is all three in sequence. Before the union answers, the
- * per-target sums stand in.
- */
-function OutcomeCells({ union, blastDead, blastInjured, fireDead, falloutDead, under1, plumes, falloutHours = 0, rising = false }: { union: UnionTotals | undefined; blastDead: number; blastInjured: number; fireDead: number; falloutDead: number | null; under1: number; plumes: number; falloutHours?: number; rising?: boolean }) {
-  const showFallout = union ? union.underPlume > 0 : falloutDead !== null
-  return (
-    <div className="two-numbers">
-      <div>
-        <span>Blast only · 1961 method</span>
-        <strong>{fmt(union ? union.blastDead : blastDead)}</strong>
-        <em>dead · {fmt(union ? union.blastInjured : blastInjured)} injured</em>
-      </div>
-      <div>
-        <span>With mass fire · Postol bound</span>
-        <strong>{fmt(union ? union.fireDead : fireDead)}</strong>
-        <em>dead</em>
-      </div>
-      {showFallout && (
-        <div className={rising ? 'is-rising' : undefined}>
-          <span>
-            Fallout · no shelter{union ? ' · among the survivors' : ''}
-            {falloutHours >= STAY_HOURS ? ' · if nobody leaves for a month' : falloutHours > 0 ? ` · to H+${falloutHours} h` : ''}
-          </span>
-          <strong>{fmt(union ? union.falloutDead : (falloutDead ?? 0))}</strong>
-          <em>
-            acute deaths · {fmt(union ? union.underPlume : under1)} under the plumes{union ? '' : ` · ${plumes} plumes summed`}
-            {rising ? ' · still rising' : ''}
-          </em>
-        </div>
-      )}
-      {union && showFallout && union.personRads > 0 && (
-        <div>
-          <span>Latent fatal cancers, over decades</span>
-          <strong>{fmt(latentFatalCancers(union.personRads))}</strong>
-          <em>
-            among the survivors · {fmt(union.personRads / 100)} person-sieverts at {Math.round(CANCER_PER_PERSON_SIEVERT * 1_000) / 10}% per sievert
-          </em>
-        </div>
-      )}
-      {union && showFallout && (
-        <div>
-          <span>Blast, fire and fallout in sequence</span>
-          <strong>{fmt(union.combinedDead)}</strong>
-          <em>dead · one minus the product of the survivals, per grid sample</em>
-        </div>
-      )}
-    </div>
-  )
-}
-
 function labelOffset(anchor: LabelAnchor): [number, number] {
   switch (anchor) {
     case 'left':
@@ -449,7 +348,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   const primed = useRef(false)
   const exposureService = useRef<ExposureService | null>(null)
   const computed = useRef<Set<string>>(new Set())
-  const [outcomes, setOutcomes] = useState<Record<string, Outcome & { grid: string }>>({})
+  const [outcomes, setOutcomes] = useState<Outcomes>({})
   const [burst, setBurst] = useState<Burst>(study.defaultBurst ?? 'air')
   const burstRef = useRef<Burst>(study.defaultBurst ?? 'air')
   const falloutComputed = useRef<Set<string>>(new Set())
@@ -457,7 +356,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
   const unionQueue = useRef<Record<'attacker' | 'defender', UnionDetonation[]>>({ attacker: [], defender: [] })
   const unionBusy = useRef<Record<'attacker' | 'defender', boolean>>({ attacker: false, defender: false })
   const unionCount = useRef<Record<'attacker' | 'defender', number>>({ attacker: 0, defender: 0 })
-  const [unions, setUnions] = useState<Partial<Record<'attacker' | 'defender', { totals: UnionTotals; detonations: number; plumes: number }>>>({})
+  const [unions, setUnions] = useState<Unions>({})
   const unionPlumes = useRef<Record<'attacker' | 'defender', number>>({ attacker: 0, defender: 0 })
   const resetUnions = () => {
     unionQueue.current = { attacker: [], defender: [] }
@@ -467,7 +366,7 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
     const service = exposureService.current
     if (service) for (const side of ['attacker', 'defender'] as const) service.unionReset(side).catch(() => undefined)
   }
-  const [falloutOutcomes, setFalloutOutcomes] = useState<Record<string, { under1: number; dead: number; grid: string; hours: number }>>({})
+  const [falloutOutcomes, setFalloutOutcomes] = useState<FalloutOutcomes>({})
   /** The stage each plume's count has been carried to, hours after its burst. */
   const falloutStage = useRef<Map<string, number>>(new Map())
   const [gridName, setGridName] = useState<string | null>(null)
@@ -1193,191 +1092,9 @@ export function StudyView({ study, loop, autoplay }: { study: Study; loop?: Loop
           </ol>
         </section>
 
-        <details className="provenance provenance-disclosure" aria-label="Selected entity">
-          <summary>Provenance{selected ? ` · ${selected.name}` : ''}</summary>
-          {selected ? (
-            <>
-              <h2>
-                {selected.name} <Badge evidence={selected.evidence} />
-              </h2>
-              <p className="provenance-designation">{selected.designation}</p>
-              <p className="provenance-source">{formatProvenance(selected.provenance)}</p>
-              {selected.provenance.method && <p className="provenance-method">{selected.provenance.method}</p>}
-              {selected.provenance.withheldUnder && <p className="provenance-method">Withheld: {selected.provenance.withheldUnder}</p>}
-              {selected.kind === 'track' && (
-                <p className="provenance-source">
-                  Route <Badge evidence={selected.route.evidence} /> {formatProvenance(selected.route.provenance)}
-                  {selected.route.provenance.method && <> · {selected.route.provenance.method}</>}
-                </p>
-              )}
-              {selected.kind === 'effect' && selected.deliveredBy && selected.deliveredBy.length > 0 && (
-                <div className="delivered">
-                  <span className="clock-label">Delivered by</span>
-                  <ul>
-                    {selected.deliveredBy.map((id) => {
-                      const t = study.entities.find((x) => x.id === id)
-                      if (!t || t.kind !== 'track') return null
-                      return (
-                        <li key={id}>
-                          <button type="button" onClick={() => setSelectedId(id)}>
-                            {t.name} · {t.designation}
-                          </button>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </div>
-              )}
-              {missile && (
-                <div className="delivered">
-                  <span className="clock-label">{missile.kind === 'aircraft' ? 'The whole load' : 'The whole missile'}</span>
-                  <p className="provenance-method">
-                    {missile.bus.name.split(' → ')[0]} · {missile.vehicles.length} {missile.kind === 'aircraft' ? 'cruise missiles · released at' : 'reentry vehicles · bus separation at'} {formatStudyTime(missile.separation.time)}{missile.kind === 'aircraft' ? '' : `, ${Math.round(missile.separation.altitude / 1000)} km up`}
-                    {(() => {
-                      const known = missile.effects.filter((x) => outcomes[x.id])
-                      if (known.length === 0) return null
-                      const dead = known.reduce((a, x) => a + outcomes[x.id].fire.fatal, 0)
-                      return ` · ${fmt(dead)} dead across ${known.length} of its ${missile.effects.length} detonations, each counted at its own target`
-                    })()}
-                  </p>
-                  <ul>
-                    {missile.vehicles.map((v, k) => {
-                      const hit = missile.effects.find((x) => (x.deliveredBy ?? []).includes(v.id))
-                      const own = v.id === selectedId || (selected.kind === 'effect' && (selected.deliveredBy ?? []).includes(v.id))
-                      return (
-                        <li key={v.id} className={own ? 'is-own' : ''}>
-                          <button type="button" onClick={() => setSelectedId(hit ? hit.id : v.id)}>
-                            {missile.kind === 'aircraft' ? 'Missile' : 'RV'} {k + 1} → {v.name.split(' → ')[1] ?? v.name}
-                            {hit ? ` · ${formatStudyTime(hit.time)}${outcomes[hit.id] ? ` · ${fmt(outcomes[hit.id].fire.fatal)} dead` : ''}` : ' · no detonation recorded'}
-                          </button>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </div>
-              )}
-              {launch && !missile && (
-                <div className="delivered">
-                  <span className="clock-label">Launched from here</span>
-                  <p className="provenance-method">
-                    {launch.tracks.length} vehicle{launch.tracks.length > 1 ? 's' : ''}{launch.vehicles.length > 0 ? `, ${launch.vehicles.length} reentry vehicles` : ''} · {launch.effects.length} detonation{launch.effects.length === 1 ? '' : 's'}
-                    {(() => {
-                      const known = launch.effects.filter((x) => outcomes[x.id])
-                      if (known.length === 0) return null
-                      return ` · ${fmt(known.reduce((a, x) => a + outcomes[x.id].fire.fatal, 0))} dead across ${known.length} of them, each counted at its own target`
-                    })()}
-                  </p>
-                  <ul>
-                    {launch.tracks.slice(0, 24).map((t) => (
-                      <li key={t.id}>
-                        <button type="button" onClick={() => setSelectedId(t.id)}>
-                          {t.name.split(' → ').slice(1).join(' → ') || t.name} · {t.designation}
-                        </button>
-                      </li>
-                    ))}
-                    {launch.tracks.length > 24 && <li className="provenance-method">and {launch.tracks.length - 24} more</li>}
-                  </ul>
-                </div>
-              )}
-              {selected.kind === 'effect' && burst === 'surface' && (
-                <p className="provenance-method">Surface burst: overpressure radii by {SURFACE_BLAST_MODEL}. {selected.fallout?.provenance.method}</p>
-              )}
-              {selected.kind === 'effect' && falloutOutcomes[selected.id] && (
-                <div className="two-numbers">
-                  <div>
-                    <span>Under the 1 rad/hr contour</span>
-                    <strong>{fmt(falloutOutcomes[selected.id].under1)}</strong>
-                    <em>people · {falloutOutcomes[selected.id].grid}</em>
-                  </div>
-                  <div>
-                    <span>Acute fallout deaths, no shelter · to H+{falloutOutcomes[selected.id].hours} h</span>
-                    <strong>{fmt(falloutOutcomes[selected.id].dead)}</strong>
-                    <em>to H+{selected.fallout?.untilHours} h · Table 12.108</em>
-                  </div>
-                </div>
-              )}
-              {selected.kind === 'effect' && outcomes[selected.id] && (
-                <div className="two-numbers">
-                  <div>
-                    <span>Blast only · 1961 method</span>
-                    <strong>{fmt(outcomes[selected.id].blast.fatal)}</strong>
-                    <em>dead · {fmt(outcomes[selected.id].blast.injured)} injured · {outcomes[selected.id].grid}</em>
-                  </div>
-                  <div>
-                    <span>With mass fire · Postol bound</span>
-                    <strong>{fmt(outcomes[selected.id].fire.fatal)}</strong>
-                    <em>dead · everyone inside the fire zone</em>
-                  </div>
-                </div>
-              )}
-              <dl>
-                {selected.facts.map((fact) => (
-                  <div key={fact.label} className={`fact fact--${fact.evidence}`} title={`${formatProvenance(fact.provenance)}${fact.provenance.method ? ` · ${fact.provenance.method}` : ''}${fact.provenance.withheldUnder ? ` · ${fact.provenance.withheldUnder}` : ''}`}>
-                    <dt>
-                      {fact.label} <Badge evidence={fact.evidence} />
-                    </dt>
-                    <dd className={fact.evidence === 'withheld' ? 'is-withheld' : ''}>{fact.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </>
-          ) : (
-            <>
-              <h2>Provenance</h2>
-              <p className="log-empty">Select a mark or a log line. Every mark on this page traces to a source.</p>
-            </>
-          )}
-        </details>
+        <ProvenancePanel study={study} selected={selected} missile={missile} launch={launch} burst={burst} outcomes={outcomes} falloutOutcomes={falloutOutcomes} onSelect={setSelectedId} />
 
-        {/* One detonation has an outcome as much as a hundred do: a strike on a
-            small town is sized for a single warhead, and it used to show nothing. */}
-        {effectCount > 0 && (
-          <section className="aggregate" aria-label="Aggregate outcome">
-            <h2>
-              Outcome calculation <span className="badge badge--modelled">MODELLED</span>
-            </h2>
-            <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={effectCount} aria-valuenow={aggregate.computed}>
-              <div style={{ width: `${(100 * aggregate.computed) / effectCount}%` }} />
-            </div>
-            <p className="log-empty">
-              {aggregate.computed} of {effectCount} detonations summed over {gridName ?? 'the population grid'}
-              {unions.attacker ? ` · ${unions.attacker.detonations} in the union, each person counted once` : ''}
-            </p>
-            <OutcomeCells union={unions.attacker?.totals} blastDead={aggregate.blastDead} blastInjured={aggregate.blastInjured} fireDead={aggregate.fireDead} falloutDead={aggregate.falloutComputed > 0 ? aggregate.falloutDead : null} under1={aggregate.under1} plumes={aggregate.falloutComputed} falloutHours={aggregate.falloutHours} rising={aggregate.falloutHours > 0 && aggregate.falloutHours < falloutHorizon} />
-            {unions.attacker && aggregate.computed > 1 && (
-              <p className="log-empty">
-                Summed per target instead, as the log lines are, with people under several detonations counted each time: {fmt(aggregate.blastDead)} dead by blast, {fmt(aggregate.fireDead)} with fire
-              </p>
-            )}
-            {study.outcomeReference && (
-              <p className="provenance-source">
-                {study.outcomeReference.label}: {fmt(study.outcomeReference.value)} · {study.outcomeReference.source}
-              </p>
-            )}
-            {study.sides && defence.total > 0 && (
-              <>
-                <h2>
-                  {study.sides.defender.name} <span className="badge badge--inferred">INFERRED</span>
-                </h2>
-                <p className="log-empty">
-                  {defence.computed} of {defence.total} detonations
-                  {unions.defender ? ` · ${unions.defender.detonations} in the union, each person counted once` : ''}
-                </p>
-                <OutcomeCells union={unions.defender?.totals} blastDead={defence.blastDead} blastInjured={defence.blastInjured} fireDead={defence.fireDead} falloutDead={defence.falloutComputed > 0 ? defence.falloutDead : null} under1={defence.under1} plumes={defence.falloutComputed} falloutHours={defence.falloutHours} rising={defence.falloutHours > 0 && defence.falloutHours < falloutHorizon} />
-                {unions.defender && defence.computed > 1 && (
-                  <p className="log-empty">
-                    Summed per target instead: {fmt(defence.blastDead)} dead by blast, {fmt(defence.fireDead)} with fire
-                  </p>
-                )}
-                {study.sides.defender.reference && (
-                  <p className="provenance-source">
-                    {study.sides.defender.reference.label}: {fmt(study.sides.defender.reference.value)} · {study.sides.defender.reference.source}
-                  </p>
-                )}
-              </>
-            )}
-          </section>
-        )}
+        <OutcomePanel study={study} effectCount={effectCount} aggregate={aggregate} defence={defence} unions={unions} gridName={gridName} falloutHorizon={falloutHorizon} />
 
         <section className="omissions" aria-label="Not computed">
           <h2>Not represented</h2>
