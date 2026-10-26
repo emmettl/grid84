@@ -4,11 +4,13 @@ import { loadGridMeta, loadPopulationGrid, TiledPopulationGrid } from './populat
 
 /**
  * Exposure worker. Loads one population grid on request and answers
- * exposure sums off the render thread. Each worker keeps its own copy of
- * the grid: a SharedArrayBuffer would avoid that but needs cross-origin
+ * exposure sums off the render thread. The pool brokers tile downloads;
+ * each worker keeps its own decoded grid: a SharedArrayBuffer would avoid that but needs cross-origin
  * isolation headers that static hosting does not give us.
  */
 export type WorkerRequest =
+  | { id: number; type: 'tile-result'; data: ArrayBuffer; message?: never }
+  | { id: number; type: 'tile-result'; message: string; data?: never }
   | { id: number; type: 'load'; base: string }
   | { id: number; type: 'exposure'; request: ExposureRequest }
   | { id: number; type: 'cells'; west: number; south: number; east: number; north: number }
@@ -21,12 +23,24 @@ export type WorkerRequest =
 export type CellRow = [number, number, number, number, number]
 
 export type WorkerResponse =
+  | { id: number; type: 'tile-request'; path: string }
   | { id: number; type: 'loaded'; source: PopulationGrid['source']; total: number; cellSize: number }
   | { id: number; type: 'result'; result: ReturnType<typeof exposure> }
   | { id: number; type: 'cells'; cells: CellRow[] }
   | { id: number; type: 'polygons'; within: Record<string, number>; cellsVisited: number }
   | { id: number; type: 'union'; totals: UnionTotals }
   | { id: number; type: 'error'; message: string }
+
+let nextTile = 1
+const tileRequests = new Map<number, { resolve: (response: Response) => void; reject: (error: Error) => void }>()
+
+function fetchTile(path: string): Promise<Response> {
+  const id = nextTile++
+  return new Promise((resolve, reject) => {
+    tileRequests.set(id, { resolve, reject })
+    self.postMessage({ id, type: 'tile-request', path } satisfies WorkerResponse)
+  })
+}
 
 let grid: PopulationGrid | null = null
 let tiled: TiledPopulationGrid | null = null
@@ -86,11 +100,19 @@ function cellsIn(g: PopulationGrid, box: { west: number; south: number; east: nu
 
 self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
   const message = event.data
+  if (message.type === 'tile-result') {
+    const pending = tileRequests.get(message.id)
+    if (!pending) return
+    tileRequests.delete(message.id)
+    if (message.data) pending.resolve(new Response(message.data))
+    else pending.reject(new Error(message.message))
+    return
+  }
   try {
     if (message.type === 'load') {
       const meta = await loadGridMeta(message.base)
       if (meta.tiled) {
-        tiled = new TiledPopulationGrid(message.base, meta)
+        tiled = new TiledPopulationGrid(message.base, meta, fetchTile)
         grid = null
         const response: WorkerResponse = { id: message.id, type: 'loaded', source: tiled.source, total: tiled.total, cellSize: tiled.cellSize }
         self.postMessage(response)

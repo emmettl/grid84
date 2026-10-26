@@ -5,6 +5,7 @@ const meta = {
   dataset: 'BROWSER TEST SPECIMEN', variable: 'popc', year: 2025,
   width: 120, height: 120, cellSize: 0.01, west: 7.9, south: 46.8,
   encoding: 'float32-le row-major from north-west, gzip',
+  tiled: true, tileSize: 120, tilesX: 1, tilesY: 1, tiles: [[0, 0, 1_440_000]],
   totalPopulation: 1_440_000, source: 'Synthetic browser fixture', licence: 'none',
 }
 const population = gzipSync(Buffer.from(new Float32Array(meta.width * meta.height).fill(100).buffer))
@@ -18,7 +19,7 @@ export const test = base.extend({
         return route.fulfill({ json: { grids: [{ name: 'popc_2025', path: 'test/population' }] } })
       }
       if (url.pathname === '/data/test/population.json') return route.fulfill({ json: meta })
-      if (url.pathname === '/data/test/population.bin.gz') {
+      if (url.pathname === '/data/test/population/tiles/0_0.bin.gz') {
         return route.fulfill({ contentType: 'application/octet-stream', body: population })
       }
       if (url.origin === baseURL) return route.continue()

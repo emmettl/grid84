@@ -9,41 +9,61 @@ Grid/84 is a world-state playback engine turned on the history and doctrine of s
 
 No calendar dates are implied. Each stage names its exit criterion and the live services it depends on.
 
-## Taking stock, 10 September 2026
+## Taking stock, 26 October 2026
 
-The stages below were written for an atlas that would grow studies. What was built in the first day is the other way round: six studies and a modern scenario, an engine under them, labs beside them, and an atlas that idles in front. The stages are kept as the record of the work; this section is the order of what remains, from the centre out.
+The core instrument is built. The studies became the centre, with the engine, labs, chronicle and atlas serving them. Work now falls into evidence checks, the next complete study, performance measurement and care. The original stages below remain a record of the work, not the order of the next releases. Dates here record progress; they are not delivery promises.
 
-**1. The studies are the centre.** Everything else serves them. Open work, in the order it matters:
+### Built
 
-- The hand pass on the 1956 transcription: 351 airfield rows and 2,787 city-list lines unparsed, most from damaged scans. A person with the scans, not another regex.
-- The JIC target papers for Britain and the Square Leg plot, if the FOI route ever opens; until then the rule from the totals stands and says so.
-- Seventy-two minutes: the book's minute marks checked against the text, and the outcome sums recorded on the brief from a visible run.
-- ~~The Soviet response of 1961 is wired to the attacker's summary in a way that breaks if the options change; it should read the enacted strike.~~ Done: it reads the enacted strike. Each Soviet base is lost when a *delivered* American weapon lands within 30 km of it before the generation hours are up, from the strike's own first-arrival times, so changing the option changes which bases get off the ground.
-- Candidate studies, each needing a brief first, chosen for what they say about the tension the manifesto names: the Strath Report's own reasoning (1955) as the first time a state did this arithmetic on itself; India and Pakistan after Toon and Robock (2019), the first study on a grid the engine has not yet drawn; the Korean peninsula as the conventional-to-nuclear ladder; and one study of the boosters, the civil-defence film and pamphlet as a document with a plan behind it.
+- **The studies and their engine.** SIOP//62, Cuba, DEFCON 3 and the 1969 readiness test, Able Archer, Britain and Strath, Seventy-two minutes, the 1983 window of vulnerability, the V-force and the four theatre scenarios. The Soviet response of 1961 reads the enacted strike: a base is lost when a delivered American weapon arrives within 30 km before its generation time. The [Sino-Soviet study](docs/SINO-SOVIET-69.md) is also built at `#/study/sino-soviet-1969`, testing a 1969 strike on the Chinese nuclear complex.
+- **The chronicle and posture atlas.** `#/chronicle` carries stockpiles, posture, doctrine, basing, treaties, theatre and missile defence. `#/chronicle/posture` has eight epochs: 1956, 1961, 1962, 1967, 1973, 1983, 1991 and 2024, with provenance and radar coverage. The 1991 epoch is built; the intervening drawdown years remain. See [DOCTRINE.md](docs/DOCTRINE.md).
+- **The labs and live demonstrations.** Effects, exposure, terrain, fallout, cloud, evidence, accuracy, guidance and defence have working views. `#/impact` draws individual misses against real installations; `#/intercept` runs individual engagements from the intercept geometry and countermeasures. See [INTERCEPT.md](docs/INTERCEPT.md) and [VALIDATION.md](docs/VALIDATION.md).
+- **The years after.** `#/winter` connects soot to a zonal climate model, crops and food availability over fifteen years, with assumptions and fidelity limits exposed. This is an implemented model chain, with published reference cases, rather than a prediction. See [WINTER.md](docs/WINTER.md).
+- **WOPR.** `#/wopr` searches the 1983 posture with a target-by-weapon exposure matrix, assignments by category, seeded annealing, constraints and competing objectives. Its aftermath readout converts the matrix's fire deaths into soot and interpolates climate and food outcomes; those outcomes are outside the loss function. Fallout, fratricide and C3 degradation remain excluded. See [WOPR.md](docs/WOPR.md).
+- **The strike console.** `#/atlas` selects delivery from nine arsenals, derives an urban laydown from the 2025 grid, fetches wind aloft and hands a generated study to the engine. Shared strikes have links and preview cards. Land-use identification and more than one missile type per strike remain open. See [STRIKE.md](docs/STRIKE.md).
+- **Publication and recent hardening.** Deployment is configured for GitHub Pages and `grid84.app`, with GHSL tiles on R2 at `tiles.grid84.app`. October's work updated dependencies and setup guidance, fixed atlas panels and boundary races, added browser regressions and PR checks, and split routes, study panels and styles. Routes and study datasets load on demand; the browser suite checks the initial JavaScript budget and recovery from a failed route download. CI runs type, lint, unit, build and browser checks before deployment.
 
-**1a. The chronicle.** A third form beside the studies and the labs, proposed in [DOCTRINE.md](docs/DOCTRINE.md): doctrine, stockpiles, posture and geopolitics as chapters with the map as their spine, map states scrubbed across the epochs the orders of battle already cover, a stockpile chart, and a shot-exchange lab for missile defence from Safeguard through SDI to the present decade's programme. The lab is **built** at `#/lab/defence` (seven reference cases from Safeguard to the present decade's space layer, leakage against interceptors held, the Nitze criterion in numbers, a collapsed sources-and-methods panel as the pattern for the strand); the stockpile chart is **built** as the chronicle's first chapter at `#/chronicle`, with the accuracy lab beside the defence lab and the loop at `#/loop` running the scenarios one after another to their numbers; the posture atlas at `#/chronicle/posture` and the six chapters on the chronicle page are **built**; the guidance lab is **built** at `#/lab/guidance` (the error budget of a submarine missile, the boat's own drift since its last fix, and what the star sight takes out of the sum). The accuracy lab now has a companion, **built** at `#/impact`: a weapon from its own list aimed at a real installation, one warhead at a time, the miss drawn from the same circular error the lab integrates and the answer in the form the answer actually takes. The tally converges on the lab's figure and a test holds it there over six thousand shots. The 1990s epoch remains.
+### Next milestone — India–Pakistan
 
-**1e. The theatre.** Proposed 10 September 2026 and briefed in [THEATRE.md](docs/THEATRE.md): the tactical and theatre doctrine of Europe from Carte Blanche in 1955 to the Euromissiles, on the argument that strategic policy cannot be read apart from theatre escalation, since flexible response only deterred if theatre use led somewhere. Four scenarios proposed. The first, **Seven Days to the River Rhine**, is built at `#/study/seven-days`: the Warsaw Pact plan of 1979 that Poland declassified in 2005, run in its own order, from the NATO first use it assumes to the twelve named cities of its answer. The second, **Carte Blanche**, is built at `#/study/carte-blanche`: NATO's exercise of June 1955, 335 weapons over Germany, with the engine's figure set against the exercise's own estimate of 1.7 million dead. The **neutron bomb** is a lab at `#/lab/neutron`: the enhanced-radiation rings against the blast rings, and the finding that the weapon does not spare the town but reaches the crews with a sixth of the wrecked ground a fission weapon would need. The **demolition belt** is built at `#/study/demolition-belt`: fifteen atomic demolition munitions on the defender's own defiles, fired east to west as the advance arrives, with the plumes running over the country the barrier defends. The **Tornado package** is built at `#/study/tornado`: RAF Germany in 1985, the V-force's low-level answer flown by an aircraft built for it, and an attrition of about two fifths. The chapter's four scenarios and its lab are done.
+The [brief](docs/INDIA-PAKISTAN.md) and `data/india-pakistan/cities-2025.json` are committed. `scripts/build-india-pakistan-2025.py` assigns named cities by the geocoder's country code and ranks them by population within a stated radius on the 2025 GHSL grid. The execution study is not built.
 
-**1d. The V-force.** Built 10 September 2026 at `#/study/v-force` and `/low` ([V-FORCE.md](docs/V-FORCE.md)): 159 aircraft on eight stations, sixty documented Soviet complexes within reach, and the same force flown at fifty thousand feet and at three hundred, so the cost of the change of 1963 can be read off. The British target list has never been released and the study says so on every target. Not done: the dispersal airfields as geometry, the defences as entities rather than a fraction.
+- [x] Brief the Toon et al. (2019) comparison and prepare country-checked urban targets on the 2025 grid.
+- [ ] Build the 250-detonation study with the paper's weapon counts and its three yield cases, keeping the allocation rule and evidence tiers visible.
+- [ ] Compute union blast and fire outcomes and a study-wide soot total; connect that output to the winter view. WOPR's aftermath readout is an existing connection, but it does not provide this study's per-detonation calculation.
+- [ ] Compare the engine's fatalities and soot with the paper's published figures; record agreement or disagreement and its limits in the brief and validation notes.
+- [ ] Measure phone transfer and terrain costs alongside the study, including the opening orbit and one atlas descent.
 
-**1c. The strike console.** Built 10 September 2026 ([STRIKE.md](docs/STRIKE.md)): the atlas takes a place, reads the 2025 grid, names the adversary by a stated rule, chooses the delivery by flight time from the nine arsenals, sizes a MIRV laydown to the urban area, fetches the wind aloft, counts down and hands a generated study to the engine. Not done: land-use grids in the identification; more than one missile type per strike.
+**Exit:** a reader can run all three yield cases, inspect the target rule, compare the immediate and soot totals with the paper, and follow the computed soot into the years-after model without mistaking published inputs for engine outputs.
 
-**1b. WOPR.** A second mode beside the loop, proposed by the user and briefed in [WOPR.md](docs/WOPR.md): a constrained optimiser over the 1983 posture, searching readiness, warning, option, allocation, attrition and interception for the plan that minimises a chosen loss under the planners' constraints, with the objectives exposed so their optima pull apart. Built at `#/wopr` on 10 September 2026: the target-by-weapon matrix through the exposure workers, a SAC-style assignment by SIOP category, annealing with seeds and ranges, each objective's own best, the constraints as toggles, and one line beside Turgidson's bound. Not done: fallout and fratricide.
+### Evidence and model work
 
-**2. The engine, where the studies need it.**
+These remain active alongside the next milestone; access-dependent research is not a prerequisite for shipping it.
 
-- Population tiles shared across the exposure workers, so a study run fetches each tile once from the bucket.
-- ~~The NUKEMAP comparison rerun at NUKEMAP's own burst height~~ Settled from the FAQ: NUKEMAP's "maximize airburst radii for all effects" is the lab's convention and its other modes use one height; the like-for-like check is one setting away and is written up in the validation notes.
-- ~~The blast model checked against Glasstone and Dolan's reference values as a unit test, which stage 3 asked for and which the validation notes only partly cover.~~ Done in `src/models/blast.test.ts`: thermal against the book's tabulated ranges, initial radiation against the worked case of §8.34, the contact-burst fit against Kinney & Graham, and the two crossings where the rings change places.
-- Tile and terrain budgets on a phone. ~~The one-column layout tested on one.~~ Done 11 September 2026: every lab takes the studies' phone arrangement — the controls fold behind one handle and open to a third of the screen, the readings are a sheet along the bottom, and the middle belongs to the map. Measured across all ten labs and the front page at 375 and 320 pixels: nothing overflows the screen width, and the three map labs each leave a clear band of 355 pixels. The transfer budget is still unmeasured.
-- The overlay contract of stage 3, if a study ever needs a ring set that is not a detonation.
+- [ ] Hand-review the 1956 transcription: 351 airfield rows and 2,787 city-list lines remain unparsed, mostly from damaged scans. This needs a person with the scans.
+- [ ] Check the Seventy-two minutes book's minute marks against the text and record outcome sums in the brief from a visible run.
+- [ ] Obtain the JIC target papers for Britain and the Square Leg plot if access opens. Until then the totals-based reconstruction stays labelled as such.
+- [ ] Replace illustrative guidance error-budget magnitudes with values checked against MacKenzie's text; the lab currently marks them as illustrations.
+- [ ] Extend the V-force with dispersal-airfield geometry and defences as entities rather than an attrition fraction.
+- [ ] Fill posture gaps, including the years of drawdown between 1991 and 2024; treaty-driven changes on the map remain work beyond the chart's treaty markers.
 
-**3. The atlas and the spectacle, deferred but kept.** Corridors, contours and the polish of the descent are the original manifesto's strand. They are not on the critical path of any study and are held until a study wants them or the toy is worth finishing for its own sake. The decision the manifesto leaves open, whether the atlas stays beside the studies or is folded into them, is made when one of them needs the other.
+The blast reference tests and the NUKEMAP burst-height convention check are complete; the validation notes state their limits.
 
-**4. Publication and care.** The Motion Studies catalogue entry; the HYDE licence confirmed by hand on the portal; a custom domain if the r2.dev and pages.dev addresses ever matter; the attribution notes kept current as services change.
+Further candidates, each needing its own brief:
 
-**Exit for this stock-taking:** a reader arriving at the front page understands in one screen what the instrument is and what it is not, and every study they open holds to the grammar.
+- **The Korean peninsula:** the conventional-to-nuclear escalation ladder.
+- **The Strath Report:** its reasoning beyond the existing scenario, as a state doing this arithmetic on itself.
+- **Civil defence:** films and pamphlets read as documents with plans behind them.
+
+### Engine, mobile performance and care
+
+- [x] Broker population tile downloads across each exposure-worker pool: concurrent requests share one fetch and a 32 MiB download cache retains recent tiles. Workers keep their own decoded grids; eviction can require a later refetch. Failed downloads can retry, and destroying the pool cancels its fetches.
+- [ ] Set measured transfer and terrain budgets on a real phone. Phone layouts and automated phone/tablet scrolling regressions are built; these do not establish a network or terrain budget.
+- [ ] Confirm the HYDE licence by hand on the source portal and keep attribution notes current as services change.
+- [ ] Add the Motion Studies catalogue entry as an adjunct, not an edition.
+
+The generic overlay contract remains deferred until a study needs zones other than detonations. Contours and further descent spectacle remain the original atlas strand, outside the next study's critical path.
+
+**Standing exit criterion:** a reader arriving at the front page understands in one screen what the instrument is and what it is not, and every study they open holds to the evidence grammar.
 
 ## Services
 
@@ -52,16 +72,17 @@ The stages below were written for an atlas that would grow studies. What was bui
 | Vector geometry (roads, rail, water, buildings, boundaries) | [OpenFreeMap](https://openfreemap.org/) planet tiles, OpenMapTiles schema | Free, no key, OSM attribution | In use |
 | Terrain and elevation | [AWS Terrain Tiles](https://registry.opendata.aws/terrain-tiles/), Terrarium encoding | Free, Mapzen attribution | In use |
 | Geocoding | [Photon](https://photon.komoot.io/) public instance | Fair use, no key | In use |
-| Routing | OSRM or Valhalla public demo servers | Demo only; own host for publication | Stage 1 |
-| Contours | `maplibre-contour` from the terrain tiles | Client side | Stage 2 |
-| Population | HYDE 3.3 grids (Utrecht), prepared by `scripts/prepare-hyde-grid.py`; the study years are committed, other years prepare locally in seconds. GHSL GHS-POP at 30 arc seconds for the present, cut into ten-degree tiles by `scripts/prepare-ghsl-tiles.py` and fetched on demand by the exposure worker | HYDE CC BY-NC-SA 4.0, behind a bot check, manual download; GHSL CC BY 4.0, manual download | In use: GHS-POP 1975, 1985 and 2025 prepared, 334 tiles and about 170 MB each, kept local; the studies from 1973 on read them |
+| Contours | `maplibre-contour` from the terrain tiles | Client side | Deferred; stage 2 |
+| Population | HYDE 3.3 grids (Utrecht), prepared by `scripts/prepare-hyde-grid.py`; the study years are committed, other years prepare locally in seconds. GHSL GHS-POP at 30 arc seconds for the present, cut into ten-degree tiles by `scripts/prepare-ghsl-tiles.py` and fetched on demand by the exposure worker | HYDE CC BY-NC-SA 4.0, behind a bot check, manual download; GHSL CC BY 4.0, manual download | In use: GHS-POP 1975, 1985 and 2025 prepared, 334 tiles and about 170 MB per year, served from R2; the studies from 1973 on read them |
 
 ## Record of stages
+
+The original sequence is retained below. The stock-taking above sets current priorities; unchecked items here may be deferred or explicitly out of scope.
 
 ### 0 — Target acquisition
 
 - [x] Establish the Vite, React, TypeScript, oxlint and Vitest baseline from Motion Studies.
-- [x] Hash routes: `#/` atlas, `#/study/<id>` execution studies, `#/lab/<id>` labs.
+- [x] Hash routes: `#/` front page, `#/atlas` atlas, `#/study/<id>` execution studies, `#/lab/<id>` labs.
 - [x] Globe in orbital standby with the Grid/84 style: dark ink, cyan conduits, amber rail, wireframe building footprints, hillshaded relief, no labels.
 - [x] Photon search with candidate list and Enter-to-acquire.
 - [x] Seven-second descent from orbit to the target, pitched along the line of flight, with terrain enabled below the orbital threshold.
@@ -70,18 +91,9 @@ The stages below were written for an atlas that would grow studies. What was bui
 - [x] Rank candidates so a station or settlement outranks a guidepost of the same name: `src/atlas/rank.ts` sorts Photon's list by what kind of thing each candidate is, on the rule that a feature which exists to point at another feature ranks below the feature it points at. "Zürich HB" now gives the Hauptbahnhof, "Heathrow" the aerodrome and "Cheyenne Mountain" the NORAD complex. Nothing is filtered; only the order changes.
 - [ ] Verify the descent on a real phone and set the first transfer budget for the opening view.
 - [x] Contract test for the geocoder: five real Photon responses recorded 11 September 2026 in `src/atlas/__fixtures__/photon-responses.json`, each parsed and checked for the fields the atlas needs, so a field renamed upstream shows up as a parse returning nothing.
-- [x] Publication path built (see 5 — Publication): GitHub Pages, then `motionstudies.app/grid84/`.
+- [x] Publication path built (see 5 — Publication): GitHub Pages and `grid84.app`; the former Motion Studies sub-path edition is retired.
 
 **Exit:** type an address anywhere on Earth, descend from orbit, and land over the correct buildings with an honest readout, in the first ten seconds.
-
-### 1 — Corridors
-
-- [ ] Route request between the previous fix and the acquired target (OSRM demo first), rendered as an animated pulse along real roads.
-- [ ] `COMMENCE NAVIGATION? Y/N` becomes live: range and arrival window from the routed distance and duration.
-- [ ] Transport mode switch (car, bike, foot) staged as a reconfiguration sequence, with the route re-planned on real networks.
-- [ ] Route readout shows the router's own distance and duration; no smoothing that changes the numbers.
-
-**Exit:** a route to Selgis follows the real roads and the arrival window is what the router said.
 
 ### 2 — Contours and terrain
 
@@ -111,7 +123,7 @@ A generic overlay system: give it a coordinate and a set of geodesic zones and i
 
 **Exit:** the circles are calculated effects, the readout states the model and its limits, and the local Aldi's overpressure band is correct for the chosen yield.
 
-The labs live in `lab/` as self-contained specimens with a pure model module, a validation table and a declared fidelity ceiling. The [SIOP//62 brief](docs/SIOP-62.md#labs-programme) lists them: ballistic arc, bomber sortie, readiness clock, damage expectancy, prompt effects, terrain shock, fallout plume, fire spread, population exposure and the evidence grammar. Labs exist to establish the lines of the possible, not to ship.
+The labs live in `src/lab/` as self-contained specimens with a pure model module, a validation table and a declared fidelity ceiling. The [SIOP//62 brief](docs/SIOP-62.md#labs-programme) lists them: ballistic arc, bomber sortie, readiness clock, damage expectancy, prompt effects, terrain shock, fallout plume, fire spread, population exposure and the evidence grammar. Labs exist to establish the lines of the possible, not to ship.
 
 ### 4 — SIOP//62 execution study
 
@@ -145,13 +157,28 @@ The first historical execution study. Brief and source audit: [docs/SIOP-62.md](
 
 **Exit:** the alert force plays end to end, every mark traces to a page, disagreements between sources are visible on the readout, and the study never claims to know more than the record.
 
-Candidate studies after SIOP//62, each needing its own brief first: the Cuban missile crisis gone hot ([brief](docs/CUBA-62.md); **built** at `#/study/cuba-62`: the air strike, the R-12 regiments on Florida and the south-east, the FKRs on Guantánamo, the landings and the Lunas on one clock, and `#/study/cuba-62/general`, the option-14 force standing for the month at DEFCON 2), DEFCON 3 in October 1973 as a force-posture study of the seventies, with the 1969 readiness test as its second act ([brief](docs/DEFCON3-73.md); **built** at `#/study/defcon3-73`: the ladder of the night from the Foreign Relations volume's own documents, both orders of battle by script from unit histories, and `#/study/defcon3-73/execute`, SIOP-4 enacted with that force by the NUWEP-74 categories as a rule against a Soviet launch on warning; and `#/study/defcon3-73/1969`, the secret readiness test with Giant Lance's eighteen B-52s over Alaska), Able Archer 83 gone hot as the European theatre war ([brief](docs/ABLE-ARCHER-83.md); **built** at `#/study/able-archer-83`: the exercise week from the SHAPE report, the Soviet alert as the NID reports it, and on the last morning the strike on NATO's delivery means and the answer from what survives, which the first twenty minutes decide), Protect and Survive: Britain ([brief](docs/BRITAIN-80.md); **built** at `#/study/britain-80` with Strath at `/strath`: the withheld plot drawn by a stated rule from the documented totals, timing and wind, 57 plumes north over the island, the Home Office's and Openshaw's figures beside the engine's): Square Leg's 150 weapons and 280 Mt of September 1980, the Home Office's 8.5 million against Openshaw, Steadman and Greene's 29 million, Strath's twelve million of 1955, the regional bunkers, and the Warsaw Pact's Seven Days to the River Rhine with Britain left blank, Seventy-two minutes, a modern scenario after Jacobsen's *Nuclear War* and Bigelow's *A House of Dynamite* on the 2024 forces and the 2025 grid ([brief](docs/72-MINUTES.md); **built** at `#/study/72-minutes`: the film's missile with the interceptors as filmed, at the test record and at the agency's claim, and `/jacobsen`, the book's clock on the 2024 forces with 45 of 58 American arcs crossing the Russian Far East at H+39, the four misses at 3.4 per cent, and the three strikes allocated by rule on the 2025 grid; the book's minute marks still want checking against the text), the window of vulnerability of 1983, a Soviet counterforce first strike as the West feared it with ride-out and launch-under-attack as the acts ([brief](docs/WINDOW-83.md); **built** at `#/study/window-83`: the user asked for scenarios from the Soviet side, since the launch-on-warning posture was built against them, and for the little time the warning clock leaves), India–Pakistan after Toon and Robock (2019), the Korean peninsula. See [Beyond SIOP//62](docs/SIOP-62.md#beyond-siop62).
+#### Studies after SIOP//62
+
+The original candidates have mostly become working studies. Each has its own brief; current next steps are listed in the stock-taking above.
+
+| Study | Status | Scope and variants | Brief |
+| --- | --- | --- | --- |
+| **Cuban missile crisis** | Built | `#/study/cuba-62`: the air strike, R-12 regiments, FKRs, landings and Lunas on one clock. `/general` adds the option-14 force at DEFCON 2. | [Cuba 1962](docs/CUBA-62.md) |
+| **DEFCON 3** | Built | `#/study/defcon3-73`: the October 1973 alert. `/execute` enacts SIOP-4 against Soviet launch on warning; `/1969` runs the secret readiness test and Giant Lance. | [DEFCON 3](docs/DEFCON3-73.md) |
+| **Able Archer 83** | Built | `#/study/able-archer-83`: the exercise week, Soviet alert, strike on NATO's delivery means and answer from the surviving force. | [Able Archer](docs/ABLE-ARCHER-83.md) |
+| **Protect and Survive: Britain** | Built | `#/study/britain-80`: Square Leg's withheld plot reconstructed from the documented totals, timing and wind, with the competing casualty estimates beside the engine's. `/strath` adds the 1955 case. | [Britain](docs/BRITAIN-80.md) |
+| **Seventy-two minutes** | Built; text verification open | `#/study/72-minutes`: the film's missile and three interceptor assumptions. `/jacobsen` runs the book's clock on the 2024 forces and 2025 grid; its minute marks still need checking against the text. | [Seventy-two minutes](docs/72-MINUTES.md) |
+| **The window of vulnerability** | Built | `#/study/window-83`: a Soviet counterforce first strike in 1983, with ride-out and launch-under-attack as the acts. | [Window 1983](docs/WINDOW-83.md) |
+| **The Sino-Soviet strike question** | Built | `#/study/sino-soviet-1969`: a 1969 strike on the Chinese nuclear complex, testing what the surgery would take and whether it would work. | [Sino-Soviet 1969](docs/SINO-SOVIET-69.md) |
+| **India–Pakistan** | Brief and target data prepared | Toon et al. (2019) on the 2025 grid. The execution study and comparison of fatalities and soot remain the next milestone. | [India–Pakistan](docs/INDIA-PAKISTAN.md) |
+| **The Korean peninsula** | Candidate; brief needed | The conventional-to-nuclear escalation ladder. | — |
+
+See [Beyond SIOP//62](docs/SIOP-62.md#beyond-siop62).
 
 ### 5 — Publication
 
-- [x] GHSL tiles on Cloudflare R2: bucket `grid84-grids`, public at `tiles.grid84.app` (a custom domain on the bucket; the r2.dev URL still answers) with a CORS rule allowing GET from any origin, the 1,002 immutable tiles uploaded by `deploy/upload-ghsl-r2.sh` with a year's cache lifetime. The grids index names the bucket, `scripts/point-grids-at.py` switches it back to local, and the lab and the studies resolve their grids through the index. A custom domain in front of the bucket is a later nicety.
+- [x] GHSL tiles on Cloudflare R2: bucket `grid84-grids`, public at `tiles.grid84.app` (a custom domain on the bucket; the r2.dev URL still answers) with a CORS rule allowing GET from any origin, the 1,002 immutable tiles uploaded by `deploy/upload-ghsl-r2.sh` with a year's cache lifetime. The grids index names the bucket, `scripts/point-grids-at.py` switches it back to local, and the lab and the studies resolve their grids through the index. The bucket custom domain is in use.
 - [x] Publication path: `pages.yml` checks, builds and deploys to GitHub Pages at `emmettl.github.io/grid84`, and deploys the same artifact to `grid84.app` as a Cloudflare Worker with static assets when the token secret is present (`wrangler.jsonc`, [HOSTING.md](docs/HOSTING.md)); the Motion Studies sub-path edition was retired on 10 September 2026.
-- [ ] Own routing host or a licensed provider before public launch; the demo servers are for development only.
 - [ ] Tile and terrain budgets measured on a phone for the opening orbit and one descent.
 - [x] Attribution and licence audit for every service and dataset: [ATTRIBUTION.md](docs/ATTRIBUTION.md). It found the map credit hidden under the study panels and collapsed by default, the terrain credit absent from the terrain lab, and fonts fetched from Google; all three fixed, and the study readouts now carry the grid's licence.
 - [x] Aircraft draw as a silhouette turned to the track's heading, in both renderers (`src/map/plane-icon.ts`); missiles, ships and landing forces stay rings. The reconstructed tier is a colour of its own, lilac, drawn solid: the dashes read as noise across a thousand tracks. Trails fade to nothing. Phones get a one-column study layout with the map in the middle.

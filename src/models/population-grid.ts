@@ -48,7 +48,7 @@ export class TiledPopulationGrid {
   private readonly loaded = new Map<string, Float32Array>()
   private readonly inflight = new Map<string, Promise<Float32Array>>()
 
-  constructor(private readonly base: string, meta: GridMeta) {
+  constructor(private readonly base: string, meta: GridMeta, private readonly fetchTile: (url: string, signal?: AbortSignal) => Promise<Response> = (url, signal) => fetch(url, { signal })) {
     this.width = meta.width
     this.height = meta.height
     this.cellSize = meta.cellSize
@@ -68,16 +68,19 @@ export class TiledPopulationGrid {
     let p = this.inflight.get(key)
     if (!p) {
       p = (async () => {
-        const response = await fetch(`${this.base}/tiles/${key}.bin.gz`, { signal })
+        const response = await this.fetchTile(`${this.base}/tiles/${key}.bin.gz`, signal)
         if (!response.ok) throw new Error(`tile ${key} ${response.status}`)
         const data = new Float32Array(await inflate(response))
         this.loaded.set(key, data)
-        this.inflight.delete(key)
         return data
       })()
       this.inflight.set(key, p)
     }
-    return p
+    try {
+      return await p
+    } finally {
+      this.inflight.delete(key)
+    }
   }
 
   /** A dense grid covering the box, with a margin of one cell, cut from the tiles under it. */

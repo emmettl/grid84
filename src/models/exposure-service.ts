@@ -1,8 +1,9 @@
+import { PopulationTileCache } from './population-tile-cache.ts'
 import type { BandFractions, ExposurePolygon, ExposureRequest, ExposureResult, PopulationGrid, UnionDetonation, UnionPlume, UnionTotals } from './exposure.ts'
 import type { CellRow, WorkerRequest, WorkerResponse } from './exposure.worker.ts'
 
 /** Omit that distributes over a union, so each request shape keeps its own fields. */
-type Outgoing<T> = T extends unknown ? Omit<T, 'id'> : never
+type Outgoing<T> = T extends { type: 'tile-result' } ? never : T extends unknown ? Omit<T, 'id'> : never
 
 export interface GridSummary {
   source: PopulationGrid['source']
@@ -14,11 +15,13 @@ export interface GridSummary {
 /**
  * A small pool of exposure workers. One is enough for a lab; a study with
  * hundreds of detonations can ask for more, at the cost of one grid copy
- * per worker. Requests are handed to the least-busy worker.
+ * per worker. Tile downloads share a bounded pool-owned cache. Requests
+ * are handed to the least-busy worker.
  */
 export class ExposureService {
   private workers: Array<{ worker: Worker; busy: number }> = []
   private pending = new Map<number, { resolve: (value: unknown) => void; reject: (error: Error) => void; slot: number }>()
+  private readonly tiles = new PopulationTileCache()
   private next = 1
   private summary: GridSummary | null = null
 
@@ -99,6 +102,7 @@ export class ExposureService {
   }
 
   destroy(): void {
+    this.tiles.destroy()
     for (const w of this.workers) w.worker.terminate()
     for (const p of this.pending.values()) p.reject(new Error('service destroyed'))
     this.pending.clear()
@@ -116,6 +120,15 @@ export class ExposureService {
   }
 
   private receive(message: WorkerResponse, slot: number): void {
+    if (message.type === 'tile-request') {
+      const worker = this.workers[slot]?.worker
+      if (!worker) return
+      void this.tiles.get(message.path).then(
+        (data) => { if (this.workers[slot]?.worker === worker) worker.postMessage({ id: message.id, type: 'tile-result', data } satisfies WorkerRequest) },
+        (error: unknown) => { if (this.workers[slot]?.worker === worker) worker.postMessage({ id: message.id, type: 'tile-result', message: error instanceof Error ? error.message : String(error) } satisfies WorkerRequest) },
+      )
+      return
+    }
     const p = this.pending.get(message.id)
     if (!p) return
     this.pending.delete(message.id)
