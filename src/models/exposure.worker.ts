@@ -5,8 +5,9 @@ import { loadGridMeta, loadPopulationGrid, TiledPopulationGrid } from './populat
 /**
  * Exposure worker. Loads one population grid on request and answers
  * exposure sums off the render thread. The pool brokers tile downloads;
- * each worker keeps its own decoded grid: a SharedArrayBuffer would avoid that but needs cross-origin
- * isolation headers that static hosting does not give us.
+ * dense grids retain one worker, while tiled grids keep worker-local tiles.
+ * SharedArrayBuffer would need cross-origin isolation headers that static
+ * hosting does not give us.
  */
 export type WorkerRequest =
   | { id: number; type: 'tile-result'; data: ArrayBuffer; message?: never }
@@ -24,7 +25,7 @@ export type CellRow = [number, number, number, number, number]
 
 export type WorkerResponse =
   | { id: number; type: 'tile-request'; path: string }
-  | { id: number; type: 'loaded'; source: PopulationGrid['source']; total: number; cellSize: number }
+  | { id: number; type: 'loaded'; tiled: boolean; source: PopulationGrid['source']; total: number; cellSize: number }
   | { id: number; type: 'result'; result: ReturnType<typeof exposure> }
   | { id: number; type: 'cells'; cells: CellRow[] }
   | { id: number; type: 'polygons'; within: Record<string, number>; cellsVisited: number }
@@ -114,13 +115,13 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
       if (meta.tiled) {
         tiled = new TiledPopulationGrid(message.base, meta, fetchTile)
         grid = null
-        const response: WorkerResponse = { id: message.id, type: 'loaded', source: tiled.source, total: tiled.total, cellSize: tiled.cellSize }
+        const response: WorkerResponse = { id: message.id, type: 'loaded', tiled: true, source: tiled.source, total: tiled.total, cellSize: tiled.cellSize }
         self.postMessage(response)
         return
       }
       tiled = null
       grid = await loadPopulationGrid(message.base)
-      const response: WorkerResponse = { id: message.id, type: 'loaded', source: grid.source, total: totalPopulation(grid), cellSize: grid.cellSize }
+      const response: WorkerResponse = { id: message.id, type: 'loaded', tiled: false, source: grid.source, total: totalPopulation(grid), cellSize: grid.cellSize }
       self.postMessage(response)
       return
     }

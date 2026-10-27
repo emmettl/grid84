@@ -42,3 +42,30 @@ test('lazy study variants and chart routes load and retain the right titles', as
   await expect(page).toHaveTitle('Grid/84 · Evidence lab')
   expect(errors).toEqual([])
 })
+
+test('a dense historical grid uses one exposure worker and still computes outcomes', async ({ page, context }) => {
+  const { gzipSync } = await import('node:zlib')
+  const meta = {
+    dataset: 'DENSE POOL SPECIMEN', variable: 'popc', year: 1961,
+    width: 360, height: 180, cellSize: 1, west: -180, south: -90,
+    encoding: 'float32-le row-major from north-west, gzip',
+    totalPopulation: 64_800_000, source: 'Synthetic browser fixture', licence: 'none',
+  }
+  const binary = gzipSync(Buffer.from(new Float32Array(meta.width * meta.height).fill(1_000).buffer))
+  let downloads = 0
+  await context.route('**/data/hyde/popc_1961.*', async (route) => {
+    if (route.request().url().endsWith('.json')) return route.fulfill({ json: meta })
+    downloads++
+    return route.fulfill({ contentType: 'application/octet-stream', body: binary })
+  })
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await page.goto('/#/study/siop62-alert/2')
+  const outcome = page.getByRole('region', { name: 'Aggregate outcome' })
+  await expect(outcome).toContainText('DENSE POOL SPECIMEN 1961')
+  expect(downloads).toBe(1)
+  await expect.poll(() => page.workers().filter((worker) => worker.url().includes('exposure.worker')).length).toBe(1)
+  await page.getByRole('slider', { name: 'Scrub study time' }).press('End')
+  await expect.poll(async () => Number(await outcome.getByRole('progressbar').getAttribute('aria-valuenow')), { timeout: 45_000 }).toBeGreaterThan(0)
+  expect(errors).toEqual([])
+})

@@ -1,0 +1,657 @@
+{
+  "date": "2026-10-26",
+  "units": "bytes; milliseconds unless named otherwise; response totals exclude partial cancelled/inflight bodies",
+  "viewPass": {
+    "measuredAt": "2026-10-26T21:31:15.644Z",
+    "artifact": "local production dist, gzip HTTP server; run npm run build first",
+    "localCommit": "40bf630612fb78814edc70d8921af5562a36d81d",
+    "release": {
+      "status": 404
+    },
+    "conditions": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 3,
+      "mobile": true,
+      "touch": true,
+      "pageCpuSlowdown": 4,
+      "downloadBitsPerSecond": 4000000,
+      "uploadBitsPerSecond": 1000000,
+      "latencyMs": 150,
+      "cache": "fresh browser context per scenario; HTTP cache enabled within each scenario",
+      "rendering": "headless Chromium, SwiftShader; not physical-phone GPU or thermal measurements",
+      "phaseWindow": "front 15s; orbit 20s; descent 25s after submit; study 20s after RUN",
+      "target": "Z\u00fcrich HB",
+      "geocoder": "recorded real Photon response, 11 September 2026; excluded from transfer totals",
+      "note": "Live services; failed and in-flight requests are recorded. Main-page CDP emulation does not establish identical throttling in every worker. Transfer sums include completed requests from dedicated workers through Playwright context events. Heap is page JS only, not total browser/worker/GPU memory."
+    },
+    "browser": "156.0.8078.4",
+    "rows": [
+      {
+        "run": 1,
+        "scenario": "front",
+        "readyMs": 704,
+        "lcpMs": 1736,
+        "requests": 5,
+        "bytes": 136921,
+        "categories": {
+          "app": {
+            "requests": 5,
+            "bytes": 136921,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.699999999999818,
+        "frameP95Ms": 16.799999999999272,
+        "frameOver50Ms": 3,
+        "longTasks": 1,
+        "blockingMs": 6,
+        "pageHeapBytes": 3116236,
+        "pageDomNodes": 636,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 1,
+        "scenario": "orbit",
+        "readyMs": 2246,
+        "lcpMs": 1776,
+        "requests": 76,
+        "bytes": 4037824,
+        "categories": {
+          "app": {
+            "requests": 32,
+            "bytes": 507147,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "basemap": {
+            "requests": 5,
+            "bytes": 452288,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "terrain": {
+            "requests": 39,
+            "bytes": 3078389,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.699999999999818,
+        "frameP95Ms": 283.40000000000146,
+        "frameOver50Ms": 68,
+        "longTasks": 4,
+        "blockingMs": 878,
+        "pageHeapBytes": 9941136,
+        "pageDomNodes": 184,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 1,
+        "scenario": "atlas",
+        "readyMs": 8280,
+        "lcpMs": null,
+        "requests": 182,
+        "bytes": 4786077,
+        "categories": {
+          "basemap": {
+            "requests": 95,
+            "bytes": 861640,
+            "failures": 0,
+            "cancelled": 80
+          },
+          "terrain": {
+            "requests": 80,
+            "bytes": 1052827,
+            "failures": 0,
+            "cancelled": 61
+          },
+          "population": {
+            "requests": 4,
+            "bytes": 2870395,
+            "failures": 0,
+            "cancelled": 1
+          },
+          "other-service": {
+            "requests": 2,
+            "bytes": 987,
+            "failures": 0,
+            "cancelled": 1
+          },
+          "app": {
+            "requests": 1,
+            "bytes": 228,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.69999999999709,
+        "frameP95Ms": 66.70000000000073,
+        "frameOver50Ms": 57,
+        "longTasks": 5,
+        "blockingMs": 1668,
+        "pageHeapBytes": 10545080,
+        "pageDomNodes": 286,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 2,
+        "scenario": "front",
+        "readyMs": 675,
+        "lcpMs": 676,
+        "requests": 5,
+        "bytes": 136921,
+        "categories": {
+          "app": {
+            "requests": 5,
+            "bytes": 136921,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.699999999999818,
+        "frameP95Ms": 16.799999999999272,
+        "frameOver50Ms": 2,
+        "longTasks": 0,
+        "blockingMs": 0,
+        "pageHeapBytes": 3053772,
+        "pageDomNodes": 652,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 2,
+        "scenario": "orbit",
+        "readyMs": 1935,
+        "lcpMs": 1760,
+        "requests": 76,
+        "bytes": 4037836,
+        "categories": {
+          "app": {
+            "requests": 32,
+            "bytes": 507147,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "basemap": {
+            "requests": 5,
+            "bytes": 452300,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "terrain": {
+            "requests": 39,
+            "bytes": 3078389,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.700000000000045,
+        "frameP95Ms": 283.3000000000011,
+        "frameOver50Ms": 75,
+        "longTasks": 5,
+        "blockingMs": 752,
+        "pageHeapBytes": 14061560,
+        "pageDomNodes": 185,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 2,
+        "scenario": "atlas",
+        "readyMs": 8326,
+        "lcpMs": null,
+        "requests": 217,
+        "bytes": 4885403,
+        "categories": {
+          "basemap": {
+            "requests": 108,
+            "bytes": 861654,
+            "failures": 0,
+            "cancelled": 93
+          },
+          "terrain": {
+            "requests": 102,
+            "bytes": 1151456,
+            "failures": 0,
+            "cancelled": 81
+          },
+          "population": {
+            "requests": 4,
+            "bytes": 2870455,
+            "failures": 0,
+            "cancelled": 1
+          },
+          "other-service": {
+            "requests": 2,
+            "bytes": 1610,
+            "failures": 1,
+            "cancelled": 0
+          },
+          "app": {
+            "requests": 1,
+            "bytes": 228,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.69999999999709,
+        "frameP95Ms": 66.70000000000073,
+        "frameOver50Ms": 58,
+        "longTasks": 6,
+        "blockingMs": 1264,
+        "pageHeapBytes": 10771904,
+        "pageDomNodes": 286,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 3,
+        "scenario": "front",
+        "readyMs": 673,
+        "lcpMs": 676,
+        "requests": 5,
+        "bytes": 136921,
+        "categories": {
+          "app": {
+            "requests": 5,
+            "bytes": 136921,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.699999999999818,
+        "frameP95Ms": 16.700000000000728,
+        "frameOver50Ms": 1,
+        "longTasks": 0,
+        "blockingMs": 0,
+        "pageHeapBytes": 3052356,
+        "pageDomNodes": 652,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 3,
+        "scenario": "orbit",
+        "readyMs": 1945,
+        "lcpMs": 1756,
+        "requests": 76,
+        "bytes": 4038569,
+        "categories": {
+          "app": {
+            "requests": 32,
+            "bytes": 507147,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "basemap": {
+            "requests": 5,
+            "bytes": 452313,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "terrain": {
+            "requests": 39,
+            "bytes": 3079109,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.699999999999818,
+        "frameP95Ms": 283.40000000000146,
+        "frameOver50Ms": 71,
+        "longTasks": 5,
+        "blockingMs": 533,
+        "pageHeapBytes": 13019728,
+        "pageDomNodes": 184,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 3,
+        "scenario": "atlas",
+        "readyMs": 7937,
+        "lcpMs": null,
+        "requests": 228,
+        "bytes": 4778657,
+        "categories": {
+          "basemap": {
+            "requests": 105,
+            "bytes": 861650,
+            "failures": 0,
+            "cancelled": 90
+          },
+          "terrain": {
+            "requests": 116,
+            "bytes": 1045320,
+            "failures": 0,
+            "cancelled": 96
+          },
+          "population": {
+            "requests": 4,
+            "bytes": 2870473,
+            "failures": 0,
+            "cancelled": 1
+          },
+          "other-service": {
+            "requests": 2,
+            "bytes": 986,
+            "failures": 0,
+            "cancelled": 1
+          },
+          "app": {
+            "requests": 1,
+            "bytes": 228,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.69999999999709,
+        "frameP95Ms": 66.69999999999709,
+        "frameOver50Ms": 53,
+        "longTasks": 5,
+        "blockingMs": 1997,
+        "pageHeapBytes": 10800940,
+        "pageDomNodes": 286,
+        "errors": [],
+        "overflow": false
+      }
+    ],
+    "localDataCacheControl": "no-store for local app/data assets in the initial pass; live remote tile caching enabled"
+  },
+  "completeStudyPass": {
+    "measuredAt": "2026-10-26T21:36:23.155Z",
+    "artifact": "local production dist, gzip HTTP server; run npm run build first",
+    "localDataCacheControl": "public, max-age=86400, must-revalidate (matches published dense-grid headers)",
+    "localCommit": "40bf630612fb78814edc70d8921af5562a36d81d",
+    "release": {
+      "status": 404
+    },
+    "conditions": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 3,
+      "mobile": true,
+      "touch": true,
+      "pageCpuSlowdown": 4,
+      "downloadBitsPerSecond": 4000000,
+      "uploadBitsPerSecond": 1000000,
+      "latencyMs": 150,
+      "cache": "fresh browser context per scenario; HTTP cache enabled within each scenario",
+      "rendering": "headless Chromium, SwiftShader; not physical-phone GPU or thermal measurements",
+      "phaseWindow": "front 15s; orbit 20s; descent 25s after submit; study 60s after RUN",
+      "target": "Z\u00fcrich HB",
+      "geocoder": "recorded real Photon response, 11 September 2026; excluded from transfer totals",
+      "note": "Live services; failed and in-flight requests are recorded. Main-page CDP emulation does not establish identical throttling in every worker. Transfer sums include completed requests from dedicated workers through Playwright context events. Page heap excludes workers. Worker Runtime.getHeapUsage includes backing storage where Chromium reports it; neither is total browser or GPU memory."
+    },
+    "browser": "156.0.8078.4",
+    "rows": [
+      {
+        "run": 1,
+        "scenario": "study",
+        "readyMs": 3230,
+        "lcpMs": 3164,
+        "requests": 81,
+        "bytes": 8656325,
+        "categories": {
+          "app": {
+            "requests": 33,
+            "bytes": 533608,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "basemap": {
+            "requests": 4,
+            "bytes": 347335,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "population": {
+            "requests": 12,
+            "bytes": 5099451,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "terrain": {
+            "requests": 32,
+            "bytes": 2675931,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.700000000000273,
+        "frameP95Ms": 400,
+        "frameOver50Ms": 161,
+        "longTasks": 14,
+        "blockingMs": 5369,
+        "workerHeaps": [
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 365532,
+            "totalSize": 1048576,
+            "embedderHeapUsedSize": 440616,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+            "usedSize": 5804712,
+            "totalSize": 15204352,
+            "embedderHeapUsedSize": 1006720,
+            "backingStorageSize": 1688929
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 435256,
+            "totalSize": 1310720,
+            "embedderHeapUsedSize": 522816,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 1314468,
+            "totalSize": 2850816,
+            "embedderHeapUsedSize": 506704,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 329008,
+            "totalSize": 1048576,
+            "embedderHeapUsedSize": 433744,
+            "backingStorageSize": 37335966
+          }
+        ],
+        "pageHeapBytes": 18835296,
+        "pageDomNodes": 505,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 2,
+        "scenario": "study",
+        "readyMs": 2489,
+        "lcpMs": 2268,
+        "requests": 81,
+        "bytes": 8656944,
+        "categories": {
+          "app": {
+            "requests": 33,
+            "bytes": 533608,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "population": {
+            "requests": 12,
+            "bytes": 5099451,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "basemap": {
+            "requests": 4,
+            "bytes": 347314,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "terrain": {
+            "requests": 32,
+            "bytes": 2676571,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.700000000000045,
+        "frameP95Ms": 400,
+        "frameOver50Ms": 163,
+        "longTasks": 11,
+        "blockingMs": 4363,
+        "workerHeaps": [
+          {
+            "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+            "usedSize": 8026664,
+            "totalSize": 15204352,
+            "embedderHeapUsedSize": 918696,
+            "backingStorageSize": 1575217
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 496404,
+            "totalSize": 1572864,
+            "embedderHeapUsedSize": 522792,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 1315140,
+            "totalSize": 2326528,
+            "embedderHeapUsedSize": 511272,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 329548,
+            "totalSize": 1048576,
+            "embedderHeapUsedSize": 409896,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 329548,
+            "totalSize": 1310720,
+            "embedderHeapUsedSize": 401600,
+            "backingStorageSize": 37335966
+          }
+        ],
+        "pageHeapBytes": 21535664,
+        "pageDomNodes": 505,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "run": 3,
+        "scenario": "study",
+        "readyMs": 2486,
+        "lcpMs": 2260,
+        "requests": 81,
+        "bytes": 8656297,
+        "categories": {
+          "app": {
+            "requests": 33,
+            "bytes": 533608,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "population": {
+            "requests": 12,
+            "bytes": 5099451,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "basemap": {
+            "requests": 4,
+            "bytes": 347307,
+            "failures": 0,
+            "cancelled": 0
+          },
+          "terrain": {
+            "requests": 32,
+            "bytes": 2675931,
+            "failures": 0,
+            "cancelled": 0
+          }
+        },
+        "pending": 0,
+        "frameP50Ms": 16.700000000000045,
+        "frameP95Ms": 383.3999999999942,
+        "frameOver50Ms": 161,
+        "longTasks": 11,
+        "blockingMs": 4232,
+        "workerHeaps": [
+          {
+            "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+            "usedSize": 6467796,
+            "totalSize": 15466496,
+            "embedderHeapUsedSize": 960096,
+            "backingStorageSize": 1479521
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 401728,
+            "totalSize": 1310720,
+            "embedderHeapUsedSize": 522792,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 1314468,
+            "totalSize": 2326528,
+            "embedderHeapUsedSize": 522792,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 329548,
+            "totalSize": 1048576,
+            "embedderHeapUsedSize": 442128,
+            "backingStorageSize": 37335966
+          },
+          {
+            "url": "http://127.0.0.1:4186/assets/exposure.worker-BjwSfDgU.js",
+            "usedSize": 329548,
+            "totalSize": 1048576,
+            "embedderHeapUsedSize": 441424,
+            "backingStorageSize": 37335966
+          }
+        ],
+        "pageHeapBytes": 21778620,
+        "pageDomNodes": 505,
+        "errors": [],
+        "overflow": false
+      }
+    ]
+  },
+  "publishedReleaseObserved": {
+    "repository": "emmettl/grid84",
+    "commit": "5e1e165153ce06218c2be8a77eeab06e37876090",
+    "run_id": "39165249702",
+    "workflow_url": "https://github.com/emmettl/grid84/actions/runs/39165249702"
+  }
+}

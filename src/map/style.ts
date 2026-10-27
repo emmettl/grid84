@@ -1,4 +1,5 @@
 import type { StyleSpecification } from 'maplibre-gl'
+import { TERRAIN_MIN_ZOOM } from './descent.ts'
 
 /**
  * The Grid/84 style. Factual substrate from OpenStreetMap via OpenFreeMap's
@@ -68,6 +69,8 @@ export function createAtlasStyle(): StyleSpecification {
         id: 'relief',
         type: 'hillshade',
         source: 'relief',
+        // Hide the layer itself so orbital views do not request DEM tiles.
+        minzoom: TERRAIN_MIN_ZOOM,
         paint: {
           'hillshade-shadow-color': '#02020a',
           'hillshade-highlight-color': cyan(0.32),

@@ -9,7 +9,7 @@ Grid/84 is a world-state playback engine turned on the history and doctrine of s
 
 No calendar dates are implied. Each stage names its exit criterion and the live services it depends on.
 
-## Taking stock, 26 October 2026
+## Taking stock, 27 October 2026
 
 The core instrument is built. The studies became the centre, with the engine, labs, chronicle and atlas serving them. Work now falls into evidence checks, the next complete study, performance measurement and care. The original stages below remain a record of the work, not the order of the next releases. Dates here record progress; they are not delivery promises.
 
@@ -57,6 +57,9 @@ Further candidates, each needing its own brief:
 ### Engine, mobile performance and care
 
 - [x] Broker population tile downloads across each exposure-worker pool: concurrent requests share one fetch and a 32 MiB download cache retains recent tiles. Workers keep their own decoded grids; eviction can require a later refetch. Failed downloads can retry, and destroying the pool cancels its fetches.
+- [x] Establish a repeatable mobile-emulated baseline for the front page, orbit, descent and a large study, with completed transfer counts and worker-memory inspection; record provisional budgets in [MOBILE-PERFORMANCE.md](docs/MOBILE-PERFORMANCE.md).
+- [x] Defer hillshade below the same zoom-9 threshold as 3D terrain: three mobile-emulated opening samples fell from 4.04 MB to 0.96 MB of completed responses, with zero DEM requests in orbit and terrain retained on descent.
+- [x] Keep dense population grids in one exposure worker, retaining the requested pool for tiled grids. Three 60-second SIOP//62 mobile-emulated samples reduced exposure-worker backing storage from 149.34 MB to 37.34 MB; dense batch parallelism is traded for memory, with full-run throughput still to measure.
 - [ ] Set measured transfer and terrain budgets on a real phone. Phone layouts and automated phone/tablet scrolling regressions are built; these do not establish a network or terrain budget.
 - [ ] Confirm the HYDE licence by hand on the source portal and keep attribution notes current as services change.
 - [ ] Add the Motion Studies catalogue entry as an adjunct, not an edition.

@@ -452,6 +452,11 @@
       "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."
     },
     {
+      "path": "brief/mobile-performance",
+      "title": "Mobile performance — measurements and budgets",
+      "note": "Rendered from docs/MOBILE-PERFORMANCE.md at build time; mobile-emulated measurements and their limits."
+    },
+    {
       "path": "brief/hosting",
       "title": "Hosting — a working brief",
       "note": "Rendered from the markdown of the same name in docs/ at build time; the Worker serves it without the .html the file carries."

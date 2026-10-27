@@ -1,0 +1,49 @@
+{
+  "measuredAt": "2026-10-27T17:16:44.777Z",
+  "jobCount": 2610,
+  "method": "870 transcribed SAC targets \u00d7 100, 1100 and 9000 kt; unchanged airburst rings and exposure model; four subsamples per cell edge; eight outstanding requests; dense 1961 grid; headless Chromium on host, no CPU/network emulation or map rendering; load excluded from batch time; raw workers deliberately bypass the service single-worker policy for comparison",
+  "runs": [
+    {
+      "repeat": 1,
+      "workers": 1,
+      "loadMs": 61.30000019073486,
+      "batchMs": 254.59999990463257,
+      "resultDigest": "2557295219e3b4deccf346caee95d8b3d4d3cfa233f9b80c9fd8251f23ccc227"
+    },
+    {
+      "repeat": 1,
+      "workers": 4,
+      "loadMs": 147.7999997138977,
+      "batchMs": 75.7000002861023,
+      "resultDigest": "2557295219e3b4deccf346caee95d8b3d4d3cfa233f9b80c9fd8251f23ccc227"
+    },
+    {
+      "repeat": 2,
+      "workers": 4,
+      "loadMs": 121.2999997138977,
+      "batchMs": 75.80000019073486,
+      "resultDigest": "2557295219e3b4deccf346caee95d8b3d4d3cfa233f9b80c9fd8251f23ccc227"
+    },
+    {
+      "repeat": 2,
+      "workers": 1,
+      "loadMs": 50.40000009536743,
+      "batchMs": 258,
+      "resultDigest": "2557295219e3b4deccf346caee95d8b3d4d3cfa233f9b80c9fd8251f23ccc227"
+    },
+    {
+      "repeat": 3,
+      "workers": 1,
+      "loadMs": 47.40000009536743,
+      "batchMs": 249.59999990463257,
+      "resultDigest": "2557295219e3b4deccf346caee95d8b3d4d3cfa233f9b80c9fd8251f23ccc227"
+    },
+    {
+      "repeat": 3,
+      "workers": 4,
+      "loadMs": 133.59999990463257,
+      "batchMs": 76.30000019073486,
+      "resultDigest": "2557295219e3b4deccf346caee95d8b3d4d3cfa233f9b80c9fd8251f23ccc227"
+    }
+  ]
+}

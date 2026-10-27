@@ -14,7 +14,9 @@
     "test:watch": "vitest",
     "briefs": "node scripts/briefs.mjs",
     "test:e2e": "playwright test",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "perf:mobile": "npm run build && node scripts/measure-mobile.mjs && node scripts/summarize-mobile.mjs",
+    "perf:dense-workers": "npm run build && node scripts/benchmark-dense-workers.mjs"
   },
   "engines": {
     "node": ">=24.0.0"

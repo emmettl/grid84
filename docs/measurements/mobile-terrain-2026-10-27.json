@@ -1,0 +1,333 @@
+{
+  "measuredAt": "2026-10-27T07:22:53.684Z",
+  "artifact": "local production dist, gzip HTTP server; run npm run build first",
+  "localDataCacheControl": "public, max-age=86400, must-revalidate (matches published dense-grid headers)",
+  "localCommit": "40bf630612fb78814edc70d8921af5562a36d81d",
+  "release": {
+    "status": 404
+  },
+  "conditions": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "deviceScaleFactor": 3,
+    "mobile": true,
+    "touch": true,
+    "pageCpuSlowdown": 4,
+    "downloadBitsPerSecond": 4000000,
+    "uploadBitsPerSecond": 1000000,
+    "latencyMs": 150,
+    "cache": "fresh browser context per scenario; HTTP cache enabled within each scenario",
+    "rendering": "headless Chromium, SwiftShader; not physical-phone GPU or thermal measurements",
+    "phaseWindow": "front 15s; orbit 20s; descent 25s from target entry; study 60s after RUN",
+    "target": "Z\u00fcrich HB",
+    "geocoder": "recorded real Photon response, 11 September 2026; excluded from transfer totals",
+    "note": "Live services; failed and in-flight requests are recorded. Main-page CDP emulation does not establish identical throttling in every worker. Transfer sums include completed requests from dedicated workers through Playwright context events. Page heap excludes workers. Worker Runtime.getHeapUsage includes backing storage where Chromium reports it; neither is total browser or GPU memory."
+  },
+  "browser": "156.0.8078.4",
+  "rows": [
+    {
+      "run": 1,
+      "scenario": "orbit",
+      "readyMs": 2670,
+      "lcpMs": 2616,
+      "requests": 37,
+      "bytes": 960301,
+      "categories": {
+        "app": {
+          "requests": 32,
+          "bytes": 507987,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "basemap": {
+          "requests": 5,
+          "bytes": 452314,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 16.700000000000045,
+      "frameP95Ms": 183.39999999999964,
+      "frameOver50Ms": 108,
+      "longTasks": 6,
+      "blockingMs": 1429,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 6574852,
+          "totalSize": 16318464,
+          "embedderHeapUsedSize": 1147352,
+          "backingStorageSize": 3060187
+        }
+      ],
+      "pageHeapBytes": 8843312,
+      "pageDomNodes": 211,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "run": 1,
+      "scenario": "atlas",
+      "readyMs": 8577,
+      "lcpMs": null,
+      "requests": 207,
+      "bytes": 4843975,
+      "categories": {
+        "basemap": {
+          "requests": 123,
+          "bytes": 861843,
+          "failures": 0,
+          "cancelled": 107
+        },
+        "terrain": {
+          "requests": 77,
+          "bytes": 1109727,
+          "failures": 0,
+          "cancelled": 58
+        },
+        "population": {
+          "requests": 4,
+          "bytes": 2870543,
+          "failures": 0,
+          "cancelled": 1
+        },
+        "other-service": {
+          "requests": 2,
+          "bytes": 1608,
+          "failures": 1,
+          "cancelled": 0
+        },
+        "app": {
+          "requests": 1,
+          "bytes": 254,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 16.69999999999709,
+      "frameP95Ms": 66.70000000000073,
+      "frameOver50Ms": 69,
+      "longTasks": 5,
+      "blockingMs": 947,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 6667884,
+          "totalSize": 7864320,
+          "embedderHeapUsedSize": 507608,
+          "backingStorageSize": 2464442
+        }
+      ],
+      "pageHeapBytes": 10820168,
+      "pageDomNodes": 286,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "run": 2,
+      "scenario": "orbit",
+      "readyMs": 1924,
+      "lcpMs": 1600,
+      "requests": 37,
+      "bytes": 960319,
+      "categories": {
+        "app": {
+          "requests": 32,
+          "bytes": 507987,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "basemap": {
+          "requests": 5,
+          "bytes": 452332,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 16.700000000000273,
+      "frameP95Ms": 183.39999999999782,
+      "frameOver50Ms": 110,
+      "longTasks": 4,
+      "blockingMs": 308,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 6575160,
+          "totalSize": 15286272,
+          "embedderHeapUsedSize": 1147352,
+          "backingStorageSize": 3991139
+        }
+      ],
+      "pageHeapBytes": 10072312,
+      "pageDomNodes": 209,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "run": 2,
+      "scenario": "atlas",
+      "readyMs": 7902,
+      "lcpMs": null,
+      "requests": 206,
+      "bytes": 4792977,
+      "categories": {
+        "basemap": {
+          "requests": 123,
+          "bytes": 861854,
+          "failures": 0,
+          "cancelled": 107
+        },
+        "terrain": {
+          "requests": 76,
+          "bytes": 1058765,
+          "failures": 0,
+          "cancelled": 58
+        },
+        "population": {
+          "requests": 4,
+          "bytes": 2870497,
+          "failures": 0,
+          "cancelled": 1
+        },
+        "other-service": {
+          "requests": 2,
+          "bytes": 1607,
+          "failures": 1,
+          "cancelled": 0
+        },
+        "app": {
+          "requests": 1,
+          "bytes": 254,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 16.69999999999709,
+      "frameP95Ms": 66.79999999999927,
+      "frameOver50Ms": 70,
+      "longTasks": 5,
+      "blockingMs": 1132,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 6724400,
+          "totalSize": 7864320,
+          "embedderHeapUsedSize": 665224,
+          "backingStorageSize": 2464463
+        }
+      ],
+      "pageHeapBytes": 11660752,
+      "pageDomNodes": 286,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "run": 3,
+      "scenario": "orbit",
+      "readyMs": 1938,
+      "lcpMs": 1744,
+      "requests": 37,
+      "bytes": 960307,
+      "categories": {
+        "app": {
+          "requests": 32,
+          "bytes": 507987,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "basemap": {
+          "requests": 5,
+          "bytes": 452320,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 16.700000000000273,
+      "frameP95Ms": 183.30000000000018,
+      "frameOver50Ms": 114,
+      "longTasks": 3,
+      "blockingMs": 625,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 6247620,
+          "totalSize": 15368192,
+          "embedderHeapUsedSize": 1147312,
+          "backingStorageSize": 3055931
+        }
+      ],
+      "pageHeapBytes": 10659996,
+      "pageDomNodes": 211,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "run": 3,
+      "scenario": "atlas",
+      "readyMs": 8449,
+      "lcpMs": null,
+      "requests": 210,
+      "bytes": 4771692,
+      "categories": {
+        "basemap": {
+          "requests": 126,
+          "bytes": 861836,
+          "failures": 0,
+          "cancelled": 110
+        },
+        "terrain": {
+          "requests": 77,
+          "bytes": 1038152,
+          "failures": 0,
+          "cancelled": 59
+        },
+        "population": {
+          "requests": 4,
+          "bytes": 2870472,
+          "failures": 0,
+          "cancelled": 1
+        },
+        "other-service": {
+          "requests": 2,
+          "bytes": 978,
+          "failures": 0,
+          "cancelled": 1
+        },
+        "app": {
+          "requests": 1,
+          "bytes": 254,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 16.69999999999709,
+      "frameP95Ms": 66.70000000000073,
+      "frameOver50Ms": 70,
+      "longTasks": 4,
+      "blockingMs": 669,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 6650004,
+          "totalSize": 7602176,
+          "embedderHeapUsedSize": 450576,
+          "backingStorageSize": 2464442
+        }
+      ],
+      "pageHeapBytes": 10847944,
+      "pageDomNodes": 286,
+      "errors": [],
+      "overflow": false
+    }
+  ],
+  "variant": "40bf630 plus deferred hillshade below TERRAIN_MIN_ZOOM (9); uncommitted source change at measurement time",
+  "mapStyleDiff": "diff --git a/src/map/style.ts b/src/map/style.ts\nindex e1efc72..1a6b9ac 100644\n--- a/src/map/style.ts\n+++ b/src/map/style.ts\n@@ -1,4 +1,5 @@\n import type { StyleSpecification } from 'maplibre-gl'\n+import { TERRAIN_MIN_ZOOM } from './descent.ts'\n \n /**\n  * The Grid/84 style. Factual substrate from OpenStreetMap via OpenFreeMap's\n@@ -68,6 +69,8 @@ export function createAtlasStyle(): StyleSpecification {\n         id: 'relief',\n         type: 'hillshade',\n         source: 'relief',\n+        // Hide the layer itself so orbital views do not request DEM tiles.\n+        minzoom: TERRAIN_MIN_ZOOM,\n         paint: {\n           'hillshade-shadow-color': '#02020a',\n           'hillshade-highlight-color': cyan(0.32),\n"
+}

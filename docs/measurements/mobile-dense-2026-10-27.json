@@ -1,0 +1,194 @@
+{
+  "measuredAt": "2026-10-27T17:10:00.632Z",
+  "artifact": "local production dist, gzip HTTP server; run npm run build first",
+  "localDataCacheControl": "public, max-age=86400, must-revalidate (matches published dense-grid headers)",
+  "localCommit": "40bf630612fb78814edc70d8921af5562a36d81d",
+  "release": {
+    "status": 404
+  },
+  "conditions": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "deviceScaleFactor": 3,
+    "mobile": true,
+    "touch": true,
+    "pageCpuSlowdown": 4,
+    "downloadBitsPerSecond": 4000000,
+    "uploadBitsPerSecond": 1000000,
+    "latencyMs": 150,
+    "cache": "fresh browser context per scenario; HTTP cache enabled within each scenario",
+    "rendering": "headless Chromium, SwiftShader; not physical-phone GPU or thermal measurements",
+    "phaseWindow": "front 15s; orbit 20s; descent 25s from target entry; study 60s after RUN",
+    "target": "Z\u00fcrich HB",
+    "geocoder": "recorded real Photon response, 11 September 2026; excluded from transfer totals",
+    "note": "Live services; failed and in-flight requests are recorded. Main-page CDP emulation does not establish identical throttling in every worker. Transfer sums include completed requests from dedicated workers through Playwright context events. Page heap excludes workers. Worker Runtime.getHeapUsage includes backing storage where Chromium reports it; neither is total browser or GPU memory."
+  },
+  "browser": "156.0.8078.4",
+  "rows": [
+    {
+      "run": 1,
+      "scenario": "study",
+      "readyMs": 3083,
+      "lcpMs": 3028,
+      "requests": 40,
+      "bytes": 5976763,
+      "categories": {
+        "app": {
+          "requests": 33,
+          "bytes": 533746,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "population": {
+          "requests": 3,
+          "bytes": 5095671,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "basemap": {
+          "requests": 4,
+          "bytes": 347346,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 233.29999999999927,
+      "frameP95Ms": 283.3000000000002,
+      "frameOver50Ms": 225,
+      "longTasks": 12,
+      "blockingMs": 3391,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 9871844,
+          "totalSize": 23068672,
+          "embedderHeapUsedSize": 696952,
+          "backingStorageSize": 1949277
+        },
+        {
+          "url": "http://127.0.0.1:4186/assets/exposure.worker-Cq1a5kjV.js",
+          "usedSize": 2219240,
+          "totalSize": 5636096,
+          "embedderHeapUsedSize": 522792,
+          "backingStorageSize": 37335984
+        }
+      ],
+      "pageHeapBytes": 20263688,
+      "pageDomNodes": 505,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "run": 2,
+      "scenario": "study",
+      "readyMs": 2440,
+      "lcpMs": 2216,
+      "requests": 40,
+      "bytes": 5976769,
+      "categories": {
+        "app": {
+          "requests": 33,
+          "bytes": 533746,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "population": {
+          "requests": 3,
+          "bytes": 5095671,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "basemap": {
+          "requests": 4,
+          "bytes": 347352,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 16.700000000000728,
+      "frameP95Ms": 266.70000000000437,
+      "frameOver50Ms": 224,
+      "longTasks": 9,
+      "blockingMs": 1637,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 9663856,
+          "totalSize": 23592960,
+          "embedderHeapUsedSize": 895360,
+          "backingStorageSize": 1816661
+        },
+        {
+          "url": "http://127.0.0.1:4186/assets/exposure.worker-Cq1a5kjV.js",
+          "usedSize": 2782060,
+          "totalSize": 5373952,
+          "embedderHeapUsedSize": 522792,
+          "backingStorageSize": 37335984
+        }
+      ],
+      "pageHeapBytes": 27502424,
+      "pageDomNodes": 505,
+      "errors": [],
+      "overflow": false
+    },
+    {
+      "run": 3,
+      "scenario": "study",
+      "readyMs": 2453,
+      "lcpMs": 2220,
+      "requests": 40,
+      "bytes": 5976766,
+      "categories": {
+        "app": {
+          "requests": 33,
+          "bytes": 533746,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "population": {
+          "requests": 3,
+          "bytes": 5095671,
+          "failures": 0,
+          "cancelled": 0
+        },
+        "basemap": {
+          "requests": 4,
+          "bytes": 347349,
+          "failures": 0,
+          "cancelled": 0
+        }
+      },
+      "pending": 0,
+      "frameP50Ms": 233.29999999999927,
+      "frameP95Ms": 266.70000000000437,
+      "frameOver50Ms": 228,
+      "longTasks": 9,
+      "blockingMs": 1818,
+      "workerHeaps": [
+        {
+          "url": "http://127.0.0.1:4186/assets/maplibre-gl-worker-UMzBwfZH.js",
+          "usedSize": 9635572,
+          "totalSize": 22020096,
+          "embedderHeapUsedSize": 562336,
+          "backingStorageSize": 1915981
+        },
+        {
+          "url": "http://127.0.0.1:4186/assets/exposure.worker-Cq1a5kjV.js",
+          "usedSize": 2554476,
+          "totalSize": 5373952,
+          "embedderHeapUsedSize": 522792,
+          "backingStorageSize": 37335984
+        }
+      ],
+      "pageHeapBytes": 20848972,
+      "pageDomNodes": 505,
+      "errors": [],
+      "overflow": false
+    }
+  ],
+  "variant": "40bf630 plus one dense-grid worker and deferred orbital relief; source changes uncommitted at measurement time"
+}

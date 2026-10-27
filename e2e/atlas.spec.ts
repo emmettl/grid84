@@ -51,14 +51,21 @@ test('tablet casualty panel stays within the viewport and scrolls its content', 
 })
 
 test('target acquisition supports hold, resume, launch and return to the atlas', async ({ page }) => {
+  const terrainRequests: string[] = []
+  page.on('request', (request) => {
+    if (request.url().includes('elevation-tiles-prod/terrarium/')) terrainRequests.push(request.url())
+  })
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await page.setViewportSize({ width: 1280, height: 800 })
   await page.goto('/#/atlas')
+  await expect(page.getByRole('heading', { name: 'Orbital standby' })).toBeVisible()
+  expect(terrainRequests).toEqual([])
   await page.getByRole('combobox', { name: 'ENTER TARGET' }).fill('Test City')
   await page.getByRole('button', { name: 'Acquire', exact: true }).click()
   const console = page.getByRole('region', { name: 'Strike console' })
   await expect(console).toBeVisible()
+  await expect.poll(() => terrainRequests.length).toBeGreaterThan(0)
   await expect(console.getByRole('button', { name: 'Vector now' })).toBeEnabled({ timeout: 45_000 })
   await console.getByRole('button', { name: 'Hold', exact: true }).click()
   await expect(console.getByRole('button', { name: 'Vector now' })).toBeDisabled()
