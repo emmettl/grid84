@@ -72,7 +72,8 @@ test('target acquisition supports hold, resume, launch and return to the atlas',
   await console.getByRole('button', { name: 'Resume', exact: true }).click()
   await expect(console.getByRole('button', { name: 'Vector now' })).toBeEnabled()
   await console.getByRole('button', { name: 'Vector now' }).click()
-  await expect(console).toBeHidden()
+  // Cold SwiftShader globe handover on CI can exceed the default five-second assertion limit.
+  await expect(console).toBeHidden({ timeout: 15_000 })
   await expect(page.getByRole('region', { name: 'Study clock' })).toBeVisible()
   await expect(page.getByRole('region', { name: 'Aggregate outcome' })).toBeVisible()
   await expect(page.locator('.provenance-disclosure')).not.toHaveAttribute('open', '')
