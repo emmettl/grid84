@@ -34,7 +34,8 @@ function publishedData(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), publishedData()],
+  // StudyView-only compilation retained a ~42% seek-render reduction with ~3.3 KB gzip overhead.
+  plugins: [react({ compiler: { sources: ['/src/studies/StudyView.tsx'] } }), publishedData()],
   // MapLibre 6 spawns its worker from a sibling module URL; the dep optimizer
   // pre-bundles the main entry without that file, so the worker never answers.
   optimizeDeps: { exclude: ['maplibre-gl'] },
