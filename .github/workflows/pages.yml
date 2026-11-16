@@ -24,7 +24,18 @@ jobs:
       - run: npm run typecheck && npm run lint && npm test
       # The build ships the HYDE study grids and drops the local GHSL tiles; the site reads those from the R2 bucket named in the grids index.
       - run: npm run build
-      - run: npx playwright install --with-deps chromium
+      - name: Install Chromium and system dependencies
+        # Ubuntu package mirrors can have transient DNS failures on hosted runners.
+        run: |
+          for attempt in 1 2 3; do
+            echo "Installing Chromium and system dependencies (attempt $attempt/3)"
+            npx playwright install --with-deps chromium && exit 0
+            if [ "$attempt" -lt 3 ]; then
+              echo "::warning::Playwright installation failed; retrying in 10 seconds."
+              sleep 10
+            fi
+          done
+          exit 1
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v7
         if: failure()
